@@ -7,19 +7,16 @@
                 <div class="row">
                     <ul class="ctgryNav" style="margin-left:-40px;">
                         <li>
-                            {{ link_to_route('home.popular', 'Popular', null) }}
+                            {{ link_to_route('homes.popular', 'Popular', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.latest', 'Latest', null) }}
+                            {{ link_to_route('homes.latest', 'Latest', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.random', 'Random', null) }}
+                            {{ link_to_route('homes.random', 'Random', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.diaries', 'Diaries', null) }}
-                        </li>
-                        <li>
-                            {{ link_to_route('home.channels', 'Channels', null) }}
+                            {{ link_to_route('homes.channel', 'Channels', null) }}
                         </li>
 
                         
