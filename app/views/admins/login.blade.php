@@ -1,7 +1,11 @@
 @extends('layouts.default')
 
+
+
 @section('content')
-	
-	Popular Vids
+
+
+	Admins Login
+
 	
 @stop

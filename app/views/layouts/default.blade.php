@@ -18,10 +18,6 @@
 
 		@include('elements/header')
 		@include('elements/home/headerNav')
-<<<<<<< HEAD
-
-=======
->>>>>>> fcc698b89bf11c4286b717defb50c8c3a2fc880c
 		@include('elements/flash_message')
 		
 		@yield('content')
