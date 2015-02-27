@@ -15,7 +15,7 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 		$attempt = Auth::attempt(['username' => $username,'password' => $password]);
 		return $attempt;
 	}
-	public static function getAuthLoginStatus($verified){
+	public static function getAuthLoginStatus($verified, $status){
 		if($verified == 0){
 			Auth::logout();
 			return Redirect::route('admins.index')->withInput()
@@ -31,7 +31,6 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 			return Redirect::route('admins.index')->withInput()
 			->withFlashMessage('Your account is banned! Please contact the TEFLTV Administrator');
 		}
-		return $attempt;
 	}
 
 }
