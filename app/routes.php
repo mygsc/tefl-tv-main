@@ -24,10 +24,10 @@ Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'get.users.index', 'uses' => 'UserController@getUsersIndex'));
 });
 
-
-Route::group(array('prefix' => 'admins'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getAdminsIndex'));
+//**********ADMIN**********//
+Route::group(array('prefix' => 'gsc-admin'), function() {
+	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
 });
-
+//**********ADMIN**********//
 
 
