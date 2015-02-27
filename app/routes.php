@@ -50,6 +50,5 @@ Route::group(array('prefix' => 'admins'), function() {
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
 });
-//**********ADMIN**********//
 
-
+});
