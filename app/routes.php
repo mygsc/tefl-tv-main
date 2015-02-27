@@ -11,7 +11,7 @@
 |
 */
 Route::group(array('prefix' => '/'), function() {
-	Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
+	Route::get('', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('aboutus', array('as' => 'get.aboutus', 'uses' => 'HomeController@getAboutUs'));
 	Route::get('privacy', array('as' => 'get.privacy', 'uses' => 'HomeController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'get.termsandconditions', 'uses' => 'HomeController@getTermsAndConditions'));
@@ -21,12 +21,12 @@ Route::group(array('prefix' => '/'), function() {
 
 
 Route::group(array('prefix' => 'users'), function() {
-	Route::get('/', array('as' => 'get.index', 'uses' => 'UserController@getIndex'));
+	Route::get('/', array('as' => 'get.users.index', 'uses' => 'UserController@getUsersIndex'));
 });
 
 
 Route::group(array('prefix' => 'admins'), function() {
-	Route::get('/', array('as' => 'get.index', 'uses' => 'AdminController@getIndex'));
+	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getAdminsIndex'));
 });
 
 

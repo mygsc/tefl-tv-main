@@ -1,6 +1,6 @@
 @extends('layouts.default')
-
 @section('content')
+
 
 	<div class="footer1 ">
     <div class="container">
@@ -9,7 +9,7 @@
             <span class="ctgryNav-f">
                 {{ link_to_route('get.index', 'Home', null) }}
                 {{ link_to_route('get.aboutus', 'About Us', null) }}
-                {{ link_to_route('get.advertisement', 'Advertisement', null) }}
+                {{ link_to_route('get.advertisements', 'Advertisement', null) }}
                 {{ link_to_route('get.privacy', 'Privacy', null) }}
                 {{ link_to_route('get.termsandconditions', 'Terms and Condition', null) }}
                 {{ link_to_route('get.copyright', 'Copy Right', null) }}
@@ -45,5 +45,6 @@
 <div class="footer2">
     <span>ALL RIGHTS RESERVED 2015</span>
 </div>
+
 
 @stop

@@ -3,7 +3,7 @@
 class HomeController extends BaseController {
 
 	public function getIndex() {
-
+	
 		return View::make('index');
 	}
 
@@ -25,6 +25,11 @@ class HomeController extends BaseController {
 	public function getAdvertisements() {
 
 		return View::make('advertisements');
+	}
+
+	public function getCopyright() {
+
+		return View::make('copyright');
 	}
 	
 
