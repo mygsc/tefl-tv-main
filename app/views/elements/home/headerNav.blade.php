@@ -2,7 +2,6 @@
 
         <div class="container">
 
-
         <div class="row">
             <div class="col-md-8 text-left"> 
                 <div class="row">
@@ -37,4 +36,3 @@
 
         </div>
     </div>
-
