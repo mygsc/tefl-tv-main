@@ -1,6 +1,7 @@
 <div class="footer1 ">
     <div class="container">
         <div class="row">
+
             <div class="col-md-7 col-xs-12">
                 <span class="ctgryNav-f">
                     {{ link_to_route('get.index', 'Home', null) }}
@@ -31,6 +32,7 @@
         </div><!--/.row-->
     </div><!--/.container-->
 </div><!--/.footer1-->
+
 
 
 

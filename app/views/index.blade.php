@@ -1,4 +1,23 @@
 @extends('layouts.default')
+<<<<<<< HEAD
+=======
+@section('content')
+
+
+	<div class="footer1 ">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-7 col-xs-12">
+            <span class="ctgryNav-f">
+                {{ link_to_route('homes.index', 'Home', null) }}
+                {{ link_to_route('homes.aboutus', 'About Us', null) }}
+                {{ link_to_route('homes.advertisements', 'Advertisement', null) }}
+                {{ link_to_route('homes.privacy', 'Privacy', null) }}
+                {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}
+                {{ link_to_route('homes.copyright', 'Copy Right', null) }}
+
+        </div>
+>>>>>>> fcc698b89bf11c4286b717defb50c8c3a2fc880c
 
 @section('content')
 
