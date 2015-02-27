@@ -24,13 +24,16 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
 	Route::get('random', array('as' => 'homes.random', 'uses' => 'HomeController@getRandom'));
 	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
-	Route::get('signup', array('as' => 'homes.signup', 'uses' => 'HomeController@getSignUp'));
+	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'HomeController@getSignIn'));
+	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'HomeController@postSignIn'));
 });
 
-
+//**********USERS**********//
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+
 });
+//*********End of User************//
 
 
 //**********ADMIN**********//

@@ -52,9 +52,15 @@ class HomeController extends BaseController {
 		return View::make('homes.channels');
 	}
 	
-	public function getSignUp() {
+	public function getSignIn() {
 
-		return View::make('homes.signup');
+		return View::make('homes.signin');
 	}
+
+	public function postSignIn() {
+
+		$input = Input::all();
+	}
+
 
 }

@@ -27,7 +27,7 @@
                 <div class="row text-right">
                     <ul class="ctgryNav" >
                         <li>
-                           {{ link_to_route('homes.signup', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
+                           {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                        </li>
                     </ul>
                     </div>
