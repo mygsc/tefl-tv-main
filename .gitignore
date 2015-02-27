@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/compiled.php
+>>>>>>> f1c8213ec73c24fb8ee386a21240e41318827ed1
 /vendor
 composer.phar
 composer.lock
