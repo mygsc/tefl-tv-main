@@ -12,11 +12,17 @@
 */
 
 Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
-
+//uploading
+Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));
+Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
+Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
+Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'get.index', 'uses' => 'UserController@getIndex'));
 });
+
+
 
 
 Route::group(array('prefix' => 'admins'), function() {
