@@ -29,5 +29,7 @@ Route::group(array('prefix' => 'admins'), function() {
 	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getAdminsIndex'));
 });
 
+Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+
 
 
