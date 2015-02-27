@@ -7,19 +7,16 @@
                 <div class="row">
                     <ul class="ctgryNav" style="margin-left:-40px;">
                         <li>
-                            {{ link_to_route('home.popular', 'Popular', null) }}
+                            {{ link_to_route('homes.popular', 'Popular', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.latest', 'Latest', null) }}
+                            {{ link_to_route('homes.latest', 'Latest', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.random', 'Random', null) }}
+                            {{ link_to_route('homes.random', 'Random', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('home.diaries', 'Diaries', null) }}
-                        </li>
-                        <li>
-                            {{ link_to_route('home.channels', 'Channels', null) }}
+                            {{ link_to_route('homes.channels', 'Channels', null) }}
                         </li>
 
                         
@@ -30,14 +27,12 @@
                 <div class="row text-right">
                     <ul class="ctgryNav" >
                         <li>
-                           {{ link_to_route('home.signup', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
+                           {{ link_to_route('homes.signup', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                        </li>
 
 
 
-                       <li>
-                        {{ link_to_route('user.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-                    </li>
+                       
                     </ul>
                     </div>
                 </div>
