@@ -1,6 +1,6 @@
 @extends('layouts.default')
-
 @section('content')
+
 
 	<div class="footer1 ">
     <div class="container">
@@ -45,5 +45,6 @@
 <div class="footer2">
     <span>ALL RIGHTS RESERVED 2015</span>
 </div>
+
 
 @stop
