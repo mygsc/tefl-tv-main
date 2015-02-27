@@ -35,7 +35,6 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 	Route::get('signup', array('as' => 'homes.signup', 'uses' => 'HomeController@getSignUp'));
 });
 
->>>>>>> fcc698b89bf11c4286b717defb50c8c3a2fc880c
 
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
