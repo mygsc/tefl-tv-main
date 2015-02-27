@@ -1,4 +1,6 @@
 @extends('layouts.default')
+<<<<<<< HEAD
+=======
 @section('content')
 
 
@@ -15,36 +17,36 @@
                 {{ link_to_route('homes.copyright', 'Copy Right', null) }}
 
         </div>
+>>>>>>> fcc698b89bf11c4286b717defb50c8c3a2fc880c
 
-        <div class="col-md-5">
-            <div class="col-md-10 col-xs-12 col-sm-9">
+@section('content')
 
-                <span class="text-right" >
-                  
-                    <span ><a href=""><img src="/img/icons/tr.png" class="pull-right hvr-float f-icon" ></a></span>
-                    <span> <a href=""><img src="/img/icons/gp.png" class="pull-right hvr-float f-icon"></a></span>
-                    <span><a href=""><img src="/img/icons/fb.png" class="pull-right hvr-float f-icon"></a></span>
+	<div class="container page">
+		<div class="row">
+			<div class="col-md-8" style="margin-bottom:20px;">
+                <img src="/img/thumbnails/v6-2.png" class="h-video">
+                
+			</div><!--/.col-md-8-->
 
+			<div class="col-md-4">
+                <div class="row">
+                    <div class="ad1 col-md-12 col-sm-6" style="margin-bottom:20px;">
+                        <img src="/img/thumbnails/ad1.png" class="adDiv">
+                    </div><!--/.ad1-->
                     
-                </span>
+                    <div class="ad2 col-md-12 col-sm-6">
+                        <img src="/img/thumbnails/ad2.png" class="adDiv">
+                   </div><!--/.ad2-->
+                </div><!--/.row of col4-->
+			</div><!--/.col-md-4-->
 
-            </div>
-            
-            <div class="col-md-2 col-xs-6 col-sm-3 visible-md visible-lg">
-                <img src="/img/nav-effect-f.png" class="pull-right ">
-            </div>
-        </div>
-            
-        </div>
-        </div>
 
-    </div>
-    
-</div>
+		</div><!--/.row 1st-->
+		<br/>
+		<div class="row">
+			
 
-<div class="footer2">
-    <span>ALL RIGHTS RESERVED 2015</span>
-</div>
-
+		</div>
+	</div><!--/.container page-->
 
 @stop
