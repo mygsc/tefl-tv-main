@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
+
+
+Route::group(array('prefix' => 'user'), function() {
+	
 });
+
+
+
