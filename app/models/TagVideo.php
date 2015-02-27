@@ -1,4 +1,5 @@
 <?php
+
 class TagVideo extends Eloquent{
 
 	protected $table = 'tag_video';
@@ -8,4 +9,3 @@ class TagVideo extends Eloquent{
 	public function videos(){
 		return $this->hasMany('Video');
 	}
-}

@@ -9,18 +9,20 @@
 	@yield('meta')
 
 	<!-- CSS -->
-	{{ HTML::style('css/bootstrap.min.css') }}
+	{{ HTML::style('css/bootstrap.css') }}
+	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 
 </head>
 <body>
-	<div class="container">	
-		@include('elements.header')
-		@include('elements.flash_message')
+
+		@include('elements/header')
+		@include('elements/home/headerNav')
+		@include('elements/flash_message')
 		
 		@yield('content')
 
-		@include('elements.footer')
-	</div>
+		@include('elements/footer')
 </body>
 <!-- scripts -->
 {{HTML::script('js/jquery.js')}}
