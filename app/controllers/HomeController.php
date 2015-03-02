@@ -2,6 +2,12 @@
 
 class HomeController extends BaseController {
 
+
+	public function __construct(User $user) {
+		$this->User = $user;
+
+	}
+
 	public function getIndex() {
 	
 		return View::make('homes.index');
@@ -52,9 +58,41 @@ class HomeController extends BaseController {
 		return View::make('homes.channels');
 	}
 	
-	public function getSignUp() {
+	public function getSignIn() {
 
-		return View::make('homes.signup');
+		return View::make('homes.signin');
 	}
+
+	public function postSignIn() {
+
+	$input = Input::all();
+	$validate = Validator::make($input, User::$user_login_rules);
+		if($validate->fails()) {
+			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
+		}else{
+			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
+			if($attempt){
+				$verified = Auth::User()->verified;
+				$status = Auth::User()->status;
+				
+				return Redirect::route('homes.index');
+			}
+		}
+			return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+	}
+
+	public function postSignUp() {
+
+	$input = Input::all();
+	$validate = Validator::make($input, User::$user_rules);
+	
+	if($validate->passes()){
+			return $this->User->signup();
+	}else{
+		return Redirect::route('homes.signin')->withErrors($validate)->withInput();
+	}
+
+	}
+
 
 }

@@ -76,4 +76,7 @@ class VideoController extends Controller {
 			->with('message', 'There were validation errors.');
 	}
 
+	public function getViewVideoPlayer(){
+		return View::make('videoplayer');
+	}
 }

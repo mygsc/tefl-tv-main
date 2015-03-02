@@ -33,14 +33,18 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
 	Route::get('random', array('as' => 'homes.random', 'uses' => 'HomeController@getRandom'));
 	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
-	Route::get('signup', array('as' => 'homes.signup', 'uses' => 'HomeController@getSignUp'));
+	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'HomeController@getSignIn'));
+	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'HomeController@postSignIn'));
+	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'HomeController@postSignUp'));
+
 });
 
-
+//**********USERS**********//
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
 });
-
+//*********End of User************//
 
 
 
@@ -49,7 +53,12 @@ Route::group(array('prefix' => 'admins'), function() {
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
+	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
+	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
+	Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminController@logout'));
 });
+
+Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+
 
 });
