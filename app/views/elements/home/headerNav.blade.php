@@ -25,10 +25,16 @@
                 <div class="row text-right">
                     <ul class="ctgryNav" >
                         <li>
-                           {{ link_to_route('homes.signup', 'Sign-in', null, array('class' => 'btn whiteC accntbtn')) }}
+                            @if(Auth::check())
+                                {{link_to_route('users.signout', 'Sign-out', null, array('class' => 'btn btn-info whiteC accntbtn'))}}
+                            @else
+                                {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
+                            @endif
+                           
                        </li>
                        <li>
                          <button class="btn btn-primary orangeC">Upload</button>  
+
                        </li>
                     </ul>
                 </div>
