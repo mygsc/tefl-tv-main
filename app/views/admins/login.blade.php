@@ -13,7 +13,7 @@
 		@endif
 		{{Form::open(array('route' => 'post.admin.index','method'=>'POST'))}}
 		{{Form::label('Username')}}
-		{{Form::text('username',null,array('class'=>'form-control'))}}
+		{{Form::text('channel_name',null,array('class'=>'form-control'))}}
 		{{Form::label('Password')}}
 		{{Form::password('password',null,array('class'=>'form-control'))}}
 		{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
