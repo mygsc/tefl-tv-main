@@ -3,6 +3,7 @@
 
 @section('content')
 
+<br/>
 <!-- Sign In -->
 	{{Form::open(array('route' => 'homes.post.signin'))}}
 	{{Form::label('Channel Name')}}
