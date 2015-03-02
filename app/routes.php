@@ -33,15 +33,18 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 	Route::get('random/{category?}', array('as' => 'homes.random', 'uses' => 'VideoController@getRandom'));
 	Route::post('random', array('as' => 'homes.post.random', 'uses' => 'VideoController@postRandom'));
 	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
-	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'HomeController@getSignIn'));
-	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'HomeController@postSignIn'));
-	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'HomeController@postSignUp'));
+
+	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));
+	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
+	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 });
 
 //**********USERS**********//
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
+	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersProfile'));
+	Route::post('uploadimage', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 });
 //*********End of User************//
 

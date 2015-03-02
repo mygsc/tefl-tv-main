@@ -29,26 +29,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $user_login_rules = array('channel_name' => 'required', 'password' => 'required');
 
-	public function getUserStatus($verified, $status){
+	public static function getUserStatus($verified, $status, $role){
+		if($role != 1){
+			Auth::logout();
+			return Redirect::route('homes.signin')->withFlashMessage('Invalid account! Please try again!');
+		}
+
 		if($verified == 0){
 			Auth::logout();
-			return Redirect::route('admins.index')->withInput()
+			return Redirect::route('homes.signin')->withInput()
 			->withFlashMessage('Your account is not verified. Check your email address for verification.');
 		}
 		if($status == 0){
 			Auth::logout();
-			return Redirect::route('admins.index')->withInput()
+			return Redirect::route('homes.signin')->withInput()
 			->withFlashMessage('Your account is deactived! Please contact the TEFLTV Administrator');
 		}
 		if($status == 2){
 			Auth::logout();
-			return Redirect::route('admins.index')->withInput()
+			return Redirect::route('homes.signin')->withInput()
 			->withFlashMessage('Your account is banned! Please contact the TEFLTV Administrator');
 		}	
-	}
-
-	public function signin() {
-
 	}
 
 	public function signup() {
@@ -67,6 +68,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$userProfile->save();
 
 		return Redirect::route('homes.signin')->withFlashMessage("Successfully Registered, Please check your email!");
+	}
+
+	public function userprofile() {
+
+		return $this->hasOne('userProfile');
 	}
 	
 	public function getRandomChannels(){
