@@ -32,7 +32,6 @@ Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 });
 
-
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
