@@ -46,10 +46,6 @@ Route::group(array('prefix' => 'users'), function() {
 //*********End of User************//
 
 
-
-Route::group(array('prefix' => 'admins'), function() {
-	Route::get('/', array('as' => 'admins.index', 'uses' => 'AdminController@getAdminsIndex'));
-
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
@@ -58,8 +54,8 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('resetpassword', array('as' => 'get.admin.resetpassword', 'uses' => 'AdminController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.admin.resetpassword', 'uses' => 'AdminController@postResetPassword'));
 });
+//**********ADMIN**********//
+
 
 Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
-
-});
