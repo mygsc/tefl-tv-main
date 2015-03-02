@@ -27,6 +27,7 @@
                         <li>
                             @if(Auth::check())
                                 {{link_to_route('users.signout', 'Sign-out', null, array('class' => 'btn btn-info whiteC accntbtn'))}}
+                                {{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name, array('class' => 'btn btn-info whiteC accntbtn'))}}
                             @else
                                 {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                             @endif

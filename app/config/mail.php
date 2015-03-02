@@ -28,7 +28,9 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.mailgun.org',
+	//'host' => 'smtp.mailgun.org',
+	//'host' => 'smtp.gmail.com', //Gmail
+	 'host' => 'smtp.sendgrid.net',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -42,6 +44,7 @@ return array(
 	*/
 
 	'port' => 587,
+	// 'port' => 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +57,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'guavabytesteam@gmail.com', 'name' => 'Graphic Studio Central'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -68,6 +71,7 @@ return array(
 	*/
 
 	'encryption' => 'tls',
+	
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +84,7 @@ return array(
 	|
 	*/
 
-	'username' => null,
+	'username' => 'Grald',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +97,7 @@ return array(
 	|
 	*/
 
-	'password' => null,
+	'password' => 'sendgrid.com.ph25',
 
 	/*
 	|--------------------------------------------------------------------------
