@@ -26,6 +26,7 @@ class AdminController extends BaseController {
 	}
 
 	public function getResetPassword(){
+		echo "aw";
 		return View::make('admins.resetpassword');
 	}
 	public function postResetPassword(){
