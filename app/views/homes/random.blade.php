@@ -10,7 +10,7 @@
 			<div class="row">
 				{{Form::open(array('route'=>'homes.post.random','id' => 'btnSubmit'))}}
 				{{Form::label('option', 'Randomize by')}}
-				{{Form::select('option', $options, null, array('id' => 'cmbOption'))}}
+				{{Form::select('option', $options, Input::old('option'), array('id' => 'cmbOption'))}}
 				{{Form::close()}}
 			</div>
 			<div class="row">

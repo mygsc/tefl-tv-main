@@ -110,6 +110,6 @@ class VideoController extends Controller {
 	public function postRandom(){
 		$input = Input::all();
 
-		return Redirect::route('homes.random', $input['option']);
+		return Redirect::route('homes.random', $input['option'])->withInput();
 	}
 }
