@@ -3,13 +3,13 @@
 
 @section('content')
 
-
 <!-- Sign In -->
 	{{Form::open(array('route' => 'homes.post.signin'))}}
-	{{Form::label('Username')}}
-	{{Form::text('username',null,array('class'=>'form-control'))}}
+	{{Form::label('Channel Name')}}
+	{{Form::text('channel_name',null,array('class'=>'form-control'))}}
 	{{Form::label('Password')}}
 	{{Form::password('password',null,array('class'=>'form-control'))}}
+	{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}
 	{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
 	{{Form::close()}}
 
@@ -20,9 +20,9 @@
 		{{$errors->first('email')}}
 		@endif
 		<br/>
-		{{Form::label('username', 'Username')}} {{Form::text('username', null, array('placeholder' => 'Username'))}}
-		@if($errors->has('username'))
-		{{$errors->first('username')}}
+		{{Form::label('channel_name', "Channel's name: ")}} {{Form::text('channel_name', null, array('placeholder' => 'Channel name'))}}
+		@if($errors->has('channel_name'))
+		{{$errors->first('channel_name')}}
 		@endif
 		<br/>
 		{{Form::label('password', 'Password: ')}} {{Form::password('password', null, array('placeholder' => 'Password'))}}
@@ -41,6 +41,8 @@
 		@if($errors->has('last_name'))
 		{{$errors->first('last_name')}}
 		@endif
+		<br/>
+		{{Form::label('contact_number', 'Contact Number: ')}} {{Form::text('contact_number', null, array('placeholder' => 'Contact Number'))}}
 		<br/>
 		{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
 	{{ Form::close()}}
