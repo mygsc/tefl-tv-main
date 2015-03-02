@@ -13,6 +13,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $hidden = array('password', 'remember_token');
 
+	public function videos(){
+		return $this->hasMany('Video');
+	}
+
 	public static function getUserLogin($channel_name, $password) {
 		$remember_me = Input::has('remember_me') ? true : false;
 		$attempt = Auth::attempt(array('channel_name' => $channel_name, 'password' => $password), $remember_me);
@@ -46,6 +50,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			->withFlashMessage('Your account is banned! Please contact the TEFLTV Administrator');
 		}	
 	}
+
 
 	public function signin() {
 

@@ -52,11 +52,6 @@ class HomeController extends BaseController {
 
 		return View::make('homes.random');
 	}
-
-	public function getChannels() {
-
-		return View::make('homes.channels');
-	}
 	
 	public function getSignIn() {
 

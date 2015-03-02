@@ -14,7 +14,7 @@
                             {{ link_to_route('homes.random', 'Random', null) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.channels', 'Channels', null) }}
+                            {{ link_to_route('homes.top-channels', 'Channels', null) }}
                         </li>
 
                         
