@@ -19,12 +19,14 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('terms-and-conditions', array('as' => 'homes.termsandconditions', 'uses' => 'HomeController@getTermsAndConditions'));
 	Route::get('copyright', array('as' => 'homes.copyright', 'uses' => 'HomeController@getCopyright'));
 	Route::get('advertisements', array('as' => 'homes.advertisements', 'uses' => 'HomeController@getAdvertisements'));
-
 	Route::get('popular', array('as' => 'homes.popular', 'uses' => 'HomeController@getPopular'));
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
-	Route::get('random', array('as' => 'homes.random', 'uses' => 'HomeController@getRandom'));
+	Route::get('random/{category?}', array('as' => 'homes.random', 'uses' => 'VideoController@getRandom'));
+	Route::post('random', array('as' => 'homes.post.random', 'uses' => 'VideoController@postRandom'));
 	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
 	Route::get('signup', array('as' => 'homes.signup', 'uses' => 'HomeController@getSignUp'));
+
+
 });
 
 

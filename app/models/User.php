@@ -23,4 +23,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public function getRandomChannels(){
+		return User::orderByRaw("RAND()")
+		->where('status', '1')
+		->where('verified', '1')
+		->get(array('id','channel_name'));
+	}
+
 }
