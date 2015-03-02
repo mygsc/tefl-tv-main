@@ -18,9 +18,9 @@ Upload
 				@endif
 				<div class="col-md-4">
 					<span class="form-control">
-					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true))}}
+					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
 						
-						{{Form::file('video',null,array('class'=>'btn btrn-primary'))}}
+						{{Form::file('video',array('class'=>'btn btrn-primary','id'=>'upload'))}}
 					</span>
 					
 					<br/>
@@ -28,8 +28,7 @@ Upload
 
 				<div class="col-md-4">
 					<label class="myLabel">
-					{{Form::submit('Upload',array('class'=>'btn btn-primary btn-lg hidden'))}}
-					<span class="btn btn-lg btn-primary whiteC"><i class="fa fa-upload"></i>&nbsp;Upload</span>
+					<div id="progress">{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}</div>
 					{{Form::close()}}
 					</label>
 				</div>
@@ -40,3 +39,5 @@ Upload
 </div>
 	
 @stop
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+{{HTML::script('js/user/upload.js')}}

@@ -76,5 +76,4 @@ class VideoController extends Controller {
 			->with('message', 'There were validation errors.');
 	}
 
-
 }
