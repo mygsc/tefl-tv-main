@@ -2,6 +2,12 @@
 
 class HomeController extends BaseController {
 
+
+	public function __construct(User $user) {
+		$this->User = $user;
+
+	}
+
 	public function getIndex() {
 	
 		return View::make('homes.index');
@@ -45,16 +51,6 @@ class HomeController extends BaseController {
 	public function getRandom() {
 
 		return View::make('homes.random');
-	}
-
-	public function getChannels() {
-
-		return View::make('homes.channels');
-	}
-	
-	public function getSignUp() {
-
-		return View::make('homes.signup');
 	}
 
 }
