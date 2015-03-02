@@ -68,19 +68,17 @@ class HomeController extends BaseController {
 	$input = Input::all();
 	$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
-			return Redirect::route('homes.signin')->withFlashMessage('Incorrect username or password')->withInput();
-		}
-
-			$attempt = User::getUserLogin($input['username'], $input['password']);
+			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
+		}else{
+			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
 			if($attempt){
 				$verified = Auth::User()->verified;
 				$status = Auth::User()->status;
-
-				User::getUserStatus($verified, $status);
 				
 				return Redirect::route('homes.index');
 			}
-		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+		}
+			return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
 	}
 
 	public function postSignUp() {
