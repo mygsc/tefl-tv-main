@@ -14,11 +14,10 @@ class AdminController extends BaseController {
 		if($attempt){
 			$verified = Auth::User()->verified;
 			$status  = Auth::User()->status;
-			$role = Auth::User()->role;
 
-			$status = Admin::getAuthLoginStatus($verified); //IF STATUS
+			Admin::getAuthLoginStatus($verified, $status); //IF STATUS
 
-			return Redirect::intended('/');
+			return Redirect::intended('gsc-admin/');
 		}
 		return Redirect::route('admins.index')->withInput()->withFlashMessage('Invalid Credentials!');
 	}	

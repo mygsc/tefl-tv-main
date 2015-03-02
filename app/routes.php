@@ -26,6 +26,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'HomeController@getSignIn'));
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'HomeController@postSignIn'));
+	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'HomeController@postSignUp'));
 });
 
 //**********USERS**********//
@@ -39,7 +40,11 @@ Route::group(array('prefix' => 'users'), function() {
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
+	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
 });
-//**********ADMIN**********//
+
+Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+
+
 
 

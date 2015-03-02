@@ -1,7 +1,5 @@
-    <div class="categoryNav">
-
-        <div class="container">
-
+<div class="categoryNav">
+    <div class="container">
         <div class="row">
             <div class="col-md-8 text-left"> 
                 <div class="row">
@@ -22,17 +20,20 @@
                         
                     </ul>
                 </div>
-            </div>
+            </div><!--/.col-md-8-->
             <div class="col-md-4">
                 <div class="row text-right">
                     <ul class="ctgryNav" >
                         <li>
                            {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                        </li>
-                    </ul>
-                    </div>
-                </div>
-            </div>
+                       <li>
+                         <button class="btn btn-primary orangeC">Upload</button>  
 
-        </div>
-    </div>
+                       </li>
+                    </ul>
+                </div>
+            </div><!--/.col-md-4-->
+        </div><!--/.row-->
+   </div><!--/.container-->
+</div><!--/.categoryNav-->
