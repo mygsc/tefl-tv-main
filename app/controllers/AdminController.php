@@ -9,16 +9,20 @@ class AdminController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, array('username' => 'required','password' => 'required'));
 		if($validate->fails()) return Redirect::route('admins.index')->withFlashMessage($validate)->withInput();
-		
 		$attempt = Admin::getAuthLogin($input['username'], $input['password']);
 		if($attempt){
 			$verified = Auth::User()->verified;
 			$status  = Auth::User()->status;
-
-			Admin::getAuthLoginStatus($verified, $status); //IF STATUS
-
+			$role  = Auth::User()->role;
+			Admin::getAuthLoginStatus($verified, $status, $role); //IF STATUS
 			return Redirect::intended('gsc-admin/');
 		}
-		return Redirect::route('admins.index')->withInput()->withFlashMessage('Invalid Credentials!');
+		return Redirect::route('admin.index')->withInput()->withFlashMessage('Invalid Credentials!');
 	}	
+	public function logout(){
+		Auth::logout();
+		Session::flush();
+		return Redirect::route('admin.index');
+	}
+
 }

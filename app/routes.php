@@ -36,11 +36,11 @@ Route::group(array('prefix' => 'users'), function() {
 });
 //*********End of User************//
 
-
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
-	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
+	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
+	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
+	Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminController@logout'));
 });
 
 Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
