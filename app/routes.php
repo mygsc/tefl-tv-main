@@ -43,8 +43,13 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersProfile'));
-	Route::post('uploadimage', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
+	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+
+	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+
+	
 });
 //*********End of User************//
 

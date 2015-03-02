@@ -53,24 +53,54 @@ class UserController extends BaseController {
 		return Redirect::route('homes.index')->withFlashMessage('Logout!');
 	}
 
-	public function getUsersProfile($channel_name) {
+	public function getUsersChannel($channel_name) {
 
 		$user_channel = UserProfile::find(Auth::User()->id);
 		// return $user_channel;
 		return View::make('users.channel', compact('user_channel'));
 	}
 	
-	public function postUsersUploadImage() {
+	public function postUsersUploadImage($channel_name) {
 
 		If(Input::hasFile('image')) {
-			$validate = Validator::make(array('image' => Input::get('image')), array('image|mimes:jpg,jpeg,png'));
+
+			$validate = Validator::make(array('image' => Input::file('image')), array('image' => 'image|mimes:jpg,jpeg,png'));
 
 			if($validate->passes()) {
 				$filename = Input::file('image')->getClientOriginalName();
 
-				return $filename;
+				$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+
+				$newName = Auth::User()->id.'.jpg';
+
+				$path = public_path('img/user/');
+
+
+				if(file_exists($picture))
+				{
+					File::delete($picture);
+					$file = Input::file('image')->move($path, $newName);
+					return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully Updated!');
+				}else{
+					$file = Input::file('image')->move($path, $newName);
+					return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully Created New Picture!');
+				}
+			}else{
+				return Redirect::route('users.channel', $channel_name)->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
 			}
 		}
+	}
+
+	public function getEditUsersChannel() {
+
+		$user_channel = UserProfile::find(Auth::User()->id);
+		return View::make('users.editchannel', compact('user_channel'));
+	}
+
+	public function postEditUsersChannel($channel_name) {
+
+		return 'hahaha';
+
 	}
 
 }
