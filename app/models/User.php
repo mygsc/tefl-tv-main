@@ -23,9 +23,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $attempt;
 	}
 
-	public static function getSaveEditChannel(){
-
-	}
+	public static $user_edit_rules = array(
+		'organization' => 'required',
+		'first_name' => 'required',
+		'last_name' => 'required',
+		'contact_number' => 'required',
+		'address' => 'required',
+		'birthdate' => 'required');
 
 	public static $user_rules = array(
 		'email' => 'required|email',
@@ -82,6 +86,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function userprofile() {
 
 		return $this->hasOne('userProfile');
+	}
+
+	public function video() {
+
+		return $this->hasMany('Video');
+	}
+
+	public function subscribe() {
+
+		return $this->hasMany('Subscribe');
 	}
 	
 	public function getRandomChannels(){
