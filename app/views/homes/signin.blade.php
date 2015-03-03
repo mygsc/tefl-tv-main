@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+<div class='container page'>
 <br/>
 <!-- Sign In -->
 	{{Form::open(array('route' => 'homes.post.signin'))}}
@@ -47,5 +47,6 @@
 		<br/>
 		{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
 	{{ Form::close()}}
+</div><!--/.container page-->
 
 @stop
