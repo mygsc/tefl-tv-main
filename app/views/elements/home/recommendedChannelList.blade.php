@@ -40,6 +40,6 @@
         </a>
     </li>
     <div class="text-center">
-       {{ link_to_route('homes.channels', 'see more..', null) }}
+       {{ link_to_route('homes.top-channels', 'see more..', null) }}
     </div> 
 </div><!--/.sideLinksDiv VSthumbnails-->
