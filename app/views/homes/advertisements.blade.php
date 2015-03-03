@@ -62,7 +62,6 @@
 		padding: 3px;
 		height: 10px;
 	}
-
 	/* Now the value part */
 	progress::-webkit-progress-value {
 		border-radius: 3px;
@@ -113,6 +112,7 @@
 				<span class="time">00:00 /  00:00</span>
 				<span class="sound"><img src="/img/icons/sound.png"></span>
 				<span ><img id='btn-fullscreen' title="Fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
+				<span class="glyphicon glyphicon-volume-down"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
 		</div>
