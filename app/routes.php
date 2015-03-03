@@ -43,10 +43,15 @@ Route::group(array('prefix' => 'users'), function() {
 	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+});
+
+//**********ADMIN**********//
+Route::group(array('prefix' => 'gsc-admin'), function() {
+	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
+	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
 
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 
-	
 });
 //*********End of User************//
 

@@ -1,13 +1,18 @@
 
-document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
+document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, false);
 
-var mediaPlayer;
-var playPauseBtn;
-var muteBtn;
-var progressBar;
-var btnFullscreen;
-var videoTimeLenght;
-function initialiseMediaPlayer() {
+var mediaPlayer,
+	playPauseBtn,
+ 	muteBtn,
+ 	progressBar,
+ 	btnFullscreen,
+ 	videoTimeLenght, $this = $(this),
+ 	updProgWidth = 0;
+
+//var progWidth = tag.find('.progress').width();
+var progWidth = document.getElementById('current-progress').offsetWidth;
+
+function GSCMediaPlayer() {
 	// Get a handle to the player
 	mediaPlayer = document.getElementById('media-video');
 	
@@ -15,6 +20,7 @@ function initialiseMediaPlayer() {
 	playPauseBtn = document.getElementById('play-pause');
 	muteBtn = document.getElementById('mute-button');
 	progressBar = document.getElementById('progress-bar');
+	currentProgress =  document.getElementById('current-progress');//tag.find('.current-progress').width();
 	btnFullscreen = document.getElementById('btn-fullscreen');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	// Hide the browser's default controls
@@ -26,8 +32,8 @@ function initialiseMediaPlayer() {
 	// Add a listener for the play and pause events so the buttons state can be updated
 	mediaPlayer.addEventListener('play', function() {
 		// Change the button to be a pause button
-		$(playPauseBtn).css('background','url("/img/icons/pause.png")');
-
+		//
+		//$(playPauseBtn).css('background','url("/img/icons/pause.png")');
 		changeButtonType(playPauseBtn, 'pause');
 	}, false);
 	mediaPlayer.addEventListener('pause', function() {
@@ -97,11 +103,55 @@ function replayMedia() {
 }
 
 // Update the progress bar
-function updateProgressBar() {
+function updateProgressBar(response) {
+
 	// Work out how much of the media has played via the duration and currentTime parameters
 	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime);
 	// Update the progress bar's value
 	progressBar.value = percentage;
+	
+	//$('#progress-bar').width() = percentage;
+	var videoCurrentTime = mediaPlayer.currentTime;
+
+	var time = Math.round(($('#progress-bar').width() / progWidth) * mediaPlayer.duration);
+	
+	var seconds = 0,
+		minutes = Math.floor(time / 60),
+		tminutes = Math.round(mediaPlayer.duration / 60),
+		tseconds = Math.round((mediaPlayer.duration) - (tminutes*60));
+	if(time){
+				// seconds are equal to the time minus the minutes
+				seconds = Math.round(time) - (60*minutes);
+				
+				// So if seconds go above 59
+				if(seconds > 59) {
+					// Increase minutes, reset seconds
+					seconds = Math.round(time) - (60*minutes);
+					if(seconds == 60) {
+						minutes = Math.round(time / 60); 
+						seconds = 0;
+					}
+				}
+						
+			} 
+	// Updated progress width
+					updProgWidth = (videoCurrentTime / mediaPlayer.duration) * progWidth;
+					
+					// Set a zero before the number if its less than 10.
+					if(seconds < 10) { seconds = '0'+seconds; }
+					if(tseconds < 10) { tseconds = '0'+tseconds; }
+					
+					// A variable set which we'll use later on
+					if(response != true) {
+						$('#progress-bar').css({'width' : updProgWidth+'px'});
+						//$that.find('.progress-button').css({'left' : (updProgWidth-$that.find('.progress-button').width())+'px'});
+					}
+					
+					// Update times
+
+					$('.ctime').html(minutes+':'+seconds+' / ');
+					$('.ttime').html(tminutes+':'+tseconds);
+	
 	// Update the progress bar's text (for browsers that don't support the progress element)
 	progressBar.innerHTML = percentage + '% played';
 }
