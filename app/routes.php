@@ -12,17 +12,11 @@
 */
 Route::group(array('prefix' => '/'), function() {
 	Route::get('', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
-
-
-Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
-//uploading
-Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));
-Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
-Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
-Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
-
-
-
+	Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
+	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
+	Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
+	Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
+	Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('aboutus', array('as' => 'homes.aboutus', 'uses' => 'HomeController@getAboutUs'));
 	Route::get('privacy', array('as' => 'homes.privacy', 'uses' => 'HomeController@getPrivacy'));
 	Route::get('terms-and-conditions', array('as' => 'homes.termsandconditions', 'uses' => 'HomeController@getTermsAndConditions'));
@@ -32,8 +26,8 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
 	Route::get('random/{category?}', array('as' => 'homes.random', 'uses' => 'VideoController@getRandom'));
 	Route::post('random', array('as' => 'homes.post.random', 'uses' => 'VideoController@postRandom'));
-	Route::get('channels',array('as' => 'homes.channels', 'uses' => 'HomeController@getChannels'));
-
+	Route::get('top-channels',array('as' => 'homes.top-channels', 'uses' => 'UserController@getTopChannels'));
+	Route::get('more-top-channels',array('as' => 'homes.more-top-channels', 'uses' => 'UserController@getMoreTopChannels'));
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
@@ -43,13 +37,19 @@ Route::patch('addDescription/{id}',array('as' => 'post.addDescription', 'uses'=>
 Route::group(array('prefix' => 'users'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersProfile'));
-	Route::post('uploadimage', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
+	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+
+	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+
+	
 });
 //*********End of User************//
 
 
 //**********ADMIN**********//
+
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
 	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
@@ -60,7 +60,6 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('postPwdreset/{id}', array('as' => 'post.admin.pwdreset', 'uses' => 'AdminController@postPwdReset'));
 });
 //**********ADMIN**********//
-
 
 Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
