@@ -23,7 +23,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $attempt;
 	}
 
-	public static function getSaveEditChannel()
+	public static function getSaveEditChannel(){
+		
+	}
 
 	public static $user_rules = array(
 		'email' => 'required|email',
