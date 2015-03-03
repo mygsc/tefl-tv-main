@@ -26,7 +26,6 @@ class AdminController extends BaseController {
 	}
 
 	public function getResetPassword(){
-		echo "aw";
 		return View::make('admins.resetpassword');
 	}
 	public function postResetPassword(){
@@ -34,15 +33,32 @@ class AdminController extends BaseController {
 		if($validate->fails()) {
 		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		}
-		$adminInfo = User::where('email', trim(Input::get('email')))->get();
-		if(!$adminInfo->isEmpty()){
+		$adminInfo = User::where('email', Input::get('email'))->firstOrFail();
+		//error handler
+
+		if(isset($adminInfo)){
 			Mail::send('emails.Auth.resetpassword', array('token' => $adminInfo->remember_token), function($message) {
-		 $message->to('r3mmel023@gmail.com', 'Graphics Studio Central')->subject('Demo!');
-		});
+			 $message->to('r3mmel023@gmail.com', 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
+			});
+			return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 		}
 
+	}
+
+	public function getPwdReset($token){
+		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
+		$adminInfo = User::where('remember_token', Input::get('token'))->firstOrFail();
+		if(isset($adminInfo)) return View::make('admins.changepassword');
+		return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
+	}
+	public function postPwdReset($token){
 		
-		
-	 	return Redirect::to('admin/login')->with('global','Please check your Email');	
+	}
+
+	public function changepassword($token){
+		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
+		$adminInfo = User::where('remember_token', Input::get('token'))->firstOrFail();
+		if(isset($adminInfo)) return View::make('get.admins.changepassword');
+		return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
 	}
 }
