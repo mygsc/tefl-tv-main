@@ -38,7 +38,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
 });
 
-Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
 
 
