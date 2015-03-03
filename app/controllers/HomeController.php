@@ -63,6 +63,21 @@ class HomeController extends BaseController {
 		return View::make('homes.signin');
 	}
 
+	public function watchvideo($idtitle){
+		$id = explode('%',$idtitle);
+		$video = Video::find($id[0]);
+		$titles = explode(' ',$video->title);
+		$mergingrelation = array();
+			foreach($titles as $title){
+				$videorelateds[] = Video::where('title','like','%'.$title.'%')
+										->where('id','!=',$id[0])->get()->toArray();
+				$merging = array_merge($mergingrelation,$videorelateds);
+			}
+			$merged = call_user_func_array('array_merge', $merging);
+			$result = array_unique($merged, SORT_REGULAR);
+		return $result;
+	}
+
 	public function postSignIn() {
 
 	$input = Input::all();
