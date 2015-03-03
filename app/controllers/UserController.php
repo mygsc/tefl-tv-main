@@ -2,6 +2,10 @@
 
 class UserController extends BaseController {
 
+	public function __construct(User $user){
+
+		$this->User = $user;
+	}
 
 	public function getSignIn() {
 
@@ -94,15 +98,14 @@ class UserController extends BaseController {
 		return View::make('homes.moretopchannels', compact(array('topChannels')));
 	}
 
-	public function getUsersProfile($channel_name) {
-
+	public function getUsersChannel($channel_name) {
 
 		$user_channel = UserProfile::find(Auth::User()->id);
-		// return $user_channel;
+		
 		return View::make('users.channel', compact('user_channel'));
 	}
 	
-	public function postUsersUploadImage($channel_name) {
+	public function postUsersUploadImage($id) {
 
 
 		If(Input::hasFile('image')) {
@@ -140,9 +143,27 @@ class UserController extends BaseController {
 		return View::make('users.editchannel', compact('user_channel'));
 	}
 
-	public function postEditUsersChannel($channel_name) {
+	public function postEditUsersChannel($id) {
 
-		return 'hahaha';
+		$user = User::find($id);
+		$user->website = Input::get('website');
+		$user->organization = Input::get('organization');
+		$user->save();
+
+		$user_channel = UserProfile::find(Auth::User()->id);
+		$user_channel->first_name = Input::get('first_name');
+		$user_channel->last_name = Input::get('last_name');
+		$user_channel->contact_number = Input::get('contact_number');
+		$user_channel->address = Input::get('address');
+		$user_channel->interests = Input::get('interests');
+		$user_channel->work = Input::get('work');
+		$user_channel->birthdate = Input::get('birthdate');
+		$user_channel->city = Input::get('city');
+		$user_channel->state = Input::get('state');
+		$user_channel->zip_code = Input::get('zip_code');
+		$user_channel->save();
+
+		return Redirect::route('users.channel', $id)->withFlashMessage('Successfully updated your channel!');
 
 	}
 

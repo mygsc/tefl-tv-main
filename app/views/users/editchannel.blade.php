@@ -3,7 +3,7 @@
 
 @section('content')
 
-	{{ Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}
+	{{ Form::open(array('route' => ['users.post.edit.channel', Auth::User()->id]))}}
 		{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture'))}}
 		<br>
 		{{Form::label('website', 'website: ')}} {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
@@ -40,7 +40,7 @@
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-        {{Form::open(array('route' => ['users.upload.image', Auth::User()->channel_name], 'files' => 'true'))}}
+        {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
         	{{Form::file('image', array('id' => 'uploaded_image'))}}
         	{{Form::submit("Change profile's picture")}}
         {{Form::close()}}

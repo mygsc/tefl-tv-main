@@ -24,7 +24,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static function getSaveEditChannel(){
-		
+
 	}
 
 	public static $user_rules = array(
@@ -66,11 +66,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->channel_name = Input::get('channel_name');
 		$user->password = Hash::make(Input::get('password'));
 		$user->save();
+		$newUser = $user->id;
 
 		$userProfile = new userProfile;
 
 		$userProfile->first_name = Input::get('first_name');
-		//$userProfile->user_id = Last's users id
+		$userProfile->user_id = $newUser;
 		$userProfile->last_name = Input::get('last_name');
 		$userProfile->contact_number = Input::get('contact_number');
 		$userProfile->save();

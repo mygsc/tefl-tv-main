@@ -31,6 +31,9 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
+
+	//delete or update this if needed - Cess
+	Route::any('watch-video', array('as' => 'homes.watch-video', 'uses' => 'VideoController@watchVideo'));
 });
 
 //**********USERS**********//
@@ -63,5 +66,5 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 });
 //**********ADMIN**********//
 
-Route::get('video-player', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
