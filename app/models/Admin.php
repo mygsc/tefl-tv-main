@@ -12,7 +12,7 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	public static function getAuthLogin($username, $password){
-		$attempt = Auth::attempt(['username' => $username,'password' => $password]);
+		$attempt = Auth::attempt(['channel_name' => $username,'password' => $password]);
 		return $attempt;
 	}
 	public static function getAuthLoginStatus($verified, $status, $role){

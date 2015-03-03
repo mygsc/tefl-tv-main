@@ -1,4 +1,5 @@
 <?php
+
 class Video extends Eloquent{
   use SoftDeletingTrait;
 	protected $table = 'videos';
@@ -32,6 +33,14 @@ class Video extends Eloquent{
 
 	public function tagvideos(){
 		return $this->belongsTo('TagVideo');
+	}
+
+	public function getRandomVideos(){
+		return Video::orderByRaw("RAND()")
+		->where('publish', '1')
+		->where('report_count', '<', '5')
+		->get(array('title', 'likes', 'views'))
+		->take(18);
 	}
 
 
