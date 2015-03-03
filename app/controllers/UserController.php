@@ -98,11 +98,27 @@ class UserController extends BaseController {
 		return View::make('homes.moretopchannels', compact(array('topChannels')));
 	}
 
-	public function getUsersChannel($channel_name) {
+	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
 
-		$user_channel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(3)->video;
 		
-		return View::make('users.channel', compact('user_channel'));
+		
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
+		foreach($subscribers as $a) {
+			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
+			$subscriberLists []= $subscribed;
+		}
+		
+		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
+		foreach ($subscriptions as $b) {
+			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+			$subscriptionLists[] = $subscriptioned;
+
+		}
+		
+
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists'));
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -126,13 +142,13 @@ class UserController extends BaseController {
 				{
 					File::delete($picture);
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully Updated!');
+					return Redirect::route('users.edit.channel', $id)->withFlashMessage('Successfully Updated!');
 				}else{
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully Created New Picture!');
+					return Redirect::route('users.edit.channel', $id)->withFlashMessage('Successfully Created New Picture!');
 				}
 			}else{
-				return Redirect::route('users.channel', $channel_name)->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+				return Redirect::route('users.edit.channel', $id)->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
 			}
 		}
 	}
@@ -143,9 +159,14 @@ class UserController extends BaseController {
 		return View::make('users.editchannel', compact('user_channel'));
 	}
 
-	public function postEditUsersChannel($id) {
+	public function postEditUsersChannel($channel_name) {
 
-		$user = User::find($id);
+		$input = Input::all();
+		$validate = Validator::make($input, User::$user_edit_rules);
+
+		if($validate->passes()){
+
+		$user = User::find(Auth::User()->id);
 		$user->website = Input::get('website');
 		$user->organization = Input::get('organization');
 		$user->save();
@@ -162,8 +183,11 @@ class UserController extends BaseController {
 		$user_channel->state = Input::get('state');
 		$user_channel->zip_code = Input::get('zip_code');
 		$user_channel->save();
+		}else{
+			return Redirect::route('users.edit.channel', $channel_name)->withErrors($validate);
+		}
 
-		return Redirect::route('users.channel', $id)->withFlashMessage('Successfully updated your channel!');
+		return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully updated your channel!');
 
 	}
 

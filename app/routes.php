@@ -59,8 +59,10 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminController@logout'));
 	Route::get('resetpassword', array('as' => 'get.admin.resetpassword', 'uses' => 'AdminController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.admin.resetpassword', 'uses' => 'AdminController@postResetPassword'));
-	Route::get('getPwdreset/{id}', array('as' => 'get.admin.pwdreset', 'uses' => 'AdminController@getPwdReset'));
-	Route::get('postPwdreset/{id}', array('as' => 'post.admin.pwdreset', 'uses' => 'AdminController@postPwdReset'));
+	Route::get('pwdreset/{id}', array('as' => 'get.admin.pwdreset', 'uses' => 'AdminController@getPwdReset'));
+	Route::post('pwdreset', array('as' => 'post.admin.pwdreset', 'uses' => 'AdminController@postPwdReset'));
+	Route::get('changepassword', array('as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
+	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
 });
 //**********ADMIN**********//
 
