@@ -9,9 +9,8 @@
 			        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
 			    </ul>
 			@endif
-			{{Form::open(array('route' => 'post.admin.changepassword','method'=>'POST'))}}
-			{{Form::label('Current Password')}}
-			{{Form::password('current_password',null,array('class'=>'form-control'))}}
+			{{Form::open(array('route' => 'post.admin.pwdreset','method'=>'POST'))}}
+			{{Form::hidden('user_id',$adminInfo->id,array('class'=>'form-control'))}}
 			{{Form::label('New Password')}}
 			{{Form::password('password',null,array('class'=>'form-control'))}}
 			{{Form::label('Confirm Password')}}
