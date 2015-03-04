@@ -11,7 +11,6 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 	protected $hidden = array('password');
 
 	public static $pwdResetValidator = array('password' => 'required|confirmed|min:6','password_confirmation' => 'required');
-	public static $pwdResetValidator = array('password' => 'required|confirmed|min:6','password_confirmation' => 'required');
 	public static $changepassword = array('current_password' => 'required', 'password' => 'required|confirmed|min:6','password_confirmation' => 'required');
 
 	public static function getAuthLogin($username, $password){
@@ -44,7 +43,8 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 			Mail::send('emails.Auth.resetpassword', array('token' => $adminInfo->remember_token), function($message) {
 			 $message->to('r3mmel023@gmail.com', 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
 			});
-			return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
+			// return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
+			return true;
 		}
 	}
 	public static function hashCheckPassword($currentpassword, $dbPassword, $user_id, $newpassword){

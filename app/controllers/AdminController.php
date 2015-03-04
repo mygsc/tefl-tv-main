@@ -34,7 +34,7 @@ class AdminController extends BaseController {
 		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		}
 		$adminInfo = User::where('email', Input::get('email'))->firstOrFail();
-		Admin::sendResetPasswordMail($adminInfo);
+		if(Admin::sendResetPasswordMail($adminInfo)) return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 	}
 
 	public function getPwdReset($token){
@@ -59,7 +59,6 @@ class AdminController extends BaseController {
 		$validate = Validator::make($input, Admin::$changepassword);
 		if($validate->fails()) return Redirect::route('get.admin.changepassword')->withInput()->withErrors($validate);
 		$user = User::where('id', Auth::User()->id)->first();
-
 		Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $Input::get('password'));
 		return Redirect::route('get.admin.changepassword')->withInput()->withFlashMessage('Incorrect current password. Please try again.');
 	}

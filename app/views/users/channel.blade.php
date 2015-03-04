@@ -2,6 +2,18 @@
 
 
 @section('content')
+	<div class="container page">
+	<br/>
+	<div class="row">
+		<div style="border:5px solid #8b9dc1;" class="shadow">
+			<div class="col-md-2 hidden-xs">
+				<div class="row">
+					<img src="/img/user/u4.png" class="pic-Dp">
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="row">
+
 
 	{{ Form::open()}}
 		{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt')}}
