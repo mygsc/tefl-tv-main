@@ -62,4 +62,9 @@ class AdminController extends BaseController {
 		Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $Input::get('password'));
 		return Redirect::route('get.admin.changepassword')->withInput()->withFlashMessage('Incorrect current password. Please try again.');
 	}
+
+	public function getRecommendedVideos(){
+		$videos = Video::all();
+		return View::make('admins.recommendedvideos', compact('videos'));
+	}
 }

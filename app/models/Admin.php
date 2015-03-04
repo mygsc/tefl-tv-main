@@ -41,7 +41,7 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 	public static function sendResetPasswordMail($adminInfo){
 		if(isset($adminInfo)){
 			Mail::send('emails.Auth.resetpassword', array('token' => $adminInfo->remember_token), function($message) {
-			 $message->to('r3mmel023@gmail.com', 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
+			 $message->to($adminInfo->email, 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
 			});
 			// return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 			return true;
