@@ -6,22 +6,24 @@ var mediaPlayer,
  	muteBtn,
  	progressBar,
  	btnFullscreen,
- 	videoTimeLenght, $this = $(this),
+ 	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
+ 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
-var progWidth = document.getElementById('current-progress').offsetWidth;
+var progWidth = document.getElementById('progressbar').offsetWidth;
+var progress = document.getElementById('current-progress').offsetWidth;
 
 function GSCMediaPlayer() {
+	
 	// Get a handle to the player
 	mediaPlayer = document.getElementById('media-video');
-	
 	// Get handles to each of the buttons and required elements
 	playPauseBtn = document.getElementById('play-pause');
-	muteBtn = document.getElementById('mute-button');
+	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
-	currentProgress =  document.getElementById('current-progress');//tag.find('.current-progress').width();
-	btnFullscreen = document.getElementById('btn-fullscreen');
+	currentProgress =  document.getElementById('current-progress');
+	btnFullscreen = document.getElementById('fullscreen');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	// Hide the browser's default controls
 	mediaPlayer.controls = false;
@@ -32,8 +34,7 @@ function GSCMediaPlayer() {
 	// Add a listener for the play and pause events so the buttons state can be updated
 	mediaPlayer.addEventListener('play', function() {
 		// Change the button to be a pause button
-		//
-		//$(playPauseBtn).css('background','url("/img/icons/pause.png")');
+		//$('play-pause').css('background','url("/img/icons/pause.png")');
 		changeButtonType(playPauseBtn, 'pause');
 	}, false);
 	mediaPlayer.addEventListener('pause', function() {
@@ -54,6 +55,7 @@ function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
 	if (mediaPlayer.paused || mediaPlayer.ended) {
 		// Change the button to be a pause button
+		playPauseBtn.src = "/img/icons/pause.png";
 		changeButtonType(playPauseBtn, 'pause');
 		// Play the media
 		mediaPlayer.play();
@@ -62,6 +64,7 @@ function togglePlayPause() {
 	else {
 		// Change the button to be a play button
 		changeButtonType(playPauseBtn, 'play');
+		playPauseBtn.src = "/img/icons/play.png";
 		// Pause the media
 		mediaPlayer.pause();
 	}
@@ -84,13 +87,16 @@ function changeVolume(direction) {
 function toggleMute() {
 	if (mediaPlayer.muted) {
 		// Change the cutton to be a mute button
+
 		changeButtonType(muteBtn, 'mute');
+		muteBtn.src = "/img/icons/sound.png";
 		// Unmute the media player
 		mediaPlayer.muted = false;
 	}
 	else {
 		// Change the button to be an unmute button
 		changeButtonType(muteBtn, 'unmute');
+		muteBtn.src = "/img/icons/sound-off.png";
 		// Mute the media player
 		mediaPlayer.muted = true;
 	}
@@ -108,13 +114,11 @@ function updateProgressBar(response) {
 	// Work out how much of the media has played via the duration and currentTime parameters
 	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime);
 	// Update the progress bar's value
-	progressBar.value = percentage;
-	
-	//$('#progress-bar').width() = percentage;
+	//progressBar.value = percentage;
+	//progress += percentage;
 	var videoCurrentTime = mediaPlayer.currentTime;
-
-	var time = Math.round(($('#progress-bar').width() / progWidth) * mediaPlayer.duration);
-	
+	var time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration);
+    
 	var seconds = 0,
 		minutes = Math.floor(time / 60),
 		tminutes = Math.round(mediaPlayer.duration / 60),
@@ -143,17 +147,17 @@ function updateProgressBar(response) {
 					
 					// A variable set which we'll use later on
 					if(response != true) {
-						$('#progress-bar').css({'width' : updProgWidth+'px'});
+						$('#current-progress').css({'width' : updProgWidth+'px'});
 						//$that.find('.progress-button').css({'left' : (updProgWidth-$that.find('.progress-button').width())+'px'});
 					}
 					
 					// Update times
-
 					$('.ctime').html(minutes+':'+seconds+' / ');
 					$('.ttime').html(tminutes+':'+tseconds);
+					
 	
 	// Update the progress bar's text (for browsers that don't support the progress element)
-	progressBar.innerHTML = percentage + '% played';
+	//progressBar.innerHTML = percentage + '% played';
 }
 
 // Updates a button's title, innerHTML and CSS class to a certain value
@@ -189,8 +193,9 @@ function canPlayVideo(ext) {
 // Resets the media player
 function resetPlayer() {
 	// Reset the progress bar to 0
-	progressBar.value = 0;
+	//progressBar.value = 0;
 	// Move the media back to the start
+	progress = 0;
 	mediaPlayer.currentTime = 0;
 	// Ensure that the play pause button is set as 'play'
 	changeButtonType(playPauseBtn, 'play');
@@ -202,4 +207,41 @@ var video = document.getElementById("media-video");
 		//video.mozRequestFullScreen();	
 		//video.webkitEnterFullScreen();
 		video.webkitEnterFullScreen();
+}
+
+function showVolume(){
+
+}
+$('#mute-icon').hover(function(){
+	$('.volume').fadeIn(1000);
+});
+// $('.volume').mouseout(function(){
+// 	$(this).fadeOut(2000);
+// });
+
+$('#volume-vertical').mousedown(function(e){
+	LetProcessYourVolume(e)
+});
+
+$('.volume-static-holder').mousedown(function(e){
+	LetProcessYourVolume(e);
+});
+
+function LetProcessYourVolume(e){
+	volumeClick = true;
+	mouseY = $('.volume-static-holder').height() - (e.pageY - $('.volume-static-holder').offset().top);
+
+	// Return false if user tries to click outside volume area 
+		if(mouseY < 0 || mouseY > $(this).height()) {
+			volumeClick = false;
+			return false;
+		}
+
+	// Update volume
+		$('#volume-vertical').css({'height' : mouseY+'px'});
+		$('#volume-button').css({'top' : (mouseY-($('#volume-button').height()/2))+'px'});
+
+	// Update your volume it's happening :)
+		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
+		volumeY = $('#volume-vertical').height() / $(this).height();
 }

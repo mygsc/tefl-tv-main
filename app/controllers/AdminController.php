@@ -40,7 +40,7 @@ class AdminController extends BaseController {
 
 	public function getPwdReset($token){
 		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
-		$adminInfo = User::where('remember_token', $token)->first();
+		$adminInfo = User::where('token', $token)->first();
 		if(isset($adminInfo)) return View::make('admins.pwdreset', compact('adminInfo'));
 		return Redirect::route('get.admin.resetpassword')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
 	}
@@ -65,7 +65,12 @@ class AdminController extends BaseController {
 	}
 
 	public function getRecommendedVideos(){
-		$videos = Video::all();
+		$videos = Video::where('publish', 1)->get();
 		return View::make('admins.recommendedvideos', compact('videos'));
+	}
+	public function postRecommendedVideos(){
+		$input = Input::all();
+		dd(count($input['recommended']));
+		dd($input['recommended']);
 	}
 }

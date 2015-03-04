@@ -12,7 +12,6 @@
 */
 Route::group(array('prefix' => '/'), function() {
 	Route::get('', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
-	Route::get('/', array('as' => 'get.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
@@ -31,7 +30,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
-
+	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
+	Route::post('/resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	//delete or update this if needed - Cess
 	Route::any('watch-video', array('as' => 'homes.watch-video', 'uses' => 'VideoController@watchVideo'));
 });
@@ -74,6 +74,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('changepassword', array('as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
 	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
 	Route::get('recommendedvideos', array('as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
+	Route::post('recommendedvideos', array('as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
 });
 //**********ADMIN**********//
 
