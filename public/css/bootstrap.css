@@ -4711,6 +4711,10 @@ a.thumbnail.active {
   width: auto;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
+  min-width: 300px;
+  margin-top: 20px;
+  z-index: 99999999999;
 }
 .alert h4 {
   margin-top: 0;

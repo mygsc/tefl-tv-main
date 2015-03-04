@@ -8,7 +8,7 @@
 
     <div class="col-md-row">
        <div class="wrapper-account">
-            <div class="well " style="margin-bottom:0;min-height:350px;">
+            <div class="well White " style="margin-bottom:0;min-height:350px;">
                <div class="row">
 
                     <!-- tabs left -->
@@ -49,24 +49,26 @@
 
 <!-- Modal -->
 <div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog black">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
+        	{{ Form::file('image', array('id' => 'uploaded_img'))}}
+
       </div>
       <div class="modal-body">
-     				<div class="uploaded_img">
-        			{{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Nothing to display.', array('id' => 'preview'))}}
-        		</div>
+     		<div class="uploaded_img">
+        		{{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
+        	</div>
 
-        {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
-        	{{ Form::file('image', array('id' => 'uploaded_img'))}}
-        	{{Form::submit("Change profile's picture")}}
-        {{Form::close()}}
+      		
+        	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      	{{Form::submit("Save", array('class' => 'btn btn-info'))}}
+        {{Form::close()}}
+        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

@@ -1204,9 +1204,16 @@ Main components
    min-height: 300px;
 }
 
+.inputError{
+  color: #d40505;
+  font-size: 0.9em;
+}
 
-
-
+.notes{
+  color: #3b5a9b;
+  font-style: italic;
+  font-size: 1.0em;
+}
 
 
 
