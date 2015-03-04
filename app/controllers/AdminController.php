@@ -33,13 +33,14 @@ class AdminController extends BaseController {
 		if($validate->fails()) {
 		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		}
-		$adminInfo = User::where('email', Input::get('email'))->firstOrFail();
+		$adminInfo = User::where('email', Input::get('email'))->first();
+		if(!isset($adminInfo)) return Redirect::route('get.admin.resetpassword')->withInput()->withFlashMessage('Invalid email address. Please try again!');
 		if(Admin::sendResetPasswordMail($adminInfo)) return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 	}
 
 	public function getPwdReset($token){
 		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
-		$adminInfo = User::where('remember_token', $token)->first();
+		$adminInfo = User::where('token', $token)->first();
 		if(isset($adminInfo)) return View::make('admins.pwdreset', compact('adminInfo'));
 		return Redirect::route('get.admin.resetpassword')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
 	}
@@ -64,7 +65,11 @@ class AdminController extends BaseController {
 	}
 
 	public function getRecommendedVideos(){
-		$videos = Video::all();
+		$videos = Video::where('publish', 1)->get();
 		return View::make('admins.recommendedvideos', compact('videos'));
+	}
+	public function postRecommendedVideos(){
+		$input = Input::all();
+		dd($input->recommended);
 	}
 }

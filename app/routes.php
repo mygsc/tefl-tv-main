@@ -42,7 +42,10 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
 	Route::get('/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
-	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::post('/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+
+	Route::get('/account-settings', array('as' => 'users.account-settings', 'uses' => 'UserController@getAccountSettings'));
 });
 //*********End of Channels************//
 
@@ -71,6 +74,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('changepassword', array('as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
 	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
 	Route::get('recommendedvideos', array('as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
+	Route::post('recommendedvideos', array('as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
 });
 //**********ADMIN**********//
 

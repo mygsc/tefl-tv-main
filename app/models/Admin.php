@@ -39,13 +39,13 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 	public static function sendResetPasswordMail($adminInfo){
-		if(isset($adminInfo)){
-			Mail::send('emails.Auth.resetpassword', array('token' => $adminInfo->remember_token), function($message) {
-			 $message->to($adminInfo->email, 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
-			});
-			// return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
-			return true;
-		}
+		$data = array('email'=>$adminInfo->email,'token'=>Crypt::encrypt($adminInfo->email.rand(1,9999)));
+		User::where('id', $adminInfo->id)->update(['token' => $data['token']]);
+		Mail::send('emails.Auth.resetpassword', $data, function($message) use($data){
+			$message->to($data['email'], 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
+		});
+		return true;
+
 	}
 	public static function hashCheckPassword($currentpassword, $dbPassword, $user_id, $newpassword){
 		if(Hash::check($current_password, $dbPassword)){

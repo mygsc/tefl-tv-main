@@ -35,7 +35,7 @@
                                     <li>{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
                                     <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
                                 </ul>
-                            </li>             
+
                             @else
                                 {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                             @endif
