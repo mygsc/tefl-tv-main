@@ -5,11 +5,11 @@
 <style type="text/css">
 	/* Moving on to the styling, we'll start with the main progress bar first and then the value part of it. After that, we'll do some experiments :D */
 	.wrapper {
-		background: #1e1e1e;
+		background: #2a2a2a;
 		padding:0 10px 8px 10px;
 		width: 100%;
 		margin-top: 0;
-		border-top:1px solid #111111;
+		/*border-top:1px solid #111111;*/
 	}
 	img#play-pause{
 		cursor:pointer;
@@ -20,7 +20,7 @@
 	}
 	.sound{
 		padding:0 5px;
-
+		cursor:pointer;
 	}
 
 	.fullscreen{
@@ -78,10 +78,10 @@
 
 	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
 
-div.progressbar{
+div#progressbar{
 	width:100%;height:12px;background:green;padding:1px;			
 }
-div.progressbar #current-progress{
+div#progressbar #current-progress{
 	width:10px;height:10px;background:#D0D0D0;			
 }
 
@@ -89,14 +89,7 @@ div.progressbar #current-progress{
 <div class="container page">
 <br/>
 	<div class="col-md-7">
-		<video  id="media-video" width="650" height="350" controls poster="/img/thumbnails/v1.png" preload="none">
-			<source src='/videos/movie.mp4' type='video/mp4'>
-			<source src='/videos/movie.webm' type='video/webm'>
-			<source src='/videos/movie.ogg' type='video/ogg'>
-			<source src='/videos/movie.mov' type='video/mov'>
-			<source src='/videos/movie.m4v' type='video/x-m4v'>
-			<source src='/videos/movie.3gp' type='video/3gpp'>
-		</video>
+		
 
 		{{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
 			 <button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
@@ -106,25 +99,31 @@ div.progressbar #current-progress{
 			<button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
 			<button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
 			<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
-			<div class="progressbar">
+			
+
+		<div class="wrapper">
+			<video  id="media-video" width="100%" height="400" controls poster="/img/thumbnails/v1.png" preload="none">
+				<source src='/videos/movie.mp4' type='video/mp4'>
+				<source src='/videos/movie.webm' type='video/webm'>
+				<source src='/videos/movie.ogg' type='video/ogg'>
+				<source src='/videos/movie.mov' type='video/mov'>
+				<source src='/videos/movie.m4v' type='video/x-m4v'>
+				<source src='/videos/movie.3gp' type='video/3gpp'>
+			</video>
+			<div id="progressbar">
 				<div id="current-progress">
 					
 				</div>
 			</div>
-
-		<div class="wrapper">
-			<progress id='progress-bar'  min="0" max="100" value="0"></progress>
+			{{-- <progress id='progress-bar'  min="0" max="100" value="0"></progress> --}}
 			
-			<span class="play">
-			<img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"></span>
+			<span class="play"><img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"/></span>
 			<span class="title">Vocabulary and Memory Test</span>
 			<span class="pull-right">
-				{{-- <span class="time">00:00 /  00:00</span> --}}
 				<span class="ctime time">00:00 / </span> 
 				<span class="ttime time">00:00</span>
-				<span class="sound"><img src="/img/icons/sound.png"></span>
-				<span ><img id='btn-fullscreen' title="Fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
-				<span class="glyphicon glyphicon-volume-down"></span>
+				<span class="sound" title="Audio"><img src="/img/icons/sound.png" id='mute-button' onclick='toggleMute("true");' /></span>
+				<span ><img id='fullscreen' title="fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
 		</div>
