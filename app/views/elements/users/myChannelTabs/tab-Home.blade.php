@@ -192,7 +192,7 @@
 				</div>
 			</div><!--subscription /.row-->
 			<div class="text-right">
-					<a href="" class="btn btn-info">SEE ALL SUBSCRIPTIONS</a>
+				<a href="" class="btn btn-info">SEE ALL SUBSCRIPTIONS</a>
 			</div>
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
