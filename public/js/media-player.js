@@ -228,13 +228,14 @@ $('#mute-icon').hover(function(){
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
 	soundHover=false;
+	
 });
 $('.volume').mouseleave(function(){
 	if(soundHover==false){
 		$('.volume').fadeOut(1000);
 	}
-	
 });
+
 
 $('#volume-vertical').mousedown(function(e){
 	LetProcessYourVolume(e)
