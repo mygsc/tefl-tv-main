@@ -109,28 +109,74 @@
 			    <div class="tab-content">
 				  	<div role="tabpanel" class="tab-pane active" id="home">
 						@include('elements/users/myChannelTabs/tab-Home')
-				  	</div>
-				    <div role="tabpanel" class="tab-pane" id="Videos">
-				    	Videos
-				    </div>
+				  	</div>				    
+				    		
+				    		<div role="tabpanel" class="tab-pane" id="Videos">
+				    			@foreach($usersVideos as $usersVideo)
+						    		<div class="videos">
+						    			<div class="col-xs-6">
+					    				&nbsp;
+						    			<video  width="200" height="200" controls>
+						    	 		<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
+						    			</video>
+						    			<br/>
+						    			{{$usersVideo->title}}
+						    			<br/>
+						    			{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+					    			</div>
+					    			&nbsp;
+					    			</div>
+				    		@endforeach	
+				   	 </div>
+
 				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
 				    	My Favorites
 				    </div>
+
 				    <div role="tabpanel" class="tab-pane" id="WatchLater">
 				    	Watch Later
 				    </div>
+
 				    <div role="tabpanel" class="tab-pane" id="Playlists">
 				    	Playlists
 				    </div>
+
 				    <div role="tabpanel" class="tab-pane" id="Feedbacks">
 				    	Feedbacks
 				    </div>
+
 				    <div role="tabpanel" class="tab-pane" id="Subscribers">
-				    	Subscribers
+				    	
+								@foreach($subscriberLists as $subscriberList)
+									<div class="subscribers">
+										<div class="col-md-6">
+										<img src="/img/user/u1.png" class="userRep2">&nbsp;
+										<span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span>&nbsp;
+										<br/>&nbsp;
+										<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+										</div>
+									</div>
+								@endforeach
+							
 				    </div>
+
 				    <div role="tabpanel" class="tab-pane" id="Subscriptions">
-				    	Subscriptions
+				    	
+								@foreach($subscriptionLists as $SubscriptionList)
+									<div class="subscriptions">
+										<div class="col-md-6">
+										<img src="/img/user/u1.png" class="userRep2">&nbsp;
+										<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+										<br/>&nbsp;
+										<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+										<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+										</div>
+									</div>
+								@endforeach
+							
 				    </div>
+
 			  </div><!--/.tab-content-->
 
 			</div><!--/.tabpanel-->
