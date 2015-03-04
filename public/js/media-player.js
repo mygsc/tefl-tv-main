@@ -5,7 +5,6 @@ var mediaPlayer,
 	playPauseBtn,
  	muteBtn,
  	progressBar,
- 	btnFullscreen,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
  	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false,
  	updProgWidth = 0;
@@ -23,7 +22,6 @@ function GSCMediaPlayer() {
 	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
-	btnFullscreen = document.getElementById('fullscreen');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	// Hide the browser's default controls
 	mediaPlayer.controls = false;
@@ -202,11 +200,21 @@ function resetPlayer() {
 }
 
 function fullscreen(){
-var video = document.getElementById("media-video");
+// var opera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;//v8+
+// var firefox = typeof InstallTrigger !== 'undefined';//v1+
+// var safari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;//v3+
+// var chrome = !!window.chrome && !isOpera;//v1+
+// var ie = false || !!document.documentMode;   // At least IE6
+// if(opera == true){}
+// if(firefox == true){video.mozRequestFullScreen();}
+// if(safari == true){video.webkitEnterFullScreen();}
+// if(chrome == true){video.webkitEnterFullScreen();}
+// if(ie == true){}
+if (mediaPlayer.requestFullscreen){mediaPlayer.requestFullscreen();}
+if (mediaPlayer.msRequestFullscreen){mediaPlayer.msRequestFullscreen();}
+if (mediaPlayer.mozRequestFullScreen){mediaPlayer.mozRequestFullScreen();}
+if (mediaPlayer.webkitRequestFullscreen){mediaPlayer.webkitRequestFullscreen();}
 
-		//video.mozRequestFullScreen();	
-		//video.webkitEnterFullScreen();
-		video.webkitEnterFullScreen();
 }
 
 function showVolume(){
@@ -245,11 +253,18 @@ function LetProcessYourVolume(e){
 			return false;
 		}
 
-	// Update volume
+	// Update volume of CSS
 		$('#volume-vertical').css({'height' : mouseY+'px'});
 		$('#volume-button').css({'top' : (mouseY-($('#volume-button').height()/2))+'px'});
 
 	// Update your volume it's happening :)
 		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
 		volumeY = $('#volume-vertical').height() / $(this).height();
+
+		if($('#volume-vertical').height() < 15){
+			$('#volume-button').css({'background':'red'});
+			$('#volume-vertical').css('overflow','hidden');
+		}else{
+			$('#volume-button').css('background','#fff');
+		}
 }

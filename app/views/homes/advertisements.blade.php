@@ -80,7 +80,7 @@
 	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
 
 div#progressbar{
-	width:100%;height:12px;background:#337AB7;padding:1px;			
+	width:100%;height:12px;background:#337AB7;padding:1px;overflow: hidden;		
 }
 div#progressbar #current-progress{
 	width:0px;height:10px;background:#D0D0D0;			
@@ -90,7 +90,7 @@ div#progressbar #current-progress{
 	background:#2a2a2a;padding: 8px 8px 8px 8px;cursor: default;
 }
 #volume-vertical{
-	width:6.5px;
+	width:100%;
 	height:100%;
 	background: #337AB7;
 	border-radius:10px;
@@ -168,7 +168,7 @@ div.volume div.volume-static-holder{
 					</div>
 
 				</span>
-				<span ><img id='fullscreen' title="fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
+				<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
 		</div>
