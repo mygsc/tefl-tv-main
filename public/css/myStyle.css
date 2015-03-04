@@ -1056,13 +1056,13 @@ Main components
 
 /*============= My Channel Styles ============== */
 .infoCounts{
-    float:right;
+    float:left;
   }
   .infoCounts label{
     display: inline-block;
     font-size: 1.2em;
-    margin-left: 50px;
-    color: #464645;
+    margin-right: 50px;
+    color: #181818;
 
   }
   .channelName {

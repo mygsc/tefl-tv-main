@@ -1,64 +1,149 @@
 @extends('layouts.default')
 
-
 @section('content')
-	<div class="container page">
+
+
+<div class="container page">
 	<br/>
 	<div class="row">
 		<div style="border:5px solid #8b9dc1;" class="shadow">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
-					<img src="/img/user/u4.png" class="pic-Dp">
+					{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 				</div>
 			</div>
 			<div class="col-md-10">
 				<div class="row">
 
+					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
+						<div class="">
+							<div class="overlay-cover">
+								<span class="infoCounts">
+									<label>12k Subscribers</label>
+									<label>100 Videos</label> &nbsp;
+									<label>13k Views</label>
+								</span>
+								
 
-	{{ Form::open()}}
-		{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt')}}
-		<br>
-		{{Form::label('website', 'website: ')}} {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website', 'disabled'))}}
-		<br>
-		{{Form::label('organization', 'Organization: ')}} {{Form::text('organization', Auth::User()->organization, array('placeholder' => 'website', 'disabled'))}}
-		<br>
-		{{Form::label('interests', 'Interests: ')}}	{{Form::textarea('interests',$usersChannel->interests, array('placeholder' => 'Interests', 'disabled'))}}
-		<br>
-		{{Form::label('first_name', 'Firstname: ')}} {{ Form::text('first_name',$usersChannel->first_name, array('placeholder' => 'Firstname', 'disabled'))}}
-		<br>
-		{{Form::label('last_name', 'Lastname: ')}} {{ Form::text('last_name', $usersChannel->last_name, array('placeholder' => 'Lastname', 'disabled'))}}
-		<br>
-		{{ Form::label('contact_number', 'Contact Number: ')}} {{ Form::text('contact_number', $usersChannel->contact_number, array('placeholder' => 'Contact Number', 'disabled'))}}
-		<br>
-		{{ Form::label('address', 'Address: ')}} {{ Form::text('address', $usersChannel->address, array('placeholder' => 'address', 'disabled'))}}
-		<br>
-		{{Form::label('work', 'Work: ')}} {{Form::text('work', $usersChannel->work, array('placeholder' => 'Work', 'disabled'))}}
-		<br>
-		{{Form::label('birthdate', 'Birthdate: ')}} {{Form::text('birthdate', $usersChannel->birthdate, array('placeholder' => 'Birthdate', 'disabled'))}}
-		<br>
-		{{Form::label('zip_code', 'Zip Code: ')}} {{Form::text('zip_code', $usersChannel->zip_code, array('placeholder' => 'Zip Code', 'disabled'))}}
-		<br>
-	{{ Form::close()}}
+								<span class="pull-right" >
 
-	<div id="videos">
-		<h1>Videos</h1>
-		@foreach($usersVideos as $userVideo)
-			<video controls src="/videos/{{$userVideo->file_name}}.{{$userVideo->extension}}" type="video/mp4">Video</video>
-		@endforeach
-	</div>
+									<a href=""><img src="/img/icons/fb.png"></a>
+									<a href=""><img src="/img/icons/tr.png"></a>
+									<a href=""><img src="/img/icons/gp.png"></a>
+									<a href=""><img src="/img/icons/yt.png"></a>
+									<a href=""><img src="/img/icons/wl.png"></a>
+ 	
+									<button class="btn btn-primary" style="margin-top:5px;">Subscribe</button>
+								</span>	
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
 
-	<div id="subscriber">
-		<h3>Subscriber</h3>
-		@foreach($subscriberLists as $subscriberList )
-			{{$subscriberList->first_name . ' ' . $subscriberList->last_name}}<br>
-		@endforeach
-	</div>
 
-	<div id="subscription">
-		<h3>Subscription</h3>
-		@foreach($subscriptionLists as $subscriptionList)
-			{{$subscriptionList[0]['first_name'] .' '. $subscriptionList[0]['last_name']}}<br>
-		@endforeach
-	</div>
 
+			
+			<div class="c-about" style="padding:10px 10px;margin-top:0;">
+				<div class="labelThis">
+					{{Auth::User()->channel_name}}
+				</div>
+				<ul class="nav nav-tabs" role="tablist inline">
+			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
+			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
+				</ul>
+				<div class="tab-content inline">
+			  	<div role="tabpanel" class="tab-pane active" id="about">
+						<div class="" style="margin-top:20px;">
+							<p>
+								{{$usersChannel->interests}}
+							</p>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="learn">
+						<div class="" style="margin-top:20px;">
+							Fullname: {{$usersChannel->first_name}} {{$usersChannel->last_name}}
+							<br>
+							Websites: {{Auth::User()->website}}
+							<br>
+							Organizations: {{Auth::User()->organiztion}}
+							<br>
+							Work: {{$usersChannel->work}}
+							<br>
+							Birthdate: {{$usersChannel->birthdate}}
+							<br>
+							Contact Number: {{$usersChannel->contact_number}}
+							<br>
+							Address: {{$usersChannel->address}}
+							<br>
+							City: {{$usersChannel->city}}
+							<br>
+							State: {{$usersChannel->state}}
+							<br>
+							Zip Code: {{$usersChannel->zip_code}}
+							<br>
+							Country: {{$usersChannel->country_id}}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<br/>
+		<div class="shadow Div-channel-border">
+
+			<div role="tabpanel">
+			  <!-- Nav tabs -->
+			 	<ul class="nav nav-tabs" role="tablist">
+			    	<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+			    	<li role="presentation"><a href="#Videos" aria-controls="Videos" role="tab" data-toggle="tab">Videos</a></li>
+			    	<li role="presentation"><a href="#MyFavorites" aria-controls="MyFavorites" role="tab" data-toggle="tab">My Favorites</a></li>
+			    	<li role="presentation"><a href="#WatchLater" aria-controls="WatchLater" role="tab" data-toggle="tab">Watch Later</a></li>
+			  		<li role="presentation"><a href="#Playlists" aria-controls="Playlists" role="tab" data-toggle="tab">Playlists</a></li>
+			  		<li role="presentation"><a href="#Feedbacks" aria-controls="Feedbacks" role="tab" data-toggle="tab">Feedbacks</a></li>
+			  		<li role="presentation"><a href="#Subscribers" aria-controls="Subscribers" role="tab" data-toggle="tab">Subscribers</a></li>
+			  		<li role="presentation"><a href="#Subscriptions" aria-controls="Subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+			  	</ul><!--tabNav-->
+
+			  	<!-- Tab panes -->
+			    <div class="tab-content">
+				  	<div role="tabpanel" class="tab-pane active" id="home">
+						@include('elements/users/myChannelTabs/tab-Home')
+				  	</div>
+				    <div role="tabpanel" class="tab-pane" id="Videos">
+				    	Videos
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
+				    	My Favorites
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="WatchLater">
+				    	Watch Later
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="Playlists">
+				    	Playlists
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="Feedbacks">
+				    	Feedbacks
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="Subscribers">
+				    	Subscribers
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="Subscriptions">
+				    	Subscriptions
+				    </div>
+			  </div><!--/.tab-content-->
+
+			</div><!--/.tabpanel-->
+				
+		</div>
+	</div><!--/.contentpadding-->
+	<br/>
+</div><!--/.container page-->
+
+@stop
+
+
+
+
+	
 @stop

@@ -56,60 +56,19 @@
 				Videos
 			</div>
 			<br/>
+
 			<div class="col-md-4">
-				<img src="/img/thumbnails/v3.png" class="h-video">
+			@foreach($usersVideos as $usersVideo)
+				<video controls src="public/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}"></video>
 				<div class="v-Info">
 					5 Ways to improve your English
 				</div>
 				<div class="count">
 					55 Views, 40 Likes
 				</div>
+			@endforeach
 			</div>
-			<div class="col-md-4">
-				<img src="/img/thumbnails/v4.png" class="h-video">
-				<div class="v-Info">
-					5 Ways to improve your English
-				</div>
-				<div class="count">
-					55 Views, 40 Likes
-				</div>
-			</div>
-			<div class="col-md-4">
-				<img src="/img/thumbnails/v5.png" class="h-video">
-				<div class="v-Info">
-					5 Ways to improve your English
-				</div>
-				<div class="count">
-					55 Views, 40 Likes
-				</div>
-			</div>
-			<div class="col-md-4">
-				<img src="/img/thumbnails/v3.png" class="h-video">
-				<div class="v-Info">
-					5 Ways to improve your English
-				</div>
-				<div class="count">
-					55 Views, 40 Likes
-				</div>
-			</div>
-			<div class="col-md-4">
-				<img src="/img/thumbnails/v3.png" class="h-video">
-				<div class="v-Info">
-					5 Ways to improve your English
-				</div>
-				<div class="count">
-					55 Views, 40 Likes
-				</div>
-			</div>
-			<div class="col-md-4">
-				<img src="/img/thumbnails/v3.png" class="h-video">
-				<div class="v-Info">
-					5 Ways to improve your English
-				</div>
-				<div class="count">
-					55 Views, 40 Likes
-				</div>
-			</div>
+			
 			<div class="text-right">
 				<a href="" class="btn btn-info">SEE ALL VIDEOS</a>
 			</div>
@@ -195,26 +154,15 @@
 			<br/>
 			<div class="row">
 				<div class="col-md-6">
+						@foreach($subscriberLists as $subscriberList)
 					<div class="row user-padding">
-
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>Mark David</b></span>&nbsp;
+						<span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span>&nbsp;
 						<br/>&nbsp;
 						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
-
 					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="row user-padding">
-
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>Mark David</b></span>&nbsp;
-						<br/>&nbsp;
-						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-						<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
-
-					</div>
+						@endforeach
 				</div>
 			</div>
 			<div class="text-right">
@@ -232,24 +180,16 @@
 			<br/>
 			<div class="row">
 				<div class="col-md-6">
+				@foreach($subscriptionLists as $SubscriptionList)
 					<div class="row user-padding">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>Mark David</b></span>&nbsp;
+						<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
 						<br/>&nbsp;
 						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 						<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
-
 					</div>
+					@endforeach
 				</div>
-				<div class="col-md-6">
-					<div class="row user-padding">
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>Mark David</b></span>&nbsp;
-						<br/>&nbsp;
-						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-						<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
-					</div>
-				</div>	
 			</div><!--subscription /.row-->
 			<div class="text-right">
 					<a href="" class="btn btn-info">SEE ALL SUBSCRIPTIONS</a>
