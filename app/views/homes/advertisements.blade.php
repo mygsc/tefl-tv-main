@@ -11,6 +11,9 @@
 		margin-top: 0;
 		border-top:1px solid #111111;
 	}
+	img#play-pause{
+		cursor:pointer;
+	}
 	.play{
 		padding:0 5px;
 		margin-right: 10px;
@@ -22,7 +25,7 @@
 
 	.fullscreen{
 		padding:0 5px;
-
+		cursor:pointer;
 	}
 	
 	.time{
@@ -53,13 +56,12 @@
 	}
 
 	/* All good till now. Now we'll style the background */
-	progress::-webkit-progress-bar {
+	progress::-webkit-progress-bar{
 		background: black;
 		border-radius: 3px;
 		padding: 3px;
 		height: 10px;
 	}
-
 	/* Now the value part */
 	progress::-webkit-progress-value {
 		border-radius: 3px;
@@ -76,25 +78,53 @@
 
 	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
 
-
+div.progressbar{
+	width:100%;height:12px;background:green;padding:1px;			
+}
+div.progressbar #current-progress{
+	width:10px;height:10px;background:#D0D0D0;			
+}
 
 </style>
 <div class="container page">
 <br/>
 	<div class="col-md-7">
-		<!--replace image with video-->
-		<img src="/img/thumbnails/v1.png">
-		<!--/replace-->
+		<video  id="media-video" width="650" height="350" controls poster="/img/thumbnails/v1.png" preload="none">
+			<source src='/videos/movie.mp4' type='video/mp4'>
+			<source src='/videos/movie.webm' type='video/webm'>
+			<source src='/videos/movie.ogg' type='video/ogg'>
+			<source src='/videos/movie.mov' type='video/mov'>
+			<source src='/videos/movie.m4v' type='video/x-m4v'>
+			<source src='/videos/movie.3gp' type='video/3gpp'>
+		</video>
+
+		{{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
+			 <button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
+			<button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
+			<button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
+			<button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
+			<button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
+			<button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
+			<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
+			<div class="progressbar">
+				<div id="current-progress">
+					
+				</div>
+			</div>
 
 		<div class="wrapper">
-			<progress value="60" max="100"></progress>
+			<progress id='progress-bar'  min="0" max="100" value="0"></progress>
+			
 			<span class="play">
-			<img src="/img/icons/play.png"></span>
+			<img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"></span>
 			<span class="title">Vocabulary and Memory Test</span>
 			<span class="pull-right">
-				<span class="time">6:05 /  10:00</span>
+				{{-- <span class="time">00:00 /  00:00</span> --}}
+				<span class="ctime time">00:00 / </span> 
+				<span class="ttime time">00:00</span>
 				<span class="sound"><img src="/img/icons/sound.png"></span>
-				<span class="fullscreen"><img src="/img/icons/fullscreen.png"></span>
+				<span ><img id='btn-fullscreen' title="Fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
+				<span class="glyphicon glyphicon-volume-down"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
 		</div>
@@ -102,4 +132,7 @@
 </div>
 
 
+@stop
+@section('script')
+	{{HTML::script('js/media-player.js')}}
 @stop
