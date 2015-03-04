@@ -74,6 +74,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('changepassword', array('as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
 	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
 	Route::get('recommendedvideos', array('as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
+	Route::post('recommendedvideos', array('as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
 });
 //**********ADMIN**********//
 
