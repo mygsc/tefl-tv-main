@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, 
 var mediaPlayer,
 	playPauseBtn,
  	muteBtn,
- 	progressBar,
+ 	progressBar, soundHover = false, volumeHover = false,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
  	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false,
  	updProgWidth = 0;
@@ -221,11 +221,20 @@ function showVolume(){
 
 }
 $('#mute-icon').hover(function(){
-	$('.volume').fadeIn(1000);
+	soundHover=true;
+	if(soundHover==true){
+		$('.volume').fadeIn(1000);	
+	}	
 });
-// $('.volume').mouseout(function(){
-// 	$(this).fadeOut(2000);
-// });
+$('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
+	soundHover=false;
+});
+$('.volume').mouseleave(function(){
+	if(soundHover==false){
+		$('.volume').fadeOut(1000);
+	}
+	
+});
 
 $('#volume-vertical').mousedown(function(e){
 	LetProcessYourVolume(e)
