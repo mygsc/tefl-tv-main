@@ -23,23 +23,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $attempt;
 	}
 
-	public static $user_edit_rules = array(
+	public static $userEditRules = array(
 		'organization' => 'required',
-		'first_name' => 'required',
-		'last_name' => 'required',
-		'contact_number' => 'required',
+		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
+		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
+		'contact_number' => 'required|regex:/(^[0-9]+$)+/',
 		'address' => 'required',
 		'birthdate' => 'required');
 
-	public static $user_rules = array(
-		'email' => 'required|email',
-		'channel_name' => 'required',
+	public static $userRules = array(
+		'email' => 'required|email|unique:users',
+		'channel_name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
 		'password' => 'required',
 		'confirm_password' =>'same:password',
-		'first_name' => 'required',
-		'last_name' => 'required');
+		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
+		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
+		'contact_number' => 'regex:/(^[0-9]+$)+/');
 
-	public static $user_login_rules = array('channel_name' => 'required', 'password' => 'required');
+	public static $userLoginRules = array('channel_name' => 'required', 'password' => 'required');
 
 	public static function getUserStatus($verified, $status, $role){
 		if($role != 1){
