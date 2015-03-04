@@ -2,38 +2,48 @@
 
 
 @section('content')
+	
+<div class="container page">
+    <br/> <br/>
 
-	{{ Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}
-		{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture'))}}
-		<br>
-		{{Form::label('website', 'website: ')}} {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
-		<br>
-		{{Form::label('organization', 'Organization: ')}} {{Form::text('organization', Auth::User()->organization, array('placeholder' => 'website'))}}
-		{{$errors->first('organization')}}
-		<br>
-		{{Form::label('interests', 'Interests: ')}}	{{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests'))}}
-		<br>
-		{{Form::label('first_name', 'Firstname: ')}} {{ Form::text('first_name',$userChannel->first_name, array('placeholder' => 'Firstname'))}}
-		{{$errors->first('first_name')}}
-		<br>
-		{{Form::label('last_name', 'Lastname: ')}} {{ Form::text('last_name', $userChannel->last_name, array('placeholder' => 'Lastname'))}}
-		{{$errors->first('last_name')}}
-		<br>
-		{{ Form::label('contact_number', 'Contact Number: ')}} {{ Form::text('contact_number', $userChannel->contact_number, array('placeholder' => 'Contact Number'))}}
-		{{$errors->first('contact_number')}}
-		<br>
-		{{ Form::label('address', 'Address: ')}} {{ Form::text('address', $userChannel->address, array('placeholder' => 'address'))}}
-		{{$errors->first('address')}}
-		<br>
-		{{Form::label('work', 'Work: ')}} {{Form::text('work', $userChannel->work, array('placeholder' => 'Work'))}}
-		<br>
-		{{Form::label('birthdate', 'Birthdate: ')}} {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate'))}}
-		{{$errors->first('birthdate')}}
-		<br>
-		{{Form::label('zip_code', 'Zip Code: ')}} {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
-		<br>
-		{{Form::submit('Save Changes')}}
-	{{ Form::close()}}
+    <div class="col-md-row">
+       <div class="wrapper-account">
+            <div class="well " style="margin-bottom:0;min-height:350px;">
+               <div class="row">
+
+                    <!-- tabs left -->
+                    <div class="tabbable tabs-left">
+                        <br/><br/>
+                        <ul class="nav nav-tabs" style="margin-left:-20px">
+                          <li class="active"><a href="#updateAccount" data-toggle="tab">Update Account</a></li>
+                          <li class=""><a href="#changePassword" data-toggle="tab">Change Password</a></li>
+                          <li class=""><a href="#changeEmail" data-toggle="tab">Chage Email</a></li>
+                        </ul>
+
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="updateAccount">
+                                @include('elements/users/accountSettingTabs/tab-editInfo')
+                            </div>
+
+
+                            <div class="tab-pane" id="changePassword">
+
+                                @include('elements/users/accountSettingTabs/tab-changePass')
+
+                            </div>
+
+                            <div class="tab-pane" id="changeEmail">
+                            	@include('elements/users/accountSettingTabs/tab-changeEmail')
+                            </div>
+                        </div><!--/.tabContent-->
+                    </div><!--/.tabbable tabs-left-->
+                </div><!--/.row-->
+            </div><!--/.well-->
+        </div><!--/.wrapperAccount-->
+        <br/>
+    </div><!--/.col-md-12-->
+</div><!--/.container row-->
 
 @stop
 
