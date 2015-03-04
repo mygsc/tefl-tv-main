@@ -6,7 +6,8 @@ var mediaPlayer,
  	muteBtn,
  	progressBar,
  	btnFullscreen,
- 	videoTimeLenght, $this = $(this),
+ 	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
+ 	volume,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
@@ -14,13 +15,12 @@ var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 
 function GSCMediaPlayer() {
-
+	
 	// Get a handle to the player
 	mediaPlayer = document.getElementById('media-video');
-	
 	// Get handles to each of the buttons and required elements
 	playPauseBtn = document.getElementById('play-pause');
-	muteBtn = document.getElementById('mute-button');
+	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
 	btnFullscreen = document.getElementById('fullscreen');
@@ -208,3 +208,13 @@ var video = document.getElementById("media-video");
 		//video.webkitEnterFullScreen();
 		video.webkitEnterFullScreen();
 }
+
+function showVolume(){
+
+}
+$('#mute-icon').hover(function(){
+	$('.volume').fadeIn(1000);
+});
+// $('.volume').mouseout(function(){
+// 	$(this).fadeOut(2000);
+// });
