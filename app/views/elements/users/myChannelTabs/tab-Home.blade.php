@@ -57,17 +57,23 @@
 			</div>
 			<br/>
 
-			<div class="col-md-4">
+			
 			@foreach($usersVideos as $usersVideo)
-				<video controls src="public/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}"></video>
+			<div class="col-md-4">
+				<div class="v-videos">
+					<video controls width="200" height="200">
+					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+					</video>
+				</div>
 				<div class="v-Info">
-					5 Ways to improve your English
+					{{$usersVideo->title}}
 				</div>
 				<div class="count">
-					55 Views, 40 Likes
+					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 				</div>
-			@endforeach
 			</div>
+			@endforeach
+	
 			
 			<div class="text-right">
 				<a href="" class="btn btn-info">SEE ALL VIDEOS</a>
