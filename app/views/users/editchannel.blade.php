@@ -11,26 +11,26 @@
 		{{Form::label('organization', 'Organization: ')}} {{Form::text('organization', Auth::User()->organization, array('placeholder' => 'website'))}}
 		{{$errors->first('organization')}}
 		<br>
-		{{Form::label('interests', 'Interests: ')}}	{{Form::textarea('interests',$user_channel->interests, array('placeholder' => 'Interests'))}}
+		{{Form::label('interests', 'Interests: ')}}	{{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests'))}}
 		<br>
-		{{Form::label('first_name', 'Firstname: ')}} {{ Form::text('first_name',$user_channel->first_name, array('placeholder' => 'Firstname'))}}
+		{{Form::label('first_name', 'Firstname: ')}} {{ Form::text('first_name',$userChannel->first_name, array('placeholder' => 'Firstname'))}}
 		{{$errors->first('first_name')}}
 		<br>
-		{{Form::label('last_name', 'Lastname: ')}} {{ Form::text('last_name', $user_channel->last_name, array('placeholder' => 'Lastname'))}}
+		{{Form::label('last_name', 'Lastname: ')}} {{ Form::text('last_name', $userChannel->last_name, array('placeholder' => 'Lastname'))}}
 		{{$errors->first('last_name')}}
 		<br>
-		{{ Form::label('contact_number', 'Contact Number: ')}} {{ Form::text('contact_number', $user_channel->contact_number, array('placeholder' => 'Contact Number'))}}
+		{{ Form::label('contact_number', 'Contact Number: ')}} {{ Form::text('contact_number', $userChannel->contact_number, array('placeholder' => 'Contact Number'))}}
 		{{$errors->first('contact_number')}}
 		<br>
-		{{ Form::label('address', 'Address: ')}} {{ Form::text('address', $user_channel->address, array('placeholder' => 'address'))}}
+		{{ Form::label('address', 'Address: ')}} {{ Form::text('address', $userChannel->address, array('placeholder' => 'address'))}}
 		{{$errors->first('address')}}
 		<br>
-		{{Form::label('work', 'Work: ')}} {{Form::text('work', $user_channel->work, array('placeholder' => 'Work'))}}
+		{{Form::label('work', 'Work: ')}} {{Form::text('work', $userChannel->work, array('placeholder' => 'Work'))}}
 		<br>
-		{{Form::label('birthdate', 'Birthdate: ')}} {{Form::text('birthdate', $user_channel->birthdate, array('placeholder' => 'Birthdate'))}}
+		{{Form::label('birthdate', 'Birthdate: ')}} {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate'))}}
 		{{$errors->first('birthdate')}}
 		<br>
-		{{Form::label('zip_code', 'Zip Code: ')}} {{Form::text('zip_code', $user_channel->zip_code, array('placeholder' => 'Zip Code'))}}
+		{{Form::label('zip_code', 'Zip Code: ')}} {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
 		<br>
 		{{Form::submit('Save Changes')}}
 	{{ Form::close()}}
