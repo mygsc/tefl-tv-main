@@ -26,9 +26,16 @@
                     <ul class="ctgryNav" >
                         <li>
                             @if(Auth::check())
-                                {{link_to_route('users.signout', 'Sign-out', null, array('class' => 'btn btn-info whiteC accntbtn'))}}
-                                {{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name, array('class' => 'btn btn-info whiteC accntbtn'))}}
-                                {{link_to_route('users.edit.channel', 'Edit Channel', Auth::User()->channel_name, array('class' => 'btn btn-info whiteC accntbtn'))}}
+                                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle btn btn-info whiteC accntbtn" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Account<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</li>
+                                    <li>{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
+                                    <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
+                                </ul>
+
                             @else
                                 {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
                             @endif

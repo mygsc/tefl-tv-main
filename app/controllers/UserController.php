@@ -15,7 +15,7 @@ class UserController extends BaseController {
 	public function postSignIn() {
 
 		$input = Input::all();
-		$validate = Validator::make($input, User::$user_login_rules);
+		$validate = Validator::make($input, User::$userLoginRules);
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
 		}else{
@@ -36,7 +36,7 @@ class UserController extends BaseController {
 	public function postSignUp() {
 
 		$input = Input::all();
-		$validate = Validator::make($input, User::$user_rules);
+		$validate = Validator::make($input, User::$userRules);
 		
 		if($validate->passes()){
 			return $this->User->signup();
@@ -101,14 +101,16 @@ class UserController extends BaseController {
 	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
+
 		$usersVideos = User::find(3)->video;
-		
-		
+
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
 		foreach($subscribers as $a) {
 			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
 			$subscriberLists []= $subscribed;
 		}
+
+
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
@@ -155,14 +157,14 @@ class UserController extends BaseController {
 
 	public function getEditUsersChannel() {
 
-		$user_channel = UserProfile::find(Auth::User()->id);
-		return View::make('users.editchannel', compact('user_channel'));
+		$userChannel = UserProfile::find(Auth::User()->id);
+		return View::make('users.editchannel', compact('userChannel'));
 	}
 
 	public function postEditUsersChannel($channel_name) {
 
 		$input = Input::all();
-		$validate = Validator::make($input, User::$user_edit_rules);
+		$validate = Validator::make($input, User::$userEditRules);
 
 		if($validate->passes()){
 
@@ -171,24 +173,35 @@ class UserController extends BaseController {
 		$user->organization = Input::get('organization');
 		$user->save();
 
-		$user_channel = UserProfile::find(Auth::User()->id);
-		$user_channel->first_name = Input::get('first_name');
-		$user_channel->last_name = Input::get('last_name');
-		$user_channel->contact_number = Input::get('contact_number');
-		$user_channel->address = Input::get('address');
-		$user_channel->interests = Input::get('interests');
-		$user_channel->work = Input::get('work');
-		$user_channel->birthdate = Input::get('birthdate');
-		$user_channel->city = Input::get('city');
-		$user_channel->state = Input::get('state');
-		$user_channel->zip_code = Input::get('zip_code');
-		$user_channel->save();
+		$userChannel = UserProfile::find(Auth::User()->id);
+		$userChannel->first_name = Input::get('first_name');
+		$userChannel->last_name = Input::get('last_name');
+		$userChannel->contact_number = Input::get('contact_number');
+		$userChannel->address = Input::get('address');
+		$userChannel->interests = Input::get('interests');
+		$userChannel->work = Input::get('work');
+		$userChannel->birthdate = Input::get('birthdate');
+		$userChannel->city = Input::get('city');
+		$userChannel->state = Input::get('state');
+		$userChannel->zip_code = Input::get('zip_code');
+		$userChannel->save();
 		}else{
 			return Redirect::route('users.edit.channel', $channel_name)->withErrors($validate);
 		}
 
 		return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully updated your channel!');
 
+	}
+
+	public function getMyVideos() {
+
+		return View::make('');
+	}
+
+
+	public function getAccountSettings() {
+
+		return View::make('users.accountsettings');
 	}
 
 }

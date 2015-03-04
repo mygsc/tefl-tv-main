@@ -33,13 +33,14 @@ class AdminController extends BaseController {
 		if($validate->fails()) {
 		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		}
-		$adminInfo = User::where('email', Input::get('email'))->firstOrFail();
+		$adminInfo = User::where('email', Input::get('email'))->first();
+		if(!isset($adminInfo)) return Redirect::route('get.admin.resetpassword')->withInput()->withFlashMessage('Invalid email address. Please try again!');
 		if(Admin::sendResetPasswordMail($adminInfo)) return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 	}
 
 	public function getPwdReset($token){
 		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
-		$adminInfo = User::where('remember_token', $token)->first();
+		$adminInfo = User::where('token', $token)->first();
 		if(isset($adminInfo)) return View::make('admins.pwdreset', compact('adminInfo'));
 		return Redirect::route('get.admin.resetpassword')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
 	}
@@ -61,5 +62,10 @@ class AdminController extends BaseController {
 		$user = User::where('id', Auth::User()->id)->first();
 		Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $Input::get('password'));
 		return Redirect::route('get.admin.changepassword')->withInput()->withFlashMessage('Incorrect current password. Please try again.');
+	}
+
+	public function getRecommendedVideos(){
+		$videos = Video::all();
+		return View::make('admins.recommendedvideos', compact('videos'));
 	}
 }
