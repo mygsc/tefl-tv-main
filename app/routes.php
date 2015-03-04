@@ -36,14 +36,16 @@ Route::group(array('prefix' => '/'), function() {
 	Route::any('watch-video', array('as' => 'homes.watch-video', 'uses' => 'VideoController@watchVideo'));
 });
 
-//**********USERS**********//
-Route::group(array('prefix' => 'users'), function() {
+//**********Channels**********//
+Route::group(array('prefix' => 'channels'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('channel/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	Route::get('/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 });
+//*********End of Channels************//
+
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
@@ -53,7 +55,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 
 });
-//*********End of User************//
+
 
 
 //**********ADMIN**********//
