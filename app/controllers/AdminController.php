@@ -70,6 +70,7 @@ class AdminController extends BaseController {
 	}
 	public function postRecommendedVideos(){
 		$input = Input::all();
-		dd($input->recommended);
+		dd(count($input['recommended']));
+		dd($input['recommended']);
 	}
 }
