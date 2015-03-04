@@ -191,4 +191,15 @@ class UserController extends BaseController {
 
 	}
 
+	public function getMyVideos() {
+
+		return View::make('');
+	}
+
+
+	public function getAccountSettings() {
+
+		return View::make('users.accountsettings');
+	}
+
 }

@@ -42,7 +42,10 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
 	Route::get('/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
-	Route::post('channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::post('/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+
+	Route::get('/account-settings', array('as' => 'users.account-settings', 'uses' => 'UserController@getAccountSettings'));
 });
 //*********End of Channels************//
 
