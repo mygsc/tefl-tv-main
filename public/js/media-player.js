@@ -7,7 +7,7 @@ var mediaPlayer,
  	progressBar,
  	btnFullscreen,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
- 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY,
+ 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
@@ -226,6 +226,14 @@ $('#volume-vertical').mousedown(function(e){
 $('.volume-static-holder').mousedown(function(e){
 	LetProcessYourVolume(e);
 });
+
+// $('#volume-button').mousedown(function(e){
+// 	volumeDrag = true;
+// 	if(volumeDrag==true){
+// 		LetProcessYourVolume(e);
+// 	}
+	
+// });
 
 function LetProcessYourVolume(e){
 	volumeClick = true;
