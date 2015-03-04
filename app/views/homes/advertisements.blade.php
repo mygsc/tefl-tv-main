@@ -108,7 +108,7 @@ div#progressbar #current-progress{
 	background: red;
 	cursor: pointer;
 }
-div.volume div.static-holder{
+div.volume div.volume-static-holder{
 	border:1px solid #fff;
 	background: transparent;
 	width:9px;
@@ -157,7 +157,7 @@ div.volume div.static-holder{
 				<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 					<div class="volume" style="display:none">
 						{{-- <span style="position:absolute;top:0;color:#fff;">+</span>  --}}
-								<div class="static-holder">
+								<div class="volume-static-holder">
 									<div id="volume-vertical">
 										<div id="volume-button"> 
 										</div>

@@ -7,7 +7,7 @@ var mediaPlayer,
  	progressBar,
  	btnFullscreen,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
- 	volume,
+ 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
@@ -218,3 +218,30 @@ $('#mute-icon').hover(function(){
 // $('.volume').mouseout(function(){
 // 	$(this).fadeOut(2000);
 // });
+
+$('#volume-vertical').mousedown(function(e){
+	LetProcessYourVolume(e)
+});
+
+$('.volume-static-holder').mousedown(function(e){
+	LetProcessYourVolume(e);
+});
+
+function LetProcessYourVolume(e){
+	volumeClick = true;
+	mouseY = $('.volume-static-holder').height() - (e.pageY - $('.volume-static-holder').offset().top);
+
+	// Return false if user tries to click outside volume area 
+		if(mouseY < 0 || mouseY > $(this).height()) {
+			volumeClick = false;
+			return false;
+		}
+
+	// Update volume
+		$('#volume-vertical').css({'height' : mouseY+'px'});
+		$('#volume-button').css({'top' : (mouseY-($('#volume-button').height()/2))+'px'});
+
+	// Update your volume it's happening :)
+		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
+		volumeY = $('#volume-vertical').height() / $(this).height();
+}
