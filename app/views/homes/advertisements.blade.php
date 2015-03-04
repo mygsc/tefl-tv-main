@@ -21,6 +21,7 @@
 	.sound{
 		padding:0 5px;
 		cursor:pointer;
+		position: relative;
 	}
 
 	.fullscreen{
@@ -79,12 +80,43 @@
 	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
 
 div#progressbar{
-	width:100%;height:12px;background:green;padding:1px;			
+	width:100%;height:12px;background:#337AB7;padding:1px;			
 }
 div#progressbar #current-progress{
-	width:10px;height:10px;background:#D0D0D0;			
+	width:0px;height:10px;background:#D0D0D0;			
 }
+.volume{
+	border-radius:15px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
+	background:#2a2a2a;padding: 8px 8px 8px 8px;cursor: default;
+}
+#volume-vertical{
+	width:6.5px;
+	height:100%;
+	background: #337AB7;
+	border-radius:10px;
+	position: absolute;
+	bottom: 0;
+}
+#volume-button{
+	width:100%;
+	height:15px;
+	background: #fff;
+	border-radius:10px;
+	cursor: pointer;
+}
+#volume-button:hover{
+	background: red;
+	cursor: pointer;
+}
+div.volume div.static-holder{
+	border:1px solid #fff;
+	background: transparent;
+	width:9px;
+	height: 100%;
+	border-radius:10px;
+	position: relative;
 
+}
 </style>
 <div class="container page">
 <br/>
@@ -122,7 +154,20 @@ div#progressbar #current-progress{
 			<span class="pull-right">
 				<span class="ctime time">00:00 / </span> 
 				<span class="ttime time">00:00</span>
-				<span class="sound" title="Audio"><img src="/img/icons/sound.png" id='mute-button' onclick='toggleMute("true");' /></span>
+				<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
+					<div class="volume" style="display:none">
+						{{-- <span style="position:absolute;top:0;color:#fff;">+</span>  --}}
+								<div class="static-holder">
+									<div id="volume-vertical">
+										<div id="volume-button"> 
+										</div>
+									</div>
+								</div>							
+							</span>
+						{{-- <span style="position:absolute;bottom:0;color:#fff;">-</span> --}}
+					</div>
+
+				</span>
 				<span ><img id='fullscreen' title="fullscreen" class="fullscreen" onclick='fullscreen();' src="/img/icons/fullscreen.png"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
