@@ -34,31 +34,32 @@ class AdminController extends BaseController {
 		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		}
 		$adminInfo = User::where('email', Input::get('email'))->firstOrFail();
-		//error handler
-
-		if(isset($adminInfo)){
-			Mail::send('emails.Auth.resetpassword', array('token' => $adminInfo->remember_token), function($message) {
-			 $message->to('r3mmel023@gmail.com', 'Graphics Studio Central')->subject('Forgot Password! - TEFLTV');
-			});
-			return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
-		}
-
+		if(Admin::sendResetPasswordMail($adminInfo)) return Redirect::route('admin.index')->withFlashMessage('Done! Please check your email.');
 	}
 
 	public function getPwdReset($token){
 		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
-		$adminInfo = User::where('remember_token', Input::get('token'))->firstOrFail();
-		if(isset($adminInfo)) return View::make('admins.changepassword');
-		return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
+		$adminInfo = User::where('remember_token', $token)->first();
+		if(isset($adminInfo)) return View::make('admins.pwdreset', compact('adminInfo'));
+		return Redirect::route('get.admin.resetpassword')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
 	}
-	public function postPwdReset($token){
-		
+	public function postPwdReset(){
+		$input = Input::all();
+		$validate = Validator::make($input, Admin::$pwdResetValidator);
+		if($validate->fails()) return Redirect::route('get.admin.pwdreset')->withInput()->withErrors($validate);
+		User::where('id', $input['user_id'])->update(['password' => Hash::make(Input::get('password'))]);
+		return Redirect::route('admin.index')->withFlashMessage('Password successfully changed!');
 	}
 
-	public function changepassword($token){
-		if(!isset($token)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!');
-		$adminInfo = User::where('remember_token', Input::get('token'))->firstOrFail();
-		if(isset($adminInfo)) return View::make('get.admins.changepassword');
-		return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try to reset your password again!'); //else
+	public function getChangePassword(){
+		return View::make('admins.changepassword');
+	}
+	public function postChangePassword(){
+		$input = Input::all();
+		$validate = Validator::make($input, Admin::$changepassword);
+		if($validate->fails()) return Redirect::route('get.admin.changepassword')->withInput()->withErrors($validate);
+		$user = User::where('id', Auth::User()->id)->first();
+		Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $Input::get('password'));
+		return Redirect::route('get.admin.changepassword')->withInput()->withFlashMessage('Incorrect current password. Please try again.');
 	}
 }

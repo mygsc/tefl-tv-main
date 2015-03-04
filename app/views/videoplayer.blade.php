@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title></title>
 	<link rel="stylesheet" href="">
-	{{--HTML::style('css/bootstrap.css')--}}
+	{{HTML::style('css/bootstrap.css')}}
 	{{HTML::style('css/videoplayer.css')}}
 	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/gscvideoplayer.js')}}
@@ -26,8 +26,11 @@
 		<video width="700" height="400" poster="/img/thumbnails/v5.png">
 			<source src="/videos/movie.mp4" type="video/mp4">
 			<source src="/videos/movie.ogg" type="video/ogg">
-			<source src="/videos/movie.webm" type="video/webm">
+			<source src="/videos/movie.webm" type="video/webm">			
 		</video>
+
+				
+				
 		  
 	</div>
 		
