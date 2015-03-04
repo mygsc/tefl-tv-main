@@ -2,6 +2,7 @@
 
 
 @section('content')
+@include('elements/flash_verify')
 <div class='container page'>
 <br/>
 <!-- Sign In -->

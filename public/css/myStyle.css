@@ -522,8 +522,8 @@ img.user{
 .v-Info{
   width: 100%;
   font-size: 0.9em;
-  text-align: center;
-  color: #181b2e;
+  text-align: left;
+   color: #1870dc;'
   margin-bottom: 0;
   height: 25px;
   white-space: nowrap;
@@ -536,8 +536,8 @@ img.user{
   width: 100%;
   padding:0 3px 3px 3px;
   font-size: 0.9em;
-  text-align: center;
-  color: #1870dc;
+  text-align: left;
+  color: #181b2e;
   height: 25px;
   margin-top: 0!important;
 
@@ -1215,7 +1215,9 @@ Main components
   font-size: 1.0em;
 }
 
-
+.Subscribers{
+  margin-left: 20px!important;
+}
 
 
 

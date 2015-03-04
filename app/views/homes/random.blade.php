@@ -5,9 +5,10 @@
 @stop
 
 @section('content')
-	<div class="container">
+	<div class="container page">
 		<div class="col-md-12">
 			<div class="row">
+				<br/>
 				{{Form::open(array('route'=>'homes.post.random','id' => 'btnSubmit'))}}
 				{{Form::label('option', 'Randomize by')}}
 				{{Form::select('option', $options, Input::old('option'), array('id' => 'cmbOption'))}}
