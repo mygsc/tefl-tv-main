@@ -9,7 +9,7 @@
 		<div style="border:5px solid #8b9dc1;" class="shadow">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
-					<img src="/img/user/u4.png" class="pic-Dp">
+					{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 				</div>
 			</div>
 			<div class="col-md-10">
@@ -46,26 +46,47 @@
 			
 			<div class="c-about" style="padding:10px 10px;margin-top:0;">
 				<div class="labelThis">
-					Christina Miller
+					{{Auth::User()->channel_name}}
 				</div>
 				<ul class="nav nav-tabs" role="tablist inline">
 			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
 			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
 				</ul>
 				<div class="tab-content inline">
-				  	<div role="tabpanel" class="tab-pane active" id="about">
+			  	<div role="tabpanel" class="tab-pane active" id="about">
 						<div class="" style="margin-top:20px;">
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+								{{$usersChannel->interests}}
 							</p>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="learn">
 						<div class="" style="margin-top:20px;">
-						display info here
+							Fullname: {{$usersChannel->first_name}} {{$usersChannel->last_name}}
+							<br>
+							Websites: {{Auth::User()->website}}
+							<br>
+							Organizations: {{Auth::User()->organiztion}}
+							<br>
+							Work: {{$usersChannel->work}}
+							<br>
+							Birthdate: {{$usersChannel->birthdate}}
+							<br>
+							Contact Number: {{$usersChannel->contact_number}}
+							<br>
+							Address: {{$usersChannel->address}}
+							<br>
+							City: {{$usersChannel->city}}
+							<br>
+							State: {{$usersChannel->state}}
+							<br>
+							Zip Code: {{$usersChannel->zip_code}}
+							<br>
+							Country: {{$usersChannel->country_id}}
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 		<br/>

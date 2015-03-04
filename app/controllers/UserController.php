@@ -101,14 +101,16 @@ class UserController extends BaseController {
 	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
+
 		$usersVideos = User::find(3)->video;
-		
-		
+
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
 		foreach($subscribers as $a) {
 			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
 			$subscriberLists []= $subscribed;
 		}
+
+
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
@@ -189,6 +191,17 @@ class UserController extends BaseController {
 
 		return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully updated your channel!');
 
+	}
+
+	public function getMyVideos() {
+
+		return View::make('');
+	}
+
+
+	public function getAccountSettings() {
+
+		return View::make('users.accountsettings');
 	}
 
 }
