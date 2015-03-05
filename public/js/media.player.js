@@ -160,6 +160,7 @@ function updateProgressBar(response) {
 					if(updateTime == videoLenght) {		
 						playPauseBtn.src = "/img/icons/play.png";
 						videoPlaying=false;
+						$('.advertisement').fadeOut();
 					}
 					if(updateTime==10){
 						$('.advertisement').fadeIn(2000);
