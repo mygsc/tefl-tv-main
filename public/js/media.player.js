@@ -161,6 +161,9 @@ function updateProgressBar(response) {
 						playPauseBtn.src = "/img/icons/play.png";
 						videoPlaying=false;
 					}
+					if(updateTime==10){
+						$('.advertisement').fadeIn(2000);
+					}
 					
 	// Update the progress bar's text (for browsers that don't support the progress element)
 	//progressBar.innerHTML = percentage + '% played';

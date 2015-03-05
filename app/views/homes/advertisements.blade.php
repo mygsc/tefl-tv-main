@@ -159,6 +159,13 @@ div.volume div.volume-static-holder{
 #share-video{
 	cursor:pointer;
 }
+.advertisement{
+	position: absolute;
+	bottom: 60px;
+	background:rgba(42,42,42,0.9);
+	width: 100%;
+	height:100px;
+}
 </style>
 <div class="container page">
 <br/>
@@ -175,9 +182,8 @@ div.volume div.volume-static-holder{
 			<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
 			
 
-
 			<div class="row">
-				<video id="media-video" width="100%" controls poster="/img/thumbnails/v1.png" preload="none">
+				<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
 					<source src='/videos/movie.mp4' type='video/mp4'>
 					<source src='/videos/movie.webm' type='video/webm'>
 					<source src='/videos/movie.ogg' type='video/ogg'>
@@ -185,6 +191,10 @@ div.volume div.volume-static-holder{
 					<source src='/videos/movie.m4v' type='video/x-m4v'>
 					<source src='/videos/movie.3gp' type='video/3gpp'>
 				</video>
+				<div class="advertisement" style="display:none">
+						{{-- <img src="/img/ads.jpg" title="ADVERTISE HERE SAMPLE CONTENT" alt="">  --}}
+						<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
+				</div>
 
 			</div>
 			<div class="row" style="margin-top:-7px;">
@@ -195,7 +205,6 @@ div.volume div.volume-static-holder{
 						
 					</div>
 				</div>
-				{{-- <progress id='progress-bar'  min="0" max="100" value="0"></progress> --}}
 			
 			<span class="play"><img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"/></span>
 			<span class="title">Vocabulary and Memory Test</span>
