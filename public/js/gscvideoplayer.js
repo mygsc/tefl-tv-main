@@ -350,7 +350,7 @@
 						// Width of the progress button (a little button at the end of the progress bar)
 						var buttonWidth = $that.find('.progress-button').width();
 						
-						// Updated x posititon the user is at
+						// Updated x position the user is at
 						x = e.pageX - $that.find('.progress').offset().left;
 						
 						// If video is playing

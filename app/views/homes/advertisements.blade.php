@@ -80,10 +80,10 @@
 	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
 
 div#progressbar{
-	width:100%;height:12px;background:#337AB7;padding:1px;overflow: hidden;		
+	width:100%;height:12px;background:transparent;padding:1px;overflow: hidden;border:1px solid #337AB7;		
 }
 div#progressbar #current-progress{
-	width:0px;height:10px;background:#D0D0D0;			
+	width:0px;height:100%;background:#D0D0D0;			
 }
 .volume{
 	border-radius:15px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
@@ -154,17 +154,15 @@ div.volume div.volume-static-holder{
 			<span class="pull-right">
 				<span class="ctime time">00:00 / </span> 
 				<span class="ttime time">00:00</span>
+				
 				<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 					<div class="volume" style="display:none">
-						{{-- <span style="position:absolute;top:0;color:#fff;">+</span>  --}}
 								<div class="volume-static-holder">
 									<div id="volume-vertical">
 										<div id="volume-button"> 
 										</div>
 									</div>
 								</div>							
-							</span>
-						{{-- <span style="position:absolute;bottom:0;color:#fff;">-</span> --}}
 					</div>
 
 				</span>

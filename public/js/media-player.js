@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, 
 var mediaPlayer,
 	playPauseBtn,
  	muteBtn,
- 	progressBar, soundHover = false, volumeHover = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
- 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false,
+ 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
@@ -57,6 +57,7 @@ function togglePlayPause() {
 		changeButtonType(playPauseBtn, 'pause');
 		// Play the media
 		mediaPlayer.play();
+		videoPlaying = true;
 	}
 	// Otherwise it must currently be playing
 	else {
@@ -65,6 +66,7 @@ function togglePlayPause() {
 		playPauseBtn.src = "/img/icons/play.png";
 		// Pause the media
 		mediaPlayer.pause();
+		videoPlaying = false;
 	}
 }
 
@@ -228,6 +230,18 @@ $('#mute-icon').hover(function(){
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
 	soundHover=false;
+	// if ( typeof scrollFunc.x == 'undefined' ) {
+ //        scrollFunc.x=window.pageXOffset;
+ //        scrollFunc.y=window.pageYOffset;
+ //    }
+ //    var diffX=scrollFunc.x-window.pageXOffset;
+ //    var diffY=scrollFunc.y-window.pageYOffset;
+ //    if(diffY < 0){
+ //    	alert('down');
+ //    }
+ //    if(diffY > 0){
+ //    	alert('up');
+ //    }
 	
 });
 $('.volume').mouseleave(function(){
@@ -270,6 +284,7 @@ function LetProcessYourVolume(e){
 	// Update your volume it's happening :)
 		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
 		volumeY = $('#volume-vertical').height() / $(this).height();
+		
 
 		if($('#volume-vertical').height() < 15){
 			$('#volume-button').css({'background':'red'});
@@ -278,3 +293,15 @@ function LetProcessYourVolume(e){
 			$('#volume-button').css('background','#fff');
 		}
 }
+
+$('#progressbar').bind('mousedown', function(e) {			
+	progressbarClick = true;
+		if(videoPlaying == true) {
+			mediaPlayer.pause();
+		}
+	mouseX = e.pageX - $('#progressbar').offset().left;
+	currentTime = (mouseX / progWidth) * mediaPlayer.duration;
+	mediaPlayer.currentTime = currentTime;
+					
+});
+
