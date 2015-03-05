@@ -236,7 +236,7 @@ box-shadow:inset 0px 2px 13px #ffffff;
 					</div>
 				</div>
 			
-			<span class="play"><img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"/></span>
+			<span class="play"><img onclick='togglePlayPause();' id="play-pause" src="/img/icons/play.png"/></span>
 			<span class="title">Vocabulary and Memory Test</span>
 			<span class="pull-right">
 				<span class="ctime time">00:00 / </span> 

@@ -161,14 +161,13 @@ function updateProgressBar(response) {
 					if(updateTime == videoLenght) {		
 						playPauseBtn.src = "/img/icons/play.png";
 						videoPlaying=false;
+						currentTime = 0;
 						$('.advertisement').fadeOut();
 					}
 					if(updateTime==10){
 						$('.advertisement').fadeIn(2000);
 					}
-					
-	// Update the progress bar's text (for browsers that don't support the progress element)
-	//progressBar.innerHTML = percentage + '% played';
+		
 }
 
 // Updates a button's title, innerHTML and CSS class to a certain value
