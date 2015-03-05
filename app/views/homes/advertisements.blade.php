@@ -164,7 +164,7 @@ div.volume div.volume-static-holder{
 	bottom: 60px;
 	background:rgba(42,42,42,0.9);
 	width: 100%;
-	height:100px;
+	min-height:10px;
 }
 </style>
 <div class="container page">
