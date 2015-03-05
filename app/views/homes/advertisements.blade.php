@@ -7,8 +7,9 @@
 	.wrapper {
 		background: #2a2a2a;
 		padding:0 10px 8px 10px;
-		width: 100%;
+		width: 100%!Important;
 		margin-top: 0;
+		border-top: 1px solid #000;
 		/*border-top:1px solid #111111;*/
 	}
 	img#play-pause{
@@ -31,13 +32,13 @@
 	
 	.time{
 		color: #fff;
-		font-size: 1.0em;
+		font-size: 0.9em;
 		padding: 2px;
 	}
 
 	.title{
 		color: #b5daf9;
-		font-size: 1.0em;
+		font-size: 0.9em;
 		font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 		font-weight: normal!Important;
 
@@ -77,23 +78,24 @@
 
 	}
 
-	/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
+
 
 div#progressbar{
-	width:100%;height:12px;background:transparent;padding:1px;overflow: hidden;border:1px solid #337AB7;		
+	width:100%;height:10px;background:#111111;padding:1px;overflow: hidden;border:2px solid #131313;margin-top: 5px;
+	border-radius: 3px;	margin-bottom: 5px;
 }
 div#progressbar #current-progress{
-	width:0px;height:100%;background:#D0D0D0;			
+	width:0px;height:100%;background:#D0D0D0;border-radius: 2px;			
 }
 .volume{
-	border-radius:15px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
-	background:#2a2a2a;padding: 8px 8px 8px 8px;cursor: default;
+	border-radius:5px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
+	background:rgba(42,42,42,0.9);padding: 8px 8px 8px 8px;cursor: default;
 }
 #volume-vertical{
 	width:100%;
 	height:100%;
 	background: #337AB7;
-	border-radius:10px;
+	border-radius:2px;
 	position: absolute;
 	bottom: 0;
 }
@@ -121,10 +123,10 @@ div.volume div.volume-static-holder{
 <div class="container page">
 <br/>
 	<div class="col-md-7">
-		
+		<div class="">
 
 		{{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
-			 <button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
+			<button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
 			<button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
 			<button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
 			<button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
@@ -133,21 +135,25 @@ div.volume div.volume-static-holder{
 			<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
 			
 
-		<div class="wrapper">
-			<video  id="media-video" width="100%" height="400" controls poster="/img/thumbnails/v1.png" preload="none">
-				<source src='/videos/movie.mp4' type='video/mp4'>
-				<source src='/videos/movie.webm' type='video/webm'>
-				<source src='/videos/movie.ogg' type='video/ogg'>
-				<source src='/videos/movie.mov' type='video/mov'>
-				<source src='/videos/movie.m4v' type='video/x-m4v'>
-				<source src='/videos/movie.3gp' type='video/3gpp'>
-			</video>
-			<div id="progressbar">
-				<div id="current-progress">
-					
-				</div>
+			<div class="row">
+				<video id="media-video" width="100%" controls poster="/img/thumbnails/v1.png" preload="none">
+					<source src='/videos/movie.mp4' type='video/mp4'>
+					<source src='/videos/movie.webm' type='video/webm'>
+					<source src='/videos/movie.ogg' type='video/ogg'>
+					<source src='/videos/movie.mov' type='video/mov'>
+					<source src='/videos/movie.m4v' type='video/x-m4v'>
+					<source src='/videos/movie.3gp' type='video/3gpp'>
+				</video>
 			</div>
-			{{-- <progress id='progress-bar'  min="0" max="100" value="0"></progress> --}}
+			<div class="row" style="margin-top:-7px;">
+			<div class="wrapper">
+			
+				<div id="progressbar">
+					<div id="current-progress">
+						
+					</div>
+				</div>
+				{{-- <progress id='progress-bar'  min="0" max="100" value="0"></progress> --}}
 			
 			<span class="play"><img id="play-pause" onclick='togglePlayPause();' src="/img/icons/play.png"/></span>
 			<span class="title">Vocabulary and Memory Test</span>
@@ -157,18 +163,21 @@ div.volume div.volume-static-holder{
 				
 				<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 					<div class="volume" style="display:none">
-								<div class="volume-static-holder">
-									<div id="volume-vertical">
-										<div id="volume-button"> 
-										</div>
-									</div>
-								</div>							
+						<div class="volume-static-holder">
+							<div id="volume-vertical">
+								<div id="volume-button"> 
+								</div>
+							</div>
+						</div>							
 					</div>
-
 				</span>
 				<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
+				<span><img src="/img/icons/setting.png"></span>
+				<span><img src="/img/icons/share.png"></span>
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span>
+		</div>
+		</div>
 		</div>
 	</div>
 </div>

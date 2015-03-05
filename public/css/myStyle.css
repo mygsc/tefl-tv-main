@@ -521,7 +521,7 @@ img.user{
 }
 .v-Info{
   width: 100%;
-  font-size: 0.9em;
+  font-size:1.0em;
   text-align: left;
    color: #1870dc;'
   margin-bottom: 0;
@@ -1098,8 +1098,6 @@ Main components
   width:220px; 
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.8);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-  font-size:1.8em; 
-  font-family:Teko; 
   text-align:left;
   color:#167ac6;
   margin-top: -10px;
@@ -1107,6 +1105,11 @@ Main components
   line-height: 50px;
 
 }
+.subLabelThis span{
+  font-size: 1.8em;
+  font-family:Teko; 
+}
+
 .playlist-info{
   text-align: center;
   color: #dfdfdf;
@@ -1123,9 +1126,11 @@ Main components
 }
 
 .Div-channelSubSection{
-  height: 420px;
-  overflow: hidden;
+  min-height: 420px;
 
+}
+.Div-equalHeight{
+  display: table;
 }
 .overlay-cover{
   background:rgba(225,225,225,0.8);
@@ -1219,6 +1224,18 @@ Main components
   margin-left: 20px!important;
 }
 
+.ch-subsList .ch-infoList ul{
+  list-style: none;
+
+}
+.ch-infoList li{
+  margin-right: 30px;
+  display: inline-block;
+
+}
+.ch-subsList {
+  margin-right: 
+}
 /*=====Image Crop====*/
 div.crop-square img {
   width: 259.5%; /* calculate based on your original image... img-width*100/img-height */
