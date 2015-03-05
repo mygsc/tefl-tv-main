@@ -104,10 +104,10 @@ div#progressbar #current-progress{
 	border-radius:10px;
 	cursor: pointer;
 }
-#volume-button:hover{
+/*#volume-button:hover{
 	background: red;
 	cursor: pointer;
-}
+}*/
 div.volume div.volume-static-holder{
 	border:1px solid #fff;
 	background: transparent;
@@ -134,7 +134,7 @@ div.volume div.volume-static-holder{
 			
 
 		<div class="wrapper">
-			<video  id="media-video" width="100%" height="400" controls poster="/img/thumbnails/v1.png" preload="none">
+			<video  id="media-video" width="100%" height="400" controls poster="/img/thumbnails/v1.png" >
 				<source src='/videos/movie.mp4' type='video/mp4'>
 				<source src='/videos/movie.webm' type='video/webm'>
 				<source src='/videos/movie.ogg' type='video/ogg'>
@@ -176,5 +176,5 @@ div.volume div.volume-static-holder{
 
 @stop
 @section('script')
-	{{HTML::script('js/media-player.js')}}
+	{{HTML::script('js/media.player.js')}}
 @stop

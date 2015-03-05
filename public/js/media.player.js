@@ -155,7 +155,13 @@ function updateProgressBar(response) {
 					$('.ctime').html(minutes+':'+seconds+' / ');
 					$('.ttime').html(tminutes+':'+tseconds);
 					
-	
+					var updateTime = Math.round(videoCurrentTime);
+					var videoLenght = Math.round(mediaPlayer.duration);				
+					if(updateTime == videoLenght) {		
+						playPauseBtn.src = "/img/icons/play.png";
+						videoPlaying=false;
+					}
+					
 	// Update the progress bar's text (for browsers that don't support the progress element)
 	//progressBar.innerHTML = percentage + '% played';
 }
@@ -298,6 +304,7 @@ $('#progressbar').bind('mousedown', function(e) {
 	progressbarClick = true;
 		if(videoPlaying == true) {
 			mediaPlayer.pause();
+			playPauseBtn.src = "/img/icons/play.png";
 		}
 	mouseX = e.pageX - $('#progressbar').offset().left;
 	currentTime = (mouseX / progWidth) * mediaPlayer.duration;
