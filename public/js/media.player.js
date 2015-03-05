@@ -312,3 +312,14 @@ $('#progressbar').bind('mousedown', function(e) {
 					
 });
 
+$('#hd-setting').bind('click', function(){
+  $('.hd-setting').toggle('show');
+ $('.share-video').fadeOut();
+});
+
+$('#share-video').bind('click', function(){
+  $('.share-video').toggle('show');
+  $('.hd-setting').fadeOut();
+});
+
+
