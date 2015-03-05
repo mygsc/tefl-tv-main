@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, 
 
 var mediaPlayer,
 	playPauseBtn,
- 	muteBtn,
+ 	muteBtn, playIcon = false,
  	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
  	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
@@ -67,6 +67,7 @@ function togglePlayPause() {
 		// Pause the media
 		mediaPlayer.pause();
 		videoPlaying = false;
+		$('.play-icon').fadeIn(500);
 	}
 }
 
@@ -324,6 +325,22 @@ $('#hd-setting').bind('click', function(){
 $('#share-video').bind('click', function(){
   $('.share-video').toggle('show');
   $('.hd-setting').fadeOut();
+});
+
+$('.play-icon').bind('click', function(){
+	togglePlayPause();
+	if(playIcon==false){
+		$(this).fadeOut(500);
+		playIcon=true;
+	}else{$('.play-icon').fadeIn(500);}	
+});
+$('#media-video').bind('click', function(){
+	togglePlayPause();
+	if(playIcon==true){
+		$('.play-icon').fadeIn(500);
+		playIcon=false;
+	}else{$('.play-icon').fadeOut(500);playIcon=true;}
+	
 });
 
 

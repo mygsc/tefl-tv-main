@@ -166,6 +166,34 @@ div.volume div.volume-static-holder{
 	width: 100%;
 	min-height:10px;
 }
+ .play-icon{
+ 	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 50px;
+  	height: 26px;
+  	background:rgba(42,42,42,0.9);
+  	border-radius: 5px;
+  	padding: 5px;
+  	cursor: pointer;
+}.play-icon span{
+	color:#fff;
+	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	cursor: pointer;
+  	text-align:center;
+}.play-icon:hover{
+	-moz-box-shadow:inset 0px 2px 13px #ffffff;
+-webkit-box-shadow:inset 0px 2px 13px #ffffff;
+box-shadow:inset 0px 2px 13px #ffffff;
+}
 </style>
 <div class="container page">
 <br/>
@@ -192,8 +220,10 @@ div.volume div.volume-static-holder{
 					<source src='/videos/movie.3gp' type='video/3gpp'>
 				</video>
 				<div class="advertisement" style="display:none">
-						{{-- <img src="/img/ads.jpg" title="ADVERTISE HERE SAMPLE CONTENT" alt="">  --}}
 						<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
+				</div>
+				<div class="play-icon">
+					<span>&#9658;</span>
 				</div>
 
 			</div>
@@ -239,8 +269,8 @@ div.volume div.volume-static-holder{
 							<li> <a href="#">Facebook</a></li>
 							<li> <a href="#">Twitter</a></li>
 							<li> <a href="#">Instagram</a></li>
+							<li> <a href="#">Youtube</a></li>
 							<li> <a href="#">Gmail</a></li>
-							<li> <a href="#">Linkedin</a></li>
 						</ul>						
 					</div>
 
