@@ -191,19 +191,19 @@ textarea {
   color: #262626;
 }
 ::-webkit-input-placeholder {
- color: #002b69;
+   color: #61a2e4;
 }
 
 :-moz-placeholder { /* Firefox 18- */
- color: #002b69;  
+   color: #61a2e4;  
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
- color: #002b69;  
+   color: #61a2e4;  
 }
 
 :-ms-input-placeholder {  
- color: #002b69login;  
+   color: #61a2e4;  
 }
 p{
   color: #171717!important;
@@ -1218,6 +1218,13 @@ Main components
 .Subscribers{
   margin-left: 20px!important;
 }
+
+/*=====Image Crop====*/
+div.crop-square img {
+  width: 259.5%; /* calculate based on your original image... img-width*100/img-height */
+
+}
+
 
 
 

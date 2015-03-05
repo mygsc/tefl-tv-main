@@ -9,7 +9,9 @@
 		<div style="border:5px solid #8b9dc1;" class="shadow">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
-					{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					<div class="crop-square">
+						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					</div>
 				</div>
 			</div>
 			<div class="col-md-10">
