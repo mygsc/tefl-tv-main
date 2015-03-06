@@ -8,6 +8,9 @@
 	<div class="container">
 		<div class="col-md-12">
 			<div class="row">
+				@if(empty($videoResults))
+					No Video Found
+				@else
 				@foreach($videoResults as $video)
 					<div class="col-md-12">
 						Title: <a href="#">{{$video->title}}</a><br />
@@ -16,6 +19,7 @@
 						<br /><br />
 					</div>
 				@endforeach
+				@endif
 			</div>
 		</div>
 	</div>

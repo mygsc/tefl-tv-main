@@ -13,6 +13,10 @@
                     <div class="input-group">
                          {{ Form::open(array('route' => 'post.search-video'))}}
                          {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+                         {{ Form::select('type', array(
+                          'video' => 'video',
+                          'playlist' => 'playlist',
+                          'channel' => 'channel'))}}
                          <span class="input-group-btn">
                             {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
                             {{ Form::close()}}

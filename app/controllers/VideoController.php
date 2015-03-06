@@ -122,30 +122,37 @@ class VideoController extends Controller {
 	public function postSearchVideos(){
 		$input = Input::all();
 		
-		return Redirect::route('homes.searchresult', $input['search']);
+		return Redirect::route('homes.searchresult', array($input['type'],$input['search']));
 	}
 
-	public function getSearchResult($search){
-		$videoResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
-			INNER JOIN tags t ON vt.tag_id = t.id 
-			INNER JOIN videos v ON vt.video_id = v.id
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description)
-			AGAINST ("'.$search.'")
-			OR
-			MATCH(t.tags)
-			AGAINST("'.$search.'")
-			GROUP BY id
-			ORDER BY MATCH(v.title,v.description)
-			AGAINST ("'.$search.'")
-			OR
-			MATCH(t.tags)
-			AGAINST("'.$search.'")
-			');
+	public function getSearchResult($type = null,$search = null){
+		if($type == 'playlist'){
+			
 
-		foreach($videoResults as $key => $videoResult){
-			$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
-			$videoResults[$key]->tags = $videoInfo['tags'];
+		}else if($type == 'playlist'){
+
+		}else{
+			$videoResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
+				INNER JOIN tags t ON vt.tag_id = t.id 
+				INNER JOIN videos v ON vt.video_id = v.id
+				LEFT JOIN users u ON v.user_id = u.id
+				WHERE MATCH(v.title,v.description)
+				AGAINST ("'.$search.'")
+				OR
+				MATCH(t.tags)
+				AGAINST("'.$search.'")
+				GROUP BY id
+				ORDER BY MATCH(v.title,v.description)
+				AGAINST ("'.$search.'")
+				OR
+				MATCH(t.tags)
+				AGAINST("'.$search.'")
+				');
+
+			foreach($videoResults as $key => $videoResult){
+				$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
+				$videoResults[$key]->tags = $videoInfo['tags'];
+			}
 		}
 
 		return View::make('homes.searchresult', compact('videoResults'));
