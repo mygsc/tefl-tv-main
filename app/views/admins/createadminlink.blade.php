@@ -3,8 +3,8 @@
 @section('content')
 	<div class="container">
 		<center>
-		<h2>Reset Password</h2>	
-		{{ Form::open(array('route' => 'post.admin.resetpassword')) }}
+		<h2>Send registration link - Admin</h2>	
+		{{ Form::open(array('route' => 'post.admin.createadminlink')) }}
 			{{ Form::label('Email','Email')}}
 			<br>
 			{{ Form::text('email',null, array('placeholder' => 'Email Address'))}}
