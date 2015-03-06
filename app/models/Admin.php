@@ -54,5 +54,11 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 			
 		}
 	}
+	public static function sendCreateAdminLink($data){
+		Mail::send('emails.Auth.createadmin', $data, function($message) use($data){
+			$message->to($data['email'], 'Graphics Studio Central')->subject('Admin Registration - TEFLTV');
+		});
+		return true;
 
+	}
 }

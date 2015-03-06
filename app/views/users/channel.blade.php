@@ -112,34 +112,7 @@
 				  	</div>				    
 				    		
 				  	<div role="tabpanel" class="tab-pane" id="Videos">
-				  		<div class="row">
-				  			<br/>
-				  			<div class="col-md-6 pull-right">
-				  				<div class="input-group">
-				  					{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-				  					<span class="input-group-btn">
-				  						{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-				  					</span>
-				  				</div>
-				  			</div>
-				  			<br/>
-				  			@foreach($usersVideos as $usersVideo)
-				  			<div class="videos">
-				  				<div class="col-md-3">
-				  					&nbsp;
-				  					<video height="auto" width="100%" class="h-video controls>
-				  						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
-				  					</video>
-				  						<div class="v-Info">
-				  							{{$usersVideo->title}}
-				  						</div>
-				  						<div class="count">
-				  							{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
-				  						</div>
-				  				</div>
-				  			</div>
-				  			@endforeach	
-				  		</div>
+				  		@include('elements/users/myChannelTabs/tab-Video')
 				  	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
@@ -159,108 +132,19 @@
 				    </div>
 
 				    <div role="tabpanel" class="tab-pane" id="Subscribers">
-				    	<br/>
-				    	<div class="row">
-					    	<div class="col-md-10 col-md-offset-1">
-					    		<div class="col-md-6 pull-right">
-					    			<div class="input-group">
-					    				{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-					    				<span class="input-group-btn">
-					    					{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-					    				</span>
-					    			</div>
 
-					    		</div>
-				    			<br/>
-				    			<hr/>
-									
-				    			@foreach($subscriberLists as $subscriberList)
-				    			<div class="subscribers">
-					    			<div class="col-md-6">
-					    				<img src="/img/user/u1.png" class="userRep2">&nbsp;
-					    				<span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span>&nbsp;
-					    				<br/>&nbsp;
-					    				<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-					    				<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
-					    			</div>
-					    		</div>
-				    			@endforeach
-							</div>	
-				   		 </div>
+				    	@include('elements/users/myChannelTabs/tab-Subscribers')
+
 				   	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="Subscriptions">
-				    		<br/>
-				    		<div class="row">
-				    			<div class="col-md-10 col-md-offset-1">
-					    			<div class="col-md-6 pull-right">
-						    			<div class="input-group">
-				                              {{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-				                              <span class="input-group-btn">
-				                                {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-				                              </span>
-			                        	 </div>
-		                        	 </div>
-		                        	 <br/>
-								
-									<div class="subscriptions">
-										<div class="row">
-											<br/>	
-											<table class="table">
-												<tr>
-													<td>{{ Form::checkbox(false)}}</td>
-													<td>
-														<select>
-															<option>Actions</option>
-														</select>
-													</td>
-													<td class="text-center">
-														Send me updates
-													</td>
-													<td class="text-center">
-														Actvity Feeds
-													</td>
-													<td class="text-right">
-														Subscribe/Unsubscribe
-													</td>
-
-
-												</tr>
-											@foreach($subscriptionLists as $SubscriptionList)
-												<tr>
-													<td>{{ Form::checkbox(false)}}</td>
-													<td>
-														<img src="/img/user/u1.png" class="userRep2">&nbsp;
-														<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
-													</td>
-													<td class="text-center">{{ Form::checkbox(false)}}</li></td>
-													<td class="text-center">
-														<select>
-															<option>All Activities</option>
-														</select>
-													</td>
-													<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
-												</tr>
-												@endforeach
-											</table>
-
-										
-										
-										</div>
-										<hr/>
-									</div>
-									
-								
-							</div>
-							</div>
-							
-				    </div>
-
+				    	@include('elements/users/myChannelTabs/tab-Subscription')
+				    </div> 	
 			  </div><!--/.tab-content-->
 
 			</div><!--/.tabpanel-->
 				
-		</div>
+		</div><!--/.Div-channel-border-->
 	</div><!--/.contentpadding-->
 	<br/>
 </div><!--/.container page-->
