@@ -52,11 +52,7 @@ Route::group(array('prefix' => 'channels'), function() {
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
-	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
-
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
-
 });
 
 

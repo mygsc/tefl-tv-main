@@ -12,7 +12,7 @@
 				{{$errors->first('email')}}
 			@endif
 			<br>
-			{{ Form::submit('Recover') }}
+			{{ Form::submit('Create') }}
 		{{ Form::close() }}
 		</center>
 	</div>

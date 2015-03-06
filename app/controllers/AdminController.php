@@ -98,9 +98,13 @@ class AdminController extends BaseController {
 	}
 	public function getAdminSignup($code){
 		if(!isset($code)) return Redirect::route('admin.index')->withFlashMessage('Invalid URL. please try again!');
-		$userCode = UserCode::where('code', $code)->first();
+		
+		$userCode = DB::table('users_code')->where('code', $code)->first();
+		if(!isset($userCode)) return Redirect::route('admin.index')->withFlashMessage('Invalid link. Please contact the TEFLTV administrator.');
+
+		if($userCode->used == 1) return Redirect::route('admin.index')->withFlashMessage('The registration link is already used.');
+
 		if(isset($userCode)) return View::make('admins.adminsignup', compact('userCode'));
-		return Redirect::route('get.admin.resetpassword')->withFlashMessage('Invalid URL. Please try again.'); //else
 	}
 	public function postAdminSignup(){
 		$input = Input::all();
@@ -109,6 +113,6 @@ class AdminController extends BaseController {
 
 		DB::table('users')->insert(array('email' => $input['email'], 'channel_name' => $input['username'], 'password' => Hash::make($input['password'])));
 		DB::table('users_code')->where('code', $input['code'])->update(array('used' => 1));
-		return Redirect::route('get.admin.index')->withInput()->withFlashMessage('Successfully registered!');
+		return Redirect::route('admin.index')->withInput()->withFlashMessage('Successfully registered!');
 	}
 }
