@@ -159,29 +159,35 @@ class UserController extends BaseController {
 	}
 
 	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
+
 		$usersChannel = UserProfile::find(Auth::User()->id);
+
 		$usersVideos = User::find(3)->video;
+
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
+		// return $subscribers;
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
-		if(isset($subscriber_id)){
-			$subscriberLists = UserProfile::find($subscriber_id);
-			$ifNoSubscriber = false;
-		} else{
-			$subscriberLists = array();
-			$ifNoSubscriber = true;
-		}
+
+		$subscriberLists = UserProfile::find($subscriber_id);
+
+		
+		
+		// $subscriptions = User::find(Auth::User()->id)->subscribe()->where('user_id', Auth::User()->id)->get();
+		// return $subscriptions;
+
+		$subscriptions = User::find(1);
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->first();
 			$subscriptionLists[] = $subscriptioned;
 
-		}	
+		}
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber'));
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists'));
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -340,7 +346,7 @@ class UserController extends BaseController {
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
-		
+
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 		
