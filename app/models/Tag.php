@@ -8,4 +8,8 @@ class Tag extends Eloquent{
 	public function videos(){
 	return $this->belongsToMany('Video');
 	}
+
+	public function tags(){
+		return $this->hasMany('TagVideo');
+	}
 }

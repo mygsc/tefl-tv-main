@@ -12,6 +12,8 @@
 */
 Route::group(array('prefix' => '/'), function() {
 	Route::get('', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
+	Route::get('search-result/{search?}', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
+	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
 	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));

@@ -27,15 +27,15 @@ class VideoController extends Controller {
 			$db_filename->save();
 			//uploading
 			$file = Input::file('video');
-		 	$destinationPath = 'public/videos/';
+			$destinationPath = 'public/videos/';
 			$ext = $file->getClientOriginalExtension();
 			$file->move($destinationPath, $ecrypt_name.'.'.$ext);
-				return Redirect::route('get.addDescription',$ecrypt_name);
+			return Redirect::route('get.addDescription',$ecrypt_name);
 		}
-			return Redirect::route('get.upload')
-			->withInput()
-			->withErrors($validator)
-			->with('message', 'There were validation errors.');
+		return Redirect::route('get.upload')
+		->withInput()
+		->withErrors($validator)
+		->with('message', 'There were validation errors.');
 	}
 	public function getAddDescription($id){
 		$id = Crypt::decrypt($id);	
@@ -46,41 +46,41 @@ class VideoController extends Controller {
 		$id = Crypt::decrypt($id);	
 		$videos = Video::where('id','=',$id)->get();
 		$input = Input::all();
-			$validator = Validator::make($input,Video::$addDescription);
-			if($validator->passes()){
-				$video = Video::find($id);
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
-				$video->save();
-				$tags = Input::get('tags');
-				if($tags != null){
-					$tags_unique = explode(',',$tags);
-					$exploded_tags = array_unique($tags_unique);
-					foreach($exploded_tags as $exploded_tag){
-						$tags = Tag::where('tags','=',$exploded_tag)->get();
-						if($tags->count()){
-							if($exploded_tag != null){
-									$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
-									TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
-							}
+		$validator = Validator::make($input,Video::$addDescription);
+		if($validator->passes()){
+			$video = Video::find($id);
+			$video->title = Input::get('title');
+			$video->description = Input::get('description');
+			$video->publish = Input::get('publish');
+			$video->save();
+			$tags = Input::get('tags');
+			if($tags != null){
+				$tags_unique = explode(',',$tags);
+				$exploded_tags = array_unique($tags_unique);
+				foreach($exploded_tags as $exploded_tag){
+					$tags = Tag::where('tags','=',$exploded_tag)->get();
+					if($tags->count()){
+						if($exploded_tag != null){
+							$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
+							TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
 						}
-						else{
-							if($exploded_tag != null){
-								Tag::create(array('tags' => $exploded_tag));
-								$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
-								TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
+					}
+					else{
+						if($exploded_tag != null){
+							Tag::create(array('tags' => $exploded_tag));
+							$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
+							TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
 								//var_dump($tag_id[0]["id"]);
-							}
 						}
 					}
 				}
-			return Redirect::route('get.index');
 			}
+			return Redirect::route('get.index');
+		}
 		return Redirect::route('get.addDescription',Crypt::encrypt($id))
-			->withInput()
-			->withErrors($validator)
-			->with('message', 'There were validation errors.');
+		->withInput()
+		->withErrors($validator)
+		->with('message', 'There were validation errors.');
 	}
 
 	public function getViewVideoPlayer(){
@@ -115,7 +115,39 @@ class VideoController extends Controller {
 
 	//delete or update this, just made this for viewing purpose -Cess
 	public function watchVideo(){
-			return View::make('homes.watch-video');
-		}
+		return View::make('homes.watch-video');
+	}
 	//end of watchVideo
+
+	public function postSearchVideos(){
+		$input = Input::all();
+		
+		return Redirect::route('homes.searchresult', $input['search']);
+	}
+
+	public function getSearchResult($search){
+		$videoResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
+			INNER JOIN tags t ON vt.tag_id = t.id 
+			INNER JOIN videos v ON vt.video_id = v.id
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description)
+			AGAINST ("'.$search.'")
+			OR
+			MATCH(t.tags)
+			AGAINST("'.$search.'")
+			GROUP BY id
+			ORDER BY MATCH(v.title,v.description)
+			AGAINST ("'.$search.'")
+			OR
+			MATCH(t.tags)
+			AGAINST("'.$search.'")
+			');
+
+		foreach($videoResults as $key => $videoResult){
+			$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
+			$videoResults[$key]->tags = $videoInfo['tags'];
+		}
+
+		return View::make('homes.searchresult', compact('videoResults'));
+	}
 }
