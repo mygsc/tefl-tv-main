@@ -7,7 +7,7 @@
 		{{ Form::open(array('route' => 'post.admin.resetpassword')) }}
 			{{ Form::label('Email','Email')}}
 			<br>
-			{{ Form::text('email',null, array('placeholder' => 'Email or Username'))}}
+			{{ Form::text('email',null, array('placeholder' => 'Email Address'))}}
 			@if($errors->has('email'))
 				{{$errors->first('email')}}
 			@endif

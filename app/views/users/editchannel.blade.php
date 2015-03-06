@@ -2,53 +2,67 @@
 
 
 @section('content')
+	
+<div class="container page">
+    <br/> <br/>
 
-	{{ Form::open(array('route' => ['users.post.edit.channel', Auth::User()->id]))}}
-		{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture'))}}
-		<br>
-		{{Form::label('website', 'website: ')}} {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
-		<br>
-		{{Form::label('organization', 'Organization: ')}} {{Form::text('organization', Auth::User()->organization, array('placeholder' => 'website'))}}
-		<br>
-		{{Form::label('interests', 'Interests: ')}}	{{Form::textarea('interests',$user_channel->interests, array('placeholder' => 'Interests'))}}
-		<br>
-		{{Form::label('first_name', 'Firstname: ')}} {{ Form::text('first_name',$user_channel->first_name, array('placeholder' => 'Firstname'))}}
-		<br>
-		{{Form::label('last_name', 'Lastname: ')}} {{ Form::text('last_name', $user_channel->last_name, array('placeholder' => 'Lastname'))}}
-		<br>
-		{{ Form::label('contact_number', 'Contact Number: ')}} {{ Form::text('contact_number', $user_channel->contact_number, array('placeholder' => 'Contact Number'))}}
-		<br>
-		{{ Form::label('address', 'Address: ')}} {{ Form::text('address', $user_channel->address, array('placeholder' => 'address'))}}
-		<br>
-		{{Form::label('work', 'Work: ')}} {{Form::text('work', $user_channel->work, array('placeholder' => 'Work'))}}
-		<br>
-		{{Form::label('birthdate', 'Birthdate: ')}} {{Form::text('birthdate', $user_channel->birthdate, array('placeholder' => 'Birthdate'))}}
-		<br>
-		{{Form::label('zip_code', 'Zip Code: ')}} {{Form::text('zip_code', $user_channel->zip_code, array('placeholder' => 'Zip Code'))}}
-		<br>
-		{{Form::submit('Save Changes')}}
-	{{ Form::close()}}
+    <div class="col-md-row">
+       <div class="wrapper-account">
+            <div class="well White " style="margin-bottom:0;min-height:350px;">
+               <div class="row">
+
+                    <!-- tabs left -->
+                    <div class="tabbable tabs-left">
+                        <br/><br/>
+                        <ul class="nav nav-tabs" style="margin-left:-20px">
+                          <li class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
+                          <li >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
+                          <li class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="updateAccount">
+                                @include('elements/users/accountSettingTabs/tab-editInfo')
+                            </div>
+                        </div><!--/.tabContent-->
+                    </div><!--/.tabbable tabs-left-->
+                </div><!--/.row-->
+            </div><!--/.well-->
+        </div><!--/.wrapperAccount-->
+        <br/>
+    </div><!--/.col-md-12-->
+</div><!--/.container row-->
 
 @stop
 
 <!-- Modal -->
 <div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog black">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
+        	{{ Form::file('image', array('id' => 'uploaded_img'))}}
+
       </div>
       <div class="modal-body">
-        {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
-        	{{Form::file('image', array('id' => 'uploaded_image'))}}
-        	{{Form::submit("Change profile's picture")}}
-        {{Form::close()}}
+     		<div class="uploaded_img">
+        		{{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
+        	</div>
+
+      		
+        	
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      	{{Form::submit("Save", array('class' => 'btn btn-info'))}}
+        {{Form::close()}}
+        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
+
+@section('script')
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
+@stop

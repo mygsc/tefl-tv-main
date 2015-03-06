@@ -9,12 +9,14 @@
 			        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
 			    </ul>
 			@endif
-			{{Form::open(array('route' => 'post.admin.pwdreset','method'=>'POST'))}}
-			{{Form::label('Username')}}
-			{{Form::text('channel_name',null,array('class'=>'form-control'))}}
-			{{Form::label('Password')}}
+			{{Form::open(array('route' => 'post.admin.changepassword','method'=>'POST'))}}
+			{{Form::label('Current Password')}}
+			{{Form::password('current_password',null,array('class'=>'form-control'))}}
+			{{Form::label('New Password')}}
 			{{Form::password('password',null,array('class'=>'form-control'))}}
-			{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
+			{{Form::label('Confirm Password')}}
+			{{Form::password('password_confirmation',null,array('class'=>'form-control'))}}
+			{{Form::submit('Submit',array('class'=>'btn btn-primary'))}}
 			{{Form::close()}}
 		</div>
 	</center>
