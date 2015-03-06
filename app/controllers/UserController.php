@@ -172,7 +172,7 @@ class UserController extends BaseController {
 		}
 
 		$subscriberLists = UserProfile::find($subscriber_id);
-
+ 
 		
 		
 		// $subscriptions = User::find(Auth::User()->id)->subscribe()->where('user_id', Auth::User()->id)->get();

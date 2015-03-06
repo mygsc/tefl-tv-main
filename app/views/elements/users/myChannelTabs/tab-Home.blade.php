@@ -153,7 +153,11 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscribers</span>&nbsp;
+				@if(!$ifNoSubscriber)
+					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">
+					<a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+				@endif
 			</div>
 			<br/>
 			<div class="row">
@@ -185,22 +189,30 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscriptions</span>&nbsp;
+				@if(isset($subscriptionLists))
+					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+				@else
+					
+				@endif
 			</div>
 			<br/>
 			<div class="row">
-				@foreach($subscriptionLists as $SubscriptionList)
-					<div class="col-md-6">
-						<div class="row user-padding">
-							<img src="/img/user/u1.png" class="userRep2">&nbsp;
-							<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
-							<br/>&nbsp;
-							<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-							<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+				@if(!empty($subscriptionLists))
+					@foreach($subscriptionLists as $SubscriptionList)
+						<div class="col-md-6">
+							<div class="row user-padding">
+								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+								<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+								<br/>&nbsp;
+								<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+							</div>
 						</div>
-						
-					</div>
-				@endforeach
+					@endforeach
+				@else
+					No Subscription
+				@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
