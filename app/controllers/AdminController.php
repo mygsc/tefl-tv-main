@@ -60,7 +60,8 @@ class AdminController extends BaseController {
 		$validate = Validator::make($input, Admin::$changepassword);
 		if($validate->fails()) return Redirect::route('get.admin.changepassword')->withInput()->withErrors($validate);
 		$user = User::where('id', Auth::User()->id)->first();
-		Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $Input::get('password'));
+		$hashCheck = Admin::hashCheckPassword($input['current_password'], $user->password, Auth::User()->id, $input['password']);
+		if($hashCheck) return Redirect::route('admin.index')->withFlashMessage('Password successfully changed!');
 		return Redirect::route('get.admin.changepassword')->withInput()->withFlashMessage('Incorrect current password. Please try again.');
 	}
 
@@ -110,7 +111,6 @@ class AdminController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, array('username' => 'required|unique:users,channel_name', 'password' => 'required|confirmed|min:6','password_confirmation' => 'required'));
 		if($validate->fails()) return Redirect::route('get.admin.adminsignup')->withInput()->withErrors($validate);
-
 		DB::table('users')->insert(array('email' => $input['email'], 'channel_name' => $input['username'], 'password' => Hash::make($input['password']), 'role' => 2));
 		DB::table('users_code')->where('code', $input['code'])->update(array('used' => 1));
 		return Redirect::route('admin.index')->withInput()->withFlashMessage('Successfully registered!');
@@ -118,5 +118,6 @@ class AdminController extends BaseController {
 	public function getReportedVideos(){
 		$videos = Video::where('report_count', '>=', 5)->get();
 		return View::make('admins.reportedvideos', compact('videos'));
+
 	}
 }
