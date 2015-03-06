@@ -157,17 +157,25 @@
 			</div>
 			<br/>
 			<div class="row">
-				@foreach($subscriberLists as $subscriberList)
-				<div class="col-md-6">	
-					<div class="row user-padding">
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
-						<br/>&nbsp;
-						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+				@if($ifNoSubscriber)
+					<div class="col-md-6">	
+						<div class="row user-padding">
+							No Subscriber
+						</div>
 					</div>
-				</div>
-				@endforeach	
+				@else
+					@foreach($subscriberLists as $subscriberList)
+					<div class="col-md-6">	
+						<div class="row user-padding">
+							<img src="/img/user/u1.png" class="userRep2">&nbsp;
+							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
+							<br/>&nbsp;
+							<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+							<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+						</div>
+					</div>
+					@endforeach	
+				@endif
 				
 			</div>
 		</div>
