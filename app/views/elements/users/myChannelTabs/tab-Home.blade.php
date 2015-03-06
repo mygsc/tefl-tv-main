@@ -137,9 +137,11 @@
 					</div>
 					<img src="/img/thumbnails/v8.png" class="h-video">
 				</div>
+
 				<div class="v-Info">
 					<span class="fa fa-globe"></span> | All About Grammar
 				</div>
+				
 				<div class="count">
 					Update: February 12, 2015
 				</div>

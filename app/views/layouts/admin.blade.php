@@ -15,20 +15,14 @@
 
 </head>
 <body>
-
-		@include('elements/header')
-		@include('elements/home/headerNav')
 		@include('elements/flash_message')
 		
 		@yield('content')
 
-		@include('elements/footer')
 </body>
 <!-- scripts -->
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
-<script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-dropdown.js"></script>
-
 @yield('script')
 
 </html>
