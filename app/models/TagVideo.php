@@ -9,4 +9,9 @@ class TagVideo extends Eloquent{
 	public function videos(){
 		return $this->hasMany('Video');
 	}
+
+	public function tags(){
+		return $this->belongsTo('Tag');
+	}
+
 }
