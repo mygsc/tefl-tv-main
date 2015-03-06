@@ -48,17 +48,16 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 	public static function hashCheckPassword($currentpassword, $dbPassword, $user_id, $newpassword){
-		if(Hash::check($current_password, $dbPassword)){
+		if(Hash::check($currentpassword, $dbPassword)){
 			User::where('id', $user_id)->update(['password' => Hash::make($newpassword)]);
-			return Redirect::route('admin.index')->withFlashMessage('Password successfully changed!');
-			
+			return true;
 		}
+		return false;
 	}
 	public static function sendCreateAdminLink($data){
 		Mail::send('emails.Auth.createadmin', $data, function($message) use($data){
 			$message->to($data['email'], 'Graphics Studio Central')->subject('Admin Registration - TEFLTV');
 		});
 		return true;
-
 	}
 }

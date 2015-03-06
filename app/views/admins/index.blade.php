@@ -9,5 +9,6 @@
 		{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => 'btn btn-danger')) }}
 		{{ link_to_route('get.admin.recommendedvideos', 'Recommended Videos', null, array('class' => 'btn btn-danger')) }}
 		{{ link_to_route('get.admin.createadminlink', 'Admin Registration Code', null, array('class' => 'btn btn-danger')) }}
+		{{ link_to_route('get.admin.reportedvideos', 'Reported Videos', null, array('class' => 'btn btn-danger')) }}
 	</div>
 @stop
