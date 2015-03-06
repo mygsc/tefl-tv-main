@@ -107,7 +107,7 @@
 			  	<!-- Tab panes -->
 			    <div class="tab-content">
 				  	<div role="tabpanel" class="tab-pane active" id="home">
-						@include('elements/users/myChannelTabs/tab-Home')
+						@include('elements/users/myChannelTabs/tab-HomeViewUsers')
 				  	</div>				    
 				    		
 				  	<div role="tabpanel" class="tab-pane" id="Videos">
