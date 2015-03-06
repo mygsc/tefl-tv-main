@@ -48,7 +48,7 @@
 			
 			<div class="c-about" style="padding:10px 10px;margin-top:0;">
 				<div class="labelThis">
-					{{Auth::User()->channel_name}}
+					User Channel Name
 				</div>
 				<ul class="nav nav-tabs" role="tablist inline">
 			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
@@ -58,7 +58,7 @@
 			  		<div role="tabpanel" class="tab-pane active" id="about">
 						<div class="" style="margin-top:20px;">
 							<p class="text-justify">
-								{{$usersChannel->interests}}
+								User Interests
 							</p>
 						</div>
 					</div>
@@ -66,22 +66,22 @@
 						<div class="" style="margin-top:20px;">
 							<h4>Basic Information</h4>
 							<ul class="ch-infoList">
-								<li><small><label>Name:</label></small> {{$usersChannel->first_name}} {{$usersChannel->last_name}}</li>
-								<li><small><label>Birthdate:</label></small> {{$usersChannel->birthdate}}</li>
-								<li><small><label>Organizations:</label></small> {{Auth::User()->organiztion}}</li>
-								<li><small><label>Work:</label></small> {{Auth::User()->organiztion}}</li>
+								<li><small><label>Name:</label></small> Mark Zuckerburg</li>
+								<li><small><label>Birthdate:</label></small> March 6, 3045</li>
+								<li><small><label>Organizations:</label></small> Mafia</li>
+								<li><small><label>Work:</label></small> CEO of Facebook </li>
 							</ul>
 							
 							<h4>Contact Information</h4>
 							<ul class="ch-infoList">
 								<li><small><label>Email:</label></small></li>
-								<li><small><label>Websites:</label></small>{{Auth::User()->website}}</li>
-								<li><small><label>Contact Number:</label></small>{{$usersChannel->contact_number}}</li>
-								<li><small><label>Address:</label></small>{{$usersChannel->address}}</li>
-								<li><small><label>City:</label></small>{{$usersChannel->city}}</li>
-								<li><small><label>State:</label></small>{{$usersChannel->state}}</li>
-								<li><small><label>Zip Code:</label></small>{{$usersChannel->zip_code}}</li>
-								<li><small><label>Country:</label></small>{{$usersChannel->country_id}}</li>
+								<li><small><label>Websites:</label></small>facebook.com/mark</li>
+								<li><small><label>Contact Number:</label></small>1315464</li>
+								<li><small><label>Address:</label></small>Chicago Illinoise</li>
+								<li><small><label>City:</label></small>New York</li>
+								<li><small><label>State:</label></small>State</li>
+								<li><small><label>Zip Code:</label></small>1243</li>
+								<li><small><label>Country:</label></small>America</li>
 							</ul>
 						</div>
 					</div>
@@ -123,22 +123,22 @@
 				  				</div>
 				  			</div>
 				  			<br/>
-				  			@foreach($usersVideos as $usersVideo)
+				  			
 				  			<div class="videos">
 				  				<div class="col-md-3">
 				  					&nbsp;
-				  					<video height="auto" width="100%" class="h-video controls>
-				  						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
+				  					<video height="auto" width="100%" class="h-video" controls>
+				  						<source src="" type="video/mp4" />		 
 				  					</video>
 				  						<div class="v-Info">
-				  							{{$usersVideo->title}}
+				  							Video Title
 				  						</div>
 				  						<div class="count">
-				  							{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+				  							123123 Views, 100 Likes
 				  						</div>
 				  				</div>
 				  			</div>
-				  			@endforeach	
+				  			
 				  		</div>
 				  	</div>
 
@@ -174,17 +174,17 @@
 				    			<br/>
 				    			<hr/>
 									
-				    			@foreach($subscriberLists as $subscriberList)
+				    			
 				    			<div class="subscribers">
 					    			<div class="col-md-6">
 					    				<img src="/img/user/u1.png" class="userRep2">&nbsp;
-					    				<a href="{{route('view.users.channel')}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
+					    				<a href="{{route('view.users.channel')}}"><span><b>Mark Zuckerburg</b></span></a>&nbsp;
 					    				<br/>&nbsp;
 					    				<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 					    				<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					    			</div>
 					    		</div>
-				    			@endforeach
+				    			
 							</div>	
 				   		 </div>
 				   	</div>
@@ -226,12 +226,12 @@
 
 
 												</tr>
-											@foreach($subscriptionLists as $SubscriptionList)
+											
 												<tr>
 													<td>{{ Form::checkbox(false)}}</td>
 													<td>
 														<img src="/img/user/u1.png" class="userRep2">&nbsp;
-														<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+														<span><b>Mark Zuckerburg</b></span>&nbsp;
 													</td>
 													<td class="text-center">{{ Form::checkbox(false)}}</li></td>
 													<td class="text-center">
@@ -241,7 +241,7 @@
 													</td>
 													<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
 												</tr>
-												@endforeach
+												
 											</table>
 
 										
