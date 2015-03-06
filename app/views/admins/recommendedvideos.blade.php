@@ -4,7 +4,7 @@
 	<div class="container">
 		<h1><center>Recommended Videos</center></h1>
 		<div class="row">
-			<table>
+			<table class="table">
 				<tr>
 					<th>ID</th>
 					<th>User ID</th>
