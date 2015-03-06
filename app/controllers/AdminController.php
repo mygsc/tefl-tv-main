@@ -111,8 +111,12 @@ class AdminController extends BaseController {
 		$validate = Validator::make($input, array('username' => 'required|unique:users,channel_name', 'password' => 'required|confirmed|min:6','password_confirmation' => 'required'));
 		if($validate->fails()) return Redirect::route('get.admin.adminsignup')->withInput()->withErrors($validate);
 
-		DB::table('users')->insert(array('email' => $input['email'], 'channel_name' => $input['username'], 'password' => Hash::make($input['password'])));
+		DB::table('users')->insert(array('email' => $input['email'], 'channel_name' => $input['username'], 'password' => Hash::make($input['password']), 'role' => 2));
 		DB::table('users_code')->where('code', $input['code'])->update(array('used' => 1));
 		return Redirect::route('admin.index')->withInput()->withFlashMessage('Successfully registered!');
+	}
+	public function reportedVideos(){
+		$videos = Video::where('publish', '>', 1)->get();
+		return View::make('admins.reportedvideos', compact('videos'));
 	}
 }
