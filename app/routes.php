@@ -51,11 +51,15 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 });
 //*********End of Channels************//
-Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
+Route::get('channel/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
+	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
+	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
+
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+
 });
 
 

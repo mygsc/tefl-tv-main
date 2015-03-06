@@ -164,20 +164,28 @@ class UserController extends BaseController {
 
 		$usersVideos = User::find(3)->video;
 
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
-		foreach($subscribers as $a) {
-			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
-			$subscriberLists []= $subscribed;
+		$subscribers = User::find(Auth::User()->id)->subscribe;
+
+		// return $subscribers;
+		foreach($subscribers as $a){
+			$subscriber_id[] = $a->subscriber;
 		}
 
+		$subscriberLists = UserProfile::find($subscriber_id);
+
+		
+		
+		// $subscriptions = User::find(Auth::User()->id)->subscribe()->where('user_id', Auth::User()->id)->get();
+		// return $subscriptions;
 
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
-			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+			$subscriptioned = UserProfile::where('user_id', $b->user_id)->first();
 			$subscriptionLists[] = $subscriptioned;
 
 		}
+		// return $subscriptions;
 		
 
 		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists'));
@@ -322,9 +330,11 @@ class UserController extends BaseController {
 		}
 	}
 
-	public function getViewUsersChannel() {
+	public function getViewUsersChannel($user_id) {
 
-		$usersChannel = UserProfile::find(Auth::User()->id);
+
+
+		$userChannel = User::find($user_id);
 
 		$usersVideos = User::find(Auth::User()->id)->video;
 
@@ -343,7 +353,7 @@ class UserController extends BaseController {
 
 		}
 
-		return View::make('users.viewusers', compact('usersChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
+		return View::make('users.viewusers', compact('userChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 
 }

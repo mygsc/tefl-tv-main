@@ -159,7 +159,7 @@
 				<div class="col-md-6">	
 					<div class="row user-padding">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span>&nbsp;
+						<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 						<br/>&nbsp;
 						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
