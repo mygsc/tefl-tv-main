@@ -521,7 +521,7 @@ img.user{
 }
 .v-Info{
   width: 100%;
-  font-size:1.0em;
+  font-size:1.0fem;
   text-align: left;
    color: #1870dc;'
   margin-bottom: 0;
@@ -850,6 +850,17 @@ span.commentLink{
  max-height: auto;
  border-right:1px  solid #c1c1c1;
  border-left:1px  solid #c1c1c1;
+}
+.loginDivA{
+ background:rgba(187, 203, 226, 0.9);
+ padding: 20px 20px;
+ -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+ -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+ box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+ max-height: auto;
+ border-right:1px  solid #c1c1c1;
+ border-left:1px  solid #c1c1c1;
+ margin-top: 25%;
 }
 .signDivH{
  background:rgba(255, 255, 255, 0.5);
@@ -1236,12 +1247,23 @@ Main components
 .ch-subsList {
   margin-right: 
 }
+
+.divHeading{
+  background: #e3e3e3;
+}
 /*=====Image Crop====*/
+
+
 div.crop-square img {
   width: 259.5%; /* calculate based on your original image... img-width*100/img-height */
 
 }
 
+.crop-square img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 
 
