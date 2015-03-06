@@ -12,9 +12,8 @@ var mediaPlayer,
 //var progWidth = tag.find('.progress').width();
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
-
-function GSCMediaPlayer() {
-	
+var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
+function GSCMediaPlayer(){
 	// Get a handle to the player
 	mediaPlayer = document.getElementById('media-video');
 	// Get handles to each of the buttons and required elements
@@ -52,12 +51,13 @@ function GSCMediaPlayer() {
 function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
 	if (mediaPlayer.paused || mediaPlayer.ended) {
-		// Change the button to be a pause button
 		playPauseBtn.src = "/img/icons/pause.png";
 		changeButtonType(playPauseBtn, 'pause');
-		// Play the media
 		mediaPlayer.play();
 		videoPlaying = true;
+		$('.play-icon').fadeOut(500);
+		//mediaPlayer.getPlaybackQuality('small');
+		
 	}
 	// Otherwise it must currently be playing
 	else {
@@ -163,10 +163,13 @@ function updateProgressBar(response) {
 						videoPlaying=false;
 						currentTime = 0;
 						$('.advertisement').fadeOut();
+						$('.play-icon').fadeIn(500);
 					}
 					if(updateTime==10){
 						$('.advertisement').fadeIn(2000);
 					}
+					//mediaPlayer.onwaiting = function() {alert('waiting');}
+
 		
 }
 
@@ -240,7 +243,7 @@ $('#mute-icon').hover(function(){
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
 	soundHover=false;
-	// if ( typeof scrollFunc.x == 'undefined' ) {
+ // if ( typeof scrollFunc.x == 'undefined' ) {
  //        scrollFunc.x=window.pageXOffset;
  //        scrollFunc.y=window.pageYOffset;
  //    }
@@ -332,6 +335,7 @@ $('.play-icon').bind('click', function(){
 		$(this).fadeOut(500);
 		playIcon=true;
 	}else{$('.play-icon').fadeIn(500);}	
+	$('.play-icon').fadeOut(500);
 });
 $('#media-video').bind('click', function(){
 	togglePlayPause();
@@ -339,7 +343,6 @@ $('#media-video').bind('click', function(){
 		$('.play-icon').fadeIn(500);
 		playIcon=false;
 	}else{$('.play-icon').fadeOut(500);playIcon=true;}
-	
 });
 
 
