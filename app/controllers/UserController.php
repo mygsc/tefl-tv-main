@@ -322,21 +322,26 @@ class UserController extends BaseController {
 		}
 	}
 
-	public function getViewUsersChannel($user_id) {
+	public function getViewUsersChannel($channel_name) {
 
 
 
-		$userChannel = User::find($user_id);
+		$userChannel = User::where('channel_name', $channel_name)->first();
+
 
 		$usersVideos = User::find(Auth::User()->id)->video;
 
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(15);
-		foreach($subscribers as $a) {
-			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
-			$subscriberLists []= $subscribed;
+		$subscribers = User::find(Auth::User()->id)->subscribe;
+
+		foreach($subscribers as $a){
+			$subscriber_id[] = $a->subscriber;
 		}
 
+		$subscriberLists = UserProfile::find($subscriber_id);
 
+		
+
+		$subscriberLists = UserProfile::find($subscriber_id);
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->paginate(15);
 		foreach ($subscriptions as $b) {
