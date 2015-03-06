@@ -121,18 +121,16 @@ class VideoController extends Controller {
 
 	public function postSearchVideos(){
 		$input = Input::all();
-		
 		return Redirect::route('homes.searchresult', array($input['type'],$input['search']));
 	}
 
 	public function getSearchResult($type = null,$search = null){
 		if($type == 'playlist'){
-			
-
-		}else if($type == 'playlist'){
-
+			$searchResults = Playlist::where('name', $search)->get();
+		}else if($type == 'channel'){
+			$searchresults = User::where('channel_name', $search)->get();
 		}else{
-			$videoResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
+			$searchResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
 				INNER JOIN tags t ON vt.tag_id = t.id 
 				INNER JOIN videos v ON vt.video_id = v.id
 				LEFT JOIN users u ON v.user_id = u.id
@@ -148,13 +146,12 @@ class VideoController extends Controller {
 				MATCH(t.tags)
 				AGAINST("'.$search.'")
 				');
-
-			foreach($videoResults as $key => $videoResult){
+			foreach($searchResults as $key => $videoResult){
 				$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
-				$videoResults[$key]->tags = $videoInfo['tags'];
+				$searchResults[$key]->tags = $videoInfo['tags'];
 			}
 		}
 
-		return View::make('homes.searchresult', compact('videoResults'));
+		return View::make('homes.searchresult', compact(array('type','searchResults')));
 	}
 }
