@@ -36,7 +36,7 @@
 						<td>{{$video->likes}}</td>
 						<td>{{$video->report_count}}</td>
 						<td>{{ Form::checkbox('recommended['.$video->id.']', $video->id, $checked) }}</td>
-						<td>{{date("M d, Y H:ma", strtotime($video->deleted_at))}}</td>
+						<td>{{date("M d, Y H:ma", strtotime($video->updated_at))}}</td>
 						<td>{{ date("M d, Y H:ma", strtotime($video->created_at))}}</td>
 					</tr>
 				@endforeach

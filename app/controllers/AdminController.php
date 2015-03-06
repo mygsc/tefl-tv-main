@@ -118,6 +118,9 @@ class AdminController extends BaseController {
 	public function getReportedVideos(){
 		$videos = Video::where('report_count', '>=', 5)->get();
 		return View::make('admins.reportedvideos', compact('videos'));
-
+	}
+	public function getUsers(){
+		$users = User::all();
+		return View::make('admins.users', compact('users'));
 	}
 }
