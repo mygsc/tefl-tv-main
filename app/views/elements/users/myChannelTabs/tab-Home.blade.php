@@ -52,16 +52,18 @@
 	<!--videos-->
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
+			
 			<div class="subLabelThis">
-				Videos
+				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
 			
 			@foreach($usersVideos as $usersVideo)
 			<div class="col-md-4">
-				<div class="v-videos">
-					<video controls width="200" height="200">
+				<div class="row">
+				<div class="">
+					<video controls height="auto" width="100%" class="h-video">
 					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
 					</video>
 				</div>
@@ -71,13 +73,10 @@
 				<div class="count">
 					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 				</div>
+				</div>
 			</div>
 			@endforeach
-	
-			
-			<div class="text-right">
-				<a href="" class="btn btn-info">SEE ALL VIDEOS</a>
-			</div>
+
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -85,7 +84,7 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				PlayLists
+				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
@@ -118,9 +117,11 @@
 					</div>
 					<img src="/img/thumbnails/v3.png" class="h-video">
 				</div>
+
 				<div class="v-Info">
 					<span class="fa fa-globe"></span> | All About Grammar
 				</div>
+
 				<div class="count">
 					Update: February 12, 2015
 				</div>
@@ -143,11 +144,6 @@
 					Update: February 12, 2015
 				</div>
 			</div>
-
-			<div class="text-right">
-				
-				<a href="" class="btn btn-info">SEE ALL PlAYLISTS</a>
-			</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
 	<br/>
@@ -155,12 +151,12 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				Subscribers
+				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
-				<div class="col-md-6">
-						@foreach($subscriberLists as $subscriberList)
+				@foreach($subscriberLists as $subscriberList)
+				<div class="col-md-6">	
 					<div class="row user-padding">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
 						<span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span>&nbsp;
@@ -168,11 +164,9 @@
 						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					</div>
-						@endforeach
 				</div>
-			</div>
-			<div class="text-right">
-				<a href="" class="btn btn-info">SEE ALL SUBSCRIBERS</a>
+				@endforeach	
+				
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
@@ -181,25 +175,23 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				Subscriptions
+				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
-				<div class="col-md-6">
 				@foreach($subscriptionLists as $SubscriptionList)
-					<div class="row user-padding">
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
-						<br/>&nbsp;
-						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-						<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+					<div class="col-md-6">
+						<div class="row user-padding">
+							<img src="/img/user/u1.png" class="userRep2">&nbsp;
+							<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+							<br/>&nbsp;
+							<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+							<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+						</div>
+						
 					</div>
-					@endforeach
-				</div>
+				@endforeach
 			</div><!--subscription /.row-->
-			<div class="text-right">
-				<a href="" class="btn btn-info">SEE ALL SUBSCRIPTIONS</a>
-			</div>
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
 </div>

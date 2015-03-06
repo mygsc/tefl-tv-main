@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, 
 
 var mediaPlayer,
 	playPauseBtn,
- 	muteBtn,
- 	progressBar, soundHover = false, volumeHover = false,
+ 	muteBtn, playIcon = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false,
  	videoTimeLenght, $this = $(this), selector = $(this).parent('.wrapper'),
- 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false,
+ 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
 
 //var progWidth = tag.find('.progress').width();
@@ -57,6 +57,7 @@ function togglePlayPause() {
 		changeButtonType(playPauseBtn, 'pause');
 		// Play the media
 		mediaPlayer.play();
+		videoPlaying = true;
 	}
 	// Otherwise it must currently be playing
 	else {
@@ -65,6 +66,8 @@ function togglePlayPause() {
 		playPauseBtn.src = "/img/icons/play.png";
 		// Pause the media
 		mediaPlayer.pause();
+		videoPlaying = false;
+		$('.play-icon').fadeIn(500);
 	}
 }
 
@@ -153,9 +156,18 @@ function updateProgressBar(response) {
 					$('.ctime').html(minutes+':'+seconds+' / ');
 					$('.ttime').html(tminutes+':'+tseconds);
 					
-	
-	// Update the progress bar's text (for browsers that don't support the progress element)
-	//progressBar.innerHTML = percentage + '% played';
+					var updateTime = Math.round(videoCurrentTime);
+					var videoLenght = Math.round(mediaPlayer.duration);				
+					if(updateTime == videoLenght) {		
+						playPauseBtn.src = "/img/icons/play.png";
+						videoPlaying=false;
+						currentTime = 0;
+						$('.advertisement').fadeOut();
+					}
+					if(updateTime==10){
+						$('.advertisement').fadeIn(2000);
+					}
+		
 }
 
 // Updates a button's title, innerHTML and CSS class to a certain value
@@ -228,6 +240,18 @@ $('#mute-icon').hover(function(){
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
 	soundHover=false;
+	// if ( typeof scrollFunc.x == 'undefined' ) {
+ //        scrollFunc.x=window.pageXOffset;
+ //        scrollFunc.y=window.pageYOffset;
+ //    }
+ //    var diffX=scrollFunc.x-window.pageXOffset;
+ //    var diffY=scrollFunc.y-window.pageYOffset;
+ //    if(diffY < 0){
+ //    	alert('down');
+ //    }
+ //    if(diffY > 0){
+ //    	alert('up');
+ //    }
 	
 });
 $('.volume').mouseleave(function(){
@@ -270,6 +294,7 @@ function LetProcessYourVolume(e){
 	// Update your volume it's happening :)
 		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
 		volumeY = $('#volume-vertical').height() / $(this).height();
+		
 
 		if($('#volume-vertical').height() < 15){
 			$('#volume-button').css({'background':'red'});
@@ -278,3 +303,43 @@ function LetProcessYourVolume(e){
 			$('#volume-button').css('background','#fff');
 		}
 }
+
+$('#progressbar').bind('mousedown', function(e) {			
+	progressbarClick = true;
+		if(videoPlaying == true) {
+			mediaPlayer.pause();
+			playPauseBtn.src = "/img/icons/play.png";
+		}
+	mouseX = e.pageX - $('#progressbar').offset().left;
+	currentTime = (mouseX / progWidth) * mediaPlayer.duration;
+	mediaPlayer.currentTime = currentTime;
+					
+});
+
+$('#hd-setting').bind('click', function(){
+  $('.hd-setting').toggle('show');
+ $('.share-video').fadeOut();
+});
+
+$('#share-video').bind('click', function(){
+  $('.share-video').toggle('show');
+  $('.hd-setting').fadeOut();
+});
+
+$('.play-icon').bind('click', function(){
+	togglePlayPause();
+	if(playIcon==false){
+		$(this).fadeOut(500);
+		playIcon=true;
+	}else{$('.play-icon').fadeIn(500);}	
+});
+$('#media-video').bind('click', function(){
+	togglePlayPause();
+	if(playIcon==true){
+		$('.play-icon').fadeIn(500);
+		playIcon=false;
+	}else{$('.play-icon').fadeOut(500);playIcon=true;}
+	
+});
+
+
