@@ -55,11 +55,7 @@ Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses'
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
-	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
-
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
-
 });
 
 
