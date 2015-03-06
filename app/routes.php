@@ -40,23 +40,22 @@ Route::group(array('prefix' => '/'), function() {
 Route::group(array('prefix' => 'channels'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	Route::get('myprofile/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
-	Route::post('/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
 
-	Route::get('/account-settings', array('as' => 'users.account-settings', 'uses' => 'UserController@getAccountSettings'));
+	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
+	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
+	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
+	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 });
 //*********End of Channels************//
-
+Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
-	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
-
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
-
 });
 
 
@@ -75,6 +74,11 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
 	Route::get('recommendedvideos', array('as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
 	Route::post('recommendedvideos', array('as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
+	Route::get('createadminlink', array('as' => 'get.admin.createadminlink', 'uses' => 'AdminController@getCreateAdminLink'));
+	Route::post('createadminlink', array('as' => 'post.admin.createadminlink', 'uses' => 'AdminController@postCreateAdminLink'));
+
+	Route::get('adminsignup/{id}', array('as' => 'get.admin.adminsignup', 'uses' => 'AdminController@getAdminSignup'));
+	Route::post('adminsignup', array('as' => 'post.admin.adminsignup', 'uses' => 'AdminController@postAdminSignup'));
 });
 //**********ADMIN**********//
 

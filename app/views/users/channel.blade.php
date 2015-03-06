@@ -132,7 +132,9 @@
 				    </div>
 
 				    <div role="tabpanel" class="tab-pane" id="Subscribers">
+
 				    	@include('elements/users/myChannelTabs/tab-Subscribers')
+
 				   	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="Subscriptions">
