@@ -15,26 +15,14 @@
                     <div class="tabbable tabs-left">
                         <br/><br/>
                         <ul class="nav nav-tabs" style="margin-left:-20px">
-                          <li class="active"><a href="#updateAccount" data-toggle="tab">Update Account</a></li>
-                          <li class=""><a href="#changePassword" data-toggle="tab">Change Password</a></li>
-                          <li class=""><a href="#changeEmail" data-toggle="tab">Chage Email</a></li>
+                          <li class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
+                          <li >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
+                          <li class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
                         </ul>
-
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="updateAccount">
                                 @include('elements/users/accountSettingTabs/tab-editInfo')
-                            </div>
-
-
-                            <div class="tab-pane" id="changePassword">
-
-                                @include('elements/users/accountSettingTabs/tab-changePass')
-
-                            </div>
-
-                            <div class="tab-pane" id="changeEmail">
-                            	@include('elements/users/accountSettingTabs/tab-changeEmail')
                             </div>
                         </div><!--/.tabContent-->
                     </div><!--/.tabbable tabs-left-->
