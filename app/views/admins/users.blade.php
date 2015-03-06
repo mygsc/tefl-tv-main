@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="container">
-		<h1><center>Reported Videos</center></h1>
+		<h1><center>Users</center></h1>
 		<div class="row">
 			<table class="table">
 				<tr>
