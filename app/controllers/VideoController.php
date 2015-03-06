@@ -114,8 +114,5 @@ class VideoController extends Controller {
 	}
 
 	//delete or update this, just made this for viewing purpose -Cess
-	public function watchVideo(){
-			return View::make('homes.watch-video');
-		}
 	//end of watchVideo
 }

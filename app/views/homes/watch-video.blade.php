@@ -5,7 +5,9 @@
 
 {{-- */$videourl = 1;/* --}}
 
+
 @section('content')
+
 <div class="White">
     <div class="content-padding">
         <div class="row">
@@ -74,7 +76,7 @@
                                                
                                                 <h2 class="black">
                                                     
-                                                    <span>Ruth Leyne <small>(150,000 Followrs)</small>
+                                                    <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
 
                                                         <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;">Subscribe</span></a>
 
@@ -101,36 +103,35 @@
                     </div> <!--/video player-->
 
                     <div class="row">
-                        @include('elements/home/videoComments')
+                       <!-- videocomment -->
                     </div>
-                    @include('elements/home/uploaderLatestVideo')
+                    <!-- latest -->
                 </div><!--column 8-->
 
 
                 <div class="col-md-4 visible-md visible-lg">
                     <!--advertisement-->
-                    @include('elements/home/advertisementSmall')
+                         <!-- advertisment small -->
                     <!--/advertisement-->
                     <!--Display number of search results-->
                     <div class="searchResult">About 288,000 results</div>
                     <!--/search result-->
                     <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                        @foreach($relatedvideos as $relatedvideo)
+                    @foreach($relations as $relation)
+                    @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL))
                         <li class="ui-tabs-nav-item" id="">
-                           <a href="watchvideo={{$relatedvideo[0]['id']}}%{{$relatedvideo[0]['title']}}" id="videourl{{$videourl++}}">
+                           <a href="watchvideo={{$relation->id}}" id="videourl{{$videourl++}}">
                             
                             <img src="img/videoGallery/image1-small.jpg" alt="" />
 
-                            <span>{{$relatedvideo[0]['title']}}</span><br/>
-                            <span>by: Ruth Leyne</span><br/>
-                            <small>{{$relatedvideo[0]['created_at']}}</small>
-                        </a>
-                    </li>
+                            <span>{{$relation->title}}</span><br/></a>
+                            <span>by: {{$relation->channel_name}}</span><br/>
+                            <small>{{$relation->created_at}}</small>
+                            
+                        </li>
+                    @endif
                     @endforeach
                 </ul><!--video list-->
-
-                @include('elements/home/recommendedChannelList')
-                @include('elements/home/carouselAds')
 
             </div><!--col 4-->
 
@@ -139,3 +140,5 @@
 </div>
 </div>
 @stop
+
+
