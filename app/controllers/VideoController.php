@@ -130,6 +130,7 @@ class VideoController extends Controller {
 		}else if($type == 'channel'){
 			$searchresults = User::where('channel_name', $search)->get();
 		}else{
+		
 			$searchResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
 				INNER JOIN tags t ON vt.tag_id = t.id 
 				INNER JOIN videos v ON vt.video_id = v.id
@@ -146,6 +147,7 @@ class VideoController extends Controller {
 				MATCH(t.tags)
 				AGAINST("'.$search.'")
 				');
+
 			foreach($searchResults as $key => $videoResult){
 				$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
 				$searchResults[$key]->tags = $videoInfo['tags'];
