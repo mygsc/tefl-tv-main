@@ -32,6 +32,8 @@
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</li>
+                                    <li>{{link_to_route('users.change-password', 'Change Password')}}</li>
+                                    <li>{{link_to_route('users.change-email', 'Change Email Address')}}</li>
                                     <li>{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
                                     <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
                                 </ul>

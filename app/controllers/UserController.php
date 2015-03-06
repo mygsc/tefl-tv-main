@@ -259,9 +259,91 @@ class UserController extends BaseController {
 	}
 
 
-	public function getAccountSettings() {
+	public function getUsersChangePassword() {
+		
+		return View::make('users.changepassword');
+	}
 
-		return View::make('users.accountsettings');
+	public function postUsersChangePassword() {
+		$input = Input::all();
+		$validate = Validator::make($input, User::$userPasswordRules);
+
+		if($validate->fails()){
+			return Redirect::route('users.change-password')->withErrors($validate)->withFlashMessage('Error changes in your Password');
+		}else{
+			$loggedUser = Auth::User()->password;
+			$currentPassword = Hash::check(Input::get('currentPassword'), $loggedUser);
+			$newPassword = Input::get('newPassword');
+			$inputNewPassword = Input::get('currentPassword');
+
+			
+			if($currentPassword == $loggedUser){
+				if($newPassword != $inputNewPassword){
+					$user = User::where('id', Auth::User()->id)->update(['password' => Hash::make(Input::get('newPassword'))]);
+					Auth::logout();
+					return Redirect::route('users.signout');
+				}else{
+					return Redirect::route('users.change-password')->withFlashMessage('Current Password and New Password must not match');
+				}
+			}else{
+				return Redirect::route('users.change-password')->withFlashMessage('Current password must match!');
+			}
+		}
+	}
+
+	public function getChangeEmail() {
+
+		return View::make('users.changeemail');
+	}
+
+	public function postChangeEmail() {
+
+		$input = Input::all();
+
+		$validate = Validator::make($input, User::$userEmailRules);
+
+		if($validate->fails()){
+			return Redirect::route('users.change-email')->withErrors($validate)->withFlashMessage('Error changes in your Email');
+		}else{
+			$currentEmail = Auth::User()->email;
+			$newEmail = Input::get('newEmail');
+			
+			$checkPassword = Hash::check(Input::get('password'), Auth::User()->password);
+			$currentPassword = Input::get('password');
+
+			if($currentEmail != $newEmail){
+				if($checkPassword != $currentPassword) {
+					return Redirect::route('users.change-email')->withFlashMessage('Password must match with your existing password');
+				}
+			}else{
+				return Redirect::route('users.change-email')->withFlashMessage('Current Email and New Email must not match')->withErrors($validate);
+			}
+			return Redirect::route('users.channel')->withFlashMessage('Successful, Please open your email');
+		}
+	}
+
+	public function getViewUsersChannel() {
+
+		$usersChannel = UserProfile::find(Auth::User()->id);
+
+		$usersVideos = User::find(Auth::User()->id)->video;
+
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(15);
+		foreach($subscribers as $a) {
+			$subscribed = UserProfile::where('user_id', $a->subscriber)->first();
+			$subscriberLists []= $subscribed;
+		}
+
+
+		
+		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->paginate(15);
+		foreach ($subscriptions as $b) {
+			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+			$subscriptionLists[] = $subscriptioned;
+
+		}
+
+		return View::make('users.viewusers', compact('usersChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 
 }

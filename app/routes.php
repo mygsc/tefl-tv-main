@@ -12,6 +12,8 @@
 */
 Route::group(array('prefix' => '/'), function() {
 	Route::get('', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
+	Route::get('search-result/{type?}/{search?}', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
+	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
 	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('addDescription/{id}',array('as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
@@ -40,15 +42,18 @@ Route::group(array('prefix' => '/'), function() {
 Route::group(array('prefix' => 'channels'), function() {
 	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	Route::get('myprofile/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
-	Route::post('/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
 
-	Route::get('/account-settings', array('as' => 'users.account-settings', 'uses' => 'UserController@getAccountSettings'));
+	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
+	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
+	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
+	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 });
 //*********End of Channels************//
-
+Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
