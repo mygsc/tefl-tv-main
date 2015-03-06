@@ -5,11 +5,12 @@
 @stop
 
 @section('content')
-	<div class="container">
-		<div class="col-md-12">
+	<div class="container page">
+		<div class="col-md-8">
 			<div class="row">
 				@if(empty($videoResults))
-					No Video Found
+					<br/>
+					<p style="font-size:1.8em;font-style:italic">No Rusult</p>
 				@else
 				@foreach($videoResults as $video)
 					<div class="col-md-12">
@@ -21,6 +22,14 @@
 				@endforeach
 				@endif
 			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="sideLinksDiv2">
+		
+			@include('elements/home/adverstisementSmall')
+			@include('elements/home/carouselAds')	
+			@include('elements/home/recommendedChannelList')
+		</div>
 		</div>
 	</div>
 @stop
