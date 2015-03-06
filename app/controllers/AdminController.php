@@ -115,8 +115,8 @@ class AdminController extends BaseController {
 		DB::table('users_code')->where('code', $input['code'])->update(array('used' => 1));
 		return Redirect::route('admin.index')->withInput()->withFlashMessage('Successfully registered!');
 	}
-	public function reportedVideos(){
-		$videos = Video::where('publish', '>', 1)->get();
+	public function getReportedVideos(){
+		$videos = Video::where('report_count', '>=', 5)->get();
 		return View::make('admins.reportedvideos', compact('videos'));
 	}
 }
