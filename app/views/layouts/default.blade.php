@@ -12,7 +12,7 @@
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
-
+	@yield('css')
 </head>
 <body>
 
