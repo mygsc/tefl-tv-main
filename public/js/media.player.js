@@ -54,6 +54,7 @@ function togglePlayPause() {
 		changeButtonType(playPauseBtn, 'pause');
 		mediaPlayer.play();
 		videoPlaying = true;
+		playIcon=false;
 		$('.play-icon').fadeOut(500);
 		//mediaPlayer.getPlaybackQuality('small');
 		
@@ -65,6 +66,7 @@ function togglePlayPause() {
 		// Pause the media
 		mediaPlayer.pause();
 		videoPlaying = false;
+		playIcon=true;
 		$('.play-icon').fadeIn(500);
 	}
 }
@@ -81,7 +83,6 @@ function changeVolume(sign) {
 	// else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
 	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
 	var volumeLenght = $('#volume-vertical').height(); 
-	
 	if(sign==='-'){
 		$('#volume-vertical').css({'height': volumeLenght-8 +'px'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
