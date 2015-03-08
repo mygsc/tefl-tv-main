@@ -40,7 +40,7 @@ function GSCMediaPlayer(){
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
 	mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
-
+	volume = parseFloat(mediaPlayer.volume);
 	
 
 }
@@ -77,13 +77,20 @@ function stopPlayer() {
 
 // Changes the volume on the media player
 function changeVolume(sign) {
-	if (sign === '+') mediaPlayer.volume += mediaPlayer.volume == 1 ? 0 : 0.1;
-	else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
-	mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
-	// if(sign==='-'){
-	// 	$('#volume-vertical').css('height', volumeBar + '%');
-	// 	$('#volume-vertical').css({'height': volumeBar - 10 +'%'});
-	// }
+	// if (sign === '+') mediaPlayer.volume += mediaPlayer.volume == 1 ? 0 : 0.1;
+	// else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
+	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
+	var volumeLenght = $('#volume-vertical').height(); 
+	
+	if(sign==='-'){
+		$('#volume-vertical').css({'height': volumeLenght-8 +'px'});
+		$('.volume-static-holder').css({'overflow':'hidden'});
+		volume -= 0.1;
+	}else{
+		$('#volume-vertical').css({'height': volumeLenght+8 +'px'});
+		$('.volume-static-holder').css({'overflow':'hidden'});
+		volume +=  0.1;
+	}
 }
 
 // Toggles the media player's mute and unmute status
@@ -131,8 +138,8 @@ function updateProgressBar(response) {
 					hours = Math.floor(time / 3600); 
 					minutes = 0;
 				}				 
-	// Updated progress width
-					updProgWidth = Math.floor((videoCurrentTime / mediaPlayer.duration) * progWidth);
+				// Updated progress width
+					updProgWidth = Math.round((videoCurrentTime / mediaPlayer.duration) * progWidth);
 					
 					// Set a zero before the number if its less than 10.
 					if(seconds < 10) { seconds = '0'+ seconds; }
@@ -142,7 +149,7 @@ function updateProgressBar(response) {
 					if(videoCurrentTime < 10){ videoCurrentTime = '0' + videoCurrentTime;}
 					// A variable set which we'll use later on
 					if(response != true) {
-						$('#current-progress').css({'width' : updProgWidth-2+'px'});
+						$('#current-progress').css({'width' : updProgWidth+'px'});
 						//$that.find('.progress-button').css({'left' : (updProgWidth-$that.find('.progress-button').width())+'px'});
 					}
 					//Update time
@@ -156,6 +163,9 @@ function updateProgressBar(response) {
 							var secs =   Math.floor(mediaPlayer.duration) - (tmpSecs * 60);
 							$('.ctime').html(hours +':' + minutes + ':' + seconds + '/' + hrs + ':' + mins + ':' + secs);				
 					}else{
+						if(vidMinLenght < 10){
+							vidMinLenght = '0'+vidMinLenght;
+						}
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMinLenght + ':' + vidSecLenght);
 					}
 
