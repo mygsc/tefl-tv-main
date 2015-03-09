@@ -13,7 +13,7 @@
 						<div class="">
 							<div class="overlay-cover">
 								<span class="infoCounts">
-									<label>12k Subscribers</label>
+									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>100 Videos</label> &nbsp;
 									<label>13k Views</label>
 								</span>
