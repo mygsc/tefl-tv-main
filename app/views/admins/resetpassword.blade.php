@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="container">
+	<div class="container page">
 		<center>
 		<h2>Reset Password</h2>	
 		{{ Form::open(array('route' => 'post.admin.resetpassword')) }}

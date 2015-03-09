@@ -3,13 +3,13 @@
 		{{HTML::style('css/vid.player.css')}}
 	@stop
 @section('content')
+
 	<div class="container page">
 		<div class="row">	
 			<br/>
 			<div class="col-md-8" style="margin-bottom:20px;">
-
-               {{--  <img src="/img/thumbnails/v6-2.png" class="h-video"> --}}
-                <div class="">
+               {{-- <img src="/img/thumbnails/v6-2.png" class="h-video"> --}}
+               
 				<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
 					<source src='/videos/movie.mp4' type='video/mp4'>
 					<source src='/videos/movie.webm' type='video/webm'>
@@ -27,7 +27,6 @@
 					<span>&#9658;</span>
 				</div>
 
-			</div>
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper">
 				
@@ -82,7 +81,7 @@
 				</span>
 			</div><!--/.wrapper-->
 		</div>
-                
+     
 			</div><!--/.col-md-8-->
 
 			<div class="col-md-4">

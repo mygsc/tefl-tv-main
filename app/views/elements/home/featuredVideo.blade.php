@@ -1,7 +1,7 @@
 
 <div class="">
-	<div class="col-md-12">
-		<div class="row">
+	<div class="">
+		<div class="col-md-12">
 			{{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
 				<button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
 				<button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
@@ -83,3 +83,5 @@
 		</div><!--/.row-->
 	</div><!--/.col-md-7-->
 </div>
+@stop
+

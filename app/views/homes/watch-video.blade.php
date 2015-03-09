@@ -17,23 +17,22 @@
                     <br/>
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
-                            <br/>
+                            <p class="black">
+                                {{$videos->title}}
+                            </p>
                             <!--video paler-->
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
-                                <div class="col-md-7">
-                                    <h4 class="black">
-                                        {{$videos->title}}
-                                    </h4>
-                                </div>
-                                <div class="col-md-5">
-                                    <h4>
-                                        <span class="pull-right">
+                                <div class="col-md-12">
+                                    <div>
+                                     <br/>
+                                        <span class="">
                                             1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
                                             1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                           
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                    <h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
+                                                    <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
                                                 <span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
                                                     <!--facebook-->
@@ -52,11 +51,29 @@
                                                         100,000
                                                     </span><!--/google-->
                                                 </span><!--/.dropdown-menu pull-right White-->
-                                            </span><!--/.dropdown-->
-                                        </span><!--/.pull-right-->
-                                    </h4>
+                                            </span><!--/.dropdown share-->
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <span class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                                </a>
+                                                <span class="dropdown-menu White" style="padding:5px 5px;text-align:left;">
+                                                    <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
+                                                    <li><p><i class="fa fa-list"></i>&nbsp;&nbsp;Playlist</p>
+                                                          {{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
+                                                            <ul style="list-style:none">
+                                                                <li>{{ Form::checkbox('null,false')}} &nbsp; Playlist 1</li>
+                                                                <li> {{ Form::checkbox('null,false')}} &nbsp; Playlist 2</li>
+                                                            </ul>
+                                                            <a href="" class="btn btn-default">Create New Playlist</a>
+                                                    </li>
+                                                </span>
+                                            </span><!--/.dropdown add to-->
+                                        </span><!--/links-->
+                                    </div>
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
+                            <br/>
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
@@ -120,11 +137,11 @@
                 </div><!--col-md-4-->
 
             </div><!--/.featured-->
+        </div><!--/.row-->
+    </div><!--/padding-->
 </div><!--/.row-->
-</div><!--/padding-->
-</div><!--/.row-->
-        @stop
+@stop
 
-        @section('script')
-        {{HTML::script('js/media.player.js')}}
-        @stop
+@section('script')
+    {{HTML::script('js/media.player.js')}}
+@stop
