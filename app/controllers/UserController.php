@@ -170,15 +170,13 @@ class UserController extends BaseController {
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
-
-		$subscriberLists = UserProfile::find($subscriber_id);
- 
-		
-		
-		// $subscriptions = User::find(Auth::User()->id)->subscribe()->where('user_id', Auth::User()->id)->get();
-		// return $subscriptions;
-
-		$subscriptions = User::find(1);
+		if(isset($subscriber_id)){
+			$subscriberLists = UserProfile::find($subscriber_id);
+			$ifNoSubscriber = false;
+		} else{
+			$subscriberLists = array();
+			$ifNoSubscriber = true;
+		} 
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
