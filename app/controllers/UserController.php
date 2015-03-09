@@ -167,6 +167,7 @@ class UserController extends BaseController {
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
 		// return $subscribers;
+		// return $subscribers;
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
@@ -331,8 +332,6 @@ class UserController extends BaseController {
 	}
 
 	public function getViewUsersChannel($user_id) {
-
-
 
 		$userChannel = User::find($user_id);
 
