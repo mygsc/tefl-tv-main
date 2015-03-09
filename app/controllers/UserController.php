@@ -185,7 +185,7 @@ class UserController extends BaseController {
 
 		}
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists'));
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber'));
 	}
 	
 	public function postUsersUploadImage($id) {
