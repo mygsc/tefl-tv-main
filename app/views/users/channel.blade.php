@@ -231,7 +231,7 @@
 													<td>{{ Form::checkbox(false)}}</td>
 													<td>
 														<img src="/img/user/u1.png" class="userRep2">&nbsp;
-														<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
+														<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
 													</td>
 													<td class="text-center">{{ Form::checkbox(false)}}</li></td>
 													<td class="text-center">

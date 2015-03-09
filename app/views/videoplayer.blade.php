@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title></title>
 	<link rel="stylesheet" href="">
-	{{HTML::style('css/bootstrap.css')}}
+	
 	{{HTML::style('css/videoplayer.css')}}
 	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/gscvideoplayer.js')}}
