@@ -10,7 +10,7 @@
           <div class="col-md-offset-4 col-md-5">
                <div class="row">
                     <br/>
-                    {{ Form::open(array('route' => 'post.search-video'))}}
+                   <!-- {{ Form::open(array('route' => 'post.search-video'))}}
                     <div class="col-md-2">
                           {{ Form::select('type', array(
                           'video' => 'video',
@@ -24,16 +24,39 @@
                           
                            <span class="input-group-btn">
                               {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-                              {{ Form::close()}}
+                              
                          </span>
                     </div>
                   </div>
+                  {{ Form::close()}}
              </div><!--/.row-->
 
+              <div class="input-group">
+                 {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+                    
+                <div class="input-group-btn">
+                     <!--dropdown button-->    
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Video</a></li>
+                        <li><a href="#">Playlist</a></li>
+                        <li><a href="#">Channel</a></li>
+                    </ul>
+                    <!--simple button-->    
+                      {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+                    
+                   
+                </div>      
+              </div>        
 
-    </div> 
+
+    
+
         </div><!--/.col-md-5-->
    </div><!--/.first row-->
 </div><!--/.container-->
 </div><!--/.brandingHeader-->
+
 
