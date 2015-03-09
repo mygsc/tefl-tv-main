@@ -1,144 +1,211 @@
 
 @extends('layouts.default')
 
-
+@section('css')
+{{HTML::style('css/vid.player.css')}}
+@stop
 
 {{-- */$videourl = 1;/* --}}
-    
+
 
 @section('content')
 
-<div class="White">
+<div class="container page">
     <div class="content-padding">
         <div class="row">
-
             <div id="featured" > 
                 <div class="col-md-8">
                     <br/>
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
-                            <!--responsive iframe-->
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <br>
-                                <video height="315" width="560" class="h-video" controls>
-                                    <source src="http://localhost:8000/videos/{{$videos->file_name}}.{{$videos->extension}}" type="video/{{$videos->extension}}" >
-                                    </video>
+                            {{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
+                            <button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>   
+                            <button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
+                            <button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
+                            <button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
+                            <button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
+                            <button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
+                            <button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
+
+
+                            <div class="">
+                                <video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
+                                    <source src='/videos/movie.mp4' type='video/mp4'>
+                                    <source src='/videos/movie.webm' type='video/webm'>
+                                    <source src='/videos/movie.ogg' type='video/ogg'>
+                                    <source src='/videos/movie.mov' type='video/mov'>
+                                    <source src='/videos/movie.m4v' type='video/x-m4v'>
+                                    <source src='/videos/movie.3gp' type='video/3gpp'>
+                                </video>
+                                <div class="advertisement" style="display:none">
+                                  <h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
                                 </div>
-                                <br/>
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <h4 class="black">
-                                            {{$videos->title}}
-                                        </h4>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h4>
-                                            <span class="pull-right">
-
-                                                1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-                                                1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-
-                                                <span class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                        <h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
-                                                    </a>
-                                                    <span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
-                                                        <!--facebook-->
-                                                        <span style="background:#3d5a98;" class="snBg">
-                                                            <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-                                                        </span>
-                                                        <span class="snCount" style="border:1px solid #3d5a98;">
-                                                            100,000
-                                                        </span><!--/facebook-->
-                                                        <br/><br/>
-                                                        <!--google-->
-                                                        <span style="background:#dd6b6b;" class="snBg">
-                                                            <img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-                                                        </span>
-                                                        <span style="border:1px solid #dd6b6b;" class="snCount">
-                                                            100,000
-                                                        </span><!--/google-->
-                                                    </span>
-
-
-                                                </span>
-                                            </span>
-                                        </h4>
-                                    </div>
+                                <div class="play-icon">
+                                  <span>&#9658;</span>
                                 </div>
-                                <div class="info" >
-                                    <div class="well2">
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <img src="/img/user/u3.png" class="">
+
+                            </div><!--/.row-->
+                            <div class="" style="margin-top:-7px;">
+                                <div class="wrapper">
+                                    <div id="progressbar">
+                                        <div id="current-progress">
+
+                                        </div>
+                                    </div>
+
+                                    <span class="img-play"><img class='play' onclick='togglePlayPause();' id="play-pause" src="/img/icons/play.png"/></span>
+                                    <span class="title">Vocabulary and Memory Test</span>
+                                    <span class="pull-right">
+                                    <span class="ctime time">00:00 / </span> 
+                                    <span class="ttime time">00:00</span>
+
+                                    <span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
+                                        <div class="volume" style="display:none">
+                                            <div onclick='changeVolume("+")' id="plus-vol">+</div>
+                                            <div class="volume-static-holder">
+                                                <div id="volume-vertical">
+                                                    <div id="volume-button"> 
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-11">
-                                               
-                                                <h2 class="black">
-                                                    
-                                                    <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
+                                            <div onclick='changeVolume("-")' id="minus-vol" >-</div>                            
+                                        </div>
+                                    </span><!--/.sound-->
+                                    <span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
+                                    <div class="hd-setting" style="display:none">
+                                        <small style="text-align:center;color:#fff">HD Quality</small>
+                                        <ul>
+                                            <li> <a href="#">1080p</a></li>
+                                            <li> <a href="#">720p</a></li>
+                                            <li> <a href="#">480p</a></li>
+                                            <li> <a href="#">360p</a></li>
+                                            <li> <a href="#">240p</a></li>
+                                        </ul>                       
+                                    </div>
+                                    <div class="share-video" style="display:none">
+                                        <small style="text-align:center;color:#fff">Share to:</small>
+                                        <ul>
+                                            <li> <a href="#">Facebook</a></li>
+                                            <li> <a href="#">Twitter</a></li>
+                                            <li> <a href="#">Instagram</a></li>
+                                            <li> <a href="#">Youtube</a></li>
+                                            <li> <a href="#">Gmail</a></li>
+                                        </ul>                       
+                                    </div>
 
-                                                        <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;">Subscribe</span></a>
+                                    <span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
+                                    <span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
+                                    <img src="/img/logos/teflTv.png" class="playerLogo">
+                                  </span><!--/.pull-right iconds-->
+                                </div><!--/.wrapper player controls-->
+                              </div>
+                              <br/>
+                              <div class="row">
+                                <div class="col-md-7">
+                                 <h4 class="black">
+                                    {{$videos->title}}
+                                </h4>
+                                </div>
+                                <div class="col-md-5">
+                                <h4>
+                                    <span class="pull-right">
+                                        1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
-                                                    </span>
-                                                </h2> 
-                                                <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
-                                                <div class="seeVideoContent">
-                                                    <p>
-                                                     {{$videos->description}}
-                                                 </p>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="seeMore">
-                                    <a class="linkReadMore text-center"><span>SHOW VIDEO STORY</span></a>
+                                        <span class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                <h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
+                                            </a>
+                                            <span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
+                                                <!--facebook-->
+                                                <span style="background:#3d5a98;" class="snBg">
+                                                    <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
+                                                </span>
+                                                <span class="snCount" style="border:1px solid #3d5a98;">
+                                                    100,000
+                                                </span><!--/facebook-->
+                                                <br/><br/>
+                                                <!--google-->
+                                                <span style="background:#dd6b6b;" class="snBg">
+                                                    <img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
+                                                </span>
+                                                <span style="border:1px solid #dd6b6b;" class="snCount">
+                                                    100,000
+                                                </span><!--/google-->
+                                            </span>
+                                        </span>
+                                    </span>
+                                </h4>
+                            </div><!--/.col-md-5-->
+                        </div><!--/.row-->
+                        <div class="info" >
+                            <div class="well2">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <img src="/img/user/u3.png" class="">
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h2 class="black">
+                                            <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
+                                                <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;">Subscribe</span></a>
+                                            </span>
+                                        </h2> 
+                                        <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
+                                        <div class="seeVideoContent">
+                                            <p>
+                                             {{$videos->description}}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div><!--well-->
-
-
-                        
-                        <br/>
-                    </div> <!--/video player-->
-
-                    <div class="row">
-                       <!-- videocomment -->
+                         <div class="seeMore">
+                            <a class="linkReadMore text-center"><span>SHOW VIDEO STORY</span></a>
+                        </div>
                     </div>
-                    <!-- latest -->
-                </div><!--column 8-->
+                </div><!--well-->
+                <br/>
+            </div> <!--/video player-->
+
+            <div class="row">
+               <!-- videocomment -->
+           </div>
+           <!-- latest -->
+       </div><!--column 8-->
 
 
-                <div class="col-md-4 visible-md visible-lg">
-                    <!--advertisement-->
-                         <!-- advertisment small -->
-                    <!--/advertisement-->
-                    <!--Display number of search results-->
-                    <div class="searchResult">About 288,000 results</div>
-                    <!--/search result-->
-                    <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                    @foreach($relations as $relation)
-                    @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL))
-                        <li class="ui-tabs-nav-item" id="">
-                           <a href="watchvideo={{$relation->id}}" id="videourl{{$videourl++}}">
-                            
-                            <img src="img/videoGallery/image1-small.jpg" alt="" />
+       <div class="col-md-4 visible-md visible-lg">
+            <!--advertisement-->
+            <!-- advertisment small -->
+            <!--/advertisement-->
+            <!--Display number of search results-->
+            <div class="searchResult">About 288,000 results</div>
+            <!--/search result-->
+            <ul class="ui-tabs-nav"> <!--video navigation or video list-->
+                @foreach($relations as $relation)
+                @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL))
+                <li class="ui-tabs-nav-item" id="">
+                   <a href="watchvideo={{$relation->id}}" id="videourl{{$videourl++}}">
 
-                            <span>{{$relation->title}}</span><br/></a>
-                            <span>by: {{$relation->channel_name}}</span><br/>
-                            <small>{{$relation->created_at}}</small>
-                            
-                        </li>
-                    @endif
-                    @endforeach
-                </ul><!--video list-->
+                    <img src="img/videoGallery/image1-small.jpg" alt="" />
 
-            </div><!--col 4-->
+                    <span>{{$relation->title}}</span><br/></a>
+                    <span>by: {{$relation->channel_name}}</span><br/>
+                    <small>{{$relation->created_at}}</small>
 
-        </div>
-    </div>
-</div>
-</div>
-@stop
+                </li>
+                @endif
+                @endforeach
+            </ul><!--video list-->
 
+        </div><!--col-md-4-->
 
+    </div><!--/.featured-->
+</div><!--/.row-->
+</div><!--/padding-->
+</div><!--/.page-->
+        @stop
+
+        @section('script')
+        {{HTML::script('js/media.player.js')}}
+        @stop
