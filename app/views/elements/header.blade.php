@@ -24,10 +24,11 @@
                           
                            <span class="input-group-btn">
                               {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-                              {{ Form::close()}}
+                              
                          </span>
                     </div>
                   </div>
+                  {{ Form::close()}}
              </div><!--/.row-->
 
               <div class="input-group">
@@ -50,9 +51,12 @@
                 </div>      
               </div>        
 
-        </div> 
+
+    
+
         </div><!--/.col-md-5-->
    </div><!--/.first row-->
 </div><!--/.container-->
 </div><!--/.brandingHeader-->
+
 

@@ -7,6 +7,7 @@
 	<br/>
 	<div class="row">
 		<div style="border:5px solid #8b9dc1;" class="shadow">
+		
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
 					<div class="crop-square">
@@ -44,11 +45,9 @@
 			</div>
 
 
-
-			
 			<div class="c-about" style="padding:10px 10px;margin-top:0;">
 				<div class="labelThis">
-					User Channel Name
+					{{$userChannel->channel_name}}
 				</div>
 				<ul class="nav nav-tabs" role="tablist inline">
 			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
@@ -58,7 +57,7 @@
 			  		<div role="tabpanel" class="tab-pane active" id="about">
 						<div class="" style="margin-top:20px;">
 							<p class="text-justify">
-								User Interests
+								{{$userChannel->userprofile->interests}}
 							</p>
 						</div>
 					</div>
@@ -66,22 +65,22 @@
 						<div class="" style="margin-top:20px;">
 							<h4>Basic Information</h4>
 							<ul class="ch-infoList">
-								<li><small><label>Name:</label></small> Mark Zuckerburg</li>
-								<li><small><label>Birthdate:</label></small> March 6, 3045</li>
-								<li><small><label>Organizations:</label></small> Mafia</li>
-								<li><small><label>Work:</label></small> CEO of Facebook </li>
+								<li><small><label>Name:</label></small> {{$userChannel->userprofile->first_name}} {{$userChannel->userprofile->last_name}} </li>
+								<li><small><label>Birthdate:</label></small> {{$userChannel->userprofile->birthdate}} </li>
+								<li><small><label>Organizations:</label></small> {{$userChannel->organization}} </li>
+								<li><small><label>Work:</label></small> {{$userChannel->userprofile->work}} </li>
 							</ul>
 							
 							<h4>Contact Information</h4>
 							<ul class="ch-infoList">
-								<li><small><label>Email:</label></small></li>
-								<li><small><label>Websites:</label></small>facebook.com/mark</li>
-								<li><small><label>Contact Number:</label></small>1315464</li>
-								<li><small><label>Address:</label></small>Chicago Illinoise</li>
-								<li><small><label>City:</label></small>New York</li>
-								<li><small><label>State:</label></small>State</li>
-								<li><small><label>Zip Code:</label></small>1243</li>
-								<li><small><label>Country:</label></small>America</li>
+								<li><small><label>Email:</label></small>{{$userChannel->email}}</li>
+								<li><small><label>Websites:</label></small>{{$userChannel->website}}</li>
+								<li><small><label>Contact Number:</label></small> {{$userChannel->userprofile->contact_number}} </li>
+								<li><small><label>Address:</label></small> {{$userChannel->userprofile->address}} </li>
+								<li><small><label>City:</label></small> {{$userChannel->userprofile->city}} </li>
+								<li><small><label>State:</label></small> {{$userChannel->userprofile->state}} </li>
+								<li><small><label>Zip Code:</label></small> {{$userChannel->userprofile->zip_code}} </li>
+								<li><small><label>Country:</label></small> {{$userChannel->userprofile->country_id}} </li>
 							</ul>
 						</div>
 					</div>
@@ -108,7 +107,7 @@
 			  	<!-- Tab panes -->
 			    <div class="tab-content">
 				  	<div role="tabpanel" class="tab-pane active" id="home">
-						@include('elements/users/myChannelTabs/tab-Home')
+						@include('elements/users/myChannelTabs/tab-HomeViewUsers')
 				  	</div>				    
 				    		
 				  	<div role="tabpanel" class="tab-pane" id="Videos">
