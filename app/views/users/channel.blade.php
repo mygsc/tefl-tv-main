@@ -193,4 +193,6 @@
 
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/media.player.js')}}
+
 @stop

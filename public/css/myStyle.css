@@ -144,8 +144,41 @@ p.description_content{
   padding-bottom: 5px;
 }
 /*===========DEFAULTS===========*/
+
 .tbClear{
   border: none!important;
+}
+.tableLayout  {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.tableLayout > thead > tr > th,
+.tableLayout > tbody > tr > th,
+.tableLayout  > tfoot > tr > th,
+.tableLayout  > thead > tr > td,
+.tableLayout > tbody > tr > td,
+.tableLayout > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+}
+.tableLayout > thead > tr > th {
+  vertical-align: bottom;
+}
+.tableLayout > caption + thead > tr:first-child > th,
+.tableLayout > colgroup + thead > tr:first-child > th,
+.tableLayout > thead:first-child > tr:first-child > th,
+.tableLayout > caption + thead > tr:first-child > td,
+.tableLayout > colgroup + thead > tr:first-child > td,
+.tableLayout > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.tableLayout > tbody + tbody {
+  border-top: none;
+}
+.tableLayout .tableLayout {
+  background-color: #fff;
 }
 .inline{
   display: inline!important;
@@ -248,6 +281,14 @@ span .ad{
 .VideoListDiv{
   max-height:400px;
   overflow: auto;
+}
+.videoLinks div{
+  list-style: none;
+
+}
+.videoLinks > span{
+  display: inline-block;
+  margin-right: 30px;
 }
 /*-------END OF LAYOUT FORMATTING --------- */
 
@@ -1237,11 +1278,12 @@ Main components
 
 .ch-subsList .ch-infoList ul{
   list-style: none;
+  display: table;
 
 }
 .ch-infoList li{
   margin-right: 30px;
-  display: inline-block;
+  display: table-row;
 
 }
 .ch-subsList {
