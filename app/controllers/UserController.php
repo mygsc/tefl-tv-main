@@ -172,7 +172,7 @@ class UserController extends BaseController {
 		} else{
 			$subscriberLists = array();
 			$ifNoSubscriber = true;
-		}
+		} 
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		foreach ($subscriptions as $b) {
