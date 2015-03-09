@@ -69,32 +69,10 @@ class HomeController extends BaseController {
 		$owner = User::find($videos->user_id);
 		$title =$videos->title;
 		$description = $videos->description;
-		$tagVideos = TagVideo::where('video_id','=',$videos->id)->get();
-		$mergingTag = [];
-		foreach($tagVideos as $TagVideo){
-			$tag[] = Tag::where('id','=',$TagVideo->tag_id)->get()->toArray();
-			$merging = array_merge($mergingTag,$tag);	
-		}
-		$mergedTags = call_user_func_array('array_merge', $merging);
-		foreach($mergedTags as $mergedTag){
-			$tagName[] = $mergedTag['tags'];
-		}
-		$implodedTags = implode(',',$tagName);
-		$relations = DB::select("SELECT DISTINCT v.id, v.user_id, v.title,v.description, t.tags, u.channel_name,v.created_at,v.deleted_at  FROM tag_video vt
-			INNER JOIN tags t ON vt.tag_id = t.id 
-			INNER JOIN videos v ON vt.video_id = v.id
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description)
-			AGAINST ('".$title.$description."')
-			OR
-			MATCH(t.tags)
-			AGAINST('".$implodedTags."')
-			GROUP BY id
-			ORDER BY MATCH(v.title,v.description)
-			AGAINST ('".$title.$description."')
-			OR
-			MATCH(t.tags)
-			AGAINST('".$implodedTags."');");
+		$tags = $videos->description;
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,u.channel_name FROM videos v 
+						LEFT JOIN users u ON v.user_id = u.id
+						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
 		return View::make('homes.watch-video',compact('videos','relations','owner','id'));
 	}
 
