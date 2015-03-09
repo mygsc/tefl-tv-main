@@ -166,28 +166,63 @@ class UserController extends BaseController {
 
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
-		// return $subscribers;
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		
+		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
+		
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
 
-		$subscriberLists = UserProfile::find($subscriber_id);
- 
-		
-		
-		// $subscriptions = User::find(Auth::User()->id)->subscribe()->where('user_id', Auth::User()->id)->get();
-		// return $subscriptions;
+		// return $subscriber_id;
 
-		$subscriptions = User::find(1);
+		if(isset($subscriber_id)){
+			$subscriberLists = UserProfile::find($subscriber_id);
+			$ifNoSubscriber = false;
+		} else{
+			$subscriberLists = array();
+			$ifNoSubscriber = true;
+		} 
+
+		// return $subscriberLists;
+
+		foreach($subscriberLists as $key => $listSubscriber){
+			$subscriberCount = DB::table('subscribe')->where('subscriber', $listSubscriber->id)->get();
+			$subscriberLists[$key]->count = count($subscriberCount);
+		}
+
+		// return $subscriberLists;
+
+
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
+		// return $subscriptions;
 		foreach ($subscriptions as $b) {
-			$subscriptioned = UserProfile::where('user_id', $b->user_id)->first();
-			$subscriptionLists[] = $subscriptioned;
+			$subscription_id[] = $b->user_id;
+			// $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+			// $subscriptionLists[] = $subscriptioned;
 
 		}
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists'));
+		$subscriptionLists = UserProfile::find($subscription_id);
+		// return $subscriptioned;
+		// return $subscriptionLists;
+		foreach($subscriptionLists as $key => $listSubscription) {
+			$subscriptionCount = DB::table('subscribe')->where('user_id', $listSubscription->id)->get();
+			$subscriptionLists[$key]->count = count($subscriptionCount);
+		}
+
+		// return $subscriptionLists;
+
+
+
+		foreach($subscriptionLists as $key => $listSubscription) {
+			$subscriptionCount = Db::table('subscribe')->where('user_id', $listSubscription->id)->get();
+			$subscriptionLists[$key]->count = count($subscriptionCount);
+		}
+
+
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers'));
 	}
 	
 	public function postUsersUploadImage($id) {

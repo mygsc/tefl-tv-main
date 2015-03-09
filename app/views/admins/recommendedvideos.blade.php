@@ -1,7 +1,8 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
-	<div class="container">
+	<div class="container page">
+		<div class="content-padding">
 		<h1><center>Recommended Videos</center></h1>
 		<div class="row">
 			<table class="table">
@@ -44,7 +45,6 @@
 				{{Form::close()}}
 			</table>
 		</div>
-		{{ link_to_route('admin.logout', 'Logout', null, array('class' => 'btn btn-danger')) }}
-		{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => 'btn btn-danger')) }}
+	</div>
 	</div>
 @stop

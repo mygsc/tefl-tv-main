@@ -35,7 +35,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('/resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	//delete or update this if needed - Cess
-	Route::any('watch-video', array('as' => 'homes.watch-video', 'uses' => 'VideoController@watchVideo'));
+	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 });
 
 //**********Channels**********//

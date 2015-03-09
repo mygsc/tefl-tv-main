@@ -1,7 +1,7 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
-	<div class="container">
+	<div class="container page">
 		<h1><center>Reported Videos</center></h1>
 		<div class="row">
 			<table class="table">

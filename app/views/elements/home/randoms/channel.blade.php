@@ -1,4 +1,4 @@
-<h1>Top Channels</h1>
+<h1>Channels</h1>
 	@foreach($randomResults as $randomResult)
 		<div class="col-md-6">
     		<div class="well">
@@ -25,7 +25,7 @@
 				<hr/>
 				<div class="Subscribers">
 		    		<div class="row">
-		                <h3 class="inline">32k+ Subscribeers &nbsp;|&nbsp; 42k Views</h3>
+		                <h3 class="inline">32k+ Subscribers &nbsp;|&nbsp; 42k Views</h3>
 		                <br/>
 		                <img src="/img/user/u1.png" class="userRep">
 		                <img src="/img/user/u4.png" class="userRep">
