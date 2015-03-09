@@ -266,9 +266,3 @@
 </div><!--/.container page-->
 
 @stop
-
-
-
-
-	
-@stop

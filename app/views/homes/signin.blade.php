@@ -69,7 +69,7 @@
 					</span>
 				@endif
 
-				{{Form::text('contact_number', null, array('placeholder' => 'Contact Number'))}}
+				{{Form::text('contact_number', null, array('placeholder' => 'Contact Number (optional)'))}}
 				<br/>
 				<div class="text-right"> 
 					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}

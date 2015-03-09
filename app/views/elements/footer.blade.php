@@ -9,7 +9,7 @@
                     {{ link_to_route('homes.advertisements', 'Advertisement', null) }}
                     {{ link_to_route('homes.privacy', 'Privacy', null) }}
                     {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}
-                    {{ link_to_route('homes.copyright', 'Copy Right', null) }}
+                    {{ link_to_route('homes.copyright', 'Copyright', null) }}
                 </span><!--/.ctgryNav-f-->
             </div><!--/.col-md-7 col-xs-12-->
 
