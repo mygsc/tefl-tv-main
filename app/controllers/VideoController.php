@@ -1,18 +1,20 @@
 <?php
 
 class VideoController extends Controller {
-
-
+	
 	public function __construct(Video $videos, User $users, Playlist $playlists){
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
+		define('DS', DIRECTORY_SEPARATOR);
 	}
 
 	public function getUpload(){
 		return View::make('users.upload');
 	}
 	public function postUpload(){
+		$size = '500x500'; $second = 5; $cmdLine;
+		$ffmpeg = app_path().DS.'ffmpeg'.DS.'bin'.DS.'ffmpeg';
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
@@ -24,12 +26,18 @@ class VideoController extends Controller {
 			$ecrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $ecrypt_name;
-			$db_filename->save();
-			//uploading
-			$file = Input::file('video');
-			$destinationPath = 'public/videos/';
-			$ext = $file->getClientOriginalExtension();
-			$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+			if($db_filename->save()){
+				//Start upload
+				$file = Input::file('video');
+				$destinationPath = 'public/videos/';
+				$ext = $file->getClientOriginalExtension();
+				$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+				$cmdLine = $ffmpeg . '-i' . $file . '-an -ss' . $second . '-s' . $size;
+				if(shell_exec($cmdLine)){
+					return 'thumbnail successfully create';
+				}
+			}
+		
 			return Redirect::route('get.addDescription',$ecrypt_name);
 		}
 		return Redirect::route('get.upload')

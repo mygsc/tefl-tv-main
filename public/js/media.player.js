@@ -84,11 +84,11 @@ function changeVolume(sign) {
 	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
 	var volumeLenght = $('#volume-vertical').height(); 
 	if(sign==='-'){
-		$('#volume-vertical').css({'height': volumeLenght-8 +'px'});
+		$('#volume-vertical').css({'height': volumeLenght-10 +'px'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
 		volume -= 0.1;
 	}else{
-		$('#volume-vertical').css({'height': volumeLenght+8 +'px'});
+		$('#volume-vertical').css({'height': volumeLenght+10 +'px'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
 		volume +=  0.1;
 	}
