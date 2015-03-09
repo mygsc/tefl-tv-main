@@ -198,3 +198,6 @@
 </div><!--/.container page-->
 
 @stop
+@section('script')
+	{{HTML::script('js/media.player.js')}}
+@stop

@@ -113,11 +113,6 @@ class VideoController extends Controller {
 		return Redirect::route('homes.random', $input['option'])->withInput();
 	}
 
-	//delete or update this, just made this for viewing purpose -Cess
-	public function watchVideo(){
-		return View::make('homes.watch-video');
-	}
-	//end of watchVideo
 
 	public function postSearchVideos(){
 		$input = Input::all();
