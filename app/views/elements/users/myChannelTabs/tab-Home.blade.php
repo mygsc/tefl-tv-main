@@ -169,7 +169,7 @@
 					</div>
 				@else
 					@foreach($subscriberLists as $subscriberList)
-					<div class="col-md-6">	
+					<div class="col-md-6" id="subscriberLists">
 						<div class="row user-padding">
 							<img src="/img/user/u1.png" class="userRep2">&nbsp;
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
