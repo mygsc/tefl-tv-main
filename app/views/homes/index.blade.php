@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				
-				<span class="img-play"><img id="play-pause" class='play' onclick='togglePlayPause();'  src="/img/icons/play.png"/></span>
+				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
 				<span class="title">Vocabulary and Memory Test</span>
 				<span class="pull-right">
 					<span class="ctime time">00:00 / 00:00</span> 
