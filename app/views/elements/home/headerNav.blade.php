@@ -35,7 +35,7 @@
                            
                        </li>
                        <li>
-                         <button class="btn btn-primary orangeC">Upload</button>  
+                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
 
                        </li>
                     </ul>

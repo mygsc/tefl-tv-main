@@ -111,40 +111,62 @@ class VideoController extends Controller {
 
 	public function postSearchVideos(){
 		$input = Input::all();
-		
-		return Redirect::route('homes.searchresult', array($input['type'],$input['search']));
+		return Redirect::route('homes.searchresult', array($input['type'].'?'.$input['search']));
 	}
 
-	public function getSearchResult($type = null,$search = null){
+	public function getSearchResult(){
+		$type = Input::get('type');
+		$search = Input::get('search');
+
 		if($type == 'playlist'){
-			
-
-		}else if($type == 'playlist'){
-
+			$searchResults = Playlist::where('name', $search)->get();
+		}else if($type == 'channel'){
+			$searchresults = User::where('channel_name', $search)->get();
 		}else{
-			$videoResults = DB::select('SELECT DISTINCT v.id, v.user_id, u.channel_name, v.title,v.description, t.tags  FROM tag_video vt
-				INNER JOIN tags t ON vt.tag_id = t.id 
-				INNER JOIN videos v ON vt.video_id = v.id
-				LEFT JOIN users u ON v.user_id = u.id
-				WHERE MATCH(v.title,v.description)
-				AGAINST ("'.$search.'")
-				OR
-				MATCH(t.tags)
-				AGAINST("'.$search.'")
-				GROUP BY id
-				ORDER BY MATCH(v.title,v.description)
-				AGAINST ("'.$search.'")
-				OR
-				MATCH(t.tags)
-				AGAINST("'.$search.'")
-				');
+			$longwords = 'SELECT DISTINCT v.id,v.user_id,u.channel_name, v.title,v.description,
+				v.tags,v.views,v.likes,v.publish,
+				v.report_count,v.deleted_at,v.created_at
+				FROM videos v 
+				INNER JOIN users u ON v.user_id = u.id
+				WHERE
+				v.deleted_at IS NULL
+				AND
+				publish ="1"
+				AND
+				report_count < "5"
+				AND
+				MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)
+				';
 
-			foreach($videoResults as $key => $videoResult){
-				$videoInfo = Video::with('tags')->where('id', $videoResult->id)->first();
-				$videoResults[$key]->tags = $videoInfo['tags'];
+			$searchResults = DB::select($longwords);
+			if(strlen($search) < 3){
+				$shortwords = ' or title like "%'. $search .'%"
+				AND
+				v.deleted_at IS NULL
+				AND
+				publish ="1"
+				AND
+				report_count < "5"
+				or tags like "%'. $search .'%"
+				AND
+				v.deleted_at IS NULL
+				AND
+				publish ="1"
+				AND
+				report_count < "5"';
+
+				$searchResults = DB::select($longwords . $shortwords);
 			}
 		}
 
-		return View::make('homes.searchresult', compact('videoResults'));
+		foreach($searchResults as $key => $searchResult){
+			$getTags = explode(',',$searchResult->tags);
+			foreach($getTags as $key2 => $getTags){
+			$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array('search' => $getTags));
+			$searchResults[$key]->tag[$key2]['tags'] = $getTags;
+			}
+		}
+
+		return View::make('homes.searchresult', compact(array('type','searchResults')));
 	}
 }
