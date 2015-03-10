@@ -178,7 +178,7 @@
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 							<br/>&nbsp;
 							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
-							<button class="btn btn-primary btn-xs pull-right subscribers" id="subscribe{{$increment++}}">Subscribe</button>
+							<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
 						</div>
 					</div>
 					@endforeach	

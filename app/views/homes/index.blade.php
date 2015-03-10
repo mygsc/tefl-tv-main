@@ -21,10 +21,10 @@
 				</video>
 				<div class="advertisement" style="display:none">
 				 	<span class="close">x</span> 
-					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
+					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a href="#">APPLY NOW!</a></h2>
 				</div>
 				<div class="play-icon">
-					<span>&#9658;</span>
+					<span><img src="/img/icons/play-btn.png"></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
