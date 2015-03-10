@@ -1,82 +1,25 @@
 @extends('layouts.default')
 
 @section('content')
-	
-	<div class="container page">
-		<h1>Latest Videos</h1>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
+
+<div class="container page">
+	<h1>Latest Videos</h1>
+	@foreach($latestVideos as $latestVideo)
+	<div class="col-md-3">
+		<img src="/img/thumbnails/v10.png">
+		<div class="v-Info">
+			<a href="{{route('homes.watch-video')}}">{{$latestVideo->title}}</a>
 		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
-		</div>
-		<div class="col-md-3">
-			<img src="/img/thumbnails/v10.png">
-			<div class="v-Info">
-				title
-			</div>
-			<div class="count">
-				Views, Likes
-			</div>
+		<div class="count">
+			Channel: <a href="{{route('view.users.channel', array($latestVideo->channel_name))}}">{{$latestVideo->channel_name}}</a>
+			<br />
+			Views: {{$latestVideo->views}}, Likes: {{$latestVideo->likes}}
+			<br />
+			Date Uploaded: {{$latestVideo->created_at}}
 		</div>
 	</div>
-	
-	
+	@endforeach
+</div>
+
+
 @stop

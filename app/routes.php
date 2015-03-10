@@ -33,7 +33,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
-	Route::post('/resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
+	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	//delete or update this if needed - Cess
 	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 });
