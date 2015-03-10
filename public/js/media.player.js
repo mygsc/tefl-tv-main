@@ -1,10 +1,10 @@
 
-document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer(); }, false);
+document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();}, false);
 
-var mediaPlayer, hourso=0, minuto=0, secondo=0,
-	playPauseBtn,
+var mediaPlayer, hourso=0, minuto=0, secondo=0, adsTimeSetting = 10, ads=0,
+	playPauseBtn, timeDuration,
  	muteBtn, playIcon = false,
- 	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false, start = false,
  	videoTimeLenght, $this = $(this), 
  	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
@@ -14,8 +14,10 @@ var progress = document.getElementById('current-progress').offsetWidth;
 var plusVol = document.getElementById('plus-vol').offsetHeight;
 var volumeBar = $('#volume-vertical').height();
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
+
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
+	timeDuration = Math.round(mediaPlayer.duration);
 	playPauseBtn = document.getElementById('play-pause');
 	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
@@ -40,12 +42,13 @@ function GSCMediaPlayer(){
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
 	mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
-	volume = parseFloat(mediaPlayer.volume);
 	
-
 }
-function GetHrsMinSec(){
-	
+function adsOn(){
+	ads = timeDuration * adsTimeSetting / 100;
+	ads = Math.round(100 / ads) * 7;
+	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#current-progress');
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + 'px', 'height':'100%', 'position':'absolute'});
 }
 function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
@@ -56,14 +59,11 @@ function togglePlayPause() {
 		videoPlaying = true;
 		playIcon=false;
 		$('.play-icon').fadeOut(500);
-		//mediaPlayer.getPlaybackQuality('small');
-		
 	}
 	// Otherwise it must currently be playing
 	else {
 		changeButtonType(playPauseBtn, 'play');
 		playPauseBtn.src = "/img/icons/play.png";
-		// Pause the media
 		mediaPlayer.pause();
 		videoPlaying = false;
 		playIcon=true;
@@ -84,13 +84,13 @@ function changeVolume(sign) {
 	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
 	var volumeLenght = $('#volume-vertical').height(); 
 	if(sign==='-'){
-		$('#volume-vertical').css({'height': volumeLenght-8 +'px'});
+		$('#volume-vertical').css({'height': volumeLenght-10 +'%'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
-		volume -= 0.1;
+		mediaplayer.volume -= 0.1;
 	}else{
-		$('#volume-vertical').css({'height': volumeLenght+8 +'px'});
+		$('#volume-vertical').css({'height': volumeLenght+10 +'%'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
-		volume +=  0.1;
+		mediaplayer.volume +=  0.1;
 	}
 }
 
@@ -170,16 +170,20 @@ function updateProgressBar(response) {
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMinLenght + ':' + vidSecLenght);
 					}
 
-					var updateTime = Math.round(videoCurrentTime);
-					var videoLenght = Math.round(mediaPlayer.duration);				
-					if(updateTime == videoLenght) {		
+					var finishTime = Math.round(videoCurrentTime);
+					var videoLenght = Math.round(mediaPlayer.duration);	
+					
+					if(finishTime == videoLenght){		
+						$('#play-pause').addClass('pause').removeClass('play');
 						playPauseBtn.src = "/img/icons/play.png";
 						videoPlaying=false;
-						videoCurrentTime = 0;
+						finishTime = 0;
 						$('.advertisement').fadeOut();
 						$('.play-icon').fadeIn(500);
 					}
-					if(updateTime==10){
+							
+					
+					if(finishTime == adsTimeSetting){
 						$('.advertisement').fadeIn(2000);
 					}
 					//mediaPlayer.onwaiting = function() {alert('waiting');}

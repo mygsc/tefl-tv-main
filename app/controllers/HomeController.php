@@ -66,10 +66,10 @@ class HomeController extends BaseController {
 		$id = explode('%',$idtitle);
 		$videos = Video::find($id[0]);
 		$owner = User::find($videos->user_id);
-		$title =$videos->title;
-		$description = $videos->description;
-		$tags = $videos->description;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,u.channel_name FROM videos v 
+		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
+		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
+		$tags = $videos->tags;
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
 						LEFT JOIN users u ON v.user_id = u.id
 						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
 		return View::make('homes.watch-video',compact('videos','relations','owner','id'));

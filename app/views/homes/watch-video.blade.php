@@ -1,4 +1,3 @@
-
 @extends('layouts.default')
 
 @section('css')
@@ -119,9 +118,9 @@
                     <!--/search result-->
                     <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                         @foreach($relations as $relation)
-                        @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL))
+                        @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL) && ($relation->publish == 1) && ($relation->report_count < 5))
                         <li class="ui-tabs-nav-item" id="">
-                           <a href="watchvideo={{$relation->id}}" id="videourl{{$videourl++}}">
+                           <a href="watch={{$relation->id}}%{{$relation->title}}" id="videourl{{$videourl++}}">
 
                             <img src="img/videoGallery/image1-small.jpg" alt="" />
 
@@ -144,4 +143,5 @@
 
 @section('script')
     {{HTML::script('js/media.player.js')}}
+    {{HTML::script('js/homes/convert_specialString.js')}}
 @stop
