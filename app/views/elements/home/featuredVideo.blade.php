@@ -1,11 +1,7 @@
-@extends('layouts.admin')
 
-
-
-@section('content')
-	<div class="container page">
-		<br/>
-		<div class="col-md-5">	
+<div class="">
+	<div class="">
+		<div class="col-md-12">
 			{{--<progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
 				<button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>	
 				<button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
@@ -84,35 +80,8 @@
 						</span><!--/.pull-right iconds-->
 					</div><!--./wrapper-->
 				</div>
-		</div><!--/.col-md-5 featured video-->
-
-		<div class="col-md-7">
-			<div class="row">
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-			</div>
-			<br/>
-			<div class="row">
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-				<div class="col-md-4">
-					<img src="/img/thumbnails/v10.png">
-				</div>
-			</div>
-
-		</div>
-		<br/>
-
-	</div>
+		</div><!--/.row-->
+	</div><!--/.col-md-7-->
+</div>
 @stop
+

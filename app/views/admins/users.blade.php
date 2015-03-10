@@ -1,11 +1,29 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 
 @section('content')
-	<div class="container">
-		<h1><center>Users</center></h1>
-		<div class="row">
-			<table class="table">
-				<tr>
+	<div class="container page">
+		<div class="content-padding">
+			<div class="col-md-6">
+				<h1>Users</h1>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br/>
+			<div class="input-group">
+                {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search User', 'class' => 'form-control c-input ')) }}
+                    <div class="input-group-btn">
+                        <!--simple button-->    
+                        {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+                    </div><!--/.input-group-btn-->    
+                {{ Form::close()}}
+            </div><!--/.input-group-btn-->    
+                
+        </div>
+
+		<div class="col-md-12">
+			 <br/>
+			<table class="table-striped table">
+				<tr class="tbHead">
 					<th>ID</th>
 					<th>Email</th>
 					<th>Channel Name</th>
@@ -38,7 +56,6 @@
 				@endforeach
 			</table>
 		</div>
-		{{ link_to_route('admin.logout', 'Logout', null, array('class' => 'btn btn-danger')) }}
-		{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => 'btn btn-danger')) }}
+	
 	</div>
 @stop

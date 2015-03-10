@@ -13,7 +13,7 @@
 						<div class="">
 							<div class="overlay-cover">
 								<span class="infoCounts">
-									<label>12k Subscribers</label>
+									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>100 Videos</label> &nbsp;
 									<label>13k Views</label>
 								</span>
@@ -57,26 +57,67 @@
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="learn">
-						<div class="" style="margin-top:20px;">
-							<h4>Basic Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Name:</label></small> {{$usersChannel->first_name}} {{$usersChannel->last_name}}</li>
-								<li><small><label>Birthdate:</label></small> {{$usersChannel->birthdate}}</li>
-								<li><small><label>Organizations:</label></small> {{Auth::User()->organiztion}}</li>
-								<li><small><label>Work:</label></small> {{Auth::User()->organiztion}}</li>
-							</ul>
-							
-							<h4>Contact Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Email:</label></small></li>
-								<li><small><label>Websites:</label></small>{{Auth::User()->website}}</li>
-								<li><small><label>Contact Number:</label></small>{{$usersChannel->contact_number}}</li>
-								<li><small><label>Address:</label></small>{{$usersChannel->address}}</li>
-								<li><small><label>City:</label></small>{{$usersChannel->city}}</li>
-								<li><small><label>State:</label></small>{{$usersChannel->state}}</li>
-								<li><small><label>Zip Code:</label></small>{{$usersChannel->zip_code}}</li>
-								<li><small><label>Country:</label></small>{{$usersChannel->country_id}}</li>
-							</ul>
+						<div class="row" style="margin-top:20px;">
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Name:</label></small> </td>
+										<td>{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Birthdate:</label></small></td>
+										<td>{{$usersChannel->birthdate}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Organizations:</label></small></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Work:</label></small></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Email:</label></small> </td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><small><label>Website:</label></small></td>
+										<td>{{Auth::User()->website}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Contact Number:</label></small></td>
+										<td>{{$usersChannel->contact_number}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Address:</label></small></td>
+										<td>{{$usersChannel->address}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>City:</label></small> </td>
+										<td>{{$usersChannel->city}}</td>
+									</tr>
+									<tr>
+										<td><small><label>State:</label></small></td>
+										<td>{{$usersChannel->state}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Zip Code:</label></small></td>
+										<td>{{$usersChannel->zip_code}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Country:</label></small></td>
+										<td>{{$usersChannel->country_id}}</td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

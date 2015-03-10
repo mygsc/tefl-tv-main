@@ -1,18 +1,20 @@
 <?php
 
 class VideoController extends Controller {
-
-
+	
 	public function __construct(Video $videos, User $users, Playlist $playlists){
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
+		define('DS', DIRECTORY_SEPARATOR);
 	}
 
 	public function getUpload(){
 		return View::make('users.upload');
 	}
 	public function postUpload(){
+		$size = '500x500'; $second = 5; $cmdLine;
+		$ffmpeg = app_path().DS.'ffmpeg'.DS.'bin'.DS.'ffmpeg';
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
@@ -24,12 +26,18 @@ class VideoController extends Controller {
 			$ecrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $ecrypt_name;
-			$db_filename->save();
-			//uploading
-			$file = Input::file('video');
-			$destinationPath = 'public/videos/';
-			$ext = $file->getClientOriginalExtension();
-			$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+			if($db_filename->save()){
+				//Start upload
+				$file = Input::file('video');
+				$destinationPath = 'public/videos/';
+				$ext = $file->getClientOriginalExtension();
+				$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+				$cmdLine = $ffmpeg . '-i' . $file . '-an -ss' . $second . '-s' . $size;
+				if(shell_exec($cmdLine)){
+					return 'thumbnail successfully create';
+				}
+			}
+		
 			return Redirect::route('get.addDescription',$ecrypt_name);
 		}
 		return Redirect::route('get.upload')
@@ -48,34 +56,21 @@ class VideoController extends Controller {
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$addDescription);
 		if($validator->passes()){
+			$tags = explode(',',Input::get('tags'));
+			foreach($tags as $tag){
+				if($tag != null){
+					$newTags[] = strtolower($tag);
+				}
+			}
+			$uniqueTag = array_unique($newTags);
+			$implodeTag = implode(',',$uniqueTag);
 			$video = Video::find($id);
 			$video->title = Input::get('title');
 			$video->description = Input::get('description');
 			$video->publish = Input::get('publish');
+			$video->tags =  $implodeTag;
 			$video->save();
-			$tags = Input::get('tags');
-			if($tags != null){
-				$tags_unique = explode(',',$tags);
-				$exploded_tags = array_unique($tags_unique);
-				foreach($exploded_tags as $exploded_tag){
-					$tags = Tag::where('tags','=',$exploded_tag)->get();
-					if($tags->count()){
-						if($exploded_tag != null){
-							$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
-							TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
-						}
-					}
-					else{
-						if($exploded_tag != null){
-							Tag::create(array('tags' => $exploded_tag));
-							$tag_id = Tag::where('tags','=',$exploded_tag)->get()->toArray();
-							TagVideo::create(array('tag_id' => $tag_id[0]["id"],'video_id' => $id));
-								//var_dump($tag_id[0]["id"]);
-						}
-					}
-				}
-			}
-			return Redirect::route('get.index');
+			return Redirect::route('homes.index');
 		}
 		return Redirect::route('get.addDescription',Crypt::encrypt($id))
 		->withInput()
@@ -113,11 +108,6 @@ class VideoController extends Controller {
 		return Redirect::route('homes.random', $input['option'])->withInput();
 	}
 
-	//delete or update this, just made this for viewing purpose -Cess
-	public function watchVideo(){
-		return View::make('homes.watch-video');
-	}
-	//end of watchVideo
 
 	public function postSearchVideos(){
 		$input = Input::all();

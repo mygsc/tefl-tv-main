@@ -11,10 +11,12 @@
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/vid.player.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 
 </head>
 <body>
+		@include('elements/admins/header-admin')
 		@include('elements/flash_message')
 		
 		@yield('content')
@@ -23,6 +25,7 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
+{{HTML::script('js/media.player.js')}}
 @yield('script')
 
 </html>

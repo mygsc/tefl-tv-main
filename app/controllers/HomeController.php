@@ -52,4 +52,58 @@ class HomeController extends BaseController {
 		return View::make('homes.random');
 	}
 
+	public function getChannels() {
+
+		return View::make('homes.channels');
+	}
+	
+	public function getSignIn() {
+
+		return View::make('homes.signin');
+	}
+
+	public function watchVideo($idtitle){
+		$id = explode('%',$idtitle);
+		$videos = Video::find($id[0]);
+		$owner = User::find($videos->user_id);
+		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
+		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
+		$tags = $videos->tags;
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
+						LEFT JOIN users u ON v.user_id = u.id
+						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
+		return View::make('homes.watch-video',compact('videos','relations','owner','id'));
+	}
+
+	public function postSignIn() {
+
+		$input = Input::all();
+		$validate = Validator::make($input, User::$user_login_rules);
+		if($validate->fails()) {
+			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
+		}else{
+			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
+			if($attempt){
+				$verified = Auth::User()->verified;
+				$status = Auth::User()->status;
+				
+				return Redirect::route('homes.index');
+			}
+		}
+		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+	}
+
+	public function postSignUp() {
+
+		$input = Input::all();
+		$validate = Validator::make($input, User::$user_rules);
+
+		if($validate->passes()){
+			return $this->User->signup();
+		}else{
+			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
+		}
+
+	}
+
 }

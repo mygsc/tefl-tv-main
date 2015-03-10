@@ -52,31 +52,31 @@
 	<!--videos-->
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
-			
 			<div class="subLabelThis">
 				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
-			
+			<div class="row">
+
 			@foreach($usersVideos as $usersVideo)
 			<div class="col-md-4">
-				<div class="row">
-				<div class="">
-					<video controls height="auto" width="100%" class="h-video">
-					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
-					</video>
-				</div>
-				<div class="v-Info">
-					{{$usersVideo->title}}
-				</div>
-				<div class="count">
-					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
-				</div>
-				</div>
+				
+					<div class="">
+						<video controls height="auto" width="100%" class="h-video">
+						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+						</video>
+					</div>
+					<div class="v-Info">
+						{{$usersVideo->title}}
+					</div>
+					<div class="count">
+						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+					</div>
+			
 			</div>
 			@endforeach
-
+			</div>
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -87,7 +87,8 @@
 				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-
+			<br/>
+			<div class="row">
 			<div class="col-md-4">
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
@@ -147,6 +148,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div><!--/.2nd 6 column Playlists-->
 	<br/>
 	<!--Subscribers-->
@@ -169,13 +171,13 @@
 					</div>
 				@else
 					@foreach($subscriberLists as $subscriberList)
-					<div class="col-md-6">	
-						<div class="row user-padding">
+					<div class="col-md-6" >
+						<div class="row user-padding" id="subscriberLists">
 							<img src="/img/user/u1.png" class="userRep2">&nbsp;
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-							<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
+							<button class="btn btn-primary btn-xs pull-right" id="subscribe">Subscribe</button>
 						</div>
 					</div>
 					@endforeach	
@@ -203,9 +205,9 @@
 						<div class="col-md-6">
 							<div class="row user-padding">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+								<span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+								<!-- <span>w/ <b>{{$subscriberList->count}}</b> Subscribers</span>&nbsp; -->
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>
