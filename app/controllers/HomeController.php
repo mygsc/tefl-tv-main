@@ -89,7 +89,7 @@ class HomeController extends BaseController {
 				$verified = Auth::User()->verified;
 				$status = Auth::User()->status;
 				
-				return Redirect::route('homes.index');
+				return Redirect::intended('/');
 			}
 		}
 		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();

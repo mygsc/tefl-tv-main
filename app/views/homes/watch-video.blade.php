@@ -52,6 +52,7 @@
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        @if(isset(Auth::User()->id))
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
@@ -64,10 +65,16 @@
                                                                 <li>{{ Form::checkbox('null,false')}} &nbsp; Playlist 1</li>
                                                                 <li> {{ Form::checkbox('null,false')}} &nbsp; Playlist 2</li>
                                                             </ul>
-                                                            <a href="" class="btn btn-default">Create New Playlist</a>
+                                                            <button>Create New Playlist</button>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
+                                        @else
+
+                                            <a href="signin" role="button" aria-expanded="false">
+                                                    <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                            </a>
+                                        @endif
                                         </span><!--/links-->
                                     </div>
                                 </div><!--/.col-md-5-->
