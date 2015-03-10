@@ -7,7 +7,7 @@
 <br/><br/>
 <div class="row">
 		<div class="col-md-4">
-			<div class="loginDivH">
+			<div class="loginDivH textbox-layout">
 				<img src="/img/logos/teflTv.png" class="center-block">
 				<br/>
 				<!-- Sign In -->
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<div class="signDivH">
+			<div class="signDivH textbox-layout">
 				<h4><i class="fa fa-play"></i>&nbsp;Free Sign-up</h4>
 				
 				<!-- Sign Up -->

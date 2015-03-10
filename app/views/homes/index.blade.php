@@ -3,7 +3,7 @@
 		{{HTML::style('css/vid.player.css')}}
 	@stop
 @section('content')
-
+<div class="row White">
 	<div class="container page">
 		<div class="row">	
 			<br/>
@@ -209,7 +209,7 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.latest', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for Recent Uploads-->
 
@@ -255,14 +255,14 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.random', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for random-->
 
 		</div><!--/.row for threee categories-->
 
 	</div><!--/.container page-->
-
+</div>
 @stop
 @section('script')
 	{{HTML::script('js/media.player.js')}}
