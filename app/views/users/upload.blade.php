@@ -20,7 +20,7 @@ Upload
 					<span class="form-control">
 					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
 						
-						{{Form::file('video',array('class'=>'btn btrn-primary','id'=>'upload'))}}
+						{{Form::file('video', array('class'=>'btn btrn-primary','id'=>'upload'))}}
 					</span>
 					
 					<br/>
@@ -39,5 +39,6 @@ Upload
 </div>
 	
 @stop
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-{{HTML::script('js/user/upload.js')}}
+@section('script')
+	{{HTML::script('js/user/upload.js')}}
+@stop

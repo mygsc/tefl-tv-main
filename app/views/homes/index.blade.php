@@ -3,7 +3,7 @@
 		{{HTML::style('css/vid.player.css')}}
 	@stop
 @section('content')
-
+<div class="row White">
 	<div class="container page">
 		<div class="row">	
 			<br/>
@@ -21,10 +21,10 @@
 				</video>
 				<div class="advertisement" style="display:none">
 				 	<span class="close">x</span> 
-					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
+					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a href="#">APPLY NOW!</a></h2>
 				</div>
 				<div class="play-icon">
-					<span>&#9658;</span>
+					<span><img src="/img/icons/play-btn.png"></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
@@ -37,7 +37,7 @@
 				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
 				<span class="title">Vocabulary and Memory Test</span>
 				<span class="pull-right">
-					<span class="ctime time">00:00 / 00:00</span> 
+					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
 					
 					<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 						<div class="volume" style="display:none">
@@ -99,72 +99,24 @@
 		</div><!--/.row 1st-->
 
 		<br/>
-
+		<!-------- RECOMMENDED VIDEOS SECTION ---------------->
 		<div class="row">
 			<div class="categoryHead">
 	            <h3>Recommended Videos</h3>
 	      	</div><!--/.recommended video-->
 
 			<div class="col-md-12">
+			@foreach($recommendeds as $recommended)
 	            <div class="col-md-2">
 	            	<img src="/img/thumbnails/v3.png" class="h-video">
 	            	<div class="v-Info">
-	            		5 Ways to improve your English
+	            		<a href="{{route('homes.watch-video')}}">{{$recommended->title}}</a>
 	            	</div>
 	            	<div class="count">
 	            		55 Views, 40 Likes
 	            	</div>
 	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
+	        @endforeach
 	        </div><!--/.col-md-12-->
 		</div><!--/.row for recommended videos-->
 
@@ -257,7 +209,7 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.latest', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for Recent Uploads-->
 
@@ -303,14 +255,14 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.random', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for random-->
 
 		</div><!--/.row for threee categories-->
 
 	</div><!--/.container page-->
-
+</div>
 @stop
 @section('script')
 	{{HTML::script('js/media.player.js')}}
