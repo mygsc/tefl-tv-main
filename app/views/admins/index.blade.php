@@ -85,15 +85,34 @@
 					</div><!--./wrapper-->
 				</div>
 		</div><!--/.col-md-5 featured video-->
-		
+
 		<div class="col-md-7">
-			<h1><center>Admins Index</center></h1>
-			{{ link_to_route('admin.logout', 'Logout', null, array('class' => 'btn btn-danger')) }}
-			{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => 'btn btn-danger')) }}
-			{{ link_to_route('get.admin.recommendedvideos', 'Recommended Videos', null, array('class' => 'btn btn-danger')) }}
-			{{ link_to_route('get.admin.createadminlink', 'Admin Registration Code', null, array('class' => 'btn btn-danger')) }}
-			{{ link_to_route('get.admin.reportedvideos', 'Reported Videos', null, array('class' => 'btn btn-danger')) }}
-			{{ link_to_route('get.admin.users', 'Users', null, array('class' => 'btn btn-danger')) }}
+			<div class="row">
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+				<div class="col-md-4">
+					<img src="/img/thumbnails/v10.png">
+				</div>
+			</div>
+
 		</div>
+		<br/>
+
 	</div>
 @stop

@@ -3,7 +3,7 @@
 
 
 @section('content')
-<div class="container">
+<div class="container ">
 	<br/><br/>
 	<div class="col-md-6 col-md-offset-3">
 		<div class="loginDivA">
