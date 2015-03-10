@@ -1,6 +1,6 @@
-@extends('layouts.default')
+@extends('layouts.admin')
 @section('content')
-<div class="container">
+<div class="container page">
 	<center>
 		<div class="row">
 			<h1>Admin Registration</h1>

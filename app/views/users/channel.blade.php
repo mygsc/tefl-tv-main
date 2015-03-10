@@ -64,6 +64,10 @@
 				  	</div>				    
 				    		
 				  	<div role="tabpanel" class="tab-pane" id="Videos">
+				  		<button id="sortViews">Sort by Most Views</button>
+				  		<button id="sort">Sort by Most Likes</button>
+				  		<button id="sort">Sort by Recent</button>
+
 				  		<div class="row">
 				  			<br/>
 				  			<div class="col-md-6 pull-right">
@@ -72,6 +76,7 @@
 				  					<span class="input-group-btn">
 				  						{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 				  					</span>
+
 				  				</div>
 				  			</div>
 				  			<br/>
@@ -136,7 +141,7 @@
 					    				<img src="/img/user/u1.png" class="userRep2">&nbsp;
 					    				<a href="{{route('view.users.channel',$subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 					    				<br/>&nbsp;
-					    				<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+					    				<span>w/ <b>{{$subscriberList->count}}</b> Subscribers</span>&nbsp;
 					    				<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					    			</div>
 					    		</div>
@@ -187,7 +192,7 @@
 													<td>{{ Form::checkbox(false)}}</td>
 													<td>
 														<img src="/img/user/u1.png" class="userRep2">&nbsp;
-														<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
+														<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
 													</td>
 													<td class="text-center">{{ Form::checkbox(false)}}</li></td>
 													<td class="text-center">
@@ -222,6 +227,8 @@
 </div><!--/.container page-->
 
 @stop
+
 @section('script')
+	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
 @stop

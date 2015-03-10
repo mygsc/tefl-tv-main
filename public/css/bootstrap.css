@@ -3423,10 +3423,10 @@ tbody.collapse.in {
   min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
-  font-size: 14px;
+  font-size: 12px;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #ecf3fe;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid #ccc;
@@ -3443,7 +3443,6 @@ tbody.collapse.in {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
-  background-color: #e5e5e5;
 }
 .dropdown-menu > li > a {
   display: block;
@@ -3451,21 +3450,21 @@ tbody.collapse.in {
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #333;
+  color: #181b2e;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  color: #262626;
+  color: #181b2e!important;
   text-decoration: none;
-  background-color: #f5f5f5;
+  background-color: transparent;
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  color: #fff;
+  color: #181b2e;
   text-decoration: none;
-  background-color: #337ab7;
+  background-color: transparent;
   outline: 0;
 }
 .dropdown-menu > .disabled > a,

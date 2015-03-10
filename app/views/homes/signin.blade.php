@@ -13,9 +13,9 @@
 				<!-- Sign In -->
 				{{Form::open(array('route' => 'homes.post.signin'))}}
 				
-				{{Form::text('channel_name',null,array('class'=>'form-control', 'placeholder' => 'Channel Name'))}}
+				{{Form::text('channel_name',null,array('placeholder' => 'Channel Name'))}}
 				
-				{{Form::password('password',array('class' => 'form-control txt_password' , 'placeholder' => 'Password','required' => true))}}
+				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
 
 				<div class="text-right">
 					<br/>

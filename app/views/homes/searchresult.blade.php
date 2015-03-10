@@ -8,18 +8,16 @@
 	<div class="container page">
 		<div class="col-md-8">
 			<div class="row">
-				@if(empty($videoResults))
-					<br/>
-					<p style="font-size:1.8em;font-style:italic">No Rusult</p>
+				@if(empty($searchResults))
+					Nothing Found
 				@else
-				@foreach($videoResults as $video)
-					<div class="col-md-12">
-						Title: <a href="#">{{$video->title}}</a><br />
-						Description: {{$video->description}}<br />
-						Author: <a href="#">{{$video->channel_name}}</a><br />
-						<br /><br />
-					</div>
-				@endforeach
+					@if($type == 'playlist')
+						@include('elements.home.searchs.video')
+					@elseif($type == 'channel')
+						@include('elements.home.searchs.video')
+					@else
+						@include('elements.home.searchs.video')
+					@endif
 				@endif
 			</div>
 		</div>
