@@ -33,7 +33,7 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
-                                                <span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
+                                                <span class="dropdown-menu drop pull-right White" style="padding:5px 5px;text-align:center;">
                                                     <!--facebook-->
                                                     <span style="background:#3d5a98;" class="snBg">
                                                         <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
@@ -52,11 +52,12 @@
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        @if(isset(Auth::User()->id))
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
-                                                <span class="dropdown-menu White" style="padding:5px 5px;text-align:left;">
+                                                <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
                                                     <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
                                                     <li><p><i class="fa fa-list"></i>&nbsp;&nbsp;Playlist</p>
                                                           {{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
@@ -64,10 +65,16 @@
                                                                 <li>{{ Form::checkbox('null,false')}} &nbsp; Playlist 1</li>
                                                                 <li> {{ Form::checkbox('null,false')}} &nbsp; Playlist 2</li>
                                                             </ul>
-                                                            <a href="" class="btn btn-default">Create New Playlist</a>
+                                                            <button>Create New Playlist</button>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
+                                        @else
+
+                                            <a href="signin" role="button" aria-expanded="false">
+                                                    <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                            </a>
+                                        @endif
                                         </span><!--/links-->
                                     </div>
                                 </div><!--/.col-md-5-->

@@ -1,4 +1,7 @@
 @extends('layouts.default')
+@section('script')
+
+@stop
 
 @section('content')
 
@@ -36,7 +39,10 @@
 									<a href=""><img src="/img/icons/yt.png"></a>
 									<a href=""><img src="/img/icons/wl.png"></a>
  	
-									<button class="btn btn-primary" style="margin-top:5px;">Subscribe</button>
+									{{Form::open(array('route'=>'post.addsubscriber','method'=>'POST'))}}
+					    				{{Form::hidden('user_id',$userChannel->id)}}
+								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right'))}}
+								    {{Form::close()}}
 								</span>	
 							</div>
 						</div>	
@@ -179,13 +185,12 @@
 					    				<img src="/img/user/u1.png" class="userRep2">&nbsp;
 					    				<a href="{{route('view.users.channel')}}"><span><b>Mark Zuckerburg</b></span></a>&nbsp;
 					    				<br/>&nbsp;
-					    				<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-					    				<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+					    				<span>w/ <b>69k</b> Subscribers</span>&nbsp;
+					    				<button class="">Subscribe</button>
 					    			</div>
 					    		</div>
-				    			
 							</div>	
-				   		 </div>
+				   		</div>
 				   	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="Subscriptions">
