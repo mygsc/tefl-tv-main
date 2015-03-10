@@ -148,6 +148,7 @@
 	</div><!--/.2nd 6 column Playlists-->
 	<br/>
 	<!--Subscribers-->
+	
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
@@ -173,7 +174,7 @@
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 							<br/>&nbsp;
 							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
-							<button class="btn btn-primary btn-xs pull-right" id="subscribe">Subscribe</button>
+							<button class="btn btn-primary btn-xs pull-right subscribers" id="subscribe{{$increment++}}">Subscribe</button>
 						</div>
 					</div>
 					@endforeach	

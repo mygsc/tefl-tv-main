@@ -193,7 +193,7 @@ class UserController extends BaseController {
 
 		// return $subscriberLists;
 
-
+		$increment = 0;
 		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		// return $subscriptions;
@@ -222,7 +222,7 @@ class UserController extends BaseController {
 		}
 
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers'));
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment'));
 	}
 	
 	public function postUsersUploadImage($id) {
