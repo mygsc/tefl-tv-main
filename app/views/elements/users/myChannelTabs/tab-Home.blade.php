@@ -52,29 +52,31 @@
 	<!--videos-->
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
-			
 			<div class="subLabelThis">
 				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
+
+			<div class="row">
+
 			@foreach($usersVideos as $usersVideo)
 			<div class="col-md-4">
-				<div class="row">
-				<div class="">
-					<video controls height="auto" width="100%" class="h-video">
-					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
-					</video>
-				</div>
-				<div class="v-Info">
-					{{$usersVideo->title}}
-				</div>
-				<div class="count">
-					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
-				</div>
-				</div>
+				
+					<div class="">
+						<video controls height="auto" width="100%" class="h-video">
+						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+						</video>
+					</div>
+					<div class="v-Info">
+						{{$usersVideo->title}}
+					</div>
+					<div class="count">
+						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+					</div>
+			
 			</div>
 			@endforeach
-
+			</div>
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -85,7 +87,8 @@
 				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-
+			<br/>
+			<div class="row">
 			<div class="col-md-4">
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
@@ -144,6 +147,7 @@
 					Update: February 12, 2015
 				</div>
 			</div>
+		</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
 	<br/>

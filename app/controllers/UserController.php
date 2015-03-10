@@ -161,13 +161,11 @@ class UserController extends BaseController {
 	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
-
 		$usersVideos = User::find(3)->video;
-
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
+
 		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
-		
 		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
 		
 		foreach($subscribers as $a){
@@ -194,7 +192,7 @@ class UserController extends BaseController {
 		// return $subscriberLists;
 
 		$increment = 0;
-		
+
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
 		// return $subscriptions;
 		foreach ($subscriptions as $b) {
@@ -366,10 +364,7 @@ class UserController extends BaseController {
 
 	public function getViewUsersChannel($channel_name) {
 
-
-
 		$userChannel = User::where('channel_name', $channel_name)->first();
-
 
 		$usersVideos = User::find(Auth::User()->id)->video;
 
