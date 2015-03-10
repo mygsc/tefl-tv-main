@@ -35,8 +35,14 @@
                            
                        </li>
                        <li>
-                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-
+                       {{-- link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) --}}
+                        <div class="btn btn-primary orangeC" style="position: relative; ">
+                            <form action="{{route('post.upload')}}" method="POST" enctype="multipart/form-data" id ='submit'>
+                                <input style="cursor:pointer; position: absolute;z-index: 2;opacity: 0;width: 100%;height: 100%;" type="file" name="video" id="upload"/>
+                                Upload
+                            </form>
+                        </div>
+                        
                        </li>
                     </ul>
                 </div>

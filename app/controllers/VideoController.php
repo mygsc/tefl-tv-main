@@ -13,32 +13,36 @@ class VideoController extends Controller {
 		return View::make('users.upload');
 	}
 	public function postUpload(){
-		$size = '500x500'; $second = 5; $cmdLine;
-		$ffmpeg = app_path().DS.'ffmpeg'.DS.'bin'.DS.'ffmpeg';
+		$size = '1024x768'; 
+		$second = 5; 
+		$ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
-			//insert in database
+			//insert into database
+			$file = Input::file('video');
 			$input['user_id'] = '1';
-			$input['extension'] = Input::file('video')->getClientOriginalExtension();
+			$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
 			$latest_id = $create->id;
 			$ecrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $ecrypt_name;
-			if($db_filename->save()){
+			$db_filename->save()
 				//Start upload
-				$file = Input::file('video');
+				$img = Auth::User()->channel_name;//str_random(5);
 				$destinationPath = 'public/videos/';
 				$ext = $file->getClientOriginalExtension();
 				$file->move($destinationPath, $ecrypt_name.'.'.$ext);
-				$cmdLine = $ffmpeg . '-i' . $file . '-an -ss' . $second . '-s' . $size;
-				if(shell_exec($cmdLine)){
-					return 'thumbnail successfully create';
-				}
-			}
-		
-			return Redirect::route('get.addDescription',$ecrypt_name);
+				//$cmd = "$ffmpegPath -i $file -an -ss $second -s $size public/img/$img.jpg";
+				for($n=1; $n<=3; $n++){
+					$secondsInterval = $n*5;
+					$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$n.jpg";
+					$done = shell_exec($cmd);
+					if($done){return'thumbnail created successfully.';}
+				}		
+			 return Redirect::route('get.addDescription',$ecrypt_name);
+			
 		}
 		return Redirect::route('get.upload')
 		->withInput()
