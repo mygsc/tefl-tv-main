@@ -99,72 +99,24 @@
 		</div><!--/.row 1st-->
 
 		<br/>
-
+		<!-------- RECOMMENDED VIDEOS SECTION ---------------->
 		<div class="row">
 			<div class="categoryHead">
 	            <h3>Recommended Videos</h3>
 	      	</div><!--/.recommended video-->
 
 			<div class="col-md-12">
+			@foreach($recommendeds as $recommended)
 	            <div class="col-md-2">
 	            	<img src="/img/thumbnails/v3.png" class="h-video">
 	            	<div class="v-Info">
-	            		5 Ways to improve your English
+	            		<a href="{{route('homes.watch-video')}}">{{$recommended->title}}</a>
 	            	</div>
 	            	<div class="count">
 	            		55 Views, 40 Likes
 	            	</div>
 	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
-
-	            <div class="col-md-2">
-	            	<img src="/img/thumbnails/v3.png" class="h-video">
-	            	<div class="v-Info">
-	            		5 Ways to improve your English
-	            	</div>
-	            	<div class="count">
-	            		55 Views, 40 Likes
-	            	</div>
-	            </div>
+	        @endforeach
 	        </div><!--/.col-md-12-->
 		</div><!--/.row for recommended videos-->
 

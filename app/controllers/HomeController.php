@@ -9,7 +9,27 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		return View::make('homes.index');
+		$recommendeds = DB::select(
+			'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
+			v.views, v.likes, v.tags, v.report_count,v.recommended, v.created_at,
+			v.deleted_at,u.channel_name,u.status FROM videos v
+			INNER JOIN users u ON
+			v.user_id = u.id
+			WHERE
+			v.deleted_at IS NULL
+			AND
+			v.report_count < 5
+			AND
+			NOT(u.status = "0")
+			AND
+			publish = "1"
+			AND
+			recommended = "1"
+			ORDER BY
+			(v.views + v.likes) DESC
+			LIMIT 5');
+
+		return View::make('homes.index', compact('recommendeds'));
 	}
 
 	public function getAboutUs() {
@@ -38,13 +58,45 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
+		$latestVideos = DB::select(
+			'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
+			v.views, v.likes, v.tags, v.report_count,v.created_at,
+			v.deleted_at,u.channel_name,u.status FROM videos v
+			INNER JOIN users u ON
+			v.user_id = u.id
+			WHERE
+			v.deleted_at IS NULL
+			AND
+			v.report_count < 5
+			AND
+			NOT(u.status = "0")
+			AND
+			publish = "1"
+			ORDER BY
+			(v.views + v.likes) DESC');
 
-		return View::make('homes.popular');
+		return View::make('homes.popular', compact('latestVideos'));
 	}
 
 	public function getLatest() {
+		$latestVideos = DB::select(
+			'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
+			v.views, v.likes, v.tags, v.report_count,v.created_at,
+			v.deleted_at,u.channel_name,u.status FROM videos v
+			INNER JOIN users u ON
+			v.user_id = u.id
+			WHERE
+			v.deleted_at IS NULL
+			AND
+			v.report_count < 5
+			AND
+			NOT(u.status = "0")
+			AND
+			publish = "1"
+			ORDER BY
+			v.created_at DESC');
 
-		return View::make('homes.latest');
+		return View::make('homes.latest', compact('latestVideos'));
 	}
 
 	public function getRandom() {
