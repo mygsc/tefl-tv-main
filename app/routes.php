@@ -52,6 +52,7 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
 	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 	Route::get('subscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
+	Route::post('remove-favorites', array('as' => 'post.remove-favorites', 'uses' => 'UserController@postRemoveFavorites'));
 });
 //*********End of Channels************//
 Route::get('channel/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));

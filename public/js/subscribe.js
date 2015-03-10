@@ -1,7 +1,16 @@
 $(document).ready(function() {
 	var subscribe = true;
+
+
+	// $("button").click(function() {
+	// 	$("button").attr( "id=subscribe",function(arr) {
+	// 		return arr;
+	// 	)}.each(function() {
+	// 		alert(arr);
+	// 	})
+	// });
 	
-		$("#subscribe").click(function() {
+		$("button").click(function() {
 
 				if(subscribe == true) {
 					$(this).html('Unsubscribe');

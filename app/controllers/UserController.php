@@ -172,7 +172,7 @@ class UserController extends BaseController {
 			$subscriber_id[] = $a->subscriber;
 		}
 
-		// return $subscriber_id;
+		// return $subscribers;
 
 		if(isset($subscriber_id)){
 			$subscriberLists = UserProfile::find($subscriber_id);
@@ -212,7 +212,18 @@ class UserController extends BaseController {
 
 		// return $subscriptionLists;
 
+		// return $subscribers;
+		$findUsersVideo = User::find(Auth::User()->id)->favorite;
+		
+		// return $findUsersVideo;
 
+		foreach($findUsersVideo as $findVideo){
+			$videoFavorites[] = $findVideo->video_id;
+		}
+		// return $videoFavorites;
+		$showFavoriteVideos = Video::find($videoFavorites);
+
+		
 
 		foreach($subscriptionLists as $key => $listSubscription) {
 			$subscriptionCount = Db::table('subscribe')->where('user_id', $listSubscription->id)->get();
@@ -220,7 +231,9 @@ class UserController extends BaseController {
 		}
 
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment'));
+	
+
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos'));
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -410,6 +423,11 @@ class UserController extends BaseController {
         );
  
         return Response::json( $response );
+    }
+
+    public function postRemoveFavorites() {
+
+    	return 'hi';
     }
 
 }
