@@ -1,10 +1,6 @@
 @extends('layouts.default')
-@section('script')
-
-@stop
 
 @section('content')
-
 
 <div class="container page">
 	<br/>
@@ -39,9 +35,11 @@
 									<a href=""><img src="/img/icons/yt.png"></a>
 									<a href=""><img src="/img/icons/wl.png"></a>
  	
-									{{Form::open(array('route'=>'post.addsubscriber','method'=>'POST'))}}
+									{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
 					    				{{Form::hidden('user_id',$userChannel->id)}}
-								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right'))}}
+					    				{{Form::hidden('subscriber_id',Auth::User()->id)}}
+					    				{{Form::hidden('status','subscribeOn')}}
+								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
 								    {{Form::close()}}
 								</span>	
 							</div>
@@ -135,12 +133,12 @@
 				  					<video height="auto" width="100%" class="h-video" controls>
 				  						<source src="" type="video/mp4" />		 
 				  					</video>
-				  						<div class="v-Info">
-				  							Video Title
-				  						</div>
-				  						<div class="count">
-				  							123123 Views, 100 Likes
-				  						</div>
+			  						<div class="v-Info">
+			  							Video Title
+			  						</div>
+			  						<div class="count">
+			  							123123 Views, 100 Likes
+			  						</div>
 				  				</div>
 				  			</div>
 				  			
@@ -269,4 +267,8 @@
 	<br/>
 </div><!--/.container page-->
 
+@stop
+@section('script')
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	{{HTML::script('js/subscribe.js')}}
 @stop

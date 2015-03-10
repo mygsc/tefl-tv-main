@@ -1,4 +1,4 @@
-<h1>playlist</h1>
+<h1>Playlist</h1>
 @foreach($randomResults as $randomResult)
 
 <div class="col-md-3">

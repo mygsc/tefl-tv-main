@@ -119,13 +119,15 @@ class VideoController extends Controller {
 	}
 
 	public function getSearchResult(){
-		$type = Input::get('type');
-		$search = Input::get('search');
+		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 
 		if($type == 'playlist'){
 			$searchResults = Playlist::where('name', $search)->get();
+
 		}else if($type == 'channel'){
 			$searchresults = User::where('channel_name', $search)->get();
+			
 		}else{
 			$longwords = 'SELECT DISTINCT v.id,v.user_id,u.channel_name, v.title,v.description,
 				v.tags,v.views,v.likes,v.publish,
@@ -139,8 +141,7 @@ class VideoController extends Controller {
 				AND
 				report_count < "5"
 				AND
-				MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)
-				';
+				MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)';
 
 			$searchResults = DB::select($longwords);
 			if(strlen($search) < 3){

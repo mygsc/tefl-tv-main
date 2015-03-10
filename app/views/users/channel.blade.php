@@ -41,7 +41,6 @@
 				  					<span class="input-group-btn">
 				  						{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 				  					</span>
-
 				  				</div>
 				  			</div>
 				  			<br/>
@@ -196,7 +195,7 @@
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');

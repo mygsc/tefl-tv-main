@@ -1,4 +1,4 @@
-<div style="border:5px solid #8b9dc1;" class="shadow">
+<div style="border:5px solid #e3e3e3;" class="shadow">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
 					<div class="crop-square">

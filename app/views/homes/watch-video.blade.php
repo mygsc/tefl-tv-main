@@ -54,7 +54,8 @@
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                         @if(isset(Auth::User()->id))
                                             <span class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
@@ -69,6 +70,7 @@
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
+                                            
                                         @else
 
                                             <a href="signin" role="button" aria-expanded="false">
