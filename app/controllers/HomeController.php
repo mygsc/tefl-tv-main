@@ -10,7 +10,6 @@ class HomeController extends BaseController {
 
 	public function getIndex() {
 
-		phpinfo();
 		return View::make('homes.index');
 	}
 
