@@ -8,9 +8,10 @@
 		<div class="row">	
 			<br/>
 			<div class="col-md-8" style="margin-bottom:20px;">
+				<div class="col-md-12">
+				<div class="row">
                {{-- <img src="/img/thumbnails/v6-2.png" class="h-video"> --}}
-               
-				<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
+              	<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
 					<source src='/videos/movie.mp4' type='video/mp4'>
 					<source src='/videos/movie.webm' type='video/webm'>
 					<source src='/videos/movie.ogg' type='video/ogg'>
@@ -19,9 +20,8 @@
 					<source src='/videos/movie.3gp' type='video/3gpp'>  
 				</video>
 				<div class="advertisement" style="display:none">
-				 <span class="close">x</span> 
-						<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
-
+				 	<span class="close">x</span> 
+					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
 				</div>
 				<div class="play-icon">
 					<span>&#9658;</span>
@@ -29,10 +29,8 @@
 
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper">
-				
 					<div id="progressbar">
-						<div id="current-progress">
-							
+						<div id="current-progress">		
 						</div>
 					</div>
 				
@@ -81,7 +79,8 @@
 				</span>
 			</div><!--/.wrapper-->
 		</div>
-     
+    </div><!--/.row-->
+    </div>
 			</div><!--/.col-md-8-->
 
 			<div class="col-md-4">

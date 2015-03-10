@@ -3,9 +3,26 @@
 @section('content')
 	<div class="container page">
 		<div class="content-padding">
-		<h1><center>Recommended Videos</center></h1>
-		<div class="row">
-			<table class="table">
+			<div class="col-md-6">
+				<h1>Recommended Videos</h1>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br/>
+			<div class="input-group">
+                {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search User', 'class' => 'form-control c-input ')) }}
+                    <div class="input-group-btn">
+                        <!--simple button-->    
+                        {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+                    </div><!--/.input-group-btn-->    
+                {{ Form::close()}}
+            </div><!--/.input-group-btn-->    
+                
+        </div>
+
+		<div class="col-md-12">
+			 <br/>
+			<table class="table table-striped">
 				<tr>
 					<th>ID</th>
 					<th>User ID</th>
@@ -41,7 +58,10 @@
 						<td>{{ date("M d, Y H:ma", strtotime($video->created_at))}}</td>
 					</tr>
 				@endforeach
-				{{Form::submit('Submit',array('class'=>'btn btn-primary'))}}
+				<div class="text-right">
+					{{Form::submit('Set Recommended Videos',array('class'=>'btn btn-primary'))}}
+				</div>
+				<br/>
 				{{Form::close()}}
 			</table>
 		</div>

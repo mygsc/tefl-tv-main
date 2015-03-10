@@ -2,9 +2,27 @@
 
 @section('content')
 	<div class="container page">
-		<h1><center>Reported Videos</center></h1>
-		<div class="row">
-			<table class="table">
+		<div class="content-padding">
+			<div class="col-md-6">
+				<h1>Reported Videos</h1>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br/>
+			<div class="input-group">
+                {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search User', 'class' => 'form-control c-input ')) }}
+                    <div class="input-group-btn">
+                        <!--simple button-->    
+                        {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+                    </div><!--/.input-group-btn-->    
+                {{ Form::close()}}
+            </div><!--/.input-group-btn-->    
+                
+        </div>
+
+		<div class="col-md-12">
+			 <br/>
+			<table class="table table-striped">
 				<tr>
 					<th>ID</th>
 					<th>User ID</th>
@@ -30,7 +48,6 @@
 				@endforeach
 			</table>
 		</div>
-		{{ link_to_route('admin.logout', 'Logout', null, array('class' => 'btn btn-danger')) }}
-		{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => 'btn btn-danger')) }}
+		
 	</div>
 @stop

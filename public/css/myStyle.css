@@ -622,7 +622,7 @@ img.user{
   padding-left: 80px;
 }
 .BlueSemiLight{
-  background: #1f3359;
+  background: #1f3359!Important;
 }
 .Blue{
   background: #181b2e;
@@ -1178,7 +1178,7 @@ Main components
 }
 
 .Div-channelSubSection{
-  min-height: 420px;
+  min-height: 420px!important;
 
 }
 .Div-equalHeight{
