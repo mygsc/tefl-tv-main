@@ -48,7 +48,7 @@ function adsOn(){
 	ads = timeDuration * adsTimeSetting / 100;
 	ads = Math.round(100 / ads) * 7;
 	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#current-progress');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + 'px', 'height':'100%', 'position':'absolute'});
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads+'px', 'height':'100%', 'position':'absolute'});
 }
 function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
