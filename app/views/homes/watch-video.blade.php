@@ -33,7 +33,7 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
-                                                <span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
+                                                <span class="dropdown-menu drop pull-right White" style="padding:5px 5px;text-align:center;">
                                                     <!--facebook-->
                                                     <span style="background:#3d5a98;" class="snBg">
                                                         <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
@@ -57,7 +57,7 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
-                                                <span class="dropdown-menu White" style="padding:5px 5px;text-align:left;">
+                                                <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
                                                     <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
                                                     <li><p><i class="fa fa-list"></i>&nbsp;&nbsp;Playlist</p>
                                                           {{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}

@@ -12,7 +12,9 @@
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/videoGallery.css') }}
+	{{ HTML::style('css/dropdown.enhancements.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
+	{{ HTML::style('css/vid.player.css') }}
 	@yield('css')
 </head>
 <body>
@@ -28,6 +30,7 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
+{{HTML::script('js/dropdown.enhancement.js')}}
 <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 
 @yield('script')
