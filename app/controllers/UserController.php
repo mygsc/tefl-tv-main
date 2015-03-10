@@ -328,10 +328,8 @@ class UserController extends BaseController {
 	}
 
 	public function getViewUsersChannel($channel_name) {
-
-
-
 		$userChannel = User::where('channel_name', $channel_name)->first();
+		if(empty($userChannel)) return Redirect::route('users.index')->withFlashMessage('This channel does not exist');
 
 
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -357,5 +355,27 @@ class UserController extends BaseController {
 
 		return View::make('users.viewusers', compact('userChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
+	public function addSubscriber() {
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( array(
+                'msg' => 'Unauthorized attempt to create setting'
+            ) );
+        }
+ 
+        $setting_name = Input::get( 'setting_name' );
+        $setting_value = Input::get( 'setting_value' );
+ 
+        //.....
+        //validate data
+        //and then store it in DB
+        //.....
+ 
+        $response = array(
+            'status' => 'success',
+            'msg' => 'Setting created successfully',
+        );
+ 
+        return Response::json( $response );
+    }
 
 }

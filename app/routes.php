@@ -51,6 +51,7 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
 	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
 	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
+	Route::get('subscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 });
 //*********End of Channels************//
 Route::get('channel/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
