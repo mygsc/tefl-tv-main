@@ -21,7 +21,6 @@
 		@include('elements/header')
 		@include('elements/home/headerNav')
 		
-		
 		@include('elements/flash_message')
 		
 		@yield('content')

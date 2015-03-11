@@ -4,7 +4,7 @@
 	<div class="container page">
 		<br/><br/>
 		<div class="col-md-6 col-md-offset-3">
-			<div class="well">
+			<div class="well textbox-layout">
 				<h2>Send registration link - Admin</h2>	
 				{{ Form::open(array('route' => 'post.admin.createadminlink')) }}
 					{{ Form::label('Email','Email')}}

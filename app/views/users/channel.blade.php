@@ -12,14 +12,14 @@
 			<div role="tabpanel">
 			  <!-- Nav tabs -->
 			 	<ul class="nav nav-tabs" role="tablist">
-			    	<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-			    	<li role="presentation"><a href="#Videos" aria-controls="Videos" role="tab" data-toggle="tab">Videos</a></li>
-			    	<li role="presentation"><a href="#MyFavorites" aria-controls="MyFavorites" role="tab" data-toggle="tab">My Favorites</a></li>
-			    	<li role="presentation"><a href="#WatchLater" aria-controls="WatchLater" role="tab" data-toggle="tab">Watch Later</a></li>
-			  		<li role="presentation"><a href="#Playlists" aria-controls="Playlists" role="tab" data-toggle="tab">Playlists</a></li>
-			  		<li role="presentation"><a href="#Feedbacks" aria-controls="Feedbacks" role="tab" data-toggle="tab">Feedbacks</a></li>
-			  		<li role="presentation"><a href="#Subscribers" aria-controls="Subscribers" role="tab" data-toggle="tab">Subscribers</a></li>
-			  		<li role="presentation"><a href="#Subscriptions" aria-controls="Subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+			    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+			    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
+			    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+			    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</a></li>
+			  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</a></li>
+			  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</a></li>
+			  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers')}}</li>
+			  		
 			  	</ul><!--tabNav-->
 
 			  	<!-- Tab panes -->
@@ -27,45 +27,7 @@
 				  	<div role="tabpanel" class="tab-pane active" id="home">
 						@include('elements/users/myChannelTabs/tab-Home')
 				  	</div>				    
-				    		
-				  	<div role="tabpanel" class="tab-pane" id="Videos">
-				  		<button id="sortViews">Sort by Most Views</button>
-				  		<button id="sort">Sort by Most Likes</button>
-				  		<button id="sort">Sort by Recent</button>
 
-				  		<div class="row">
-				  			<br/>
-				  			<div class="col-md-6 pull-right">
-				  				<div class="input-group">
-				  					{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-				  					<span class="input-group-btn">
-				  						{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-				  					</span>
-				  				</div>
-				  			</div>
-				  			<br/>
-				  			<div id="videosContainer" class='container'>
-					  			<div class="buttons">
-							        <button id="videoButton" class="grid">Grid View</button>
-							        <button id="videoButton" class="list">List View</button>
-							    </div>
-					  			@foreach($usersVideos as $usersVideo)
-					  				<div id='list' class="col-md-3">
-					  					&nbsp;
-					  					<video height="auto" width="100%" class="h-video" controls>
-					  						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
-					  					</video>
-				  						<div class="v-Info">
-				  							{{$usersVideo->title}}
-				  						</div>
-				  						<div class="count">
-				  							{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
-				  						</div>
-					  				</div>
-					  			@endforeach	
-					  		</div>
-				  		</div>
-				  	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
 					    	<div class="container">
