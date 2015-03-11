@@ -482,17 +482,15 @@ class UserController extends BaseController {
 			$subscribe->subscriber = $subscriber_id;
 			$subscribe->save();
 			return Response::json(array(
-                'msg' => 'Unauthorized attempt to create setting',
                 'status' => 'subscribeOff',
                 'label' => 'Unsubscribe'
             ));
         }
         if($status == 'subscribeOff'){
-        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => 'subscriber_id'))->delete();
+        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber' => $subscriber_id))->delete();
         	return Response::json(array(
-            	'msg' => 'Unauthorized attempt to create setting',
                 'status' => 'subscribeOn',
-                'label' => 'Unsubscribe'
+                'label' => 'Subscribe'
         	));
         }
     }
