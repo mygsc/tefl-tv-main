@@ -1,3 +1,6 @@
+@extends('layouts.default')
+
+@section('content')
 <div class="container page">
 	<br/>
 	<div class="row">
@@ -19,13 +22,11 @@
 			  	</ul><!--tabNav-->
 			</div>
 		
+			
 
-			<button id="sort">Sort by Most Likes</button>
-			<button id="sort">Sort by Recent</button>
-
-			<div class="row">
+			<div class="">
 				<br/>
-				<div class="col-md-6 pull-right">
+				<div class="col-md-6">
 					<div class="input-group">
 						{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 						<span class="input-group-btn">
@@ -33,12 +34,29 @@
 						</span>
 					</div>
 				</div>
-				<br/>
-				<div id="videosContainer" class='container'>
+				<div class="col-md-5">
+					<!--<label>Sort by:</label>
+					<button id="sort" class="btn btn-default btn-sm">Likes</button>
+					<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+					<select class="form-control" style="width:auto!important;">
+						<option value="" selected disabled>Sort By</option>
+						<option>Likes</option>
+						<option>Recent</option>
+					</select>
+					&nbsp;&nbsp;
+					<button class="btn btn-unsub">Manage Videos</button>
+				</div>
+				
+				
+				<div class="col-md-1 text-right">
 					<div class="buttons">
-						<button id="videoButton" class="grid">Grid View</button>
-						<button id="videoButton" class="list">List View</button>
+						<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+						<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 					</div>
+				</div>
+				<br/><br/><hr class="" />
+				<div id="videosContainer" class='container'>
+					
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						&nbsp;

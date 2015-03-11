@@ -102,10 +102,12 @@
 		<!-------- RECOMMENDED VIDEOS SECTION ---------------->
 		<div class="row">
 			<div class="categoryHead">
+
 	            <h3>Recommended Videos</h3>
 	      	</div><!--/.recommended video-->
 
 			<div class="col-md-12">
+				<div class="row">
 			@foreach($recommendeds as $recommended)
 	            <div class="col-md-2">
 	            	<img src="/img/thumbnails/v3.png" class="h-video">
@@ -118,144 +120,152 @@
 	            </div>
 	        @endforeach
 	        </div><!--/.col-md-12-->
+	        </div><!--./row-->
 		</div><!--/.row for recommended videos-->
 
 		<div class="row">
 			<div class="col-md-4">
-				<div class="categoryHead">
-					<h3>Popular</h3>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v3.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
+				<div class="row">
+					<div class="categoryHead">
+						<h3>Popular</h3>
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
+				
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v3.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v9.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<br>
-					<img src="/img/thumbnails/v9.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
+
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v2.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v4.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
+					<div class="btn-pos">
+						{{ link_to_route('homes.popular', 'see more..', null) }}
 					</div>
-					<br>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v2.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-					<img src="/img/thumbnails/v4.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-				</div>
-				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
-				</div>
+				</div><!--/.row-->
 			</div><!--/.col-4 for Popular-->
 
-
 			<div class="col-md-4">
-				<div class="categoryHead">
-					<h3>Recent Uploads</h3>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v3.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
+				<div class="row">
+					<div class="categoryHead">
+						<h3>Recent Uploads</h3>
+					</div>
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v3.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
 
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v9.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v2.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v4.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<br>
-					<img src="/img/thumbnails/v9.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
+					<div class="btn-pos">
+						{{ link_to_route('homes.latest', 'see more..', null) }}
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v2.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-					<img src="/img/thumbnails/v4.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-				</div>
-				<div class="btn-pos">
-					{{ link_to_route('homes.latest', 'see more..', null) }}
-				</div>
+				</div><!--/.row-->
 			</div><!--/.col-4 for Recent Uploads-->
 
 			<div class="col-md-4">
-				<div class="categoryHead">
-					<h3>Random</h3>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v3.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
+				<div class="row">
+					<div class="categoryHead">
+						<h3>Random</h3>
+					</div>
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v3.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
 
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v9.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
+					<div class="col-md-6">
+						<img src="/img/thumbnails/v2.png" class="h-video">
+						<div class="v-Info">
+							5 Ways to improve your English
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
+						<img src="/img/thumbnails/v4.png" class="h-video">
+						<div class="v-Info">
+							How to build your spoken English confidence?
+						</div>
+						<div class="count">
+							55 Views, 40 Likes
+						</div>
+						<br>
 					</div>
-					<br>
-					<img src="/img/thumbnails/v9.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
+					<div class="btn-pos">
+						{{ link_to_route('homes.random', 'see more..', null) }}
 					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-				</div>
-				<div class="col-md-6">
-					<img src="/img/thumbnails/v2.png" class="h-video">
-					<div class="v-Info">
-						5 Ways to improve your English
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-					<img src="/img/thumbnails/v4.png" class="h-video">
-					<div class="v-Info">
-						How to build your spoken English confidence?
-					</div>
-					<div class="count">
-						55 Views, 40 Likes
-					</div>
-					<br>
-				</div>
-				<div class="btn-pos">
-					{{ link_to_route('homes.random', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for random-->
 
