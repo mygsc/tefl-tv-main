@@ -61,7 +61,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('remove-favorites', array('as' => 'post.remove-favorites', 'uses' => 'UserController@postRemoveFavorites'));
 });
 //*********End of Channels************//
-
+Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
