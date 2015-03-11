@@ -35,16 +35,55 @@ class Video extends Eloquent{
 		return $this->belongsTo('TagVideo');
 	}
 
-	public function getRandomVideos($limit = null){
-		return Video::orderByRaw("RAND()")
-		->where('publish', '1')
-		->where('report_count', '<', '5')
-		->get(array('title', 'likes', 'views'))
-		->take($limit);
-	}
-
 	public function favorite() {
 
 		return $this->hasMany('Favorite');
+	}
+
+	public function getVideoByCategory($type = null, $limit = null){
+		if(empty($type)){
+			return false;
+		}
+
+		if(!empty($limit)){
+			$limit = 'LIMIT '. $limit;
+		}
+
+		if($type == 'recommended'){
+			$additionaQuery = 
+				'AND recommended = "1"
+				ORDER BY (v.views + v.likes) DESC';
+		}elseif($type == 'popular'){
+			$additionaQuery = 
+				'ORDER BY (v.views + v.likes) DESC';
+		}elseif($type == 'latest'){
+			$additionaQuery = 
+				'ORDER BY v.created_at DESC';
+		}elseif($type == 'random'){
+			$additionaQuery =
+				'ORDER BY RAND()';
+		}else{
+			return false;
+		}
+
+		$returnData = DB::select(
+				'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
+				v.views, v.likes, v.tags, v.report_count,v.recommended, v.created_at,
+				v.deleted_at,u.channel_name,u.status FROM videos v
+				INNER JOIN users u ON
+				v.user_id = u.id
+				WHERE
+				v.deleted_at IS NULL
+				AND
+				v.report_count < 5
+				AND
+				NOT(u.status = "0")
+				AND
+				publish = "1"'.
+				$additionaQuery.
+				' '.
+				$limit. '');
+
+		return $returnData;
 	}
 }
