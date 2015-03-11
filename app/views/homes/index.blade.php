@@ -3,7 +3,7 @@
 		{{HTML::style('css/vid.player.css')}}
 	@stop
 @section('content')
-
+<div class="row White">
 	<div class="container page">
 		<div class="row">	
 			<br/>
@@ -37,7 +37,7 @@
 				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
 				<span class="title">Vocabulary and Memory Test</span>
 				<span class="pull-right">
-					<span class="ctime time">00:00 / 00:00</span> 
+					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
 					
 					<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 						<div class="volume" style="display:none">
@@ -209,7 +209,7 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.latest', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for Recent Uploads-->
 
@@ -255,14 +255,14 @@
 					<br>
 				</div>
 				<div class="btn-pos">
-					{{ link_to_route('homes.popular', 'see more..', null) }}
+					{{ link_to_route('homes.random', 'see more..', null) }}
 				</div>
 			</div><!--/.col-4 for random-->
 
 		</div><!--/.row for threee categories-->
 
 	</div><!--/.container page-->
-
+</div>
 @stop
 @section('script')
 	{{HTML::script('js/media.player.js')}}

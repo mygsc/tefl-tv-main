@@ -172,7 +172,7 @@ class UserController extends BaseController {
 			$subscriber_id[] = $a->subscriber;
 		}
 
-		// return $subscriber_id;
+		// return $subscribers;
 
 		if(isset($subscriber_id)){
 			$subscriberLists = UserProfile::find($subscriber_id);
@@ -212,7 +212,18 @@ class UserController extends BaseController {
 
 		// return $subscriptionLists;
 
+		// return $subscribers;
+		$findUsersVideo = User::find(Auth::User()->id)->favorite;
+		
+		// return $findUsersVideo;
 
+		foreach($findUsersVideo as $findVideo){
+			$videoFavorites[] = $findVideo->video_id;
+		}
+		// return $videoFavorites;
+		$showFavoriteVideos = Video::find($videoFavorites);
+
+		
 
 		foreach($subscriptionLists as $key => $listSubscription) {
 			$subscriptionCount = Db::table('subscribe')->where('user_id', $listSubscription->id)->get();
@@ -220,7 +231,9 @@ class UserController extends BaseController {
 		}
 
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment'));
+	
+
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos'));
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -390,26 +403,55 @@ class UserController extends BaseController {
 		return View::make('users.viewusers', compact('userChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 	public function addSubscriber() {
-        if ( Session::token() !== Input::get( '_token' ) ) {
-            return Response::json( array(
+        // if (Session::token() !== Input::get('_token')) {
+        //     return Response::json( array(
+        //         'msg' => 'Unauthorized attempt to create setting'
+        //     ) );
+        // }
+
+
+        $user_id = Input::get('user_id');
+        $subscriber_id = Input::get('subscriber_id');
+        $status = Input::get('status');
+        if($status == 'subscribeOn'){
+        	$subscribe = new Subscribe;
+			$subscribe->user_id = $user_id;
+			$subscribe->subscriber = $subscriber_id;
+			$subscribe->save();
+			return Response::json( array(
                 'msg' => 'Unauthorized attempt to create setting'
             ) );
         }
+        if($status == 'subscribeOff'){
+        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => 'subscriber_id'))->delete();
+        }
+        Response::json(array(
+            'msg' => 'Unauthorized attempt to create setting'
+        ) );
+ 		
+        // $response = array(
+        //     'status' => 'success',
+        //     'msg' => 'Setting created successfully',
+        // );
  
-        $setting_name = Input::get( 'setting_name' );
-        $setting_value = Input::get( 'setting_value' );
- 
-        //.....
-        //validate data
-        //and then store it in DB
-        //.....
- 
-        $response = array(
-            'status' => 'success',
-            'msg' => 'Setting created successfully',
-        );
- 
-        return Response::json( $response );
+        // return Response::json( $response );
+        // dd(Input::get('user_id'));
+  //       $id = str_replace('id','',Input::get('id')); 
+		// if(count($id) > 0){
+		// 	for($n = 0; $n < count($id); $n++){
+		// 		Product::where('id','=', $id[$n])->delete();
+		// 	}
+		// 	return 'success';
+		// }
+		// else{
+		// 	return 'Error while deleting'; 
+		// }
+		
+    }
+
+    public function postRemoveFavorites() {
+
+    	return 'hi';
     }
 
 }

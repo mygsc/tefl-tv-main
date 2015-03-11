@@ -43,5 +43,8 @@ class Video extends Eloquent{
 		->take(18);
 	}
 
+	public function favorite() {
 
+		return $this->hasMany('Favorite');
+	}
 }
