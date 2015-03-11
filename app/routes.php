@@ -39,14 +39,19 @@ Route::group(array('prefix' => '/'), function() {
 });
 
 //**********Channels**********//
-Route::group(array('prefix' => 'channels'), function() {
-	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+Route::group(array('prefix' => 'mychannels'), function() {
+	// Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+	Route::get('/', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('myprofile/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
-	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
-
+	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
+	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));
+	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
+	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
+	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
 	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
 	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
@@ -56,10 +61,10 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::post('remove-favorites', array('as' => 'post.remove-favorites', 'uses' => 'UserController@postRemoveFavorites'));
 
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
-
+	
 });
 //*********End of Channels************//
-Route::get('channel/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
+Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {

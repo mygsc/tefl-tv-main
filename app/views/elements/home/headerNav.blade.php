@@ -28,7 +28,7 @@
                     <ul class="ctgryNav" >
                         <li>
                             @if(Auth::check())
-                                <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</b></li>
+                                <li><b>{{link_to_route('users.channel', 'My Channel', null)}}</b></li>
                                 <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
 
                             @else

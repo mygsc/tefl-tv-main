@@ -158,10 +158,10 @@ class UserController extends BaseController {
 		return View::make('homes.moretopchannels', compact(array('topChannels')));
 	}
 
-	public function getUsersChannel($id, $subscriberLists = array(), $subscriptionLists = array() ) {
+	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(3)->video;
+		$usersVideos = User::find(Auth::User()->id)->video;
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
 
@@ -308,15 +308,39 @@ class UserController extends BaseController {
 
 	public function getMyVideos() {
 
-		return View::make('');
+		return View::make('users.videos');
 	}
 
+	public function getMyFavorites() {
+
+		return View::make('users.favorites');
+	}
 
 	public function getUsersChangePassword() {
 		
 		return View::make('users.changepassword');
 	}
 
+	public function getWatchLater() {
+
+		return View::make('users.watchlater');
+	}
+
+	public function getPlaylists() {
+
+		return View::make('users.playlists');
+	}
+
+	public function getFeedbacks() {
+
+		return View::make('users.feedbacks');
+	}
+
+	public function getSubscribers() {
+
+		return View::make('users.subscribers');
+	}
+	
 	public function postUsersChangePassword() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userPasswordRules);
