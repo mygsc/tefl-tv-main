@@ -174,6 +174,7 @@
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/homes/convert_specialString.js')}}
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript">
 		$('.grid').click(function() {
