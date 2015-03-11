@@ -13,6 +13,7 @@ class UserController extends BaseController {
 	}
 
 	public function postSignIn() {
+
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userLoginRules);
 
@@ -165,8 +166,10 @@ class UserController extends BaseController {
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
 
+
 		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
 		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
+
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
@@ -184,7 +187,9 @@ class UserController extends BaseController {
 		// return $subscriberLists;
 
 		foreach($subscriberLists as $key => $listSubscriber){
+
 			$subscriberCount = DB::table('subscribes')->where('subscriber', $listSubscriber->id)->get();
+
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
 
@@ -192,7 +197,7 @@ class UserController extends BaseController {
 
 		$increment = 0;
 
-		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
+		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 		// return $subscriptions;
 		foreach ($subscriptions as $b) {
 			$subscription_id[] = $b->user_id;
@@ -449,7 +454,9 @@ class UserController extends BaseController {
 	}
 
 	public function getViewUsersChannel($channel_name) {
+		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+		if(!empty(Auth::User()->id)) $user_id = Auth::User()->verified;
 
 		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
 
@@ -473,19 +480,25 @@ class UserController extends BaseController {
 		$subscriberLists = UserProfile::find($subscriber_id);
 
 		// return $subscriberLists;
-		$subscriptions = Subscribe::where('subscriber', $usersVideos->id)->paginate(15);
+		$subscriptions = Subscribe::where('subscriber_id', $usersVideos->id)->paginate(15);
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
 
 		}
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
+        if(!Auth::check()){
+        	return Response::json(array(
+                'status' => 'subscribeOff',
+                'label' => Session::get('url.intended')
+            ));
+        }
         if($status == 'subscribeOn'){
         	$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;
@@ -497,7 +510,7 @@ class UserController extends BaseController {
             ));
         }
         if($status == 'subscribeOff'){
-        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber' => $subscriber_id))->delete();
+        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
         	return Response::json(array(
                 'status' => 'subscribeOn',
                 'label' => 'Subscribe'

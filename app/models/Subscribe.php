@@ -2,7 +2,7 @@
 
 class Subscribe extends Eloquent {
 
-	protected $table = 'subscribe';
+	protected $table = 'subscribes';
 
 	public function user() {
 
