@@ -20,7 +20,6 @@
 								
 
 								<span class="pull-right" >
-
 									<a href=""><img src="/img/icons/fb.png"></a>
 									<a href=""><img src="/img/icons/tr.png"></a>
 									<a href=""><img src="/img/icons/gp.png"></a>
