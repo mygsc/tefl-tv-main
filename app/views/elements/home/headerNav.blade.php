@@ -27,45 +27,17 @@
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                     @else
-                    {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}
+                    <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                     @endif
-
-<<<<<<< HEAD
-            <div class="col-md-4">
-                <div class="row text-right">
-                    <ul class="ctgryNav" >
-                       
-                            @if(Auth::check())
-                                <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</b></li>
-                                <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
-
-                            @else
-                            <li>{{link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}</li>
-                            @endif
-                           
-                      
-                       <li>
-                       {{-- link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) --}}
-                        <div class="btn btn-primary orangeC" style="position: relative; ">
-                            <form action="{{route('post.upload')}}" method="POST" enctype="multipart/form-data" id ='submit'>
-                                <input style="cursor:pointer; position: absolute;z-index: 2;opacity: 0;width: 100%;height: 100%;" type="file" name="video" id="vid-upload"/>
-                                Upload
-                            </form>
-                        </div>                     
+                    <li>
+                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
+                                      
                        </li>
-                    </ul>
-                </div>
-            </div><!--/.col-md-4-->
+
         </div><!--/.row-->
    </div><!--/.container-->
 
-            <div class="col-md-6">
-=======
->>>>>>> 2b917822066ebb05b1fd100bb1ff8ae4f140c593
 
-                  </li>
-                </ul>  
-            </div>
       
   </div><!--/.container-->
 </div><!--/.categoryNav-->
