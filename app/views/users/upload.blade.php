@@ -16,22 +16,22 @@ Upload
 					{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 				</ul>
 				@endif
-				<div class="col-md-4">
-					<span class="form-control">
-					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
+				{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
+					<div class="col-md-4">
 						
-						{{Form::file('video', array('class'=>'btn btrn-primary','id'=>'upload'))}}
-					</span>
-					
-					<br/>
-				</div>
+							{{Form::file('video', array('class'=>'btn btn-primary','id'=>'vids-upload'))}}
+						
+						
+					</div>
 
-				<div class="col-md-4">
-					<label class="myLabel">
-					<div id="progress">{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}</div>
-					{{Form::close()}}
-					</label>
-				</div>
+					<div class="col-md-4">
+						<label class="myLabel">
+							<div id="progress">
+								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
+							</div>
+						</label>
+					</div>
+				{{Form::close()}}
 			</div>
 
 		</div>
@@ -39,6 +39,4 @@ Upload
 </div>
 	
 @stop
-@section('script')
-	{{HTML::script('js/user/upload.js')}}
-@stop
+ 

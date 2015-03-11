@@ -30,9 +30,7 @@
 			</div>
 			<div class="col-md-6">
 
-				{{Form::model($video, array('method' => 'PATCH',
-				'route' => array('post.addDescription',
-				Crypt::encrypt($video->id))))}}
+				{{Form::model($video, array('method' => 'PATCH','route' => array('post.addDescription',Crypt::encrypt($video->id))))}}
 				<div class="row">
 				<div class="col-md-8" >
 					<h1>Add Information</h1>
@@ -52,7 +50,9 @@
 				{{Form::text('tags',null,array('class'=>'form-control'))}}
 				{{Form::hidden('encrypt',Crypt::encrypt($video->id),array('id'=>'encrypt'))}}
 				{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
+				{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
 				<div class="text-right">
+				<br>
 					<span class="pull-left">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></span>
 					{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'cancel'))}}
 					{{Form::submit('Save',array('class'=>'btn btn-primary'))}}
@@ -60,11 +60,8 @@
 				</div>	
 				@endforeach
 				<input type="hidden" name="channel" value="{{Auth::User()->channel_name}}"/>
+
 			</div>
 		</div>
 	</div>
-@stop
-
-@section('script')
-{{HTML::script('js/user/upload.js')}}
 @stop

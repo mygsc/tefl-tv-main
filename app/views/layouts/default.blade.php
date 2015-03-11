@@ -30,10 +30,11 @@
 </body>
 <!-- scripts -->
 {{HTML::script('js/jquery.js')}}
-
+{{HTML::script('js/user/upload.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
-<script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+
+
 
 @yield('script')
 

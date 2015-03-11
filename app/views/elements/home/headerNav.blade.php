@@ -26,25 +26,24 @@
             <div class="col-md-4">
                 <div class="row text-right">
                     <ul class="ctgryNav" >
-                        <li>
+                       
                             @if(Auth::check())
                                 <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</b></li>
                                 <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
 
                             @else
-                                {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
+                            <li>{{link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}</li>
                             @endif
                            
-                       </li>
+                      
                        <li>
                        {{-- link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) --}}
                         <div class="btn btn-primary orangeC" style="position: relative; ">
                             <form action="{{route('post.upload')}}" method="POST" enctype="multipart/form-data" id ='submit'>
-                                <input style="cursor:pointer; position: absolute;z-index: 2;opacity: 0;width: 100%;height: 100%;" type="file" name="video" id="upload"/>
+                                <input style="cursor:pointer; position: absolute;z-index: 2;opacity: 0;width: 100%;height: 100%;" type="file" name="video" id="vid-upload"/>
                                 Upload
                             </form>
-                        </div>
-                        
+                        </div>                     
                        </li>
                     </ul>
                 </div>

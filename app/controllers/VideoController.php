@@ -1,18 +1,24 @@
 <?php
 
 class VideoController extends Controller {
-	
+	protected $user;
+	protected $tmpImg;
+	protected $thumbImg;
 	public function __construct(Video $videos, User $users, Playlist $playlists){
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
-		define('DS', DIRECTORY_SEPARATOR);
+		$this->user = Auth::User();
+		define('DS', DIRECTORY_SEPARATOR); 
+		$this->tmpImg = public_path().DS."videos".DS."tmp-img".DS;
+		$this->thumbImg = public_path().DS."videos".DS."img-vid-poster".DS;
 	}
 
 	public function getUpload(){
 		return View::make('users.upload');
 	}
 	public function postUpload(){
+		
 		$size = '1024x768'; 
 		$second = 5; 
 		$ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
@@ -28,54 +34,151 @@ class VideoController extends Controller {
 			$ecrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $ecrypt_name;
-			$db_filename->save()
-				//Start upload
-				$img = Auth::User()->channel_name;//str_random(5);
-				$destinationPath = 'public/videos/';
-				$ext = $file->getClientOriginalExtension();
-				$file->move($destinationPath, $ecrypt_name.'.'.$ext);
-				//$cmd = "$ffmpegPath -i $file -an -ss $second -s $size public/img/$img.jpg";
-				for($n=1; $n<=3; $n++){
-					$secondsInterval = $n*5;
-					$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$n.jpg";
-					$done = shell_exec($cmd);
-					if($done){return'thumbnail created successfully.';}
-				}		
-			 return Redirect::route('get.addDescription',$ecrypt_name);
-			
+			if($db_filename->save()){
+
+				//if img-thumbnail exist in the tmp-img then delete file first
+				if(File::exists($this->tmpImg.$this->user->channel_name.'1.jpg')){
+					//Start upload
+					$img = $this->user->channel_name;
+					$destinationPath = 'public/videos/';
+					$ext = $file->getClientOriginalExtension();
+					//$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+					//$cmd = "$ffmpegPath -i $file -an -ss $second -s $size public/img/$img.jpg";
+						for($uploadStart=1; $uploadStart<=3; $uploadStart++){
+							$secondsInterval = $uploadStart*5;
+							$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$uploadStart.jpg";
+							$createThumb = shell_exec($cmd);
+							//if($createThumb){return'thumbnail created successfully.';}
+						}	
+
+			  }else{
+			  		$img = $this->user->channel_name;
+					$destinationPath = 'public/videos/';
+					$ext = $file->getClientOriginalExtension();
+					//$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+					for($n=1; $n<=3; $n++){
+						$secondsInterval = $n*5;
+						$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$n.jpg";
+						$createThumb = shell_exec($cmd);
+						//if($createThumb){return'thumbnail created successfully.';}
+					}
+			}
+			return Redirect::route('get.addDescription', $ecrypt_name);
 		}
-		return Redirect::route('get.upload')
+	}
+	return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
-	}
+}
 	public function getAddDescription($id){
 		$id = Crypt::decrypt($id);	
 		$videos = Video::where('id','=',$id)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
-		$id = Crypt::decrypt($id);	
-		$videos = Video::where('id','=',$id)->get();
-		$input = Input::all();
-		$validator = Validator::make($input,Video::$addDescription);
-		if($validator->passes()){
-			$tags = explode(',',Input::get('tags'));
-			foreach($tags as $tag){
-				if($tag != null){
-					$newTags[] = strtolower($tag);
+		$imgSelected = Input::get('thumbnail');
+		if($imgSelected == 1){
+			// delete unselected thumbnail move, and rename 
+			File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
+			File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
+			$oldName = $this->tmpImg.$this->user->channel_name.'1.jpg';
+			$newName = $this->thumbImg.$id.'.jpg';
+			$rename = rename($oldName, $newName);
+			
+			$id = Crypt::decrypt($id);	
+			$videos = Video::where('id','=',$id)->get();
+			$input = Input::all();
+			$validator = Validator::make($input,Video::$addDescription);
+			if($validator->passes()){
+				$tags = explode(',',Input::get('tags'));
+				foreach($tags as $tag){
+					if($tag != null){
+						$newTags[] = strtolower($tag);
+					}
 				}
+				$uniqueTag = array_unique($newTags);
+				$implodeTag = implode(',',$uniqueTag);
+				$video = Video::find($id);
+				$video->title = Input::get('title');
+				$video->description = Input::get('description');
+				$video->publish = Input::get('publish');
+				$video->tags =  $implodeTag;
+				$video->save();
+				return Redirect::route('homes.index');
 			}
-			$uniqueTag = array_unique($newTags);
-			$implodeTag = implode(',',$uniqueTag);
-			$video = Video::find($id);
-			$video->title = Input::get('title');
-			$video->description = Input::get('description');
-			$video->publish = Input::get('publish');
-			$video->tags =  $implodeTag;
-			$video->save();
-			return Redirect::route('homes.index');
 		}
+		if($imgSelected == 2){
+
+			// delete unselected thumbnail
+			File::delete($this->tmpImg.$this->user->channel_name.'1.jpg');
+			File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
+			$oldName = $this->tmpImg.$this->user->channel_name.'2.jpg';
+			$newName = $this->thumbImg.$id.'.jpg';
+			rename($oldName, $newName);
+
+			// rename img-thumbnail and move
+			move_uploaded_file($newName, $this->thumbImg);
+			$id = Crypt::decrypt($id);	
+			$videos = Video::where('id','=',$id)->get();
+			$input = Input::all();
+			$validator = Validator::make($input,Video::$addDescription);
+			if($validator->passes()){
+				$tags = explode(',',Input::get('tags'));
+				foreach($tags as $tag){
+					if($tag != null){
+						$newTags[] = strtolower($tag);
+					}
+				}
+				$uniqueTag = array_unique($newTags);
+				$implodeTag = implode(',',$uniqueTag);
+				$video = Video::find($id);
+				$video->title = Input::get('title');
+				$video->description = Input::get('description');
+				$video->publish = Input::get('publish');
+				$video->tags =  $implodeTag;
+				$video->save();
+				return Redirect::route('homes.index');
+			}
+		}
+		if($imgSelected == 3){
+
+			// delete unselected thumbnail
+			File::delete($this->tmpImg.$this->user->channel_name.'1.jpg');
+			File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
+			$oldName = $this->tmpImg.$this->user->channel_name.'3.jpg';
+			$newName = $this->thumbImg.$id.'.jpg';
+			$rename = rename($oldName, $newName);
+			if($rename == true){
+				return App::abort(404);
+			}
+
+			// rename img-thumbnail and move
+
+			move_uploaded_file($newName, $this->thumbImg);
+			$id = Crypt::decrypt($id);	
+			$videos = Video::where('id','=',$id)->get();
+			$input = Input::all();
+			$validator = Validator::make($input,Video::$addDescription);
+			if($validator->passes()){
+				$tags = explode(',',Input::get('tags'));
+				foreach($tags as $tag){
+					if($tag != null){
+						$newTags[] = strtolower($tag);
+					}
+				}
+				$uniqueTag = array_unique($newTags);
+				$implodeTag = implode(',',$uniqueTag);
+				$video = Video::find($id);
+				$video->title = Input::get('title');
+				$video->description = Input::get('description');
+				$video->publish = Input::get('publish');
+				$video->tags =  $implodeTag;
+				$video->save();
+				return Redirect::route('homes.index');
+			}
+		}
+		
 		return Redirect::route('get.addDescription',Crypt::encrypt($id))
 		->withInput()
 		->withErrors($validator)
