@@ -209,7 +209,7 @@
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
 								<span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
-								<!-- <span>w/ <b>{{$subscriberList->count}}</b> Subscribers</span>&nbsp; -->
+								<!-- <span>w/ <b>{{$SubscriptionList->count}}</b> Subscribers</span>&nbsp; -->
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>

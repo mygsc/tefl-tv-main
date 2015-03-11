@@ -193,7 +193,8 @@ class UserController extends BaseController {
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
 
-		// return $subscriberLists;
+
+		
 
 		$increment = 0;
 
