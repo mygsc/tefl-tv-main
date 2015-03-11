@@ -333,8 +333,8 @@ class UserController extends BaseController {
 
 	public function postRemoveFavorites($id) {
 
-		$a = Favorite::find($id)->delete();
-
+		$deleteFavorite = Favorite::where('video_id', $id)->first();
+		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
 	}
 
