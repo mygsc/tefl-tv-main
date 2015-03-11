@@ -21,8 +21,6 @@
 			  		
 			  	</ul><!--tabNav-->
 			</div>
-		
-			
 
 			<div class="">
 				<br/>
@@ -46,17 +44,17 @@
 					&nbsp;&nbsp;
 					<button class="btn btn-unsub">Manage Videos</button>
 				</div>
-				
-				
+		
 				<div class="col-md-1 text-right">
 					<div class="buttons">
 						<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 						<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 					</div>
 				</div>
+
 				<br/><br/><hr class="" />
+
 				<div id="videosContainer" class='container'>
-					
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						&nbsp;
