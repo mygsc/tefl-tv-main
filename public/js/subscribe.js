@@ -10,7 +10,7 @@ $(document).ready(function() {
 	// 	})
 	// });
 	
-		$("button").click(function() {
+		$("#subscribe").click(function() {
 
 				if(subscribe == true) {
 					$(this).html('Unsubscribe');

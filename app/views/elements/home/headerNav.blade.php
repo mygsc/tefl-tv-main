@@ -26,10 +26,10 @@
                     @if(Auth::check())
                     <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name, array('class' => ''))}}</b></li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
-
                     @else
                     {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}
                     @endif
+
 
                   </li>
                 </ul>  
