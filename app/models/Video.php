@@ -35,12 +35,12 @@ class Video extends Eloquent{
 		return $this->belongsTo('TagVideo');
 	}
 
-	public function getRandomVideos(){
+	public function getRandomVideos($limit = null){
 		return Video::orderByRaw("RAND()")
 		->where('publish', '1')
 		->where('report_count', '<', '5')
 		->get(array('title', 'likes', 'views'))
-		->take(18);
+		->take($limit);
 	}
 
 	public function favorite() {
