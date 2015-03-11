@@ -28,10 +28,6 @@ $(document).ready(function() {
 			url: url,
 			cache: false, 
             data: $(this).serialize(),//{
-	        // _token:$('input[name=_token]').val(), 
-	        //   	user_id:$('input[name=user_id]').val(),
-	        //   	subscriber_id:$('input[name=subscriber_id]').val(),
-	        //   	status:$('input[name=status]').val(),           },
 	        success: function(data){
         		$('input[name=status]').val(data['status']);
         		$('input[id=subscribebutton]').val(data['label']);

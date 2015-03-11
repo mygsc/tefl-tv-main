@@ -13,20 +13,20 @@
     					{{HTML::image($topChannel->image_src, 'alt')}}<br />
 					</div>
 					<div class="col-md-8">
-						<a href="#"><h3>{{$topChannel->channel_name}}</h3></a>
+						<a href="channels/{{$topChannel->channel_name}}"><h3>{{$topChannel->channel_name}}</h3></a>
 						<p><b>Org:</b> TEFL Educators</p>
     					<p class="text-justify">
     						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
     						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
    						</p>
-    					<a href="viewchannel"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
+    					<a href="channels/{{$topChannel->channel_name}}"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
     					<button class="btn btn-primary btn-xs">Subscribe</button>
     				</div>	
 				</div><!--/.row-->
 				<hr/>
 				<div class="Subscribers">
 		    		<div class="row">
-		                <h3 class="inline">32k+ Subscribeers &nbsp;|&nbsp; {{$topChannel->total}} Views</h3>
+		                <h3 class="inline">{{count($topChannel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$topChannel->total}} Views</h3>
 		                <br/>
 		                <img src="/img/user/u1.png" class="userRep">
 		                <img src="/img/user/u4.png" class="userRep">
