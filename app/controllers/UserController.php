@@ -167,7 +167,7 @@ class UserController extends BaseController {
 
 
 		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
-		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
+		// $countSubscriptions = DB::table('subscribe')->where('subscriber_id', Auth::User()->id)->get();
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
@@ -185,7 +185,7 @@ class UserController extends BaseController {
 		// return $subscriberLists;
 
 		foreach($subscriberLists as $key => $listSubscriber){
-			$subscriberCount = DB::table('subscribe')->where('subscriber', $listSubscriber->id)->get();
+			$subscriberCount = DB::table('subscribe')->where('subscriber_id', $listSubscriber->id)->get();
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
 
@@ -193,7 +193,7 @@ class UserController extends BaseController {
 
 		$increment = 0;
 
-		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->get();
+		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 		// return $subscriptions;
 		foreach ($subscriptions as $b) {
 			$subscription_id[] = $b->user_id;
@@ -466,7 +466,7 @@ class UserController extends BaseController {
 		$subscriberLists = UserProfile::find($subscriber_id);
 
 		// return $subscriberLists;
-		$subscriptions = Subscribe::where('subscriber', $usersVideos->id)->paginate(15);
+		$subscriptions = Subscribe::where('subscriber_id', $usersVideos->id)->paginate(15);
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
@@ -496,7 +496,7 @@ class UserController extends BaseController {
             ));
         }
         if($status == 'subscribeOff'){
-        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber' => $subscriber_id))->delete();
+        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
         	return Response::json(array(
                 'status' => 'subscribeOn',
                 'label' => 'Subscribe'
