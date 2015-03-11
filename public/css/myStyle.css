@@ -7,7 +7,8 @@
 body{
   width: 100%;
   height: 100%;
-  background: #dfe5ee;
+
+  background-color: #ecf3fb;
 }
 h1,
 h2,
@@ -356,7 +357,7 @@ img.logo-sm {
   background: #d1dff9;
   font-size: .75em;
   padding:10px 0 0 0;
-  border-bottom: 1px solid #8b9dc1; 
+
   display: block;
   border-top:1px solid #1f3359;
 }

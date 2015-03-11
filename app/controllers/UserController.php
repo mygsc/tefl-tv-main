@@ -215,7 +215,7 @@ class UserController extends BaseController {
 		// return $subscribers;
 		$findUsersVideo = User::find(Auth::User()->id)->favorite;
 		
-		
+
 		foreach($findUsersVideo as $findVideo){
 			$videoFavorites[] = $findVideo->video_id;
 		}
@@ -322,11 +322,12 @@ class UserController extends BaseController {
 
 		$findUsersVideo = User::find(Auth::User()->id)->favorite;
 		
-		
+	
+
 		foreach($findUsersVideo as $findVideo){
 			$videoFavorites[] = $findVideo->video_id;
 		}
-		// return $videoFavorites;
+		// echo $videoFavorites;
 		$showFavoriteVideos = Video::find($videoFavorites);
 
 		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos'));
@@ -348,6 +349,7 @@ class UserController extends BaseController {
 		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
+
 
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos'));
 	}
