@@ -33,10 +33,6 @@
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2b917822066ebb05b1fd100bb1ff8ae4f140c593
 
 @yield('script')
 
