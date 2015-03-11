@@ -34,6 +34,7 @@ class VideoController extends Controller {
 			$ecrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $ecrypt_name;
+
 			if($db_filename->save()){
 
 				//if img-thumbnail exist in the tmp-img then delete file first
@@ -192,7 +193,7 @@ class VideoController extends Controller {
 	public function getRandom($category = null){
 		$options = array('video' => 'video','playlist' => 'playlist', 'channel' => 'channel');
 
-		$randomResults = $this->Video->getRandomVideos();	//Default Value of randomResults
+		$randomResults = $this->Video->getVideoByCategory('random', 18);	//Default Value of randomResults
 		$type = 'video';
 		if(!empty($category)){	//Check if there is a specified category
 			if($category == 'channel'){

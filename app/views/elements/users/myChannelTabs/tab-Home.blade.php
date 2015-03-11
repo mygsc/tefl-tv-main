@@ -61,12 +61,13 @@
 
 			@foreach($usersVideos as $usersVideo)
 			<div class="col-md-4">
-				
+				<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
 					<div class="">
 						<video controls height="auto" width="100%" class="h-video">
 						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
 						</video>
 					</div>
+				</a>
 					<div class="v-Info">
 						{{$usersVideo->title}}
 					</div>
@@ -208,7 +209,7 @@
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
 								<span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
-								<!-- <span>w/ <b>{{$subscriberList->count}}</b> Subscribers</span>&nbsp; -->
+								<!-- <span>w/ <b>{{$SubscriptionList->count}}</b> Subscribers</span>&nbsp; -->
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>

@@ -7,7 +7,8 @@
 body{
   width: 100%;
   height: 100%;
-  background: #f2f6fc;
+
+  background-color: #ecf3fb;
 }
 h1,
 h2,
@@ -309,12 +310,12 @@ span .ad{
   height: auto;
   background: #1f3359;
   margin-top: 0;
-  padding: 12px 0 8px 0;
 
 
 }
-.logo-sm{
-  width: 100px;
+img.logo-sm {
+  width: 50px!Important;
+  height: auto;
 
 }
 .homeBtn{
@@ -356,7 +357,7 @@ span .ad{
   background: #d1dff9;
   font-size: .75em;
   padding:10px 0 0 0;
-  border-bottom: 1px solid #8b9dc1; 
+
   display: block;
   border-top:1px solid #1f3359;
 }
@@ -678,6 +679,11 @@ img.user{
 }
 .orangeC{
   color:#FFC600!Important;
+}
+.btn-upload{
+  color:#Fff!Important;
+  margin-top: 20px;
+  background: #337ab7!important;
 }
 .u-content{
   padding: 20px;

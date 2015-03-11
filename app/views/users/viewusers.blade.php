@@ -10,7 +10,7 @@
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
 					<div class="crop-square">
-						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+						{{HTML::image('img/user/'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 					</div>
 				</div>
 			</div>
@@ -34,13 +34,17 @@
 									<a href=""><img src="/img/icons/gp.png"></a>
 									<a href=""><img src="/img/icons/yt.png"></a>
 									<a href=""><img src="/img/icons/wl.png"></a>
- 	
-									{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
-					    				{{Form::hidden('user_id',$userChannel->id)}}
-					    				{{Form::hidden('subscriber_id',Auth::User()->id)}}
-					    				{{Form::hidden('status','subscribeOn')}}
-								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
-								    {{Form::close()}}
+ 									
+ 									@if($user_id)
+										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
+						    				{{Form::hidden('user_id',$userChannel->id)}}
+						    				{{Form::hidden('subscriber_id', $user_id)}}
+						    				{{Form::hidden('status','subscribeOn')}}
+									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
+									    {{Form::close()}}
+									@else
+										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-xsp lull-right')); }}
+								    @endif
 								</span>	
 							</div>
 						</div>	

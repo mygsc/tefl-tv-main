@@ -1,47 +1,41 @@
 <div class="brandingHeader">
-  <div class="row">
-    <a href="/"><img src="/img/logos/teflTv.png" class="text-left" title="redirect to homepage" style="position:absolute;height:auto;width:75px;left:30px"></a>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
-        <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;">
-          <span class="input-group-addon" style="padding:0!important;">
-            {{ Form::select('type',array('Video' => 'Video', 'Playlist' => 'Playlist', 'Channel' => 'Channel'),'Video', array('style' => 'height:20px;', 
-          'class' => 'cBox'))}}
-          </span>
-          {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
-          <span class="input-group-addon" style="padding:0!important;">
-            {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
-          </span>
-        </div>
-        {{Form::close()}}
-    </div>
-    <div class="col-md-6">
-      <div class="row text-right">
-        <ul class="ctgryNav pull-right" >
-          <li>
-            @if(Auth::check())
-            <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name, array('class' => 'btn'))}}</b></li>
-            <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => 'btn'))}}</li>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 hidden-sm hidden-xs ">
+                <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
+            </div>
+            <div class="col-md-4 col-sm-2  col-xs-3 visible-sm visible-xs">
+                <a href="/"><img src="/img/logos/teflTv.png" class="text-left logo-sm" title="redirect to homepage"></a>
+            </div>
 
-            @else
-            {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
-            @endif
+            <div class="col-md-8 col-sm-10 text-right hidden-xs">
+                <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                        {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
+                        <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:20px;">
+                            <span class="input-group-addon" style="padding:0!important;">
+                                {{ Form::select('type',array('Video' => 'Video', 'Playlist' => 'Playlist', 'Channel' => 'Channel'),'Video', array('style' => 'height:20px;', 
+                                'class' => 'cBox'))}}
+                            </span>
+                            {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
+                            <span class="input-group-addon" style="padding:0!important;">
+                                {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
+                            </span>
+                        </div><!--/.input group-->
+                        {{Form::close()}}
+                    </div><!--/.col-md-10 search box-->
 
-          </li>
-          <li>
-           {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-
-         </li>
-       </ul>
-     </div>
-   </div><!--/.col-md-4-->
-   
- </div><!--/.col-md-5-->
-</div><!--/.first row-->
-</div><!--/.container-->
+                    <div class="col-md-2 col-sm-2">
+                        <div class="row text-right">
+                            <ul class="ctgryNav pull-right" >
+                                <li>
+                                    {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-upload')) }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--/.col-md-2-->
+                </div><!--/.row-->
+            </div><!--/.col-md-8-->
+        </div><!--/.row-->
+    </div><!--/.container-->
 </div><!--/.brandingHeader-->
-
-

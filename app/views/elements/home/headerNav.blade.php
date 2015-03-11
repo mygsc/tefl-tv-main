@@ -1,8 +1,6 @@
 <div class="categoryNav">
-    
     <div class="container">
-        
-            <div class="col-md-6 text-left"> 
+            <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">
                     <ul class="ctgryNav" style="margin-left:-40px;">
                         <li>
@@ -22,7 +20,17 @@
                     </ul>
                 </div>
             </div><!--/.col-md-8-->
+            <div class="col-md-6 col-sm-6">
+                <ul class="ctgryNav pull-right">
+                    <li>
+                    @if(Auth::check())
+                    <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
+                    <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
+                    @else
+                    {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}
+                    @endif
 
+<<<<<<< HEAD
             <div class="col-md-4">
                 <div class="row text-right">
                     <ul class="ctgryNav" >
@@ -52,9 +60,12 @@
    </div><!--/.container-->
 
             <div class="col-md-6">
+=======
+>>>>>>> 2b917822066ebb05b1fd100bb1ff8ae4f140c593
 
-               
-        </div>
+                  </li>
+                </ul>  
+            </div>
       
   </div><!--/.container-->
 </div><!--/.categoryNav-->

@@ -59,19 +59,19 @@
 			<br/>
 
 			
-			@foreach($usersVideos as $usersVideo)
+			@foreach($findVideos as $findVideo)
 			<div class="col-md-4">
 				<div class="row">
 				<div class="">
 					<video controls height="auto" width="100%" class="h-video">
-					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+					<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
 					</video>
 				</div>
 				<div class="v-Info">
-					{{$usersVideo->title}}
+					{{$findVideo->title}}
 				</div>
 				<div class="count">
-					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+					{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 				</div>
 				</div>
 			</div>
@@ -181,18 +181,20 @@
 			</div>
 			<br/>
 			<div class="row">
-				@foreach($subscriptionLists as $SubscriptionList)
-					<div class="col-md-6">
-						<div class="row user-padding">
-							<img src="/img/user/u1.png" class="userRep2">&nbsp;
-							<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
-							<br/>&nbsp;
-							<span>w/ <b>2k</b> Subscribers</span>&nbsp;
-							<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+				@if(!empty($subscriptionLists))
+					@foreach($subscriptionLists as $SubscriptionList)
+						<div class="col-md-6">
+							<div class="row user-padding">
+								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+								<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+								<br/>&nbsp;
+								<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+							</div>
+							
 						</div>
-						
-					</div>
-				@endforeach
+					@endforeach
+				@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
