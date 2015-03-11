@@ -9,10 +9,10 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->getVideoCategory('recommended', '6');
-		$populars = $this->getVideoCategory('popular', '4');
-		$latests = $this->getVideoCategory('latest', '4');
-		$randoms = $this->Video->getRandomVideos('4');
+		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
+		$populars = $this->Video->getVideoByCategory('popular', '4');
+		$latests = $this->Video->getVideoByCategory('latest', '4');
+		$randoms = $this->Video->getVideoByCategory('random', '4');
 
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -46,7 +46,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->getVideoCategory('popular');
+		$popularVideos = $this->Video->getVideoByCategory('popular');
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -56,7 +56,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->getVideoCategory('latest');
+		$latestVideos =  $this->Video->getVideoByCategory('latest');
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -124,48 +124,6 @@ class HomeController extends BaseController {
 
 	}
 
-	public function getVideoCategory($type = null, $limit = null){
-		if(empty($type)){
-			return false;
-		}
-
-		if(!empty($limit)){
-			$limit = 'LIMIT '. $limit;
-		}
-
-		if($type == 'recommended'){
-			$additionaQuery = 
-				'AND recommended = "1"
-				ORDER BY (v.views + v.likes) DESC';
-		}elseif($type == 'popular'){
-			$additionaQuery = 
-				'ORDER BY (v.views + v.likes) DESC';
-		}elseif($type == 'latest'){
-			$additionaQuery = 
-				'ORDER BY v.created_at DESC';
-		}else{
-			return false;
-		}
-
-		$returnData = DB::select(
-				'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
-				v.views, v.likes, v.tags, v.report_count,v.recommended, v.created_at,
-				v.deleted_at,u.channel_name,u.status FROM videos v
-				INNER JOIN users u ON
-				v.user_id = u.id
-				WHERE
-				v.deleted_at IS NULL
-				AND
-				v.report_count < 5
-				AND
-				NOT(u.status = "0")
-				AND
-				publish = "1"'.
-				$additionaQuery.
-				' '.
-				$limit. '');
-
-		return $returnData;
-	}
+	
 
 }
