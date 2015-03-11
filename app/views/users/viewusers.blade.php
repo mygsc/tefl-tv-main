@@ -34,13 +34,15 @@
 									<a href=""><img src="/img/icons/gp.png"></a>
 									<a href=""><img src="/img/icons/yt.png"></a>
 									<a href=""><img src="/img/icons/wl.png"></a>
- 	
-									{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
-					    				{{Form::hidden('user_id',$userChannel->id)}}
-					    				{{Form::hidden('subscriber_id', $userChannel->id)}}
-					    				{{Form::hidden('status','subscribeOn')}}
-								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
-								    {{Form::close()}}
+ 									
+ 									@if($user_id)
+										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
+						    				{{Form::hidden('user_id',$userChannel->id)}}
+						    				{{Form::hidden('subscriber_id', $user_id)}}
+						    				{{Form::hidden('status','subscribeOn')}}
+									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
+									    {{Form::close()}}
+								    @endif
 								</span>	
 							</div>
 						</div>	

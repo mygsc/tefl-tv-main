@@ -13,6 +13,7 @@ class UserController extends BaseController {
 	}
 
 	public function postSignIn() {
+
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userLoginRules);
 
@@ -437,7 +438,9 @@ class UserController extends BaseController {
 	}
 
 	public function getViewUsersChannel($channel_name) {
+		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+		if(!empty(Auth::User()->id)) $user_id = Auth::User()->verified;
 
 		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
 
@@ -468,7 +471,7 @@ class UserController extends BaseController {
 
 		}
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');
