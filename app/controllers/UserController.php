@@ -452,11 +452,6 @@ class UserController extends BaseController {
 		return View::make('users.viewusers', compact('userChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 	public function addSubscriber() {
-        // if (Session::token() !== Input::get('_token')) {
-        //     return Response::json( array(
-        //         'msg' => 'Unauthorized attempt to create setting'
-        //     ) );
-        // }
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
@@ -467,15 +462,16 @@ class UserController extends BaseController {
 			$subscribe->save();
 			return Response::json(array(
                 'msg' => 'Unauthorized attempt to create setting',
-                'status' => 'subscribeOff'
-                
+                'status' => 'subscribeOff',
+                'label' => 'Unsubscribe'
             ));
         }
         if($status == 'subscribeOff'){
         	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => 'subscriber_id'))->delete();
         	return Response::json(array(
             	'msg' => 'Unauthorized attempt to create setting',
-                'status' => 'subscribeOn'
+                'status' => 'subscribeOn',
+                'label' => 'Unsubscribe'
         	));
         }
     }
