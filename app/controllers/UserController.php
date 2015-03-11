@@ -331,6 +331,13 @@ class UserController extends BaseController {
 		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos'));
 	}
 
+	public function postRemoveFavorites($id) {
+
+		$a = Favorite::find($id)->delete();
+
+		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
+	}
+
 	public function getUsersChangePassword() {
 		
 		return View::make('users.changepassword');
@@ -431,25 +438,39 @@ class UserController extends BaseController {
 
 	public function getViewUsersChannel($channel_name) {
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		if(empty($userChannel)) return Redirect::route('users.index')->withFlashMessage('This channel does not exist');
 
-		$usersVideos = User::find(Auth::User()->id)->video;
-		$subscribers = User::find(Auth::User()->id)->subscribe;
+		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
 
+		$usersVideos = User::where('channel_name',$channel_name)->first();
+		
+		if(empty($usersVideos)) {
+			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
+		}
+		$findVideos = $usersVideos->video;
+	
+
+		$userSubscribe = User::where('channel_name', $channel_name)->first();
+		
+		$subscribers = $userSubscribe->subscribe;
+
+	
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
 
 		$subscriberLists = UserProfile::find($subscriber_id);
-		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->paginate(15);
+
+		// return $subscriberLists;
+		$subscriptions = Subscribe::where('subscriber', $usersVideos->id)->paginate(15);
 
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
 
 		}
+		
 
-		return View::make('users.viewusers', compact('userChannel', 'usersVideos', 'subscriberLists', 'subscriptionLists'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 	public function addSubscriber() {
         // if (Session::token() !== Input::get('_token')) {
