@@ -316,7 +316,11 @@ class UserController extends BaseController {
 
 	public function getMyFavorites() {
 
-		return View::make('users.favorites');
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+
+		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function getUsersChangePassword() {
@@ -325,23 +329,38 @@ class UserController extends BaseController {
 	}
 
 	public function getWatchLater() {
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
 
-		return View::make('users.watchlater');
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function getPlaylists() {
 
-		return View::make('users.playlists');
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function getFeedbacks() {
 
-		return View::make('users.feedbacks');
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+
+		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function getSubscribers() {
 
-		return View::make('users.subscribers');
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+		
+		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function postUsersChangePassword() {
