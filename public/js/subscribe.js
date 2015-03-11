@@ -33,7 +33,8 @@ $(document).ready(function() {
 	        //   	subscriber_id:$('input[name=subscriber_id]').val(),
 	        //   	status:$('input[name=status]').val(),           },
 	        success: function(data){
-        		$('input[name=status]').val() = data['status'];
+        		$('input[name=status]').val(data['status']);
+        		$('input[id=subscribebutton]').val(data['label']);
 	        	alert(data['status']);
             	// window.location.href = 'search/product?'+q;
            	}
