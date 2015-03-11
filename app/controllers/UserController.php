@@ -477,6 +477,12 @@ class UserController extends BaseController {
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
+        if(!Auth::check()){
+        	return Response::json(array(
+                'status' => 'subscribeOff',
+                'label' => Session::get('url.intended')
+            ));
+        }
         if($status == 'subscribeOn'){
         	$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;
