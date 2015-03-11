@@ -4,7 +4,7 @@
 	<div class="container page">
 		<div class="col-md-6 col-md-offset-3">
 			<br/><br/>
-			<div class="well">
+			<div class="well textbox-layout">
 				<h2>Reset Password</h2>	
 				{{ Form::open(array('route' => 'post.admin.resetpassword')) }}
 					{{ Form::label('Email','Email')}}

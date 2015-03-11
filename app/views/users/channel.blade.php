@@ -41,7 +41,6 @@
 				  					<span class="input-group-btn">
 				  						{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 				  					</span>
-
 				  				</div>
 				  			</div>
 				  			<br/>
@@ -53,7 +52,7 @@
 					  			@foreach($usersVideos as $usersVideo)
 					  				<div id='list' class="col-md-3">
 					  					&nbsp;
-					  					<video height="auto" width="100%" class="h-video controls>
+					  					<video height="auto" width="100%" class="h-video" controls>
 					  						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
 					  					</video>
 				  						<div class="v-Info">
@@ -69,7 +68,24 @@
 				  	</div>
 
 				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
-				    	My Favorites
+					    	<div class="container">
+					    		<div class="row">
+					  					@foreach($showFavoriteVideos as $showFavoriteVideo)
+					  					<div class="col-md-4">
+								    		<video controls>
+								    			<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
+								    		</video>
+								    		<br/>
+								    		{{$showFavoriteVideo->title}}<br/>
+								    		{{$showFavoriteVideo->description}}<br/>
+								    		{{$showFavoriteVideo->views}} Views, {{$showFavoriteVideo->likes}} Likes
+								    			{{Form::open(array('route' => 'post.remove-favorites'))}}
+								    				{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
+								    			{{Form::close()}}
+								    		</div>
+						    			@endforeach
+					    			</div>
+					  	 </div>
 				    </div>
 
 				    <div role="tabpanel" class="tab-pane" id="WatchLater">
@@ -196,7 +212,7 @@
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');

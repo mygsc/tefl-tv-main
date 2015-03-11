@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container ">
-	<br/><br/>
+	<br/>
 	<div class="col-md-6 col-md-offset-3">
 		<div class="loginDivA">
 			<div class="row">

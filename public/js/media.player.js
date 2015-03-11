@@ -1,11 +1,11 @@
 
-document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();}, false);
+document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();timeSettings();}, false);
 
-var mediaPlayer, hourso=0, minuto=0, secondo=0, adsTimeSetting = 10, ads=0,
+var mediaPlayer, hrs, mins, secs=0, tmpSecs, adsTime = 10, ads=0, vidMinLenght, vidSecLenght, videoCurrentTime,
 	playPauseBtn, timeDuration,
  	muteBtn, playIcon = false,
  	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false, start = false,
- 	videoTimeLenght, $this = $(this), 
+ 	videoTimeLenght,  
  	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
 
@@ -45,10 +45,29 @@ function GSCMediaPlayer(){
 	
 }
 function adsOn(){
-	ads = timeDuration * adsTimeSetting / 100;
-	ads = Math.round(100 / ads) * 7;
+	ads = timeDuration * adsTime / 100;
+	ads = Math.round(100 / ads);
 	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#current-progress');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads+'px', 'height':'100%', 'position':'absolute'});
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '300px', 'height':'100%', 'position':'absolute'});
+	
+}
+function timeSettings(){
+	vidMinLenght = Math.floor(timeDuration / 60);
+	vidSecLenght = Math.floor(timeDuration - (vidMinLenght * 60));
+	hrs = Math.floor(vidMinLenght / 60);
+	mins =  vidMinLenght - (Math.floor(hrs * 60));
+	tmpSecs =  Math.floor(timeDuration / 60);
+	secs =   timeDuration - (tmpSecs * 60);
+	if(secs < 10) { secs = '0'+ secs; }
+	if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
+	if(mins < 10) { mins = '0'+ mins; }
+	if(hrs < 10) { hrs = '0'+ hrs; }
+	if(timeDuration < 3600){
+		$('.ctime').html(mins + ':' + secs);
+	}else{
+		$('.ctime').html(hrs + ':' + mins + ':' + secs);
+	}
+	
 }
 function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
@@ -119,14 +138,14 @@ function replayMedia() {
 // Update the progress bar
 function updateProgressBar(response) {
 	// Work out how much of the media has played via the duration and currentTime parameters
-	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime);
-	var videoCurrentTime = Math.floor(mediaPlayer.currentTime);
-	var time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration);
-	var seconds = 0,
+	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime),
+	 time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration),
+	 vidMin = Math.floor(timeDuration / 60),
+	 vidSec = Math.floor(timeDuration - (vidMinLenght * 60)),
+	 videoCurrentTime = Math.floor(mediaPlayer.currentTime),
+	 seconds = 0,
 			hours = Math.floor(time / 3600),
 			minutes = Math.floor(time / 60),
-			vidMinLenght = Math.floor(mediaPlayer.duration / 60),
-			vidSecLenght = Math.floor((mediaPlayer.duration) - (vidMinLenght*60));
 				// seconds are equal to the time minus the minutes
 				seconds = (videoCurrentTime - (60 * minutes));
 				// So if seconds go above 59 and increase minutes, reset seconds
@@ -154,20 +173,17 @@ function updateProgressBar(response) {
 						//$that.find('.progress-button').css({'left' : (updProgWidth-$that.find('.progress-button').width())+'px'});
 					}
 					//Update time
-					if(Math.round(mediaPlayer.duration) >= 3600){
-							var hrs = Math.floor(vidMinLenght/60); 
+					if(Math.round(mediaPlayer.duration) >= 3600){ 
 								if(hrs < 10){
 									hrs = '0'+hrs;
 								}
-							var mins =  vidMinLenght - (Math.floor(hrs * 60));
-							var tmpSecs =  Math.floor(Math.floor(mediaPlayer.duration) / 60);
-							var secs =   Math.floor(mediaPlayer.duration) - (tmpSecs * 60);
+							
 							$('.ctime').html(hours +':' + minutes + ':' + seconds + '/' + hrs + ':' + mins + ':' + secs);				
 					}else{
-						if(vidMinLenght < 10){
-							vidMinLenght = '0'+vidMinLenght;
+						if(vidMin < 10){
+							vidMin = '0'+vidMin;
 						}
-						$('.ctime').html(minutes + ':' + seconds +'/' + vidMinLenght + ':' + vidSecLenght);
+						$('.ctime').html(minutes + ':' + seconds +'/' + vidMin + ':' + vidSec);
 					}
 
 					var finishTime = Math.round(videoCurrentTime);
@@ -183,7 +199,7 @@ function updateProgressBar(response) {
 					}
 							
 					
-					if(finishTime == adsTimeSetting){
+					if(finishTime == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
 					//mediaPlayer.onwaiting = function() {alert('waiting');}

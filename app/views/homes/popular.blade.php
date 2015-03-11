@@ -1,9 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="container page">
+<div class="container page">
 	<h1>Popular Videos</h1>
-	@foreach($latestVideos as $latestVideo)
+	@foreach($latestVideos as $key => $latestVideo)
+	<!-- 12 column / 3 column = 4 -->
 	<div class="col-md-3">
 		<img src="/img/thumbnails/v4.png">
 
@@ -18,5 +19,5 @@
 		<BR/>
 	</div>
 	@endforeach
-	</div>
+</div>
 @stop
