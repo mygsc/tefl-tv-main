@@ -167,7 +167,6 @@ class UserController extends BaseController {
 
 		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
 		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
-		
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber;
 		}
@@ -308,7 +307,11 @@ class UserController extends BaseController {
 
 	public function getMyVideos() {
 
-		return View::make('users.videos');
+		$countSubscribers = DB::table('subscribe')->where('user_id', Auth::User()->id)->get();
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+
+		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos'));
 	}
 
 	public function getMyFavorites() {
@@ -340,7 +343,7 @@ class UserController extends BaseController {
 
 		return View::make('users.subscribers');
 	}
-	
+
 	public function postUsersChangePassword() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userPasswordRules);
