@@ -16,7 +16,7 @@
 			    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 			  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 			  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-			  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers')}}</li>
+			  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 			  	</ul><!--tabNav-->
 			</div>
 
@@ -59,7 +59,7 @@
 						{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 						{{ Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;')) }}
 
-						{{Form::close()}}
+					
 						<video controls>
 							<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 						</video>
@@ -69,11 +69,10 @@
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
 							<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
+								{{Form::close()}}
 							<br/>
 
-							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-							{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
-							{{Form::close()}}
+							
 
 						</div>
 					</div>
