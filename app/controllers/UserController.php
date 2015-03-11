@@ -434,7 +434,6 @@ class UserController extends BaseController {
 		if(empty($userChannel)) return Redirect::route('users.index')->withFlashMessage('This channel does not exist');
 
 		$usersVideos = User::find(Auth::User()->id)->video;
-
 		$subscribers = User::find(Auth::User()->id)->subscribe;
 
 		foreach($subscribers as $a){
@@ -442,12 +441,8 @@ class UserController extends BaseController {
 		}
 
 		$subscriberLists = UserProfile::find($subscriber_id);
-
-
-
-		$subscriberLists = UserProfile::find($subscriber_id);
-		
 		$subscriptions = Subscribe::where('subscriber', Auth::User()->id)->paginate(15);
+
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
@@ -462,8 +457,6 @@ class UserController extends BaseController {
         //         'msg' => 'Unauthorized attempt to create setting'
         //     ) );
         // }
-
-
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
@@ -472,35 +465,19 @@ class UserController extends BaseController {
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber = $subscriber_id;
 			$subscribe->save();
-			return Response::json( array(
-                'msg' => 'Unauthorized attempt to create setting'
-            ) );
+			return Response::json(array(
+                'msg' => 'Unauthorized attempt to create setting',
+                'status' => 'subscribeOff'
+                
+            ));
         }
         if($status == 'subscribeOff'){
         	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => 'subscriber_id'))->delete();
+        	return Response::json(array(
+            	'msg' => 'Unauthorized attempt to create setting',
+                'status' => 'subscribeOn'
+        	));
         }
-        Response::json(array(
-            'msg' => 'Unauthorized attempt to create setting'
-        ) );
- 		
-        // $response = array(
-        //     'status' => 'success',
-        //     'msg' => 'Setting created successfully',
-        // );
- 
-        // return Response::json( $response );
-        // dd(Input::get('user_id'));
-  //       $id = str_replace('id','',Input::get('id')); 
-		// if(count($id) > 0){
-		// 	for($n = 0; $n < count($id); $n++){
-		// 		Product::where('id','=', $id[$n])->delete();
-		// 	}
-		// 	return 'success';
-		// }
-		// else{
-		// 	return 'Error while deleting'; 
-		// }
-		
     }
 
 

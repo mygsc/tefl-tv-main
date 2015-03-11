@@ -21,44 +21,27 @@
 			  		
 			  	</ul><!--tabNav-->
 			</div>
-		
 
-			<button id="sort" class="btn btn-info">Sort by Most Likes</button>
-			<button id="sort" class="btn btn-info">Sort by Recent</button>
-
-			<div class="row">
-				<br/>
-				<div class="col-md-6 pull-right">
-					<div class="input-group">
-						{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-						<span class="input-group-btn">
-							{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-						</span>
-					</div>
-				</div>
-				<br/>
-				<div id="videosContainer" class='container'>
-					<div class="buttons">
-						<button id="videoButton" class="grid">Grid View</button>
-						<button id="videoButton" class="list">List View</button>
-					</div>
-					@foreach($usersVideos as $usersVideo)
-					<div id='list' class="col-md-3">
-						&nbsp;
-						<video height="auto" width="100%" class="h-video" controls>
-							<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
+			<div class="container">
+				<div class="row">
+					@foreach($showFavoriteVideos as $showFavoriteVideo)
+					<div class="col-md-4">
+						<video controls>
+							<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 							</video>
-							<div class="v-Info">
-								{{$usersVideo->title}}
-							</div>
-							<div class="count">
-								{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
-							</div>
+							<br/>
+							{{$showFavoriteVideo->title}}<br/>
+							{{$showFavoriteVideo->description}}<br/>
+							{{$showFavoriteVideo->views}} Views, {{$showFavoriteVideo->likes}} Likes
+							{{Form::open(array('route' => 'post.remove-favorites'))}}
+							{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
+							{{Form::close()}}
 						</div>
-						@endforeach	
+						@endforeach
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div><!--!/.shadow div-channel-border-->
+	</div><!--/.row-->
+</div><!--/.container page-->
 @stop

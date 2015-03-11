@@ -29,26 +29,7 @@
 				  	</div>				    
 
 
-				    <div role="tabpanel" class="tab-pane" id="MyFavorites">
-					    	<div class="container">
-					    		<div class="row">
-					  					@foreach($showFavoriteVideos as $showFavoriteVideo)
-					  					<div class="col-md-4">
-								    		<video controls>
-								    			<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
-								    		</video>
-								    		<br/>
-								    		{{$showFavoriteVideo->title}}<br/>
-								    		{{$showFavoriteVideo->description}}<br/>
-								    		{{$showFavoriteVideo->views}} Views, {{$showFavoriteVideo->likes}} Likes
-								    			{{Form::open(array('route' => 'post.remove-favorites'))}}
-								    				{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
-								    			{{Form::close()}}
-								    		</div>
-						    			@endforeach
-					    			</div>
-					  	 </div>
-				    </div>
+				  
 
 				    <div role="tabpanel" class="tab-pane" id="WatchLater">
 				    	Watch Later
