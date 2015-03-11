@@ -462,13 +462,11 @@ class UserController extends BaseController {
 
 		// return $subscriberLists;
 		$subscriptions = Subscribe::where('subscriber', $usersVideos->id)->paginate(15);
-
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
 
 		}
-		
 
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists'));
 	}
