@@ -59,19 +59,19 @@
 			<br/>
 
 			
-			@foreach($usersVideos as $usersVideo)
+			@foreach($findVideos as $findVideo)
 			<div class="col-md-4">
 				<div class="row">
 				<div class="">
 					<video controls height="auto" width="100%" class="h-video">
-					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+					<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
 					</video>
 				</div>
 				<div class="v-Info">
-					{{$usersVideo->title}}
+					{{$findVideo->title}}
 				</div>
 				<div class="count">
-					{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+					{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 				</div>
 				</div>
 			</div>

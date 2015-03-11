@@ -33,7 +33,8 @@
 							{{$showFavoriteVideo->title}}<br/>
 							{{$showFavoriteVideo->description}}<br/>
 							{{$showFavoriteVideo->views}} Views, {{$showFavoriteVideo->likes}} Likes
-							{{Form::open(array('route' => 'post.remove-favorites'))}}
+
+							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 							{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
 							{{Form::close()}}
 						</div>
