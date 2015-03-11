@@ -4,7 +4,7 @@
 	
 		<img src="/img/thumbnails/v7.png">
 		<div class="v-Info">
-			{{$randomResult->title}}<br />
+			<a href="{{route('homes.watch-video')}}">{{$randomResult->title}}</a>
 		</div>
 	
 		<div class="count">

@@ -2,8 +2,8 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user){
-
+	public function __construct(User $user, Subscribe $subscribes){
+		$this->Subscribe = $subscribes;
 		$this->User = $user;
 	}
 
@@ -134,6 +134,7 @@ class UserController extends BaseController {
 				$img = 'img/user/0.jpg';
 			}
 			$topChannels[$key]->image_src = $img;
+			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name);
 		}
 
 		return View::make('homes.topchannels', compact(array('topChannels')));
