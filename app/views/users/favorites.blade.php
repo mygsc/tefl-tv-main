@@ -58,16 +58,16 @@
 					<div class="col-md-3">
 						{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 						{{ Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;')) }}
-
-					
+						<a href="{{route('homes.watch-video', $showFavoriteVideo->id . '%' . $showFavoriteVideo->tile)}}">
 						<video controls>
 							<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 						</video>
+						</a>
 						<div class="v-Info">
 							{{$showFavoriteVideo->title}}
 						</div>
 						<div class="count">
-							by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
+							by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}" target="_blank">{{$showFavoriteVideo->channel_name}}</a><br/>
 							<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
 								{{Form::close()}}
 							<br/>
@@ -82,4 +82,44 @@
 		</div><!--!/.shadow div-channel-border-->
 	</div><!--/.row-->
 </div><!--/.container page-->
+@stop
+
+@section('script')
+	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/homes/convert_specialString.js')}}
+
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<script type="text/javascript">
+		$('.grid').click(function() {
+		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
+		});
+		$('.list').click(function() {
+		    $('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
+		});
+		$(document).ready( function( $ ) {
+			$('#form-add-setting').on('submit', function() {
+		        //.....
+		        //show some spinner etc to indicate operation in progress
+		        //.....
+		        $.post(
+		        	$(this).prop( 'action' ),{
+		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
+		        		"setting_name": $( '#setting_name' ).val(),
+		        		"setting_value": $( '#setting_value' ).val()
+		        	},
+		        	function( data ) {
+		                //do something with data/response returned by server
+		            },'json'
+		        );
+		        //.....
+		        //do anything else you might want to do
+		        //.....
+
+		        //prevent the form from actually submitting in browser
+		        return false;
+		    } );
+		} );
+	</script>
 @stop
