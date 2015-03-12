@@ -3,7 +3,7 @@
 
 @section('content')
 @include('elements/flash_verify')
-<div class='container page'>
+<div class='container pageh'>
 <br/><br/>
 <div class="row">
 		<div class="col-md-4">
@@ -78,6 +78,7 @@
 			</div>
 		</div>
 	</div>
+	<BR/><br/>
 </div><!--/.container page-->
 
 @stop

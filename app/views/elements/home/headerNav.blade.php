@@ -28,9 +28,6 @@
                     @else
                     <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                     @endif
-                    <li>
-                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-                    </li>
                 </ul>
 
         </div><!--/.row-->
