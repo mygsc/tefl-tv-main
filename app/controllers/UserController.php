@@ -394,7 +394,46 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
-		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos'));
+		if(isset($subscriber_id)){
+			$subscriberLists = UserProfile::find($subscriber_id);
+			$ifNoSubscriber = false;
+		} else{
+			$subscriberLists = array();
+			$ifNoSubscriber = true;
+		} 
+
+		// return $subscriberLists;
+
+		foreach($subscriberLists as $key => $listSubscriber){
+
+			$subscriberCount = DB::table('subscribes')->where('subscriber', $listSubscriber->id)->get();
+
+			$subscriberLists[$key]->count = count($subscriberCount);
+		}
+
+
+		
+
+		$increment = 0;
+
+		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
+		// return $subscriptions;
+		foreach ($subscriptions as $b) {
+			$subscription_id[] = $b->user_id;
+			// $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+			// $subscriptionLists[] = $subscriptioned;
+
+		}
+
+		$subscriptionLists = UserProfile::find($subscription_id);
+		// return $subscriptioned;
+		// return $subscriptionLists;
+		foreach($subscriptionLists as $key => $listSubscription) {
+			$subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
+			$subscriptionLists[$key]->count = count($subscriptionCount);
+		}
+
+		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberLists', 'subscriptionLists'));
 	}
 
 	public function postUsersChangePassword() {
