@@ -22,29 +22,29 @@
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="changePassword">
-                                <div class="col-md-6 col-md-offset-2"> 
+                                <div class="col-md-6 col-md-offset-2 textbox-layout"> 
 	                                {{Form::open(array('route' => 'users.post.change-email'))}}
-										{{Form::label('email', 'Email: ')}}
-										{{Form::text('email', null)}}
-										{{$errors->first('email')}}
-										<br>
-										{{Form::label('newEmail', 'New Email: ')}}
-										{{Form::text('newEmail', null)}}
-										{{$errors->first('newEmail')}}
-										<br>
-										{{Form::label('password', 'Password: ')}}
-										{{Form::password('password', null)}}
-										{{$errors->first('password')}}
-										<br>
-										{{Form::label('confirmPassword', 'Confirm Password: ')}}
-										{{Form::password('confirmPassword', null)}}
-										{{$errors->first('confirmPassword')}}
-										<br>
-										<div class="text-right">
-											{{Form::submit('Submit',array('class' => 'btn btn-info'))}}
-										</div>
-									{{Form::close()}}
-							    </div>
+              										{{Form::label('email', 'Email: ')}}
+              										{{Form::text('email', null)}}
+              										{{$errors->first('email')}}
+              										<br>
+              										{{Form::label('newEmail', 'New Email: ')}}
+              										{{Form::text('newEmail', null)}}
+              										{{$errors->first('newEmail')}}
+              										<br>
+              										{{Form::label('password', 'Password: ')}}
+              										{{Form::password('password', null)}}
+              										{{$errors->first('password')}}
+              										<br>
+              										{{Form::label('confirmPassword', 'Confirm Password: ')}}
+              										{{Form::password('confirmPassword', null)}}
+              										{{$errors->first('confirmPassword')}}
+              										<br>
+              										<div class="text-right">
+              											{{Form::submit('Submit',array('class' => 'btn btn-info'))}}
+              										</div>
+              									{{Form::close()}}
+              							    </div>
 
                             </div>
                         </div><!--/.tabContent-->

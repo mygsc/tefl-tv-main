@@ -23,7 +23,7 @@
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="changePassword">
-                                <div class="col-md-6 col-md-offset-2"> 
+                                <div class="col-md-6 col-md-offset-2 textbox-layout"> 
                                  {{Form::open(array('route' => 'users.post.change-password'))}}
                                         {{Form::label('currentPassword', ' Current Password: ')}}
                                         {{Form::password('currentPassword', null)}}

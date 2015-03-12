@@ -66,11 +66,11 @@
 							<div class="share-video" style="display:none">
 								<small style="text-align:center;color:#fff">Share to:</small>
 								<ul>
-									<li> <a href="#">Facebook</a></li>
-									<li> <a href="#">Twitter</a></li>
-									<li> <a href="#">Instagram</a></li>
-									<li> <a href="#">Youtube</a></li>
-									<li> <a href="#">Gmail</a></li>
+									<li> <a href="#"><img src="/img/icons/fb.png"> Facebook</a></li>
+									<li> <a href="#"><img src="/img/icons/tr.png"> Twiter</a></li>
+									<li> <a href="#"><img src="/img/icons/ig.png"> Instagram</a></li>
+									<li> <a href="#"><img src="/img/icons/yt.png"> Youtube</a></li>
+									<li> <a href="#"><img src="/img/icons/gp.png"> Google +</a></li>
 								</ul>						
 							</div>
 

@@ -79,9 +79,11 @@
 						</div>
 					</div>
 					<br/>
+					<span class="textbox-layout">
 					{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
 					{{ Form::text('email', '', array('placeholder' => 'Email' , 'class' => 'form-control')); }}
 					{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact' , 'class' => 'form-control')); }}
+					</span>
 					<button class="btn btn-primary pull-right">Submit</button>
 					<br/>
 

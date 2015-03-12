@@ -10,10 +10,11 @@
 			<div class="row">
 				<br/>
 				{{Form::open(array('route'=>'homes.post.random','id' => 'btnSubmit'))}}
-				{{Form::label('option', 'Randomize by')}}
-				{{Form::select('option', $options, Input::old('option'), array('id' => 'cmbOption'))}}
+				{{Form::label('option', 'Dispaly Randomize :')}}
+				{{Form::select('option', $options, Input::old('option'), array('id' => 'cmbOption', 'class' => 'form-control', 'style' => 'width:auto;'))}}
 				{{Form::close()}}
 			</div>
+			<hr/>
 			<div class="row">
 				@if($type == 'playlist')
 					@include('elements.home.randoms.playlist')
