@@ -560,6 +560,38 @@ class UserController extends BaseController {
         	));
         }
     }
+    public function addPlaylist($id){
+    	$name = Input::get('name');
+    	$description = Input::get('description');
+    	$privacy = Input::get('privacy');
+    	$user_id = Auth::User()->id;
+    	$duplicateValidator = Playlist::where('name','=',$name);
+    	$duplicate = Playlist::where('name','=',$name)->first();	
+    	if($duplicateValidator->count()){
+    		$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
+    										->where('video_id','=',$id);
+    		if(!$playlistDuplicate->count()){
+    			PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
+    		}
+    	}else{
+	    	$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+	    	$playlistID = $createPlaylist->id;
+	    	PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
+    	}
+    	return Response::json(Input::get('name'));
+    }
+    public function addChkBoxPlaylist($id){
+    	$playlistId = Crypt::decrypt(Input::get('value'));
+    	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
+    	return Response::json($playlistId);
+    }
+    public function removePlaylist($id){
+    	$playlistId = Crypt::decrypt(Input::get('value'));
+    	$playlistItem = PlaylistItem::where('video_id','=',$id)
+    									->where('playlist_id','=',$playlistId)->first();
+    	$playlistItem->delete();
+
+    }
 
 
 }
