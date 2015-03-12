@@ -504,7 +504,7 @@ class UserController extends BaseController {
         if($status == 'subscribeOn'){
         	$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;
-			$subscribe->subscriber = $subscriber_id;
+			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
 			return Response::json(array(
                 'status' => 'subscribeOff',

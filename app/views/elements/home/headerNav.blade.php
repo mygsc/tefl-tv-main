@@ -27,13 +27,17 @@
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                     @else
-                    {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}
+                    <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                     @endif
+                    <li>
+                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
+                                      
+                       </li>
+
+        </div><!--/.row-->
+   </div><!--/.container-->
 
 
-                  </li>
-                </ul>  
-            </div>
       
   </div><!--/.container-->
 </div><!--/.categoryNav-->
