@@ -5,6 +5,8 @@
 @stop
 
 {{-- */$videourl = 1;/* --}}
+{{-- */$playlistCounter = 1;/* --}}
+{{-- */$playlistCounter2 = 1;/* --}}
 
 @section('content')
 
@@ -52,21 +54,38 @@
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                        @if(isset(Auth::User()->id))
-                                            <span class="dropdown">
-
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >
+                                    @if(isset(Auth::User()->id))
+                                        {{Form::hidden('text1',$id[0],array('id'=>'text1'))}}
+                                        {{Form::hidden('title',$id[1],array('id'=>'title'))}}
+                                            <span class="dropdown" id="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
                                                     <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
-                                                    <li><p><i class="fa fa-list"></i>&nbsp;&nbsp;Playlist</p>
-                                                          {{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
-                                                            <ul style="list-style:none">
-                                                                <li>{{ Form::checkbox('null,false')}} &nbsp; Playlist 1</li>
-                                                                <li> {{ Form::checkbox('null,false')}} &nbsp; Playlist 2</li>
+                                                    <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
+  
+                                        @if(empty($playlists))
+                                        <ul style="list-style:none" id="list-checkbox">
+                                            @foreach($playlistNotChosens as $playlistNotChosen)
+                                             <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                            @endforeach
+                                        @else
+                                            {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
+                                        <ul style="list-style:none" id="list-checkbox">
+                                        @foreach($playlists as $playlist)
+                                        <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
+                                        @endforeach
+
+                                        @if(!empty($playlistNotChosens))
+                                            @foreach($playlistNotChosens as $playlistNotChosen)
+                                             <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                            @endforeach
+                                        @endif
+                                    @endif   
                                                             </ul>
-                                                            <button>Create New Playlist</button>
+                                                           
+                                                            <button id="createPlaylist">Create New Playlist</button>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -152,5 +171,5 @@
 
 @section('script')
     {{HTML::script('js/media.player.js')}}
-    {{HTML::script('js/homes/convert_specialString.js')}}
+    {{HTML::script('js/homes/watch.js')}}
 @stop

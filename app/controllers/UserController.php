@@ -27,7 +27,7 @@ class UserController extends BaseController {
 				$role = Auth::User()->role;
 				
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::route('homes.index')->with('flash_message', 'Welcome '.$input['channel_name']);
+					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
@@ -504,9 +504,10 @@ class UserController extends BaseController {
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		if(!empty(Auth::User()->id)) $user_id = Auth::User()->verified;
+		if(Auth::check()) $user_id = Auth::User()->id;
+		if(!Auth::check()) Session::put('url.intended', URL::full());
 
-		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
+		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 		
@@ -517,7 +518,6 @@ class UserController extends BaseController {
 	
 
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-		
 		$subscribers = $userSubscribe->subscribe;
 
 	
@@ -527,7 +527,6 @@ class UserController extends BaseController {
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
-		// return $subscriberLists;
 		$subscriptions = Subscribe::where('subscriber_id', $usersVideos->id)->paginate(15);
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
@@ -535,18 +534,15 @@ class UserController extends BaseController {
 
 		}
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id'));
+		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+		
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
-        if(!Auth::check()){
-        	return Response::json(array(
-                'status' => 'subscribeOff',
-                'label' => Session::get('url.intended')
-            ));
-        }
+
         if($status == 'subscribeOn'){
         	$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;
@@ -564,6 +560,38 @@ class UserController extends BaseController {
                 'label' => 'Subscribe'
         	));
         }
+    }
+    public function addPlaylist($id){
+    	$name = Input::get('name');
+    	$description = Input::get('description');
+    	$privacy = Input::get('privacy');
+    	$user_id = Auth::User()->id;
+    	$duplicateValidator = Playlist::where('name','=',$name);
+    	$duplicate = Playlist::where('name','=',$name)->first();	
+    	if($duplicateValidator->count()){
+    		$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
+    										->where('video_id','=',$id);
+    		if(!$playlistDuplicate->count()){
+    			PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
+    		}
+    	}else{
+	    	$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+	    	$playlistID = $createPlaylist->id;
+	    	PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
+    	}
+    	return Response::json(Input::get('name'));
+    }
+    public function addChkBoxPlaylist($id){
+    	$playlistId = Crypt::decrypt(Input::get('value'));
+    	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
+    	return Response::json($playlistId);
+    }
+    public function removePlaylist($id){
+    	$playlistId = Crypt::decrypt(Input::get('value'));
+    	$playlistItem = PlaylistItem::where('video_id','=',$id)
+    									->where('playlist_id','=',$playlistId)->first();
+    	$playlistItem->delete();
+
     }
 
 

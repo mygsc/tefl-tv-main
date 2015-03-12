@@ -8,7 +8,7 @@
 		<h3><b>Word and Sentence Stress (Part 1)</b></h3>
 		<p>Uploded: February 27, 2015</p>
 		<br/>
-		<p>
+		<p class="text-justify">
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
