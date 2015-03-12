@@ -3,14 +3,21 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user) {
+	public function __construct(User $user, Video $video) {
 		$this->User = $user;
-
+		$this->Video = $video;
 	}
 
 	public function getIndex() {
+		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
+		$populars = $this->Video->getVideoByCategory('popular', '4');
+		$latests = $this->Video->getVideoByCategory('latest', '4');
+		$randoms = $this->Video->getVideoByCategory('random', '4');
 
-		return View::make('homes.index');
+		if($recommendeds === false || $populars === false || $latests === false){
+			app::abort(404, 'Unauthorized Action'); 
+		}
+		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms')));
 	}
 
 	public function getAboutUs() {
@@ -39,13 +46,23 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
+		$popularVideos = $this->Video->getVideoByCategory('popular');
 
-		return View::make('homes.popular');
+		if($popularVideos === false){
+			app::abort(404, 'Unauthorized Action'); 
+		}
+
+		return View::make('homes.popular', compact('popularVideos'));
 	}
 
 	public function getLatest() {
+		$latestVideos =  $this->Video->getVideoByCategory('latest');
 
-		return View::make('homes.latest');
+		if($latestVideos === false){
+			app::abort(404, 'Unauthorized Action'); 
+		}
+
+		return View::make('homes.latest', compact('latestVideos'));
 	}
 
 	public function getRandom() {
@@ -119,5 +136,7 @@ class HomeController extends BaseController {
 		}
 
 	}
+
+	
 
 }

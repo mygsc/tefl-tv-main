@@ -12,7 +12,7 @@ $(document).ready(function(){
 		list.click(function(e){
 			var text1 = $('#text1').val();
 			var value = list.val();
-				$.post('http://localhost:8000/channels/removePlaylist/'+text1, {value:value},function(data){
+				$.post('http://localhost:8000/mychannels/removePlaylist/'+text1, {value:value},function(data){
 					deleteLoader();
 				});
 			});
@@ -25,7 +25,7 @@ $(document).ready(function(){
 		list.click(function(e){
 			var text1 = $('#text1').val();
 			var value = list.val();
-				$.post('http://localhost:8000/channels/addChkBoxPlaylist/'+text1, {value:value},function(data){
+				$.post('http://localhost:8000/mychannels/addChkBoxPlaylist/'+text1, {value:value},function(data){
 					deleteLoader();
 				});
 			});
@@ -63,7 +63,7 @@ $(document).ready(function(){
 			}
 			else{
 				e.preventDefault();
-				$.post('http://localhost:8000/channels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+				$.post('http://localhost:8000/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 					loader();
 				});
 			}
@@ -106,7 +106,7 @@ $(document).ready(function(){
 				var description = $('textarea[id=description]').val();
 				var privacy = $('select[id=privacy]').val();
 					e.preventDefault();
-					$.post('http://localhost:8000/channels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+					$.post('http://localhost:8000/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 						loader();
 					});
 				});

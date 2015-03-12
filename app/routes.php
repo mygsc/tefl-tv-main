@@ -33,20 +33,26 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signin', array('as' => 'homes.post.signin', 'uses' => 'UserController@postSignIn'));
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
-	Route::post('/resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
+	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	//delete or update this if needed - Cess
 	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 });
 
 //**********Channels**********//
-Route::group(array('prefix' => 'channels'), function() {
-	Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+Route::group(array('prefix' => 'mychannels'), function() {
+	// Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
+	Route::get('/', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	Route::get('myprofile/{channel_name}', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
+	
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
-	Route::get('/myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
-
+	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
+	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
+	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));
+	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
+	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
+	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
 	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
 	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
@@ -55,23 +61,12 @@ Route::group(array('prefix' => 'channels'), function() {
 	Route::post('addPlaylist/{id}', array('as'=>'add.playlist','uses'=>'UserController@addPlaylist'));
 	Route::post('removePlaylist/{id}', array('as'=>'remove.playlist','uses'=>'UserController@removePlaylist'));
 	Route::post('addChkBoxPlaylist/{id}', array('as'=>'addChkBoxPlaylist.playlist','uses'=>'UserController@addChkBoxPlaylist'));
+	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 });
 //*********End of Channels************//
-Route::get('channel/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
+Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
-Route::group(array('prefix' => 'gsc-admin'), function() {
-	Route::get('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@getIndex'));
-	Route::post('/', array('as' => 'get.admins.index', 'uses' => 'AdminController@postIndex'));
-
-	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
-
-});
-
-
-
-//**********ADMIN**********//
-
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
 	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
@@ -90,6 +85,9 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('adminsignup', array('as' => 'post.admin.adminsignup', 'uses' => 'AdminController@postAdminSignup'));
 	Route::get('reportedvideos', array('as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
+	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
+
+	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 });
 //**********ADMIN**********//
 

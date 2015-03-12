@@ -1,4 +1,4 @@
-<div style="border:5px solid #8b9dc1;" class="shadow">
+<div style="border:5px solid #e3e3e3;" class="White">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
 					<div class="crop-square">
@@ -20,7 +20,6 @@
 								
 
 								<span class="pull-right" >
-
 									<a href=""><img src="/img/icons/fb.png"></a>
 									<a href=""><img src="/img/icons/tr.png"></a>
 									<a href=""><img src="/img/icons/gp.png"></a>
@@ -61,19 +60,23 @@
 							<div class="col-md-4">
 								<table class="tableLayout">
 									<tr>
-										<td><small><label>Name:</label></small> </td>
+										<td><small><label>Name</label></small> </td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Birthdate:</label></small></td>
+										<td><small><label>Birthdate</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->birthdate}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Organizations:</label></small></td>
+										<td><small><label>Organizations</label></small></td>
+										<td><b>:</b></td>
 										<td>{{Auth::User()->organiztion}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Work:</label></small></td>
+										<td><small><label>Work</label></small></td>
+										<td><b>:</b></td>
 										<td>{{Auth::User()->organiztion}}</td>
 									</tr>
 								</table>
@@ -81,19 +84,23 @@
 							<div class="col-md-4">
 								<table class="tableLayout">
 									<tr>
-										<td><small><label>Email:</label></small> </td>
+										<td><small><label>Email</label></small> </td>
+										<td><b>:</b></td>
 										<td></td>
 									</tr>
 									<tr>
-										<td><small><label>Website:</label></small></td>
+										<td><small><label>Website</label></small></td>
+										<td><b>:</b></td>
 										<td>{{Auth::User()->website}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Contact Number:</label></small></td>
+										<td><small><label>Contact Number</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->contact_number}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Address:</label></small></td>
+										<td><small><label>Address</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->address}}</td>
 									</tr>
 								</table>
@@ -101,25 +108,29 @@
 							<div class="col-md-4">
 								<table class="tableLayout">
 									<tr>
-										<td><small><label>City:</label></small> </td>
+										<td><small><label>City</label></small> </td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->city}}</td>
 									</tr>
 									<tr>
-										<td><small><label>State:</label></small></td>
+										<td><small><label>State</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->state}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Zip Code:</label></small></td>
+										<td><small><label>Zip Code</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->zip_code}}</td>
 									</tr>
 									<tr>
-										<td><small><label>Country:</label></small></td>
+										<td><small><label>Country</label></small></td>
+										<td><b>:</b></td>
 										<td>{{$usersChannel->country_id}}</td>
 									</tr>
 								</table>
 							</div>
 						</div>
-					</div>
+					</div><!--/.tabpanel-->
 				</div>
 			</div>
 		</div>

@@ -32,6 +32,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Subscribe');
 	}
 
+	public function favorite() {
+
+		return $this->hasMany('Favorite');
+	}
+
+	public function watchlater() {
+
+		return $this->hasMany('WatchLater');
+	}
+
 	public static function getUserLogin($channel_name, $password) {
 		$remember_me = Input::has('remember_me') ? true : false;
 		$attempt = Auth::attempt(array('channel_name' => $channel_name, 'password' => $password), $remember_me);

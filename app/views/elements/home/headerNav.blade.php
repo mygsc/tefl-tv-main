@@ -1,46 +1,35 @@
 <div class="categoryNav">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 text-left"> 
+            <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">
                     <ul class="ctgryNav" style="margin-left:-40px;">
                         <li>
-                            {{ link_to_route('homes.popular', 'Popular', null) }}
+                            {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.latest', 'Latest', null) }}
+                            {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.random', 'Random', null) }}
+                            {{ link_to_route('homes.random', 'Random', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.top-channels', 'Channels', null) }}
+                            {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
                         </li>
 
                         
                     </ul>
                 </div>
             </div><!--/.col-md-8-->
-            <div class="col-md-4">
-                <div class="row text-right">
-                    <ul class="ctgryNav" >
-                        <li>
-                            @if(Auth::check())
-                                <li><b>{{link_to_route('users.channel', 'My Channel', Auth::User()->channel_name)}}</b></li>
-                                <li>{{link_to_route('users.signout', 'Sign-out', null)}}</li>
+            <div class="col-md-6 col-sm-6">
+                <ul class="ctgryNav pull-right">
+                    @if(Auth::check())
+                    <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
+                    <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
+                    @else
+                    <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
+                    @endif
+                </ul>
 
-                            @else
-                                {{ link_to_route('homes.signin', 'Sign-in', null, array('class' => 'btn btn-info whiteC accntbtn')) }}
-                            @endif
-                           
-                       </li>
-                       <li>
-                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-
-                       </li>
-                    </ul>
-                </div>
-            </div><!--/.col-md-4-->
         </div><!--/.row-->
    </div><!--/.container-->
 </div><!--/.categoryNav-->
