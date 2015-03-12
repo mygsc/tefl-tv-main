@@ -357,17 +357,17 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
-		$findUsersVideo = User::find(Auth::User()->id)->favorite;
-		
-		foreach($findUsersVideo as $findVideo){
-			$videoFavorites[] = $findVideo->video_id;
+		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
+
+
+		foreach($findUsersWatchLaters as $findUsersWatchLater){
+			$videoWatchLater[] = $findUsersWatchLater->video_id;
 		}
-		// echo $videoFavorites;
-		// return $videoFavorites;
-		$showFavoriteVideos = Video::find($videoFavorites);
+
+		$videosWatchLater = Video::find($videoWatchLater);
 
 
-		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos'));
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater'));
 	}
 
 	public function getPlaylists() {

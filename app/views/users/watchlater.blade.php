@@ -54,26 +54,22 @@
 
 				<div id="videosContainer" class='container'>
 					<br/>
-					@foreach($showFavoriteVideos as $showFavoriteVideo)
+					@foreach($videosWatchLater as $watchLater)
 					<div class="col-md-3">
-						{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
+						{{Form::open()}}
 						{{ Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;')) }}
 
 						{{Form::close()}}
 						<video controls>
-							<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
+							<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
 						</video>
 						<div class="v-Info">
-							{{$showFavoriteVideo->title}}
+							{{$watchLater->title}}
 						</div>
 						<div class="count">
-							by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
-							<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
+							by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+							<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 							<br/>
-
-							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-							{{Form::submit('Remove from your Favorites', array('id' => 'favoriteVideo'))}}
-							{{Form::close()}}
 
 						</div>
 					</div>
