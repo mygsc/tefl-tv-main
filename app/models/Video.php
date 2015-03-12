@@ -40,6 +40,10 @@ class Video extends Eloquent{
 		return $this->hasMany('Favorite');
 	}
 
+	public function watchlater() {
+
+		return $this->hasMany('WatchLater');
+	}
 	public function getVideoByCategory($type = null, $limit = null){
 		if(empty($type)){
 			return false;
