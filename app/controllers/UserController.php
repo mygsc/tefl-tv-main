@@ -27,7 +27,7 @@ class UserController extends BaseController {
 				$role = Auth::User()->role;
 				
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::route('homes.index')->with('flash_message', 'Welcome '.$input['channel_name']);
+					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
@@ -458,7 +458,8 @@ class UserController extends BaseController {
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		if(!empty(Auth::User()->id)) $user_id = Auth::User()->verified;
+		if(Auth::check()) $user_id = Auth::User()->id;
+		if(!Auth::check()) Session::put('url.intended', URL::full());
 
 		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
 
@@ -488,19 +489,14 @@ class UserController extends BaseController {
 			$subscriptionLists[] = $subscriptioned;
 
 		}
-
+		
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');
         $subscriber_id = Input::get('subscriber_id');
         $status = Input::get('status');
-        if(!Auth::check()){
-        	return Response::json(array(
-                'status' => 'subscribeOff',
-                'label' => Session::get('url.intended')
-            ));
-        }
+
         if($status == 'subscribeOn'){
         	$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;

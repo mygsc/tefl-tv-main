@@ -62,7 +62,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	
 });
 //*********End of Channels************//
-Route::get('channels/{channel_name}', array('as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
+Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
