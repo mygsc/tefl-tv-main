@@ -11,7 +11,6 @@
 				<div class="row">
 					<div class="crop-square">
 						{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
-						<!-- {{HTML::image('img/user/'. '.jpg', 'alt', array('class' => 'pic-Dp'))}} -->
 					</div>
 				</div>
 			</div>
@@ -21,77 +20,9 @@
 					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
-								<span class="infoCounts">
-									<label>12k Subscribers</label>
-									<label>100 Videos</label> &nbsp;
-									<label>13k Views</label>
-								</span>
-								
-
-								<span class="pull-right" >
-
-									<a href=""><img src="/img/icons/fb.png"></a>
-									<a href=""><img src="/img/icons/tr.png"></a>
-									<a href=""><img src="/img/icons/gp.png"></a>
-									<a href=""><img src="/img/icons/yt.png"></a>
-									<a href=""><img src="/img/icons/wl.png"></a>
- 									
- 									@if($user_id)
-										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
-						    				{{Form::hidden('user_id',$userChannel->id)}}
-						    				{{Form::hidden('subscriber_id', $user_id)}}
-						    				{{Form::hidden('status','subscribeOn')}}
-									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
-									    {{Form::close()}}
-									@else
-										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-xsp lull-right')); }}
-								    @endif
-								</span>	
+								This channel does not exist.
 							</div>
 						</div>	
-					</div>
-				</div>
-			</div>
-
-
-			<div class="c-about" style="padding:10px 10px;margin-top:0;">
-				<div class="labelThis">
-					{{$userChannel->channel_name}}
-				</div>
-				<ul class="nav nav-tabs" role="tablist inline">
-			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
-			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
-				</ul>
-				<div class="tab-content inline">
-			  		<div role="tabpanel" class="tab-pane active" id="about">
-						<div class="" style="margin-top:20px;">
-							<p class="text-justify">
-								{{$userChannel->userprofile->interests}}
-							</p>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="learn">
-						<div class="" style="margin-top:20px;">
-							<h4>Basic Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Name:</label></small> {{$userChannel->userprofile->first_name}} {{$userChannel->userprofile->last_name}} </li>
-								<li><small><label>Birthdate:</label></small> {{$userChannel->userprofile->birthdate}} </li>
-								<li><small><label>Organizations:</label></small> {{$userChannel->organization}} </li>
-								<li><small><label>Work:</label></small> {{$userChannel->userprofile->work}} </li>
-							</ul>
-							
-							<h4>Contact Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Email:</label></small>{{$userChannel->email}}</li>
-								<li><small><label>Websites:</label></small>{{$userChannel->website}}</li>
-								<li><small><label>Contact Number:</label></small> {{$userChannel->userprofile->contact_number}} </li>
-								<li><small><label>Address:</label></small> {{$userChannel->userprofile->address}} </li>
-								<li><small><label>City:</label></small> {{$userChannel->userprofile->city}} </li>
-								<li><small><label>State:</label></small> {{$userChannel->userprofile->state}} </li>
-								<li><small><label>Zip Code:</label></small> {{$userChannel->userprofile->zip_code}} </li>
-								<li><small><label>Country:</label></small> {{$userChannel->userprofile->country_id}} </li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -116,7 +47,6 @@
 			  	<!-- Tab panes -->
 			    <div class="tab-content">
 				  	<div role="tabpanel" class="tab-pane active" id="home">
-						@include('elements/users/myChannelTabs/tab-HomeViewUsers')
 				  	</div>				    
 				    		
 				  	<div role="tabpanel" class="tab-pane" id="Videos">

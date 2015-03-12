@@ -461,7 +461,7 @@ class UserController extends BaseController {
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 
-		// if(empty($userChannel)) return Redirect::route('users.viewusers')->withFlashMessage('This channel does not exist');
+		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 		
