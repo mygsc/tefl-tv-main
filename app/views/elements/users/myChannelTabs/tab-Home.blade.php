@@ -55,28 +55,27 @@
 			<div class="subLabelThis">
 				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
-			<br/>
+			<br/><br/>
 
 			<div class="row">
-
-			@foreach($usersVideos as $usersVideo)
-			<div class="col-md-4">
-				<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
-					<div class="">
-						<video controls height="auto" width="100%" class="h-video">
-						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
-						</video>
-					</div>
-				</a>
+				@foreach($usersVideos as $usersVideo)
+				<div class="col-md-4">
+					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
+						<div class="">
+							<video controls height="auto" width="100%" class="h-video">
+								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+							</video>
+						</div>
+					</a>
 					<div class="v-Info">
 						{{$usersVideo->title}}
 					</div>
 					<div class="count">
 						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 					</div>
-			
-			</div>
-			@endforeach
+				
+				</div>
+				@endforeach
 			</div>
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
@@ -163,7 +162,7 @@
 					<a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
 				@endif
 			</div>
-			<br/>
+			<br/><br/>
 			<div class="row">
 				@if($ifNoSubscriber)
 					<div class="col-md-6">	
@@ -200,7 +199,7 @@
 					
 				@endif
 			</div>
-			<br/>
+			<br/><br/>
 			<div class="row">
 				@if(!empty($subscriptionLists))
 					@foreach($subscriptionLists as $SubscriptionList)

@@ -22,7 +22,6 @@
             </div><!--/.col-md-8-->
             <div class="col-md-6 col-sm-6">
                 <ul class="ctgryNav pull-right">
-                    <li>
                     @if(Auth::check())
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
@@ -31,13 +30,9 @@
                     @endif
                     <li>
                        {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-                                      
-                       </li>
+                    </li>
+                </ul>
 
         </div><!--/.row-->
    </div><!--/.container-->
-
-
-      
-  </div><!--/.container-->
 </div><!--/.categoryNav-->

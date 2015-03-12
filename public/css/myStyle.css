@@ -163,9 +163,11 @@ p.description_content{
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
+    border-bottom: 1px solid #cecece;
 }
 .tableLayout > thead > tr > th {
   vertical-align: bottom;
+
 }
 .tableLayout > caption + thead > tr:first-child > th,
 .tableLayout > colgroup + thead > tr:first-child > th,
@@ -173,7 +175,7 @@ p.description_content{
 .tableLayout > caption + thead > tr:first-child > td,
 .tableLayout > colgroup + thead > tr:first-child > td,
 .tableLayout > thead:first-child > tr:first-child > td {
-  border-top: 0;
+
 }
 .tableLayout > tbody + tbody {
   border-top: none;
@@ -382,7 +384,7 @@ ul .ctgryNav{
 
 }
 .ctgryNav li > a:hover{
-  color: #FFC600!Important;
+  color: #46b8da!Important;
   text-decoration: none!important;
 }
 .ctgryNav-f{
@@ -410,10 +412,10 @@ ul .ctgryNav{
   border-bottom:1px solid #fff;
 }
 .snCount{
-  background:#fff; border-radius:0 3px 3px 0; padding:3px; color:#000
+  background:#fff; border-radius:0 3px 3px 0; padding:7px; color:#000
 }
 .snBg{
-  border-radius:3px 0 0 3px; padding:4px;color:#fff;
+  border-radius:3px 0 0 3px; padding:8px;color:#fff;
 }
 .sideLinksDiv{
   width: 100%;
@@ -1130,6 +1132,17 @@ Main components
   border-radius: 0 0 4px 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.well3 {
+  min-height: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+
+}
+.tb-Subs tr{
+  border-left:1px solid #cecece;
+
 }
 
 .socialMedia{

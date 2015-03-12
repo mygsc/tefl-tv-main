@@ -17,7 +17,6 @@
 			</div>
 			<div class="col-md-10">
 				<div class="row">
-
 					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
@@ -35,16 +34,16 @@
 									<a href=""><img src="/img/icons/gp.png"></a>
 									<a href=""><img src="/img/icons/yt.png"></a>
 									<a href=""><img src="/img/icons/wl.png"></a>
- 									
+ 									&nbsp;
  									@if($user_id)
-										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userschannel'))}}
+										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 						    				{{Form::hidden('user_id',$userChannel->id)}}
 						    				{{Form::hidden('subscriber_id', $user_id)}}
 						    				{{Form::hidden('status','subscribeOn')}}
-									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xsp lull-right', 'id'=>'subscribebutton'))}}
+									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
 									    {{Form::close()}}
 									@else
-										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-xsp lull-right')); }}
+										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
 								    @endif
 								</span>	
 							</div>
@@ -71,28 +70,69 @@
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="learn">
-						<div class="" style="margin-top:20px;">
-							<h4>Basic Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Name:</label></small> {{$userChannel->userprofile->first_name}} {{$userChannel->userprofile->last_name}} </li>
-								<li><small><label>Birthdate:</label></small> {{$userChannel->userprofile->birthdate}} </li>
-								<li><small><label>Organizations:</label></small> {{$userChannel->organization}} </li>
-								<li><small><label>Work:</label></small> {{$userChannel->userprofile->work}} </li>
-							</ul>
-							
-							<h4>Contact Information</h4>
-							<ul class="ch-infoList">
-								<li><small><label>Email:</label></small>{{$userChannel->email}}</li>
-								<li><small><label>Websites:</label></small>{{$userChannel->website}}</li>
-								<li><small><label>Contact Number:</label></small> {{$userChannel->userprofile->contact_number}} </li>
-								<li><small><label>Address:</label></small> {{$userChannel->userprofile->address}} </li>
-								<li><small><label>City:</label></small> {{$userChannel->userprofile->city}} </li>
-								<li><small><label>State:</label></small> {{$userChannel->userprofile->state}} </li>
-								<li><small><label>Zip Code:</label></small> {{$userChannel->userprofile->zip_code}} </li>
-								<li><small><label>Country:</label></small> {{$userChannel->userprofile->country_id}} </li>
-							</ul>
+						<div class="row" style="margin-top:20px;">
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Name:</label></small> </td>
+										<td>{{$userChannel->first_name}} {{$userChannel->last_name}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Birthdate:</label></small></td>
+										<td>{{$userChannel->birthdate}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Organizations:</label></small></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Work:</label></small></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Email:</label></small> </td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><small><label>Website:</label></small></td>
+										<td>{{Auth::User()->website}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Contact Number:</label></small></td>
+										<td>{{$userChannel->contact_number}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Address:</label></small></td>
+										<td>{{$userChannel->address}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>City:</label></small> </td>
+										<td>{{$userChannel->city}}</td>
+									</tr>
+									<tr>
+										<td><small><label>State:</label></small></td>
+										<td>{{$userChannel->state}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Zip Code:</label></small></td>
+										<td>{{$userChannel->zip_code}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Country:</label></small></td>
+										<td>{{$userChannel->country_id}}</td>
+									</tr>
+								</table>
+							</div>
 						</div>
-					</div>
+					</div><!--/.tabpanel-->
 				</div>
 			</div>
 		</div>

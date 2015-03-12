@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $('form#favoriteVideo').on('submit', function(e){
     e.preventDefault();
     var url = $(this).prop('action');

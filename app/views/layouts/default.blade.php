@@ -32,8 +32,6 @@
 {{HTML::script('js/user/upload.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
-
-
 @yield('script')
 
 </html>
