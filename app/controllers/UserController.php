@@ -120,6 +120,7 @@ class UserController extends BaseController {
 
 
 	public function getTopChannels(){
+		$auth = Auth::user();
 		$topChannels = DB::select('select users.id, users.channel_name, 
 			videos.user_id, sum(videos.views) as total
 			from videos inner join users on 
@@ -130,6 +131,9 @@ class UserController extends BaseController {
 
 		foreach($topChannels as $key => $channels){
 			$img = 'img/user/'. $channels->id. '.jpg';
+			if(!empty($auth)){
+				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+			}
 			if(!file_exists('public/'.$img)){
 				$img = 'img/user/0.jpg';
 			}
@@ -137,7 +141,7 @@ class UserController extends BaseController {
 			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name);
 		}
 
-		return View::make('homes.topchannels', compact(array('topChannels')));
+		return View::make('homes.topchannels', compact(array('topChannels','auth')));
 	}
 
 	public function getMoreTopChannels(){
@@ -156,6 +160,8 @@ class UserController extends BaseController {
 			}
 			$topChannels[$key]->image_src = $img;
 		}
+
+		$usersChannel = UserProfile::find(Auth::User()->id);
 
 		return View::make('homes.moretopchannels', compact(array('topChannels')));
 	}
