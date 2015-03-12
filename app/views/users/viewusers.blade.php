@@ -28,7 +28,6 @@
 									
 
 									<span class="pull-right" >
-
 										<a href=""><img src="/img/icons/fb.png"></a>
 										<a href=""><img src="/img/icons/tr.png"></a>
 										<a href=""><img src="/img/icons/gp.png"></a>
@@ -43,12 +42,13 @@
 										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
 										    {{Form::close()}}
 										@else
-											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
+											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
 									    @endif
 									</span>	
 								</div>
 							</div>	
 						</div>
+
 					</div>
 				</div>
 
