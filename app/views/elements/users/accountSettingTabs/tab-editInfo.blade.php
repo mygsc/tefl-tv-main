@@ -1,4 +1,4 @@
-<div class="col-md-10"> 
+<div class="col-md-10 textbox-layout"> 
         <div class="col-md-12">
             <span>
                 <label>Account Status:</label>
@@ -31,7 +31,7 @@
         <div class="col-md-9">
             {{ Form::checkbox('name', 'value', false) }} 
             {{Form::label('interests', 'Interests: ')}}
-            {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests'))}}
+            {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:230px;'))}}
        </div>
        <br/>
         <p><small class="notes">Fields with asterisk (*) are required.</small></p>
@@ -97,8 +97,8 @@
 
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 
-            {{Form::label('zip_code', 'Zip Code: ')}}
-            {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
+            {{Form::label('country', 'Country: ')}}
+            {{Form::text('country', $userChannel->country, array('placeholder' => 'Country'))}}
         </div>
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 

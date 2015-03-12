@@ -1,4 +1,4 @@
-<h1>Video</h1>
+<h1>Videos</h1>
 @foreach($randomResults as $randomResult)
 <div class="col-md-3">
 	
