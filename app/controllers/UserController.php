@@ -511,7 +511,6 @@ class UserController extends BaseController {
 	
 
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-		
 		$subscribers = $userSubscribe->subscribe;
 
 	
@@ -521,15 +520,16 @@ class UserController extends BaseController {
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
-		// return $subscriberLists;
 		$subscriptions = Subscribe::where('subscriber_id', $usersVideos->id)->paginate(15);
 		foreach ($subscriptions as $b) {
 			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
 			$subscriptionLists[] = $subscriptioned;
 
 		}
+
+		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 		
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');

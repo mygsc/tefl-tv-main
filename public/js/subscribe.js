@@ -20,7 +20,7 @@ $(document).ready(function() {
 			subscribe = true;
 		}
 	});	
-	$('form#subscribe-userschannel').on('submit', function(e){
+	$('form#subscribe-userChannel').on('submit', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
 		$.ajax({
