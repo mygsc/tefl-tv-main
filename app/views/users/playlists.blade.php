@@ -56,6 +56,14 @@
 					<div id="videosContainer" class='container'>
 						<br/>
 						<div class="row">
+							<div id="playlists">
+								@foreach($playlists as $playlist)
+									
+									{{$playlist->name}}
+									<br>
+									{{$playlist->description}}
+								@endforeach
+							</div>
 								Create Playlists
 								<br/>
 								{{Form::open()}}

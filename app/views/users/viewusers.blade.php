@@ -68,6 +68,7 @@
 							</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="learn">
+
 						<div class="row" style="margin-top:20px;">
 							<div class="col-md-4">
 								<table class="tableLayout">
@@ -116,6 +117,7 @@
 										<td>{{$userChannel->address}}</td>
 									</tr>
 								</table>
+
 							</div>
 							<div class="col-md-4">
 								<table class="tableLayout">

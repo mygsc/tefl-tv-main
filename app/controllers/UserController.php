@@ -387,9 +387,11 @@ class UserController extends BaseController {
 
 		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video;
+	
 
-		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos'));
+		$playlists = Playlist::find(Auth::User()->id);
+	
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists'));
 	}
 
 	public function getFeedbacks() {
