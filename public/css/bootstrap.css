@@ -6572,4 +6572,16 @@ button.close {
     display: none !important;
   }
 }
+#browse{
+  position: relative;
+  cursor:pointer;
+ 
+}#browse input{
+   position: absolute;
+   z-index: 2;
+   opacity: 0;
+   width: 100%;
+   height: 100%;
+   cursor:pointer;
+}
 /*# sourceMappingURL=bootstrap.css.map */
