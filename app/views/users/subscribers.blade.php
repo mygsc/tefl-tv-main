@@ -53,50 +53,65 @@
 							</div>
 						</div>
 					</div>
-<<<<<<< HEAD
-				</div><!--subscibersDiv-->
-				@endforeach
+			
+					<div class="col-md-6">
+						<div class="well2 subscriptionsDiv">
+							<div class="subLabelThis">
+								<span>Subscriptions</span>&nbsp;
+							</div>
+							<br/>
+							<div class="searchPanel">
+								<div class="input-group">
+								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscription', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+								</div>
+							</div>
+							<br/><br/>
+
+							<table class="table">
+								<tr>
+									<td>{{ Form::checkbox(false)}}</td>
+									<td>
+										<select>
+											<option>Actions</option>
+										</select>
+									</td>
+									<td class="text-center">
+										Send me updates
+									</td>
+									<td class="text-center">
+										Actvity Feeds
+									</td>
+									<td class="text-right">
+										Subscribe/Unsubscribe
+									</td>
+								</tr>
+								@foreach($subscriptionLists as $SubscriptionList)
+								<tr>
+									<td>{{ Form::checkbox(false)}}</td>
+									<td>
+										<img src="/img/user/u1.png" class="userRep2">&nbsp;
+										<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
+									</td>
+									<td class="text-center">{{ Form::checkbox(false)}}</td>
+									<td class="text-center">
+										<select>
+											<option>All Activities</option>
+										</select>
+									</td>
+									<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
+								</tr>
+								@endforeach
+							</table>
+						</div><!--subscriptions-->
+					</div>
+				</div>
 			</div>
-			<div class="subscriptionsDiv">
-				<table class="table">
-					<tr>
-						<td>{{ Form::checkbox(false)}}</td>
-						<td>
-							<select>
-								<option>Actions</option>
-							</select>
-						</td>
-						<td class="text-center">
-							Send me updates
-						</td>
-						<td class="text-center">
-							Actvity Feeds
-						</td>
-						<td class="text-right">
-							Subscribe/Unsubscribe
-						</td>
-					</tr>
-					@foreach($subscriptionLists as $SubscriptionList)
-					<tr>
-						<td>{{ Form::checkbox(false)}}</td>
-						<td>
-							<img src="/img/user/u1.png" class="userRep2">&nbsp;
-							<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
-						</td>
-						<td class="text-center">{{ Form::checkbox(false)}}</td>
-						<td class="text-center">
-							<select>
-								<option>All Activities</option>
-							</select>
-						</td>
-						<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
-					</tr>
-					@endforeach
-				</table>
-			</div><!--subscriptions-->
 		</div><!--/.shadow Div-channel-border-->
-	</div><!--/.row-->
-</div><!--container-->
+	</div><!--container-->
+</div><!--/.row-->
 @stop
 
 @section('script')
@@ -138,65 +153,4 @@
 		} );
 	</script>
 @stop
-=======
-					<div class="col-md-6">
-						<div class="well2 Div-channelSubSection">
-							<div class="subscibersDiv">
-								<div class="subLabelThis">
-									<span>Subscriptions</span>&nbsp;
-								</div>
-								<br/>
-								<div class="searchPanel">
-									<div class="input-group">
-										{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
-										<span class="input-group-btn">
-											{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-										</span>
-									</div>
-								</div>
-								<br/><br/>
-								<table class="table">
-									<tr>
-										<td>{{ Form::checkbox(false)}}</td>
-										<td>
-											<select>
-												<option>Actions</option>
-											</select>
-										</td>
-										<td class="text-center">
-											Send me updates
-										</td>
-										<td class="text-center">
-											Actvity Feeds
-										</td>
-										<td class="text-right">
-											Subscribe/Unsubscribe
-										</td>
-									</tr>
-									@foreach($subscriptionLists as $SubscriptionList)
-									<tr>
-										<td>{{ Form::checkbox(false)}}</td>
-										<td>
-											<img src="/img/user/u1.png" class="userRep2">&nbsp;
-											<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
-										</td>
-										<td class="text-center">{{ Form::checkbox(false)}}</td>
-										<td class="text-center">
-											<select>
-												<option>All Activities</option>
-											</select>
-										</td>
-										<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
-									</tr>
-									@endforeach
-								</table>
-							</div>
-						</div><!--subscriptions-->
-					</div>
-				</div><!--/.row-->
-			</div><!--/.shadow Div-channel-border-->
-		</div><!--/.row-->
-	</div><!--container-->
-</div>
-@stop
->>>>>>> c783e8e7cf376d42f8bbdcafe03baa3ee17b1f5a
+

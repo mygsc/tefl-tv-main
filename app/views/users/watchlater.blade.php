@@ -61,7 +61,7 @@ text-align: center;
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
+				<div class="row">
 					<br/>
 					<div class="col-md-6">
 						<div class="input-group">
@@ -72,39 +72,33 @@ text-align: center;
 						</div>
 					</div>
 
-				</div>
-				<div class="col-md-5">
-					<!--<label>Sort by:</label>
-					<button id="sort" class="btn btn-default btn-sm">Likes</button>
-					<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-					<select class="form-control" style="width:auto!important;">
-						<option value="" selected disabled>Sort By</option>
-						<option>Likes</option>
-						<option>Recent</option>
-					</select>
-					&nbsp;&nbsp;
-					<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
-				</div>
-
-				<div class="col-md-1 text-right">
-					<div class="buttons">
-						<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-						<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+					<div class="col-md-5">
+						<!--<label>Sort by:</label>
+						<button id="sort" class="btn btn-default btn-sm">Likes</button>
+						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+						<select class="form-control" style="width:auto!important;">
+							<option value="" selected disabled>Sort By</option>
+							<option>Likes</option>
+							<option>Recent</option>
+						</select>
+						&nbsp;&nbsp;
+						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
 					</div>
 
+					<div class="col-md-1 text-right">
+						<div class="buttons">
+							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+						</div>
+					</div>
 					<br/><br/><hr class="" />
-
 				<div id="videosContainer" class='container'>
 					<br/>
 					@foreach($videosWatchLater as $watchLater)
 					<div class="col-md-3">
-						{{Form::open()}}
-						{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
-						{{Form::close()}}
-
-						<br/>
 						<div class="watch">
-							<input type="hidden" name="user_id" value="{{Auth::User()->id}}">
+							<input type="hidden" id="user_id" value="{{Auth::User()->id}}">
+							<input type="hidden" id="video_id" value="{{$watchLater->id}}">
 							<div class="caption">
 								<div class="caption-inner">
 									<p class="caption-content">
@@ -114,12 +108,17 @@ text-align: center;
 									</p>
 								</div>
 							</div>
-								<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+							
+							
 
-									<video controls>
-										<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
-									</video>
-								</a>
+							<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+								<video controls>
+									<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
+								</video>
+							</a>
+							{{Form::open()}}
+							{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
+							{{Form::close()}}
 						</div>
 
 						<div class="v-Info">
@@ -131,9 +130,8 @@ text-align: center;
 							<br/>
 							</div>
 						</div>
-
-					</div>
-					@endforeach	
+						@endforeach	
+					
 				</div><!--videoContainer-->
 			</div>
 		</div><!--!/.shadow div-channel-border-->
@@ -144,7 +142,7 @@ text-align: center;
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
+	{{HTML::script('js/homes/watch.js')}}
 	{{HTML::script('js/overlaytext.js')}}
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 

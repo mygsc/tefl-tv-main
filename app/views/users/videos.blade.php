@@ -12,7 +12,7 @@
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
@@ -54,7 +54,7 @@
 					</div>
 
 					<br/><br/><hr class="" />
-					
+
 				<div id="videosContainer" class='container'>
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
@@ -71,6 +71,9 @@
 							<div class="count">
 								{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 							</div>
+								{{Form::open()}}
+									{{Form::submit('Add to Playlist')}}
+								{{Form::close()}}
 						</div>
 						@endforeach	
 					</div>
@@ -78,6 +81,7 @@
 			</div>
 		</div>
 	</div>
+
 @stop
 
 @section('script')
@@ -119,4 +123,5 @@
 		} );
 	</script>
 @stop
+
 

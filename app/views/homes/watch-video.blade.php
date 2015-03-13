@@ -62,30 +62,36 @@
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
-                                                    <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
+                                                    
+                                                @if(empty($favorites))
+                                                    <li><p id="addToFavorites"><img src="img/icons/star.png"/>
+                                                @else
+                                                    <li><p id="removeToFavorites"><img src="img/icons/starActive.png"/>
+                                                @endif
+                                                    &nbsp;&nbsp;Favorites</p></li>
+                                                    <li><p id="addToWatchLater"><img src="img/icons/clockActive.png"/> &nbsp;&nbsp;Watch Later</p></li>
                                                     <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
-  
-                                        @if(empty($playlists))
-                                        <ul style="list-style:none" id="list-checkbox">
-                                            @foreach($playlistNotChosens as $playlistNotChosen)
-                                             <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
-                                            @endforeach
-                                        @else
-                                            {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
-                                        <ul style="list-style:none" id="list-checkbox">
-                                        @foreach($playlists as $playlist)
-                                        <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
-                                        @endforeach
+                                                        @if(empty($playlists))
+                                                        <ul style="list-style:none" id="list-checkbox">
+                                                            @foreach($playlistNotChosens as $playlistNotChosen)
+                                                             <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                                            @endforeach
+                                                        @else
+                                                            {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
+                                                            <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
+                                                                @foreach($playlists as $playlist)
+                                                                <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
+                                                                @endforeach
 
-                                        @if(!empty($playlistNotChosens))
-                                            @foreach($playlistNotChosens as $playlistNotChosen)
-                                             <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
-                                            @endforeach
-                                        @endif
-                                    @endif   
+                                                                @if(!empty($playlistNotChosens))
+                                                                    @foreach($playlistNotChosens as $playlistNotChosen)
+                                                                     <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endif   
                                                             </ul>
-                                                           
-                                                            <button id="createPlaylist">Create New Playlist</button>
+                                                                   
+                                                            <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -93,7 +99,7 @@
                                         @else
 
                                             <a href="signin" role="button" aria-expanded="false">
-                                                    <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                                <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                         @endif
                                         </span><!--/links-->
@@ -130,8 +136,14 @@
                         <br/>
                     </div> <!--/.ui-tabs-panel-->
 
-                    <div class="row">
-                       <!-- videocomment -->
+                    <div class="comments row">
+                        <textarea id='comment'></textarea>
+                        <button id='btncomment'>Post</button>
+                        <div class="commentsarea row">
+                            @foreach($getVideoComments as $getVideoComment)
+                                {{$getVideoComment->comment}}
+                            @endforeach
+                        </div>
                     </div>
                    <!-- latest -->
                </div><!--column 8-->
@@ -172,4 +184,5 @@
 @section('script')
     {{HTML::script('js/media.player.js')}}
     {{HTML::script('js/homes/watch.js')}}
+    {{HTML::script('js/homes/comment.js')}}
 @stop

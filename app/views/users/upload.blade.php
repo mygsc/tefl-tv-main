@@ -5,32 +5,49 @@ Upload
 @stop
 
 @section('content')
-<div class="container White" id="select-upload">
-{{Form::open(array('route' => 'post.upload', 'files' => true))}}
-	<div class="col-md-8">
-		<br/>
-		<div class="well text-center">
-			<div class="row">
-				
-				<h1>Upload Video</h1>
-				<hr>
+
+<style type="text/css">
+	.image-upload > input
+{
+    display: none;
+}
+</style>
+
+
+<div class="row White">
+	<div class="container page">
+		<div class="col-md-8 col-md-offset-2">
+			
+			<div class="well text-center" style="margin-top:50px">
+				<div class="row">
+
+					<h1>Upload Video</h1>
+
 					@if ($errors->any())
 					<ul>
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
-					<div class="col-md-4" id="browse">
-						<input type="file" name="video" id="vidsUpload">
-						<label style="padding:10px;background:#2a2a2a;color:#fff;">Select video to upload</label>
+
+					
+					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
+					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
+
 					</div>
+					
+					<label class="myLabel">
+						<div id="progress">
+							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
+						</div>
+					</label>
+					
+					{{Form::close()}}
+				</div>
 
-
-				
 			</div>
 		</div>
 	</div>
 </div>
-
 <div class="container White" style="display:none" id="vids-thumbnails">	
 	<div class="content-padding">
 		<div class="col-md-6">
@@ -95,4 +112,4 @@ Upload
 {{Form::close()}}
 
 @stop
- 
+

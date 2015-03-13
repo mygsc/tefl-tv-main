@@ -1,7 +1,7 @@
 <div style="border:5px solid #e3e3e3;" class="White">
 			<div class="col-md-2 hidden-xs">
 				<div class="row">
-					<div class="crop-square">
+					<div class="uploaded_img">
 						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 					</div>
 				</div>
@@ -33,12 +33,8 @@
 					</div>
 				</div>
 			</div>
-
-
-
-			
-			<div class="c-about" style="padding:10px 10px;margin-top:0;">
-				<div class="labelThis">
+			<div class="c-about" >
+				<div class="labelThis" style="margin-top:-20px;">
 					{{Auth::User()->channel_name}}
 				</div>
 
