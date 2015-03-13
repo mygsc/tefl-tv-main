@@ -1,13 +1,13 @@
 $(document).ready(function(){
-	//$('#progress').hide();
+	$('#progress').hide();
 	var img = document.getElementById('img-vid-thumb');
 	var channel = $('input[name=channel]').val();
 	var selected = 1;
   
-	$('#vidsUpload').change(function(){
+	$('#vids-upload').change(function(){
    		//$(this).closest("#vidSubmit").submit();
    		//document.getElementById('vidSubmit').submit();
-   		//$('#progress').show();
+   		$('#progress').show();
    		$('#select-upload').fadeOut();
    		$('#vids-thumbnails').fadeIn(1500);
 	});

@@ -15,7 +15,7 @@ Upload
 
 
 <div class="row White">
-	<div class="container page">
+	<div class="container page" id="select-upload">
 		<div class="col-md-8 col-md-offset-2">
 			
 			<div class="well text-center" style="margin-top:50px">
@@ -33,7 +33,7 @@ Upload
 					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
 					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
 
-					</div>
+					
 					
 					<label class="myLabel">
 						<div id="progress">
@@ -41,13 +41,13 @@ Upload
 						</div>
 					</label>
 					
-					{{Form::close()}}
+					
 				</div>
 
 			</div>
 		</div>
 	</div>
-</div>
+
 <div class="container White" style="display:none" id="vids-thumbnails">	
 	<div class="content-padding">
 		<div class="col-md-6">
