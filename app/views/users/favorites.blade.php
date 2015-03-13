@@ -71,9 +71,6 @@
 							<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
 								{{Form::close()}}
 							<br/>
-
-							
-
 						</div>
 					</div>
 					@endforeach	
