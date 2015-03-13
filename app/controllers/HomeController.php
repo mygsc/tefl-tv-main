@@ -114,7 +114,10 @@ class HomeController extends BaseController {
 					WHERE p.privacy = '1'
 					HAVING i.video_id IS NULL;");
 		}
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens'));
+
+		$getVideoComments = Comment::where(array('video_id' => $id[0]))->get();
+
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens', 'getVideoComments'));
 	}
 
 	public function postSignIn() {
