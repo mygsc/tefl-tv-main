@@ -56,22 +56,25 @@
 					<div id="videosContainer" class='container'>
 						<br/>
 						<div class="row">
-							<div id="playlists">
+							<div id="playlists" class="col-xs-2 col-md- 3">
 								@foreach($playlists as $playlist)
-									
-									{{$playlist->name}}
-									<br>
+									<a href="#"  class="thumbnail">
+										<img src="#">
+										<br/>
+										{{$playlist->name}}
+									</a>
 									{{$playlist->description}}
+									<br/>
 								@endforeach
 							</div>
-								Create Playlists
+						</div>
+						Create Playlists
 								<br/>
 								{{Form::open()}}
 									{{Form::label('title', 'Playlist Title: ')}} &nbsp; {{Form::text('title', null, array('class' => 'form-control'))}}
 									<br/>
 									{{Form::submit('Create Playlist')}}
 								{{Form::close()}}
-							</div>
 
 					</div><!--videoContainer-->
 				</div>

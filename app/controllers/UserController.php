@@ -178,24 +178,26 @@ class UserController extends BaseController {
 		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
 
 		foreach($subscribers as $a){
-			$subscriber_id[] = $a->subscriber;
+			$subscriber_id[] = $a->subscriber_id;
 		}
 
-		// return $subscribers;
+		
 
 		if(isset($subscriber_id)){
 			$subscriberLists = UserProfile::find($subscriber_id);
 			$ifNoSubscriber = false;
+
 		} else{
 			$subscriberLists = array();
 			$ifNoSubscriber = true;
+			
 		} 
 
 		// return $subscriberLists;
 
 		foreach($subscriberLists as $key => $listSubscriber){
 
-			$subscriberCount = DB::table('subscribes')->where('subscriber', $listSubscriber->id)->get();
+			$subscriberCount = DB::table('subscribes')->where('subscriber_id', $listSubscriber->id)->get();
 
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
@@ -389,8 +391,7 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::find(Auth::User()->id);
 	
 
-		$playlists = Playlist::find(Auth::User()->id);
-	
+		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists'));
 	}
 
