@@ -410,26 +410,29 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
+		$subscribers = User::find(Auth::User()->id)->subscribe;
+
+		foreach($subscribers as $a){
+			$subscriber_id[] = $a->subscriber_id;
+		}
+
 		if(isset($subscriber_id)){
 			$subscriberLists = UserProfile::find($subscriber_id);
 			$ifNoSubscriber = false;
 		} else{
 			$subscriberLists = array();
 			$ifNoSubscriber = true;
-		} 
-
-		// return $subscriberLists;
+		}
 
 		foreach($subscriberLists as $key => $listSubscriber){
 
-			$subscriberCount = DB::table('subscribes')->where('subscriber', $listSubscriber->id)->get();
+			$subscriberCount = DB::table('subscribes')->where('subscriber_id', $listSubscriber->id)->get();
 
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
 
 
-		
-
+	
 		$increment = 0;
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
