@@ -6,6 +6,22 @@ $(document).ready(function(){
 			$(this).attr('href',new_url);
 		});
 	});
+	function addToFavorites(){
+		$('#addToFavorites').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/addToFavorites/'+text1,function(data){
+					deleteLoader();
+				});
+		});
+	}
+	function removeToFavorites(){
+		$('#removeToFavorites').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/removeToFavorites/'+text1,function(data){
+					deleteLoader();
+				});
+		});
+	}
 	function deletelist(){
 	$('input[id^="playlist"]').each(function(){
 		var list = $(this);
@@ -120,6 +136,8 @@ $(document).ready(function(){
 			addToPlaylist();
 			createPlaylist();
 			deletelist();
+			addToFavorites();
+			removeToFavorites();
 		});
 	}
 	function deleteLoader(){
@@ -128,10 +146,14 @@ $(document).ready(function(){
 		$("#dropdown").load('http://localhost:8000/watch='+text1+'%'+title+' #dropdown',function(){
 			addToPlaylist();
 			createPlaylist();
-			deletelist();	
+			deletelist();
+			addToFavorites();
+			removeToFavorites();	
 		});
 	}
 	addToPlaylist();
 	createPlaylist();
 	deletelist();
+	addToFavorites();
+	removeToFavorites();
 });

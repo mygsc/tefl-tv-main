@@ -59,10 +59,11 @@
 						{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 						{{ Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;')) }}
 
-					
+						<a href="{{route('homes.watch-video', $showFavoriteVideo->id. '%' .$showFavoriteVideo->title)}}">
 						<video controls>
 							<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 						</video>
+						</a>
 						<div class="v-Info">
 							{{$showFavoriteVideo->title}}
 						</div>
@@ -71,9 +72,6 @@
 							<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
 								{{Form::close()}}
 							<br/>
-
-							
-
 						</div>
 					</div>
 					@endforeach	

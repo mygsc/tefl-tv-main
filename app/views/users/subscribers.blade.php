@@ -60,7 +60,16 @@
 								<span>Subscriptions</span>&nbsp;
 							</div>
 							<br/>
-				
+							<div class="searchPanel">
+								<div class="input-group">
+								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscription', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+								</div>
+							</div>
+							<br/><br/>
+
 							<table class="table">
 								<tr>
 									<td>{{ Form::checkbox(false)}}</td>
