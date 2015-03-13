@@ -37,7 +37,7 @@
 
 
 			
-			<div class="c-about" style="padding:10px 10px;margin-top:0;">
+			<div class="c-about" style="">
 				<div class="labelThis">
 					{{Auth::User()->channel_name}}
 				</div>
