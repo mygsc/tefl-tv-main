@@ -62,7 +62,13 @@
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
-                                                    <li><p><i class="fa fa-star-o"></i>&nbsp;&nbsp;Favorites</p></li>
+                                                    
+                                                @if(empty($favorites))
+                                                    <li><p id="addToFavorites"><img src="img/icons/star.png"/>
+                                                @else
+                                                    <li><p id="removeToFavorites"><img src="img/icons/starActive.png"/>
+                                                @endif
+                                                    &nbsp;&nbsp;Favorites</p></li>
                                                     <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
   
                                         @if(empty($playlists))

@@ -588,12 +588,10 @@ class UserController extends BaseController {
 	    	$playlistID = $createPlaylist->id;
 	    	PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
     	}
-    	return Response::json(Input::get('name'));
     }
     public function addChkBoxPlaylist($id){
     	$playlistId = Crypt::decrypt(Input::get('value'));
     	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
-    	return Response::json($playlistId);
     }
     public function removePlaylist($id){
     	$playlistId = Crypt::decrypt(Input::get('value'));
@@ -602,6 +600,14 @@ class UserController extends BaseController {
     	$playlistItem->delete();
 
     }
+    public function addToFavorites($id){
+		Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+	}
+	public function removeToFavorites($id){
+		$favorite = Favorite::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id)->first();
+		$favorite->delete();					
+	}
 
 
 }
