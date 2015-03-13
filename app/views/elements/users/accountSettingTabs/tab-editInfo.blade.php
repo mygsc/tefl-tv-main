@@ -1,25 +1,5 @@
 <div class="col-md-10 textbox-layout"> 
-        <div class="col-md-12">
-            <span>
-                <label>Account Status:</label>
-                <br/>
-                <select>
-                    <option>Activate</option>
-                    <option>Deactivate</option>
-                </select>
-                <!--show this when deactivate is selected-->
-                <small class="notes">(*When account is deactivate, your channel will not be searchable)</small>
-            </span>
-
-            <br/><br/>
-
-            <span>
-                <input type="checkbox"> <label>Mark All</label>&nbsp;
-                <small class="notes">(*Mark fields with check if you want to display your information in public)</small>
-            </span>
-            <br/><br/>
-        </div>
-        
+   
 
         <div class="col-md-3">
             <label><small>Click image to change</small></label>
@@ -29,12 +9,28 @@
         </div>
 
         <div class="col-md-9">
-            {{ Form::checkbox('name', 'value', false) }} 
+
             {{Form::label('interests', 'Interests: ')}}
             {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:230px;'))}}
        </div>
        <br/>
-        <p><small class="notes">Fields with asterisk (*) are required.</small></p>
+            <div class="col-md-12">
+            <span>
+                <br/>
+                <select class="form-control autoW">    
+                    <option>Account Privacy</option>
+                    <option>Activate</option>
+                    <option>Deactivate</option>
+                </select>
+                <!--show this when deactivate is selected-->
+                  <small class="notes">Fields with asterisk (*) are required.</small>
+                
+
+            <br/><br/>
+
+        </div>
+        
+  
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 
             {{Form::label('first_name', '*Firstname: ')}}
