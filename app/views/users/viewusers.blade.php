@@ -25,8 +25,6 @@
 										<label>100 Videos</label> &nbsp;
 										<label>13k Views</label>
 									</span>
-									
-
 									<span class="pull-right" >
 										<a href=""><img src="/img/icons/fb.png"></a>
 										<a href=""><img src="/img/icons/tr.png"></a>
@@ -70,69 +68,83 @@
 							</div>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="learn">
-							<div class="row" style="margin-top:20px;">
-								<div class="col-md-4">
-									<table class="tableLayout">
-										<tr>
-											<td><small><label>Name:</label></small> </td>
-											<td>{{$userChannel->first_name}} {{$userChannel->last_name}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Birthdate:</label></small></td>
-											<td>{{$userChannel->birthdate}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Organizations:</label></small></td>
-											<td>{{$userChannel->organiztion}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Work:</label></small></td>
-											<td>{{$userChannel->organiztion}}</td>
-										</tr>
-									</table>
-								</div>
-								<div class="col-md-4">
-									<table class="tableLayout">
-										<tr>
-											<td><small><label>Email:</label></small> </td>
-											<td></td>
-										</tr>
-										<tr>
-											<td><small><label>Website:</label></small></td>
-											<td>{{$userChannel->website}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Contact Number:</label></small></td>
-											<td>{{$userChannel->contact_number}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Address:</label></small></td>
-											<td>{{$userChannel->address}}</td>
-										</tr>
-									</table>
-								</div>
-								<div class="col-md-4">
-									<table class="tableLayout">
-										<tr>
-											<td><small><label>City:</label></small> </td>
-											<td>{{$userChannel->city}}</td>
-										</tr>
-										<tr>
-											<td><small><label>State:</label></small></td>
-											<td>{{$userChannel->state}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Zip Code:</label></small></td>
-											<td>{{$userChannel->zip_code}}</td>
-										</tr>
-										<tr>
-											<td><small><label>Country:</label></small></td>
-											<td>{{$userChannel->country_id}}</td>
-										</tr>
-									</table>
-								</div>
+
+						<div class="row" style="margin-top:20px;">
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Name</label></small> </td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->first_name}} {{$userChannel->last_name}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Birthdate</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->birthdate}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Organizations</label></small></td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Work</label></small></td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->organiztion}}</td>
+									</tr>
+								</table>
 							</div>
-						</div><!--/.tabpanel-->
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Email</label></small> </td>
+										<td><b>:</b></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td><small><label>Website</label></small></td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->website}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Contact Number</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->contact_number}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Address</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->address}}</td>
+									</tr>
+								</table>
+
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>City</label></small> </td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->city}}</td>
+									</tr>
+									<tr>
+										<td><small><label>State</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->state}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Zip Code</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->zip_code}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Country</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$userChannel->country_id}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div><!--/.tabpanel-->
 					</div>
 				</div>
 			</div>

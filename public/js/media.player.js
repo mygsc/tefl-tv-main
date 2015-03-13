@@ -14,7 +14,6 @@ var progress = document.getElementById('current-progress').offsetWidth;
 var plusVol = document.getElementById('plus-vol').offsetHeight;
 var volumeBar = $('#volume-vertical').height();
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
-
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
 	timeDuration = Math.round(mediaPlayer.duration);
@@ -76,7 +75,7 @@ function togglePlayPause() {
 		changeButtonType(playPauseBtn, 'pause');
 		mediaPlayer.play();
 		videoPlaying = true;
-		playIcon=false;
+		playIcon = false;
 		$('.play-icon').fadeOut(500);
 	}
 	// Otherwise it must currently be playing
@@ -140,9 +139,9 @@ function updateProgressBar(response) {
 	// Work out how much of the media has played via the duration and currentTime parameters
 	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime),
 	 time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration),
-	 vidMin = Math.floor(timeDuration / 60),
-	 vidSec = Math.floor(timeDuration - (vidMinLenght * 60)),
-	 videoCurrentTime = Math.floor(mediaPlayer.currentTime),
+	 vidMin = Math.floor(mediaPlayer.duration / 60),
+	 vidSec = Math.floor(mediaPlayer.duration - (vidMin * 60)),
+	 videoCurrentTime = Math.round(mediaPlayer.currentTime),
 	 seconds = 0,
 			hours = Math.floor(time / 3600),
 			minutes = Math.floor(time / 60),
@@ -190,10 +189,14 @@ function updateProgressBar(response) {
 					var videoLenght = Math.round(mediaPlayer.duration);	
 					
 					if(finishTime == videoLenght){		
-						$('#play-pause').addClass('pause').removeClass('play');
+						$('#play-pause').addClass('play').removeClass('pause');
 						playPauseBtn.src = "/img/icons/play.png";
 						videoPlaying=false;
-						finishTime = 0;
+						//mediaPlayer.currentTime = 0;
+						//finishTime=0;
+						// videoCurrentTime=0;
+						//mediaPlayer.pause();
+						stopPlayer();
 						$('.advertisement').fadeOut();
 						$('.play-icon').fadeIn(500);
 					}

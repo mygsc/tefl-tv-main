@@ -6,6 +6,10 @@
 		width: 100%!Important;
 		margin-top: 0;
 		border-top: 1px solid #000;
+	}#media-video{
+		height: 500px;
+		width: 100%;
+		background: #000000;
 	}
 	img#play-pause{
 		cursor:pointer;

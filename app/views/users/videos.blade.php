@@ -54,7 +54,7 @@
 					</div>
 
 					<br/><br/><hr class="" />
-					
+
 				<div id="videosContainer" class='container'>
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
@@ -78,6 +78,7 @@
 			</div>
 		</div>
 	</div>
+
 @stop
 
 @section('script')
@@ -119,4 +120,5 @@
 		} );
 	</script>
 @stop
+
 

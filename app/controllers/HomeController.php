@@ -93,16 +93,27 @@ class HomeController extends BaseController {
 		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
 						LEFT JOIN users u ON v.user_id = u.id
 						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
-		$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+		if(isset(Auth::User()->id)){
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
 									LEFT JOIN playlists_items i ON p.id = i.playlist_id
 									WHERE p.privacy = '1'
 									HAVING i.video_id = '".$id[0]."'
 									AND p.user_id = '".Auth::User()->id."';");
-		$playlistNotChosens = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.user_id FROM playlists p
+			$playlistNotChosens = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.user_id FROM playlists p
 					LEFT JOIN playlists_items i ON p.id = i.playlist_id
 					WHERE p.privacy = '1'
 					HAVING i.video_id IS NULL
 					AND p.user_id = '".Auth::User()->id."';");
+		}else{
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+									LEFT JOIN playlists_items i ON p.id = i.playlist_id
+									WHERE p.privacy = '1'
+									HAVING i.video_id = '".$id[0]."';");
+			$playlistNotChosens = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.user_id FROM playlists p
+					LEFT JOIN playlists_items i ON p.id = i.playlist_id
+					WHERE p.privacy = '1'
+					HAVING i.video_id IS NULL;");
+		}
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens'));
 	}
 
