@@ -108,14 +108,17 @@ text-align: center;
 									</p>
 								</div>
 							</div>
+							
+							
+
 							<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
-								{{Form::open()}}
-								{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
-								{{Form::close()}}
 								<video controls>
 									<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
 								</video>
 							</a>
+							{{Form::open()}}
+							{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
+							{{Form::close()}}
 						</div>
 
 						<div class="v-Info">

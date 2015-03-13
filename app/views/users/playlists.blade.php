@@ -23,7 +23,7 @@
 
 				<div class="">
 					<br/>
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
@@ -31,7 +31,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-3">
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
@@ -41,7 +41,18 @@
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Playlists</button>
+						<button class="btn btn-unsub">Manage Playlists</button>
+					</div>
+
+					<div class="col-md-3">
+						{{Form::open()}}
+						<div class="input-group" style="">
+							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist')) }}
+							<span class="input-group-btn">
+								{{Form::submit('Save',array('class' => 'btn btn-primary	'))}}
+							</span>
+						</div>
+						{{Form::close()}}
 					</div>
 			
 					<div class="col-md-1 text-right">
@@ -54,28 +65,22 @@
 			
 
 					<div id="videosContainer" class='container'>
-						<br/>
+						<br/><br/><br/>
 						<div class="row">
-							<div id="playlists" class="col-xs-2 col-md- 3">
-								@foreach($playlists as $playlist)
-									<a href="#"  class="thumbnail">
-										<img src="#">
+						
+							@foreach($playlists as $playlist)
+								<div id="playlists" class="col-xs-2 col-md-3">
+									
+										<a href="#"  class="thumbnail">
+											<img src="#">
+											<br/>
+											{{$playlist->name}}
+										</a>
+										{{$playlist->description}}
 										<br/>
-										{{$playlist->name}}
-									</a>
-									{{$playlist->description}}
-									<br/>
-								@endforeach
-							</div>
+								</div>
+							@endforeach
 						</div>
-						Create Playlists
-								<br/>
-								{{Form::open()}}
-									{{Form::label('title', 'Playlist Title: ')}} &nbsp; {{Form::text('title', null, array('class' => 'form-control'))}}
-									<br/>
-									{{Form::submit('Create Playlist')}}
-								{{Form::close()}}
-
 					</div><!--videoContainer-->
 				</div>
 			</div><!--!/.shadow div-channel-border-->
