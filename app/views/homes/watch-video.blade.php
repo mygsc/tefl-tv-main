@@ -136,8 +136,14 @@
                         <br/>
                     </div> <!--/.ui-tabs-panel-->
 
-                    <div class="row">
-                       <!-- videocomment -->
+                    <div class="comments row">
+                        <textarea id='comment'></textarea>
+                        <button id='btncomment'>Post</button>
+                        <div class="commentsarea row">
+                            @foreach($getVideoComments as $getVideoComment)
+                                {{$getVideoComment->comment}}
+                            @endforeach
+                        </div>
                     </div>
                    <!-- latest -->
                </div><!--column 8-->
@@ -178,4 +184,5 @@
 @section('script')
     {{HTML::script('js/media.player.js')}}
     {{HTML::script('js/homes/watch.js')}}
+    {{HTML::script('js/homes/comment.js')}}
 @stop

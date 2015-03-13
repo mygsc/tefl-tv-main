@@ -112,7 +112,10 @@ class HomeController extends BaseController {
 			$playlistNotChosens = null;
 			$favorites = null;
 		}
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites'));
+
+		$getVideoComments = Comment::where(array('video_id' => $id[0]))->get();
+
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments'));
 	}
 
 	public function postSignIn() {

@@ -71,6 +71,9 @@
 							<div class="count">
 								{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 							</div>
+								{{Form::open()}}
+									{{Form::submit('Add to Playlist')}}
+								{{Form::close()}}
 						</div>
 						@endforeach	
 					</div>
