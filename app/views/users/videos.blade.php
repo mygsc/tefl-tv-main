@@ -121,8 +121,4 @@
 	</script>
 @stop
 
-<<<<<<< HEAD
-</div>
-@stop
-=======
->>>>>>> c73fdefaa8e5bf7734e0a5fd25b52249f991b717
+

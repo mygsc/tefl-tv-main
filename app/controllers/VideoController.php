@@ -43,7 +43,7 @@ class VideoController extends Controller {
 					$img = $this->user->channel_name;
 					$destinationPath = 'public/videos/';
 					$ext = $file->getClientOriginalExtension();
-					//$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+					$file->move($destinationPath, $ecrypt_name.'.'.$ext);
 					//$cmd = "$ffmpegPath -i $file -an -ss $second -s $size public/img/$img.jpg";
 						for($uploadStart=1; $uploadStart<=3; $uploadStart++){
 							$secondsInterval = $uploadStart*5;
@@ -56,7 +56,7 @@ class VideoController extends Controller {
 			  		$img = $this->user->channel_name;
 					$destinationPath = 'public/videos/';
 					$ext = $file->getClientOriginalExtension();
-					//$file->move($destinationPath, $ecrypt_name.'.'.$ext);
+					$file->move($destinationPath, $ecrypt_name.'.'.$ext);
 					for($n=1; $n<=3; $n++){
 						$secondsInterval = $n*5;
 						$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$n.jpg";
