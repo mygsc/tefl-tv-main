@@ -779,7 +779,7 @@ img.user{
   background: #fff!important;
 }
 .pageH{
-
+  min-height: 700px;
 }
 .footer1{
   background: #181b2e;
@@ -914,15 +914,13 @@ span.commentLink{
 }
 
 .loginDivH{
- background:rgba(187, 203, 226, 0.5);
+ background:#b7c7e7;
  padding: 20px 20px;
- -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
- -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
- box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
  min-height: 500px;
  max-height: auto;
  border-right:1px  solid #c1c1c1;
  border-left:1px  solid #c1c1c1;
+ border-bottom:1px  solid #c1c1c1;
 }
 .loginDivA{
  background:rgba(187, 203, 226, 0.9);
@@ -936,14 +934,11 @@ span.commentLink{
  margin-top: 25%;
 }
 .signDivH{
- background:rgba(255, 255, 255, 0.5);
+ background:#f4f4f4;
  padding: 20px 20px;
- -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
- -moz-box-shadow:    2px 2px 5px 0px rgba(50, 50, 50, 0.75);
- box-shadow:         2px 2px 5px 0px rgba(50, 50, 50, 0.75);
- border-radius:0px; 
- border-right:1px  solid #c1c1c1;
  border-left:1px  solid #c1c1c1;
+ border-right:1px  solid #c1c1c1;
+ border-bottom:1px  solid #c1c1c1;
  padding: 15px;
  min-height: 500px;
  max-height: auto; 
