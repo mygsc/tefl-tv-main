@@ -52,12 +52,12 @@ function adsOn(){
 	
 }
 function timeSettings(){
-	vidMinLenght = Math.floor(timeDuration / 60);
-	vidSecLenght = Math.floor(timeDuration - (vidMinLenght * 60));
+	vidMinLenght = Math.floor(mediaPlayer.duration / 60);
+	vidSecLenght = Math.round(mediaPlayer.duration - (vidMinLenght * 60));
 	hrs = Math.floor(vidMinLenght / 60);
-	mins =  vidMinLenght - (Math.floor(hrs * 60));
-	tmpSecs =  Math.floor(timeDuration / 60);
-	secs =   timeDuration - (tmpSecs * 60);
+	mins =  (vidMinLenght - (hrs * 60));
+	tmpSecs =  Math.round(mediaPlayer.duration / 60);
+	secs =   Math.round(mediaPlayer.duration - (tmpSecs * 60));
 	if(secs < 10) { secs = '0'+ secs; }
 	if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
 	if(mins < 10) { mins = '0'+ mins; }
@@ -141,7 +141,8 @@ function updateProgressBar(response) {
 	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime),
 	 time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration),
 	 vidMin = Math.floor(mediaPlayer.duration / 60),
-	 vidSec = Math.floor(mediaPlayer.duration - (vidMin * 60)),
+
+	 vidSec = Math.round(mediaPlayer.duration - (vidMin * 60)),
 	 videoCurrentTime = Math.round(mediaPlayer.currentTime),
 	 seconds = 0,
 			hours = Math.floor(time / 3600),

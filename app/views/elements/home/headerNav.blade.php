@@ -22,22 +22,31 @@
             </div><!--/.col-md-8-->
             <div class="col-md-6 col-sm-6">
                 <ul class="ctgryNav pull-right">
-                    <li>
                     @if(Auth::check())
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
+                    <li>
+                        <div class="btn-group hand" id="">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                Notifications<span class="badge btn-danger ">42</span>
+                            </a>
+                            <ul class="dropdown-menu scrollable-menu bullet" id="station_list" role="menu">         
+                                <ul>
+                                    <li>fhdshgsdh</li>
+                                    <li>fhdshgsdh</li>
+                                    <li><br/ ></li>
+                                    <li><a href=""><small>see all</small></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </li>
+
+
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                     @else
                     <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                     @endif
-                    <li>
-                       {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-primary orangeC')) }}
-                                      
-                       </li>
+                </ul>
 
         </div><!--/.row-->
    </div><!--/.container-->
-
-
-      
-  </div><!--/.container-->
 </div><!--/.categoryNav-->
