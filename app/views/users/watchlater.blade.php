@@ -97,7 +97,8 @@ text-align: center;
 					@foreach($videosWatchLater as $watchLater)
 					<div class="col-md-3">
 						<div class="watch">
-							<input type="hidden" name="user_id" value="{{Auth::User()->id}}">
+							<input type="hidden" id="user_id" value="{{Auth::User()->id}}">
+							<input type="hidden" id="video_id" value="{{$watchLater->id}}">
 							<div class="caption">
 								<div class="caption-inner">
 									<p class="caption-content">
@@ -138,7 +139,7 @@ text-align: center;
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
+	{{HTML::script('js/homes/watch.js')}}
 	{{HTML::script('js/overlaytext.js')}}
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
