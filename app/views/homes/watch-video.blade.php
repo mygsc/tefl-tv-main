@@ -99,7 +99,7 @@
                                         @else
 
                                             <a href="signin" role="button" aria-expanded="false">
-                                                    <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                                <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                         @endif
                                         </span><!--/links-->
