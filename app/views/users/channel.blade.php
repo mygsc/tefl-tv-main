@@ -27,8 +27,7 @@
 					  	<div role="tabpanel" class="tab-pane active" id="home">
 							@include('elements/users/myChannelTabs/tab-Home')
 					  	</div>				    
-
-				  </div><!--/.tab-content-->
+				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
 			</div><!--/.div-channel-border-->
 			<br/>

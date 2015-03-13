@@ -55,7 +55,7 @@
 
 					<br/><br/><hr class="" />
 
-<<<<<<< HEAD
+
 				<div id="videosContainer" class='container'>
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
@@ -63,14 +63,6 @@
 						<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
 							<video height="auto" width="100%" class="h-video" controls>
 								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
-=======
-					<div id="videosContainer" class='container'>
-						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3">
-							&nbsp;
-							<video height="auto" width="100%" class="h-video" controls>
-							<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
->>>>>>> c783e8e7cf376d42f8bbdcafe03baa3ee17b1f5a
 							</video>
 						</a>
 							<div class="v-Info">
@@ -86,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
+
 @stop
 
 @section('script')
@@ -128,7 +120,6 @@
 		} );
 	</script>
 @stop
-=======
+
 </div>
 @stop
->>>>>>> c783e8e7cf376d42f8bbdcafe03baa3ee17b1f5a

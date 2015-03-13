@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-Feedbacks
-
-
-
-
-
 
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
@@ -45,7 +38,7 @@ Feedbacks
 		} );
 	</script>
 @stop
-=======
+
 @extends('layouts.default')
 
 @section('content')
@@ -79,4 +72,4 @@ Feedbacks
 
 	
 @stop
->>>>>>> c783e8e7cf376d42f8bbdcafe03baa3ee17b1f5a
+

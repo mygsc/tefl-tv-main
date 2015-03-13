@@ -51,7 +51,7 @@
 						</div>
 					</div>
 
-					<br/><br/><hr class="" />
+			
 
 					<div id="videosContainer" class='container'>
 						<br/>
