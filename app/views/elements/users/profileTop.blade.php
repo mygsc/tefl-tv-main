@@ -24,7 +24,7 @@
 									<a href=""><img src="/img/icons/tr.png"></a>
 									<a href=""><img src="/img/icons/gp.png"></a>
 									<a href=""><img src="/img/icons/yt.png"></a>
-									<a href=""><img src="/img/icons/wl.png"></a>
+									<a href=""><img src="/img/icons/wl.png"></a>  
 								</span>	
 							</div>
 						</div>	

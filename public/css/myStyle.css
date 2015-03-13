@@ -414,8 +414,9 @@ ul .ctgryNav{
 .snCount{
   background:#fff; border-radius:0 3px 3px 0; padding:7px; color:#000
 }
-.snBg{
-  border-radius:3px 0 0 3px; padding:8px;color:#fff;
+.snBg img{
+  width: 30px;
+  height: auto;
 }
 .sideLinksDiv{
   width: 100%;
@@ -1467,6 +1468,7 @@ div.crop-square img {
 .dropdown-menu.bullet {
    margin-top: 8px;
    padding: 10px;
+   box-shadow: none!Important;
 }
 .dropdown-menu.bullet:before {
    width: 0;
@@ -1482,6 +1484,7 @@ div.crop-square img {
    border-bottom-color: rgba(0, 0, 0, 0.15);
    top: -7px;
    left: 9px;
+   box-shadow: none!Important;
 }
 .dropdown-menu.bullet:after {
    width: 0;
@@ -1496,6 +1499,7 @@ div.crop-square img {
    border-bottom-color: #ffffff;
    top: -6px;
    left: 10px;
+   box-shadow: none!Important
 }
 
 

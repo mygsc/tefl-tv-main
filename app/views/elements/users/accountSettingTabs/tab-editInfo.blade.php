@@ -9,28 +9,23 @@
         </div>
 
         <div class="col-md-9">
-
             {{Form::label('interests', 'Interests: ')}}
             {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:230px;'))}}
        </div>
        <br/>
             <div class="col-md-12">
-            <span>
-                <br/>
+                <small class="notes"><b>Notes: </b><br/>
+                Deactivate your account if you don't want your channel to be seen by others. All fields with asterisk (*) are required. Check all information you want to show in public.</small>
                 <select class="form-control autoW">    
-                    <option>Account Privacy</option>
+                    <option disabled>Account Privacy</option>
                     <option>Activate</option>
                     <option>Deactivate</option>
                 </select>
                 <!--show this when deactivate is selected-->
-                  <small class="notes">Fields with asterisk (*) are required.</small>
-                
-
-            <br/><br/>
-
-        </div>
+                <br/><br/>
+            </div>
         
-  
+
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 
             {{Form::label('first_name', '*Firstname: ')}}
