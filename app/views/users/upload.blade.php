@@ -5,7 +5,6 @@ Upload
 @stop
 
 @section('content')
-
 <style type="text/css">
 	.image-upload > input
 {
@@ -37,6 +36,7 @@ Upload
 					
 					<label class="myLabel">
 						<div id="progress">
+							<small>Maaring mag-hintay...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
 						</div>
 					</label>
@@ -48,23 +48,30 @@ Upload
 		</div>
 	</div>
 
-<div class="container White" style="display:none" id="vids-thumbnails">	
+<div class="container White" style="display:block" id="vids-thumbnails">	
 	<div class="content-padding">
 		<div class="col-md-6">
 		<br><br>
 			<div class="well">
 				<div class="embed-responsive embed-responsive-16by9 h-video">
-					    <video width="400" id="img-vid-thumb" poster="/img/thumbnails/video.png">
-								<source src="/videos/bowlingmoa.mp4" type="video/mp4" >
-								<source src="/videos/bowlingmoa.mov" type="video/mov" >
-								<source src="/videos/bowlingmoa.ogg" type="video/ogg" >
-						</video>
+				    <video onloadeddata="$(this).trigger('video_really_ready')" id="video" controls  width="400" poster="/img/thumbnails/video.png">
+							<source src="/videos/movie.mp4" type="video/mp4" >
+							<source src="/videos/movie.mov" type="video/mov" >
+							<source src="/videos/movie.ogg" type="video/ogg" >
+					</video>
 				</div>
-				<div class="col-sm-12" >
+
+				<div class="col-sm-12">
 				<h3 style="text-align:center;padding-top:5px;">Select your video thumbnail</h3>	
 					<img style="cursor:pointer" id="img-thumb-1" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
 						<img style="cursor:pointer" id="img-thumb-2" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
 					<img style="cursor:pointer" id="img-thumb-3" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
+							<br><br>
+					<input type="button" id="captures" value="Capture" /> Press play, and then start capturing 
+					<div id="screenshot">
+							
+						</canvas>
+					</div>
 				</div>	
 			</div>
 			</div>
@@ -95,7 +102,7 @@ Upload
 					<span class="pull-left">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></span>
 					{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'cancel'))}}
 					{{Form::submit('Start Upload',array('class'=>'btn btn-primary btn-md'))}}
-					{{Form::close()}}
+					
 				</div>	
 				
 				<input type="hidden" name="channel" value="{{Auth::User()->channel_name}}"/>
@@ -104,12 +111,76 @@ Upload
 		</div>
 	</div>
 
-
-
-
-
 	
 {{Form::close()}}
 
 @stop
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script language="javascript">
+var VideoSnapper = {
+        captureAsCanvas: function(video, options, handle) {
+        
+            // Create canvas and call handle function
+            var callback = function() {
+                // Create canvas
+                var canvas = $('<canvas/>').attr({
+                    width: options.width,
+                    height: options.height
+                })[0];
+                // Get context and draw screen on it
+                canvas.getContext('2d').drawImage(video, 0, 0, options.width, options.height);
+                // Seek video back if we have previous position 
+                if (prevPos) {
+                    // Unbind seeked event - against loop
+                    $(video).unbind('seeked');
+                    // Seek video to previous position
+                    video.currentTime = prevPos;
+                }
+                // Call handle function (because of event)
+                handle.call(this, canvas);    
+            }
+
+            // If we have time in options 
+            if (options.time && !isNaN(parseInt(options.time))) {
+                // Save previous (current) video position
+                var prevPos = video.currentTime;
+                // Seek to any other time
+                video.currentTime = options.time;
+                // Wait for seeked event
+                $(video).bind('seeked', callback);              
+                return;
+            }
+            
+            // Otherwise callback with video context - just for compatibility with calling in the seeked event
+            return callback.apply(video);
+        }
+};
+
+$(function() {
+        $('video').bind('video_really_ready', function() {
+            var video = this;
+            $('#captures').click(function() {
+                var canvases = $('canvas');	
+				//for(var start=1; start<=3; start++){
+					//var img = Math.floor((Math.random() * 15) + 1);
+					//var img = start*5;
+
+					VideoSnapper.captureAsCanvas(video, { width: 160, height: 108, time:10  }, function(canvas) {
+					$('#screenshot').append(canvas);     
+					                    
+                        if (canvases.length == 4) 
+                          canvases.eq(0).remove();
+					});
+					
+				//}// end of for loop
+                
+            }); 
+        });
+    
+    });
+	
+
+</script>
 
