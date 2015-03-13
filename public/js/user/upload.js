@@ -1,13 +1,15 @@
 $(document).ready(function(){
-	$('#progress').hide();
+	//$('#progress').hide();
 	var img = document.getElementById('img-vid-thumb');
 	var channel = $('input[name=channel]').val();
 	var selected = 1;
   
-	$('#vids-upload').change(function(){
-   		// $(this).closest("#submit").submit();
-   		document.getElementById('submit').submit();
-   		 $('#progress').show();
+	$('#vidsUpload').change(function(){
+   		//$(this).closest("#vidSubmit").submit();
+   		//document.getElementById('vidSubmit').submit();
+   		//$('#progress').show();
+   		$('#select-upload').fadeOut();
+   		$('#vids-thumbnails').fadeIn(1500);
 	});
 	$('#img-thumb-1').click(function(){
 		$(this).css({'outline':'2px solid green'});
