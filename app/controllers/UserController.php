@@ -375,14 +375,13 @@ class UserController extends BaseController {
 
 		$videosWatchLater = Video::find($videoWatchLater);
 
-
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch'));
 	}
 
 	public function postWatchLater() {
 
-		// return Input::all();
-		return "sdafsdf";
+		return 'asdasdasd';
+	
 	}
 
 	public function getPlaylists() {
