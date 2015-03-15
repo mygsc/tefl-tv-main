@@ -13,7 +13,7 @@
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
-	Route::get('addDescription/{id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
+	Route::get('description/{id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result/{type?}/{search?}', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));

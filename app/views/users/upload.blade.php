@@ -6,10 +6,16 @@ Upload
 
 @section('content')
 <style type="text/css">
-	.image-upload > input
-{
+.image-upload > input{
     display: none;
-}
+}div canvas{
+    	padding: 3px;
+    	cursor:pointer;
+    	position: relative;
+ }
+ div canvas:hover{
+    	outline:2px solid green;
+ }
 </style>
 
 
@@ -29,17 +35,16 @@ Upload
 					@endif
 
 					
-					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'submit'))}}
-					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
+					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
 
+					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
 					
-					
-					<label class="myLabel">
-						<div id="progress">
+					 <label class="myLabel">
+						<div style="display:none" id="progress">
 							<small>Maaring mag-hintay...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
 						</div>
-					</label>
+					</label> 
 					
 					
 				</div>
@@ -48,32 +53,26 @@ Upload
 		</div>
 	</div>
 
-<div class="container White" style="display:block" id="vids-thumbnails">	
+<div class="container White" style="display:none" id="vids-thumbnails">	
 	<div class="content-padding">
 		<div class="col-md-6">
 		<br><br>
 			<div class="well">
 				<div class="embed-responsive embed-responsive-16by9 h-video">
-				    <video onloadeddata="$(this).trigger('video_really_ready')" id="video" controls  width="400" poster="/img/thumbnails/video.png">
+				    <video onloadeddata="$(this).trigger('video_really_ready')" id="video"  width="400" poster="/img/thumbnails/video.png">
 							<source src="/videos/movie.mp4" type="video/mp4" >
 							<source src="/videos/movie.mov" type="video/mov" >
 							<source src="/videos/movie.ogg" type="video/ogg" >
 					</video>
 				</div>
-
-				<div class="col-sm-12">
-				<h3 style="text-align:center;padding-top:5px;">Select your video thumbnail</h3>	
-					<img style="cursor:pointer" id="img-thumb-1" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
-						<img style="cursor:pointer" id="img-thumb-2" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
-					<img style="cursor:pointer" id="img-thumb-3" src="/videos/tmp-img/upload-thumbnail.jpg" alt="" width="150" height="100" class="img-thumbnail">
-							<br><br>
-					<input type="button" id="captures" value="Capture" /> Press play, and then start capturing 
-					<div id="screenshot">
-							
-						</canvas>
-					</div>
-				</div>	
+					
 			</div>
+			<div class="col-sm-12">
+				<h4 style="text-align:center;padding-top:5px;">Select your video thumbnail</h4>	
+					<div id="screenshot">
+						{{--DISPLAY THUMBNAIL DON'T DELETE THIS DIV--}}
+					</div>	
+				</div>
 			</div>
 			<div class="col-md-6">
 
@@ -99,7 +98,7 @@ Upload
 				{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
 				<div class="text-right">
 				<br>
-					<span class="pull-left">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></span>
+					<span class="pull-left">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></span><br/>
 					{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'cancel'))}}
 					{{Form::submit('Start Upload',array('class'=>'btn btn-primary btn-md'))}}
 					
@@ -116,9 +115,8 @@ Upload
 
 @stop
 
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-<script language="javascript">
+@section('css')
+{{-- <script language="javascript">
 var VideoSnapper = {
         captureAsCanvas: function(video, options, handle) {
         
@@ -162,13 +160,14 @@ $(function() {
         $('video').bind('video_really_ready', function() {
             var video = this;
             $('#captures').click(function() {
+            	alert('hello');
                 var canvases = $('canvas');	
 				//for(var start=1; start<=3; start++){
 					//var img = Math.floor((Math.random() * 15) + 1);
 					//var img = start*5;
 
-					VideoSnapper.captureAsCanvas(video, { width: 160, height: 108, time:10  }, function(canvas) {
-					$('#screenshot').append(canvas);     
+					VideoSnapper.captureAsCanvas(video, { width: 160, height: 108, time:10}, function(canvas) {
+					$('#screen').append(canvas);     
 					                    
                         if (canvases.length == 4) 
                           canvases.eq(0).remove();
@@ -182,5 +181,6 @@ $(function() {
     });
 	
 
-</script>
+</script> --}}
+@stop
 
