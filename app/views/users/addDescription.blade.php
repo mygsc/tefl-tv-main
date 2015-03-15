@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="row White">
 	<div class="container page">	
 		<div class="content-padding">
@@ -27,7 +28,7 @@
 							
 							<div id="screenshot">
 								@for($n=1; $n<=3; $n++)
-									<div id="img-thumb-{{$n}}" style="cursor:pointer;float:left;margin:2px;width:150px;height:130px;outline:1px solid #000000">
+									<div class="thumb" id="img-thumb-{{$n}}" style="cursor:pointer;float:left;margin:2px;width:150px;height:130px;outline:1px solid #000000">
 										
 									</div>
 								@endfor

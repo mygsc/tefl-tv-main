@@ -48,22 +48,21 @@ $(document).ready(function(){
 
             $('#progress').fadeIn(500);
             $('#vids-upload').fadeOut();
-            setTimeout(function(){
-                $('#select-upload').fadeOut();
-                $('#vids-thumbnails').fadeIn(1500);
-                $('#progress').hide(); 
-                var canvases = $('canvas'), imgThumb, n;
-                for(n = 1; n < 4; n++){
-                    imgThumb = n * 3;
-                    VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time:imgThumb}, function(canvas) {
-                    $('#screenshot').append(canvas);     
-                    $('canvas').addClass('img-thumb'); 
-                        if (canvases.length == 3) 
-                          canvases.eq(0).remove();
-                    });              
-                }   
-
-            }, 2000);  
+            // setTimeout(function(){
+            //     $('#select-upload').fadeOut();
+            //     $('#vids-thumbnails').fadeIn(1500);
+            //     $('#progress').hide(); 
+            //     var canvases = $('canvas'), imgThumb, n;
+            //     for(n = 1; n < 4; n++){
+            //         imgThumb = n * 3;
+            //         VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time:imgThumb}, function(canvas) {
+            //         $('#screenshot').append(canvas);     
+            //         $('canvas').addClass('img-thumb'); 
+            //             if (canvases.length == 3) 
+            //               canvases.eq(0).remove();
+            //         });              
+            //     }   
+            // }, 2000);  
    	});
 
     $('canvas').click(function(){
@@ -73,6 +72,9 @@ $(document).ready(function(){
     	document.getElementById('selected-thumbnail').value = selected;
     });
      $('#img-thumb-1').click(function(){
+        var canvasImage = document.getElementsByClassName('img-thumb1');
+        //var getImage = canvasImage.toDataURL();
+
         $(this).css({'outline':'2px solid green'});
         $('#img-thumb-2').css({'outline':'1px solid #000000'});
         $('#img-thumb-3').css({'outline':'1px solid #000000'});
@@ -100,19 +102,37 @@ $(document).ready(function(){
 $(function() {
     $('video').bind('video_really_ready', function(){
      var video = this;
-      $('#captures').click(function(){
-       alert('tested');
+      //$('.thumb').click(function(){
+      // alert('tested');
             var canvases = $('canvas'); 
-            for(var start=1; start < 4; start++){
-                var imgThumb = start * 3;
-                VideoSnapper.captureAsCanvas(video, { width: 160, height: 108, time:imgThumb}, function(canvas) {
-                $('#screenshot').append(canvas);     
-                                    
-                    if (canvases.length == 3)
-                        canvases.eq(0).remove();
-                });      
-            }// end of for loop
-        });
+            //for(var start=1; start < 4; start++){
+             //   var imgThumb = start * 3;
+                VideoSnapper.captureAsCanvas(video, { width: 150, height: 130, time:1}, function(canvas) {
+                //$('#screenshot').append(canvas);
+                $('#img-thumb-1').append(canvas);
+                $('div#img-thumb-1 canvas').addClass('img-thumb1');                                 
+                    //if (canvases.length == 3)
+                     //   canvases.eq(0).remove();
+                })  
+
+                VideoSnapper.captureAsCanvas(video, { width: 150, height: 130, time:5}, function(canvas) {
+                //$('#screenshot').append(canvas);
+                $('#img-thumb-2').append(canvas);
+                $('div#img-thumb-2 canvas').addClass('img-thumb2');                                 
+                    //if (canvases.length == 3)
+                     //   canvases.eq(0).remove();
+                }) 
+
+                VideoSnapper.captureAsCanvas(video, { width: 150, height: 130, time:10}, function(canvas) {
+                //$('#screenshot').append(canvas);
+                $('#img-thumb-3').append(canvas);
+                $('div#img-thumb-3 canvas').addClass('img-thumb3');                                 
+                    //if (canvases.length == 3)
+                       // canvases.eq(0).remove();
+                })   
+            //}// end of for loop
+
+       // });
     });
 });
 

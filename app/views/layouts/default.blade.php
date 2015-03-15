@@ -16,6 +16,7 @@
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::style('css/vid.player.css') }}
 	{{HTML::script('js/jquery.js')}}
+	{{HTML::script('js/user/upload.js')}}
 	@yield('css')
 </head>
 <body>
@@ -28,9 +29,8 @@
 
 		@include('elements/footer')
 </body>
-<!-- scripts -->
 
-{{HTML::script('js/user/upload.js')}}
+<!-- scripts -->
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 @yield('script')
