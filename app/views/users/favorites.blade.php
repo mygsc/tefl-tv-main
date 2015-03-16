@@ -58,7 +58,7 @@
 						@foreach($showFavoriteVideos as $showFavoriteVideo)
 						<div class="col-md-3">
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-							{{ Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;')) }}
+							{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;z-index:99;')) }}
 
 							<a href="{{route('homes.watch-video', $showFavoriteVideo->id. '%' .$showFavoriteVideo->title)}}">
 							<video controls>

@@ -6,7 +6,7 @@
 <div class='container pageh'>
 <br/><br/>
 <div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4 col-sm-5">
 			<div class="loginDivH textbox-layout">
 				<img src="/img/logos/teflTv.png" class="center-block">
 				<br/>
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-8 col-sm-7">
 			<div class="signDivH textbox-layout">
 				<h4><i class="fa fa-play"></i>&nbsp;Free Sign-up</h4>
 				
