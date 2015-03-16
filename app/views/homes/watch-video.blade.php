@@ -62,7 +62,11 @@
                     @else
                         <li id="favotite-list"><p id="removeToFavorites" style="cursor: pointer"><img src="img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p></li>
                     @endif
-                        <li><p id="addToWatchLater"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @if(empty($watchLater))
+                        <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @else
+                        <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @endif
                         <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
                         
                             @if(empty($playlists))

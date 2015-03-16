@@ -64,6 +64,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('addChkBoxPlaylist/{id}', array('as'=>'addChkBoxPlaylist.playlist','uses'=>'UserController@addChkBoxPlaylist'));
 	Route::post('addToFavorites/{id}', array('as'=>'add.favorites','uses'=>'UserController@addToFavorites'));
 	Route::post('removeToFavorites/{id}', array('as'=>'remove.favorites','uses'=>'UserController@removeToFavorites'));	
+	Route::post('addToWatchLater/{id}', array('as'=>'add.watchLater','uses'=>'UserController@addToWatchLater'));	
+	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 });
 //*********End of Channels************//

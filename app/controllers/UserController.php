@@ -644,6 +644,20 @@ class UserController extends BaseController {
 							->where('video_id','=',$id)->first();
 		$favorite->delete();					
 	}
+	public function addToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$counter = WatchLater::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			$watchLater = WatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
+		}
+	}
+	public function removeToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$favorite = WatchLater::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id)->first();
+		$favorite->delete();			
+	}
 
 
 }

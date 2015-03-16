@@ -114,16 +114,19 @@ class HomeController extends BaseController {
 									   p.user_id = '".Auth::User()->id."')");
 		$favorites = Favorite::where('video_id','=',$id[0])
 								->where('user_id','=',Auth::User()->id)->first();
+		$watchLater = WatchLater::where('video_id','=',$id[0])
+								->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
+			$watchLater = null;
 		}
 
 		$getVideoComments = Comment::where(array('video_id' => $id[0]))->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments','watchLater'));
 	}
 
 	public function postSignIn() {

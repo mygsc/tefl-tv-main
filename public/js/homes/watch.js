@@ -22,6 +22,22 @@ $(document).ready(function(){
 				});
 		});
 	}
+	function addToWatchLater(){
+		$('#addToWatchLater').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/addToWatchLater/'+text1,function(data){
+					watchLaterLoader();
+				});
+		});
+	}
+	function removeToWatchLater(){
+		$('#removeToWatchLater').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/removeToWatchLater/'+text1,function(data){
+					watchLaterLoader();
+				});
+		});
+	}
 	function deletelist(){
 	$('input[id^="playlist"]').each(function(){
 		var list = $(this);
@@ -153,7 +169,9 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();
+				removeToWatchLater();	
 		});
 	}
 	function deleteLoader(){
@@ -180,7 +198,9 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();	
+				removeToWatchLater();
 		});
 	}
 
@@ -208,7 +228,9 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();
+				removeToWatchLater();	
 		});
 	}
 
@@ -218,12 +240,27 @@ $(document).ready(function(){
 			createPlaylist();
 			deletelist();
 			addToFavorites();
-			removeToFavorites();	
+			removeToFavorites();
+			addToWatchLater();	
+			removeToWatchLater();
 		});
+	}
+	function watchLaterLoader(){
+		$("#watchlater-list").load(window.location.href+' #watchlater-list',function(){
+			addToPlaylist();
+			createPlaylist();
+			deletelist();
+			addToFavorites();
+			removeToFavorites();
+			addToWatchLater();
+			removeToWatchLater();	
+		});	
 	}
 	addToPlaylist();
 	createPlaylist();
 	deletelist();
 	addToFavorites();
 	removeToFavorites();
+	addToWatchLater();
+	removeToWatchLater();
 });
