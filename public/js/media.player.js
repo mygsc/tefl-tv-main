@@ -47,8 +47,9 @@ function GSCMediaPlayer(){
 function adsOn(){
 	ads = timeDuration * adsTime / 100;
 	ads = Math.round(100 / ads);
+	var adsbar = Math.floor(progWidth/adsTime);
 	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#current-progress');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '300px', 'height':'100%', 'position':'absolute'});
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '250px', 'height':'100%', 'position':'absolute'});
 	
 }
 function timeSettings(){
@@ -101,13 +102,18 @@ function changeVolume(sign) {
 	// if (sign === '+') mediaPlayer.volume += mediaPlayer.volume == 1 ? 0 : 0.1;
 	// else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
 	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
-	var volumeLenght = $('#volume-vertical').height(); 
+	
 	if(sign==='-'){
-		$('#volume-vertical').css({'height': volumeLenght-10 +'%'});
+		var volumeH = $('#volume-vertical').height();
+		mediaPlayer.volume = volumeH;
+		volumeLenght = volumeLenght-10;
+		$('#volume-vertical').css({'height':  volumeLenght + '%'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
 		mediaplayer.volume -= 0.1;
 	}else{
-		$('#volume-vertical').css({'height': volumeLenght+10 +'%'});
+		var volumeLenght = $('#volume-vertical').height(); 
+		volumeLenght = volumeLenght+10;
+		$('#volume-vertical').css({'height': volumeLenght +'%'});
 		$('.volume-static-holder').css({'overflow':'hidden'});
 		mediaplayer.volume +=  0.1;
 	}
@@ -204,7 +210,7 @@ function updateProgressBar(response) {
 					}
 							
 					
-					if(finishTime == adsTime){
+					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
 					//mediaPlayer.onwaiting = function() {alert('waiting');}
@@ -256,9 +262,9 @@ function fullscreen(){
 // var chrome = !!window.chrome && !isOpera;//v1+
 // var ie = false || !!document.documentMode;   // At least IE6
 // if(opera == true){}
-// if(firefox == true){video.mozRequestFullScreen();}
-// if(safari == true){video.webkitEnterFullScreen();}
-// if(chrome == true){video.webkitEnterFullScreen();}
+// if(firefox == true){mediaPlayer.mozRequestFullScreen();}
+// if(safari == true){mediaPlayer.webkitEnterFullScreen();}
+// if(chrome == true){mediaPlayer.webkitEnterFullScreen();}
 // if(ie == true){}
 if (mediaPlayer.requestFullscreen){mediaPlayer.requestFullscreen();}
 if (mediaPlayer.msRequestFullscreen){mediaPlayer.msRequestFullscreen();}
