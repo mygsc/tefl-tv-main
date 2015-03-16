@@ -12,15 +12,15 @@
 					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
-								<div class="col-md-6 pull-left">
-									<span class="infoCounts">
-										<label>{{count($countSubscribers)}} Subscribers</label>
-										<label>100 Videos</label> &nbsp;
-										<label>13k Views</label>
-									</span>
-								</div>
-									
-								<div class="col-md-6">
+
+								<span class="infoCounts">
+									<label>{{count($countSubscribers)}} Subscribers</label>
+									<label>{{count($countVideos)}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
+								</span>
+								
+
+								<span class="pull-right" >
 									<span class="pull-right" >
 										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
 										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
@@ -28,8 +28,9 @@
 										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
 										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
 										<a href=""><i class="socialMedia socialMedia-site"></i></a>
-									</span>
-								</div>
+									</span> 
+								</span>	
+
 							</div>
 						</div>	
 					</div>
@@ -70,12 +71,12 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{Auth::User()->organization}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$usersChannel->work}}</td>
 									</tr>
 								</table>
 							</div>
@@ -84,7 +85,7 @@
 									<tr>
 										<td><small><label>Email</label></small> </td>
 										<td><b>:</b></td>
-										<td></td>
+										<td>{{Auth::User()->email}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Website</label></small></td>

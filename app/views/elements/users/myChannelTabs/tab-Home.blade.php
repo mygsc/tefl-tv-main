@@ -67,9 +67,12 @@
 							</video>
 						</div>
 					</a>
-					<div class="v-Info">
-						{{$usersVideo->title}}
-					</div>
+					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
+						<div class="v-Info">
+							{{$usersVideo->title}}
+						</div>
+					</a>
+					
 					<div class="count">
 						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 					</div>

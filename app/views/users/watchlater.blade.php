@@ -116,15 +116,17 @@ text-align: center;
 								
 							</div>
 
-							<div class="v-Info">
-								{{$watchLater->title}}
+
+						<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+						<div class="v-Info">
+							{{$watchLater->title}}
+						</div>
+						</a>
+						<div class="count">
+							by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+							<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+							<br/>
 							</div>
-							
-							<div class="count">
-								by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-								<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
-								<br/>
-								</div>
 							</div>
 							@endforeach	
 					</div><!--videoContainer-->
