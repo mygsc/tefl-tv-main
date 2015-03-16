@@ -105,26 +105,28 @@ text-align: center;
 										</p>
 									</div>
 								</div>
-								
+								{{Form::open()}}
+								{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;z-index:99;'))}}
+								{{Form::close()}}
 								<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
 									<video controls>
 										<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
 									</video>
 								</a>
-								{{Form::open()}}
-								{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
-								{{Form::close()}}
+								
 							</div>
 
-							<div class="v-Info">
-								{{$watchLater->title}}
+
+						<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+						<div class="v-Info">
+							{{$watchLater->title}}
+						</div>
+						</a>
+						<div class="count">
+							by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+							<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+							<br/>
 							</div>
-							
-							<div class="count">
-								by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-								<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
-								<br/>
-								</div>
 							</div>
 							@endforeach	
 					</div><!--videoContainer-->
