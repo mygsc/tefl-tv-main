@@ -72,7 +72,8 @@
 								{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 							</div>
 								{{Form::open()}}
-									{{Form::submit('Add to Playlist')}}
+
+									{{Form::submit('Add to Playlist', array('class' => 'btn btn-unsub'))}}
 								{{Form::close()}}
 						</div>
 						@endforeach	

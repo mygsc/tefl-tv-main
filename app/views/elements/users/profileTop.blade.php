@@ -12,6 +12,7 @@
 					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
+
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{count($countVideos)}} Videos</label> &nbsp;
@@ -20,12 +21,16 @@
 								
 
 								<span class="pull-right" >
-									<a href=""><img src="/img/icons/fb.png"></a>
-									<a href=""><img src="/img/icons/tr.png"></a>
-									<a href=""><img src="/img/icons/gp.png"></a>
-									<a href=""><img src="/img/icons/yt.png"></a>
-									<a href=""><img src="/img/icons/wl.png"></a>  
+									<span class="pull-right" >
+										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
+										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
+										<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
+										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
+										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
+										<a href=""><i class="socialMedia socialMedia-site"></i></a>
+									</span> 
 								</span>	
+
 							</div>
 						</div>	
 					</div>
