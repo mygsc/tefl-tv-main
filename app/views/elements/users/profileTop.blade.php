@@ -12,22 +12,25 @@
 					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
+
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label>100 Videos</label> &nbsp;
-									<label>13k Views</label>
+									<label>{{count($countVideos)}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
 								</span>
 								
 
 								<span class="pull-right" >
-									<a href=""><img src="/img/icons/fb.png"></a>
-									<a href=""><img src="/img/icons/tr.png"></a>
-									<a href=""><img src="/img/icons/gp.png"></a>
-									<a href=""><img src="/img/icons/yt.png"></a>
-									<a href=""><img src="/img/icons/wl.png"></a>
- 	
-									<button class="btn btn-primary" style="margin-top:5px;">Subscribe</button>
+									<span class="pull-right" >
+										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
+										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
+										<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
+										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
+										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
+										<a href=""><i class="socialMedia socialMedia-site"></i></a>
+									</span> 
 								</span>	
+
 							</div>
 						</div>	
 					</div>
@@ -68,12 +71,12 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{Auth::User()->organization}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$usersChannel->work}}</td>
 									</tr>
 								</table>
 							</div>
@@ -82,7 +85,7 @@
 									<tr>
 										<td><small><label>Email</label></small> </td>
 										<td><b>:</b></td>
-										<td></td>
+										<td>{{Auth::User()->email}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Website</label></small></td>

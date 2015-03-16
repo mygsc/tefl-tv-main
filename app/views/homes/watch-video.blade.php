@@ -35,22 +35,17 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
-                                                <span class="dropdown-menu drop pull-right White" style="padding:5px 5px;text-align:center;">
-                                                    <!--facebook-->
-                                                    <span style="background:#3d5a98;" class="snBg">
-                                                        <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-                                                    </span>
-                                                    <span class="snCount" style="border:1px solid #3d5a98;">
-                                                        100,000
-                                                    </span><!--/facebook-->
-                                                    <br/><br/>
-                                                    <!--google-->
-                                                    <span style="background:#dd6b6b;" class="snBg">
-                                                        <img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-                                                    </span>
-                                                    <span style="border:1px solid #dd6b6b;" class="snCount">
-                                                        100,000
-                                                    </span><!--/google-->
+                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                          
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -117,7 +112,7 @@
                                         <div class="col-md-11">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
-                                                    <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;">Subscribe</span></a>
+                                                    <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
                                             <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>

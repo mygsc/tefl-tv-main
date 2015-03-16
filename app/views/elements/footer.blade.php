@@ -15,10 +15,11 @@
 
             <div class="col-md-5">
                 <div class="col-md-10 col-xs-12 col-sm-9">
-                    <span class="text-right" >
-                        <span ><a href=""><img src="/img/icons/tr.png" class="pull-right hvr-float f-icon" ></a></span>
-                        <span> <a href=""><img src="/img/icons/gp.png" class="pull-right hvr-float f-icon"></a></span>
-                        <span><a href=""><img src="/img/icons/fb.png" class="pull-right hvr-float f-icon"></a></span>
+                    <span class="text-right">
+                            <a href=""><i class="socialMedia socialMedia-facebook pull-right"></i></a>
+                            <a href=""><i class="socialMedia socialMedia-googlePlus pull-right"></i></a>
+                            <a href=""><i class="socialMedia socialMedia-twitter pull-right"></i></a>
+                            <a href=""><i class="socialMedia socialMedia-skype pull-right"></i></a>
                     </span><!--/.text-right-->
 
                 </div><!--/.col-md-10 col-xs-12 col-sm-9-->

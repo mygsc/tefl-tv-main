@@ -1,0 +1,177 @@
+.socialMedia {
+    background-image: url(/img/icons/social-media.png);
+    background-repeat: no-repeat;
+    display: inline;
+    margin-top: 0!important;
+    margin-bottom: 0!important
+}
+
+.socialMedia-behance {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -5px;
+    display: inline-block;
+}
+
+.socialMedia-blogger {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -5px;display: inline-block;
+
+}
+
+.socialMedia-devianArt {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -5px;display: inline-block;
+}
+
+.socialMedia-digg {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -5px;display: inline-block;
+}
+
+.socialMedia-dribble {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -5px;display: inline-block;
+}
+
+.socialMedia-evernote {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -53px;display: inline-block;
+}
+
+.socialMedia-facebook {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -53px;display: inline-block;
+}
+
+.socialMedia-flickr {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -53px;display: inline-block;
+}
+
+.socialMedia-forrst_ {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -53px;display: inline-block;
+}
+
+.socialMedia-googlePlus {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -53px;display: inline-block;
+}
+
+.socialMedia-instagram {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -101px;display: inline-block;
+}
+
+.socialMedia-lastFM {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -101px;display: inline-block;
+}
+
+.socialMedia-linkedIn {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -101px;display: inline-block;
+}
+
+.socialMedia-paypal {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -101px;display: inline-block;
+}
+
+.socialMedia-picasa {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -101px;display: inline-block;
+}
+
+.socialMedia-pinterest {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -149px;display: inline-block;
+}
+
+.socialMedia-rss {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -149px;display: inline-block;
+}
+
+.socialMedia-site {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -149px;display: inline-block;
+}
+
+.socialMedia-skype {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -149px;display: inline-block;
+}
+
+.socialMedia-soundcloud {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -149px;display: inline-block;
+}
+
+.socialMedia-stumble {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -197px;display: inline-block;
+}
+
+.socialMedia-tumblr {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -197px;display: inline-block;
+}
+
+.socialMedia-twitter {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -197px;display: inline-block;
+}
+
+.socialMedia-viddler {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -197px;display: inline-block;
+}
+
+.socialMedia-vimeo {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -197px;display: inline-block;
+}
+
+.socialMedia-wordPress {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -5px;display: inline-block;
+}
+
+.socialMedia-yahoo {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -53px;display: inline-block;
+}
+
+.socialMedia-youtube {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -101px;display: inline-block;
+}
