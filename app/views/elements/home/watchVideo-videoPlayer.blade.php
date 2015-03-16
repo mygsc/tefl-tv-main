@@ -71,6 +71,9 @@
 									<li> <a href="#"><img src="/img/icons/ig.png"> Instagram</a></li>
 									<li> <a href="#"><img src="/img/icons/yt.png"> Youtube</a></li>
 									<li> <a href="#"><img src="/img/icons/gp.png"> Google +</a></li>
+									<li> <a href="#"><img src="/img/icons/fk.png"> Flicker</a></li>
+									<li> <a href="#"><img src="/img/icons/tb.png"> Tumblr</a></li>
+									<li> <a href="#"><img src="/img/icons/ps.png"> Pinterest</a></li>
 								</ul>						
 							</div>
 

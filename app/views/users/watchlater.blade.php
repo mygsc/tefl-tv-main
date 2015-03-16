@@ -14,12 +14,10 @@ body {
  
 .caption {
     position:absolute;
-    top:0;
-    right:0;
-    background:rgba(90, 90, 90, 0.75);
- width: 100%;
-  height: 100%;
-
+    padding:15px 0;
+    background:rgba(152, 217, 255, 0.50	);
+ 	width: 90%;
+  	height: auto;
     display: none;
     text-align: center;
     color:#fff !important;
@@ -33,7 +31,6 @@ width: 100%;
 height: 100%;
 }
 .caption-content {
-display: table-cell;
 vertical-align: middle;
 text-align: center;
 }
@@ -92,51 +89,49 @@ text-align: center;
 						</div>
 					</div>
 					<br/><br/><hr class="" />
-				<div id="videosContainer" class='container'>
-					<br/>
-					@foreach($videosWatchLater as $watchLater)
-					<div class="col-md-3">
-						<div class="watch">
-							<input type="hidden" id="user_id" value="{{Auth::User()->id}}">
-							<input type="hidden" id="video_id" value="{{$watchLater->id}}">
-							<div class="caption">
-								<div class="caption-inner">
-									<p class="caption-content">
-									<br/>
-									<br/>
-											<h1>Watched</h1>
-									</p>
+					<div id="videosContainer" class='container'>
+						<br/>
+						@foreach($videosWatchLater as $watchLater)
+						<div class="col-md-3">
+							<div class="watch">
+								<input type="hidden" id="user_id" value="{{Auth::User()->id}}">
+								<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+								<div class="caption">
+									<div class="caption-inner">
+										<p class="caption-content">
+										<br/>
+										<h1>Watched</h1>
+										<br/>
+										</p>
+									</div>
+								</div>
+								{{Form::open()}}
+								{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;z-index:99;'))}}
+								{{Form::close()}}
+								<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+									<video controls>
+										<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
+									</video>
+								</a>
+								
+							</div>
+
+							<div class="v-Info">
+								{{$watchLater->title}}
+							</div>
+							
+							<div class="count">
+								by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+								<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+								<br/>
 								</div>
 							</div>
-							
-							
-
-							<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
-								<video controls>
-									<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
-								</video>
-							</a>
-							{{Form::open()}}
-							{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;'))}}
-							{{Form::close()}}
-						</div>
-
-						<div class="v-Info">
-							{{$watchLater->title}}
-						</div>
-						<div class="count">
-							by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-							<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
-							<br/>
-							</div>
-						</div>
-						@endforeach	
-					
-				</div><!--videoContainer-->
-			</div>
-		</div><!--!/.shadow div-channel-border-->
-	</div><!--/.row-->
-</div><!--/.container page-->
+							@endforeach	
+					</div><!--videoContainer-->
+				</div>
+			</div><!--!/.shadow div-channel-border-->
+		</div><!--/.row-->
+	</div><!--/.container page-->
 @stop
 
 @section('script')
