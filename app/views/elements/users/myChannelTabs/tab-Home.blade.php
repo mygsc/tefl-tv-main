@@ -157,7 +157,7 @@
 	<!--Subscribers-->
 	
 	<div class="col-md-6">
-		<div class="well2 Div-channelSubSection">
+		<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 			<div class="subLabelThis">
 				<span>Subscribers</span>&nbsp;
 				@if(!$ifNoSubscriber)
@@ -177,7 +177,7 @@
 					@foreach($subscriberLists as $subscriberList)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
-							<img src="/img/user/u1.png" class="userRep2">&nbsp;
+							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 							<br/>&nbsp;
 							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
