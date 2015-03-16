@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html ><!--class="no-js"-->
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
@@ -15,6 +15,8 @@
 	{{ HTML::style('css/dropdown.enhancement.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::style('css/vid.player.css') }}
+	{{HTML::script('js/jquery.js')}}
+	{{HTML::script('js/user/upload.js')}}
 	@yield('css')
 </head>
 <body>
@@ -26,9 +28,8 @@
 
 		@include('elements/footer')
 </body>
+
 <!-- scripts -->
-{{HTML::script('js/jquery.js')}}
-{{HTML::script('js/user/upload.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 @yield('script')

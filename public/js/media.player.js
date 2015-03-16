@@ -141,6 +141,7 @@ function updateProgressBar(response) {
 	var percentage = Math.floor((100 / mediaPlayer.duration) * mediaPlayer.currentTime),
 	 time = Math.round(($('#current-progress').width() / progWidth) * mediaPlayer.duration),
 	 vidMin = Math.floor(mediaPlayer.duration / 60),
+
 	 vidSec = Math.round(mediaPlayer.duration - (vidMin * 60)),
 	 videoCurrentTime = Math.round(mediaPlayer.currentTime),
 	 seconds = 0,

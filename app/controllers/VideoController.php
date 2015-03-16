@@ -18,7 +18,6 @@ class VideoController extends Controller {
 		return View::make('users.upload');
 	}
 	public function postUpload(){
-		
 		$size = '1024x768'; 
 		$second = 5; 
 		$ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
@@ -27,44 +26,21 @@ class VideoController extends Controller {
 		if($validator->passes()){
 			//insert into database
 			$file = Input::file('video');
-			$input['user_id'] = '1';
+			$input['user_id'] = $this->user->id;//'1';
 			$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
 			$latest_id = $create->id;
-			$ecrypt_name = Crypt::encrypt($latest_id);
+			$encrypt_name = Crypt::encrypt($latest_id);
 			$db_filename = Video::find($latest_id);
-			$db_filename->file_name = $ecrypt_name;
+			$db_filename->file_name = $encrypt_name;
 
 			if($db_filename->save()){
-
-				//if img-thumbnail exist in the tmp-img then delete file first
-				if(File::exists($this->tmpImg.$this->user->channel_name.'1.jpg')){
 					//Start upload
 					$img = $this->user->channel_name;
 					$destinationPath = 'public/videos/';
 					$ext = $file->getClientOriginalExtension();
-					$file->move($destinationPath, $ecrypt_name.'.'.$ext);
-					//$cmd = "$ffmpegPath -i $file -an -ss $second -s $size public/img/$img.jpg";
-						for($uploadStart=1; $uploadStart<=3; $uploadStart++){
-							$secondsInterval = $uploadStart*5;
-							$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$uploadStart.jpg";
-							$createThumb = shell_exec($cmd);
-							//if($createThumb){return'thumbnail created successfully.';}
-						}	
-
-			  }else{
-			  		$img = $this->user->channel_name;
-					$destinationPath = 'public/videos/';
-					$ext = $file->getClientOriginalExtension();
-					$file->move($destinationPath, $ecrypt_name.'.'.$ext);
-					for($n=1; $n<=3; $n++){
-						$secondsInterval = $n*5;
-						$cmd = "$ffmpegPath -i $file -an -ss $secondsInterval -s $size public/videos/tmp-img/$img$n.jpg";
-						$createThumb = shell_exec($cmd);
-						//if($createThumb){return'thumbnail created successfully.';}
-					}
-			}
-			return Redirect::route('get.addDescription', $ecrypt_name);
+					$file->move($destinationPath, $encrypt_name.'.'.$ext);  
+			return Redirect::route('get.addDescription', $encrypt_name);
 		}
 	}
 	return Redirect::route('get.upload')
