@@ -11,6 +11,7 @@
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/sprites.css') }}
 	{{ HTML::style('css/videoGallery.css') }}
 	{{ HTML::style('css/dropdown.enhancement.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}

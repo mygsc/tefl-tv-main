@@ -66,14 +66,15 @@
 							<div class="share-video" style="display:none">
 								<small style="text-align:center;color:#fff">Share to:</small>
 								<ul>
-									<li> <a href="#"><img src="/img/icons/fb.png"> Facebook</a></li>
-									<li> <a href="#"><img src="/img/icons/tr.png"> Twiter</a></li>
-									<li> <a href="#"><img src="/img/icons/ig.png"> Instagram</a></li>
-									<li> <a href="#"><img src="/img/icons/yt.png"> Youtube</a></li>
-									<li> <a href="#"><img src="/img/icons/gp.png"> Google +</a></li>
-									<li> <a href="#"><img src="/img/icons/fk.png"> Flicker</a></li>
-									<li> <a href="#"><img src="/img/icons/tb.png"> Tumblr</a></li>
-									<li> <a href="#"><img src="/img/icons/ps.png"> Pinterest</a></li>
+									<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
 								</ul>						
 							</div>
 
