@@ -51,8 +51,8 @@
 				</div>
 
 
-				<div class="c-about" style="padding:10px 10px;margin-top:0;">
-					<div class="labelThis">
+				<div class="c-about" style="">
+					<div class="labelThis" style="margin-top:-25px;">
 						{{$userChannel->channel_name}}
 					</div>
 					<ul class="nav nav-tabs" role="tablist inline">

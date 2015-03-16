@@ -35,22 +35,16 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
-                                                <span class="dropdown-menu drop pull-right White" style="padding:5px 5px;text-align:center;">
-                                                    <!--facebook-->
-                                                    <span style="background:#3d5a98;" class="snBg">
-                                                        <img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-                                                    </span>
-                                                    <span class="snCount" style="border:1px solid #3d5a98;">
-                                                        100,000
-                                                    </span><!--/facebook-->
-                                                    <br/><br/>
-                                                    <!--google-->
-                                                    <span style="background:#dd6b6b;" class="snBg">
-                                                        <img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-                                                    </span>
-                                                    <span style="border:1px solid #dd6b6b;" class="snCount">
-                                                        100,000
-                                                    </span><!--/google-->
+                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+
+                                                    <img src="/img/icons/fb.png" class="hand" title="Share on Facebook">
+                                                    <img src="/img/icons/tr.png" class="hand" title="Share on Twitter">
+                                                    <img src="/img/icons/ig.png" class="hand" title="Share on Instagram">
+                                                    <img src="/img/icons/yt.png" class="hand" title="Share on Youtube">
+                                                    <img src="/img/icons/gp.png" class="hand" title="Share on Google+">
+                                                    <img src="/img/icons/fk.png" class="hand" title="Share on Flicker">
+                                                    <img src="/img/icons/tb.png" class="hand" title="Share on Tumblr">
+                                                    <img src="/img/icons/ps.png" class="hand" title="Share on Pinterest">
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -64,12 +58,12 @@
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
                                                     
                                                 @if(empty($favorites))
-                                                    <li><p id="addToFavorites"><img src="img/icons/star.png"/>
+                                                    <li><p id="addToFavorites" style="cursor: pointer"><img src="img/icons/star.png"/>
                                                 @else
-                                                    <li><p id="removeToFavorites"><img src="img/icons/starActive.png"/>
+                                                    <li><p id="removeToFavorites" style="cursor: pointer"><img src="img/icons/starActive.png"/>
                                                 @endif
                                                     &nbsp;&nbsp;Favorites</p></li>
-                                                    <li><p id="addToWatchLater"><img src="img/icons/clockActive.png"/> &nbsp;&nbsp;Watch Later</p></li>
+                                                    <li><p id="addToWatchLater"><img src="img/icons/clock.png"/> &nbsp;&nbsp;Watch Later</p></li>
                                                     <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
                                                         @if(empty($playlists))
                                                         <ul style="list-style:none" id="list-checkbox">
@@ -116,7 +110,7 @@
                                         <div class="col-md-11">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
-                                                    <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;">Subscribe</span></a>
+                                                    <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
                                             <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>

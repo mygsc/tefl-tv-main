@@ -600,8 +600,10 @@ class UserController extends BaseController {
     	$description = Input::get('description');
     	$privacy = Input::get('privacy');
     	$user_id = Auth::User()->id;
-    	$duplicateValidator = Playlist::where('name','=',$name);
-    	$duplicate = Playlist::where('name','=',$name)->first();	
+    	$duplicateValidator = Playlist::where('name','=',$name)
+    									->where('user_id','=',Auth::User()->id);
+    	$duplicate = Playlist::where('name','=',$name)
+    							->where('user_id','=',Auth::User()->id)->first();	
     	if($duplicateValidator->count()){
     		$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
     										->where('video_id','=',$id);

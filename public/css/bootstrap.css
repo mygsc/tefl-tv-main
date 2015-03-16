@@ -6575,13 +6575,27 @@ button.close {
 #browse{
   position: relative;
   cursor:pointer;
- 
+  background:#2a2a2a;
+  color:#fff;
+  padding:5px;
 }#browse input{
    position: absolute;
    z-index: 2;
    opacity: 0;
    width: 100%;
    height: 100%;
-   cursor:pointer;
 }
+
+.loader{
+  border:none;
+  padding-top:45px;
+  background-color: transparent;
+  text-align: center;
+  background: url('/img/icons/loader.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+  color:#000000;
+  position:relative;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
