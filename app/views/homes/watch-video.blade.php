@@ -36,15 +36,16 @@
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-
-                                                    <img src="/img/icons/fb.png" class="hand" title="Share on Facebook">
-                                                    <img src="/img/icons/tr.png" class="hand" title="Share on Twitter">
-                                                    <img src="/img/icons/ig.png" class="hand" title="Share on Instagram">
-                                                    <img src="/img/icons/yt.png" class="hand" title="Share on Youtube">
-                                                    <img src="/img/icons/gp.png" class="hand" title="Share on Google+">
-                                                    <img src="/img/icons/fk.png" class="hand" title="Share on Flicker">
-                                                    <img src="/img/icons/tb.png" class="hand" title="Share on Tumblr">
-                                                    <img src="/img/icons/ps.png" class="hand" title="Share on Pinterest">
+                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                          
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
