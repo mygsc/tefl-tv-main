@@ -33,8 +33,11 @@ Upload
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
-
-					
+					@if(Session::has('success'))
+						<div class="success">
+							<p style="color:green">{{Session::pull('success')}}</p>
+						</div>
+					@endif()
 					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
 
 					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
@@ -59,7 +62,7 @@ Upload
 		<br><br>
 			<div class="well">
 				<div class="embed-responsive embed-responsive-16by9 h-video">
-				    <video onloadeddata="$(this).trigger('video_really_ready')" id="video"  width="400" poster="/img/thumbnails/video.png">
+				    <video  onloadeddata="$(this).trigger('video_really_ready')" id="video"  width="400" poster="/img/thumbnails/video.png">
 							<source src="/videos/movie.mp4" type="video/mp4" >
 							<source src="/videos/movie.mov" type="video/mov" >
 							<source src="/videos/movie.ogg" type="video/ogg" >
@@ -68,7 +71,7 @@ Upload
 					
 			</div>
 			<div class="col-sm-12">
-				<h4 style="text-align:center;padding-top:5px;">Select your video thumbnail</h4>	
+				<h4 style="text-align:center;padding-top:5px;">To change your video thumbnail click the image</h4>	
 					<div id="screenshot">
 						{{--DISPLAY THUMBNAIL DON'T DELETE THIS DIV--}}
 					</div>	
