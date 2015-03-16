@@ -14,8 +14,8 @@
 							<div class="overlay-cover">
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label>100 Videos</label> &nbsp;
-									<label>13k Views</label>
+									<label>{{count($countVideos)}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
 								</span>
 								
 
@@ -68,12 +68,12 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{Auth::User()->organization}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$usersChannel->work}}</td>
 									</tr>
 								</table>
 							</div>
@@ -82,7 +82,7 @@
 									<tr>
 										<td><small><label>Email</label></small> </td>
 										<td><b>:</b></td>
-										<td></td>
+										<td>{{Auth::User()->email}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Website</label></small></td>
