@@ -573,6 +573,7 @@ class UserController extends BaseController {
         }
     }
     public function addPlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$name = Input::get('name');
     	$description = Input::get('description');
     	$privacy = Input::get('privacy');
@@ -594,10 +595,12 @@ class UserController extends BaseController {
     	}
     }
     public function addChkBoxPlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$playlistId = Crypt::decrypt(Input::get('value'));
     	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
     }
     public function removePlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$playlistId = Crypt::decrypt(Input::get('value'));
     	$playlistItem = PlaylistItem::where('video_id','=',$id)
     									->where('playlist_id','=',$playlistId)->first();
@@ -605,9 +608,15 @@ class UserController extends BaseController {
 
     }
     public function addToFavorites($id){
-		Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+    	$id = Crypt::decrypt($id);
+    	$counter = Favorite::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+		}
 	}
 	public function removeToFavorites($id){
+		$id = Crypt::decrypt($id);
 		$favorite = Favorite::where('user_id','=',Auth::User()->id)
 							->where('video_id','=',$id)->first();
 		$favorite->delete();					

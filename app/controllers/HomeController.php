@@ -82,12 +82,18 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
 		$videos = Video::find($id[0]);
 		$owner = User::find($videos->user_id);
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
+		if(empty($id[1])){
+			return Redirect::to('/');
+		}
+		if(empty($id[0])){
+			return Redirect::to('/');
+		}
+		if(preg_replace('/[^A-Za-z\-]/', '',$id[1]) != preg_replace('/[^A-Za-z\-]/', '',$videos->title)){
+			return Redirect::to('/');
+		}
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
 		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
@@ -96,14 +102,16 @@ class HomeController extends BaseController {
 		if(isset(Auth::User()->id)){
 		$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
 									LEFT JOIN playlists_items i ON p.id = i.playlist_id
-									WHERE p.privacy = '1'
-									HAVING i.video_id = '".$id[0]."'
-									AND p.user_id = '".Auth::User()->id."';");
-		$playlistNotChosens = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.user_id FROM playlists p
-					LEFT JOIN playlists_items i ON p.id = i.playlist_id
-					WHERE p.privacy = '1'
-					HAVING i.video_id IS NULL
-					AND p.user_id = '".Auth::User()->id."';");
+									WHERE i.video_id = '".$id[0]."'
+									HAVING p.user_id = '".Auth::User()->id."';");
+		$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
+									WHERE NOT EXISTS
+									(SELECT * FROM playlists_items AS i
+									   WHERE i.playlist_id = p.id
+									   AND
+									   i.video_id = '".$id[0]."'
+									   AND
+									   p.user_id = '".Auth::User()->id."')");
 		$favorites = Favorite::where('video_id','=',$id[0])
 								->where('user_id','=',Auth::User()->id)->first();
 		}
