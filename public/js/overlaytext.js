@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$('.watch').click(function(e) {
 		e.preventDefault();
 		// alert($(this).find('#video_id').val());
