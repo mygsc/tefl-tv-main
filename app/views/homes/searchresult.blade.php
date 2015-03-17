@@ -9,7 +9,10 @@
 		<div class="col-md-8">
 			<div class="row">
 				@if(empty($searchResults))
-					Nothing Found
+					<br/><br/><br/>
+					<div class="text-center">
+					<p style="font-size:1.8em;font-style:italic;">Nothing Found</p>
+					</div>
 				@else
 					@if($type == 'playlist')
 						@include('elements.home.searchs.video')
@@ -23,11 +26,10 @@
 		</div>
 		<div class="col-md-4">
 			<div class="sideLinksDiv2">
-		
-			@include('elements/home/adverstisementSmall')
-			@include('elements/home/carouselAds')	
-			@include('elements/home/recommendedChannelList')
-		</div>
+				@include('elements/home/adverstisementSmall')
+				@include('elements/home/carouselAds')	
+				@include('elements/home/recommendedChannelList')
+			</div>
 		</div>
 	</div>
 @stop

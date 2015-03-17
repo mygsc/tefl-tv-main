@@ -37,7 +37,11 @@
 							    				{{Form::hidden('user_id',$userChannel->id)}}
 							    				{{Form::hidden('subscriber_id', $user_id)}}
 							    				{{Form::hidden('status','subscribeOn')}}
-										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+							    				@if(!empty($ifAlreadySubscribe))
+										    		{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    	@else
+										    		{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    	@endif
 										    {{Form::close()}}
 										@else
 											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
@@ -85,12 +89,12 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$userChannel->organiztion}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$userChannel->organiztion}}</td>
 									</tr>
 								</table>
 							</div>
@@ -104,7 +108,7 @@
 									<tr>
 										<td><small><label>Website</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->website}}</td>
+										<td>{{$userChannel->website}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Contact Number</label></small></td>

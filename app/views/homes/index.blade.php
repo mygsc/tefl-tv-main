@@ -36,7 +36,7 @@
 					</div>
 				
 				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
-				<span class="title">Vocabulary and Memory Test</span>
+			
 				<span class="pull-right">
 					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
 					
@@ -66,12 +66,17 @@
 						<div class="share-video" style="display:none">
 						<small style="text-align:center;color:#fff">Share to:</small>
 							<ul>
-								<li> <a href="#">Facebook</a></li>
-								<li> <a href="#">Twitter</a></li>
-								<li> <a href="#">Instagram</a></li>
-								<li> <a href="#">Youtube</a></li>
-								<li> <a href="#">Gmail</a></li>
-							</ul>						
+									<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+									<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+									<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+									<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                    
+							</ul>							
 						</div>
 
 					<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>

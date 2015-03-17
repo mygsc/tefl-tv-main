@@ -2,10 +2,11 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Video $video){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
+		$this->Notification = $notification;
+		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
-		$this->Video = $video;
 	}
 
 	public function getSignIn() {
@@ -285,6 +286,38 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postUsersUploadCoverPhoto() {
+
+		If(Input::hasFile('coverPhoto')) {
+
+			$validate = Validator::make(array('image' => Input::file('coverPhoto')), array('image' => 'image|mimes:jpg,jpeg,png'));
+
+			if($validate->passes()) {
+			
+				$filename = Input::file('coverPhoto')->getClientOriginalName();
+
+				$coverPhoto = public_path('img/user/cover_photo') . Auth::User()->id . '.jpg';
+
+				$newName = Auth::User()->id.'.jpg';
+
+				$path = public_path('img/user/cover_photo');
+
+
+				if(file_exists($coverPhoto))
+				{
+					File::delete($coverPhoto);
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Updated!');
+				}else{
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Created New Picture!');
+				}
+			}else{
+				return Redirect::route('users.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+			}
+		}
+	}
+
 	public function getEditUsersChannel() {
 
 		$userChannel = UserProfile::find(Auth::User()->id);
@@ -389,13 +422,22 @@ class UserController extends BaseController {
 
 		$videosWatchLater = Video::find($videoWatchLater);
 
+		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
+		
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos'));
 	}
 
 	public function postWatchLater() {
+	$user_id = Input::get('user_id');
+	$video_id = Input::get('video_id');
+	$database_userid = WatchLater::where('user_id', $user_id)->first();
+	$database_videoid = WatchLater::where('video_id', $video_id)->first();
 
-		return 'asdasdasd';
-	
+	if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
+		
+		$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+	}
+
 	}
 
 	public function getPlaylists() {
@@ -543,12 +585,12 @@ class UserController extends BaseController {
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		
+
 		if(empty($usersVideos)) {
 			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		}
 		$findVideos = $usersVideos->video;
-	
+
 
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
@@ -557,7 +599,6 @@ class UserController extends BaseController {
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber_id;
 		}
-
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
@@ -569,7 +610,7 @@ class UserController extends BaseController {
 		}
 
 		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-		
+
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
@@ -582,6 +623,11 @@ class UserController extends BaseController {
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
+
+			//Add notifcation
+			$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			//End notifications			
+
 			return Response::json(array(
                 'status' => 'subscribeOff',
                 'label' => 'Unsubscribe'
@@ -658,6 +704,41 @@ class UserController extends BaseController {
 							->where('video_id','=',$id)->first();
 		$favorite->delete();			
 	}
+	public function likeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = Like::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+		}
+	}
 
+	public function unlikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$unlike = Like::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id)->first();
+		$unlike->delete();
+	}
 
+	public function getNotification(){
+		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
+
+		return View::make('users.notifications', compact('notifications'));
+	}
+
+	public function postLoadNotification(){
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		$notifications =  $this->Notification->getNotifications($user_id);
+		$this->Notification->setStatus();
+
+		return $notifications;
+	}
+
+	public function postCountNotification(){
+		//$user_id = Crypt::decrypt(Input::get('uid'));
+		$user_id = 3;
+		$notifications =  $this->Notification->getNotifications($user_id, 0);
+
+		return $notifications;
+	}
 }
