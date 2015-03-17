@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('.watch').click(function(e) {
-		// alert($(this).find('#video_id').val());
-		// alert($('input[id="user_id"]').val());
+		alert($(this).find('#video_id').val());
+		alert($('input[id="user_id"]').val());
 		$(this).find('.caption').slideDown(250);
 	});
 		$.ajax({

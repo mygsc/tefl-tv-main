@@ -53,7 +53,8 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Videos</span>&nbsp;|&nbsp;
+				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.myvideos', 'Show All')}}</small>
 			</div>
 			<br/><br/>
 
@@ -67,9 +68,12 @@
 							</video>
 						</div>
 					</a>
-					<div class="v-Info">
-						{{$usersVideo->title}}
-					</div>
+					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
+						<div class="v-Info">
+							{{$usersVideo->title}}
+						</div>
+					</a>
+					
 					<div class="count">
 						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 					</div>
@@ -84,7 +88,8 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Playlists</span>&nbsp;|&nbsp; 
+				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.playlists', 'Show All')}}</small>
 			</div>
 			<br/>
 			<br/>
@@ -154,12 +159,12 @@
 	<!--Subscribers-->
 	
 	<div class="col-md-6">
-		<div class="well2 Div-channelSubSection">
+		<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 			<div class="subLabelThis">
 				<span>Subscribers</span>&nbsp;
 				@if(!$ifNoSubscriber)
 					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">
-					<a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+					{{link_to_route('users.subscribers', 'See All')}}</small>
 				@endif
 			</div>
 			<br/><br/>
@@ -174,7 +179,7 @@
 					@foreach($subscriberLists as $subscriberList)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
-							<img src="/img/user/u1.png" class="userRep2">&nbsp;
+							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 							<br/>&nbsp;
 							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
@@ -194,7 +199,7 @@
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;
 				@if(isset($subscriptionLists))
-					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.subscribers', 'See All')}}</small>
 				@else
 					
 				@endif

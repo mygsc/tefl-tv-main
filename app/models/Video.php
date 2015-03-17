@@ -90,4 +90,40 @@ class Video extends Eloquent{
 
 		return $returnData;
 	}
+
+	public function countViews($countAllViews = null){
+		$a = $countAllViews;
+		$convertNumber = number_format($a);
+			
+		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
+			$a = $countAllViews;
+			$round = round(($a/1000), 1);
+			$convertNumber = number_format($round, 3, ',', ' ') . 'k';
+		}
+
+		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){
+			$a = $countAllViews;
+			$round = round(($a/1000000), 1);
+			$convertNumber = number_format($round, 3, ',', ' ') . 'm';
+		}
+		return $convertNumber;
+	}
+
+	public function countVideos($countAllViews = null){
+		$a = $countAllViews;
+		$convertNumber = number_format($a);
+			
+		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
+			$a = $countAllViews;
+			$round = round(($a/1000), 1);
+			$convertNumber = number_format($round, 3, ',', ' ') . 'k';
+		}
+
+		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){
+			$a = $countAllViews;
+			$round = round(($a/1000000), 1);
+			$convertNumber = number_format($round, 3, ',', ' ') . 'm';
+		}
+		return $convertNumber;
+	}
 }

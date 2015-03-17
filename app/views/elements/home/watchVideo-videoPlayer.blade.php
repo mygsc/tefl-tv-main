@@ -10,15 +10,18 @@
 				<button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
 				<button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
 				<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
-			
-				<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
-					<source src='/videos/movie.mp4' type='video/mp4'>
-					<source src='/videos/movie.webm' type='video/webm'>
-					<source src='/videos/movie.ogg' type='video/ogg'>
-					<source src='/videos/movie.mov' type='video/mov'>
-					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>
-				</video>
+				
+				<div class="embed-responsive embed-responsive-16by9">
+					<video id="media-video" width="100%" poster="/img/thumbnails/v1.png" class="embed-responsive-item">
+						<source src='/videos/movie.mp4' type='video/mp4'>
+						<source src='/videos/movie.webm' type='video/webm'>
+						<source src='/videos/movie.ogg' type='video/ogg'>
+						<source src='/videos/movie.mov' type='video/mov'>
+						<source src='/videos/movie.m4v' type='video/x-m4v'>
+						<source src='/videos/movie.3gp' type='video/3gpp'>
+					</video>
+				</div>
+				
 				<div class="advertisement" style="display:none">
 					<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
@@ -66,20 +69,22 @@
 							<div class="share-video" style="display:none">
 								<small style="text-align:center;color:#fff">Share to:</small>
 								<ul>
-									<li> <a href="#"><img src="/img/icons/fb.png"> Facebook</a></li>
-									<li> <a href="#"><img src="/img/icons/tr.png"> Twiter</a></li>
-									<li> <a href="#"><img src="/img/icons/ig.png"> Instagram</a></li>
-									<li> <a href="#"><img src="/img/icons/yt.png"> Youtube</a></li>
-									<li> <a href="#"><img src="/img/icons/gp.png"> Google +</a></li>
-									<li> <a href="#"><img src="/img/icons/fk.png"> Flicker</a></li>
-									<li> <a href="#"><img src="/img/icons/tb.png"> Tumblr</a></li>
-									<li> <a href="#"><img src="/img/icons/ps.png"> Pinterest</a></li>
+									<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+									<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+									<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+									<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                    
 								</ul>						
 							</div>
 
 							<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
 							<span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
-							<img src="/img/logos/teflTv.png" class="playerLogo">
+			
 						</span><!--/.pull-right iconds-->
 					</div><!--./wrapper-->
 				</div>

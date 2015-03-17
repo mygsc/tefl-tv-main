@@ -2,8 +2,9 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Notification $notification){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
 		$this->Notification = $notification;
+		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
 	}
@@ -175,8 +176,14 @@ class UserController extends BaseController {
 
 
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
-		// $countSubscriptions = DB::table('subscribe')->where('subscriber', Auth::User()->id)->get();
+		// $countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+
+		$allViews = DB::table('videos')->sum('views');
+
+		$countAllViews = $this->Video->countViews($allViews);
+		
 
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber_id;
@@ -202,9 +209,6 @@ class UserController extends BaseController {
 
 			$subscriberLists[$key]->count = count($subscriberCount);
 		}
-
-
-		
 
 		$increment = 0;
 
@@ -247,7 +251,7 @@ class UserController extends BaseController {
 
 	
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos'));
+		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos', 'countVideos', 'countAllViews'));
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -322,21 +326,27 @@ class UserController extends BaseController {
 
 	public function getMyVideos() {
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 
-		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos'));
+		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
 	}
 
 	public function getMyFavorites() {
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
 		$findUsersVideo = User::find(Auth::User()->id)->favorite;
 		
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 	
 
 		foreach($findUsersVideo as $findVideo){
@@ -346,7 +356,7 @@ class UserController extends BaseController {
 		// return $videoFavorites;
 		$showFavoriteVideos = Video::find($videoFavorites);
 
-		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos'));
+		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos','countAllViews', 'countVideos'));
 	}
 
 	public function postRemoveFavorites($id) {
@@ -362,11 +372,15 @@ class UserController extends BaseController {
 	}
 
 	public function getWatchLater() {
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
 		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
+
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 
 
 		foreach($findUsersWatchLaters as $findUsersWatchLater){
@@ -376,7 +390,7 @@ class UserController extends BaseController {
 
 		$videosWatchLater = Video::find($videoWatchLater);
 
-		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch'));
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos'));
 	}
 
 	public function postWatchLater() {
@@ -387,30 +401,38 @@ class UserController extends BaseController {
 
 	public function getPlaylists() {
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-	
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
-		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists'));
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos'));
 	}
 
 	public function getFeedbacks() {
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 
-		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos'));
+		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos'));
 	}
 
 	public function getSubscribers() {
 
-		$countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 
 		$subscribers = User::find(Auth::User()->id)->subscribe;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
 
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber_id;
@@ -452,7 +474,7 @@ class UserController extends BaseController {
 			$subscriptionLists[$key]->count = count($subscriptionCount);
 		}
 
-		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberLists', 'subscriptionLists'));
+		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberLists', 'subscriptionLists','countAllViews', 'countVideos'));
 	}
 
 	public function postUsersChangePassword() {
@@ -532,10 +554,11 @@ class UserController extends BaseController {
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
 
-	
+
 		foreach($subscribers as $a){
-			$subscriber_id[] = $a->subscriber;
+			$subscriber_id[] = $a->subscriber_id;
 		}
+
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
@@ -578,6 +601,7 @@ class UserController extends BaseController {
         }
     }
     public function addPlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$name = Input::get('name');
     	$description = Input::get('description');
     	$privacy = Input::get('privacy');
@@ -599,10 +623,12 @@ class UserController extends BaseController {
     	}
     }
     public function addChkBoxPlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$playlistId = Crypt::decrypt(Input::get('value'));
     	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
     }
     public function removePlaylist($id){
+    	$id = Crypt::decrypt($id);
     	$playlistId = Crypt::decrypt(Input::get('value'));
     	$playlistItem = PlaylistItem::where('video_id','=',$id)
     									->where('playlist_id','=',$playlistId)->first();
@@ -610,12 +636,32 @@ class UserController extends BaseController {
 
     }
     public function addToFavorites($id){
-		Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+    	$id = Crypt::decrypt($id);
+    	$counter = Favorite::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+		}
 	}
 	public function removeToFavorites($id){
+		$id = Crypt::decrypt($id);
 		$favorite = Favorite::where('user_id','=',Auth::User()->id)
 							->where('video_id','=',$id)->first();
 		$favorite->delete();					
+	}
+	public function addToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$counter = WatchLater::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			$watchLater = WatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
+		}
+	}
+	public function removeToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$favorite = WatchLater::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id)->first();
+		$favorite->delete();			
 	}
 
 	public function getNotification(){
