@@ -23,6 +23,17 @@ body {
     color:#fff !important;
     z-index:2;
 }
+.caption1 {
+    position:absolute;
+    padding:15px 0;
+    background:rgba(152, 217, 255, 0.50	);
+ 	width: 90%;
+  	height: auto;
+    display: none;
+    text-align: center;
+    color:#fff !important;
+    z-index:2;
+}
 
 
 .caption-inner {
@@ -91,11 +102,11 @@ text-align: center;
 					<br/><br/><hr class="" />
 					<div id="videosContainer" class='container'>
 						<br/>
+
 						@foreach($videosWatchLater as $watchLater)
 						<div class="col-md-3">
 							<div class="watch">
-								<input type="hidden" id="user_id" value="{{Auth::User()->id}}">
-								<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+								<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 								<div class="caption">
 									<div class="caption-inner">
 										<p class="caption-content">
@@ -108,14 +119,14 @@ text-align: center;
 								{{Form::open()}}
 								{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;z-index:99;'))}}
 								{{Form::close()}}
-								<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
+								<!-- <a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}"> -->
+								<a href="#">
 									<video controls>
-										<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4">
+										<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4"/>
 									</video>
-								</a>
-								
+									<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+								</a>								
 							</div>
-
 
 						<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
 						<div class="v-Info">
@@ -128,7 +139,7 @@ text-align: center;
 							<br/>
 							</div>
 							</div>
-							@endforeach	
+							@endforeach
 					</div><!--videoContainer-->
 				</div>
 			</div><!--!/.shadow div-channel-border-->

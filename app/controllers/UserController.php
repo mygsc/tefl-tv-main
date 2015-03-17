@@ -389,13 +389,22 @@ class UserController extends BaseController {
 
 		$videosWatchLater = Video::find($videoWatchLater);
 
+		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
+		
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos'));
 	}
 
 	public function postWatchLater() {
+	$user_id = Input::get('user_id');
+	$video_id = Input::get('video_id');
+	$database_userid = WatchLater::where('user_id', $user_id)->first();
+	$database_videoid = WatchLater::where('video_id', $video_id)->first();
 
-		return 'asdasdasd';
-	
+	if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
+		
+		$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+	}
+
 	}
 
 	public function getPlaylists() {
@@ -644,6 +653,5 @@ class UserController extends BaseController {
 							->where('video_id','=',$id)->first();
 		$favorite->delete();					
 	}
-
 
 }
