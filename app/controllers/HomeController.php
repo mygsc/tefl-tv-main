@@ -130,8 +130,10 @@ class HomeController extends BaseController {
 			$watchLater = null;
 		}
 
-		$getVideoComments = Comment::where(array('video_id' => $id[0]))->get();
-		
+		$getVideoComments = DB::table('comments')
+							->join('users', 'users.id', '=', 'comments.user_id')
+							->where('comments.video_id', $videoId)
+							->get();
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
 	}
@@ -189,7 +191,7 @@ class HomeController extends BaseController {
             ));
         }
     }
-    
+
 	public function testingpage(){
 		$routes = route('view.users.channel', array('gil'));
 		return $this->Notification->constructNotificationMessage('3','1','replied');
