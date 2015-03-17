@@ -65,6 +65,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('addToFavorites/{id}', array('as'=>'add.favorites','uses'=>'UserController@addToFavorites'));
 	Route::post('removeToFavorites/{id}', array('as'=>'remove.favorites','uses'=>'UserController@removeToFavorites'));	
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
+	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
+
 });
 //*********End of Channels************//
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
@@ -96,3 +98,4 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 
 Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
+Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
