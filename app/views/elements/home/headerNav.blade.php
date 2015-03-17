@@ -1,4 +1,5 @@
 <div class="categoryNav">
+    <div class="row">
     <div class="container">
             <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">
@@ -29,7 +30,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 Notifications<span class="badge btn-danger ">42</span>
                             </a>
-                            <ul class="dropdown-menu scrollable-menu bullet" id="station_list" role="menu">         
+                            <ul class="dropdown-menu scrollable-menu bullet" id="" role="menu">         
                                 <ul>
                                     <li>fhdshgsdh</li>
                                     <li>fhdshgsdh</li>
@@ -46,7 +47,7 @@
                     <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                     @endif
                 </ul>
-
+            </div><!--col-md-6 col-sm-6-->
         </div><!--/.row-->
    </div><!--/.container-->
 </div><!--/.categoryNav-->

@@ -286,6 +286,38 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postUsersUploadCoverPhoto() {
+
+		If(Input::hasFile('coverPhoto')) {
+
+			$validate = Validator::make(array('image' => Input::file('coverPhoto')), array('image' => 'image|mimes:jpg,jpeg,png'));
+
+			if($validate->passes()) {
+			
+				$filename = Input::file('coverPhoto')->getClientOriginalName();
+
+				$coverPhoto = public_path('img/user/cover_photo') . Auth::User()->id . '.jpg';
+
+				$newName = Auth::User()->id.'.jpg';
+
+				$path = public_path('img/user/cover_photo');
+
+
+				if(file_exists($coverPhoto))
+				{
+					File::delete($coverPhoto);
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Updated!');
+				}else{
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Created New Picture!');
+				}
+			}else{
+				return Redirect::route('users.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+			}
+		}
+	}
+
 	public function getEditUsersChannel() {
 
 		$userChannel = UserProfile::find(Auth::User()->id);
@@ -390,13 +422,22 @@ class UserController extends BaseController {
 
 		$videosWatchLater = Video::find($videoWatchLater);
 
+		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
+		
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos'));
 	}
 
 	public function postWatchLater() {
+	$user_id = Input::get('user_id');
+	$video_id = Input::get('video_id');
+	$database_userid = WatchLater::where('user_id', $user_id)->first();
+	$database_videoid = WatchLater::where('video_id', $video_id)->first();
 
-		return 'asdasdasd';
-	
+	if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
+		
+		$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+	}
+
 	}
 
 	public function getPlaylists() {
@@ -680,4 +721,5 @@ class UserController extends BaseController {
 
 		return View::make('users.notifications', compact('notifications'));
 	}
+
 }

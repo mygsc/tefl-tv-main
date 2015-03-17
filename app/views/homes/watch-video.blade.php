@@ -164,7 +164,8 @@
                         <div class="commentsarea row">
                             @foreach($getVideoComments as $getVideoComment)
                                 <div class="commentsarea row">
-                                    {{$getVideoComment->user_id}}<br/>
+                                    {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'rawr')) }}
+                                    <br/>
                                     {{$getVideoComment->comment}}<br/>
                                     <a href='#' id='reply'>Reply</a>
                                     <span class='glyphicon glyphicon-thumbs-up'></span>

@@ -1,22 +1,21 @@
-<div style="border:5px solid #e3e3e3;" class="White">
-			<div class="col-md-2 hidden-xs">
-				<div class="row">
-					<div class="uploaded_img">
-						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
-					</div>
-				</div>
-			</div>
-			<div class="col-md-10">
+		<div style="border:5px solid #e3e3e3;" class="White">
+		
+			<div class="col-md-12">
 				<div class="row">
 
-					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
-						<div class="">
+					<div class="" style="height:224px;overflow:hidden;">
+						<div class="uploaded_img">
+						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+						</div>
+						{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'x-index:70;', 'width' => '100%'))}}
+						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{count($countVideos)}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
+									<button data-target="#changeCoverPhoto" data-toggle="modal">asdasd</button>
 								</span>
 								
 
@@ -41,8 +40,26 @@
 					{{Auth::User()->channel_name}}
 				</div>
 				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
-
-
-				
 			</div>
 		</div>
+
+		<div class="modal fade" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        {{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
+        	{{Form::file('coverPhoto')}}
+        	{{Form::submit('Change Cover Photo')}}
+        {{Form::close()}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
