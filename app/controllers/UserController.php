@@ -2,10 +2,11 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Video $video){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
+		$this->Notification = $notification;
+		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
-		$this->Video = $video;
 	}
 
 	public function getSignIn() {
@@ -582,6 +583,10 @@ class UserController extends BaseController {
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
+
+			//Add notifcation
+			
+
 			return Response::json(array(
                 'status' => 'subscribeOff',
                 'label' => 'Unsubscribe'
@@ -659,5 +664,9 @@ class UserController extends BaseController {
 		$favorite->delete();			
 	}
 
+	public function getNotification(){
+		$notifications =  $this->Notification->getNotifications(Auth::user()->id, '2');
 
+		return View::make('users.notifications', compact('notifications'));
+	}
 }

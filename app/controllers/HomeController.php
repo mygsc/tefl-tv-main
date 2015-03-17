@@ -3,9 +3,10 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video) {
+	public function __construct(User $user, Video $video,Notification $notification) {
 		$this->User = $user;
 		$this->Video = $video;
+		$this->Notification = $notification;
 	}
 
 	public function getIndex() {
@@ -158,6 +159,11 @@ class HomeController extends BaseController {
 			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 		}
 
+	}
+
+	public function testingpage(){
+		$routes = route('view.users.channel', array('gil'));
+		return $this->Notification->constructNotificationMessage('3','1','replied');
 	}
 
 	

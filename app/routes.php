@@ -67,6 +67,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('addToWatchLater/{id}', array('as'=>'add.watchLater','uses'=>'UserController@addToWatchLater'));	
 	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
+	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
+
 });
 //*********End of Channels************//
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
@@ -98,3 +100,4 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 
 Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 
+Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
