@@ -122,12 +122,18 @@ class HomeController extends BaseController {
 								->where('user_id','=',Auth::User()->id)->first();
 		$watchLater = WatchLater::where('video_id','=',$id[0])
 								->where('user_id','=',Auth::User()->id)->first();
+		$like = Like::where('video_id','=',$id[0])
+								->where('user_id','=',Auth::User()->id)->first();
+		$likeCounter =	Like::where('video_id','=',$id[0])
+								->where('user_id','=',Auth::User()->id)->count();					
 		}
 		else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
 			$watchLater = null;
+			$like = null;
+			$likeCounter = null;
 		}
 
 		$getVideoComments = DB::table('comments')
@@ -135,7 +141,7 @@ class HomeController extends BaseController {
 							->where('comments.video_id', $videoId)
 							->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter'));
 	}
 
 	public function postSignIn() {
