@@ -13,6 +13,7 @@
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
+
 	Route::get('add-description/{id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
@@ -39,6 +40,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 });
 
+
 //**********Channels**********//
 Route::group(array('prefix' => 'mychannels'), function() {
 	// Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
@@ -51,7 +53,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
 	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
 	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));
-	Route::post('post-watch-later', array('as' => 'post.users.watch-later', 'UserController@postWatchLater'));
+	Route::post('post-watch-later', array('as' => 'post.users.watch-later', 'uses' => 'UserController@postWatchLater'));
 	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
 	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
 	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
@@ -72,6 +74,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 
 });
 //*********End of Channels************//
+
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 
 //**********ADMIN**********//

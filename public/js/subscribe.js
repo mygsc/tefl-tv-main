@@ -10,7 +10,8 @@ $(document).ready(function() {
 				$(this).html('Subscribe');
 				subscribe = true;
 			}
-		});	
+		});
+			
 		$('form#subscribe-userChannel').on('submit', function(e){
 			e.preventDefault();
 			var url = $(this).prop('action');
@@ -26,7 +27,5 @@ $(document).ready(function() {
             	// window.location.href = 'search/product?'+q;
             }
         });
-		});
-
 	});
 });
