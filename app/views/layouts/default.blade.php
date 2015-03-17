@@ -35,4 +35,20 @@
 {{HTML::script('js/dropdown.enhancement.js')}}
 @yield('script')
 
+<!--list and gri display for my channel-->
+<script type="text/javascript">
+		$('.grid').click(function() {
+		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
+		    $('.inlineVid').removeClass('col-md-4');
+		    $('.inlineInfo').removeClass('col-md-8');
+		    $('.desc').addClass('hide');
+		});
+		$('.list').click(function() {
+		    $('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
+		    $('.inlineVid').addClass('col-md-4');
+		    $('.inlineInfo').addClass('col-md-8');
+		    $('.desc').removeClass('hide');
+		});
+</script>
+
 </html>
