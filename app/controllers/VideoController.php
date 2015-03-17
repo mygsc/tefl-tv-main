@@ -18,9 +18,9 @@ class VideoController extends Controller {
 		return View::make('users.upload');
 	}
 	public function postUpload(){
-		$size = '1024x768'; 
-		$second = 5; 
-		$ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
+		// $size = '1024x768'; 
+		// $second = 5; 
+		// $ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
@@ -54,107 +54,67 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
+		$posterFilename = str_random(5);
 		$imgSelected = Input::get('thumbnail');
-		if($imgSelected == 1){
-			// delete unselected thumbnail move, and rename 
-			File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
-			File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
-			$oldName = $this->tmpImg.$this->user->channel_name.'1.jpg';
-			$newName = $this->thumbImg.$id.'.jpg';
-			$rename = rename($oldName, $newName);
+		$poster = Input::file('poster');
+		$uploadPosterDir = $this->thumbImg;
+		$id = Crypt::decrypt($id);	
+		$videos = Video::where('id','=',$id)->get();
+		$input = Input::all();  
+		$validator = Validator::make($input,Video::$addDescription);
 			
-			$id = Crypt::decrypt($id);	
-			$videos = Video::where('id','=',$id)->get();
-			$input = Input::all();
-			$validator = Validator::make($input,Video::$addDescription);
-			if($validator->passes()){
-				$tags = explode(',',Input::get('tags'));
-				foreach($tags as $tag){
-					if($tag != null){
-						$newTags[] = strtolower($tag);
-					}
+				if($validator->passes()){
+					if(Input::hasFile('poster')){
+						$tags = explode(',',Input::get('tags'));
+						foreach($tags as $tag){
+							if($tag != null){
+								$newTags[] = strtolower($tag);
+							}
+						}
+						$posterExt = $poster->getClientOriginalExtension();
+						$poster->move($uploadPosterDir, $posterFilename.$id.'.'.$posterExt); 
+						$uniqueTag = array_unique($newTags);
+						$implodeTag = implode(',',$uniqueTag);
+						$video = Video::find($id);
+						$video->poster = $posterFilename.$id.'.'.$posterExt;
+						$video->title = Input::get('title');
+						$video->description = Input::get('description');
+						$video->publish = Input::get('publish');
+						$video->tags =  $implodeTag;
+						$video->save();
+						return Redirect::route('get.upload','=success')->with('success','New video has been upload successfully');
+					}else{
+						// $img = $imgSelected;
+						// $img = str_replace('data:image/png;base64,', '', $img);
+						// $img = str_replace(' ', '+', $img);
+						// $data = base64_decode($img);
+						// $file = $uploadPosterDir.Crypt::encrypt($id).".jpg";
+						// $success = file_put_contents($file, $data);
+
+						$tags = explode(',',Input::get('tags'));
+						foreach($tags as $tag){
+							if($tag != null){
+								$newTags[] = strtolower($tag);
+							}
+						}
+						$uniqueTag = array_unique($newTags);
+						$implodeTag = implode(',',$uniqueTag);
+						$video = Video::find($id);
+						$video->title = Input::get('title');
+						$video->description = Input::get('description');
+						$video->publish = Input::get('publish');
+						$video->tags =  $implodeTag;
+						$video->save();
+						return Redirect::route('get.upload','=success')->with('success','New video has been upload successfully');
+					}					
 				}
-				$uniqueTag = array_unique($newTags);
-				$implodeTag = implode(',',$uniqueTag);
-				$video = Video::find($id);
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
-				$video->tags =  $implodeTag;
-				$video->save();
-				return Redirect::route('homes.index');
-			}
-		}
-		if($imgSelected == 2){
-
-			// delete unselected thumbnail
-			File::delete($this->tmpImg.$this->user->channel_name.'1.jpg');
-			File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
-			$oldName = $this->tmpImg.$this->user->channel_name.'2.jpg';
-			$newName = $this->thumbImg.$id.'.jpg';
-			rename($oldName, $newName);
-
-			// rename img-thumbnail and move
-			move_uploaded_file($newName, $this->thumbImg);
-			$id = Crypt::decrypt($id);	
-			$videos = Video::where('id','=',$id)->get();
-			$input = Input::all();
-			$validator = Validator::make($input,Video::$addDescription);
-			if($validator->passes()){
-				$tags = explode(',',Input::get('tags'));
-				foreach($tags as $tag){
-					if($tag != null){
-						$newTags[] = strtolower($tag);
-					}
-				}
-				$uniqueTag = array_unique($newTags);
-				$implodeTag = implode(',',$uniqueTag);
-				$video = Video::find($id);
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
-				$video->tags =  $implodeTag;
-				$video->save();
-				return Redirect::route('homes.index');
-			}
-		}
-		if($imgSelected == 3){
-
-			// delete unselected thumbnail
-			File::delete($this->tmpImg.$this->user->channel_name.'1.jpg');
-			File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
-			$oldName = $this->tmpImg.$this->user->channel_name.'3.jpg';
-			$newName = $this->thumbImg.$id.'.jpg';
-			$rename = rename($oldName, $newName);
-			if($rename == true){
-				return App::abort(404);
-			}
-
-			// rename img-thumbnail and move
-
-			move_uploaded_file($newName, $this->thumbImg);
-			$id = Crypt::decrypt($id);	
-			$videos = Video::where('id','=',$id)->get();
-			$input = Input::all();
-			$validator = Validator::make($input,Video::$addDescription);
-			if($validator->passes()){
-				$tags = explode(',',Input::get('tags'));
-				foreach($tags as $tag){
-					if($tag != null){
-						$newTags[] = strtolower($tag);
-					}
-				}
-				$uniqueTag = array_unique($newTags);
-				$implodeTag = implode(',',$uniqueTag);
-				$video = Video::find($id);
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
-				$video->tags =  $implodeTag;
-				$video->save();
-				return Redirect::route('homes.index');
-			}
-		}
+			
+			// delete unselected thumbnail move, and rename 
+			// File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
+			// File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
+			// $oldName = $this->tmpImg.$this->user->channel_name.'1.jpg';
+			// $newName = $this->thumbImg.$id.'.jpg';
+			// $rename = rename($oldName, $newName);	
 		
 		return Redirect::route('get.addDescription',Crypt::encrypt($id))
 		->withInput()
