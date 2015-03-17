@@ -25,13 +25,15 @@
 					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>
 				</div>
 				<div class="play-icon">
-					<span><img src="/img/icons/play-btn.png"></span>
+					<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper">
 					<div id="progressbar">
-						<div id="current-progress">		
+						<div id="current-progress">	
+							<div id="button-progress">		
+							</div>	
 						</div>
 					</div>
 				
@@ -81,7 +83,7 @@
 
 					<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
 					<span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
-					<img src="/img/logos/teflTv.png" class="playerLogo">
+					<a href="{{route('public.watch.video','video='.str_random(5))}}"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
 				</span>
 			</div><!--/.wrapper-->
 		</div>

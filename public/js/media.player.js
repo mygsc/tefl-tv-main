@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsO
 
 var mediaPlayer, hrs, mins, secs=0, tmpSecs, adsTime = 10, ads=0, vidMinLenght, vidSecLenght, videoCurrentTime,
 	playPauseBtn, timeDuration,
- 	muteBtn, playIcon = false,
+ 	muteBtn, playIcon = false, replay,
  	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
@@ -19,6 +19,7 @@ var volume = $('#volume-vertical').height();
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
 	playPauseBtn = document.getElementById('play-pause');
+	replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
@@ -93,6 +94,7 @@ function togglePlayPause() {
 		videoPlaying = false;
 		playIcon=true;
 		$('.play-icon').fadeIn(500);
+		
 	}
 }
 
@@ -194,7 +196,7 @@ function updateProgressBar(response) {
 					// A variable set which we'll use later on
 					if(response != true) {
 						$('#current-progress').css({'width' : updProgWidth+'px'});
-						//$that.find('.progress-button').css({'left' : (updProgWidth-$that.find('.progress-button').width())+'px'});
+						$('#button-progress').css({'left' : (updProgWidth-$('#button-progress').width())+'px'});
 					}
 					//Update time
 					if(Math.round(mediaPlayer.duration) >= 3600){ 
@@ -391,5 +393,7 @@ $('#media-video').bind('click', function(){
 $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
+
+
 
 

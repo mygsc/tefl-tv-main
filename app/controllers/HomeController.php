@@ -80,6 +80,9 @@ class HomeController extends BaseController {
 
 		return View::make('homes.signin');
 	}
+	public function getWatchVideo() {
+		return View::make('homes.advertisements');
+	}
 
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
