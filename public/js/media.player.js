@@ -1,23 +1,23 @@
 
-document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();timeSettings();}, false);
+document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();}, false);
 
 var mediaPlayer, hrs, mins, secs=0, tmpSecs, adsTime = 10, ads=0, vidMinLenght, vidSecLenght, videoCurrentTime,
 	playPauseBtn, timeDuration,
  	muteBtn, playIcon = false,
  	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false, start = false,
  	videoTimeLenght,  
- 	volume, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
+ 	volumes, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
+
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 var plusVol = document.getElementById('plus-vol').offsetHeight;
-var volumeBar = $('#volume-vertical').height();
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
+var volume = $('#volume-vertical').height();
 
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
-	timeDuration = Math.round(mediaPlayer.duration);
 	playPauseBtn = document.getElementById('play-pause');
 	muteBtn = document.getElementById('mute-icon');
 	progressBar = document.getElementById('progress-bar');
@@ -42,6 +42,11 @@ function GSCMediaPlayer(){
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
 	mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
+
+	mediaPlayer.addEventListener('loadedmetadata', function() {
+	timeDuration = Math.round(mediaPlayer.duration);
+	timeSettings();
+});
 	
 }
 function adsOn(){
@@ -61,7 +66,7 @@ function timeSettings(){
 	secs =   Math.round(mediaPlayer.duration - (tmpSecs * 60));
 	if(secs < 10) { secs = '0'+ secs; }
 	if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
-	if(mins < 10) { mins = '0'+ mins; }
+	//if(mins < 10) { mins = '0'+ mins; }
 	if(hrs < 10) { hrs = '0'+ hrs; }
 	if(timeDuration < 3600){
 		$('.ctime').html(mins + ':' + secs);
@@ -102,20 +107,32 @@ function changeVolume(sign) {
 	// if (sign === '+') mediaPlayer.volume += mediaPlayer.volume == 1 ? 0 : 0.1;
 	// else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
 	// mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
-	
 	if(sign==='-'){
-		var volumeH = $('#volume-vertical').height();
-		mediaPlayer.volume = volumeH;
-		volumeLenght = volumeLenght-10;
-		$('#volume-vertical').css({'height':  volumeLenght + '%'});
-		$('.volume-static-holder').css({'overflow':'hidden'});
-		mediaplayer.volume -= 0.1;
+			var minus = Math.floor(100 * 0.1); 
+			volume -= minus;
+			mediaPlayer.volume -=  0.1;
+			$('#volume-vertical').css({'height':  volume + '%', 'background':'#337AB7'});
+			$('.volume-static-holder').css({'overflow':'hidden'});
+			 if(volume < 10){
+			 	volume = 10;
+			 	$('#volume-vertical').css({'height': volume + '%', 'background':'#337AB7'});
+			 	$('#volume-button').css({'background':'red'});
+			 	mediaPlayer.volume = 0;
+			 }
 	}else{
-		var volumeLenght = $('#volume-vertical').height(); 
-		volumeLenght = volumeLenght+10;
-		$('#volume-vertical').css({'height': volumeLenght +'%'});
-		$('.volume-static-holder').css({'overflow':'hidden'});
-		mediaplayer.volume +=  0.1;
+			var plus = Math.floor(100 * 0.1);
+			volume = volume + plus;
+			mediaPlayer.volume +=  0.1;
+			$('#volume-vertical').css({'height':  volume + '%', 'background':'#337AB7'});
+			$('.volume-static-holder').css({'overflow':'hidden'});
+			if(volume > 90){
+			 	volume = 100;
+			 	$('#volume-vertical').css({'height': volume + '%', 'background':'#337AB7'});
+			 	mediaPlayer.volume = 1;
+			 }
+			 if(volume > 10){
+			 	$('#volume-button').css({'background':'#fff'});
+			 }
 	}
 }
 
@@ -170,9 +187,9 @@ function updateProgressBar(response) {
 					
 					// Set a zero before the number if its less than 10.
 					if(seconds < 10) { seconds = '0'+ seconds; }
-					if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
-					if(minutes < 10) { minutes = '0'+ minutes; }
-					if(hours < 10) { hours = '0'+ hours; }
+					// if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
+					// if(minutes < 10) { minutes = '0'+ minutes; }
+					// if(hours < 10) { hours = '0'+ hours; }
 					if(videoCurrentTime < 10){ videoCurrentTime = '0' + videoCurrentTime;}
 					// A variable set which we'll use later on
 					if(response != true) {
@@ -181,15 +198,11 @@ function updateProgressBar(response) {
 					}
 					//Update time
 					if(Math.round(mediaPlayer.duration) >= 3600){ 
-								if(hrs < 10){
-									hrs = '0'+hrs;
-								}
+								
 							
 							$('.ctime').html(hours +':' + minutes + ':' + seconds + '/' + hrs + ':' + mins + ':' + secs);				
 					}else{
-						if(vidMin < 10){
-							vidMin = '0'+vidMin;
-						}
+						
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMin + ':' + vidSec);
 					}
 
@@ -256,24 +269,13 @@ function resetPlayer() {
 }
 
 function fullscreen(){
-// var opera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;//v8+
-// var firefox = typeof InstallTrigger !== 'undefined';//v1+
-// var safari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;//v3+
-// var chrome = !!window.chrome && !isOpera;//v1+
-// var ie = false || !!document.documentMode;   // At least IE6
-// if(opera == true){}
-// if(firefox == true){mediaPlayer.mozRequestFullScreen();}
-// if(safari == true){mediaPlayer.webkitEnterFullScreen();}
-// if(chrome == true){mediaPlayer.webkitEnterFullScreen();}
-// if(ie == true){}
-if (mediaPlayer.requestFullscreen){mediaPlayer.requestFullscreen();}
-if (mediaPlayer.msRequestFullscreen){mediaPlayer.msRequestFullscreen();}
-if (mediaPlayer.mozRequestFullScreen){mediaPlayer.mozRequestFullScreen();}
-if (mediaPlayer.webkitRequestFullscreen){mediaPlayer.webkitRequestFullscreen();}
 
-}
-
-function showVolume(){
+videoFullScreen.request(document.getElementById('media-video'));
+//screenfull.request($('.wrapper')[0]);
+//$('.wrapper').css({'position':'relative','bottom':'0','left':'0'});
+// does not require jQuery, can be used like this too:
+// screenfull.request(document.getElementById('container'));
+			
 
 }
 $('#mute-icon').hover(function(){

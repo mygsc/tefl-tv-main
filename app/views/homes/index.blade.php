@@ -198,4 +198,5 @@
 @stop
 @section('script')
 	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/fullscreen.js')}}
 @stop

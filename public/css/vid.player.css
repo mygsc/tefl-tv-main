@@ -9,6 +9,14 @@
 	}#media-video{
 		width: 100%;
 		background: #000000;
+	}video::-webkit-media-controls {
+	  display:none !important;
+	}video::-moz-media-controls {
+	  display:none !important;
+	}video::-o-media-controls {
+	  display:none !important;
+	}video::-ms-media-controls {
+	  display:none !important;
 	}
 	img#play-pause{
 		cursor:pointer;
@@ -224,4 +232,14 @@ border-radius: 2px;
 span.close:hover{
 background:red;
 color:#fff;
+}
+.fullscreen-video{
+  position: fixed;
+  right: 0; 
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  width: auto; 
+  height: auto;
+  z-index: -100;
 }
