@@ -10,7 +10,7 @@ $(document).ready(function(){
 		$('#addToFavorites').click(function(){
 			var text1 = $('#text1').val();
 			$.post('http://localhost:8000/mychannels/addToFavorites/'+text1,function(data){
-					favoriteLoader();
+					addfavoriteLoader();
 				});
 		});
 	}
@@ -18,7 +18,23 @@ $(document).ready(function(){
 		$('#removeToFavorites').click(function(){
 			var text1 = $('#text1').val();
 			$.post('http://localhost:8000/mychannels/removeToFavorites/'+text1,function(data){
-					favoriteLoader();
+					removefavoriteLoader();
+				});
+		});
+	}
+	function addToWatchLater(){
+		$('#addToWatchLater').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/addToWatchLater/'+text1,function(data){
+					addwatchLaterLoader();
+				});
+		});
+	}
+	function removeToWatchLater(){
+		$('#removeToWatchLater').click(function(){
+			var text1 = $('#text1').val();
+			$.post('http://localhost:8000/mychannels/removeToWatchLater/'+text1,function(data){
+					removewatchLaterLoader();
 				});
 		});
 	}
@@ -153,7 +169,9 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();
+				removeToWatchLater();
 		});
 	}
 	function deleteLoader(){
@@ -180,7 +198,9 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();	
+				removeToWatchLater();
 		});
 	}
 
@@ -208,22 +228,133 @@ $(document).ready(function(){
 				createPlaylist();
 				deletelist();
 				addToFavorites();
-				removeToFavorites();	
+				removeToFavorites();
+				addToWatchLater();
+				removeToWatchLater();	
 		});
 	}
 
-	function favoriteLoader(){
-		$("#favotite-list").load(window.location.href+' #favotite-list',function(){
+	function addfavoriteLoader(){
+		$("#dropdown").load(window.location.href+' #dropdown',function(){
+			$('body').append('<div id="favoriteLoader"></div>');
+			$('#favoriteLoader').html('Sucessfully added on your favorites');
+			$('#favoriteLoader').css({
+	         'opacity' : 0.7,
+	         'position': 'fixed',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'color':'white',
+	         'width': '150px',
+	         'height':'50px',
+	         'z-index': 5000
+			});
+			setTimeout(function(){
+				if ($('#favoriteLoader').length > 0) {
+					$('#favoriteLoader').remove();
+				}
+			}, 2000)
 			addToPlaylist();
 			createPlaylist();
 			deletelist();
 			addToFavorites();
-			removeToFavorites();	
+			removeToFavorites();
+			addToWatchLater();	
+			removeToWatchLater();
 		});
+	}
+	function removefavoriteLoader(){
+		$("#dropdown").load(window.location.href+' #dropdown',function(){
+			$('body').append('<div id="favoriteLoader"></div>');
+			$('#favoriteLoader').html('Sucessfully removed on your favorites');
+			$('#favoriteLoader').css({
+	         'opacity' : 0.7,
+	         'position': 'fixed',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'color':'white',
+	         'width': '150px',
+	         'height':'50px',
+	         'z-index': 5000
+			});
+			setTimeout(function(){
+				if ($('#favoriteLoader').length > 0) {
+					$('#favoriteLoader').remove();
+				}
+			}, 2000)
+			addToPlaylist();
+			createPlaylist();
+			deletelist();
+			addToFavorites();
+			removeToFavorites();
+			addToWatchLater();	
+			removeToWatchLater();
+		});
+	}	
+	function addwatchLaterLoader(){
+		$("#dropdown").load(window.location.href+' #dropdown',function(){
+			$('body').append('<div id="watchLaterLoader"></div>');
+			$('#watchLaterLoader').html('Sucessfully added in your watch later list');
+			$('#watchLaterLoader').css({
+	         'opacity' : 0.7,
+	         'position': 'fixed',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'color':'white',
+	         'width': '150px',
+	         'height':'50px',
+	         'z-index': 5000
+			});
+			setTimeout(function(){
+				if ($('#watchLaterLoader').length > 0) {
+					$('#watchLaterLoader').remove();
+				}
+			}, 2000)
+			addToPlaylist();
+			createPlaylist();
+			deletelist();
+			addToFavorites();
+			removeToFavorites();
+			addToWatchLater();
+			removeToWatchLater();
+		});	
+	}
+	function removewatchLaterLoader(){
+		$("#dropdown").load(window.location.href+' #dropdown',function(){
+			$('body').append('<div id="watchLaterLoader"></div>');
+			$('#watchLaterLoader').html('Sucessfully removed in your watch later list');
+			$('#watchLaterLoader').css({
+	         'opacity' : 0.7,
+	         'position': 'fixed',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'color':'white',
+	         'width': '150px',
+	         'height':'50px',
+	         'z-index': 5000
+			});
+			setTimeout(function(){
+				if ($('#watchLaterLoader').length > 0) {
+					$('#watchLaterLoader').remove();
+				}
+			}, 2000)
+			addToPlaylist();
+			createPlaylist();
+			deletelist();
+			addToFavorites();
+			removeToFavorites();
+			addToWatchLater();
+			removeToWatchLater();
+		});	
 	}
 	addToPlaylist();
 	createPlaylist();
 	deletelist();
 	addToFavorites();
 	removeToFavorites();
+	addToWatchLater();
+	removeToWatchLater();
 });

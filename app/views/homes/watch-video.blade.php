@@ -62,7 +62,11 @@
                     @else
                         <li id="favotite-list"><p id="removeToFavorites" style="cursor: pointer"><img src="img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p></li>
                     @endif
-                        <li><p id="addToWatchLater"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @if(empty($watchLater))
+                        <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @else
+                        <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                    @endif
                         <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
                         
                             @if(empty($playlists))
@@ -132,16 +136,34 @@
                         <br/>
                     </div> <!--/.ui-tabs-panel-->
 
+                    <!-- COMMENTS AREA -->
+                    @if(isset(Auth::User()->id))
                     <div class="comments row">
+                        <span id='errorlabel' style='color:red;'></span>
                         <textarea id='comment'></textarea>
                         <button id='btncomment'>Post</button>
+
+                        {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}.
+                        @if(isset(Auth::User()->id))
+                            {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+                        @endif
+
                         <div class="commentsarea row">
                             @foreach($getVideoComments as $getVideoComment)
-                                {{$getVideoComment->comment}}
+                                <div class="commentsarea row">
+                                    {{$getVideoComment->user_id}}<br/>
+                                    {{$getVideoComment->comment}}<br/>
+                                    <a href='#' id='reply'>Reply</a>
+                                    <span class='glyphicon glyphicon-thumbs-up'></span>
+                                    <span class='glyphicon glyphicon-thumbs-down'></span>
+                                </div>
                             @endforeach
                         </div>
                     </div>
-                   <!-- latest -->
+                    @endif
+                    <!-- COMMENTS AREA -->
+
+                    <!-- latest -->
                </div><!--column 8-->
 
 
