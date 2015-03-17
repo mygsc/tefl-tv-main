@@ -162,8 +162,7 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){
-		$routes = route('view.users.channel', array('gil'));
-		return $this->Notification->constructNotificationMessage('3','1','replied');
+
 	}
 
 	

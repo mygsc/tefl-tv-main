@@ -585,7 +585,8 @@ class UserController extends BaseController {
 			$subscribe->save();
 
 			//Add notifcation
-			
+			$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			//End notifications			
 
 			return Response::json(array(
                 'status' => 'subscribeOff',
@@ -665,8 +666,24 @@ class UserController extends BaseController {
 	}
 
 	public function getNotification(){
-		$notifications =  $this->Notification->getNotifications(Auth::user()->id, '2');
+		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 
 		return View::make('users.notifications', compact('notifications'));
+	}
+
+	public function postLoadNotification(){
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		$notifications =  $this->Notification->getNotifications($user_id);
+		$this->Notification->setStatus();
+
+		return $notifications;
+	}
+
+	public function postCountNotification(){
+		//$user_id = Crypt::decrypt(Input::get('uid'));
+		$user_id = 3;
+		$notifications =  $this->Notification->getNotifications($user_id, 0);
+
+		return $notifications;
 	}
 }

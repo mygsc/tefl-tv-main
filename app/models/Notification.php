@@ -11,12 +11,12 @@ class Notification extends Eloquent {
 	public function constructNotificationMessage($user_id, $notifier_id, $type, $routes = null, $callback = null){
 		if(!empty($user_id) || !empty($notifier_id) || !empty($type)){
 			$notifierInfo = User::find($notifier_id);
-			$notifierLink = '<a href="channels/{{$notifierInfo->channel_name}}">'. $notifierInfo->channel_name.'</a>';
+			$notifierLink = '<a href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
 
 			if($type == 'subscribed'){
 				$message = 'has subscribe to your channel';
 			}elseif($type == 'mentioned'){
-				$message = 'has mentioned you in a <a href="'.$routes.'">comment</a>';
+				$message = 'has mentioned you in a <a href="$routes">comment</a>';
 			}elseif($type == 'liked'){
 				$message = 'has liked your <a href="'.$routes.'">comment</a>';
 			}elseif($type == 'replied'){
@@ -31,7 +31,7 @@ class Notification extends Eloquent {
 
 			$completeNotification = $notifierLink .' '. $message;
 			if($this->insertNotifications($user_id, $completeNotification) === true){
-				return true;
+				return 'success';
 			}
 		}
 		return false;
@@ -50,19 +50,34 @@ class Notification extends Eloquent {
 		return false;
 	}
 
-	public function getNotifications($id = null, $paginate = null){
+	public function getNotifications($id = null, $read = null, $paginate = null){
 		if(!empty($id)){
+			if(isset($paginate)){
+				$result = Notification::whereUserId($id)
+				->whereDeletedAt(null)
+				->OrderBy('created_at', 'DESC')
+				->simplePaginate($paginate);
+				return $result;
+			}elseif(isset($read)){
+				$result = Notification::whereUserId($id)
+				->whereDeletedAt(null)
+				->whereRead($read)
+				->OrderBy('created_at', 'DESC')
+				->get();
+				return $result;
+			}
 			$result = Notification::whereUserId($id)
 			->whereDeletedAt(null)
 			->OrderBy('created_at', 'DESC')
-			->simplePaginate($paginate);
+			->get();
 			return $result;
 		}
 		return false;
 	}
 
 	public function setStatus(){
-
+		DB::table('notifications')->where('read', '=', 0)->update(array('read' => 1));
+		return true;
 	}
 
 	public function deleteNotification(){
