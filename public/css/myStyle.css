@@ -974,9 +974,13 @@ span.commentLink{
 .c-about{
   padding:10px 10px;
   margin-top:0;
-  height:308px;
   overflow-y:auto;
   overflow-x:hidden;
+}
+.btn-sq{
+  position:absolute;
+  right:15px;
+  z-index:99;
 }
 
 /*=======BACK TO TOP BUTTON========*/

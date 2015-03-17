@@ -58,22 +58,14 @@
 				<div id="videosContainer" class='container'>
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
-						&nbsp;
-
-						<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
-							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}" height="200" width="100%" class="h-video" >
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
-
 						<div class="inlineVid ">
 							{{Form::open()}}
-								<span title="Add to Playist" style="position:absolute;right:15px;z-index:99;">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							
 							{{Form::close()}}
 							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
-								<video poster="/videos/img-vid-poster/{{Crypt::encrypt($usersVideo->id).'.jpg'}}" height="200" width="100%" class="h-video" >
-									<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />
-								</video>
-							</a>
+							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}" height="200" width="100%" class="h-video" >
+								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
 						</div>
 
 						<div class="inlineInfo ">
@@ -108,18 +100,6 @@
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 	<script type="text/javascript">
-		$('.grid').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
-		    $('.inlineVid').removeClass('col-md-4');
-		    $('.inlineInfo').removeClass('col-md-8');
-		    $('.desc').addClass('hide');
-		});
-		$('.list').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
-		    $('.inlineVid').addClass('col-md-4');
-		    $('.inlineInfo').addClass('col-md-8');
-		    $('.desc').removeClass('hide');
-		});
 		$(document).ready( function( $ ) {
 			$('#form-add-setting').on('submit', function() {
 		        //.....

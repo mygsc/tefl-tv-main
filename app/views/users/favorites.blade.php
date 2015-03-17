@@ -56,23 +56,31 @@
 					<div id="videosContainer" class='container'>
 						<br/>
 						@foreach($showFavoriteVideos as $showFavoriteVideo)
-						<div class="col-md-3">
+						<div id="list" class="col-md-3">
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-							{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default', 'style' => 'position:absolute;right:20px;z-index:99;')) }}
-
-							<a href="{{route('homes.watch-video', $showFavoriteVideo->id. '%' .$showFavoriteVideo->title)}}">
-							<video controls>
-								<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
-							</video>
-							</a>
-							<div class="v-Info">
-								{{$showFavoriteVideo->title}}
+							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
+							<div class="inlineVid ">
+								<a href="{{route('homes.watch-video', $showFavoriteVideo->id. '%' .$showFavoriteVideo->title)}}">
+								<video controls height="200" width="100%" class="h-video">
+									<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
+								</video>
+								</a>
 							</div>
-							<div class="count">
-								by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
-								<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
-									{{Form::close()}}
-								<br/>
+
+							<div class="inlineInfo ">
+								<div class="v-Info">
+									{{$showFavoriteVideo->title}}
+								</div>
+								<div class="text-justify desc hide">
+									<p>{{$showFavoriteVideo->description}}</p>
+									<br/>
+								</div>
+								<div class="count">
+									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
+									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
+										{{Form::close()}}
+									<br/>
+								</div>
 							</div>
 						</div>
 						@endforeach	

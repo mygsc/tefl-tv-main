@@ -3,9 +3,103 @@
 @section('content')
 <div class="row White">
 	<div class="container pageH">
+
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
+			<br/>
+			<div class="Div-channel-border">
+				<ul class="nav nav-tabs" role="tablist inline">
+					
+			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
+			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
+				</ul>
+				<div class="tab-content inline">
+			  		<div role="tabpanel" class="tab-pane active" id="about">
+						<div class="" style="margin-top:20px;">
+							<p class="text-justify">
+								{{$usersChannel->interests}}
+							</p>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="learn">
+						<div class="row" style="margin-top:20px;">
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Name</label></small> </td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Birthdate</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->birthdate}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Organizations</label></small></td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->organization}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Work</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->work}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>Email</label></small> </td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->email}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Website</label></small></td>
+										<td><b>:</b></td>
+										<td>{{Auth::User()->website}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Contact Number</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->contact_number}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Address</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->address}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-4">
+								<table class="tableLayout">
+									<tr>
+										<td><small><label>City</label></small> </td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->city}}</td>
+									</tr>
+									<tr>
+										<td><small><label>State</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->state}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Zip Code</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->zip_code}}</td>
+									</tr>
+									<tr>
+										<td><small><label>Country</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersChannel->country_id}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div><!--/.tabpanel-->
+				</div><!--/.tab-content-->
+			</div>
 			<br/>
 			<div class="Div-channel-border White">
 
