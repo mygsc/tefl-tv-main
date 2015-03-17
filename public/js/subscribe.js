@@ -18,7 +18,7 @@ $(document).ready(function() {
 				type: 'POST',
 				url: url,
 				cache: false, 
-            data: $(this).serialize(),//{
+            	data: $(this).serialize(),//{
             	success: function(data){
             		$('input[name=status]').val(data['status']);
             		$('input[id=subscribebutton]').val(data['label']);

@@ -53,7 +53,8 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Videos</span>&nbsp;|&nbsp;
+				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.myvideos', 'Show All')}}</small>
 			</div>
 			<br/><br/>
 
@@ -87,7 +88,8 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Playlists</span>&nbsp;|&nbsp; 
+				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.playlists', 'Show All')}}</small>
 			</div>
 			<br/>
 			<br/>
@@ -162,7 +164,7 @@
 				<span>Subscribers</span>&nbsp;
 				@if(!$ifNoSubscriber)
 					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">
-					<a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+					{{link_to_route('users.subscribers', 'See All')}}</small>
 				@endif
 			</div>
 			<br/><br/>
@@ -197,7 +199,7 @@
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;
 				@if(isset($subscriptionLists))
-					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.subscribers', 'See All')}}</small>
 				@else
 					
 				@endif

@@ -175,3 +175,86 @@
     height: 38px;
     background-position: -230px -101px;display: inline-block;
 }
+
+/*====================PLAYER==================*/
+
+.player {
+    background-image:url('/img/icons/player.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.player-fullscreen {
+    width: 15px;
+    height: 15px;
+    background-position: -5px -5px;
+}
+
+.player-pause {
+    width: 15px;
+    height: 15px;
+    background-position: -30px -5px;
+}
+
+.player-play {
+    width: 15px;
+    height: 15px;
+    background-position: -55px -5px;
+}
+
+.player-setting {
+    width: 15px;
+    height: 15px;
+    background-position: -80px -5px;
+}
+
+.player-share {
+    width: 15px;
+    height: 15px;
+    background-position: -105px -5px;
+}
+
+.player-sound {
+    width: 15px;
+    height: 15px;
+    background-position: -130px -5px;
+}
+
+.player-sound-off {
+    width: 15px;
+    height: 15px;
+    background-position: -155px -5px;
+}
+
+/*add playlist*/
+.icon{
+    background-image: url(/img/icons/addPlaylist.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.icon-playlist-add {
+    width: 12px;
+    height: 12px;
+    background-position: -5px -5px;
+    padding: none;
+}
+
+.btn-ico{
+    padding: none!important;
+     display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid #c3c3c3;
+  border-radius: 2px;
+}

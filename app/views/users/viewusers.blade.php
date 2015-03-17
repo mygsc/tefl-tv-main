@@ -37,7 +37,11 @@
 							    				{{Form::hidden('user_id',$userChannel->id)}}
 							    				{{Form::hidden('subscriber_id', $user_id)}}
 							    				{{Form::hidden('status','subscribeOn')}}
-										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+							    				@if(!empty($ifAlreadySubscribe))
+										    		{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    	@else
+										    		{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    	@endif
 										    {{Form::close()}}
 										@else
 											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}

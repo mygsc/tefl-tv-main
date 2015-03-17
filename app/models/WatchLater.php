@@ -5,6 +5,7 @@
 class WatchLater extends Eloquent {
 
 	protected $table = 'users_watch_later';
+	protected $fillable = ['user_id','video_id','status'];
 
 	public function user() {
 
