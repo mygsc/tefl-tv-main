@@ -60,7 +60,7 @@
 					<div id='list' class="col-md-3">
 						&nbsp;
 						<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
-							<video poster="/videos/img-vid-poster/{{Crypt::encrypt($usersVideo->id).'.jpg'}}" height="200" width="100%" class="h-video" >
+							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}" height="200" width="100%" class="h-video" >
 								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
 
 							</video>

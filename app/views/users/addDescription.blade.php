@@ -37,13 +37,17 @@
 							</div>
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">To change your video thumbnail just click the image <span class="glyphicon glyphicon-arrow-down"></span></h3>	
+								<h3 style="text-align:center;padding-top:5px;">Browse your video thumbnail</h3>	
 								
-								<div id="screenshot"><center>
-										<div class="thumb" id="img-thumb-1" style="cursor:pointer;margin:auto 0;width:300px;height:150px;outline:1px solid #000000">
+								{{--<div id="screenshot"><center>
+										<div class="thumb" style="cursor:pointer;margin:auto 0;width:300px;height:150px;outline:1px solid #000000">
 											<input type="file" name="poster" id="poster" style="position:absolute;width:100%;height:100%;opacity:0;cursor:pointer">
+											Browse thumbnail
 										</div>							
-								</center></div>
+									</center></div>--}}
+									<div class="thumb">
+										<center><input type="file" name="poster" id="poster"/></center>
+									</div>
 							</div>	
 						</div>
 

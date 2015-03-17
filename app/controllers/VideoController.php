@@ -54,6 +54,7 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
+		$posterFilename = str_random(5);
 		$imgSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
 		$uploadPosterDir = $this->thumbImg;
@@ -70,10 +71,12 @@ class VideoController extends Controller {
 								$newTags[] = strtolower($tag);
 							}
 						}
-						$poster->move($uploadPosterDir, Crypt::encrypt($id).'.jpg'); 
+						$posterExt = $poster->getClientOriginalExtension();
+						$poster->move($uploadPosterDir, $posterFilename.$id.'.'.$posterExt); 
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
+						$video->poster = $posterFilename.$id.'.'.$posterExt;
 						$video->title = Input::get('title');
 						$video->description = Input::get('description');
 						$video->publish = Input::get('publish');
@@ -81,12 +84,12 @@ class VideoController extends Controller {
 						$video->save();
 						return Redirect::route('get.upload','=success')->with('success','New video has been upload successfully');
 					}else{
-						$img = $imgSelected;
-						$img = str_replace('data:image/png;base64,', '', $img);
-						$img = str_replace(' ', '+', $img);
-						$data = base64_decode($img);
-						$file = $uploadPosterDir.Crypt::encrypt($id).".jpg";
-						$success = file_put_contents($file, $data);
+						// $img = $imgSelected;
+						// $img = str_replace('data:image/png;base64,', '', $img);
+						// $img = str_replace(' ', '+', $img);
+						// $data = base64_decode($img);
+						// $file = $uploadPosterDir.Crypt::encrypt($id).".jpg";
+						// $success = file_put_contents($file, $data);
 
 						$tags = explode(',',Input::get('tags'));
 						foreach($tags as $tag){
