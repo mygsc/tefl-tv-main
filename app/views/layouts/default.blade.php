@@ -38,15 +38,15 @@
 <!--list and gri display for my channel-->
 <script type="text/javascript">
 		$('.grid').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
-		    $('.inlineVid').removeClass('col-md-4');
-		    $('.inlineInfo').removeClass('col-md-8');
+		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
+		    $('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
+		    $('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
 		    $('.desc').addClass('hide');
 		});
 		$('.list').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
-		    $('.inlineVid').addClass('col-md-4');
-		    $('.inlineInfo').addClass('col-md-8');
+		    $('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
+		    $('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
+		    $('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
 		    $('.desc').removeClass('hide');
 		});
 </script>

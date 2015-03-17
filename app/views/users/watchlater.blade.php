@@ -154,6 +154,7 @@ text-align: center;
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
 	</div><!--/.container page-->
+</div>
 @stop
 
 @section('script')
