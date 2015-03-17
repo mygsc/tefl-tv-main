@@ -286,6 +286,38 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postUsersUploadCoverPhoto() {
+
+		If(Input::hasFile('coverPhoto')) {
+
+			$validate = Validator::make(array('image' => Input::file('coverPhoto')), array('image' => 'image|mimes:jpg,jpeg,png'));
+
+			if($validate->passes()) {
+			
+				$filename = Input::file('coverPhoto')->getClientOriginalName();
+
+				$coverPhoto = public_path('img/user/cover_photo') . Auth::User()->id . '.jpg';
+
+				$newName = Auth::User()->id.'.jpg';
+
+				$path = public_path('img/user/cover_photo');
+
+
+				if(file_exists($coverPhoto))
+				{
+					File::delete($coverPhoto);
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Updated!');
+				}else{
+					$file = Input::file('coverPhoto')->move($path, $newName);
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Created New Picture!');
+				}
+			}else{
+				return Redirect::route('users.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+			}
+		}
+	}
+
 	public function getEditUsersChannel() {
 
 		$userChannel = UserProfile::find(Auth::User()->id);
