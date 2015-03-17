@@ -26,11 +26,10 @@
 		</div>
 		<div class="col-md-4">
 			<div class="sideLinksDiv2">
-		
-			@include('elements/home/adverstisementSmall')
-			@include('elements/home/carouselAds')	
-			@include('elements/home/recommendedChannelList')
-		</div>
+				@include('elements/home/adverstisementSmall')
+				@include('elements/home/carouselAds')	
+				@include('elements/home/recommendedChannelList')
+			</div>
 		</div>
 	</div>
 @stop

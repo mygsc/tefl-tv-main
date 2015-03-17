@@ -1,16 +1,14 @@
-<div style="border:5px solid #e3e3e3;" class="White">
-			<div class="col-md-2 hidden-xs">
-				<div class="row">
-					<div class="uploaded_img">
-						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
-					</div>
-				</div>
-			</div>
-			<div class="col-md-10">
+		<div style="border:5px solid #e3e3e3;" class="White">
+		
+			<div class="col-md-12">
 				<div class="row">
 
-					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
-						<div class="">
+					<div class="" style="height:224px;overflow:hidden;">
+						<div class="uploaded_img">
+						{{HTML::image('img/user/'.Auth::User()->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+						</div>
+						<img src="/img/user/cover.jpg" style="x-index:70;">
+						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
@@ -41,8 +39,5 @@
 					{{Auth::User()->channel_name}}
 				</div>
 				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
-
-
-				
 			</div>
 		</div>
