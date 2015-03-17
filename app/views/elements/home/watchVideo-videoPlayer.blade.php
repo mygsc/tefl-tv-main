@@ -38,7 +38,6 @@
 						</div>
 				
 						<span class="img-play"><img class='play' onclick='togglePlayPause();' id="play-pause" src="/img/icons/play.png"/></span>
-						<span class="title">Vocabulary and Memory Test</span>
 						<span class="pull-right">
 							<span class="ctime time">00:00 / </span> 
 							<span class="ttime time">00:00</span>
