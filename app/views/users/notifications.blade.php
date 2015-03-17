@@ -11,11 +11,12 @@
 @stop
 
 @section('content')
-<div class="container">
-	<div class="col-md-12">
+<div class="container page">
+	<div class="col-md-8">
 		<div class="row">
-
+			<h3>Notifications</h3>
 			@foreach($notifications as $key => $notification)
+			<hr/>
 			<!------To Display date-------->
 			<?php $r_date = strtotime($notification->created_at); ?>
 			@if($month != date('m',$r_date)||$day != date('d',$r_date)||$year != date('Y',$r_date))
@@ -28,14 +29,21 @@
 				<br>
 			@endif
 				{{$notification->notification}}
-				<br />
 			@endforeach
 		</div>
 
-		<div class="row">
+		<div class="row text-center">
 		{{$notifications->links()}}
 		</div>
 	</div>
+	<div class="col-md-4">
+		<div class="sideLinksDiv2">
+			@include('elements/home/adverstisementSmall')
+			@include('elements/home/carouselAds')	
+			@include('elements/home/recommendedChannelList')
+		</div>
+	</div>
+
 </div>
 @stop
 

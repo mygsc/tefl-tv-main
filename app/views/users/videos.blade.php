@@ -25,15 +25,15 @@
 
 				<div class="">
 					<br/>
-					<div class="col-md-6">
-						<div class="input-group">
+					<div class="col-md-5 col-sm-6">
+						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-7 col-sm-6">
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
@@ -44,15 +44,14 @@
 						</select>
 						&nbsp;&nbsp;
 						<button class="btn btn-unsub">Manage Videos</button>
-					</div>
-			
-					<div class="col-md-1 text-right">
-						<div class="buttons">
+
+						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
 					</div>
-
+			
+					
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
