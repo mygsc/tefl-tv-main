@@ -659,6 +659,21 @@ class UserController extends BaseController {
 							->where('video_id','=',$id)->first();
 		$favorite->delete();			
 	}
+	public function likeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = Like::where('user_id','=',Auth::User()->id)
+    						->where('video_id','=',$id);
+    	if(!$counter->count()){
+			$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+		}
+	}
+
+	public function unlikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$unlike = Like::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id)->first();
+		$unlike->delete();
+	}
 
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, '2');

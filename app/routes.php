@@ -67,6 +67,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('removeToFavorites/{id}', array('as'=>'remove.favorites','uses'=>'UserController@removeToFavorites'));	
 	Route::post('addToWatchLater/{id}', array('as'=>'add.watchLater','uses'=>'UserController@addToWatchLater'));	
 	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
+	Route::post('likeVideo/{id}', array('as'=>'like.video','uses'=>'UserController@likeVideo'));
+	Route::post('unlikeVideo/{id}', array('as'=>'unlike.video','uses'=>'UserController@unlikeVideo'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 

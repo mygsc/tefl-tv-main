@@ -145,6 +145,22 @@ $(document).ready(function(){
 			}
 		});
 	}
+	function like(){
+		$('#like').click(function(e){
+			var text1 = $('#text1').val();
+				$.post('http://localhost:8000/mychannels/likeVideo/'+text1,function(data){
+					likeLoader();
+				});
+			});
+		}
+	function unlike(){
+		$('#unlike').click(function(e){
+			var text1 = $('#text1').val();
+				$.post('http://localhost:8000/mychannels/unlikeVideo/'+text1,function(data){
+					likeLoader();
+				});
+			});
+		}
 	function loader(){
 		$("#dropdown").load(window.location.href+' #dropdown',function(){
 		$('body').append('<div id="playlist-div-create"></div>');
@@ -172,6 +188,8 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();
 				removeToWatchLater();
+				like();
+				unlike();
 		});
 	}
 	function deleteLoader(){
@@ -201,6 +219,8 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();	
 				removeToWatchLater();
+				like();
+				unlike();
 		});
 	}
 
@@ -231,6 +251,8 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();
 				removeToWatchLater();	
+				like();
+				unlike();
 		});
 	}
 
@@ -261,6 +283,8 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();	
 			removeToWatchLater();
+			like();
+			unlike();
 		});
 	}
 	function removefavoriteLoader(){
@@ -290,6 +314,8 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();	
 			removeToWatchLater();
+			like();
+			unlike();
 		});
 	}	
 	function addwatchLaterLoader(){
@@ -319,6 +345,8 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();
 			removeToWatchLater();
+			like();
+			unlike();
 		});	
 	}
 	function removewatchLaterLoader(){
@@ -348,7 +376,24 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();
 			removeToWatchLater();
+			like();
+			unlike();
 		});	
+	}
+	function likeLoader(){
+		$("#like-span").load(window.location.href+' #like-span',function(){
+			$("#like-counter").load(window.location.href+' #like-counter',function(){
+				addToPlaylist();
+				createPlaylist();
+				deletelist();
+				addToFavorites();
+				removeToFavorites();
+				addToWatchLater();
+				removeToWatchLater();
+				like();
+				unlike();
+			});
+		});
 	}
 	addToPlaylist();
 	createPlaylist();
@@ -357,4 +402,6 @@ $(document).ready(function(){
 	removeToFavorites();
 	addToWatchLater();
 	removeToWatchLater();
+	like();
+	unlike();
 });
