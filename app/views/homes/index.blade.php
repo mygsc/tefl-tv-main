@@ -10,7 +10,7 @@
 			<div class="col-md-8" style="margin-bottom:20px;">
 				<div class="col-md-12">
 				<div class="row  vid-wrapper">
-               {{-- <img src="/img/thumbnails/v6-2.png" class="h-video"> --}}
+				<div class="embed-responsive embed-responsive-16by9">
               	<video id="media-video" poster="/img/thumbnails/v1.png">
 					<source src='/videos/bowling.mp4' type='video/mp4'>
 					<source src='/videos/bowling.webm' type='video/webm'>
@@ -19,6 +19,7 @@
 					<source src='/videos/movie.m4v' type='video/x-m4v'>
 					<source src='/videos/movie.3gp' type='video/3gpp'>  --}}  
 				</video>
+				</div>
 				<div class="advertisement" style="display:none">
 				 	<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>

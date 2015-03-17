@@ -59,24 +59,39 @@
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						&nbsp;
+
 						<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
 							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}" height="200" width="100%" class="h-video" >
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
+								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
 
-							</video>
-						</a>
+						<div class="inlineVid ">
+							{{Form::open()}}
+								<span title="Add to Playist" style="position:absolute;right:15px;z-index:99;">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+							
+							{{Form::close()}}
+							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
+								<video poster="/videos/img-vid-poster/{{Crypt::encrypt($usersVideo->id).'.jpg'}}" height="200" width="100%" class="h-video" >
+									<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />
+								</video>
+							</a>
+						</div>
+
+						<div class="inlineInfo ">
 							<div class="v-Info">
 								{{$usersVideo->title}}
 							</div>
-							<div class="count">
-								{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
+							<div class="text-justify desc hide">
+								<p>{{$usersVideo->description}}</p>
+								<br/>
 							</div>
-								{{Form::open()}}
+							<div class="count">
+								<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{$usersVideo->created_at}}
+							</div>
+								
 
-									{{Form::submit('Add to Playlist', array('class' => 'btn btn-unsub'))}}
-								{{Form::close()}}
 						</div>
-						@endforeach	
+					</div>
+					@endforeach	
 					</div>
 				</div>
 			</div>
@@ -95,9 +110,15 @@
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
+		    $('.inlineVid').removeClass('col-md-4');
+		    $('.inlineInfo').removeClass('col-md-8');
+		    $('.desc').addClass('hide');
 		});
 		$('.list').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
+		    $('.inlineVid').addClass('col-md-4');
+		    $('.inlineInfo').addClass('col-md-8');
+		    $('.desc').removeClass('hide');
 		});
 		$(document).ready( function( $ ) {
 			$('#form-add-setting').on('submit', function() {
