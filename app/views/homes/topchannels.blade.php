@@ -19,7 +19,7 @@
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 					</p>
-					<a href="channels/{{$topChannel->channel_name}}"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
+				
 					@if($auth)
 					{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 					{{Form::hidden('user_id',$topChannel->id)}}

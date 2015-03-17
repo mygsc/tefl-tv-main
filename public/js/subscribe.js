@@ -10,7 +10,8 @@ $(document).ready(function() {
 				$(this).html('Subscribe');
 				subscribe = true;
 			}
-		});	
+		});
+			
 		$('form#subscribe-userChannel').on('submit', function(e){
 			e.preventDefault();
 			var url = $(this).prop('action');
@@ -18,7 +19,7 @@ $(document).ready(function() {
 				type: 'POST',
 				url: url,
 				cache: false, 
-            data: $(this).serialize(),//{
+            	data: $(this).serialize(),//{
             	success: function(data){
             		$('input[name=status]').val(data['status']);
             		$('input[id=subscribebutton]').val(data['label']);
@@ -26,7 +27,5 @@ $(document).ready(function() {
             	// window.location.href = 'search/product?'+q;
             }
         });
-		});
-
 	});
 });

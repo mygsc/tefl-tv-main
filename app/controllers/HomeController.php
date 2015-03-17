@@ -83,7 +83,12 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
-		$videos = Video::find($id[0]);
+
+		if(empty($id[1])){
+			return Redirect::to('/');
+		}
+		$videoId = $id[0];
+		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		if(empty($id[1])){
@@ -125,9 +130,12 @@ class HomeController extends BaseController {
 			$watchLater = null;
 		}
 
-		$getVideoComments = Comment::where(array('video_id' => $id[0]))->get();
+		$getVideoComments = DB::table('comments')
+							->join('users', 'users.id', '=', 'comments.user_id')
+							->where('comments.video_id', $videoId)
+							->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments','watchLater'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
 	}
 
 	public function postSignIn() {
@@ -161,10 +169,30 @@ class HomeController extends BaseController {
 
 	}
 
+	public function addComment(){
+		$comment = trim(Input::get('comment'));
+		$video_id = Input::get('video_id');
+		$user_id = Input::get('user_id');
+
+		if(empty($comment)){
+			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+		}
+		if(!empty(trim($comment))){
+        	$comments = new Comment;
+			$comments->video_id = $video_id;
+			$comments->user_id = $user_id;
+			$comments->comment = $comment;
+			$comments->save();
+			return Response::json(array(
+                'status' => 'success',
+                'comment' => $comment,
+                'video_id' => $video_id,
+                'user_id' => $user_id
+            ));
+        }
+    }
+
 	public function testingpage(){
 
 	}
-
-	
-
 }

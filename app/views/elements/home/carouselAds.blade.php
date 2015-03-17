@@ -12,21 +12,13 @@
     <div class="carousel-inner">
       <div class="item active">
         <img src="/img/logos/te.png" alt="...">
-        <div class="carousel-caption">
-          <a href="tefleductors.com"><h3>tefleducators.com</h3></a>
-        </div>
       </div>
       <div class="item">
         <img src="/img/logos/bt.png" alt="...">
-        <div class="carousel-caption">
-          <a href="brirtishteachers.org.uk"><h3>britishteachers.org.uk</h3></a>
-        </div>
+        
       </div>
       <div class="item">
         <img src="/img/logos/at.png" alt="...">
-        <div class="carousel-caption">
-          <a href="accreditefl.org"><h3>accreditefl.org</h3></a>
-        </div>
       </div>
     </div>
     
