@@ -544,12 +544,12 @@ class UserController extends BaseController {
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		
+
 		if(empty($usersVideos)) {
 			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		}
 		$findVideos = $usersVideos->video;
-	
+
 
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
@@ -558,7 +558,6 @@ class UserController extends BaseController {
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber_id;
 		}
-
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
@@ -570,7 +569,7 @@ class UserController extends BaseController {
 		}
 
 		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-		
+
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
@@ -583,9 +582,6 @@ class UserController extends BaseController {
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
-
-			//Add notifcation
-			
 
 			return Response::json(array(
                 'status' => 'subscribeOff',
