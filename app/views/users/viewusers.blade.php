@@ -89,12 +89,12 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$userChannel->organiztion}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organiztion}}</td>
+										<td>{{$userChannel->organiztion}}</td>
 									</tr>
 								</table>
 							</div>
@@ -108,7 +108,7 @@
 									<tr>
 										<td><small><label>Website</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->website}}</td>
+										<td>{{$userChannel->website}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Contact Number</label></small></td>

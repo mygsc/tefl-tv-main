@@ -3,9 +3,10 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video) {
+	public function __construct(User $user, Video $video,Notification $notification) {
 		$this->User = $user;
 		$this->Video = $video;
+		$this->Notification = $notification;
 	}
 
 	public function getIndex() {
@@ -174,8 +175,7 @@ class HomeController extends BaseController {
 		if(empty($comment)){
 			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
 		}
-
-        if(!empty(trim($comment))){
+		if(!empty(trim($comment))){
         	$comments = new Comment;
 			$comments->video_id = $video_id;
 			$comments->user_id = $user_id;
@@ -188,5 +188,10 @@ class HomeController extends BaseController {
                 'user_id' => $user_id
             ));
         }
+    }
+    
+	public function testingpage(){
+		$routes = route('view.users.channel', array('gil'));
+		return $this->Notification->constructNotificationMessage('3','1','replied');
 	}
 }

@@ -2,10 +2,11 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Video $video){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
+		$this->Notification = $notification;
+		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
-		$this->Video = $video;
 	}
 
 	public function getSignIn() {
@@ -543,12 +544,12 @@ class UserController extends BaseController {
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		
+
 		if(empty($usersVideos)) {
 			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		}
 		$findVideos = $usersVideos->video;
-	
+
 
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
@@ -557,7 +558,6 @@ class UserController extends BaseController {
 		foreach($subscribers as $a){
 			$subscriber_id[] = $a->subscriber_id;
 		}
-
 
 		$subscriberLists = UserProfile::find($subscriber_id);
 
@@ -569,7 +569,7 @@ class UserController extends BaseController {
 		}
 
 		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-		
+
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
@@ -582,6 +582,7 @@ class UserController extends BaseController {
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
+
 			return Response::json(array(
                 'status' => 'subscribeOff',
                 'label' => 'Unsubscribe'
@@ -659,5 +660,9 @@ class UserController extends BaseController {
 		$favorite->delete();			
 	}
 
+	public function getNotification(){
+		$notifications =  $this->Notification->getNotifications(Auth::user()->id, '2');
 
+		return View::make('users.notifications', compact('notifications'));
+	}
 }
