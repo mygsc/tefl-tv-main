@@ -113,6 +113,7 @@ class VideoController extends Controller {
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
+						$video->total_time = Input::get('totalTime');
 						$video->title = Input::get('title');
 						$video->description = Input::get('description');
 						$video->publish = Input::get('publish');
