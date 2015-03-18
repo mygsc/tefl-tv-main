@@ -163,15 +163,25 @@
                         <div class="commentsarea row">
                             @foreach($getVideoComments as $getVideoComment)
                                 <div class="commentsarea row">
-                                    {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'rawr')) }}
+                                    {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
                                     <br/>
                                     {{$getVideoComment->comment}}<br/>
-                                    {{$getVideoComment->id}}<br/>
                                     <a href='#' id='reply'>Reply</a>
                                     <span class='glyphicon glyphicon-thumbs-up'></span>
                                     <span class='glyphicon glyphicon-thumbs-down'></span>
+                                    <?php
+                                        $getCommentReplies = DB::table('comments_reply')
+                                            ->join('users', 'users.id', '=', 'comments_reply.user_id')
+                                            ->where('comment_id', $getVideoComment->id)->get();
+
+                                        echo '<div id="replysection">REPLY:';
+                                            foreach($getCommentReplies as $getCommentReply):
+                                                echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
+                                                echo $getCommentReply->reply . "</hr>";
+                                            endforeach;
+                                        echo '</div>';
+                                    ?>
                                     <hr/>
-                              
                                 </div>
                             @endforeach
                         </div>

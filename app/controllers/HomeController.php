@@ -109,23 +109,23 @@ class HomeController extends BaseController {
 						LEFT JOIN users u ON v.user_id = u.id
 						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
 		if(isset(Auth::User()->id)){
-		$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
-									LEFT JOIN playlists_items i ON p.id = i.playlist_id
-									WHERE i.video_id = '".$id[0]."'
-									HAVING p.user_id = '".Auth::User()->id."';");
-		$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
-									WHERE NOT EXISTS
-									(SELECT * FROM playlists_items AS i
-									   WHERE i.playlist_id = p.id
-									   AND
-									   i.video_id = '".$id[0]."'
-									   AND
-									   p.user_id = '".Auth::User()->id."')");
-		$favorites = Favorite::where('video_id','=',$id[0])
-								->where('user_id','=',Auth::User()->id)->first();
-		$watchLater = WatchLater::where('video_id','=',$id[0])
-								->where('user_id','=',Auth::User()->id)->first();
-		$like = Like::where('video_id','=',$id[0])
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+										LEFT JOIN playlists_items i ON p.id = i.playlist_id
+										WHERE i.video_id = '".$id[0]."'
+										HAVING p.user_id = '".Auth::User()->id."';");
+			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
+										WHERE NOT EXISTS
+										(SELECT * FROM playlists_items AS i
+										   WHERE i.playlist_id = p.id
+										   AND
+										   i.video_id = '".$id[0]."'
+										   AND
+										   p.user_id = '".Auth::User()->id."')");
+			$favorites = Favorite::where('video_id','=',$id[0])
+									->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = WatchLater::where('video_id','=',$id[0])
+									->where('user_id','=',Auth::User()->id)->first();
+			$like = Like::where('video_id','=',$id[0])
 								->where('user_id','=',Auth::User()->id)->first();
 							
 		}
@@ -140,13 +140,12 @@ class HomeController extends BaseController {
 
  		$getVideoComments = DB::table('users')
  							->join('comments', 'users.id', '=', 'comments.user_id')
-							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
+							->where('video_id', $videoId)
 							->get();
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
 	}
 
 	public function postSignIn() {
-
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
@@ -156,7 +155,6 @@ class HomeController extends BaseController {
 			if($attempt){
 				$verified = Auth::User()->verified;
 				$status = Auth::User()->status;
-				
 				return Redirect::intended('/');
 			}
 		}

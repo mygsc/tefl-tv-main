@@ -94,7 +94,6 @@ class UserController extends BaseController {
 		}else{
 			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 		}
-
 	}
 
 	public function getVerify($token = null){
