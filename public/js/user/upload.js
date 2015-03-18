@@ -4,8 +4,9 @@ $(document).ready(function(){
 	var totalTime = document.getElementById('total-time');
 	var channel = $('input[name=channel]').val();
 	var selected = 1;
-    var reader = new FileReader();
-    var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
+  var reader = new FileReader();
+  var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
+
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
 		onLoadTime();

@@ -30,9 +30,9 @@
 						<div class="col-md-6">
 							<div class="embed-responsive embed-responsive-16by9 h-video">
 								<video width="400" id="video" controls="controls" poster="/img/thumbnails/video.png">
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name}}.webm" type="video/webm" >
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
 								</video>
 							</div>
 
