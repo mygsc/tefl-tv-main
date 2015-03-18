@@ -38,6 +38,7 @@ Route::group(array('prefix' => '/'), function() {
 	//delete or update this if needed - Cess
 	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
+	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 });
 
 
@@ -49,6 +50,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	
 	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
+	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
 	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
 	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
 	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
@@ -69,8 +71,13 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('removeToFavorites/{id}', array('as'=>'remove.favorites','uses'=>'UserController@removeToFavorites'));	
 	Route::post('addToWatchLater/{id}', array('as'=>'add.watchLater','uses'=>'UserController@addToWatchLater'));	
 	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
+	Route::post('likeVideo/{id}', array('as'=>'like.video','uses'=>'UserController@likeVideo'));
+	Route::post('unlikeVideo/{id}', array('as'=>'unlike.video','uses'=>'UserController@unlikeVideo'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
+	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
+	Route::post('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@postCountNotification'));
+
 
 });
 //*********End of Channels************//
@@ -99,6 +106,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
+
 });
 //**********ADMIN**********//
 

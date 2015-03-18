@@ -80,6 +80,9 @@ class HomeController extends BaseController {
 
 		return View::make('homes.signin');
 	}
+	public function getWatchVideo() {
+		return View::make('homes.advertisements');
+	}
 
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
@@ -122,22 +125,28 @@ class HomeController extends BaseController {
 								->where('user_id','=',Auth::User()->id)->first();
 		$watchLater = WatchLater::where('video_id','=',$id[0])
 								->where('user_id','=',Auth::User()->id)->first();
+		$like = Like::where('video_id','=',$id[0])
+								->where('user_id','=',Auth::User()->id)->first();
+							
 		}
 		else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
 			$watchLater = null;
+			$like = null;
 		}
+		$likeCounter =	Like::where('video_id','=',$id[0])->count();
 
-		$getVideoComments = DB::table('users')
-							->join('comments', 'users.id', '=', 'comments.user_id')
-							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
+// 		$getVideoComments = DB::table('users')
+// 							->join('comments', 'users.id', '=', 'comments.user_id')
+// 							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
+// =======
+		$getVideoComments = DB::table('comments')
+							->join('users', 'users.id', '=', 'comments.user_id')
 							->where('comments.video_id', $videoId)
 							->get();
-		// return $getVideoComments;
-
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
 	}
 
 	public function postSignIn() {
@@ -217,7 +226,6 @@ class HomeController extends BaseController {
     }
 
 	public function testingpage(){
-		$routes = route('view.users.channel', array('gil'));
-		return $this->Notification->constructNotificationMessage('3','1','replied');
+
 	}
 }

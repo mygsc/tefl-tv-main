@@ -13,7 +13,7 @@
     position:absolute;
     padding:15px 0;
     background:rgba(152, 217, 255, 0.50	);
- 	width: 90%;
+ 		width: 90%;
   	height: auto;
     display: none;
     text-align: center;
@@ -24,9 +24,9 @@
     position:absolute;
     padding:15px 0;
     background:rgba(152, 217, 255, 0.50	);
- 	width: 90%;
+ 		width: 90%;
   	height: auto;
-    display: none;
+    display: block;
     text-align: center;
     color:#fff !important;
     z-index:2;
@@ -105,7 +105,9 @@ text-align: center;
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
-									<div class="caption">
+									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->watchlater[0]['status']}}"/>
+									@if($watchLater->watchlater[0]['status']==1)
+									<div class="caption1">
 										<div class="caption-inner">
 											<p class="caption-content">
 											<br/>
@@ -114,29 +116,33 @@ text-align: center;
 											</p>
 										</div>
 									</div>
+									@else
+										<div class="caption">
+										<div class="caption-inner">
+											<p class="caption-content">
+											<br/>
+											<h1>Watched</h1>
+											<br/>
+											</p>
+										</div>
+									</div>
+									@endif
 									{{Form::open()}}
 									<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default'))}}</span>
 									{{Form::close()}}
-									<!-- <a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}"> -->
-									<a href="#">
+									<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}">
 										<video controls width="100%">
 											<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4"/>
 										</video>
 										<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+										{{$watchLater->title}}
 									</a>								
 								</div>
 							</div>
-							<div class="inlineInfo ">
-								<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}" target="_blank">
-									<div class="v-Info">
-										{{$watchLater->title}}
-									</div>
-								</a>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 									<br/>
-								</div>
 							</div>
 						</div><!--/#list-->
 						@endforeach

@@ -29,8 +29,20 @@
                                      <br/>
                                         <span class="">
                                             1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                           
+                                           <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
+                                        @if(isset(Auth::User()->id))
+                                            @if(!empty($like))
+                                            <span id = "like-span">
+                                                <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </span>
+                                            @else
+                                            <span id = "like-span">
+                                                <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </span>
+                                            @endif
+                                        @else
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        @endif
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -65,7 +77,7 @@
                     @if(empty($watchLater))
                         <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
                     @else
-                        <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                      <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
                     @endif
                         <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
                         

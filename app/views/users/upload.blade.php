@@ -44,7 +44,7 @@ Upload
 					
 					 <label class="myLabel">
 						<div style="display:none" id="progress">
-							<small>Maaring mag-hintay...</small><br>
+							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
 						</div>
 					</label> 

@@ -77,6 +77,7 @@ class VideoController extends Controller {
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
 						$video->poster = $posterFilename.$id.'.'.$posterExt;
+						$video->total_time = Input::get('totalTime');
 						$video->title = Input::get('title');
 						$video->description = Input::get('description');
 						$video->publish = Input::get('publish');
