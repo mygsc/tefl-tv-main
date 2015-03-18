@@ -222,6 +222,11 @@ class HomeController extends BaseController {
     }
 
 	public function testingpage(){
-
+		define('DS', DIRECTORY_SEPARATOR);
+		$userFolderName = Auth::User()->id. '-'. Auth::User()->channel_name;
+		//return asset('videos/'. $userFolderName);
+		if(!file_exists('public'. DS. 'videos'.DS. $userFolderName)){
+			mkdir('public'. DS. 'videos'. DS. $userFolderName);
+		}
 	}
 }
