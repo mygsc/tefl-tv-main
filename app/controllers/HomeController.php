@@ -85,8 +85,7 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle){
-		
-		$token_id = Video::where('token_id','=',$idtitle)->first();
+		$token_id = Video::where('file_name','=',$idtitle)->first();
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
@@ -94,33 +93,34 @@ class HomeController extends BaseController {
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.token_id,u.channel_name FROM videos v 
-						LEFT JOIN users u ON v.user_id = u.id
-						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-						HAVING v.id!='".$id."'
-						AND v.report_count < 5
-						AND v.publish = 1
-						AND v.deleted_at IS NULL;
-						");
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			AND v.report_count < 5
+			AND v.publish = 1
+			AND v.deleted_at IS NULL;
+			");
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
-										LEFT JOIN playlists_items i ON p.id = i.playlist_id
-										WHERE i.video_id = '".$id."'
-										HAVING p.user_id = '".Auth::User()->id."';");
+				LEFT JOIN playlists_items i ON p.id = i.playlist_id
+				WHERE i.video_id = '".$id."'
+				HAVING p.user_id = '".Auth::User()->id."';");
 			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
-										WHERE NOT EXISTS
-										(SELECT * FROM playlists_items AS i
-										   WHERE i.playlist_id = p.id
-										   AND
-										   i.video_id = '".$id."'
-										   AND
-										   p.user_id = '".Auth::User()->id."')");
+				WHERE NOT EXISTS
+				(SELECT * FROM playlists_items AS i
+					WHERE i.playlist_id = p.id
+					AND
+					i.video_id = '".$id."'
+					AND
+					p.user_id = '".Auth::User()->id."')");
 			$favorites = Favorite::where('video_id','=',$id)
-									->where('user_id','=',Auth::User()->id)->first();
+			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
-									->where('user_id','=',Auth::User()->id)->first();
+			->where('user_id','=',Auth::User()->id)->first();
 			$like = Like::where('video_id','=',$id)
-							
+			->where('user_id','=',Auth::User()->id)->first();
+
 		}
 		else{
 			$playlists = null;
@@ -130,11 +130,10 @@ class HomeController extends BaseController {
 			$like = null;
 		}
 
-		$likeCounter =	Like::where('video_id','=',$id)->count();	
-		$getVideoComments = DB::table('comments')
-							->join('users', 'users.id', '=', 'comments.user_id')
-							->where('comments.video_id', $videoId)
-							->get();
+		$likeCounter = Like::where('video_id','=',$id)->count(); 
+		$getVideoComments = DB::table('comments')->join('users', 'users.id', '=', 'comments.user_id')
+				->where('comments.video_id', $videoId)->get();
+
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
 	}
 
@@ -198,11 +197,11 @@ class HomeController extends BaseController {
 			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
 		}
 		if(!empty(trim($reply))){
-        	$comments = new Comment;
-			$comments->comment_id = $comment_id;
-			$comments->user_id = $user_id;
-			$comments->reply = $reply;
-			$comments->save();
+        	$reply = new CommentReply;
+			$reply->comment_id = $comment_id;
+			$reply->user_id = $user_id;
+			$reply->reply = $reply;
+			$reply->save();
 			return Response::json(array(
                 'status' => 'success',
                 'comment' => $reply,
