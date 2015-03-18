@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="embed-responsive embed-responsive-16by9 h-video">
-								<video onloadeddata="$(this).trigger('video_really_ready')" width="400" id="video" controls="controls" poster="/img/thumbnails/video.png">
+								<video width="400" id="video" controls="controls" poster="/img/thumbnails/video.png">
 									<source src="/videos/{{$video->file_name}}.webm" type="video/webm" >
 									<source src="/videos/{{$video->file_name}}.ogv" type="video/ogg" >
 									<source src="/videos/{{$video->file_name}}.mp4" type="video/mp4" >
@@ -76,6 +76,7 @@
 								{{Form::hidden('encrypt',Crypt::encrypt($video->id),array('id'=>'encrypt'))}}
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
 								{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
+								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
 							</div>
 							<div class="text-right">
 							<br>

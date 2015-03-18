@@ -14,7 +14,10 @@
 <div class="container page">
 	<div class="col-md-8">
 		<div class="row">
-			<h3>Notifications</h3>
+		<h3>Notifications</h3>
+		@if($notifications->isEmpty())
+		No notification
+		@endif
 			@foreach($notifications as $key => $notification)
 			<hr/>
 			<!------To Display date-------->

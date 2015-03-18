@@ -1,10 +1,15 @@
 $(document).ready(function(){
 	$('#progress').hide();
-	var img = document.getElementById('video');
+	var videoPlayer = document.getElementById('video');
+	var totalTime = document.getElementById('total-time');
 	var channel = $('input[name=channel]').val();
 	var selected = 1;
     var reader = new FileReader();
-    var getImage;
+    var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
+ 	videoPlayer.addEventListener('loadedmetadata', function() {
+		timeDuration = Math.round(videoPlayer.duration);
+		onLoadTime();
+	});
 	var VideoSnapper = {
 		captureAsCanvas: function(video, options, handle) {
             // Create canvas and call handle function
@@ -43,7 +48,27 @@ $(document).ready(function(){
         }
     };
 
+    function onLoadTime(){
+    	totalMin = Math.floor(timeDuration / 60);
+		totalSec = Math.round(timeDuration - (totalMin * 60));
+		hrs = Math.floor(totalMin / 60);
+		mins =  (totalMin - (hrs * 60));
+		tmpSec =  Math.round(timeDuration / 60);
+		secs =   Math.round(timeDuration - (tmpSec * 60));
+		if(secs < 10) { secs = '0'+ secs; }
+		if(totalSec < 10) { totalSec = '0'+ totalSec; }
+		//if(mins < 10) { mins = '0'+ mins; }
+		//if(hrs < 10) { hrs = '0'+ hrs; }
+		if(timeDuration < 3600){
+			time = mins + ':' + secs;
+			totalTime.value = time;
+		}else{
+			time = hrs + ':' + mins + ':' + secs;
+			totalTime.value = time;
 
+		}
+    }
+   
 
     $('#vids-upload').on('change',function(){
    		$(this).closest("#vidSubmit").submit();

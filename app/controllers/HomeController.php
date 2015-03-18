@@ -80,6 +80,9 @@ class HomeController extends BaseController {
 
 		return View::make('homes.signin');
 	}
+	public function getWatchVideo() {
+		return View::make('homes.advertisements');
+	}
 
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
@@ -197,7 +200,6 @@ class HomeController extends BaseController {
     }
 
 	public function testingpage(){
-		$routes = route('view.users.channel', array('gil'));
-		return $this->Notification->constructNotificationMessage('3','1','replied');
+
 	}
 }
