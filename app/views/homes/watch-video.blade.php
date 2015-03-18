@@ -147,7 +147,6 @@
                         </div><!--well-->
                         <br/>
                     </div> <!--/.ui-tabs-panel-->
-
                     <!-- COMMENTS AREA -->
                     @if(isset(Auth::User()->id))
                     <div class="comments row">
@@ -193,13 +192,13 @@
                     <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                         @foreach($relations as $relation)
                         <li class="ui-tabs-nav-item" id="">
-                           <a href="watch={{$relation->token_id}}" id="videourl{{$videourl++}}">
+                           <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
 
                             <img src="img/videoGallery/image1-small.jpg" alt="" />
 
                             <span>{{$relation->title}}</span><br/></a>
                             <span>by: {{$relation->channel_name}}</span><br/>
-                            <small>{{$relation->created_at}}</small>
+                            <small>{{date('m/d/Y', $relation->created_at);}}</small>
 
                         </li>
                         @endforeach

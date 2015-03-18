@@ -85,7 +85,7 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle){
-		$token_id = Video::where('token_id','=',$idtitle)->first();
+		$token_id = Video::where('file_name','=',$idtitle)->first();
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
@@ -93,7 +93,7 @@ class HomeController extends BaseController {
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.token_id,u.channel_name FROM videos v 
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 						LEFT JOIN users u ON v.user_id = u.id
 						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
 						HAVING v.id!='".$id."'
