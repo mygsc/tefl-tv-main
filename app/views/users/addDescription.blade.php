@@ -77,6 +77,7 @@
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
 								{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
 								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
+								{{Form::hidden('tokenId', Session::get('tokenId'))}}
 							</div>
 							<div class="text-right">
 							<br>

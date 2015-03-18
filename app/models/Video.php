@@ -14,7 +14,8 @@ class Video extends Eloquent{
 		'title' => 'required',
 		'description' => 'required',
 		'tags' => 'required',
-		'publish' => 'required'
+		'publish' => 'required',
+		'poster' => 'mimes:jpg,jpeg,png,gif,pneg|required'
 		);
 	public static $video_edit_rules = array(
 		'title' => 'required',

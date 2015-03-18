@@ -166,9 +166,12 @@
                                     {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'rawr')) }}
                                     <br/>
                                     {{$getVideoComment->comment}}<br/>
+                                    {{$getVideoComment->id}}<br/>
                                     <a href='#' id='reply'>Reply</a>
                                     <span class='glyphicon glyphicon-thumbs-up'></span>
                                     <span class='glyphicon glyphicon-thumbs-down'></span>
+                                    <hr/>
+                              
                                 </div>
                             @endforeach
                         </div>

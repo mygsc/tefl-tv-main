@@ -21,6 +21,7 @@ class VideoController extends Controller {
 		// $size = '1024x768'; 
 		// $second = 5; 
 		// $ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
+		$tokenId = str_random(11);
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
@@ -40,7 +41,7 @@ class VideoController extends Controller {
 					$destinationPath = 'public/videos/';
 					$ext = $file->getClientOriginalExtension();
 					$file->move($destinationPath, $encrypt_name.'.'.$ext);  
-			return Redirect::route('get.addDescription', $encrypt_name);
+			return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $tokenId);
 		}
 	}
 	return Redirect::route('get.upload')
@@ -72,10 +73,12 @@ class VideoController extends Controller {
 							}
 						}
 						$posterExt = $poster->getClientOriginalExtension();
-						$poster->move($uploadPosterDir, $posterFilename.$id.'.'.$posterExt); 
+						$modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
+						//$poster->move($uploadPosterDir, $posterFilename.$id.'.'.$posterExt); 
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
+						$video->token_id = Input::get('tokenId');
 						$video->poster = $posterFilename.$id.'.'.$posterExt;
 						$video->total_time = Input::get('totalTime');
 						$video->title = Input::get('title');
