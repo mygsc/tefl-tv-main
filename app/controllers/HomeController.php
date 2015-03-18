@@ -87,22 +87,12 @@ class HomeController extends BaseController {
 	public function watchVideo($idtitle){
 		$id = explode('%',$idtitle);
 
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
+
 		$videoId = $id[0];
 		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
-		if(empty($id[0])){
-			return Redirect::to('/');
-		}
-		if(preg_replace('/[^A-Za-z\-]/', '',$id[1]) != preg_replace('/[^A-Za-z\-]/', '',$videos->title)){
-			return Redirect::to('/');
-		}
+	
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
 		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 

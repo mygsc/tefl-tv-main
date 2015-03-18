@@ -10,8 +10,7 @@ class Notification extends Eloquent {
 
 	public function constructNotificationMessage($user_id, $notifier_id, $type, $routes = null, $callback = null){
 		if(!empty($user_id) || !empty($notifier_id) || !empty($type)){
-			$notifierInfo = User::find($notifier_id);
-			$notifierLink = '<a href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
+			$notifierInfo = User::find($notifier_id);			$notifierLink = '<a href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
 
 			if($type == 'subscribed'){
 				$message = 'has subscribe to your channel';
