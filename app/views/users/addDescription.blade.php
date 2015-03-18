@@ -99,6 +99,8 @@
 
 @stop
 
+
 @section('script')
 {{HTML::script('js/user/upload.js')}}
+
 @stop

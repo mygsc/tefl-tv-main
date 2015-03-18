@@ -85,47 +85,40 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle){
-		$id = explode('%',$idtitle);
-
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
-		$videoId = $id[0];
+		$token_id = Video::where('token_id','=',$idtitle)->first();
+		$id = $token_id->id;
+		$videoId = $id;
 		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
-		if(empty($id[0])){
-			return Redirect::to('/');
-		}
-		if(preg_replace('/[^A-Za-z\-]/', '',$id[1]) != preg_replace('/[^A-Za-z\-]/', '',$videos->title)){
-			return Redirect::to('/');
-		}
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.token_id,u.channel_name FROM videos v 
 						LEFT JOIN users u ON v.user_id = u.id
-						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
+						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+						HAVING v.id!='".$id."'
+						AND v.report_count < 5
+						AND v.publish = 1
+						AND v.deleted_at IS NULL;
+						");
 		if(isset(Auth::User()->id)){
 		$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
 									LEFT JOIN playlists_items i ON p.id = i.playlist_id
-									WHERE i.video_id = '".$id[0]."'
+									WHERE i.video_id = '".$id."'
 									HAVING p.user_id = '".Auth::User()->id."';");
 		$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
 									WHERE NOT EXISTS
 									(SELECT * FROM playlists_items AS i
 									   WHERE i.playlist_id = p.id
 									   AND
-									   i.video_id = '".$id[0]."'
+									   i.video_id = '".$id."'
 									   AND
 									   p.user_id = '".Auth::User()->id."')");
-		$favorites = Favorite::where('video_id','=',$id[0])
+		$favorites = Favorite::where('video_id','=',$id)
 								->where('user_id','=',Auth::User()->id)->first();
-		$watchLater = WatchLater::where('video_id','=',$id[0])
+		$watchLater = WatchLater::where('video_id','=',$id)
 								->where('user_id','=',Auth::User()->id)->first();
-		$like = Like::where('video_id','=',$id[0])
+		$like = Like::where('video_id','=',$id)
 								->where('user_id','=',Auth::User()->id)->first();
 							
 		}
@@ -136,7 +129,12 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$like = null;
 		}
-		$likeCounter =	Like::where('video_id','=',$id[0])->count();
+
+		$likeCounter =	Like::where('video_id','=',$id)->count();	
+		$getVideoComments = DB::table('comments')
+							->join('users', 'users.id', '=', 'comments.user_id')
+							->where('comments.video_id', $videoId)
+							->get();
 
  		$getVideoComments = DB::table('users')
  							->join('comments', 'users.id', '=', 'comments.user_id')
