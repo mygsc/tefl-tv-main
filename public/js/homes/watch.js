@@ -1,21 +1,16 @@
 $(document).ready(function(){
-	$('a[id^="videourl"]').each(function(){
-		var url = $(this).attr('href');
-		$(this).each(function(){
-		var new_url = url.replace(/[\*\^\'\!\@\#\$\&\(\)\/]/g, '').replace(/ /g,'+');
-			$(this).attr('href',new_url);
-		});
-	});
 	function addToFavorites(){
-		$('#addToFavorites').click(function(){
+		$('#addToFavorites').click(function(e){
 			var text1 = $('#text1').val();
+			e.preventDefault();
 			$.post('http://localhost:8000/mychannels/addToFavorites/'+text1,function(data){
 					favoriteLoader();
 				});
 		});
 	}
 	function removeToFavorites(){
-		$('#removeToFavorites').click(function(){
+		$('#removeToFavorites').click(function(e){
+			e.preventDefault();
 			var text1 = $('#text1').val();
 			$.post('http://localhost:8000/mychannels/removeToFavorites/'+text1,function(data){
 					favoriteLoader();
@@ -23,18 +18,20 @@ $(document).ready(function(){
 		});
 	}
 	function addToWatchLater(){
-		$('#addToWatchLater').click(function(){
+		$('#addToWatchLater').click(function(e){
 			var text1 = $('#text1').val();
+			e.preventDefault();
 			$.post('http://localhost:8000/mychannels/addToWatchLater/'+text1,function(data){
 					watchLaterLoader();
 				});
 		});
 	}
 	function removeToWatchLater(){
-		$('#removeToWatchLater').click(function(){
+		$('#removeToWatchLater').click(function(e){
 			var text1 = $('#text1').val();
+			e.preventDefault();
 			$.post('http://localhost:8000/mychannels/removeToWatchLater/'+text1,function(data){
-					watchLaterLoader();
+					watchLaterLoader ();
 				});
 		});
 	}
@@ -44,6 +41,7 @@ $(document).ready(function(){
 		list.click(function(e){
 			var text1 = $('#text1').val();
 			var value = list.val();
+			e.preventDefault();
 				$.post('http://localhost:8000/mychannels/removePlaylist/'+text1, {value:value},function(data){
 					deleteLoader();
 				});
@@ -57,6 +55,7 @@ $(document).ready(function(){
 		list.click(function(e){
 			var text1 = $('#text1').val();
 			var value = list.val();
+			e.preventDefault();
 				$.post('http://localhost:8000/mychannels/addChkBoxPlaylist/'+text1, {value:value},function(data){
 					addLoader();
 				});
@@ -148,6 +147,7 @@ $(document).ready(function(){
 	function like(){
 		$('#like').click(function(e){
 			var text1 = $('#text1').val();
+			e.preventDefault();
 				$.post('http://localhost:8000/mychannels/likeVideo/'+text1,function(data){
 					likeLoader();
 				});
@@ -156,6 +156,7 @@ $(document).ready(function(){
 	function unlike(){
 		$('#unlike').click(function(e){
 			var text1 = $('#text1').val();
+			e.preventDefault();
 				$.post('http://localhost:8000/mychannels/unlikeVideo/'+text1,function(data){
 					likeLoader();
 				});

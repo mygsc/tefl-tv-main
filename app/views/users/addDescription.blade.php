@@ -97,3 +97,7 @@
 </div>
 
 @stop
+
+@section('css')
+	{{HTML::script('js/user/upload.js')}}
+@stop

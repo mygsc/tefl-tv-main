@@ -62,7 +62,7 @@
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
         @if(isset(Auth::User()->id))
-            {{Form::hidden('text1',Crypt::encrypt($id[0]),array('id'=>'text1'))}}
+            {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
                 <span class="dropdown" id="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
@@ -189,9 +189,8 @@
                     <!--/search result-->
                     <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                         @foreach($relations as $relation)
-                        @if(($relation->id != $id[0]) && ($relation->deleted_at == NULL) && ($relation->publish == 1) && ($relation->report_count < 5))
                         <li class="ui-tabs-nav-item" id="">
-                           <a href="watch={{$relation->id}}%{{$relation->title}}" id="videourl{{$videourl++}}">
+                           <a href="watch={{$relation->token_id}}" id="videourl{{$videourl++}}">
 
                             <img src="img/videoGallery/image1-small.jpg" alt="" />
 
@@ -200,7 +199,6 @@
                             <small>{{$relation->created_at}}</small>
 
                         </li>
-                        @endif
                         @endforeach
                     </ul><!--video list-->
 
@@ -213,7 +211,7 @@
 @stop
 
 @section('script')
-    {{HTML::script('js/media.player.js')}}
     {{HTML::script('js/homes/watch.js')}}
+    {{HTML::script('js/media.player.js')}}
     {{HTML::script('js/homes/comment.js')}}
 @stop
