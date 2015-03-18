@@ -80,66 +80,64 @@ class HomeController extends BaseController {
 
 		return View::make('homes.signin');
 	}
+	public function getWatchVideo() {
+		return View::make('homes.advertisements');
+	}
 
 	public function watchVideo($idtitle){
-		$id = explode('%',$idtitle);
-
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
-		$videoId = $id[0];
+		$token_id = Video::where('file_name','=',$idtitle)->first();
+		$id = $token_id->id;
+		$videoId = $id;
 		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
-		if(empty($id[1])){
-			return Redirect::to('/');
-		}
-		if(empty($id[0])){
-			return Redirect::to('/');
-		}
-		if(preg_replace('/[^A-Za-z\-]/', '',$id[1]) != preg_replace('/[^A-Za-z\-]/', '',$videos->title)){
-			return Redirect::to('/');
-		}
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,u.channel_name FROM videos v 
-						LEFT JOIN users u ON v.user_id = u.id
-						WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)");
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			AND v.report_count < 5
+			AND v.publish = 1
+			AND v.deleted_at IS NULL;
+			");
 		if(isset(Auth::User()->id)){
-		$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
-									LEFT JOIN playlists_items i ON p.id = i.playlist_id
-									WHERE i.video_id = '".$id[0]."'
-									HAVING p.user_id = '".Auth::User()->id."';");
-		$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
-									WHERE NOT EXISTS
-									(SELECT * FROM playlists_items AS i
-									   WHERE i.playlist_id = p.id
-									   AND
-									   i.video_id = '".$id[0]."'
-									   AND
-									   p.user_id = '".Auth::User()->id."')");
-		$favorites = Favorite::where('video_id','=',$id[0])
-								->where('user_id','=',Auth::User()->id)->first();
-		$watchLater = WatchLater::where('video_id','=',$id[0])
-								->where('user_id','=',Auth::User()->id)->first();
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+				LEFT JOIN playlists_items i ON p.id = i.playlist_id
+				WHERE i.video_id = '".$id."'
+				HAVING p.user_id = '".Auth::User()->id."';");
+			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
+				WHERE NOT EXISTS
+				(SELECT * FROM playlists_items AS i
+					WHERE i.playlist_id = p.id
+					AND
+					i.video_id = '".$id."'
+					AND
+					p.user_id = '".Auth::User()->id."')");
+			$favorites = Favorite::where('video_id','=',$id)
+			->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = WatchLater::where('video_id','=',$id)
+			->where('user_id','=',Auth::User()->id)->first();
+			$like = Like::where('video_id','=',$id)
+			->where('user_id','=',Auth::User()->id)->first();
+
 		}
 		else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
 			$watchLater = null;
+			$like = null;
 		}
 
-		$getVideoComments = DB::table('comments')
-							->join('users', 'users.id', '=', 'comments.user_id')
-							->where('comments.video_id', $videoId)
-							->get();
+		$likeCounter = Like::where('video_id','=',$id)->count(); 
+		$getVideoComments = DB::table('comments')->join('users', 'users.id', '=', 'comments.user_id')
+				->where('comments.video_id', $videoId)->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
 	}
 
 	public function postSignIn() {
-
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
@@ -149,7 +147,6 @@ class HomeController extends BaseController {
 			if($attempt){
 				$verified = Auth::User()->verified;
 				$status = Auth::User()->status;
-				
 				return Redirect::intended('/');
 			}
 		}
@@ -191,9 +188,35 @@ class HomeController extends BaseController {
             ));
         }
     }
+    public function addReply(){
+		$reply = trim(Input::get('reply'));
+		$comment_id = Input::get('comment_id');
+		$user_id = Input::get('user_id');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+		}
+		if(!empty(trim($reply))){
+        	$reply = new CommentReply;
+			$reply->comment_id = $comment_id;
+			$reply->user_id = $user_id;
+			$reply->reply = $reply;
+			$reply->save();
+			return Response::json(array(
+                'status' => 'success',
+                'comment' => $reply,
+                'comment_id' => $comment_id,
+                'user_id' => $user_id
+            ));
+        }
+    }
 
 	public function testingpage(){
-		$routes = route('view.users.channel', array('gil'));
-		return $this->Notification->constructNotificationMessage('3','1','replied');
+		define('DS', DIRECTORY_SEPARATOR);
+		$userFolderName = Auth::User()->id. '-'. Auth::User()->channel_name;
+		//return asset('videos/'. $userFolderName);
+		if(!file_exists('public'. DS. 'videos'.DS. $userFolderName)){
+			mkdir('public'. DS. 'videos'. DS. $userFolderName);
+		}
 	}
 }

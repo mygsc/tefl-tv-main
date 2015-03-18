@@ -7,22 +7,25 @@ $(document).ready(function(){
 			alert('Empty comment. Please try again.')
 		}else{
 			$.ajax({
-			type: 'POST',
-			url: '/addcomment',
-			cache: false, 
-            data: {
-            	comment:txtComment,
-            	video_id:txtVideoId,
-            	user_id:txtUserId,
-            },
-	        success: function(data){
-	        	if(data['status'] == 'error'){
-	        		$('#errorlabel').text(data['label']);
-	        	}else if(data['status'] == 'success'){
-	        		alert(data['status']);
-	        	}
-           	}
-	    });
+				type: 'POST',
+				url: '/addcomment',
+				cache: false, 
+	            data: {
+	            	comment:txtComment,
+	            	video_id:txtVideoId,
+	            	user_id:txtUserId,
+	            },
+		        success: function(data){
+		        	if(data['status'] == 'error'){
+		        		$('#errorlabel').text(data['label']);
+		        	}else if(data['status'] == 'success'){
+		        		alert(data['status']);
+		        	}
+	           	}
+	    	});
 		}
+	});
+	$("#replyLink").click(function() {
+		$("#txtreply").removeClass("hidden");
 	});
 }); 

@@ -24,15 +24,15 @@
 			@endif
 			@foreach($videos as $video)
 			<br><br>
-		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',Crypt::encrypt($video->id))))}}
+		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',$video->id)))}}
 				<div class="well">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="embed-responsive embed-responsive-16by9 h-video">
-								<video onloadeddata="$(this).trigger('video_really_ready')" width="400" id="video" controls="controls" poster="/img/thumbnails/video.png">
-									<source src="/videos/{{$video->file_name}}.webm" type="video/webm" >
-									<source src="/videos/{{$video->file_name}}.ogv" type="video/ogg" >
-									<source src="/videos/{{$video->file_name}}.mp4" type="video/mp4" >
+								<video width="400" id="video" controls="controls" poster="/img/thumbnails/video.png">
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
 								</video>
 							</div>
 
@@ -58,11 +58,11 @@
 								
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control'))}}
+									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true))}}
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
-									{{ Form::select('publish', array('0' => 'Unpublish', '1' => 'Publish'), null , array('class' => 'form-control')) }}
+									{{ Form::select('publish', array('0' => 'Unpublish', '1' => 'Publish'), null , array('class' => 'form-control','required'=>true)) }}
 
 								</div> 
 							
@@ -70,12 +70,14 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;'))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true))}}
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
-								{{Form::text('tags',null,array('class'=>'form-control'))}}
-								{{Form::hidden('encrypt',Crypt::encrypt($video->id),array('id'=>'encrypt'))}}
+								{{Form::text('tags',null,array('class'=>'form-control','required'=>true))}}
+								{{Form::hidden('encrypt',$video->file_name,array('id'=>'encrypt'))}}
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
 								{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
+								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
+								{{Form::hidden('tokenId', Session::get('tokenId'))}}
 							</div>
 							<div class="text-right">
 							<br>
@@ -94,5 +96,11 @@
 		</div>
 	</div>
 </div>
+
+@stop
+
+
+@section('script')
+{{HTML::script('js/user/upload.js')}}
 
 @stop

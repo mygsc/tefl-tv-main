@@ -141,7 +141,7 @@
 							var bufferWidth = (($maxBuffer - $minBuffer) / $duration) * 100;
 											
 							// Append the buffered regions to the video
-							$('<div class="buffered"></div>').css({"left" : bufferOffset+'%', 'width' : bufferWidth+'%'}).appendTo($that.find('.progress'));
+							$('<div class="buffered"></div>').css({"background":"red", "left" : bufferOffset+'%', 'width' : bufferWidth+'%'}).appendTo($that.find('.progress'));
 							
 						}
 					}
