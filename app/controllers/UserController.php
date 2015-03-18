@@ -170,88 +170,56 @@ class UserController extends BaseController {
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
 
-		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$usersVideos = User::find(Auth::User()->id)->video;
-		$subscribers = User::find(Auth::User()->id)->subscribe;
-
-
-
-		// $countSubscribers = DB::table('subscribes')->where('user_id', Auth::User()->id)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
-
 		$allViews = DB::table('videos')->sum('views');
-
 		$countAllViews = $this->Video->countViews($allViews);
-		
 
-		foreach($subscribers as $a){
-			$subscriber_id[] = $a->subscriber_id;
-		}
-
-		
-
-		if(isset($subscriber_id)){
-			$subscriberLists = UserProfile::find($subscriber_id);
-			$ifNoSubscriber = false;
-
-		} else{
-			$subscriberLists = array();
-			$ifNoSubscriber = true;
-			
-		} 
-
-		// return $subscriberLists;
-
-		foreach($subscriberLists as $key => $listSubscriber){
-
-			$subscriberCount = DB::table('subscribes')->where('subscriber_id', $listSubscriber->id)->get();
-
-			$subscriberLists[$key]->count = count($subscriberCount);
-		}
-
-		$increment = 0;
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
-		// return $subscriptions;
-		foreach ($subscriptions as $b) {
-			$subscription_id[] = $b->user_id;
-			// $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
-			// $subscriptionLists[] = $subscriptioned;
 
-		}
+		  $increment = 0;
 
-		$subscriptionLists = UserProfile::find($subscription_id);
-		// return $subscriptioned;
-		// return $subscriptionLists;
-		foreach($subscriptionLists as $key => $listSubscription) {
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
-			$subscriptionLists[$key]->count = count($subscriptionCount);
-		}
+		  // $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
+		  // // return $subscriptions;
+		  // foreach ($subscriptions as $b) {
+		  //  $subscription_id[] = $b->user_id;
+		  //  // $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
+		  //  // $subscriptionLists[] = $subscriptioned;
 
-		// return $subscriptionLists;
+		  // }
 
-		// return $subscribers;
-		$findUsersVideo = User::find(Auth::User()->id)->favorite;
-		
+		  // $subscriptionLists = UserProfile::find($subscription_id);
+		  // // return $subscriptioned;
+		  // // return $subscriptionLists;
+		  // foreach($subscriptionLists as $key => $listSubscription) {
+		  //  $subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
+		  //  $subscriptionLists[$key]->count = count($subscriptionCount);
+		  // }
 
-		foreach($findUsersVideo as $findVideo){
-			$videoFavorites[] = $findVideo->video_id;
-		}
-		// return $videoFavorites;
-		$showFavoriteVideos = Video::find($videoFavorites);
+		  // // return $subscriptionLists;
 
-		
+		  // // return $subscribers;
+		  // $findUsersVideo = User::find(Auth::User()->id)->favorite;
+		  
 
-		foreach($subscriptionLists as $key => $listSubscription) {
-			$subscriptionCount = Db::table('subscribes')->where('user_id', $listSubscription->id)->get();
-			$subscriptionLists[$key]->count = count($subscriptionCount);
-		}
+		  // foreach($findUsersVideo as $findVideo){
+		  //  $videoFavorites[] = $findVideo->video_id;
+		  // }
+		  // // return $videoFavorites;
+		  // $showFavoriteVideos = Video::find($videoFavorites);
 
+		  
 
-	
+		  // foreach($subscriptionLists as $key => $listSubscription) {
+		  //  $subscriptionCount = Db::table('subscribes')->where('user_id', $listSubscription->id)->get();
+		  //  $subscriptionLists[$key]->count = count($subscriptionCount);
+		  // }
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos', 'subscriberLists','subscriptionLists', 'ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos', 'countVideos', 'countAllViews'));
+	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -321,11 +289,15 @@ class UserController extends BaseController {
 	public function getEditUsersChannel() {
 
 		$userChannel = UserProfile::find(Auth::User()->id);
-		return View::make('users.editchannel', compact('userChannel'));
+		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
+
+
+		return View::make('users.editchannel', compact('userChannel','userWebsite'));
 	}
 
 	public function postEditUsersChannel($channel_name) {
 
+		
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userEditRules);
 
@@ -336,7 +308,7 @@ class UserController extends BaseController {
 			$user->organization = Input::get('organization');
 			$user->save();
 
-			$userChannel = UserProfile::find(Auth::User()->id);
+			$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 			$userChannel->first_name = Input::get('first_name');
 			$userChannel->last_name = Input::get('last_name');
 			$userChannel->contact_number = Input::get('contact_number');
@@ -348,6 +320,27 @@ class UserController extends BaseController {
 			$userChannel->state = Input::get('state');
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
+
+		if(empty(Website::where('user_id',Auth::User()->id)->first())){
+			$userWebsite = new Website;
+			$userWebsite->user_id = Auth::User()->id;
+			$userWebsite->facebook = Input::get('facebook');
+			$userWebsite->youtube = Input::get('youtube');
+			$userWebsite->twitter = Input::get('twitter');
+			$userWebsite->instagram = Input::get('instagram');
+			$userWebsite->gmail = Input::get('gmail');
+			$userWebsite->others = Input::get('others');
+			$userWebsite->save();
+		}else{
+			$userWebsite = Website::where('user_id',Auth::User()->id)->first();
+			$userWebsite->facebook = Input::get('facebook');
+			$userWebsite->youtube = Input::get('youtube');
+			$userWebsite->twitter = Input::get('twitter');
+			$userWebsite->instagram = Input::get('instagram');
+			$userWebsite->gmail = Input::get('gmail');
+			$userWebsite->others = Input::get('others');
+			$userWebsite->save();
+		}
 		}else{
 			return Redirect::route('users.edit.channel', $channel_name)->withErrors($validate);
 		}

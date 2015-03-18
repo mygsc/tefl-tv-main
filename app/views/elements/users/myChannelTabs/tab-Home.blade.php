@@ -162,33 +162,30 @@
 		<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 			<div class="subLabelThis">
 				<span>Subscribers</span>&nbsp;
-				@if(!$ifNoSubscriber)
-					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">
-					{{link_to_route('users.subscribers', 'See All')}}</small>
-				@endif
+
 			</div>
 			<br/><br/>
 			<div class="row">
-				@if($ifNoSubscriber)
-					<div class="col-md-6">	
-						<div class="row user-padding">
-							No Subscriber
-						</div>
-					</div>
-				@else
-					@foreach($subscriberLists as $subscriberList)
+			@if(isset($subscribers))
+					@foreach($subscribers as $subscriber)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-							<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
+							<?php
+								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+							?>
+							<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
+								<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
+							</a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>{{$subscriberList->count}} </b>Subscribers</span>&nbsp;
+							<span>w/ <b>sdfgsd</b>Subscribers</span>&nbsp;
 							<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
 						</div>
 					</div>
 					@endforeach	
-				@endif
-				
+					@else
+						No subscribers yet.
+					@endif			
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
@@ -198,29 +195,27 @@
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;
-				@if(isset($subscriptionLists))
-					|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.subscribers', 'See All')}}</small>
-				@else
-					
-				@endif
 			</div>
 			<br/><br/>
 			<div class="row">
-				@if(!empty($subscriptionLists))
-					@foreach($subscriptionLists as $SubscriptionList)
+			@if(isset($subscriptions))
+					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span>&nbsp;
+								<?php
+									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
+								?>
+								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
-								<!-- <span>w/ <b>{{$SubscriptionList->count}}</b> Subscribers</span>&nbsp; -->
+								<span>w/ <b>asdas</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>
 					@endforeach
-				@else
-					No Subscription
-				@endif
+					@else
+						No Subscriptions yet
+					@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->

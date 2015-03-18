@@ -46,6 +46,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('WatchLater');
 	}
 
+	public function website() {
+
+		return $this->hasOne('Website');
+	}
+
 	public static function getUserLogin($channel_name, $password) {
 		$remember_me = Input::has('remember_me') ? true : false;
 		$attempt = Auth::attempt(array('channel_name' => $channel_name, 'password' => $password), $remember_me);
@@ -57,8 +62,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'contact_number' => 'required|regex:/(^[0-9]+$)+/',
-		'address' => 'required',
-		'birthdate' => 'required');
+		'address' => 'required');
 
 	public static $userRules = array(
 		'email' => 'required|email|unique:users',
