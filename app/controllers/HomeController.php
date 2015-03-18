@@ -130,10 +130,12 @@ class HomeController extends BaseController {
 			$watchLater = null;
 		}
 
-		$getVideoComments = DB::table('comments')
-							->join('users', 'users.id', '=', 'comments.user_id')
+		$getVideoComments = DB::table('users')
+							->join('comments', 'users.id', '=', 'comments.user_id')
+							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
 							->where('comments.video_id', $videoId)
 							->get();
+		// return $getVideoComments;
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId'));
 	}
@@ -187,6 +189,28 @@ class HomeController extends BaseController {
                 'status' => 'success',
                 'comment' => $comment,
                 'video_id' => $video_id,
+                'user_id' => $user_id
+            ));
+        }
+    }
+    public function addReply(){
+		$reply = trim(Input::get('reply'));
+		$comment_id = Input::get('comment_id');
+		$user_id = Input::get('user_id');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+		}
+		if(!empty(trim($reply))){
+        	$comments = new Comment;
+			$comments->comment_id = $comment_id;
+			$comments->user_id = $user_id;
+			$comments->reply = $reply;
+			$comments->save();
+			return Response::json(array(
+                'status' => 'success',
+                'comment' => $reply,
+                'comment_id' => $comment_id,
                 'user_id' => $user_id
             ));
         }
