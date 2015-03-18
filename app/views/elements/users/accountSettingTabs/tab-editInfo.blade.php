@@ -89,12 +89,37 @@
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 
             {{Form::label('country', 'Country: ')}}
-            {{Form::text('country', $userChannel->country, array('placeholder' => 'Country'))}}
+            {{Form::text('country', $userChannel->country_id, array('placeholder' => 'Country'))}}
         </div>
         <div class="col-md-6 ">
             {{ Form::checkbox('name', 'value', false) }} 
             {{Form::label('zip_code', 'Zip Code: ')}}
             {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
+        </div>
+
+        <div class="col-md-6">
+            {{Form::label('facebook', 'Facebook: ')}}            
+            {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('youtube', 'Youtube: ')}}
+            {{Form::text('youtube', null, array('placeholder' => 'Youtube Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('twitter', 'Twitter: ')}}
+            {{Form::text('twitter', null, array('placeholder' => 'Twitter Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('instagram', 'Instagram: ')}}
+            {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('gmail', 'Gmail: ')}}
+            {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('others', 'Other Websites: ')}}
+            {{Form::text('others', null, array('placeholder' => 'Other Website Accounts'))}}
         </div>
 
         <div class="text-right">
