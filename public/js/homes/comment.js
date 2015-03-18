@@ -25,7 +25,7 @@ $(document).ready(function(){
 	    	});
 		}
 	});
-	$("#reply").click(function() {
-		
+	$("#replyLink").click(function() {
+		$("#txtreply").removeClass("hidden");
 	});
 }); 

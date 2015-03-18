@@ -8,7 +8,7 @@ class VideoController extends Controller {
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
-		$this->user = Auth::User();
+		$this->Auth = Auth::User();
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->tmpImg = public_path().DS."videos".DS."tmp-img".DS;
 		$this->thumbImg = public_path().DS."videos".DS."img-vid-poster".DS;
@@ -21,27 +21,35 @@ class VideoController extends Controller {
 		// $size = '1024x768'; 
 		// $second = 5; 
 		// $ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
-		$tokenId = str_random(11);
+		$fileName = str_random(11);
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
 			//insert into database
 			$file = Input::file('video');
-			$input['user_id'] = $this->user->id;//'1';
+			$input['user_id'] = $this->Auth->id;//'1';
 			$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
+			//Find / Updated
 			$latest_id = $create->id;
-			$encrypt_name = Crypt::encrypt($latest_id);
+			$encrypt_name = $fileName;
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $encrypt_name;
 
 			if($db_filename->save()){
 					//Start upload
-					$img = $this->user->channel_name;
-					$destinationPath = 'public/videos/';
+				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+				$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName;
+				if(!file_exists($destinationPath)){
+					mkdir($destinationPath);
+				}
 					$ext = $file->getClientOriginalExtension();
-					$file->move($destinationPath, $encrypt_name.'.'.$ext);  
-			return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $tokenId);
+					$videoFolderPath = $destinationPath. DS. $encrypt_name;
+					if(!file_exists($videoFolderPath)){
+						mkdir($videoFolderPath);
+					}
+					$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
+			return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 		}
 	}
 	return Redirect::route('get.upload')
@@ -49,9 +57,8 @@ class VideoController extends Controller {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 }
-	public function getAddDescription($id){
-		$id = Crypt::decrypt($id);	
-		$videos = Video::where('id','=',$id)->get();
+	public function getAddDescription($filename = null){
+		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
@@ -59,8 +66,8 @@ class VideoController extends Controller {
 		$imgSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
 		$uploadPosterDir = $this->thumbImg;
-		$id = Crypt::decrypt($id);	
 		$videos = Video::where('id','=',$id)->get();
+		$fileName = $videos[0]['file_name'];
 		$input = Input::all();  
 		$validator = Validator::make($input,Video::$addDescription);
 			
@@ -73,13 +80,15 @@ class VideoController extends Controller {
 							}
 						}
 						$posterExt = $poster->getClientOriginalExtension();
-						$modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
-						//$poster->move($uploadPosterDir, $posterFilename.$id.'.'.$posterExt); 
+						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
+						$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+						$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
+						$poster->move($destinationPath, $fileName.'.jpg'); 
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
-						$video->token_id = Input::get('tokenId');
-						$video->poster = $posterFilename.$id.'.'.$posterExt;
+						// $video->token_id = Input::get('tokenId');
+						// $video->poster = $posterFilename.$id.'.'.$posterExt;
 						$video->total_time = Input::get('totalTime');
 						$video->title = Input::get('title');
 						$video->description = Input::get('description');
