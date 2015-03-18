@@ -671,9 +671,13 @@ class UserController extends BaseController {
     public function removePlaylist($id){
     	$id = Crypt::decrypt($id);
     	$playlistId = Crypt::decrypt(Input::get('value'));
-    	$playlistItem = PlaylistItem::where('video_id','=',$id)
-    									->where('playlist_id','=',$playlistId)->first();
-    	$playlistItem->delete();
+    	$counter = PlaylistItem::where('video_id','=',$id)
+    									->where('playlist_id','=',$playlistId);
+    	if($counter->count()){
+	    	$playlistItem = PlaylistItem::where('video_id','=',$id)
+	    									->where('playlist_id','=',$playlistId)->first();
+	    	$playlistItem->delete();
+  		}
 
     }
     public function addToFavorites($id){
@@ -686,9 +690,13 @@ class UserController extends BaseController {
 	}
 	public function removeToFavorites($id){
 		$id = Crypt::decrypt($id);
-		$favorite = Favorite::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id)->first();
-		$favorite->delete();					
+		$counter = Favorite::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id);
+		if($counter->count()){
+			$favorite = Favorite::where('user_id','=',Auth::User()->id)
+								->where('video_id','=',$id)->first();
+			$favorite->delete();
+		}					
 	}
 	public function addToWatchLater($id){
 		$id = Crypt::decrypt($id);
@@ -700,9 +708,13 @@ class UserController extends BaseController {
 	}
 	public function removeToWatchLater($id){
 		$id = Crypt::decrypt($id);
-		$favorite = WatchLater::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id)->first();
-		$favorite->delete();			
+		$counter = WatchLater::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id);
+		if($counter->count()){					
+			$favorite = WatchLater::where('user_id','=',Auth::User()->id)
+								->where('video_id','=',$id)->first();
+			$favorite->delete();
+		}			
 	}
 	public function likeVideo($id){
 		$id = Crypt::decrypt($id);
@@ -715,9 +727,13 @@ class UserController extends BaseController {
 
 	public function unlikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$unlike = Like::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id)->first();
-		$unlike->delete();
+		$counter = Like::where('user_id','=',Auth::User()->id)
+							->where('video_id','=',$id);
+		if($counter->count()){
+			$unlike = Like::where('user_id','=',Auth::User()->id)
+								->where('video_id','=',$id)->first();
+			$unlike->delete();
+		}
 	}
 
 	public function getNotification(){

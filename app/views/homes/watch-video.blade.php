@@ -31,7 +31,6 @@
                                             1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                         @if(isset(Auth::User()->id))
-
                                             @if(!empty($like))
                                             <span id = "like-span">
                                                 <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -78,7 +77,7 @@
                     @if(empty($watchLater))
                         <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
                     @else
-                        <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                      <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
                     @endif
                         <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
                         
@@ -167,9 +166,12 @@
                                     {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'rawr')) }}
                                     <br/>
                                     {{$getVideoComment->comment}}<br/>
+                                    {{$getVideoComment->id}}<br/>
                                     <a href='#' id='reply'>Reply</a>
                                     <span class='glyphicon glyphicon-thumbs-up'></span>
                                     <span class='glyphicon glyphicon-thumbs-down'></span>
+                                    <hr/>
+                              
                                 </div>
                             @endforeach
                         </div>
