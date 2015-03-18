@@ -147,7 +147,6 @@
                         </div><!--well-->
                         <br/>
                     </div> <!--/.ui-tabs-panel-->
-
                     <!-- COMMENTS AREA -->
                     @if(isset(Auth::User()->id))
                     <div class="comments row">
@@ -160,18 +159,35 @@
                             {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
                         @endif
 
-                        <div class="commentsarea row">
+                        <div class="col-md-12 commentsarea row">
                             @foreach($getVideoComments as $getVideoComment)
                                 <div class="commentsarea row">
-                                    {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'rawr')) }}
+                                    {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
                                     <br/>
                                     {{$getVideoComment->comment}}<br/>
-                                    {{$getVideoComment->id}}<br/>
-                                    <a href='#' id='reply'>Reply</a>
-                                    <span class='glyphicon glyphicon-thumbs-up'></span>
-                                    <span class='glyphicon glyphicon-thumbs-down'></span>
+                                    <button id='replyLink'>Reply</button>
+                                    <a href="#" class='glyphicon glyphicon-thumbs-up'></a>
+                                    <a href="#" class='glyphicon glyphicon-thumbs-down'></a>
+                                    <?php
+                                        $getCommentReplies = DB::table('comments_reply')
+                                            ->join('users', 'users.id', '=', 'comments_reply.user_id')
+                                            ->where('comment_id', $getVideoComment->id)->get(); ?>
+
+                                        <div id="replysection">REPLY:
+                                            <?php
+                                            foreach($getCommentReplies as $getCommentReply):
+                                                echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
+                                                echo $getCommentReply->reply . "</hr>";
+                                            endforeach;
+                                    ?>
+                                            {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+                                                {{Form::hidden('comment_id', $getVideoComment->id)}}
+                                                {{Form::hidden('user_id', Auth::User()->id)}}
+                                                {{Form::textarea('txtreply', '', array('class' =>'form-control hidden', 'id'=>'txtreply'))}}
+                                                {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+                                            {{Form::close()}} 
+                                        </div>
                                     <hr/>
-                              
                                 </div>
                             @endforeach
                         </div>
@@ -193,13 +209,13 @@
                     <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                         @foreach($relations as $relation)
                         <li class="ui-tabs-nav-item" id="">
-                           <a href="watch={{$relation->token_id}}" id="videourl{{$videourl++}}">
+                           <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
 
                             <img src="img/videoGallery/image1-small.jpg" alt="" />
 
                             <span>{{$relation->title}}</span><br/></a>
                             <span>by: {{$relation->channel_name}}</span><br/>
-                            <small>{{$relation->created_at}}</small>
+                            <small>{{date('m/d/Y', $relation->created_at);}}</small>
 
                         </li>
                         @endforeach
@@ -216,5 +232,6 @@
 @section('script')
     {{HTML::script('js/homes/watch.js')}}
     {{HTML::script('js/media.player.js')}}
+    {{HTML::script('js/jquery.js')}}
     {{HTML::script('js/homes/comment.js')}}
 @stop
