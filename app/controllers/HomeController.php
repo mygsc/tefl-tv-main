@@ -138,13 +138,9 @@ class HomeController extends BaseController {
 		}
 		$likeCounter =	Like::where('video_id','=',$id[0])->count();
 
-// 		$getVideoComments = DB::table('users')
-// 							->join('comments', 'users.id', '=', 'comments.user_id')
-// 							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
-// =======
-		$getVideoComments = DB::table('comments')
-							->join('users', 'users.id', '=', 'comments.user_id')
-							->where('comments.video_id', $videoId)
+ 		$getVideoComments = DB::table('users')
+ 							->join('comments', 'users.id', '=', 'comments.user_id')
+							->join('comments_reply', 'comments.id', '=', 'comments_reply.comment_id')
 							->get();
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
 	}
