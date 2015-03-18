@@ -119,12 +119,17 @@
 
 				@foreach($recommendeds as $recommended)
 		            <div class="col-md-2">
-		            	<img src="/img/thumbnails/v2.png" class="h-video">
+		            	<video width="200" height="100" poster="/videos/img-vid-poster/u62d1175.jpg">
+		            		<source ="/videos/bowling.mp4" type="video/mp4">
+		            		<source ="/videos/bowling.webm" type="video/webm">
+		            		<source ="/videos/bowling.ogg" type="video/ogg">	
+		            	</video>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video')}}">{{$recommended->title}}</a>
 		            	</div>
 		            	<div class="count">
-		            		55 Views, 40 Likes
+		            		Views:{{number_format($recommended->views,0,null,',')}}
+		            		 Likes:{{$recommended->likes}}
 		            	</div>
 		            </div>
 		        @endforeach
@@ -145,7 +150,8 @@
 							<a href="{{route('homes.watch-video')}}">{{$popular->title}}</a>
 						</div>
 						<div class="count">
-		            		{{$popular->views}} Views, {{$popular->likes}} Likes
+		            		Views:{{number_format($popular->views,0,null,',')}}
+		            		 Likes:{{$popular->likes}}
 		            	</div>
 					</div>
 					@endforeach
@@ -166,7 +172,8 @@
 							<a href="{{route('homes.watch-video')}}">{{$latest->title}}</a>
 						</div>
 						<div class="count">
-		            		{{$latest->views}} Views, {{$latest->likes}} Likes
+		            		Views:{{number_format($latest->views,0,null,',')}}
+		            		 Likes:{{$latest->likes}}
 		            	</div>
 					</div>
 					@endforeach
@@ -188,7 +195,8 @@
 							<a href="{{route('homes.watch-video')}}">{{$random->title}}</a>
 						</div>
 						<div class="count">
-		            		{{$random->views}} Views, {{$random->likes}} Likes
+		            		Views:{{number_format($random->views,0,null,',')}}
+		            		 Likes:{{$random->likes}}
 		            	</div>
 					</div>
 					@endforeach

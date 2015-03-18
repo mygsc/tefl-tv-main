@@ -85,6 +85,7 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle){
+		
 		$token_id = Video::where('token_id','=',$idtitle)->first();
 		$id = $token_id->id;
 		$videoId = $id;
