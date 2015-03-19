@@ -164,19 +164,25 @@
                         <div class="commentsarea row">
                             {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
                             <br/>
-                            {{$getVideoComment->comment}}{{$getVideoComment->id}}<br/>
+                            {{$getVideoComment->comment}}<br/>
                             <?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?> |
 
                             <!-- <button id='c'>Reply</button> -->
-                            <a href="#" class='glyphicon glyphicon-thumbs-up'>(69)</a> |
-                            <a href="#" class='glyphicon glyphicon-thumbs-down'>(96)</a>
+                            <a href="#" class='glyphicon glyphicon-thumbs-up' id="likedup">
+                                <div id="likevalues">
+                                    <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
+                                    <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+                                </div>
+                            </a>69
+                            |
+                            <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
                             <?php
                             $getCommentReplies = DB::table('comments_reply')
                             ->join('users', 'users.id', '=', 'comments_reply.user_id')
                             ->where('comment_id', $getVideoComment->id)->get(); 
                             ?>
 
-                            <div id="replysection">REPLY:
+                            <div id="replysection">REPLY:<br/>
                                 <?php
                                 foreach($getCommentReplies as $getCommentReply):
                                     echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
