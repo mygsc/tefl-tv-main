@@ -123,7 +123,7 @@
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-md-2">
 		            	@if(file_exists($recommended->video_poster))
-							<video width="200" height="100" poster="{{$recommended->video_poster}}">
+							<video width="200" height="100" poster="{{$recommended->poster_path}}">
 						@else
 							<video width="200" height="100" poster="/img/thumbnails/video.png">
 						@endif
@@ -152,7 +152,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($popular->video_poster))
-							<img width="200" height="100" src="{{$recommended->video_poster}}">
+							<img width="200" height="100" src="{{$recommended->poster_path}}">
 						@else
 							<img width="200" height="100" src="/img/thumbnails/video.png">
 						@endif
@@ -209,7 +209,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($random->video_poster))
-							<img width="200" height="100" src="{{$recommended->video_poster}}">
+							<img width="200" height="100" src="{{$recommended->poster_path}}">
 						@else
 							<img width="200" height="100" src="/img/thumbnails/video.png">
 						@endif

@@ -145,7 +145,7 @@ class VideoController extends Controller {
 	public function getRandom($category = null){
 		$options = array('video' => 'video','playlist' => 'playlist', 'channel' => 'channel');
 
-		$randomResults = $this->Video->getVideoByCategory('random', 18);	//Default Value of randomResults
+		$randomResults = $this->Video->getVideoByCategory('random', 16);	//Default Value of randomResults
 		$type = 'video';
 		if(!empty($category)){	//Check if there is a specified category
 			if($category == 'channel'){
@@ -223,7 +223,7 @@ class VideoController extends Controller {
 		foreach($searchResults as $key => $searchResult){
 			$getTags = explode(',',$searchResult->tags);
 			foreach($getTags as $key2 => $getTags){
-			$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array('search' => $getTags));
+			$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array($getTags));
 			$searchResults[$key]->tag[$key2]['tags'] = $getTags;
 			}
 		}

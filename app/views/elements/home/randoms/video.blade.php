@@ -1,10 +1,14 @@
 <h1>Videos</h1>
 @foreach($randomResults as $randomResult)
 <div class="col-md-3">
-	
-		<img src="/img/thumbnails/v7.png">
+	<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">
+		@if(file_exists($randomResult->video_poster))
+							<img width="200" height="100" src="{{$randomResult->poster_path}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 		<div class="v-Info">
-			<a href="{{route('homes.watch-video')}}">{{$randomResult->title}}</a>
+			<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">{{$randomResult->title}}</a>
 		</div>
 	
 		<div class="count">
@@ -15,4 +19,5 @@
 
 	
 </div>
+</a>
 @endforeach

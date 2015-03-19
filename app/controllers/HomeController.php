@@ -51,7 +51,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->Video->getVideoByCategory('popular');
+		$popularVideos = $this->Video->getVideoByCategory('popular', 16);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -61,7 +61,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->Video->getVideoByCategory('latest');
+		$latestVideos =  $this->Video->getVideoByCategory('latest', 16);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 

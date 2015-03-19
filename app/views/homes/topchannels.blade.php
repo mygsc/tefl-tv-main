@@ -42,17 +42,14 @@
 				<div class="row">
 					<h3 class="inline">{{count($topChannel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$topChannel->total}} Views</h3>
 					<br/>
-					<img src="/img/user/u1.png" class="userRep">
-					<img src="/img/user/u4.png" class="userRep">
-					<img src="/img/user/u3.png" class="userRep">
-					<img src="/img/user/u7.png" class="userRep">
-					<img src="/img/user/u5.png" class="userRep">
-					<img src="/img/user/u6.png" class="userRep">
-					<img src="/img/user/u7.png" class="userRep">
-					<img src="/img/user/u2.png" class="userRep">
-					<img src="/img/user/u3.png" class="userRep">
-					<img src="/img/user/u6.png" class="userRep">
-					<a href="" data-toggle="modal" data-target="#followersModal"><img src="/img/user/more.png" class="userRep hvr-glow hand"></a>
+					@foreach($topChannel->subscribers as $subscriber)
+						@if(file_exists('public/img/user/'.$subscriber->subscriber_id.'.jpg'))
+						<img src="/img/user/{{$subscriber->subscriber_id}}.jpg" class="userRep">
+						@else
+						<img src="/img/user/0.jpg" class="userRep">
+						@endif
+					@endforeach
+					<!--<a href="" data-toggle="modal" data-target="#followersModal"><img src="/img/user/more.png" class="userRep hvr-glow hand"></a>-->
 				</div>
 			</div><!--/.subscribers-->
 		</div><!--/.well-->
