@@ -11,7 +11,7 @@
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 						<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
@@ -39,17 +39,25 @@
 									</div>
 								</div>
 								<br/><br/>
-								@foreach($subscriberLists as $subscriberList)
+								@if(empty($subscribers))
+									No Subscribers
+								@else
+								@foreach($subscribers as $subscriber)
 								<div class="subscribers">
 									<div class="col-md-6">
 										<img src="/img/user/u1.png" class="userRep2">&nbsp;
-										<a href="{{route('view.users.channel',$subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
+										<?php
+											$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+											$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
+											?>
+										<a href="{{route('view.users.channel')}}"><span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span></a>&nbsp;
 										<br/>&nbsp;
-										<span>w/ <b>{{$subscriberList->count}}</b> Subscribers</span>&nbsp;
+										<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
 										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 									</div>
 								</div><!--subscibersDiv-->
 								@endforeach
+								@endif
 							</div>
 						</div>
 					</div>
@@ -88,12 +96,18 @@
 										Subscribe/Unsubscribe
 									</td>
 								</tr>
-								@foreach($subscriptionLists as $SubscriptionList)
+								@if(empty($subscriptions))
+									No Subscriptions
+								@else
+								@foreach($subscriptions as $subscription)
 								<tr>
 									<td>{{ Form::checkbox(false)}}</td>
 									<td>
 										<img src="/img/user/u1.png" class="userRep2">&nbsp;
-										<a href="{{route('view.users.channel')}}"><span><b>{{$SubscriptionList->first_name}} {{$SubscriptionList->last_name}}</b></span></a>&nbsp;
+										<?php
+											$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
+										?>
+										<a href="{{route('view.users.channel')}}"><span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span></a>&nbsp;
 									</td>
 									<td class="text-center">{{ Form::checkbox(false)}}</td>
 									<td class="text-center">
@@ -104,6 +118,7 @@
 									<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
 								</tr>
 								@endforeach
+								@endif
 							</table>
 						</div><!--subscriptions-->
 					</div>

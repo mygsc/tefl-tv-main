@@ -58,11 +58,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static $userEditRules = array(
-		'organization' => 'required',
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
-		'contact_number' => 'required|regex:/(^[0-9]+$)+/',
-		'address' => 'required');
+		'contact_number' => 'regex:/(^[0-9]+$)+/'
+		);
 
 	public static $userRules = array(
 		'email' => 'required|email|unique:users',
