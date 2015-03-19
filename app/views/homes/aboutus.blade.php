@@ -103,4 +103,9 @@
 		</div><!--/.col-3 right section navigations-->
 
 	</div><!--/.container page-->
+
+@stop
+
+@section('script')
+	{{HTML::script('js/dynamicContent.js')}}
 @stop
