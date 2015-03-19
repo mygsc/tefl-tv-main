@@ -120,6 +120,7 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$like = Like::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
+		//return $playlists;
 
 		}
 		else{
@@ -138,10 +139,6 @@ class HomeController extends BaseController {
 				->where('comments.video_id', $videoId)->get();
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
-	}
-
-	public function count($id){
-
 	}
 
 	public function postSignIn() {

@@ -26,17 +26,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
-                                        <<<<<<< HEAD
                                         <br/>
-                                        <span class="">
-                                            1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
-                                            =======
-                                            <br/>
                                             <span class="">
                                                 <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
                                                 <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
-                                                >>>>>>> a67316dd06ed9692ace5944960e18d3cc22fb471
+
                                                 @if(isset(Auth::User()->id))
                                                 @if(!empty($like))
                                                 <span id = "like-span">
@@ -95,7 +89,6 @@
                                                                 @endforeach
                                                             </ul>    
                                                             @else
-                                                            {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
                                                             <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
                                                                 @foreach($playlists as $playlist)
                                                                 <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
