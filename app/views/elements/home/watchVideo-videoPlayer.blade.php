@@ -10,18 +10,18 @@
 				<button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
 				<button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
 				<button id='btn-fullscreen' class='fullscreen' title='fullscreen' onclick='fullscreen();'>Fullscreen</button> --}}
-				
-				<div class="embed-responsive embed-responsive-16by9">
-					<video id="media-video" width="100%" poster="/img/thumbnails/v1.png" class="embed-responsive-item">
-						<source src='/videos/movie.mp4' type='video/mp4'>
-						<source src='/videos/movie.webm' type='video/webm'>
-						<source src='/videos/movie.ogg' type='video/ogg'>
-						<source src='/videos/movie.mov' type='video/mov'>
-						<source src='/videos/movie.m4v' type='video/x-m4v'>
-						<source src='/videos/movie.3gp' type='video/3gpp'>
-					</video>
-				</div>
-				
+				@foreach($video_path as $video)
+					<div class="embed-responsive embed-responsive-16by9">
+						<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mov' type='video/mov'>
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.m4v' type='video/x-m4v'>
+							<source src='/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.3gp' type='video/3gpp'>
+						</video>
+					</div>
+				@endforeach
 				<div class="advertisement" style="display:none">
 					<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>

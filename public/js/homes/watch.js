@@ -1,4 +1,16 @@
 $(document).ready(function(){
+	function counter(){
+		var count = 0;
+		$('#play-pause,.play-icon').click(function(e){
+			count++;
+			var text1 = $('#text1').val();
+			e.preventDefault();
+			if(count<2){
+				$.post('http://localhost:8000/counter/'+text1,function(data){
+					});
+			}
+		});
+	}
 	function addToFavorites(){
 		$('#addToFavorites').click(function(e){
 			var text1 = $('#text1').val();
@@ -189,6 +201,7 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();
 				removeToWatchLater();
+				counter();
 				like();
 				unlike();
 		});
@@ -220,6 +233,7 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();	
 				removeToWatchLater();
+				counter();
 				like();
 				unlike();
 		});
@@ -252,6 +266,7 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();
 				removeToWatchLater();	
+				counter();
 				like();
 				unlike();
 		});
@@ -265,6 +280,7 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();	
 			removeToWatchLater();
+			counter();
 			like();
 			unlike();
 		});
@@ -277,6 +293,7 @@ $(document).ready(function(){
 			removeToFavorites();
 			addToWatchLater();
 			removeToWatchLater();
+			counter();
 			like();
 			unlike();
 		});	
@@ -290,6 +307,7 @@ $(document).ready(function(){
 				removeToFavorites();
 				addToWatchLater();
 				removeToWatchLater();
+				counter();
 				like();
 				unlike();
 			});
@@ -302,6 +320,7 @@ $(document).ready(function(){
 	removeToFavorites();
 	addToWatchLater();
 	removeToWatchLater();
+	counter();
 	like();
 	unlike();
 });
