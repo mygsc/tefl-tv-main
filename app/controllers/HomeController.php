@@ -136,7 +136,8 @@ class HomeController extends BaseController {
 		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
 			WHERE v.id = '".$id."';");
-		$getVideoComments = DB::table('comments')->join('users', 'users.id', '=', 'comments.user_id')
+		
+		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 				->where('comments.video_id', $videoId)->get();
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
@@ -147,7 +148,7 @@ class HomeController extends BaseController {
 		$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
-		}else{
+		} else{
 			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
 			if($attempt){
 				$verified = Auth::User()->verified;
@@ -159,7 +160,6 @@ class HomeController extends BaseController {
 	}
 
 	public function postSignUp() {
-
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_rules);
 
@@ -193,26 +193,23 @@ class HomeController extends BaseController {
             ));
         }
     }
+
     public function addReply(){
-		$reply = trim(Input::get('reply'));
+		$reply = trim(Input::get('txtreply'));
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
+		// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
-			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
 		}
 		if(!empty(trim($reply))){
-        	$reply = new CommentReply;
-			$reply->comment_id = $comment_id;
-			$reply->user_id = $user_id;
-			$reply->reply = $reply;
-			$reply->save();
-			return Response::json(array(
-                'status' => 'success',
-                'comment' => $reply,
-                'comment_id' => $comment_id,
-                'user_id' => $user_id
-            ));
+        	$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			return Response::json(array('status' => 'success'));
         }
     }
 
