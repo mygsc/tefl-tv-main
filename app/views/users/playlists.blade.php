@@ -47,9 +47,10 @@
 					<div class="col-md-3">
 						{{Form::open()}}
 						<div class="input-group" style="">
-							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist')) }}
+							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
+							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
 							<span class="input-group-btn">
-								{{Form::submit('Save',array('class' => 'btn btn-primary	'))}}
+								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
 							</span>
 						</div>
 						{{Form::close()}}
@@ -93,9 +94,9 @@
 
 
 @section('script')
+	{{HTML::script('js/user/playlist.js')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
 
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 

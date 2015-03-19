@@ -39,6 +39,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	//delete or update this if needed - Cess
 	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
+	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
 	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));

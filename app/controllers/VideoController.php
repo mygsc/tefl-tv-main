@@ -233,4 +233,10 @@ class VideoController extends Controller {
 
 		return View::make('homes.searchresult', compact(array('type','searchResults')));
 	}
+	public function counter($id){
+		$id = Crypt::decrypt($id);
+		$video = Video::where('id','=',$id)->first();
+		$video->views = $video->views+1;
+		$video->update();
+	}
 }
