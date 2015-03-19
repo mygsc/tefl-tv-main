@@ -17,7 +17,7 @@
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
@@ -43,7 +43,7 @@
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Videos</button>
+						<!--<button class="btn btn-unsub">Manage Videos</button>-->
 
 						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -58,12 +58,27 @@
 				@if(isset($usersVideos))				
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
-						<div class="inlineVid ">
-								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-							
+						<div class="inlineVid">
+							{{Form::open()}}
+							<span class="btn-sq">
+								<span class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                       	<span title="Add to Playist">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+                                    </a>
+                                   	<span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
+                                   		<li>gge</li>
+                                   		<li>gfrhgte</li>
+                                    </span>
+                                </span>
+								<a href="/edit/1"><span title="Update Video"><button class="btn-ico btn-default" data-target="#updateVideo" data-toggle="modal"><i class="fa fa-pencil" ></i></button></span></a>
+								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+							</span>
+							{{Form::close()}}
 							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
 							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}"  width="100%" class="h-video" >
 								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
+							</video>
+							</a>
 						</div>
 
 						<div class="inlineInfo ">
@@ -80,14 +95,20 @@
 						</div>
 					</div>
 					@endforeach	
+
+				</div>
+
 					@else
 						No Videos Uploaded yet.
 					@endif
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+
+		<!--upload update Video modal-->
 
 @stop
 

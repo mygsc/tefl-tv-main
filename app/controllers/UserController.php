@@ -213,21 +213,17 @@ class UserController extends BaseController {
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
 
-		// foreach ($subscribers as $subscriber) {
-		// 	$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-		// return $subscriberProfile->user->channel_name;
-		// }
+	
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
 		  $increment = 0;
 		
-		$recentUpload = DB::table('videos')->orderBy('created_at','desc')->get();
-		//return $recentUpload;
+		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->get();
 
 
-	 	return View::make('users.channel', compact('usersChannel', 'usersVideos', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 
+	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -374,18 +370,22 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
-
-		$findUsersVideo = User::find(Auth::User()->id)->favorite;
-		
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-	
+		
+		$findUsersVideo = Favorite::where('user_id',Auth::User()->id)->get();
+
+		// foreach ($subscribers as $subscriber) {
+		// 	$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+		// return $subscriberProfile->user->channel_name;
+		// }
+		// return $findUsersVideo;
 
 		foreach($findUsersVideo as $findVideo){
 			$videoFavorites[] = $findVideo->video_id;
 		}
-
+		// return $videoFavorites;
 		$showFavoriteVideos = Video::find($videoFavorites);
 
 		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos','countAllViews', 'countVideos'));
@@ -396,6 +396,10 @@ class UserController extends BaseController {
 		$deleteFavorite = Favorite::where('video_id', $id)->first();
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
+	}
+
+	public function getedit($id){
+		return View::make('elements.videoModal');
 	}
 
 	public function getUsersChangePassword() {
