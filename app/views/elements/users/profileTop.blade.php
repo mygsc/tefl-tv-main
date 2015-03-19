@@ -11,7 +11,11 @@
 						{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
 						</div>
-						{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'x-index:70;', 'width' => '100%'))}}
+						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
+							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'x-index:70;', 'width' => '100%'))}}
+						@else
+							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 							<div class="overlay-cover">
 

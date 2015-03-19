@@ -178,20 +178,21 @@ class UserController extends BaseController {
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
 
+		// foreach ($subscribers as $subscriber) {
+		// 	$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+		// return $subscriberProfile->user->channel_name;
+		// }
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
-		$usersVideos = User::find(Auth::User()->id)->video;
-		
-		// if(isset($usersVideos)){
-		// 	return 'True';
-		
-		// }else{
-		// 	return 'False';
-		// }
-
+		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
+		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
 		  $increment = 0;
+		
+		$recentUpload = DB::table('videos')->orderBy('created_at','desc')->get();
+		return $recentUpload;
 
-	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions')); 
+
+	 	return View::make('users.channel', compact('usersChannel', 'usersVideos', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -260,7 +261,7 @@ class UserController extends BaseController {
 
 	public function getEditUsersChannel() {
 
-		$userChannel = UserProfile::find(Auth::User()->id);
+		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 
 
@@ -441,47 +442,11 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		foreach($subscribers as $a){
-			$subscriber_id[] = $a->subscriber_id;
-		}
-
-		if(isset($subscriber_id)){
-			$subscriberLists = UserProfile::find($subscriber_id);
-			$ifNoSubscriber = false;
-		} else{
-			$subscriberLists = array();
-			$ifNoSubscriber = true;
-		}
-
-		foreach($subscriberLists as $key => $listSubscriber){
-
-			$subscriberCount = DB::table('subscribes')->where('subscriber_id', $listSubscriber->id)->get();
-
-			$subscriberLists[$key]->count = count($subscriberCount);
-		}
-
-
-	
-		$increment = 0;
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
-		// return $subscriptions;
-		foreach ($subscriptions as $b) {
-			$subscription_id[] = $b->user_id;
-			// $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
-			// $subscriptionLists[] = $subscriptioned;
 
-		}
-
-		$subscriptionLists = UserProfile::find($subscription_id);
-		// return $subscriptioned;
-		// return $subscriptionLists;
-		foreach($subscriptionLists as $key => $listSubscription) {
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
-			$subscriptionLists[$key]->count = count($subscriptionCount);
-		}
-
-		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberLists', 'subscriptionLists','countAllViews', 'countVideos'));
+		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscribers', 'subscriptions','countAllViews', 'countVideos'));
 	}
 
 	public function postUsersChangePassword() {
@@ -555,29 +520,18 @@ class UserController extends BaseController {
 		if(empty($usersVideos)) {
 			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		}
-		$findVideos = $usersVideos->video;
 
-
+		$findVideos = User::where('channel_name', $channel_name)->get();
+		return $findVideos;
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
 
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
+		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
-		foreach($subscribers as $a){
-			$subscriber_id[] = $a->subscriber_id;
-		}
+		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 
-		$subscriberLists = UserProfile::find($subscriber_id);
-
-		$subscriptions = Subscribe::where('subscriber_id', $usersVideos->id)->paginate(15);
-		foreach ($subscriptions as $b) {
-			$subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
-			$subscriptionLists[] = $subscriptioned;
-
-		}
-
-		$ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscriberLists', 'subscriptionLists', 'user_id', 'ifAlreadySubscribe'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');

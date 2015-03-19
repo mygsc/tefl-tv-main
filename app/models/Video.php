@@ -99,7 +99,7 @@ class Video extends Eloquent{
 		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
 			$a = $countAllViews;
 			$round = round(($a/1000), 1);
-			$convertNumber = number_format($round, 3, ',', ' ') . 'k';
+			$convertNumber = number_format($round, 4, ',', ' ') . 'k';
 		}
 
 		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){
