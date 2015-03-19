@@ -165,11 +165,11 @@
                             {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
                             <br/>
                             {{$getVideoComment->comment}}{{$getVideoComment->id}}<br/>
-                            {{$getVideoComment->created_at}}<br/>
+                            <?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?> |
 
-                            <button id='c'>Reply</button>
-                            <a href="#" class='glyphicon glyphicon-thumbs-up'></a> |
-                            <a href="#" class='glyphicon glyphicon-thumbs-down'></a>
+                            <!-- <button id='c'>Reply</button> -->
+                            <a href="#" class='glyphicon glyphicon-thumbs-up'>(69)</a> |
+                            <a href="#" class='glyphicon glyphicon-thumbs-down'>(96)</a>
                             <?php
                             $getCommentReplies = DB::table('comments_reply')
                             ->join('users', 'users.id', '=', 'comments_reply.user_id')
@@ -181,14 +181,14 @@
                                 foreach($getCommentReplies as $getCommentReply):
                                     echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
                                 echo $getCommentReply->reply . "<br/>" .
-                                $getCommentReply->created_at . "</hr>";
+                                date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
                                 endforeach;
                                 ?>
                                 {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-                                {{Form::hidden('comment_id', $getVideoComment->id)}}
-                                {{Form::hidden('user_id', Auth::User()->id)}}
-                                {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-                                {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+                                    {{Form::hidden('comment_id', $getVideoComment->id)}}
+                                    {{Form::hidden('user_id', Auth::User()->id)}}
+                                    {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+                                    {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
                                 {{Form::close()}} 
                             </div>
                             <hr/>
