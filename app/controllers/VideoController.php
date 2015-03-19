@@ -36,6 +36,7 @@ class VideoController extends Controller {
 			Session::put('fileName', $fileName);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $encrypt_name;
+			$db_filename->uploaded = 0;
 
 			if($db_filename->save()){
 					//Start upload
@@ -89,15 +90,21 @@ class VideoController extends Controller {
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
+						$uploadedVid = $video->uploaded;
+							if($uploadedVid==0){
+								$video->total_time = Input::get('totalTime');
+								$video->title = Input::get('title');
+								$video->description = Input::get('description');
+								$video->publish = Input::get('publish');
+								$video->tags =  $implodeTag;
+								$video->uploaded =  1;
+								$video->save();
+								return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been uploaded successfully');
+							}
+							return Redirect::route('homes.index');
 						// $video->token_id = Input::get('tokenId');
 						// $video->poster = $posterFilename.$id.'.'.$posterExt;
-						$video->total_time = Input::get('totalTime');
-						$video->title = Input::get('title');
-						$video->description = Input::get('description');
-						$video->publish = Input::get('publish');
-						$video->tags =  $implodeTag;
-						$video->save();
-						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been uploaded successfully');
+						
 					}else{
 						// $img = $imgSelected;
 						// $img = str_replace('data:image/png;base64,', '', $img);

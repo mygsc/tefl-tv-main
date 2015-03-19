@@ -357,14 +357,15 @@ $('#progressbar').bind('mousedown', function(e) {
 	progressbarClick = true;
 	mouseX = e.pageX - $('#current-progress').offset().left;
 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	alert(Math.floor(currentTime));
+	//alert(Math.floor(currentTime));
 	mediaPlayer.currentTime = Math.floor(currentTime);
 	if(videoPlaying == true) {
-			playPauseBtn.src = "/img/icons/play.png";
-			$('.play-icon').fadeIn(500);
+			togglePlayPause();
+			//playPauseBtn.src = "/img/icons/play.png";
+			//$('.play-icon').fadeIn(500);
 			mediaPlayer.currentTime = Math.floor(currentTime);
 			mouseX = e.pageX - $('#current-progress').offset().left;
-			mediaPlayer.pause();
+			//mediaPlayer.pause();
 		}				
 });
 

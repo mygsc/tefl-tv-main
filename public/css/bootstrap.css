@@ -6597,5 +6597,25 @@ button.close {
   color:#000000;
   position:relative;
 }
+div#success{	
+	text-align: center;
+	width: 280px;
+	height: 45px;
+	padding: 10px;
+	color:red;
+	background-color: #FFE4C4;
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px #888;
+	-ms-box-shadow: 0 0 5px 5px #888;
+	-o-box-shadow: 0 0 5px 5px #888;
+	box-shadow: 0 0 5px 5px #888;
+	margin: auto;
+	bottom: 0; right: 0;
+	display: none;
+	position:fixed;
+	z-index: 100;  
+	top:0%;  
+	left:0%;  
+}
 
 /*# sourceMappingURL=bootstrap.css.map */

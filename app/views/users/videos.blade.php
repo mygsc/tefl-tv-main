@@ -49,7 +49,14 @@
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
+						@if(Session::has('success'))
+							<div id="success">
+								<p style="color:green">{{Session::pull('success')}}</p>
+							</div>
+						@endif
 					</div>
+
+					
 			
 					
 					<br/><br/><hr class="" />
@@ -63,9 +70,11 @@
 								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							
 							{{Form::close()}}
-							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
-							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'.jpg'}}"  width="100%" class="h-video" >
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
+							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+							<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="h-video" >
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />						
 						</div>
 
 						<div class="inlineInfo ">
@@ -91,11 +100,7 @@
 		</div>
 	</div>
 
-	@if(Session::has('success'))
-		<div class="success">
-			<p style="color:green">{{Session::pull('success')}}</p>
-		</div>
-	@endif()
+	
 
 @stop
 
