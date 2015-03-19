@@ -166,8 +166,8 @@
                                     <br/>
                                     {{$getVideoComment->comment}}<br/>
                                     <button id='replyLink'>Reply</button>
-                                    <span class='glyphicon glyphicon-thumbs-up'></span>
-                                    <span class='glyphicon glyphicon-thumbs-down'></span>
+                                    <a href="#" class='glyphicon glyphicon-thumbs-up'></a>
+                                    <a href="#" class='glyphicon glyphicon-thumbs-down'></a>
                                     <?php
                                         $getCommentReplies = DB::table('comments_reply')
                                             ->join('users', 'users.id', '=', 'comments_reply.user_id')

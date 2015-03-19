@@ -39,15 +39,17 @@
 							<div class="col-sm-12" >
 								<h3 style="text-align:center;padding-top:5px;">Browse your video thumbnail</h3>	
 								
-								{{--<div id="screenshot"><center>
-										<div class="thumb" style="cursor:pointer;margin:auto 0;width:300px;height:150px;outline:1px solid #000000">
+									{{--<div id="screenshot"><center>
+										<div class="thumb" >
 											<input type="file" name="poster" id="poster" style="position:absolute;width:100%;height:100%;opacity:0;cursor:pointer">
 											Browse thumbnail
 										</div>							
 									</center></div>--}}
-									<div class="thumb">
-										<center><input type="file" name="poster" id="poster"/></center>
-									</div>
+									<center>
+										<img src="/img/thumbnails/video.png" width="250" height="150">		
+											<input type="file" name="poster" id="poster"/>										
+										</img>
+									</center>
 							</div>	
 						</div>
 
