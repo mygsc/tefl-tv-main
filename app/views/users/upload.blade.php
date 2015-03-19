@@ -33,11 +33,7 @@ Upload
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
-					@if(Session::has('success'))
-						<div class="success">
-							<p style="color:green">{{Session::pull('success')}}</p>
-						</div>
-					@endif()
+	
 					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
 
 					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
