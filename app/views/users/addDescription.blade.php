@@ -46,7 +46,8 @@
 										</div>							
 									</center></div>--}}
 									<center>
-										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">		
+										<div id="screenShot"></div>
+										<img id="thumbnail" class="random" src="/img/thumbnails/video.png" width="250" height="150">		
 											<input type="file" name="poster" id="poster"/>										
 										</img>
 									</center>

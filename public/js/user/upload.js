@@ -3,13 +3,15 @@ $(document).ready(function(){
 	var videoPlayer = document.getElementById('video');
 	var totalTime = document.getElementById('total-time');
 	var channel = $('input[name=channel]').val();
-	var selected = 1;
+	var selected = 1, timeLenght=0;
   var reader = new FileReader();
   var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
 
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
 		onLoadTime();
+    $(this).trigger('video_really_ready');
+    timeLenght = Math.floor(videoPlayer.duration);
 	});
 	var VideoSnapper = {
 		captureAsCanvas: function(video, options, handle) {
@@ -118,46 +120,21 @@ $("#poster").on("change", function()
 $(function() {
     $('video').bind('video_really_ready', function(){
      var video = this;
-      //$('#img-thumb-1').click(function(){
+      $('#thumbnail').click(function(){
             var canvases = $('canvas'); 
             //for(var start=1; start < 4; start++){
-             //   var imgThumb = start * 3;
-                VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: 5}, function(canvas) {
-                $('#img-thumb-1').append(canvas);
-                $('div#img-thumb-1 canvas').addClass('img-thumb1');
+              var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+                VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
+                $('#screenShot').append(canvas);
+                $('div#thumbnail canvas').addClass('img-thumb1');
                 canvas.setAttribute("id", "img-thumb1");                                 
-                     if (canvases.length == 1)
+                     if (canvases.length > 2)
                          canvases.eq(0).remove();
                 })  
 
-                VideoSnapper.captureAsCanvas(video, { width: 1024, height: 768, time: 5}, function(canvas) {
-                $('video#video').append(canvas);
-                $('video#video canvas').addClass('img-org-thumb');
-                canvas.setAttribute("id", "img-org-thumb");  
-                var canvasImage = document.getElementById('img-org-thumb');
-	        	getImage = canvasImage.toDataURL('image/jpg');
-	       		document.getElementById('selected-thumbnail').value = getImage;                               
-                })
-
-                // VideoSnapper.captureAsCanvas(video, { width: 150, height: 130, time: 5}, function(canvas) {
-                // $('#img-thumb-2').append(canvas);
-                // $('div#img-thumb-2 canvas').addClass('img-thumb2');
-                // canvas.setAttribute("id", "img-thumb2");                                 
-                //      if (canvases.length == 1)
-                //         canvases.eq(0).remove();
-                // }) 
-
-                // VideoSnapper.captureAsCanvas(video, { width: 150, height: 130, time:10}, function(canvas) {
-                // $('#img-thumb-3').append(canvas);
-                // $('div#img-thumb-3 canvas').addClass('img-thumb3');
-                // canvas.setAttribute("id", "img-thumb3");                                 
-                //      if (canvases.length == 1)
-                //          canvases.eq(0).remove();
-                // }) 
-
             //}// end of for loop
 
-        //});
+        });
     });
 });
 
