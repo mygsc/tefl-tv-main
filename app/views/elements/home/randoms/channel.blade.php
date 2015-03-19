@@ -18,8 +18,8 @@
     						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
     						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
    						</p>
-    					<a href="viewchannel"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
-    					<button class="btn btn-primary btn-xs">Subscribe</button>
+    					<a href="/channels/{{$randomResult->channel_name}}"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
+    					<!--<button class="btn btn-primary btn-xs">Subscribe</button>-->
     				</div>	
 				</div><!--/.row-->
 				<hr/>

@@ -14,10 +14,10 @@
               	<video id="media-video" poster="/img/thumbnails/v1.png">
 					<source src='/videos/bowling.mp4' type='video/mp4'>
 					<source src='/videos/bowling.webm' type='video/webm'>
-					<source src='/videos/bowling.ogv' type='video/ogg'>
-					{{-- <source src='/videos/movie.mov' type='video/mov'>
+					<source src='/videos/bowling.ogg' type='video/ogg'>
+					<source src='/videos/movie.mov' type='video/mov'>
 					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>  --}}  
+					<source src='/videos/movie.3gp' type='video/3gpp'>  
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
@@ -123,7 +123,7 @@
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-md-2">
 		            	@if(file_exists($recommended->video_poster))
-							<video width="200" height="100" poster="{{$recommended->video_poster}}">
+							<video width="200" height="100" poster="{{$recommended->poster_path}}">
 						@else
 							<video width="200" height="100" poster="/img/thumbnails/video.png">
 						@endif
@@ -147,17 +147,24 @@
 					<div class="categoryHead">
 						<h3>Popular</h3>
 					</div>
+
 					@foreach($populars as $popular)
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
-						<img src="/img/thumbnails/v3.png" class="h-video">
+						@if(file_exists($popular->video_poster))
+							<img width="200" height="100" src="{{$recommended->poster_path}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$popular->title}}</a>
+							<a href="{{route('homes.watch-video', array($popular->file_name))}}">{{$popular->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($popular->views,0,null,',')}}
 		            		 Likes:{{$popular->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.popular', 'see more..', null) }}
@@ -170,20 +177,22 @@
 						<h3>Recent Uploads</h3>
 					</div>
 					@foreach($latests as $latest)
+					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 					<div class="col-md-6">
-						@if(file_exists($recommended->video_poster))
-							<img width="200" height="100" src="{{$recommended->video_poster}}">
+						@if(file_exists($latest->video_poster))
+							<img width="200" height="100" src="{{$latest->poster_path}}">
 						@else
 							<img width="200" height="100" src="/img/thumbnails/video.png">
 						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$latest->title}}</a>
+							<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($latest->views,0,null,',')}}
 		            		 Likes:{{$latest->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.latest', 'see more..', null) }}
@@ -197,16 +206,22 @@
 						<h3>Random</h3>
 					</div>
 					@foreach($randoms as $random)
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
-						<img src="/img/thumbnails/v5.png" class="h-video">
+						@if(file_exists($random->video_poster))
+							<img width="200" height="100" src="{{$recommended->poster_path}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$random->title}}</a>
+							<a href="{{route('homes.watch-video', array($random->file_name))}}">{{$random->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($random->views,0,null,',')}}
 		            		 Likes:{{$random->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.random', 'see more..', null) }}

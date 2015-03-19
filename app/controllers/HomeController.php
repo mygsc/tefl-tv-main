@@ -15,7 +15,10 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getVideoByCategory('popular', '4');
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
-
+		// foreach($latests as $key => $item){
+		// 	echo $item->video_poster;
+		// }
+		//dd(file_exists('public\videos\17-mygsc\Dfc8PpTPkXS\Dfc8PpTPkXS.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
@@ -48,7 +51,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->Video->getVideoByCategory('popular');
+		$popularVideos = $this->Video->getVideoByCategory('popular', 16);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -58,7 +61,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->Video->getVideoByCategory('latest');
+		$latestVideos =  $this->Video->getVideoByCategory('latest', 16);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -87,6 +90,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
+			if(empty($token_id)) return Redirect::route('homes.index');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);

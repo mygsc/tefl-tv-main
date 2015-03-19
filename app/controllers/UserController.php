@@ -174,7 +174,7 @@ class UserController extends BaseController {
 				$img = 'img/user/0.jpg';
 			}
 			$topChannels[$key]->image_src = $img;
-			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name);
+			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
 		return View::make('homes.topchannels', compact(array('topChannels','auth')));
@@ -381,6 +381,10 @@ class UserController extends BaseController {
 		$deleteFavorite = Favorite::where('video_id', $id)->first();
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
+	}
+
+	public function getedit($id){
+		return View::make('elements.videoModal');
 	}
 
 	public function getUsersChangePassword() {

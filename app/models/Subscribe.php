@@ -9,13 +9,16 @@ class Subscribe extends Eloquent {
 		return $this->belongsToMany('User');
 	}
 
-	public function getSubscribers($channel_name = null){
+	public function getSubscribers($channel_name = null, $limit = null){
+		if(!empty($limit)){
+			$limit = 'LIMIT '. $limit;
+		}
 		$getChannelID = User::where('channel_name', $channel_name)->get(array('id'));
 		$getSubscriber = DB::select(
 			'SELECT s.id,s.user_id,s.subscriber_id,u.channel_name,u2.channel_name as subscriber_name, s.notifs FROM subscribes s
 			INNER JOIN users u ON s.user_id = u.id
 			INNER JOIN users u2 ON s.subscriber_id = u2.id
-			WHERE user_id = "'. $getChannelID->first()->id.'"');
+			WHERE user_id = "'. $getChannelID->first()->id.'"'. $limit);
 
 		return $getSubscriber;
 	}
