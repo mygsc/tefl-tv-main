@@ -157,18 +157,27 @@
 			</div>
 			<br/>
 			<div class="row">
-				@foreach($subscriberLists as $subscriberList)
+			@if(!empty($subscribers))
+				@foreach($subscribers as $subscriber)
 				<div class="col-md-6">	
 					<div class="row user-padding">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<a href="{{route('view.users.channel', $subscriberList->user->channel_name)}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
+						<?php
+								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+								$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
+							?>
+						<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+						<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
+						</a>&nbsp;
 						<br/>&nbsp;
-						<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+						<span>w/ <b></b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					</div>
 				</div>
-				@endforeach	
-				
+				@endforeach
+				@else
+					No Subscriber yet
+				@endif				
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
@@ -181,12 +190,16 @@
 			</div>
 			<br/>
 			<div class="row">
-				@if(!empty($subscriptionLists))
-					@foreach($subscriptionLists as $SubscriptionList)
+				@if(!empty($subscriptions))
+					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$SubscriptionList[0]['first_name']}} {{$SubscriptionList[0]['last_name']}}</b></span>&nbsp;
+								<?php
+									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
+									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
+								?>
+								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>2k</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
@@ -194,6 +207,8 @@
 							
 						</div>
 					@endforeach
+					@else
+						No Subscription yet
 				@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->

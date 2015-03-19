@@ -37,10 +37,11 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
-	//delete or update this if needed - Cess
 	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
+	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
+
 	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 });
 
@@ -80,7 +81,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::post('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@postCountNotification'));
-
+	Route::get('videoplaylist/{id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
 
 });
 //*********End of Channels************//

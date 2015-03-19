@@ -72,7 +72,7 @@
 							@foreach($playlists as $playlist)
 								<div id="playlists" class="col-xs-2 col-md-3">
 									
-										<a href="#"  class="thumbnail">
+										<a href="videoplaylist/{{Crypt::encrypt($playlist->id)}}"  class="thumbnail">
 											<img src="#">
 											<br/>
 											{{$playlist->name}}

@@ -46,6 +46,7 @@ class Video extends Eloquent{
 		return $this->hasMany('WatchLater');
 	}
 	public function getVideoByCategory($type = null, $limit = null){
+
 		if(empty($type)){
 			return false;
 		}
@@ -72,7 +73,7 @@ class Video extends Eloquent{
 		}
 
 		$returnData = DB::select(
-				'SELECT v.id,v.user_id, v.title, v.description, v.publish, 
+				'SELECT v.id,v.user_id, v.title, v.description, v.publish, v.file_name,
 				v.views, v.likes, v.tags, v.report_count,v.recommended, v.created_at,
 				v.deleted_at,u.channel_name,u.status FROM videos v
 				INNER JOIN users u ON
@@ -89,6 +90,16 @@ class Video extends Eloquent{
 				' '.
 				$limit. '');
 
+		foreach($returnData as $key => $item){
+			$returnData[$key]->user_folder = $item->id.'-'.$item->channel_name;
+
+			$folderName = $returnData[$key]->user_folder;
+			$fileName = $item->file_name;
+			$posterName = $fileName. '.jpg';
+			$videoFolderPath = 'public'. DIRECTORY_SEPARATOR. 'videos';
+			$filePath =  $videoFolderPath .DIRECTORY_SEPARATOR. $fileName .DIRECTORY_SEPARATOR. $posterName;
+			$returnData[$key]->video_poster = $filePath;
+		}
 		return $returnData;
 	}
 
@@ -99,7 +110,7 @@ class Video extends Eloquent{
 		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
 			$a = $countAllViews;
 			$round = round(($a/1000), 1);
-			$convertNumber = number_format($round, 3, ',', ' ') . 'k';
+			$convertNumber = number_format($round, 4, ',', ' ') . 'k';
 		}
 
 		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){

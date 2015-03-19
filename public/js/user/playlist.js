@@ -17,6 +17,19 @@ $(document).ready(function(){
 			}
 		});
 	}
+	function removeToplaylist(){
+		$('button[id^=removeToplaylist]').each(function(){
+			$(this).click(function(e){
+				var value = $(this).attr('data-encrypt');
+				var text1 = $(this).attr('data-encrypt2');
+				e.preventDefault();
+					$.post('http://localhost:8000/mychannels/removePlaylist/'+text1, {value:value},function(data){
+					removeloader();
+					});
+			});
+		});
+	}
+
 	function loader(){
 	$("#videosContainer").load(window.location.href+' #videosContainer',function(){
 		$('body').append('<div id="playlist-div-create"></div>');
@@ -38,7 +51,35 @@ $(document).ready(function(){
 				}
 			}, 2000)
 			create();
+			removeToplaylist();
 		});
 	}
+
+	function removeloader(){
+	$("#videosContainer").load(window.location.href+' #videosContainer',function(){
+		$('body').append('<div id="playlist-div-remove"></div>');
+			$('#playlist-div-remove').html('Sucessfully removed');
+			$('#playlist-div-remove').css({
+	         'opacity' : 0.7,
+	         'position': 'fixed',
+	         'top': 0,
+	         'left': 0,
+	         'background-color': 'black',
+	         'color':'white',
+	         'width': '150px',
+	         'height':'50px',
+	         'z-index': 5000
+			});
+			setTimeout(function(){
+				if ($('#playlist-div-remove').length > 0) {
+					$('#playlist-div-remove').remove();
+				}
+			}, 2000)
+			create();
+			removeToplaylist();
+		});
+	}
+
 	create();
+	removeToplaylist();
 });
