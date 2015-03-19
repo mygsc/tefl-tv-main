@@ -5,15 +5,14 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
-	@foreach($recentUpload as $upload)
-		<h3><b>{{$upload->title}}</b></h3>
-		<p>Uploded: {{$upload->created_at}}</p>
+		<h3><b>Title: {{$recentUpload->title}}</b></h3>
+		<p>Uploaded: {{$recentUpload->created_at}}</p>
 		<br/>
 		<video controls>
 			<source src=""/>
 		</video>
 		<p class="text-justify">
-			{{$upload->description}}
+			Description: {{$recentUpload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
@@ -43,7 +42,6 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
-		@endforeach
 	</div><!--/.col-md-6-->
 </div>
 <br/>
@@ -63,14 +61,14 @@
 
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4">
-					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
+					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
 						<div class="">
-							<video controls height="auto" width="100%" class="h-video">
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4"/>
+							<video height="auto" width="100%" class="h-video">
+								<source src="/videos/{{$usersVideo->file_name}}" type="video/mp4"/>
 							</video>
 						</div>
 					</a>
-					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
+					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
 						<div class="v-Info">
 							{{$usersVideo->title}}
 						</div>

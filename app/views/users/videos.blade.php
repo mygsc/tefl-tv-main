@@ -63,9 +63,9 @@
 								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							
 							{{Form::close()}}
-							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
+							<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
 							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'.jpg'}}"  width="100%" class="h-video" >
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
+								<source src="/videos/{{$usersVideo->file_name}}" type="video/mp4" />	
 						</div>
 
 						<div class="inlineInfo ">
