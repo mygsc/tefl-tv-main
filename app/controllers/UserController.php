@@ -7,6 +7,8 @@ class UserController extends BaseController {
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
+		define('DS', DIRECTORY_SEPARATOR); 
+		$this->Auth = Auth::User();
 	}
 
 	public function getSignIn() {
@@ -44,6 +46,39 @@ class UserController extends BaseController {
 
 		}
 		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+	}
+
+	public function getCancelUploadVideo(){
+		$fileName = Session::pull('fileName');
+		if(empty($fileName)){
+			return App::abort('404');
+		}
+		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS;
+		if(file_exists($destinationPath.$fileName)){
+			$this->delete_directory($destinationPath.$fileName);
+			Video::where('file_name', $fileName)->delete();
+			return Redirect::route('get.upload', '=cancelled');
+		}
+			
+
+	}
+	public function delete_directory($dirname) {
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+	 if (!$dir_handle)
+	      return false;
+	 while($file = readdir($dir_handle)) {
+	       if ($file != "." && $file != "..") {
+	            if (!is_dir($dirname."/".$file))
+	                 unlink($dirname."/".$file);
+	            else
+	                 delete_directory($dirname.'/'.$file);
+	       }
+	 }
+	 closedir($dir_handle);
+	 rmdir($dirname);
+	 return true;
 	}
 
 	public function postResendUserVerify(){
@@ -418,6 +453,23 @@ class UserController extends BaseController {
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos'));
 	}
+	public function getViewPlaylistVideo($id){
+		$id = Crypt::decrypt($id);
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+
+		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
+				LEFT JOIN playlists_items i ON p.id = i.playlist_id
+				INNER JOIN videos v ON i.video_id = v.id
+				INNER JOIN users u ON v.user_id = u.id
+				WHERE i.playlist_id = '".$id."'");
+		$playlist = Playlist::where('id',$id)->first();
+		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
+	
+	}
 
 	public function getFeedbacks() {
 
@@ -598,7 +650,6 @@ class UserController extends BaseController {
 	    									->where('playlist_id','=',$playlistId)->first();
 	    	$playlistItem->delete();
   		}
-
     }
     public function addToFavorites($id){
     	$id = Crypt::decrypt($id);

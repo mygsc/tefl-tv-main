@@ -90,36 +90,31 @@ $(document).ready(function(){
             //               canvases.eq(0).remove();
             //         });              
             //     }   
-            // }, 2000);  
+            // }, 2000); 
    	});
 
-     // $('#img-thumb-1').click(function(){
-     //    var canvasImage = document.getElementById('img-thumb1');
-     //    	getImage = canvasImage.toDataURL('image/png');
-     //   		document.getElementById('selected-thumbnail').value = getImage;
-     //    $(this).css({'outline':'2px solid green'});
-     //    $('#img-thumb-2').css({'outline':'1px solid #000000'});
-     //    $('#img-thumb-3').css({'outline':'1px solid #000000'});
-     // });
+$("#poster").on("change", function()
+    {
+     var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+ 
+          if (/^image/.test( files[0].type)){ // only image file
+              reader.readAsDataURL(files[0]); // read the local file
+   
+              reader.onloadend = function(){ // set image data as background of div
+                var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
+                  
+                  thumb.src=this.result;
+                  videoPlayer.poster=this.result;
+                   thumb.height=150;
+                    thumb.width=250;
+              }
+          }
+    });
 
-  //   $('#img-thumb-2').click(function(){
-  //   	var canvasImage = document.getElementById('img-thumb2');
-  //       	getImage = canvasImage.toDataURL('image/png');
-  //       	document.getElementById('selected-thumbnail').value = getImage;
-  //   	$(this).css({'outline':'2px solid green'});
-  //   	$('#img-thumb-1').css({'outline':'1px solid #000000'});
-  //   	$('#img-thumb-3').css({'outline':'1px solid #000000'});  	
- 	// });
-
-  //   $('#img-thumb-3').click(function(){
-  //   	var canvasImage = document.getElementById('img-thumb3');
-  //       	getImage = canvasImage.toDataURL('image/png');
-  //       	document.getElementById('selected-thumbnail').value = getImage;
-  //   	$(this).css({'outline':'2px solid green'});
-  //   	$('#img-thumb-1').css({'outline':'1px solid #000000'});
-  //   	$('#img-thumb-2').css({'outline':'1px solid #000000'});   	
-  //   });
-
+ $('#upload-cancel').on('click',function(){
+    $('#cancel-upload-vid').modal('show');
+ });
 $(function() {
     $('video').bind('video_really_ready', function(){
      var video = this;
