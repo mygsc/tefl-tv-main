@@ -55,6 +55,7 @@
 
 					<div id="videosContainer" class='container'>
 						<br/>
+						@if(isset($showFavoriteVideos))
 						@foreach($showFavoriteVideos as $showFavoriteVideo)
 						<div id="list" class="col-md-3">
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
@@ -83,7 +84,10 @@
 								</div>
 							</div>
 						</div>
-						@endforeach	
+						@endforeach
+						@else
+							No Favorites yet.
+						@endif
 					</div><!--videoContainer-->
 				</div>
 			</div><!--!/.shadow div-channel-border-->

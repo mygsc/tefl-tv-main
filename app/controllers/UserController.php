@@ -170,18 +170,26 @@ class UserController extends BaseController {
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
 
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
-		$usersVideos = User::find(Auth::User()->id)->video;
+		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
+		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
 
-		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
+		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
+
+		$usersVideos = User::find(Auth::User()->id)->video;
+		
+		// if(isset($usersVideos)){
+		// 	return 'True';
+		
+		// }else{
+		// 	return 'False';
+		// }
 
 		  $increment = 0;
-
 		  // $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 		  // // return $subscriptions;
 		  // foreach ($subscriptions as $b) {
@@ -195,7 +203,7 @@ class UserController extends BaseController {
 		  // // return $subscriptioned;
 		  // // return $subscriptionLists;
 		  // foreach($subscriptionLists as $key => $listSubscription) {
-		  //  $subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
+		   // $subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
 		  //  $subscriptionLists[$key]->count = count($subscriptionCount);
 		  // }
 
@@ -376,8 +384,7 @@ class UserController extends BaseController {
 		foreach($findUsersVideo as $findVideo){
 			$videoFavorites[] = $findVideo->video_id;
 		}
-		// echo $videoFavorites;
-		// return $videoFavorites;
+
 		$showFavoriteVideos = Video::find($videoFavorites);
 
 		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos','countAllViews', 'countVideos'));
