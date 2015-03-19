@@ -41,11 +41,15 @@ $(document).ready(function(){
         	success: function(data){
         		if(data['status'] == 'error'){
         			$('#errorlabel').text(data['label']);
-        		}else if(data['status'] == 'success'){
+        		} else if(data['status'] == 'success'){
 	        		alert(data['status']);
 	        	}
-        	// window.location.href = 'search/product?'+q;
         	}
     	});
     });
+    $("#replyLink").click(function() {
+		$("#txtreply").removeClass("hidden");
+		$("#replybutton").removeClass("hidden");
+		$("#replyLink").addClass("hidden");
+	});
 }); 
