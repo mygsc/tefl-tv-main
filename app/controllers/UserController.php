@@ -174,7 +174,7 @@ class UserController extends BaseController {
 				$img = 'img/user/0.jpg';
 			}
 			$topChannels[$key]->image_src = $img;
-			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name);
+			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
 		return View::make('homes.topchannels', compact(array('topChannels','auth')));
@@ -373,22 +373,9 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
+		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
 		
-		$findUsersVideo = Favorite::where('user_id',Auth::User()->id)->get();
-
-		// foreach ($subscribers as $subscriber) {
-		// 	$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-		// return $subscriberProfile->user->channel_name;
-		// }
-		// return $findUsersVideo;
-
-		foreach($findUsersVideo as $findVideo){
-			$videoFavorites[] = $findVideo->video_id;
-		}
-		// return $videoFavorites;
-		$showFavoriteVideos = Video::find($videoFavorites);
-
-		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'showFavoriteVideos','countAllViews', 'countVideos'));
+		return View::make('users.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos'));
 	}
 
 	public function postRemoveFavorites($id) {
