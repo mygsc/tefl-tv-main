@@ -31,9 +31,11 @@
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper">
 					<div id="progressbar">
-						<div id="current-progress">	
-							<div id="button-progress">		
-							</div>	
+						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
+							<div id="current-progress">	
+								<div id="button-progress">		
+								</div>	
+							</div>
 						</div>
 					</div>
 				
@@ -119,11 +121,12 @@
 
 				@foreach($recommendeds as $recommended)
 		            <div class="col-md-2">
-		            	<video width="200" height="100" poster="/videos/img-vid-poster/u62d1175.jpg">
+		            	{{--<video width="200" height="100" poster="/img/thumbnails/video.png">
 		            		<source ="/videos/bowling.mp4" type="video/mp4">
 		            		<source ="/videos/bowling.webm" type="video/webm">
 		            		<source ="/videos/bowling.ogg" type="video/ogg">	
-		            	</video>
+		            	</video>--}}
+		            	<a href="{{route('public.watch.video', 'video='.str_random(5))}}"><img width="200" height="100" src="/img/thumbnails/video.png" alt=""></a>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video')}}">{{$recommended->title}}</a>
 		            	</div>

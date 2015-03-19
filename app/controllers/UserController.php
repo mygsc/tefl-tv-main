@@ -7,6 +7,8 @@ class UserController extends BaseController {
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
+		define('DS', DIRECTORY_SEPARATOR); 
+		$this->Auth = Auth::User();
 	}
 
 	public function getSignIn() {
@@ -44,6 +46,39 @@ class UserController extends BaseController {
 
 		}
 		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+	}
+
+	public function getCancelUploadVideo(){
+		$fileName = Session::pull('fileName');
+		if(empty($fileName)){
+			return App::abort('404');
+		}
+		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS;
+		if(file_exists($destinationPath.$fileName)){
+			$this->delete_directory($destinationPath.$fileName);
+			Video::where('file_name', $fileName)->delete();
+			return Redirect::route('get.upload', '=cancelled');
+		}
+			
+
+	}
+	public function delete_directory($dirname) {
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+	 if (!$dir_handle)
+	      return false;
+	 while($file = readdir($dir_handle)) {
+	       if ($file != "." && $file != "..") {
+	            if (!is_dir($dirname."/".$file))
+	                 unlink($dirname."/".$file);
+	            else
+	                 delete_directory($dirname.'/'.$file);
+	       }
+	 }
+	 closedir($dir_handle);
+	 rmdir($dirname);
+	 return true;
 	}
 
 	public function postResendUserVerify(){
