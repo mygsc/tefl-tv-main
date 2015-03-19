@@ -144,12 +144,12 @@
 					@foreach($subscribers as $subscriber)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
-							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 							<?php
 								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
 								$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
 							?>
 							<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 								<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
@@ -177,12 +177,14 @@
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
-								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<?php
+							<?php
 									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
 									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
 								?>
-								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
+								<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>
+								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
