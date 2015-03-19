@@ -19,13 +19,33 @@ $(document).ready(function(){
 		        	if(data['status'] == 'error'){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
-		        		alert(data['status']);
+		        		// alert(data['status']);
 		        	}
 	           	}
 	    	});
 		}
 	});
-	$("#replyLink").click(function() {
-		$("#txtreply").removeClass("hidden");
-	});
+	// $("#replyLink").click(function() {
+	// 	$("#txtreply").removeClass("hidden");
+	// 	$("#replybutton").removeClass("hidden");
+	// 	$("#replyLink").addClass("hidden");
+	// });
+	$('form#video-addReply').on('submit', function(e){
+		e.preventDefault();
+		var url = $(this).prop('action');
+		$.ajax({
+			type: 'POST',
+			url: url,
+			cache: false, 
+        	data: $(this).serialize(),//{
+        	success: function(data){
+        		if(data['status'] == 'error'){
+        			$('#errorlabel').text(data['label']);
+        		}else if(data['status'] == 'success'){
+	        		alert(data['status']);
+	        	}
+        	// window.location.href = 'search/product?'+q;
+        	}
+    	});
+    });
 }); 
