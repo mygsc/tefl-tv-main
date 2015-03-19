@@ -116,11 +116,7 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
-	
-=======
 		<!--upload update Video modal-->
->>>>>>> 16db642e2ff7b5897b6cca5332e4895302b29174
 
 @stop
 
