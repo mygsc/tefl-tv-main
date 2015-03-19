@@ -28,7 +28,7 @@
                                     <div>
                                      <br/>
                                         <span class="">
-                                            1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                         @if(isset(Auth::User()->id))
                                             @if(!empty($like))
@@ -211,7 +211,7 @@
                         <li class="ui-tabs-nav-item" id="">
                            <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
 
-                            <img src="img/videoGallery/image1-small.jpg" alt="" />
+                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" />
 
                             <span>{{$relation->title}}</span><br/></a>
                             <span>by: {{$relation->channel_name}}</span><br/>

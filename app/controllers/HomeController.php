@@ -130,11 +130,18 @@ class HomeController extends BaseController {
 			$like = null;
 		}
 
-		$likeCounter = Like::where('video_id','=',$id)->count(); 
+		$likeCounter = Like::where('video_id','=',$id)->count();
+		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE v.id = '".$id."';");
 		$getVideoComments = DB::table('comments')->join('users', 'users.id', '=', 'comments.user_id')
 				->where('comments.video_id', $videoId)->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
+	}
+
+	public function count($id){
+
 	}
 
 	public function postSignIn() {
