@@ -224,7 +224,7 @@ class UserController extends BaseController {
 		  $increment = 0;
 		
 		$recentUpload = DB::table('videos')->orderBy('created_at','desc')->get();
-		return $recentUpload;
+		//return $recentUpload;
 
 
 	 	return View::make('users.channel', compact('usersChannel', 'usersVideos', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 

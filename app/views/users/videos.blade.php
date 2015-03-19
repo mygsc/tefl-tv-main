@@ -59,10 +59,8 @@
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						<div class="inlineVid ">
-							{{Form::open()}}
 								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							
-							{{Form::close()}}
 							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
 							<video poster="/videos/img-vid-poster/{{$usersVideo->poster}}"  width="100%" class="h-video" >
 								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
