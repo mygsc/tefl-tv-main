@@ -234,4 +234,5 @@ class VideoController extends Controller {
 		$video->views = $video->views+1;
 		$video->update();
 	}
+
 }

@@ -79,7 +79,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::post('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@postCountNotification'));
-
+	Route::get('videoplaylist/{id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
 
 });
 //*********End of Channels************//

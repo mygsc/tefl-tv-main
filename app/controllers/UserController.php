@@ -450,6 +450,23 @@ class UserController extends BaseController {
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos'));
 	}
+	public function getViewPlaylistVideo($id){
+		$id = Crypt::decrypt($id);
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+
+		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
+				LEFT JOIN playlists_items i ON p.id = i.playlist_id
+				INNER JOIN videos v ON i.video_id = v.id
+				INNER JOIN users u ON v.user_id = u.id
+				WHERE i.playlist_id = '".$id."'");
+		$playlist = Playlist::where('id',$id)->first();
+		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
+	
+	}
 
 	public function getFeedbacks() {
 
@@ -677,7 +694,6 @@ class UserController extends BaseController {
 	    									->where('playlist_id','=',$playlistId)->first();
 	    	$playlistItem->delete();
   		}
-
     }
     public function addToFavorites($id){
     	$id = Crypt::decrypt($id);
