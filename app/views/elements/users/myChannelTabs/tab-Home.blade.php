@@ -5,16 +5,15 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
-		<h3><b>Word and Sentence Stress (Part 1)</b></h3>
-		<p>Uploded: February 27, 2015</p>
+	@foreach($recentUpload as $upload)
+		<h3><b>{{$upload->title}}</b></h3>
+		<p>Uploded: {{$upload->created_at}}</p>
 		<br/>
+		<video controls>
+			<source src=""/>
+		</video>
 		<p class="text-justify">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			{{$upload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
@@ -44,6 +43,7 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
+		@endforeach
 	</div><!--/.col-md-6-->
 </div>
 <br/>
