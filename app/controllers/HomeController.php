@@ -120,6 +120,7 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$like = Like::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
+		//return $playlists;
 
 		}
 		else{
@@ -141,16 +142,12 @@ class HomeController extends BaseController {
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
 	}
 
-	public function count($id){
-
-	}
-
 	public function postSignIn() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
-		}else{
+		} else{
 			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
 			if($attempt){
 				$verified = Auth::User()->verified;
@@ -162,7 +159,6 @@ class HomeController extends BaseController {
 	}
 
 	public function postSignUp() {
-
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_rules);
 
