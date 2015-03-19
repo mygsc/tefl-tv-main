@@ -190,41 +190,6 @@ class UserController extends BaseController {
 		// }
 
 		  $increment = 0;
-		  // $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
-		  // // return $subscriptions;
-		  // foreach ($subscriptions as $b) {
-		  //  $subscription_id[] = $b->user_id;
-		  //  // $subscriptioned = UserProfile::where('user_id', $b->user_id)->get();
-		  //  // $subscriptionLists[] = $subscriptioned;
-
-		  // }
-
-		  // $subscriptionLists = UserProfile::find($subscription_id);
-		  // // return $subscriptioned;
-		  // // return $subscriptionLists;
-		  // foreach($subscriptionLists as $key => $listSubscription) {
-		   // $subscriptionCount = DB::table('subscribes')->where('user_id', $listSubscription->id)->get();
-		  //  $subscriptionLists[$key]->count = count($subscriptionCount);
-		  // }
-
-		  // // return $subscriptionLists;
-
-		  // // return $subscribers;
-		  // $findUsersVideo = User::find(Auth::User()->id)->favorite;
-		  
-
-		  // foreach($findUsersVideo as $findVideo){
-		  //  $videoFavorites[] = $findVideo->video_id;
-		  // }
-		  // // return $videoFavorites;
-		  // $showFavoriteVideos = Video::find($videoFavorites);
-
-		  
-
-		  // foreach($subscriptionLists as $key => $listSubscription) {
-		  //  $subscriptionCount = Db::table('subscribes')->where('user_id', $listSubscription->id)->get();
-		  //  $subscriptionLists[$key]->count = count($subscriptionCount);
-		  // }
 
 	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','ifNoSubscriber', 'countSubscribers', 'increment', 'showFavoriteVideos', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions')); 
 	}
@@ -250,13 +215,13 @@ class UserController extends BaseController {
 				{
 					File::delete($picture);
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.edit.channel', $id)->withFlashMessage('Successfully Updated!');
+					return Redirect::route('users.edit.channel')->withFlashMessage('Successfully Updated!');
 				}else{
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.edit.channel', $id)->withFlashMessage('Successfully Created New Picture!');
+					return Redirect::route('users.edit.channel')->withFlashMessage('Successfully Created New Picture!');
 				}
 			}else{
-				return Redirect::route('users.edit.channel', $id)->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+				return Redirect::route('users.edit.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
 			}
 		}
 	}
@@ -408,16 +373,18 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 
 		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
+		// return $findUsersWatchLaters;
 
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-
+		// return $findUsersWatchLaters;
 		foreach($findUsersWatchLaters as $findUsersWatchLater){
 			$videoWatchLater[] = $findUsersWatchLater->video_id;
 		}
-
+		// return $videoWatchLater;
+		// return $findUsersWatchLaters;
 
 		$videosWatchLater = Video::find($videoWatchLater);
 

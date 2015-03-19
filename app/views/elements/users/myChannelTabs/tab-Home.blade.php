@@ -60,6 +60,7 @@
 
 			<div class="row">
 			@if(isset($usersVideos))
+
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4">
 					<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}">
@@ -82,7 +83,7 @@
 				</div>
 				@endforeach
 				@else
-				No Videos Uploaded yet.
+				No Videos Uploaded yet..
 				@endif
 			</div>
 		</div><!--well-->
