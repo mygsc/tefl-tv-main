@@ -7,6 +7,7 @@ class HomeController extends BaseController {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
+		$this->Auth = Auth::User();
 	}
 
 	public function getIndex() {
