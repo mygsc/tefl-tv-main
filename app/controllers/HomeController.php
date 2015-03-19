@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 		// foreach($latests as $key => $item){
 		// 	echo $item->video_poster;
 		// }
-		dd(file_exists('public\videos\234-mygsc\4X71yUcIciQ\4X71yUcIciQ.jpg'));
+		//dd(file_exists('public\videos\17-mygsc\Dfc8PpTPkXS\Dfc8PpTPkXS.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}

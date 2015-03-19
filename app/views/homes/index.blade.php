@@ -147,7 +147,9 @@
 					<div class="categoryHead">
 						<h3>Popular</h3>
 					</div>
+
 					@foreach($populars as $popular)
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($popular->video_poster))
 							<img width="200" height="100" src="{{$recommended->video_poster}}">
@@ -162,6 +164,7 @@
 		            		 Likes:{{$popular->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.popular', 'see more..', null) }}
@@ -174,9 +177,10 @@
 						<h3>Recent Uploads</h3>
 					</div>
 					@foreach($latests as $latest)
+					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($latest->video_poster))
-							<img width="200" height="100" src="{{$recommended->video_poster}}">
+							<img width="200" height="100" src="{{$latest->poster_path}}">
 						@else
 							<img width="200" height="100" src="/img/thumbnails/video.png">
 						@endif
@@ -188,6 +192,7 @@
 		            		 Likes:{{$latest->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.latest', 'see more..', null) }}
@@ -201,6 +206,7 @@
 						<h3>Random</h3>
 					</div>
 					@foreach($randoms as $random)
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($random->video_poster))
 							<img width="200" height="100" src="{{$recommended->video_poster}}">
@@ -215,6 +221,7 @@
 		            		 Likes:{{$random->likes}}
 		            	</div>
 					</div>
+					</a>
 					@endforeach
 					<div class="btn-pos">
 						{{ link_to_route('homes.random', 'see more..', null) }}

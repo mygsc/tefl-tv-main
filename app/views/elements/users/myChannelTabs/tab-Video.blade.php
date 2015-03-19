@@ -11,12 +11,11 @@
 		</div>
 	</div>
 	<br/>
-	
 		<hr/>
 		@foreach($usersVideos as $usersVideo)
 		<div class="videos">
 			<div class="col-md-3">
-				<video height="auto" width="100%" class="h-video controls>
+				<video height="auto" width="100%" class="h-video controls">
 					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
 				</video>
 				<div class="v-Info">

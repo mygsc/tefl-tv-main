@@ -59,7 +59,6 @@ class VideoController extends Controller {
 		->with('message', 'There were validation errors.');
 }
 	public function getAddDescription($filename = null){
-		
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
@@ -85,7 +84,7 @@ class VideoController extends Controller {
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 						$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
-						//$poster->move($destinationPath, $fileName.'.jpg');
+						$poster->move($destinationPath, $fileName.'.jpg');
 						//Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath, $fileName.'.jpg'); 
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
@@ -98,7 +97,7 @@ class VideoController extends Controller {
 						$video->publish = Input::get('publish');
 						$video->tags =  $implodeTag;
 						$video->save();
-						return Redirect::route('get.upload','=success')->with('success','New video has been upload successfully');
+						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been upload successfully');
 					}else{
 						// $img = $imgSelected;
 						// $img = str_replace('data:image/png;base64,', '', $img);
@@ -122,7 +121,7 @@ class VideoController extends Controller {
 						$video->publish = Input::get('publish');
 						$video->tags =  $implodeTag;
 						$video->save();
-						return Redirect::route('get.upload','=success')->with('success','New video has been upload successfully');
+						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been upload successfully');
 					}					
 				}
 			
@@ -231,10 +230,13 @@ class VideoController extends Controller {
 
 		return View::make('homes.searchresult', compact(array('type','searchResults')));
 	}
+
 	public function counter($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::where('id','=',$id)->first();
 		$video->views = $video->views+1;
 		$video->update();
 	}
+
+
 }
