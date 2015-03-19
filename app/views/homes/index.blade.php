@@ -31,9 +31,11 @@
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper">
 					<div id="progressbar">
-						<div id="current-progress">	
-							<div id="button-progress">		
-							</div>	
+						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
+							<div id="current-progress">	
+								<div id="button-progress">		
+								</div>	
+							</div>
 						</div>
 					</div>
 				
@@ -125,10 +127,6 @@
 						@else
 							<video width="200" height="100" poster="/img/thumbnails/video.png">
 						@endif
-		            		<source ="/videos/bowling.mp4" type="video/mp4">
-		            		<source ="/videos/bowling.webm" type="video/webm">
-		            		<source ="/videos/bowling.ogg" type="video/ogg">	
-		            	</video>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
 		            	</div>
@@ -173,7 +171,11 @@
 					</div>
 					@foreach($latests as $latest)
 					<div class="col-md-6">
-						<img src="/img/thumbnails/v9.png" class="h-video">
+						@if(file_exists($recommended->video_poster))
+							<img width="200" height="100" src="{{$recommended->video_poster}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 						<div class="v-Info">
 							<a href="{{route('homes.watch-video')}}">{{$latest->title}}</a>
 						</div>
