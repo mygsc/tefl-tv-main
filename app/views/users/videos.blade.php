@@ -55,6 +55,7 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
+				@if(isset($usersVideos))				
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						<div class="inlineVid ">
@@ -81,6 +82,9 @@
 						</div>
 					</div>
 					@endforeach	
+					@else
+						No Videos Uploaded yet.
+					@endif
 					</div>
 				</div>
 			</div>
