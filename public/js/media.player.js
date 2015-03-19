@@ -1,12 +1,12 @@
 
-document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();adsOn();}, false);
+document.addEventListener("DOMContentLoaded", function() { GSCMediaPlayer();}, false);
 
-var mediaPlayer, hrs, mins, secs=0, tmpSecs, adsTime = 10, ads=0, vidMinLenght, vidSecLenght, videoCurrentTime,
-	playPauseBtn, timeDuration,
+var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
+	playPauseBtn, timeDuration=0,
  	muteBtn, playIcon = false, replay,
- 	progressBar, soundHover = false, volumeHover = false, currentTime, videoPlaying = false, start = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
- 	volumes, volumeClick = false, mouseX = 0, mouseY = 0, volumeY, volumeDrag = false, progressbarClick = false,
+ 	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0;
 
 
@@ -21,7 +21,7 @@ function GSCMediaPlayer(){
 	playPauseBtn = document.getElementById('play-pause');
 	replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
-	progressBar = document.getElementById('progress-bar');
+	//progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	mediaPlayer.controls = false;
@@ -47,15 +47,16 @@ function GSCMediaPlayer(){
 	mediaPlayer.addEventListener('loadedmetadata', function() {
 	timeDuration = Math.round(mediaPlayer.duration);
 	timeSettings();
+	adsOn();
 });
 	
 }
 function adsOn(){
-	ads = timeDuration * adsTime / 100;
+	ads = Math.floor(timeDuration * adsTime / 100);
 	ads = Math.round(100 / ads);
 	var adsbar = Math.floor(progWidth/adsTime);
-	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#current-progress');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '250px', 'height':'100%', 'position':'absolute'});
+	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '35%', 'height':'100%', 'position':'absolute'});
 	
 }
 function timeSettings(){
@@ -356,11 +357,14 @@ $('#progressbar').bind('mousedown', function(e) {
 	progressbarClick = true;
 	mouseX = e.pageX - $('#current-progress').offset().left;
 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	mediaPlayer.currentTime = currentTime;
+	alert(Math.floor(currentTime));
+	mediaPlayer.currentTime = Math.floor(currentTime);
 	if(videoPlaying == true) {
-			mediaPlayer.pause();
 			playPauseBtn.src = "/img/icons/play.png";
 			$('.play-icon').fadeIn(500);
+			mediaPlayer.currentTime = Math.floor(currentTime);
+			mouseX = e.pageX - $('#current-progress').offset().left;
+			mediaPlayer.pause();
 		}				
 });
 

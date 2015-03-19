@@ -33,6 +33,7 @@ class VideoController extends Controller {
 			//Find / Updated
 			$latest_id = $create->id;
 			$encrypt_name = $fileName;
+			Session::put('fileName', $fileName);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $encrypt_name;
 
@@ -58,6 +59,9 @@ class VideoController extends Controller {
 		->with('message', 'There were validation errors.');
 }
 	public function getAddDescription($filename = null){
+		if(empty($fileName)){
+			return Redirect::route('get.upload');
+		}
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
@@ -83,7 +87,8 @@ class VideoController extends Controller {
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 						$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
-						$poster->move($destinationPath, $fileName.'.jpg'); 
+						//$poster->move($destinationPath, $fileName.'.jpg');
+						//Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath, $fileName.'.jpg'); 
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
