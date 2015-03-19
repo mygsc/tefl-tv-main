@@ -59,9 +59,7 @@ class VideoController extends Controller {
 		->with('message', 'There were validation errors.');
 }
 	public function getAddDescription($filename = null){
-		if(empty($fileName)){
-			return Redirect::route('get.upload');
-		}
+		
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
@@ -72,7 +70,7 @@ class VideoController extends Controller {
 		$uploadPosterDir = $this->thumbImg;
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
-		$input = Input::all();  
+		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 			
 				if($validator->passes()){

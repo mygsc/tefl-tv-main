@@ -96,8 +96,8 @@ class Video extends Eloquent{
 			$folderName = $returnData[$key]->user_folder;
 			$fileName = $item->file_name;
 			$posterName = $fileName. '.jpg';
-			$videoFolderPath = 'public'. DIRECTORY_SEPARATOR. 'videos';
-			$filePath =  $videoFolderPath .DIRECTORY_SEPARATOR. $fileName .DIRECTORY_SEPARATOR. $posterName;
+			$videoFolderPath = 'public'. DIRECTORY_SEPARATOR. 'videos'.DIRECTORY_SEPARATOR. $folderName;
+			$filePath = $videoFolderPath .DIRECTORY_SEPARATOR. $fileName .DIRECTORY_SEPARATOR. $posterName;
 			$returnData[$key]->video_poster = $filePath;
 		}
 		return $returnData;

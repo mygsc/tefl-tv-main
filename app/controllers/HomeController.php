@@ -15,7 +15,10 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getVideoByCategory('popular', '4');
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
-
+		// foreach($latests as $key => $item){
+		// 	echo $item->video_poster;
+		// }
+		dd(file_exists('public\videos\234-mygsc\4X71yUcIciQ\4X71yUcIciQ.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}

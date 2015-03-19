@@ -149,9 +149,13 @@
 					</div>
 					@foreach($populars as $popular)
 					<div class="col-md-6">
-						<img src="/img/thumbnails/v3.png" class="h-video">
+						@if(file_exists($popular->video_poster))
+							<img width="200" height="100" src="{{$recommended->video_poster}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$popular->title}}</a>
+							<a href="{{route('homes.watch-video', array($popular->file_name))}}">{{$popular->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($popular->views,0,null,',')}}
@@ -171,13 +175,13 @@
 					</div>
 					@foreach($latests as $latest)
 					<div class="col-md-6">
-						@if(file_exists($recommended->video_poster))
+						@if(file_exists($latest->video_poster))
 							<img width="200" height="100" src="{{$recommended->video_poster}}">
 						@else
 							<img width="200" height="100" src="/img/thumbnails/video.png">
 						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$latest->title}}</a>
+							<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($latest->views,0,null,',')}}
@@ -198,9 +202,13 @@
 					</div>
 					@foreach($randoms as $random)
 					<div class="col-md-6">
-						<img src="/img/thumbnails/v5.png" class="h-video">
+						@if(file_exists($random->video_poster))
+							<img width="200" height="100" src="{{$recommended->video_poster}}">
+						@else
+							<img width="200" height="100" src="/img/thumbnails/video.png">
+						@endif
 						<div class="v-Info">
-							<a href="{{route('homes.watch-video')}}">{{$random->title}}</a>
+							<a href="{{route('homes.watch-video', array($random->file_name))}}">{{$random->title}}</a>
 						</div>
 						<div class="count">
 		            		Views:{{number_format($random->views,0,null,',')}}
