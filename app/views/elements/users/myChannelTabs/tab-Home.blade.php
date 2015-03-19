@@ -5,16 +5,15 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
-		<h3><b>Word and Sentence Stress (Part 1)</b></h3>
-		<p>Uploded: February 27, 2015</p>
+	@foreach($recentUpload as $upload)
+		<h3><b>{{$upload->title}}</b></h3>
+		<p>Uploded: {{$upload->created_at}}</p>
 		<br/>
+		<video controls>
+			<source src=""/>
+		</video>
 		<p class="text-justify">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			{{$upload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
@@ -44,6 +43,7 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
+		@endforeach
 	</div><!--/.col-md-6-->
 </div>
 <br/>
@@ -144,12 +144,12 @@
 					@foreach($subscribers as $subscriber)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
-							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 							<?php
 								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
 								$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
 							?>
 							<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 								<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
@@ -177,12 +177,14 @@
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
-								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<?php
+							<?php
 									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
 									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
 								?>
-								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
+								<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>
+								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
