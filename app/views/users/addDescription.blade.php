@@ -46,7 +46,7 @@
 										</div>							
 									</center></div>--}}
 									<center>
-										<img src="/img/thumbnails/video.png" width="250" height="150">		
+										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">		
 											<input type="file" name="poster" id="poster"/>										
 										</img>
 									</center>
@@ -84,10 +84,29 @@
 							<div class="text-right">
 							<br>
 								
-								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'cancel'))}}
+								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary'))}}
 								
 							</div>	
+
+
+							<div class="modal fade" id="cancel-upload-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="myModalLabel">Cancel Upload</h4>
+							      </div>
+							      <div class="modal-body">
+							       		<p>Are you sure you want to cancel?</p>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+							        <a href="{{route('user.upload.video.cancel',"v=". $video->file_name)}}" class="btn btn-primary">Yes</a>
+							      </div>
+							    </div>
+							  </div>
+							</div>
 							@endforeach
 							<input type="hidden" name="channel" value="{{Auth::User()->channel_name}}"/>
 
@@ -98,6 +117,7 @@
 		</div>
 	</div>
 </div>
+
 
 @stop
 
