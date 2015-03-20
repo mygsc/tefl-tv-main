@@ -212,17 +212,26 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
+
+		foreach ($subscribers as $subscriber) {
+			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+		}
 	
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
+
+		foreach($subscriptions as $subscription) {
+			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
+		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
 		$increment = 0;
 		
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
+		// return $recentUpload;
 
-
-	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 
+	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount')); 
 	}
 	
 	public function postUsersUploadImage($id) {
