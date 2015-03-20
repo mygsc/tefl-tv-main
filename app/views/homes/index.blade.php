@@ -33,7 +33,7 @@
 					<div id="progressbar">
 						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
 							<div id="current-progress">	
-								<div id="button-progress">		
+								<div id="button-progress" class="progress-button">		
 								</div>	
 							</div>
 						</div>

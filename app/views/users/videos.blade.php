@@ -49,11 +49,7 @@
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
-						@if(Session::has('success'))
-							<div id="success">
-								<p style="color:green">{{Session::pull('success')}}</p>
-							</div>
-						@endif
+						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
 
 					
@@ -77,7 +73,7 @@
                                    		<li>gfrhgte</li>
                                     </span>
                                 </span>
-								<a href="/edit/1"><span title="Update Video"><button class="btn-ico btn-default" data-target="#updateVideo" data-toggle="modal"><i class="fa fa-pencil" ></i></button></span></a>
+								<a href="edit/1" data-target="#updateVideo" data-toggle="modal"><span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
 								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							</span>
 							{{Form::close()}}
@@ -129,6 +125,11 @@
 
 	<script type="text/javascript">
 		$(document).ready( function( $ ) {
+			var success = $('#uploaded').val();
+			if(success == 1){
+				$('<div id="success" style="width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+					$('#success').fadeOut(20000);
+			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress

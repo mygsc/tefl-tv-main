@@ -99,11 +99,9 @@ class VideoController extends Controller {
 								$video->tags =  $implodeTag;
 								$video->uploaded =  1;
 								$video->save();
-								return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been uploaded successfully');
+								return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success',1);
 							}
 							return Redirect::route('homes.index');
-						// $video->token_id = Input::get('tokenId');
-						// $video->poster = $posterFilename.$id.'.'.$posterExt;
 						
 					}else{
 						// $img = $imgSelected;
@@ -128,7 +126,7 @@ class VideoController extends Controller {
 						$video->publish = Input::get('publish');
 						$video->tags =  $implodeTag;
 						$video->save();
-						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success','New video has been uploaded successfully');
+						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success',1);
 					}					
 				}
 			
