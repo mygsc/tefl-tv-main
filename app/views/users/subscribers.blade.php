@@ -39,18 +39,15 @@
 									</div>
 								</div>
 								<br/><br/>
-								@if(empty($subscribers))
+								@if(empty($subscriberProfile))
 									No Subscribers
 								@else
-								@foreach($subscribers as $subscriber)
+								@foreach($subscriberProfile as $key => $profile)
 								<div class="subscribers">
 									<div class="col-md-6">
 										<img src="/img/user/u1.png" class="userRep2">&nbsp;
-										<?php
-											$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-											$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
-											?>
-										<a href="{{route('view.users.channel')}}"><span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span></a>&nbsp;
+
+										<a href="{{route('view.users.channel')}}"><span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span></a>&nbsp;
 										<br/>&nbsp;
 										<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
 										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
@@ -96,18 +93,16 @@
 										Subscribe/Unsubscribe
 									</td>
 								</tr>
-								@if(empty($subscriptions))
+								@if(empty($subscriptionProfile))
 									No Subscriptions
 								@else
-								@foreach($subscriptions as $subscription)
+								@foreach($subscriptionProfile as $key => $profile1)
 								<tr>
 									<td>{{ Form::checkbox(false)}}</td>
 									<td>
 										<img src="/img/user/u1.png" class="userRep2">&nbsp;
-										<?php
-											$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
-										?>
-										<a href="{{route('view.users.channel')}}"><span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span></a>&nbsp;
+
+										<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span></a>&nbsp;
 									</td>
 									<td class="text-center">{{ Form::checkbox(false)}}</td>
 									<td class="text-center">

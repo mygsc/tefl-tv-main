@@ -118,24 +118,24 @@ $("#poster").on("change", function()
     $('#cancel-upload-vid').modal('show');
  });
 $(function() {
-    $('video').bind('video_really_ready', function(){
-     var video = this;
-      $('#thumbnail').click(function(){
-            var canvases = $('canvas'); 
-            //for(var start=1; start < 4; start++){
-              var rdm = Math.floor((Math.random() * timeLenght) + 1); 
-                VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
-                $('#screenShot').append(canvas);
-                $('div#thumbnail canvas').addClass('img-thumb1');
-                canvas.setAttribute("id", "img-thumb1");                                 
-                     if (canvases.length > 2)
-                         canvases.eq(0).remove();
-                })  
+    // $('video').bind('video_really_ready', function(){
+    //  var video = this;
+    //   $('#thumbnail').click(function(){
+    //         var canvases = $('canvas'); 
+    //         //for(var start=1; start < 4; start++){
+    //           var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+    //             VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
+    //             $('#screenShot').append(canvas);
+    //             $('div#thumbnail canvas').addClass('img-thumb1');
+    //             canvas.setAttribute("id", "img-thumb1");                                 
+    //                  if (canvases.length > 2)
+    //                      canvases.eq(0).remove();
+    //             })  
 
-            //}// end of for loop
+    //         //}// end of for loop
 
-        });
-    });
+    //     });
+    // });
 });
 
 

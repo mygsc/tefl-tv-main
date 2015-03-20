@@ -3,8 +3,12 @@
 
         <div class="col-md-3">
             <label><small>Click image to change</small></label>
-            {{ Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}
-            {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+            {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}            
+                @if(file_exists($picture))
+                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+                @else
+                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+                @endif
             <br/>
         </div>
 
@@ -99,27 +103,23 @@
 
         <div class="col-md-6">
             {{Form::label('facebook', 'Facebook: ')}}            
-            {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
-        </div>
-        <div class="col-md-6">
-            {{Form::label('youtube', 'Youtube: ')}}
-            {{Form::text('youtube', null, array('placeholder' => 'Youtube Account'))}}
+            {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account'))}}
         </div>
         <div class="col-md-6">
             {{Form::label('twitter', 'Twitter: ')}}
-            {{Form::text('twitter', null, array('placeholder' => 'Twitter Account'))}}
+            {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account'))}}
         </div>
         <div class="col-md-6">
             {{Form::label('instagram', 'Instagram: ')}}
-            {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}
+            {{Form::text('instagram', $userWebsite->instagram, array('placeholder' => 'Instagram Account'))}}
         </div>
         <div class="col-md-6">
             {{Form::label('gmail', 'Gmail: ')}}
-            {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
+            {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account'))}}
         </div>
         <div class="col-md-6">
             {{Form::label('others', 'Other Websites: ')}}
-            {{Form::text('others', null, array('placeholder' => 'Other Website Accounts'))}}
+            {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
         </div>
 
         <div class="text-right">

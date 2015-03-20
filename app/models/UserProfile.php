@@ -10,4 +10,7 @@ class UserProfile extends Eloquent {
 
 		return $this->belongsTo('User');
 	}
+
+
+
 }
