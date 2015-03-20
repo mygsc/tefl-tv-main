@@ -64,7 +64,7 @@
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
-									{{ Form::select('publish', array('0' => 'Unpublish', '1' => 'Publish'), null , array('class' => 'form-control','required'=>true)) }}
+									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control','required'=>true)) }}
 
 								</div> 
 							

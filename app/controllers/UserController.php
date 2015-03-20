@@ -212,15 +212,14 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-
 	
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
-		  $increment = 0;
+		$increment = 0;
 		
-		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->get();
+		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
 
 
 	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews', 'subscribers', 'subscriptions','usersPlaylists')); 
@@ -294,7 +293,6 @@ class UserController extends BaseController {
 
 		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
-
 
 		return View::make('users.editchannel', compact('userChannel','userWebsite'));
 	}
@@ -385,6 +383,10 @@ class UserController extends BaseController {
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
 	}
 
+	public function getedit($id){
+		return View::make('elements.users.videoModal');
+	}
+
 	public function getUsersChangePassword() {
 		
 		return View::make('users.changepassword');
@@ -394,21 +396,13 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
-
 		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
-		// return $findUsersWatchLaters;
-
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-
-		// return $findUsersWatchLaters;
 		foreach($findUsersWatchLaters as $findUsersWatchLater){
 			$videoWatchLater[] = $findUsersWatchLater->video_id;
 		}
-		// return $videoWatchLater;
-		// return $findUsersWatchLaters;
-
 		$videosWatchLater = Video::find($videoWatchLater);
 
 		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
@@ -560,17 +554,19 @@ class UserController extends BaseController {
 			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		}
 
-		$findVideos = User::where('channel_name', $channel_name)->get();
-		return $findVideos;
+		$videosChannelName = User::where('channel_name', $channel_name)->first();
+		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
+
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
 
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
-
+		$subscribers = Subscribe::where('user_id', $userChannel->id)->get();
+		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->paginate(10);
+		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
+		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists'));
 	}
 	public function addSubscriber() {
         $user_id = Input::get('user_id');

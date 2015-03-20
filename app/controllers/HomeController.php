@@ -90,6 +90,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
+			if(empty($token_id)) return Redirect::route('homes.index');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);

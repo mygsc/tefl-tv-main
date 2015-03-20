@@ -17,7 +17,7 @@
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
@@ -43,13 +43,16 @@
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Videos</button>
+						<!--<button class="btn btn-unsub">Manage Videos</button>-->
 
 						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
+						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
+
+					
 			
 					
 					<br/><br/><hr class="" />
@@ -58,14 +61,28 @@
 				@if(isset($usersVideos))				
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
-						<div class="inlineVid ">
+						<div class="inlineVid">
 							{{Form::open()}}
-								<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-							
+							<span class="btn-sq">
+								<span class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                       	<span title="Add to Playist">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+                                    </a>
+                                   	<span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
+                                   		<li>gge</li>
+                                   		<li>gfrhgte</li>
+                                    </span>
+                                </span>
+								<a href="edit/1" data-target="#updateVideo" data-toggle="modal"><span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+							</span>
 							{{Form::close()}}
-							<a href="{{route('homes.watch-video',$usersVideo->id.'%'.$usersVideo->title)}}" target="_blank">
-							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'.jpg'}}"  width="100%" class="h-video" >
-								<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />	
+							
+							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+							<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="h-video" >
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />						
 						</div>
 
 						<div class="inlineInfo ">
@@ -82,20 +99,20 @@
 						</div>
 					</div>
 					@endforeach	
+
+				</div>
+
 					@else
 						No Videos Uploaded yet.
 					@endif
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
 
-	@if(Session::has('success'))
-		<div class="success">
-			<p style="color:green">{{Session::pull('success')}}</p>
-		</div>
-	@endif()
+		<!--upload update Video modal-->
 
 @stop
 
@@ -108,6 +125,11 @@
 
 	<script type="text/javascript">
 		$(document).ready( function( $ ) {
+			var success = $('#uploaded').val();
+			if(success == 1){
+				$('<div id="success" style="width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+					$('#success').fadeOut(20000);
+			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
