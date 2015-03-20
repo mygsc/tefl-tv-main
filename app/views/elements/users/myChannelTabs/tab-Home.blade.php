@@ -21,7 +21,6 @@
 		<span class=""><!--/counts and share link-->
 			1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
 			1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-		@endif
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
@@ -45,6 +44,7 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
+		@endif
 	</div><!--/.col-md-6-->
 </div>
 <br/>

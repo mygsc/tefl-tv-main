@@ -405,18 +405,19 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
-		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
+
+		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
+
 		foreach($findUsersWatchLaters as $findUsersWatchLater){
-			$videoWatchLater[] = $findUsersWatchLater->video_id;
+			$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
 		}
-		$videosWatchLater = Video::find($videoWatchLater);
 
 		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
 		
-		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos'));
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters'));
 	}
 
 	public function postWatchLater() {
@@ -441,6 +442,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
+		// return $playlists;
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos'));
 	}
 	public function getViewPlaylistVideo($id){
@@ -485,10 +487,18 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
+			
+			foreach ($subscribers as $subscriber) {
+				$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+				$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+			}
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 
-		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscribers', 'subscriptions','countAllViews', 'countVideos'));
+			foreach($subscriptions as $subscription) {
+				$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
+			}
+		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos'));
 	}
 
 	public function postUsersChangePassword() {
