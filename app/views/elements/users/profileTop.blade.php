@@ -29,12 +29,20 @@
 
 								<span class="pull-right" >
 									<span class="pull-right" >
+									@if(empty($usersWebsite))
 										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
 										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
 										<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
 										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
 										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
 										<a href=""><i class="socialMedia socialMedia-site"></i></a>
+									@else
+										<a href="{{$usersWebsite->facebook}}"><i class="socialMedia socialMedia-facebook"></i></a>
+										<a href="{{$usersWebsite->twitter}}"><i class="socialMedia socialMedia-twitter"></i></a>
+										<a href="{{$usersWebsite->instagram}}"><i class="socialMedia socialMedia-instagram"></i></a>
+										<a href="{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
+										<a href="{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
+									@endif
 									</span> 
 								</span>	
 

@@ -208,9 +208,10 @@ class UserController extends BaseController {
 		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
-		$allViews = DB::table('videos')->sum('views');
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
+		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
 
 		foreach ($subscribers as $subscriber) {
@@ -231,7 +232,7 @@ class UserController extends BaseController {
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
 		// return $recentUpload;
 
-	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount')); 
+	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -302,8 +303,9 @@ class UserController extends BaseController {
 
 		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
-		return View::make('users.editchannel', compact('userChannel','userWebsite'));
+		return View::make('users.editchannel', compact('userChannel','userWebsite', 'picture'));
 	}
 
 	public function postEditUsersChannel($channel_name) {
@@ -336,7 +338,6 @@ class UserController extends BaseController {
 			$userWebsite = new Website;
 			$userWebsite->user_id = Auth::User()->id;
 			$userWebsite->facebook = Input::get('facebook');
-			$userWebsite->youtube = Input::get('youtube');
 			$userWebsite->twitter = Input::get('twitter');
 			$userWebsite->instagram = Input::get('instagram');
 			$userWebsite->gmail = Input::get('gmail');
@@ -345,7 +346,6 @@ class UserController extends BaseController {
 		}else{
 			$userWebsite = Website::where('user_id',Auth::User()->id)->first();
 			$userWebsite->facebook = Input::get('facebook');
-			$userWebsite->youtube = Input::get('youtube');
 			$userWebsite->twitter = Input::get('twitter');
 			$userWebsite->instagram = Input::get('instagram');
 			$userWebsite->gmail = Input::get('gmail');
@@ -353,10 +353,10 @@ class UserController extends BaseController {
 			$userWebsite->save();
 		}
 		}else{
-			return Redirect::route('users.edit.channel', $channel_name)->withErrors($validate);
+			return Redirect::route('users.edit.channel')->withErrors($validate);
 		}
 
-		return Redirect::route('users.channel', $channel_name)->withFlashMessage('Successfully updated your channel!');
+		return Redirect::route('users.channel')->withFlashMessage('Successfully updated your channel!');
 
 	}
 
