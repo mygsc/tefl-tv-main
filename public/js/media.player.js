@@ -15,7 +15,7 @@ var progress = document.getElementById('current-progress').offsetWidth;
 var plusVol = document.getElementById('plus-vol').offsetHeight;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var volume = $('#volume-vertical').height();
-
+var animate360 = document.getElementById('button-progress');
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
 	playPauseBtn = document.getElementById('play-pause');
@@ -357,14 +357,15 @@ $('#progressbar').bind('mousedown', function(e) {
 	progressbarClick = true;
 	mouseX = e.pageX - $('#current-progress').offset().left;
 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	alert(Math.floor(currentTime));
+	//alert(Math.floor(currentTime));
 	mediaPlayer.currentTime = Math.floor(currentTime);
 	if(videoPlaying == true) {
-			playPauseBtn.src = "/img/icons/play.png";
-			$('.play-icon').fadeIn(500);
+			togglePlayPause();
+			//playPauseBtn.src = "/img/icons/play.png";
+			//$('.play-icon').fadeIn(500);
 			mediaPlayer.currentTime = Math.floor(currentTime);
 			mouseX = e.pageX - $('#current-progress').offset().left;
-			mediaPlayer.pause();
+			//mediaPlayer.pause();
 		}				
 });
 

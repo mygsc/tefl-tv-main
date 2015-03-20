@@ -46,7 +46,8 @@
 										</div>							
 									</center></div>--}}
 									<center>
-										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">		
+										<div id="screenShot"></div>
+										<img id="thumbnail" class="random" src="/img/thumbnails/video.png" width="250" height="150">		
 											<input type="file" name="poster" id="poster"/>										
 										</img>
 									</center>
@@ -64,7 +65,7 @@
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
-									{{ Form::select('publish', array('0' => 'Unpublish', '1' => 'Publish'), null , array('class' => 'form-control','required'=>true)) }}
+									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control','required'=>true)) }}
 
 								</div> 
 							

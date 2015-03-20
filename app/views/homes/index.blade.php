@@ -14,10 +14,10 @@
               	<video id="media-video" poster="/img/thumbnails/v1.png">
 					<source src='/videos/bowling.mp4' type='video/mp4'>
 					<source src='/videos/bowling.webm' type='video/webm'>
-					<source src='/videos/bowling.ogv' type='video/ogg'>
-					{{-- <source src='/videos/movie.mov' type='video/mov'>
+					<source src='/videos/bowling.ogg' type='video/ogg'>
+					<source src='/videos/movie.mov' type='video/mov'>
 					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>  --}}  
+					<source src='/videos/movie.3gp' type='video/3gpp'>  
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
@@ -33,7 +33,7 @@
 					<div id="progressbar">
 						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
 							<div id="current-progress">	
-								<div id="button-progress">		
+								<div id="button-progress" class="progress-button">		
 								</div>	
 							</div>
 						</div>

@@ -5,16 +5,14 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
-		<h3><b>Word and Sentence Stress (Part 1)</b></h3>
-		<p>Uploded: February 27, 2015</p>
+		<h3><b>{{$recentUpload->title}}</b></h3>
+		<p>Uploaded: {{$recentUpload->created_at}}</p>
 		<br/>
+		<video controls>
+			<source src=""/>
+		</video>
 		<p class="text-justify">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			{{$recentUpload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
@@ -89,24 +87,8 @@
 			<br/>
 
 			<div class="col-md-4">
-				<div class="" style="position:relative;">
-					<div class="playlist-info" >
-						18
-						<br/>
-						Videos
-						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-					</div>
-					<img src="/img/thumbnails/v1.png" class="h-video">
-				</div>
-				<div class="v-Info">
-					<span class="fa fa-globe"></span> | All About Grammar
-				</div>
-				<div class="count">
-					Update: February 12, 2015
-				</div>
-			</div>
-			<div class="col-md-4">
+			@if(empty($usersPlaylists))
+				@foreach($usersPlaylists as $playlists)
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
 						11
@@ -119,32 +101,16 @@
 				</div>
 
 				<div class="v-Info">
-					<span class="fa fa-globe"></span> | All About Grammar
+					<span class="fa fa-globe"></span> | {{$playlists->name}}
 				</div>
 
 				<div class="count">
-					Update: February 12, 2015
+					{{$playlists->updated_at}}
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="" style="position:relative;">
-					<div class="playlist-info" >
-						200
-						<br/>
-						Videos
-						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-					</div>
-					<img src="/img/thumbnails/v8.png" class="h-video">
-				</div>
-
-				<div class="v-Info">
-					<span class="fa fa-globe"></span> | All About Grammar
-				</div>
-				
-				<div class="count">
-					Update: February 12, 2015
-				</div>
+				@endforeach
+				@else
+					No Playlists yet
+				@endif
 			</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
@@ -157,26 +123,26 @@
 			</div>
 			<br/>
 			<div class="row">
-			@if(!empty($subscribers))
+			@if($subscribers->isEmpty())
+				No Subscriber yet
+			@else
 				@foreach($subscribers as $subscriber)
-				<div class="col-md-6">	
-					<div class="row user-padding">
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<?php
-								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-								$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
+				<div class="col-md-6">
+				<?php
+						$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+						$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
 							?>
-						<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+					<div class="row user-padding">
+						<a href="{{route('view.users.channel')}}">
+						<img src="/img/user/u1.png" class="userRep2">&nbsp;
 						<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
 						</a>&nbsp;
 						<br/>&nbsp;
-						<span>w/ <b></b> Subscribers</span>&nbsp;
+						<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					</div>
 				</div>
-				@endforeach
-				@else
-					No Subscriber yet
+				@endforeach					
 				@endif				
 			</div>
 		</div>
@@ -201,7 +167,7 @@
 								?>
 								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>2k</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 							
