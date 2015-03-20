@@ -4,8 +4,7 @@ $(document).ready(function(){
 	var totalTime = document.getElementById('total-time');
 	var channel = $('input[name=channel]').val();
 	var selected = 1, timeLenght=0;
-  var reader = new FileReader();
-  var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
+  var getImage, timeDuration, hrs=0, mins=0, secs=0, tmpSec=0, time=0, totalMin=0, totalSec=0;
 
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
@@ -64,10 +63,12 @@ $(document).ready(function(){
   		//if(hrs < 10) { hrs = '0'+ hrs; }
   		if(timeDuration < 3600){
   			time = mins + ':' + secs;
-  			totalTime.value = time;
+  			//document.getElementById('total-time').value = time;
+        $('input[name=totalTime]').val(time);
   		}else{
   			time = hrs + ':' + mins + ':' + secs;
-  			totalTime.value = time;
+  			//document.getElementById('total-time').value = time;
+        $('input[name=totalTime]').val(time);
 
   		}
     }
@@ -95,8 +96,8 @@ $(document).ready(function(){
             // }, 2000); 
    	});
 
-$("#poster").on("change", function()
-    {
+$("#poster").on("change", function(){
+  var reader = new FileReader();
      var files = !!this.files ? this.files : [];
             if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
  
@@ -118,101 +119,25 @@ $("#poster").on("change", function()
     $('#cancel-upload-vid').modal('show');
  });
 $(function() {
-    // $('video').bind('video_really_ready', function(){
-    //  var video = this;
-    //   $('#thumbnail').click(function(){
-    //         var canvases = $('canvas'); 
-    //         //for(var start=1; start < 4; start++){
-    //           var rdm = Math.floor((Math.random() * timeLenght) + 1); 
-    //             VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
-    //             $('#screenShot').append(canvas);
-    //             $('div#thumbnail canvas').addClass('img-thumb1');
-    //             canvas.setAttribute("id", "img-thumb1");                                 
-    //                  if (canvases.length > 2)
-    //                      canvases.eq(0).remove();
-    //             })  
+    $('video').bind('video_really_ready', function(){
+     var video = this;
+      $('#thumbnail').on('mousedown',function(){
+            var canvases = $('canvas'); 
+            //for(var start=1; start < 4; start++){
+              var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+                VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
+                $('body').append(canvas);
+                $('div#thumbnail canvas').addClass('img-thumb1');
+                canvas.setAttribute("id", "img-thumb1");                                 
+                     if (canvases.length > 2)
+                         canvases.eq(0).remove();
+                })  
 
-    //         //}// end of for loop
+            //}// end of for loop
 
-    //     });
-    // });
+        });
+    });
 });
-
-
-
-
-
-
- //  $('video').bind('video_really_ready', function(){
- //     	var video = this;
- //     	$('#img-thumb-1').click(function(){
- //        	$(this).css({'outline':'2px solid green'});
-	// 	    $('#img-thumb-2').css({'outline':'1px solid #000000'});
-	// 	    $('#img-thumb-3').css({'outline':'1px solid #000000'});
- //            var canvases = $('canvas'); 
- //                VideoSnapper.captureAsCanvas(video, { width: 1024, height: 768, time:1}, function(canvas) {
- //                $('video').append(canvas);
- //                //$('video canvas').addClass('img-thumb-resize');
- //                //$('video canvas').css({'position':'relative', 'width':'400px', 'height':'100%'});	        
- //                canvas.setAttribute("id", "img-selected-thumb-1");                                 
- //                    if (canvases.length >= 1 )
- //                        canvases.eq(0).remove();
- //                    	canvases.eq(1).remove();
- //                    	canvases.eq(2).remove();
- //                    	alert('remove');
- //                var canvasImage = document.getElementById('img-selected-thumb-1');
-	// 	        	getImage = canvasImage.toDataURL('image/png');
-	// 	       		document.getElementById('selected-thumbnail').value = getImage;
- //                })  
- //  		});
-
- //  		$('#img-thumb-2').click(function(){
- //        	$(this).css({'outline':'2px solid green'});
-	// 	    $('#img-thumb-1').css({'outline':'1px solid #000000'});
-	// 	    $('#img-thumb-3').css({'outline':'1px solid #000000'});
- //            var canvases = $('canvas'); 
- //                VideoSnapper.captureAsCanvas(video, { width: 1024, height: 768, time:5}, function(canvas) {
- //                $('video').append(canvas);
- //                //$('video canvas').addClass('img-thumb-resize');
- //                //$('video canvas').css({'position':'relative', 'width':'400px', 'height':'100%'});	        
- //                canvas.setAttribute("id", "img-selected-thumb-2");                                 
- //                    if (canvases.length >= 1)
- //                        canvases.eq(0).remove();
- //                var canvasImage = document.getElementById('img-selected-thumb-2');
-	// 	        	getImage = canvasImage.toDataURL('image/png');
-	// 	       		document.getElementById('selected-thumbnail').value = getImage;
-		       		
- //                })  
- //  		});
-
- //  		$('#img-thumb-3').click(function(){
- //        	$(this).css({'outline':'2px solid green'});
-	// 	    $('#img-thumb-1').css({'outline':'1px solid #000000'});
-	// 	    $('#img-thumb-2').css({'outline':'1px solid #000000'});
- //            var canvases = $('canvas'); 
- //                VideoSnapper.captureAsCanvas(video, { width: 1024, height: 768, time:10}, function(canvas) {
- //                $('video').append(canvas);
- //                //$('video canvas').addClass('img-thumb-resize');
- //                //$('video canvas').css({'position':'relative', 'width':'400px', 'height':'100%'});	        
- //                canvas.setAttribute("id", "img-selected-thumb-3");                                 
- //                    if (canvases.length == 3)
- //                        canvases.eq(0).remove();
- //                var canvasImage = document.getElementById('img-selected-thumb-3');
-	// 	        	getImage = canvasImage.toDataURL('image/png');
-	// 	       		document.getElementById('selected-thumbnail').value = getImage;
-		       		
- //                })  
- //  		});
- // });
-
-               
-        
-
-      
-  
-
-
-
 
 });//end of function
 
