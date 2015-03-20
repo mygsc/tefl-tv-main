@@ -70,7 +70,7 @@
                                    		<li>gfrhgte</li>
                                     </span>
                                 </span>
-								<a href="/edit/1"><span title="Update Video"><button class="btn-ico btn-default" data-target="#updateVideo" data-toggle="modal"><i class="fa fa-pencil" ></i></button></span></a>
+								<a href="edit/1" data-target="#updateVideo" data-toggle="modal"><span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
 								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							</span>
 							{{Form::close()}}

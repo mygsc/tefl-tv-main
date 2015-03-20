@@ -61,8 +61,9 @@
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            @if(isset(Auth::User()->id))
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
+                                            @if(isset(Auth::User()->id))
+
                                             <span class="dropdown" id="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
