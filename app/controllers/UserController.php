@@ -384,7 +384,13 @@ class UserController extends BaseController {
 	}
 
 	public function getedit($id){
-		return View::make('elements.users.videoModal');
+		$id = Crypt::decrypt($id);
+		$video = Video::find($id);
+		$tags = explode(',',$video->tags);
+		return View::make('elements.users.videoModal',compact('video','tags'));
+	}
+	public function postedit($id){
+		return $id;
 	}
 
 	public function getUsersChangePassword() {
