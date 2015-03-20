@@ -99,7 +99,9 @@ text-align: center;
 					<br/><hr class="" />
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($findUsersWatchLaters))
+						@if($findUsersWatchLaters->isEmpty())
+							No watch later yet.
+						@else
 						@foreach($videosWatchLater as $watchLater)
 						<div id='list' class="col-md-3">
 							<div class="inlineVid ">
@@ -146,8 +148,6 @@ text-align: center;
 							</div>
 						</div><!--/#list-->
 						@endforeach
-						@else
-							No Favorites yet.
 						@endif
 					</div><!--videoContainer-->
 				</div>

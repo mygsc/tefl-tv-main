@@ -91,7 +91,6 @@
 								</div>
 							</div>
 						</div>
-						
 						@endif
 					</div><!--videoContainer-->
 				</div>

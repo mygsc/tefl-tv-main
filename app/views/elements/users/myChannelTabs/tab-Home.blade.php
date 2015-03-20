@@ -5,6 +5,9 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
+		@if(empty($recentUpload))
+			No recent Activity
+		@else
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{$recentUpload->created_at}}</p>
 		<br/>
@@ -18,7 +21,6 @@
 		<span class=""><!--/counts and share link-->
 			1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
 			1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
@@ -42,6 +44,7 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
+		@endif
 	</div><!--/.col-md-6-->
 </div>
 <br/>
@@ -57,8 +60,9 @@
 			<br/><br/>
 
 			<div class="row">
-			@if(isset($usersVideos))
-
+			@if($usersVideos->isEmpty())
+				No Videos Uploaded yet..
+			@else
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4">
 					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
@@ -73,15 +77,11 @@
 							{{$usersVideo->title}}
 						</div>
 					</a>
-					
 					<div class="count">
 						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 					</div>
-				
 				</div>
 				@endforeach
-				@else
-				No Videos Uploaded yet..
 				@endif
 			</div>
 		</div><!--well-->
@@ -138,26 +138,22 @@
 			</div>
 			<br/><br/>
 			<div class="row">
-			@if(isset($subscribers))
-					@foreach($subscribers as $subscriber)
+			@if(empty($subscriberProfile))
+				No subscribers yet.
+			@else
+					@foreach($subscriberProfile as $key => $profile)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
-							<?php
-								$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-								$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
-							?>
-							<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+							<a href="{{route('view.users.channel')}}">
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-								<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
+								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
 							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
 							<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
 						</div>
 					</div>
-					@endforeach	
-					@else
-						No subscribers yet.
+					@endforeach						
 					@endif			
 			</div>
 		</div>
@@ -171,26 +167,23 @@
 			</div>
 			<br/><br/>
 			<div class="row">
-			@if(isset($subscriptions))
-					@foreach($subscriptions as $subscription)
+			@if(empty($subscriptionProfile))
+					No Subscriptions yet
+				@else
+					@foreach($subscriptionProfile as $key => $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
-							<?php
-									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
-									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
-								?>
-								<a href="{{route('view.users.channel', $subscriberProfile->user->channel_name)}}">
+							
+								<a href="{{route('view.users.channel')}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>
+								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<span>w/ <b></b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>
-					@endforeach
-					@else
-						No Subscriptions yet
+						@endforeach					
 					@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->

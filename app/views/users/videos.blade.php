@@ -58,7 +58,9 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
-				@if(isset($usersVideos))				
+				@if($usersVideos->isEmpty())
+					No Videos yet.
+				@else
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						<div class="inlineVid">
@@ -101,9 +103,6 @@
 					@endforeach	
 
 				</div>
-
-					@else
-						No Videos Uploaded yet.
 					@endif
 					</div>
 
