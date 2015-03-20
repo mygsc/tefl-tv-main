@@ -77,11 +77,9 @@
 							{{$usersVideo->title}}
 						</div>
 					</a>
-					
 					<div class="count">
 						{{$usersVideo->views}} Views, {{$usersVideo->likes}} Likes
 					</div>
-				
 				</div>
 				@endforeach
 				@endif
