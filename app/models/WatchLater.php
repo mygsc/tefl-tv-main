@@ -16,4 +16,19 @@ class WatchLater extends Eloquent {
 
 		return $this->hasMany('Video');
 	}
+
+	public function getWatchLater($auth = null, $authVideo = null ,$limit = null) {
+		if(!empty($limit)){
+			$limit = 'LIMIT '. $limit;
+		}
+		$userVideoWatchLater = DB::select(
+			"SELECT wl.id, wl.user_id, wl.video_id, wl.status, wl.created_at, wl.updated_at, u.channel_name, v.title, v.file_name, v.description, v.views, v.likes, v.tags FROM users_watch_later AS wl
+			 INNER JOIN users AS u ON wl.user_id = u.id
+			 INNER JOIN videos AS v ON wl.video_id = v.id 
+			 WHERE 
+			 wl.user_id = '".$auth."'". 
+			 $limit
+			 );
+		return $userVideoWatchLater;
+	}
 }

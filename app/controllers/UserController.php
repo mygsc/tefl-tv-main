@@ -2,13 +2,14 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, WatchLater $watchLater){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
+		$this->WatchLater = $watchLater;
 	}
 
 	public function getSignIn() {
@@ -334,7 +335,9 @@ class UserController extends BaseController {
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
 
-		if(empty(Website::where('user_id',Auth::User()->id)->first())){
+		$findUserWebsite = Website::where('user_id',9)->first();
+		
+		if(isset($findUserWebsite)){
 			$userWebsite = new Website;
 			$userWebsite->user_id = Auth::User()->id;
 			$userWebsite->facebook = Input::get('facebook');
@@ -409,15 +412,17 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
+		// $findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
 
-		foreach($findUsersWatchLaters as $findUsersWatchLater){
-			$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
-		}
-
-		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
+		// foreach($findUsersWatchLaters as $findUsersWatchLater){
+		// 	$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
+		// }
+		// return $videosWatchLater;
 		
-		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters'));
+		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
+
+		// return $join;
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
 	}
 
 	public function postWatchLater() {
