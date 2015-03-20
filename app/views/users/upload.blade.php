@@ -44,6 +44,8 @@ Upload
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
 						</div>
 					</label> 
+					{{Form::close()}}
+					
 					
 					
 				</div>
@@ -52,65 +54,6 @@ Upload
 		</div>
 	</div>
 
-<div class="container White" style="display:none" id="vids-thumbnails">	
-	<div class="content-padding">
-		<div class="col-md-6">
-		<br><br>
-			<div class="well">
-				<div class="embed-responsive embed-responsive-16by9 h-video">
-				    <video  onloadeddata="$(this).trigger('video_really_ready')" id="video"  width="400" poster="/img/thumbnails/video.png">
-							<source src="/videos/movie.mp4" type="video/mp4" >
-							<source src="/videos/movie.mov" type="video/mov" >
-							<source src="/videos/movie.ogg" type="video/ogg" >
-					</video>
-				</div>
-					
-			</div>
-			<div class="col-sm-12">
-				<h4 style="text-align:center;padding-top:5px;">To change your video thumbnail click the image</h4>	
-					<div id="screenshot">
-						{{--DISPLAY THUMBNAIL DON'T DELETE THIS DIV--}}
-					</div>	
-				</div>
-			</div>
-			<div class="col-md-6">
-
-				<div class="row">
-				<div class="col-md-8" >
-					<h1>Add Information</h1>
-						{{Form::label('Title:')}}
-						{{Form::text('title',null,array('class'=>'form-control'))}}
-					</div>
-					<div class="col-md-4">
-						{{Form::label('Publish/Unpublish:')}}
-						{{ Form::select('publish', array('0' => 'Unpublish', '1' => 'Publish'), null , array('class' => 'form-control')) }}
-
-					</div> 
-				</div>
-
-				{{Form::label('Description:')}}
-				{{Form::textarea('description',null,array('class'=>'form-control'))}}
-				{{Form::label('Tags:')}}
-				{{Form::text('tags',null,array('class'=>'form-control'))}}
-				{{Form::hidden('encrypt',null,array('id'=>'encrypt'))}}
-				{{Form::hidden('encrypt2',null,array('id'=>'encrypt2'))}}
-				{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
-				<div class="text-right">
-				<br>
-					<span class="pull-left">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></span><br/>
-					{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'cancel'))}}
-					{{Form::submit('Start Upload',array('class'=>'btn btn-primary btn-md'))}}
-					
-				</div>	
-				
-				<input type="hidden" name="channel" value="{{Auth::User()->channel_name}}"/>
-
-			</div>
-		</div>
-	</div>
-
-	
-{{Form::close()}}
 
 @stop
 

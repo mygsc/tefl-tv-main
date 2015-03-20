@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="embed-responsive embed-responsive-16by9 h-video">
-								<video width="400" id="video" controls poster="/img/thumbnails/video.png">
+								<video width="400" id="media-video" controls poster="/img/thumbnails/video.png">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
@@ -49,8 +49,14 @@
 										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">		
 											<input type="file" name="poster" id="poster"/>										
 										</img>
+										<canvas id="canvas"
+									        width="750" height="540"
+									        style="display:block;">
+										</canvas>
+										
+									<div id="screenShots"></div>
 									</center>
-							</div>	
+										</div>
 						</div>
 
 						<div class="col-md-6">
@@ -123,6 +129,6 @@
 
 
 @section('script')
-{{HTML::script('js/user/upload.js')}}
+{{HTML::script('js/user/upload-add-description.js')}}
 
 @stop

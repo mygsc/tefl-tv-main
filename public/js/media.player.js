@@ -16,6 +16,9 @@ var plusVol = document.getElementById('plus-vol').offsetHeight;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var volume = $('#volume-vertical').height();
 var animate360 = document.getElementById('button-progress');
+$('#media-video').bind("contextmenu",function(){
+    return false;
+});
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
 	playPauseBtn = document.getElementById('play-pause');
