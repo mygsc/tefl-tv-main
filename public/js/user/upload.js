@@ -5,7 +5,7 @@ $(document).ready(function(){
 	var channel = $('input[name=channel]').val();
 	var selected = 1, timeLenght=0;
   var reader = new FileReader();
-  var getImage, timeDuration, hrs, mins, secs, tmpSec, time, totalMin, totalSec;
+  var getImage, timeDuration, hrs=0, mins=0, secs=0, tmpSec=0, time=0, totalMin=0, totalSec=0;
 
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
@@ -64,10 +64,10 @@ $(document).ready(function(){
   		//if(hrs < 10) { hrs = '0'+ hrs; }
   		if(timeDuration < 3600){
   			time = mins + ':' + secs;
-  			totalTime.value = time;
+  			document.getElementById('total-time').value = time;
   		}else{
   			time = hrs + ':' + mins + ':' + secs;
-  			totalTime.value = time;
+  			document.getElementById('total-time').value = time;
 
   		}
     }
