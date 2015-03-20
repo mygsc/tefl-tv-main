@@ -384,7 +384,7 @@ class UserController extends BaseController {
 	}
 
 	public function getedit($id){
-		return View::make('elements.videoModal');
+		return View::make('elements.users.videoModal');
 	}
 
 	public function getUsersChangePassword() {
