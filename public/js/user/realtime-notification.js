@@ -17,7 +17,6 @@ $('#document').ready(function(){
 	$('#notification').click(function(){
 		$('#looking-notification').show();
 		$('#loading-notification').show();
-
 		setTimeout(function(){
 			$.ajax({
 				type: 'POST',
@@ -27,13 +26,14 @@ $('#document').ready(function(){
 				success: function (data){
 					var notifications = data;
 					if(notifications.length < 1){
+						$('#no-notification').remove();
 						$('#looking-notification').after('<small id="no-notification">No notification</small>');
 					}else{
 						$('.notification-item').remove();
 						$.each(notifications, function(i, item) {
 							$('#looking-notification').after('<li class="notification-item">'+item.notification+'</li>').fadeIn();
 						});
-						$('#no-notification').hide();
+						$('#no-notification').remove();
 					}
 					$('#looking-notification').hide();
 					$('#loading-notification').hide();
