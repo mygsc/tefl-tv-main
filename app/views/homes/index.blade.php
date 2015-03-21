@@ -11,7 +11,7 @@
 				<div class="col-md-12">
 				<div class="row  vid-wrapper">
 				<div class="embed-responsive embed-responsive-16by9">
-              	<video id="media-video" poster="/img/thumbnails/v1.png">
+              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 					<source src='/videos/bowling.mp4' type='video/mp4'>
 					<source src='/videos/bowling.webm' type='video/webm'>
 					<source src='/videos/bowling.ogg' type='video/ogg'>

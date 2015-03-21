@@ -8,14 +8,24 @@ Upload
 <style type="text/css">
 .image-upload > input{
     display: none;
-}div canvas{
-    	padding: 3px;
-    	cursor:pointer;
-    	position: relative;
- }
- div canvas:hover{
-    	outline:2px solid green;
- }
+}
+.file-upload {
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+}
+.file-upload input#vids-upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
 </style>
 
 
@@ -27,17 +37,23 @@ Upload
 				<div class="row">
 
 					<h1>Upload Video</h1>
+					<p>Video allowed types: wmv, mp4, webm, ogg</p>
+					<p>Maximum size limit: 300mb</p>
 
 					@if ($errors->any())
-					<ul>
+					<ul style="list-style:none;color:red">
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
 	
 					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
 
-					{{Form::file('video', array('class'=>'btn btn-primary center-block','id'=>'vids-upload'))}}
-					
+					<div class="file-upload btn btn-primary">
+					<span>Select video to upload</span>
+					{{Form::file('video', array('class'=>'','id'=>'vids-upload','accept'=>"video/*"))}}
+					</div>
+
+					<br>
 					 <label class="myLabel">
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>

@@ -2,27 +2,28 @@ $(document).ready(function(){
 	$('#progress').hide();
 	var videoPlayer = document.getElementById('media-video');
 	var totalTime = document.getElementById('total-time');
+  var thumbnail = document.getElementById('selected-thumbnail');
 	var channel = $('input[name=channel]').val();
 	var selected = 1, timeLenght=0;
   var getImage, timeDuration, hrs=0, mins=0, secs=0, tmpSec=0, time=0, totalMin=0, totalSec=0;
   var videoHeight, videoWidth, drawTimer = null;
   var ssContainer = document.getElementById("screenShots");
   var  playing=false; 
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
+  // var canvas = document.getElementById("canvas");
+  // var ctx = canvas.getContext("2d");
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
 		onLoadTime();
     $(this).trigger('video_really_ready');
     timeLenght = Math.floor(videoPlayer.duration);
-    initScreenshot();
+    //initScreenshot();
     
 	});
 
-  videoPlayer.addEventListener("playing", startScreenshot);
-  videoPlayer.addEventListener("pause", stopScreenshot);
-  videoPlayer.addEventListener("ended", stopScreenshot);
-  videoPlayer.addEventListener('timeupdate', updateThumbnail, false);
+  // videoPlayer.addEventListener("playing", startScreenshot);
+  // videoPlayer.addEventListener("pause", stopScreenshot);
+  // videoPlayer.addEventListener("ended", stopScreenshot);
+  // videoPlayer.addEventListener('timeupdate', updateThumbnail, false);
 	var VideoSnapper = {
 		captureAsCanvas: function(video, options, handle) {
             // Create canvas and call handle function
@@ -70,8 +71,8 @@ $(document).ready(function(){
   		secs =   Math.round(timeDuration - (tmpSec * 60));
   		if(secs < 10) { secs = '0'+ secs; }
   		if(totalSec < 10) { totalSec = '0'+ totalSec; }
-  		//if(mins < 10) { mins = '0'+ mins; }
-  		//if(hrs < 10) { hrs = '0'+ hrs; }
+  		if(mins < 10) { mins = '0'+ mins; }
+  		if(hrs < 10) { hrs = '0'+ hrs; }
   		if(timeDuration < 3600){
   			time = mins + ':' + secs;
   			//document.getElementById('total-time').value = time;
@@ -108,22 +109,47 @@ $("#poster").on("change", function(){
  });
 
 $('video').bind('video_really_ready', function(){
-  // var video = this;
-  // $('#thumbnail').on('mousedown',function(){
-  //       var canvases = $('canvas'); 
-  //       //for(var start=1; start < 4; start++){
-  //         var rdm = Math.floor((Math.random() * timeLenght) + 1); 
-  //           VideoSnapper.captureAsCanvas(video, { width: 300, height: 150, time: rdm}, function(canvas) {
-  //           $('body').append(canvas);
-  //           $('div#thumbnail canvas').addClass('img-thumb1');
-  //           canvas.setAttribute("id", "img-thumb1");                                 
-  //                if (canvases.length > 2)
-  //                    canvases.eq(0).remove();
-  //           })  
+  var video = this;
+  var count =0;
+          setInterval(function(){
+            count +=1;
+            if(count < 10){
+              
+              var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+              VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time: rdm}, function(canvas) {
+             if(count ==1) {$('.thumb-1').append(canvas);canvas.setAttribute("id", "img-thumb-1");}
+             if(count ==5) {$('.thumb-2').append(canvas);canvas.setAttribute("id", "img-thumb-2");}
+             if(count ==9) {$('.thumb-3').append(canvas);canvas.setAttribute("id", "img-thumb-3");}
+              }) 
+            }
+            
+          },2000);   
+});
 
-  //       //}// end of for loop
-
-  //   });
+$('div.thumb-1').on('click', function(){
+  $(this).css({'outline':'2px solid green'});
+  $('div.thumb-2').css({'outline':'1px solid #2a2a2a'});
+  $('div.thumb-3').css({'outline':'1px solid #2a2a2a'});
+  var getImg = document.getElementById('img-thumb-1');
+  var image  = getImg.toDataURL("image/png");
+  thumbnail.value = image;
+  //$('#poster').reset();
+});
+$('div.thumb-2').on('click', function(){
+ $(this).css({'outline':'2px solid green'});
+ $('div.thumb-1').css({'outline':'1px solid #2a2a2a'});
+  $('div.thumb-3').css({'outline':'1px solid #2a2a2a'});
+  var getImg = document.getElementById('img-thumb-2');
+  var image  = getImg.toDataURL("image/png");
+  thumbnail.value = image;
+});
+$('div.thumb-3').on('click', function(){
+  $(this).css({'outline':'2px solid green'});
+  $('div.thumb-1').css({'outline':'1px solid #2a2a2a'});
+  $('div.thumb-2').css({'outline':'1px solid #2a2a2a'});
+  var getImg = document.getElementById('img-thumb-3');
+  var image  = getImg.toDataURL("image/png");
+  thumbnail.value = image;
 });
 
 

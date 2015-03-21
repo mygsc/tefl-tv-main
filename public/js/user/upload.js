@@ -2,7 +2,7 @@ $(document).ready(function(){
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
    		$(this).closest("#vidSubmit").submit();
-   			$('#vids-upload').fadeOut();
+   			$('.file-upload').fadeOut();
             $('#progress').fadeIn(500);
             
             // setTimeout(function(){
