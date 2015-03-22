@@ -82,7 +82,7 @@ margin: 10px;
 										<br>
 										<div class="file-upload btn btn-primary">
 											<span>Browse thumbnail</span>
-											<input type="file" name="poster" id="poster"/>
+											<input type="file" name="poster" id="poster" accept="image/*"/>
 										</div>		
 																					
 										
@@ -124,7 +124,7 @@ margin: 10px;
 									@endif
 								{{Form::hidden('encrypt',$video->file_name,array('id'=>'encrypt'))}}
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
-								{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
+								{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
 								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
 								{{Form::hidden('tokenId', Session::get('tokenId'))}}
 							</div>
@@ -132,7 +132,7 @@ margin: 10px;
 							<br>
 								
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary'))}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary','onclick'=>'return checkThumbnail();'))}}
 								
 							</div>	
 

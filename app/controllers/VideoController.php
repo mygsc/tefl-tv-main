@@ -139,9 +139,7 @@ class VideoController extends Controller {
 						$decodeImage = base64_decode($getImage);
 						$saveImage = $destinationPath.$fileName.".jpg";
 						$success = file_put_contents($saveImage, $decodeImage);
-						Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');
-						
-
+						Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
 						$tags = explode(',',Input::get('tags'));
 						foreach($tags as $tag){
 							if($tag != null){
@@ -151,14 +149,19 @@ class VideoController extends Controller {
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
-						$video->total_time = Input::get('totalTime');
-						$video->title = Input::get('title');
-						$video->description = Input::get('description');
-						$video->publish = Input::get('publish');
-						$video->tags =  $implodeTag;
-						$video->uploaded =  1;
-						$video->save();
-						return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+						$uploadedVid = $video->uploaded;
+							if($uploadedVid==0){
+								$video->total_time = Input::get('totalTime');
+							$video->title = Input::get('title');
+							$video->description = Input::get('description');
+							$video->publish = Input::get('publish');
+							$video->tags =  $implodeTag;
+							$video->uploaded =  1;
+							$video->save();
+							return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+							}
+							return Redirect::route('homes.index');
+						
 					}					
 				}
 			

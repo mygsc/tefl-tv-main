@@ -17,7 +17,6 @@ $(document).ready(function(){
     $(this).trigger('video_really_ready');
     timeLenght = Math.floor(videoPlayer.duration);
     //initScreenshot();
-    
 	});
 
   // videoPlayer.addEventListener("playing", startScreenshot);
@@ -61,14 +60,19 @@ $(document).ready(function(){
             return callback.apply(video);
         }
     };
-
+ window.checkThumbnail = function() {
+  if(thumbnail.value == 0){
+    alert('Please select available thumbnail if available or select desire thumbnail.');
+     return false;
+  }
+}
     function onLoadTime(){
       totalMin = Math.floor(timeDuration / 60);
   		totalSec = Math.round(timeDuration - (totalMin * 60));
   		hrs = Math.floor(totalMin / 60);
   		mins =  (totalMin - (hrs * 60));
   		tmpSec =  Math.round(timeDuration / 60);
-  		secs =   Math.round(timeDuration - (tmpSec * 60));
+  		secs =   Math.round(timeDuration - (totalMin * 60));
   		if(secs < 10) { secs = '0'+ secs; }
   		if(totalSec < 10) { totalSec = '0'+ totalSec; }
   		if(mins < 10) { mins = '0'+ mins; }
@@ -125,6 +129,8 @@ $('video').bind('video_really_ready', function(){
             
           },2000);   
 });
+
+
 
 $('div.thumb-1').on('click', function(){
   $(this).css({'outline':'2px solid green'});

@@ -29,7 +29,7 @@
 				</div>
 
 			<div class="" style="margin-top:-7px;">
-				<div class="wrapper">
+				<div class="wrapper" id="controls">
 					<div id="progressbar">
 						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
 							<div id="current-progress">	
@@ -43,19 +43,25 @@
 			
 				<span class="pull-right">
 					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
+
+					
+						
 					
 					<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 						<div class="volume" style="display:none">
-							<div onclick='changeVolume("+")' id="plus-vol">+</div>
+						<input id="volume" type="range" min="0" max="100" value="100">
+							{{-- <div onclick='changeVolume("+")' id="plus-vol">+</div>
 								<div class="volume-static-holder">
 									<div id="volume-vertical">
 										<div id="volume-button"> 
 										</div>
 									</div>
 								</div>
-							<div onclick='changeVolume("-")' id="minus-vol" >-</div>							
+							<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}							
 						</div>
 					</span>
+					
+
 					<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
 						<div class="hd-setting" style="display:none">
 						<small style="text-align:center;color:#fff">HD Quality</small>
