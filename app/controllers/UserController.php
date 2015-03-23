@@ -437,7 +437,9 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos'));
+		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c INNER JOIN users as u ON u.id = c.user_id");
+		// return $userComments;
+		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments'));
 	}
 
 	public function getSubscribers() {

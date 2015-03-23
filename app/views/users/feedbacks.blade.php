@@ -22,7 +22,18 @@
 				</div>
 
 				<div class="">
-					Feedbacks
+					@if(empty($userComments))
+						No Comments yet
+					@else
+						@foreach($userComments as $comments)
+							{{$comments->comment}}
+							<br/>
+							{{$comments->likes}} Likes, {{$comments->dislikes}} Dislikes
+							<br/>
+							by: {{$comments->channel_name}}			
+							<br/>
+						@endforeach
+					@endif
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
