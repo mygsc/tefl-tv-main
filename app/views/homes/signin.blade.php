@@ -70,6 +70,11 @@
 				@endif
 
 				{{Form::text('contact_number', null, array('placeholder' => 'Contact Number (optional)'))}}
+				@if($errors->has('contact_number'))
+					<span class="inputError">
+						{{$errors->first('contact_number')}}
+					</span>
+				@endif
 				<br/>
 				<div class="text-right" style="margin-top:10px;"> 
 					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}

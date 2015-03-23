@@ -149,15 +149,14 @@
                 </div> <!--/.ui-tabs-panel-->
                 <!-- COMMENTS AREA -->
                 @if(isset(Auth::User()->id))
-                <div class="comments row">
-                    <span id='errorlabel' style='color:red;'></span>
-                    <textarea id='comment'></textarea>
-                    <button id='btncomment'>Post</button>
+                    <div class="comments row">
+                        <span id='errorlabel' style='color:red;'></span>
+                        <textarea id='comment'></textarea>
+                        <button id='btncomment'>Post</button>
 
-                    {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}.
-                    @if(isset(Auth::User()->id))
-                    {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-                    @endif
+                        {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
+                        {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+                @endif
 
                     <div class="col-md-12 commentsarea row">
                         @foreach($getVideoComments as $getVideoComment)
@@ -168,14 +167,16 @@
                             <?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?> |
 
                             <!-- <button id='c'>Reply</button> -->
-                            <a href="#" class='glyphicon glyphicon-thumbs-up' id="likedup">
-                                <div id="likevalues">
-                                    <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-                                    <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-                                </div>
-                            </a>69
-                            |
-                            <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
+                            @if(isset(Auth::User()->id))
+                                <a href="#" class='glyphicon glyphicon-thumbs-up' id="likedup">
+                                    <div id="likevalues">
+                                        <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
+                                        <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+                                    </div>
+                                </a>69
+                                |
+                                <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
+                            @endif
                             <?php
                             $getCommentReplies = DB::table('comments_reply')
                             ->join('users', 'users.id', '=', 'comments_reply.user_id')
@@ -190,19 +191,20 @@
                                 date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
                                 endforeach;
                                 ?>
-                                {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-                                    {{Form::hidden('comment_id', $getVideoComment->id)}}
-                                    {{Form::hidden('user_id', Auth::User()->id)}}
-                                    {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-                                    {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-                                {{Form::close()}} 
+                                @if(isset(Auth::User()->id))
+                                    {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+                                        {{Form::hidden('comment_id', $getVideoComment->id)}}
+                                        {{Form::hidden('user_id', Auth::User()->id)}}
+                                        {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+                                        {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+                                    {{Form::close()}} 
+                                @endif
                             </div>
                             <hr/>
                         </div>
                         @endforeach
                     </div>
                 </div>
-                @endif
                 <!-- COMMENTS AREA -->
                 @include('elements/home/uploaderLatestVideo')
                 <!-- latest -->
