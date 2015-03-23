@@ -55,13 +55,13 @@ margin: 10px;
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								
 									<div id="screenshot">
-										<canvas class="thumb-1" id="img-thumb-1" onclick="snap(1)">
+										<canvas class="thumb-1" id="img-thumb-1">
 											
 										</canvas>
-										<canvas class="thumb-2" id="img-thumb-2" onclick="snap(2)">
+										<canvas class="thumb-2" id="img-thumb-2">
 											
 										</canvas>
-										<canvas class="thumb-3" id="img-thumb-3" onclick="snap(3)">
+										<canvas class="thumb-3" id="img-thumb-3">
 											
 										</canvas>						
 									</div>
