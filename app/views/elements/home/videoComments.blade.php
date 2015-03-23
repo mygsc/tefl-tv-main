@@ -30,12 +30,12 @@
 			<!-- <button id='c'>Reply</button> -->
 			@if(isset(Auth::User()->id))
 				63 &nbsp; 
-				<a href="#" class='fa fa-thumbs-up' id="likedup">
-				<div id="likevalues">
-					<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-					<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-				</div>
-				</a>
+				<span href="#" class='fa fa-thumbs-up' id="likedup">
+					<div id="likevalues">
+						<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
+						<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+					</div>
+				</span>
 				|&nbsp;
 				23 &nbsp;<a href="#"><i class='fa fa-thumbs-down'></i></a>
 			@endif
@@ -48,7 +48,7 @@
 			|&nbsp;<span class="repLink hand blueC">Reply</span>
 
 
-			<div id="replysection" class="panelReply"
+			<div id="replysection" class="panelReply">
 				<?php
 				foreach($getCommentReplies as $getCommentReply):
 					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
@@ -57,12 +57,12 @@
 				endforeach;
 				?>
 				@if(isset(Auth::User()->id))
-				{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-				{{Form::hidden('comment_id', $getVideoComment->id)}}
-				{{Form::hidden('user_id', Auth::User()->id)}}
-				{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-				{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-				{{Form::close()}} 
+					{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+					{{Form::hidden('comment_id', $getVideoComment->id)}}
+					{{Form::hidden('user_id', Auth::User()->id)}}
+					{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+					{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+					{{Form::close()}} 
 				@endif
 			</div>
 		</div>
