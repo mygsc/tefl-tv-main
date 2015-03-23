@@ -5,13 +5,13 @@
                 <div class="col-md-4 hidden-sm hidden-xs ">
                     <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
                 </div>
-                <div class="col-md-4 col-sm-2  col-xs-3 visible-sm visible-xs">
+                <div class="col-xs-2  col-xs-3 visible-sm visible-xs">
                     <a href="/"><img src="/img/logos/teflTv.png" class="text-left logo-sm" title="redirect to homepage"></a>
                 </div>
 
-                <div class="col-md-8 col-sm-10 text-right hidden-xs">
+                <div class="col-md-8 col-sm-10 text-right col-xs-10">
                     <div class="row">
-                        <div class="col-md-10 col-sm-10">
+                        <div class="col-md-10 col-sm-10 col-xs-9">
                             {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
                             <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:20px;">
                                 <span class="input-group-addon" style="padding:0!important;">
@@ -26,7 +26,7 @@
                             {{Form::close()}}
                         </div><!--/.col-md-10 search box-->
 
-                        <div class="col-md-2 col-sm-2">
+                        <div class="col-md-2 col-sm-2 col-xs-3">
                             <div class="row text-right">
                                 <ul class="ctgryNav pull-right" >
                                     <li>
