@@ -41,7 +41,7 @@ class VideoController extends Controller {
 			if($db_filename->save()){
 					//Start upload
 				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName;
+				$destinationPath = 'videos'.DIRECTORY_SEPARATOR. $userFolderName;
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -84,7 +84,7 @@ class VideoController extends Controller {
 						$posterExt = $poster->getClientOriginalExtension();
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-						$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
+						$destinationPath = 'public'.DIRECTORY_SEPARATOR. 'videos'.DIRECTORY_SEPARATOR. $userFolderName.DIRECTORY_SEPARATOR.$fileName.DIRECTORY_SEPARATOR;
 						//$poster->move($destinationPath, $fileName.'.jpg');
 						Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
 						$uniqueTag = array_unique($newTags);

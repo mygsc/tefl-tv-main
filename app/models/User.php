@@ -93,7 +93,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->token = $token;
 		$user->save();
 
-		$userProfile = new userProfile;
+		$userProfile = new UserProfile;
 		$userProfile->first_name = Input::get('first_name');
 		$userProfile->user_id = $user->id;
 		$userProfile->last_name = Input::get('last_name');

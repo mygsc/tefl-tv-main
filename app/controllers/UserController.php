@@ -323,7 +323,8 @@ class UserController extends BaseController {
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
 
-		if(empty(Website::where('user_id',Auth::User()->id)->first())){
+			$findUser = Website::where('user_id',Auth::User()->id)->first();
+		if(isset($findUser)){
 			$userWebsite = new Website;
 			$userWebsite->user_id = Auth::User()->id;
 			$userWebsite->facebook = Input::get('facebook');
