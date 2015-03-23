@@ -422,7 +422,68 @@ class UserController extends BaseController {
 	}
 
 	public function getedit($id){
-		return View::make('elements.users.videoModal');
+		$id = Crypt::decrypt($id);
+		$video = Video::find($id);
+		$tags = explode(',',$video->tags);
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
+		
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags'));
+	}
+	public function postedit($id){
+		$input = Input::all();
+		$validator = Validator::make($input,Video::$video_edit_rules);
+		if($validator->passes()){
+			$id = Crypt::decrypt($id);
+			$video = Video::find($id);
+			$video->title = Input::get('title');
+			$video->description = Input::get('description');
+			$video->publish = Input::get('publish');
+			if(Input::get('new_tags') != null){
+				$video_tag = Video::where('id',$id)->first()->toArray();
+				$new_tags = explode(',',Input::get('new_tags'));
+				foreach($new_tags as $new_tag){
+					if($new_tag != null){
+						$tag_result[] = strtolower($new_tag);
+					}
+				}
+				$explode_existing_tag = explode(',',$video_tag['tags']);
+				$mergingTag = array_merge($tag_result,$explode_existing_tag);
+				$unique_tag = array_unique($mergingTag);
+				$final_tag = implode(',',$unique_tag);
+				$video->tags = $final_tag;
+			}
+			$video->save();
+			return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashMessage('Successfully updated');
+		}
+		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashMessage('Fill up the required fields');
+		
+	}
+	public function posteditTag($id){
+		$id = Crypt::decrypt($id);
+		$name = Input::get('name');
+		$array_key = Crypt::decrypt(Input::get('encrypt'));
+		$video = Video::find($id);
+		$tags = explode(',',$video->tags);
+		$tags[$array_key] = $name;
+		$new_tags = implode(',',$tags);
+		$video->tags = $new_tags;
+		$video->save();
+	}
+	public function removeTag($id){
+		$id = Crypt::decrypt($id);
+		$array_key = Crypt::decrypt(Input::get('encrypt'));
+		$video = Video::find($id);
+		$tags = explode(',',$video->tags);
+		unset($tags[$array_key]);
+		$imploded_tag = implode(',',$tags);
+		$video->tags = $imploded_tag;
+		$video->save();
 	}
 
 	public function getUsersChangePassword() {
@@ -437,17 +498,8 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-
-		// $findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
-
-		// foreach($findUsersWatchLaters as $findUsersWatchLater){
-		// 	$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
-		// }
-		// return $videosWatchLater;
-		
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 
-		// return $join;
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
 	}
 

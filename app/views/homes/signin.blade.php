@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="col-md-8 col-sm-7">
-			<div class="signDivH textbox-layout">
+			<div class="signDivH textbox-layout2">
 				<h4><i class="fa fa-play"></i>&nbsp;Free Sign-up</h4>
 				
 				<!-- Sign Up -->
@@ -77,7 +77,7 @@
 				</span>
 				@endif
 				<br/>
-				<div class="text-right"> 
+				<div class="text-right" style="margin-top:10px;"> 
 					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
 				</div>
 				{{ Form::close()}}

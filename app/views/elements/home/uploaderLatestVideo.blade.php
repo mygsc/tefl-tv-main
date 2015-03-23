@@ -11,9 +11,9 @@
                         <img src="/img/thumbnails/v9.png">
                     <a href="">
 
-                        <h4>{{ link_to_route('home.viewchannel', 'Stop the Bus', null) }}</h4>
+                        <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small><button class="btn btn-info btn-xs pull-right">Learn More</button>&nbsp;
+                        <small class=""><b>121 Views | 50 Likes</b></small>
     
                     </a>
                 </a>
@@ -25,9 +25,9 @@
                         <img src="/img/thumbnails/v1.png">
                     <a href="">
 
-                        <h4>{{ link_to_route('home.viewchannel', 'The Last Man Standing', null) }}</h4>
+                        <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small><button class="btn btn-info btn-xs pull-right">Learn More</button>&nbsp;
+                        <small class=""><b>121 Views | 50 Likes</b></small>
     
                     </a>
                 </a>
@@ -39,9 +39,9 @@
                         <img src="/img/thumbnails/v3.png">
                     <a href="">
 
-                        <h4>{{ link_to_route('home.viewchannel', 'IPA SERIES 1', null) }}</h4>
+                        <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small><button class="btn btn-info btn-xs pull-right">Learn More</button>&nbsp;
+                        <small class=""><b>121 Views | 50 Likes</b></small>
     
                     </a>
                 </a>
