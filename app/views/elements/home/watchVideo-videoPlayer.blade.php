@@ -45,14 +45,15 @@
 					
 							<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 								<div class="volume" style="display:none">
-									<div onclick='changeVolume("+")' id="plus-vol">+</div>
+								<input id="volume" type="range" min="0" max="100" value="100">
+									{{-- <div onclick='changeVolume("+")' id="plus-vol">+</div>
 										<div class="volume-static-holder">
 											<div id="volume-vertical">
 												<div id="volume-button"> 
 												</div>
 											</div>
 										</div>
-									<div onclick='changeVolume("-")' id="minus-vol" >-</div>							
+									<div onclick='changeVolume("-")' id="minus-vol" >-</div>	 --}}						
 								</div>
 							</span><!--/.sound-->
 							<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
