@@ -25,9 +25,11 @@ $(document).ready(function(){
 			$('span[id^="tagDelete"]').click(function(){
 				var text1 = $('#text1').val();
 				var encrypt = $(this).attr('data-encrypt');
-				$.post('http://localhost:8000/mychannels/removeTag/'+text1,{encrypt:encrypt},function(data){
-						loader();
-				});
+				if(confirm("Are you sure do you want to delete this tag?")){
+					$.post('http://localhost:8000/mychannels/removeTag/'+text1,{encrypt:encrypt},function(data){
+							loader();
+					});		
+				}else{}
 			});
 
 	}
