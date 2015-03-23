@@ -60,7 +60,7 @@ class UserController extends BaseController {
 		$data = array(
 			'url' => route('homes.get.verify', $generateToken),
 			'first_name' => $getUserInfo->first_name
-			);
+		);
 
 		Mail::send('emails.users.verify', $data, function($message) {
 			$getUserInfo = User::where('channel_name', Input::get('channel_name'))->first();
