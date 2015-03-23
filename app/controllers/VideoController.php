@@ -57,7 +57,7 @@ class VideoController extends Controller {
 		->with('message', 'There were validation errors.');
 }
 	public function getCancelUploadVideo(){
-		$fileName = Session::pull('fileName');
+		$fileName = Session::get('fileName');
 		if(empty($fileName)){
 			return App::abort('404');
 		}
@@ -78,10 +78,10 @@ class VideoController extends Controller {
 	      return false;
 	 while($file = readdir($dir_handle)) {
 	       if ($file != "." && $file != "..") {
-	            if (!is_dir($dirname."/".$file))
-	                 unlink($dirname."/".$file);
+	            if (!is_dir($dirname.DS.$file))
+	                 unlink($dirname.DS.$file);
 	            else
-	                 delete_directory($dirname.'/'.$file);
+	                 delete_directory($dirname.DS.$file);
 	       }
 	 }
 	 closedir($dir_handle);

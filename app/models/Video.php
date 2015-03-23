@@ -8,7 +8,7 @@ class Video extends Eloquent{
 	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
 
 	public static $video_rules = array(
-		'video' => 'max:307200kb|mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
+		'video' => 'max:102400kb|mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
 		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
