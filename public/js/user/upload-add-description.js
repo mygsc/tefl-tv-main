@@ -28,10 +28,10 @@ $(document).ready(function(){
     // h = 150;
     setTimeout(function(){
       snap(1);
-    },5000);
+    },2000);
     setTimeout(function(){
       snap(2);
-    },6000);
+    },5000);
     setTimeout(function(){
       snap(3);
     },7000);

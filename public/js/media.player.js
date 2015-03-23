@@ -400,14 +400,14 @@ $('#progressbar').bind('mousedown', function(e) {
 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
 	//alert(Math.floor(currentTime));
 	mediaPlayer.currentTime = Math.floor(currentTime);
-	if(videoPlaying == true) {
-			togglePlayPause();
-			//playPauseBtn.src = "/img/icons/play.png";
-			//$('.play-icon').fadeIn(500);
-			mediaPlayer.currentTime = Math.floor(currentTime);
-			mouseX = e.pageX - $('#current-progress').offset().left;
-			//mediaPlayer.pause();
-		}				
+	// if(videoPlaying == true) {
+	// 		togglePlayPause();
+	// 		playPauseBtn.src = "/img/icons/play.png";
+	// 		$('.play-icon').fadeIn(500);
+	// 		mediaPlayer.currentTime = Math.floor(currentTime);
+	// 		mouseX = e.pageX - $('#current-progress').offset().left;
+	// 		mediaPlayer.pause();
+	// 	}				
 });
 
 $('#hd-setting').bind('click', function(){
