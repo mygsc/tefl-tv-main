@@ -19,11 +19,14 @@
 
                 	<div class="col-md-12 commentsarea">
                 		@foreach($getVideoComments as $getVideoComment)
-                		<div class="commentsarea row text-justify">
+                		<div class="commentsarea row">
                 			{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
                 			| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
                 			<br/>
-                			{{$getVideoComment->comment}}<br/>
+                			<p style='margin-left:30px;text-align:justify;'>
+                				{{$getVideoComment->comment}}
+                			</p>
+                			<br/>
                 			 
 
                 			<!-- <button id='c'>Reply</button> -->
@@ -49,9 +52,10 @@
 	                			<div id="replysection" class="panelReply"
 	                				<?php
 	                				foreach($getCommentReplies as $getCommentReply):
-	                					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
-	                				echo $getCommentReply->reply . "<br/>" .
-	                				date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
+	                					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+	                					echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
+	                				echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" .
+	                				 "</p></hr>";
 	                				endforeach;
 	                				?>
 	                				@if(isset(Auth::User()->id))
