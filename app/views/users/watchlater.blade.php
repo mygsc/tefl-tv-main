@@ -5,7 +5,9 @@
     position:relative;
     overflow:hidden;
 }
-
+form{
+	display: inline;
+}
 .pad10 {
     margin-bottom: 10px;}
  
@@ -78,20 +80,18 @@ text-align: center;
 					</div>
 
 					<div class="col-md-5">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<select class="form-control" style="width:auto!important;">
+				
+						<!--<select class="form-control" style="width:auto!important;">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
+						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>-->
 					</div>
 
 					<div class="col-md-1 text-right">
-						<div class="buttons">
+						<div class="buttons pull-right">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
@@ -109,48 +109,46 @@ text-align: center;
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
 									@if($watchLater->status==1)
-									<div class="caption1">
-										<div class="caption-inner">
-											<p class="caption-content">
-											<br/>
-											<h1>Watched</h1>
-											<br/>
-											</p>
-										</div>
-									</div>
+									<span title="Remove from watch later?" class="btn-sq">
+											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
+											{{Form::open()}}
+												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+											{{Form::close()}}
+
+									</span>
 									@else
-										<div class="caption">
-										<div class="caption-inner">
-											<p class="caption-content">
-											<br/>
-											<h1>Watched</h1>
-											<br/>
-											</p>
-										</div>
-									</div>
+									<span title="Remove from watch later?" class="btn-sq">		
+											{{Form::open()}}
+												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+											{{Form::close()}}
+									</span>
 									@endif
 
-									{{Form::open()}}
-									<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default'))}}</span>
-									{{Form::close()}}
+									
 
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-									<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+										<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
+											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
 
-										<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+											<input type="hidden" id="video_id" value="{{$watchLater->id}}">
 										</video>
 										<br/>
-										{{$watchLater->title}}	
-										</a>			
+										
+									</a>			
 								</div>
 							</div>
+							
+							<div class="inlineInfo ">
 								<div class="count">
-									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}" target="_blank">{{$watchLater->channel_name}}</a><br/>
+									<div class="v-Info">
+										{{$watchLater->title}}
+									</div>
+									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 									<br/>
+								</div>
 							</div>
 						</div><!--/#list-->
 						@endforeach

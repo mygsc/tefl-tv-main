@@ -49,14 +49,13 @@
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
                                                     <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
 
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
@@ -205,7 +204,7 @@
                 </div>
                 @endif
                 <!-- COMMENTS AREA -->
-
+                @include('elements/home/uploaderLatestVideo')
                 <!-- latest -->
             </div><!--column 8-->
 
@@ -231,6 +230,8 @@
                     @endforeach
                 </ul><!--video list-->
 
+                    @include('elements/home/recommendedChannelList')
+                    @include('elements/home/carouselAds')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->

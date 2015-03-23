@@ -37,13 +37,13 @@
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<select class="form-control" style="width:auto!important;">
+						<!--<select class="form-control" style="width:auto!important;">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<!--<button class="btn btn-unsub">Manage Videos</button>-->
+						<button class="btn btn-unsub">Manage Videos</button>-->
 
 						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>

@@ -35,13 +35,13 @@
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<select class="form-control" style="width:auto!important;">
+						<!--<select class="form-control" style="width:auto!important;">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Favorites</button>
+						<button class="btn btn-unsub">Manage Your Favorites</button>-->
 					</div>
 			
 					<div class="col-md-1 text-right">
@@ -69,7 +69,7 @@
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-								<video controls height="200" width="100%" class="h-video">
+								<video controls width="100%" class="h-video">
 									<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 								</video>
 								</a>
