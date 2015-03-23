@@ -153,13 +153,15 @@
                     <div class="comments row">
                         <span id='errorlabel' style='color:red;'></span>
                         <textarea id='comment'></textarea>
-                        <button id='btncomment'>Post</button>
+                        <button id='btncomment' class='btn btn-primary pull-right'>Post</button>
 
                         {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
                         {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-                @endif
+                    @endif
 
                     <div class="col-md-12 commentsarea row">
+                        <button id='btncomment' class='btn btn-info pull-right'>Top comments</button>
+                        <button id='btncomment' class='btn btn-info pull-right'>Newest first</button>
                         @foreach($getVideoComments as $getVideoComment)
                         <div class="commentsarea row">
                             {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
@@ -188,8 +190,8 @@
                                 <?php
                                 foreach($getCommentReplies as $getCommentReply):
                                     echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
-                                echo $getCommentReply->reply . "<br/>" .
-                                date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
+                                    echo $getCommentReply->reply . "<br/>";
+                                    echo date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
                                 endforeach;
                                 ?>
                                 @if(isset(Auth::User()->id))
