@@ -61,7 +61,7 @@
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						<div class="inlineVid">
-							{{Form::open()}}
+							
 							<span class="btn-sq">
 								<span class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -72,14 +72,20 @@
                                    		<li>gfrhgte</li>
                                     </span>
                                 </span>
-								<a href="edit/1" data-target="#updateVideo" data-toggle="modal"><span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+
+								<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
+								<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+
 								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 							</span>
-							{{Form::close()}}
+							
 							
 							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-								<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" alt="">
-							</a>				
+							<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="h-video" >
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />	</a>						
+
 						</div>
 
 						<div class="inlineInfo ">
@@ -105,9 +111,6 @@
 			</div>
 		</div>
 	</div>
-
-		<!--upload update Video modal-->
-
 @stop
 
 @section('script')
