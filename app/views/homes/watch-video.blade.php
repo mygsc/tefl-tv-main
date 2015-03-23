@@ -174,7 +174,18 @@
                                     <div id="likevalues">
                                         <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
                                         <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+                                        <input type="hidden" value="like" status="">
                                     </div>
+                                    {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                                        {{Form::hidden('user_id',$userChannel->id)}}
+                                        {{Form::hidden('subscriber_id', $user_id)}}
+                                        {{Form::hidden('status','subscribeOn')}}
+                                        @if(!empty($ifAlreadySubscribe))
+                                            {{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+                                        @else
+                                            {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+                                        @endif
+                                    {{Form::close()}}
                                 </a>69
                                 |
                                 <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
