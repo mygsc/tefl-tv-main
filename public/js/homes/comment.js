@@ -19,6 +19,7 @@ $(document).ready(function(){
 		        	if(data['status'] == 'error'){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
+		        		$('textarea#comment').val('');
 		        		// alert(data['status']);
 		        	}
 	           	}
@@ -42,7 +43,9 @@ $(document).ready(function(){
         		if(data['status'] == 'error'){
         			$('#errorlabel').text(data['label']);
         		} else if(data['status'] == 'success'){
-	        		alert(data['status']);
+        			$('textarea#txtreply').val('');
+	        		// alert(data['status']);
+
 	        	}
         	}
     	});

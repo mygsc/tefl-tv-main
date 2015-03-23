@@ -4,91 +4,82 @@
 		margin-bottom: 10px;
 	}
 </style>        
-	<h3>Comments</h3>
-                @if(isset(Auth::User()->id))
-                <div class="comments row">
-                	<span id='errorlabel' style='color:red;'></span>
-                	<textarea id='comment' class="form-control" placeholder="Write your comment.."></textarea>
-                	<div class="text-right">
-                		<button id='btncomment' class="btn btn-info">Post</button>
-                	</div>
+<h3>Comments</h3>
+@if(isset(Auth::User()->id))
+<div class="comments row">
+	<span id='errorlabel' style='color:red;'></span>
+	<textarea id='comment' class="form-control" placeholder="Write your comment.."></textarea>
+	<div class="text-right">
+		<button id='btncomment' class="btn btn-info">Post</button>
+	</div>
 
-                	{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
-                	{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-                	@endif
+	{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
+	{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+	@endif
+	<div class="col-md-12 commentsarea">
+		@foreach($getVideoComments as $getVideoComment)
+		<div class="commentsarea row">
+			{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
+			| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
+			<br/>
+			<p style='margin-left:30px;text-align:justify;'>
+				{{$getVideoComment->comment}}
+			</p>
+			<br/>
 
-                	<div class="col-md-12 commentsarea">
-                		@foreach($getVideoComments as $getVideoComment)
-                		<div class="commentsarea row">
-                			{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
-                			| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
-                			<br/>
-                			<p style='margin-left:30px;text-align:justify;'>
-                				{{$getVideoComment->comment}}
-                			</p>
-                			<br/>
-                			 
+			<!-- <button id='c'>Reply</button> -->
+			@if(isset(Auth::User()->id))
+				63 &nbsp; 
+				<a href="#" class='fa fa-thumbs-up' id="likedup">
+				<div id="likevalues">
+					<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
+					<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+				</div>
+				</a>
+				|&nbsp;
+				23 &nbsp;<a href="#"><i class='fa fa-thumbs-down'></i></a>
+			@endif
+			<?php
+			$getCommentReplies = DB::table('comments_reply')
+			->join('users', 'users.id', '=', 'comments_reply.user_id')
+			->where('comment_id', $getVideoComment->id)->get(); 
+			?>
 
-                			<!-- <button id='c'>Reply</button> -->
-                			@if(isset(Auth::User()->id))
-                			63 &nbsp; <a href="#" class='fa fa-thumbs-up' id="likedup">
-                				<div id="likevalues">
-                					<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-                					<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-                				</div>
-                			</a>
-                			|&nbsp;
-                			23 &nbsp;<a href="#"><i class='fa fa-thumbs-down'></i></a>
-                			@endif
-                			<?php
-                			$getCommentReplies = DB::table('comments_reply')
-                			->join('users', 'users.id', '=', 'comments_reply.user_id')
-                			->where('comment_id', $getVideoComment->id)->get(); 
-                			?>
-
-                			|&nbsp;<span class="repLink hand blueC">Reply</span>
-
-                			
-	                			<div id="replysection" class="panelReply"
-	                				<?php
-	                				foreach($getCommentReplies as $getCommentReply):
-	                					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
-	                					echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
-	                				echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" .
-	                				 "</p></hr>";
-	                				endforeach;
-	                				?>
-	                				@if(isset(Auth::User()->id))
-	                				{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-	                				{{Form::hidden('comment_id', $getVideoComment->id)}}
-	                				{{Form::hidden('user_id', Auth::User()->id)}}
-	                				{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-	                				{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-	                				{{Form::close()}} 
-	                				@endif
-	                			</div>
-                			</div>
-                			<hr/>
-                		
-                		@endforeach
-                	</div>
-                </div>
+			|&nbsp;<span class="repLink hand blueC">Reply</span>
 
 
-	<!--show hide for reply Box-->
-	 <script type="text/javascript">
+			<div id="replysection" class="panelReply"
+				<?php
+				foreach($getCommentReplies as $getCommentReply):
+					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+					echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
+					echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";
+				endforeach;
+				?>
+				@if(isset(Auth::User()->id))
+				{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+				{{Form::hidden('comment_id', $getVideoComment->id)}}
+				{{Form::hidden('user_id', Auth::User()->id)}}
+				{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+				{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+				{{Form::close()}} 
+				@endif
+			</div>
+		</div>
+		<hr/>
 
-		jQuery(document).ready(function($) 
-		{
-			$(".panelReply").hide('slow');
-			$(".repLink").click(function()
-			{
-				$(".panelReply").hide();
-				$(this).parent().children(".panelReply").slideToggle(500); 
-			});
+		@endforeach
+	</div>
+</div>
 
-			$("[name='my-checkbox']").bootstrapSwitch();
-
+<!--show hide for reply Box-->
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".panelReply").hide('slow');
+		$(".repLink").click(function(){
+			$(".panelReply").hide();
+			$(this).parent().children(".panelReply").slideToggle(500); 
 		});
-
-	</script>
+		$("[name='my-checkbox']").bootstrapSwitch();
+	});
+</script>
