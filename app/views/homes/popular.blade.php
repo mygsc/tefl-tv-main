@@ -8,9 +8,9 @@
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
 		<div class="col-md-3">
 			@if(file_exists($popularVideo->video_poster))
-			<img width="200" height="100" src="{{$popularVideo->poster_path}}">
+			<img width="100%" src="{{$popularVideo->poster_path}}">
 			@else
-			<img width="200" height="100" src="/img/thumbnails/video.png">
+			<img width="100%"" src="/img/thumbnails/video.png">
 			@endif
 
 			<div class="v-Info">
@@ -19,7 +19,7 @@
 			<div class="count">
 				by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
 				<br />
-				<i class="fa fa-eye"></i> {{$popularVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} | <i class="fa fa-calendar"></i> {{$popularVideo->created_at}}
+				<i class="fa fa-eye"></i> {{$popularVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($popularVideo->created_at))}}
 			</div>
 			<BR/>
 		</div>

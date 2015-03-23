@@ -45,14 +45,15 @@
 					
 							<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 								<div class="volume" style="display:none">
-									<div onclick='changeVolume("+")' id="plus-vol">+</div>
+								<input id="volume" type="range" min="0" max="100" value="100">
+									{{-- <div onclick='changeVolume("+")' id="plus-vol">+</div>
 										<div class="volume-static-holder">
 											<div id="volume-vertical">
 												<div id="volume-button"> 
 												</div>
 											</div>
 										</div>
-									<div onclick='changeVolume("-")' id="minus-vol" >-</div>							
+									<div onclick='changeVolume("-")' id="minus-vol" >-</div>	 --}}						
 								</div>
 							</span><!--/.sound-->
 							<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
@@ -72,12 +73,12 @@
 									<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 									<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 									<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-									<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+									<!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
-                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
                                     
 								</ul>						
 							</div>

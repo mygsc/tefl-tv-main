@@ -3,6 +3,9 @@ $(document).ready(function(){
 	var videoPlayer = document.getElementById('media-video');
 	var totalTime = document.getElementById('total-time');
   var thumbnail = document.getElementById('selected-thumbnail');
+  var canvas1 = document.getElementById('img-thumb-1'), canvas2 = document.getElementById('img-thumb-2'), canvas3 = document.getElementById('img-thumb-3');
+  var context1 = canvas1.getContext('2d'), context2 = canvas2.getContext('2d'), context3 = canvas3.getContext('2d');
+  var w, h, ratio;
 	var channel = $('input[name=channel]').val();
 	var selected = 1, timeLenght=0;
   var getImage, timeDuration, hrs=0, mins=0, secs=0, tmpSec=0, time=0, totalMin=0, totalSec=0;
@@ -16,13 +19,46 @@ $(document).ready(function(){
 		onLoadTime();
     $(this).trigger('video_really_ready');
     timeLenght = Math.floor(videoPlayer.duration);
-    //initScreenshot();
-	});
+    ratio = videoPlayer.videoWidth / videoPlayer.videoHeight;
+    w = videoPlayer.videoWidth - 100;
+    h = parseInt(w / ratio, 10);
+    // canvas1.width = 180;
+    // canvas1.height = 150;
+    // w = 180;
+    // h = 150;
+    setTimeout(function(){
+      snap(1);
+    },2000);
+    setTimeout(function(){
+      snap(2);
+    },5000);
+    setTimeout(function(){
+      snap(3);
+    },7000);
 
-  // videoPlayer.addEventListener("playing", startScreenshot);
-  // videoPlayer.addEventListener("pause", stopScreenshot);
-  // videoPlayer.addEventListener("ended", stopScreenshot);
-  // videoPlayer.addEventListener('timeupdate', updateThumbnail, false);
+    
+	});
+  window.snap = function(num) {
+    if(num==1){
+      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+      videoPlayer.currentTime = rdm;
+      context1.fillRect(0, 0, w, h);
+      context1.drawImage(videoPlayer, 0, 0, w, h);
+    }
+    if(num==2){
+      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+      videoPlayer.currentTime = rdm;
+      context2.fillRect(0, 0, w, h);
+      context2.drawImage(videoPlayer, 0, 0, w, h);
+    }
+    if(num==3){
+      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+      videoPlayer.currentTime = rdm;
+      context3.fillRect(0, 0, w, h);
+      context3.drawImage(videoPlayer, 0, 0, w, h);
+    }
+    
+  }
 	var VideoSnapper = {
 		captureAsCanvas: function(video, options, handle) {
             // Create canvas and call handle function
@@ -112,47 +148,47 @@ $("#poster").on("change", function(){
     $('#cancel-upload-vid').modal('show');
  });
 
-$('video').bind('video_really_ready', function(){
-  var video = this;
-  var count =0;
-          setInterval(function(){
-            count +=1;
-            if(count < 10){
+// $('video').bind('video_really_ready', function(){
+//   var video = this;
+//   var count =0;
+//           setInterval(function(){
+//             count +=1;
+//             if(count < 10){
               
-              var rdm = Math.floor((Math.random() * timeLenght) + 1); 
-              VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time: rdm}, function(canvas) {
-             if(count ==1) {$('.thumb-1').append(canvas);canvas.setAttribute("id", "img-thumb-1");}
-             if(count ==5) {$('.thumb-2').append(canvas);canvas.setAttribute("id", "img-thumb-2");}
-             if(count ==9) {$('.thumb-3').append(canvas);canvas.setAttribute("id", "img-thumb-3");}
-              }) 
-            }
+//               var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+//               VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time: rdm}, function(canvas) {
+//              if(count ==1) {$('.thumb-1').append(canvas);canvas.setAttribute("id", "img-thumb-1");}
+//              if(count ==5) {$('.thumb-2').append(canvas);canvas.setAttribute("id", "img-thumb-2");}
+//              if(count ==9) {$('.thumb-3').append(canvas);canvas.setAttribute("id", "img-thumb-3");}
+//               }) 
+//             }
             
-          },2000);   
-});
+//           },2000);   
+// });
 
 
 
-$('div.thumb-1').on('click', function(){
+$('canvas.thumb-1').on('click', function(){
   $(this).css({'outline':'2px solid green'});
-  $('div.thumb-2').css({'outline':'1px solid #2a2a2a'});
-  $('div.thumb-3').css({'outline':'1px solid #2a2a2a'});
+  $('canvas.thumb-2').css({'outline':'1px solid #2a2a2a'});
+  $('canvas.thumb-3').css({'outline':'1px solid #2a2a2a'});
   var getImg = document.getElementById('img-thumb-1');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;
   //$('#poster').reset();
 });
-$('div.thumb-2').on('click', function(){
+$('canvas.thumb-2').on('click', function(){
  $(this).css({'outline':'2px solid green'});
- $('div.thumb-1').css({'outline':'1px solid #2a2a2a'});
-  $('div.thumb-3').css({'outline':'1px solid #2a2a2a'});
+ $('canvas.thumb-1').css({'outline':'1px solid #2a2a2a'});
+  $('canvas.thumb-3').css({'outline':'1px solid #2a2a2a'});
   var getImg = document.getElementById('img-thumb-2');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;
 });
-$('div.thumb-3').on('click', function(){
+$('canvas.thumb-3').on('click', function(){
   $(this).css({'outline':'2px solid green'});
-  $('div.thumb-1').css({'outline':'1px solid #2a2a2a'});
-  $('div.thumb-2').css({'outline':'1px solid #2a2a2a'});
+  $('canvas.thumb-1').css({'outline':'1px solid #2a2a2a'});
+  $('canvas.thumb-2').css({'outline':'1px solid #2a2a2a'});
   var getImg = document.getElementById('img-thumb-3');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;

@@ -3,24 +3,13 @@
 
 @section('content')
 <style type="text/css" media="screen">
-#img-thumb-1{
-	position:relative;
-}#img-thumb-1:hover{
-	outline:2px solid green;
-}.img-thumb1:hover,.img-thumb2:hover, .img-thumb3:hover{
-	outline: 2px solid green;
-}
-video#video canvas{
-	display: none;
-}
-div.thumb-1, div.thumb-2, div.thumb-3{
-	width:150px;
-	height:100px;
+canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
+	width:180px;
+	height:150px;
 	outline:1px solid #2a2a2a;
-	display:inline-block;
 	cursor:pointer;
 }
-div.thumb-1:hover, div.thumb-2:hover, div.thumb-3:hover {
+canvas.thumb-1:hover, canvas.thumb-2:hover, canvas.thumb-3:hover {
 	outline:2px solid green;
 }
 .file-upload {
@@ -66,15 +55,15 @@ margin: 10px;
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								
 									<div id="screenshot">
-										<div class="thumb-1">
+										<canvas class="thumb-1" id="img-thumb-1">
 											
-										</div>
-										<div class="thumb-2">
+										</canvas>
+										<canvas class="thumb-2" id="img-thumb-2">
 											
-										</div>
-										<div class="thumb-3">
+										</canvas>
+										<canvas class="thumb-3" id="img-thumb-3">
 											
-										</div>							
+										</canvas>						
 									</div>
 									<center>
 										<small>Or select desire thumbnail:</small><br>

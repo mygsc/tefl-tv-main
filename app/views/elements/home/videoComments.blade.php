@@ -1,63 +1,85 @@
+<style type="text/css">
+	textarea{
+		min-height: 60px!Important;
+		margin-bottom: 10px;
+	}
+</style>        
+<h3>Comments</h3>
+@if(isset(Auth::User()->id))
+<div class="comments row">
+	<span id='errorlabel' style='color:red;'></span>
+	<textarea id='comment' class="form-control" placeholder="Write your comment.."></textarea>
+	<div class="text-right">
+		<button id='btncomment' class="btn btn-info">Post</button>
+	</div>
 
-		<hr>
-		<h3>Comments for Teaching English in Vietnam </h3>
-		<div class="row">
-			<div class="col-md-1">
-				<img src="/img/user/u1.png" class="">
-			</div>
-			<div class="col-md-11">
-				{{Form::textarea('comment', null, array('placeholder' => 'Write Comment', 'rows' => 2, 'required'))}}
-				<div class="text-right">
-					{{ Form::submit('comment', array('class' => 'btn btn-info')); }}
-				</div>
-			</div>
-			{{Form::close()}}
-		</div>
-
-
-		<div class="col-md-1">
-			<img src="/img/user/u2.png" >
-		</div>
-		<div class="col-md-11">
-			<h4>Jesus<br>
-				<small>February 6, 2015</small>
-			</h4>
-			<div><!--comment content-->
-				<p>I am the way, the truth and the life</p>
-			</div><!--/comment content-->
-			
-			<span class="repLink commentLink">Reply</span>
-			&nbsp;||&nbsp;
-			<span class="commentLink linkReply">View 2 Replies</span>
-			&nbsp;||&nbsp;
-			12<img src="/img/icons/like.png" class="hand">
-
-			<div class="seeReply">
-				<div class="col-md-1">
-					<img src="/img/user/u3.png" >
-				</div>
-				<div class="col-md-11">
-					<h4>Jesus<br>
-						<small>February 6, 2015</small>
-					</h4>
-					<div><!--comment content-->
-						<p>I am the way, the truth and the life</p>
-					</div><!--/comment content-->
-				</div>
-
-			</div><!--/seeReply-->
-			<div class="panelReply">
-				<div class="col-md-1">
-					<img src="/img/user/u1.png" class="">
-				</div>
-				<div class="col-md-11">
-					{{Form::textarea('comment', null, array('placeholder' => 'Write Comment', 'rows' => 2, 'required'))}}
-					<div class="text-right">
-						{{ Form::submit('comment', array('class' => 'btn btn-info')); }}
-					</div>
-				</div>
-				{{Form::close()}}
-			</div><!--/panelReply-->
+	{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
+	{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+	@endif
+	<div class="col-md-12 commentsarea">
+		@foreach($getVideoComments as $getVideoComment)
+		<div class="commentsarea row">
+			{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
+			| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 			<br/>
-		</div><!--/col 11-->
+			<p style='margin-left:30px;text-align:justify;'>
+				{{$getVideoComment->comment}}
+			</p>
+			<br/>
 
+			<!-- <button id='c'>Reply</button> -->
+			@if(isset(Auth::User()->id))
+				63 &nbsp; 
+				<span href="#" class='fa fa-thumbs-up' id="likedup">
+					<div id="likevalues">
+						<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
+						<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
+					</div>
+				</span>
+				|&nbsp;
+				23 &nbsp;<a href="#"><i class='fa fa-thumbs-down'></i></a>
+			@endif
+			<?php
+			$getCommentReplies = DB::table('comments_reply')
+			->join('users', 'users.id', '=', 'comments_reply.user_id')
+			->where('comment_id', $getVideoComment->id)->get(); 
+			?>
+
+			|&nbsp;<span class="repLink hand blueC">Reply</span>
+
+
+			<div id="replysection" class="panelReply">
+				<?php
+				foreach($getCommentReplies as $getCommentReply):
+					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+					echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
+					echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";
+				endforeach;
+				?>
+				@if(isset(Auth::User()->id))
+					{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+					{{Form::hidden('comment_id', $getVideoComment->id)}}
+					{{Form::hidden('user_id', Auth::User()->id)}}
+					{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+					{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+					{{Form::close()}} 
+				@endif
+			</div>
+		</div>
+		<hr/>
+
+		@endforeach
+	</div>
+</div>
+
+<!--show hide for reply Box-->
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".panelReply").hide('slow');
+		$(".repLink").click(function(){
+			$(".panelReply").hide();
+			$(this).parent().children(".panelReply").slideToggle(500); 
+		});
+		$("[name='my-checkbox']").bootstrapSwitch();
+	});
+</script>
