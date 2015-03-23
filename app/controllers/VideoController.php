@@ -18,9 +18,6 @@ class VideoController extends Controller {
 		return View::make('users.upload');
 	}
 	public function postUpload(){
-		// $size = '1024x768'; 
-		// $second = 5; 
-		// $ffmpegPath ="C:\\xampp\\ffmpeg\\bin\\ffmpeg";
 		$fileName = str_random(11);
 		$input = Input::all();
 		$validator = Validator::make($input,Video::$video_rules);
@@ -59,20 +56,54 @@ class VideoController extends Controller {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 }
+	public function getCancelUploadVideo(){
+		$fileName = Session::pull('fileName');
+		if(empty($fileName)){
+			return App::abort('404');
+		}
+		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS;
+		if(file_exists($destinationPath.$fileName)){
+			$this->delete_directory($destinationPath.$fileName);
+			Video::where('file_name', $fileName)->delete();
+			return Redirect::route('get.upload', '=cancelled');
+		}
+			
+
+	}
+	public function delete_directory($dirname) {
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+	 if (!$dir_handle)
+	      return false;
+	 while($file = readdir($dir_handle)) {
+	       if ($file != "." && $file != "..") {
+	            if (!is_dir($dirname."/".$file))
+	                 unlink($dirname."/".$file);
+	            else
+	                 delete_directory($dirname.'/'.$file);
+	       }
+	 }
+	 closedir($dir_handle);
+	 rmdir($dirname);
+	 return true;
+	}
 	public function getAddDescription($filename = null){
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
 		$posterFilename = str_random(5);
-		$imgSelected = Input::get('thumbnail');
+		$thumbnailSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
 		$uploadPosterDir = $this->thumbImg;
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
-			
+		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
+						
 				if($validator->passes()){
 					if(Input::hasFile('poster')){
 						$tags = explode(',',Input::get('tags'));
@@ -99,18 +130,18 @@ class VideoController extends Controller {
 								$video->tags =  $implodeTag;
 								$video->uploaded =  1;
 								$video->save();
-								return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success',1);
+								return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
 							}
 							return Redirect::route('homes.index');
 						
 					}else{
-						// $img = $imgSelected;
-						// $img = str_replace('data:image/png;base64,', '', $img);
-						// $img = str_replace(' ', '+', $img);
-						// $data = base64_decode($img);
-						// $file = $uploadPosterDir.Crypt::encrypt($id).".jpg";
-						// $success = file_put_contents($file, $data);
-
+						$getImage = $thumbnailSelected;
+						$getImage = str_replace('data:image/png;base64,', '', $getImage);
+						$getImage = str_replace(' ', '+', $getImage);
+						$decodeImage = base64_decode($getImage);
+						$saveImage = $destinationPath.$fileName.".jpg";
+						$success = file_put_contents($saveImage, $decodeImage);
+						Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
 						$tags = explode(',',Input::get('tags'));
 						foreach($tags as $tag){
 							if($tag != null){
@@ -120,13 +151,19 @@ class VideoController extends Controller {
 						$uniqueTag = array_unique($newTags);
 						$implodeTag = implode(',',$uniqueTag);
 						$video = Video::find($id);
-						$video->total_time = Input::get('totalTime');
-						$video->title = Input::get('title');
-						$video->description = Input::get('description');
-						$video->publish = Input::get('publish');
-						$video->tags =  $implodeTag;
-						$video->save();
-						return Redirect::route('users.myvideos','upload=success&'.$fileName)->with('success',1);
+						$uploadedVid = $video->uploaded;
+							if($uploadedVid==0){
+								$video->total_time = Input::get('totalTime');
+							$video->title = Input::get('title');
+							$video->description = Input::get('description');
+							$video->publish = Input::get('publish');
+							$video->tags =  $implodeTag;
+							$video->uploaded =  1;
+							$video->save();
+							return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+							}
+							return Redirect::route('homes.index');
+						
 					}					
 				}
 			
@@ -137,7 +174,7 @@ class VideoController extends Controller {
 			// $newName = $this->thumbImg.$id.'.jpg';
 			// $rename = rename($oldName, $newName);	
 		
-		return Redirect::route('get.addDescription',Crypt::encrypt($id))
+		return Redirect::route('get.addDescription',$fileName)
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');

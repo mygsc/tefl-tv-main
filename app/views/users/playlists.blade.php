@@ -68,7 +68,9 @@
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
-						
+						@if($playlists->isEmpty())
+							No playlists yet
+						@else
 							@foreach($playlists as $playlist)
 								<div id="playlists" class="col-xs-2 col-md-3">
 									
@@ -81,6 +83,7 @@
 										<br/>
 								</div>
 							@endforeach
+						@endif
 						</div>
 					</div><!--videoContainer-->
 				</div>

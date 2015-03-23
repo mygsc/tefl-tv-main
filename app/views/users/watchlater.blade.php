@@ -99,14 +99,16 @@ text-align: center;
 					<br/><hr class="" />
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($findUsersWatchLaters))
-						@foreach($videosWatchLater as $watchLater)
+						@if(empty($usersWatchLater))
+							No watch later yet.
+						@else
+						@foreach($usersWatchLater as $key => $watchLater)
 						<div id='list' class="col-md-3">
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
-									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->watchlater[0]['status']}}"/>
-									@if($watchLater->watchlater[0]['status']==1)
+									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
+									@if($watchLater->status==1)
 									<div class="caption1">
 										<div class="caption-inner">
 											<p class="caption-content">
@@ -127,27 +129,31 @@ text-align: center;
 										</div>
 									</div>
 									@endif
+
 									{{Form::open()}}
 									<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default'))}}</span>
 									{{Form::close()}}
-									<a href="{{route('homes.watch-video', $watchLater->id . '%' . $watchLater->title)}}">
-										<video controls width="100%">
-											<source src="/videos/{{$watchLater->file_name}}.{{$watchLater->extension}}" type="video/mp4"/>
-										</video>
+
+									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
+									<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+
 										<input type="hidden" id="video_id" value="{{$watchLater->id}}">
-										{{$watchLater->title}}
-									</a>								
+										</video>
+										<br/>
+										{{$watchLater->title}}	
+										</a>			
 								</div>
 							</div>
 								<div class="count">
-									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}" target="_blank">{{$watchLater->channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 									<br/>
 							</div>
 						</div><!--/#list-->
 						@endforeach
-						@else
-							No Favorites yet.
 						@endif
 					</div><!--videoContainer-->
 				</div>

@@ -68,7 +68,7 @@
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
-								<a href="{{route('homes.watch-video', $showFavoriteVideo->id. '%' .$showFavoriteVideo->title)}}">
+								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
 								<video controls height="200" width="100%" class="h-video">
 									<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
 								</video>
@@ -91,7 +91,6 @@
 								</div>
 							</div>
 						</div>
-						
 						@endif
 					</div><!--videoContainer-->
 				</div>

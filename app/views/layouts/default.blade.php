@@ -1,5 +1,5 @@
 <!doctype html>
-<html ><!--class="no-js"-->
+<html>
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">

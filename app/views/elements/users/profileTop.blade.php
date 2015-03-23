@@ -11,10 +11,10 @@
 						{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
 						</div>
-						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
+						@if(file_exists(public_path('img/user/cover_photos/') . Auth::User()->id . '.jpg'))
 							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'x-index:70;', 'width' => '100%'))}}
 						@else
-							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+							{{HTML::image('cover.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 							<div class="overlay-cover">
@@ -29,12 +29,20 @@
 
 								<span class="pull-right" >
 									<span class="pull-right" >
+									@if(empty($usersWebsite))
 										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
 										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
 										<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
 										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
 										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
 										<a href=""><i class="socialMedia socialMedia-site"></i></a>
+									@else
+										<a href="{{$usersWebsite->facebook}}"><i class="socialMedia socialMedia-facebook"></i></a>
+										<a href="{{$usersWebsite->twitter}}"><i class="socialMedia socialMedia-twitter"></i></a>
+										<a href="{{$usersWebsite->instagram}}"><i class="socialMedia socialMedia-instagram"></i></a>
+										<a href="{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
+										<a href="{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
+									@endif
 									</span> 
 								</span>	
 
@@ -56,17 +64,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Change cover photo</h4>
       </div>
       <div class="modal-body">
         {{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
         	{{Form::file('coverPhoto')}}
-        	{{Form::submit('Change Cover Photo')}}
-        {{Form::close()}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        {{Form::submit('Change Cover Photo')}}
+         {{Form::close()}}
       </div>
     </div>
   </div>

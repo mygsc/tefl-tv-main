@@ -156,7 +156,9 @@
 			</div>
 			<br/>
 			<div class="row">
-				@if(!empty($subscriptions))
+				@if($subscriptions->isEmpty())
+					No subscription yet
+				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
@@ -173,8 +175,6 @@
 							
 						</div>
 					@endforeach
-					@else
-						No Subscription yet
 				@endif
 			</div><!--subscription /.row-->
 		</div><!--/.well2 Div-channelSubSection-->
