@@ -184,27 +184,24 @@ class UserController extends BaseController {
 
 	public function getTopChannels(){
 		$auth = Auth::user();
-		$topChannels = DB::select('select users.id, users.channel_name, 
-			videos.user_id, sum(videos.views) as total
-			from videos inner join users on 
-			videos.user_id = users.id 
-			group by user_id 
-			order by total DESC
-			LIMIT 10');
 
-		foreach($topChannels as $key => $channels){
+		$datas = $this->User->getTopChannels();
+
+		//Insert additional data to $datas
+		foreach($datas as $key => $channels){
 			$img = 'img/user/'. $channels->id. '.jpg';
 			if(!empty($auth)){
-				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
 			}
 			if(!file_exists('public/'.$img)){
 				$img = 'img/user/0.jpg';
 			}
-			$topChannels[$key]->image_src = $img;
-			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+			$datas[$key]->image_src = $img;
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
+		//End of insert
 
-		return View::make('homes.topchannels', compact(array('topChannels','auth')));
+		return View::make('homes.topchannels', compact(array('datas','auth')));
 	}
 
 	public function getMoreTopChannels(){
@@ -218,10 +215,14 @@ class UserController extends BaseController {
 
 		foreach($topChannels as $key => $channels){
 			$img = 'img/user/'. $channels->id. '.jpg';
+			if(!empty($auth)){
+				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+			}
 			if(!file_exists('public/'.$img)){
 				$img = 'img/user/0.jpg';
 			}
 			$topChannels[$key]->image_src = $img;
+			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
@@ -807,8 +808,8 @@ class UserController extends BaseController {
 	}
 
 	public function postCountNotification(){
-		//$user_id = Crypt::decrypt(Input::get('uid'));
-		$user_id = 3;
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		//$user_id = 3;
 		$notifications =  $this->Notification->getNotifications($user_id, 0);
 
 		return $notifications;

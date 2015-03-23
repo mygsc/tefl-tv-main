@@ -1,5 +1,5 @@
 <h1>Playlists</h1>
-@foreach($randomResults as $randomResult)
+@foreach($datas as $randomResult)
 
 <div class="col-md-3">
 	<div class="" style="position:relative;">

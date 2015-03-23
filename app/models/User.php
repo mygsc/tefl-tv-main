@@ -104,10 +104,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 	
 	public function getRandomChannels(){
-		return User::orderByRaw("RAND()")
-		->where('status', '1')
-		->where('verified', '1')
-		->get(array('id','channel_name'));
+		return db::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
+	videos.user_id, SUM(videos.views) AS total
+			FROM videos INNER JOIN users ON 
+			videos.user_id = users.id
+			INNER JOIN users_profile ON
+			videos.user_id = users_profile.user_id 
+			GROUP BY videos.user_id 
+			ORDER BY RAND()
+			LIMIT 16
+			');
+	}
+
+	public function getTopChannels(){
+		return DB::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
+			videos.user_id, SUM(videos.views) AS total
+			FROM videos INNER JOIN users ON 
+			videos.user_id = users.id
+			INNER JOIN users_profile ON
+			videos.user_id = users_profile.user_id 
+			GROUP BY videos.user_id 
+			ORDER BY RAND()
+			LIMIT 50
+			');
 	}
 
 	public function setVerifyStatus($verify_status, $user_id){

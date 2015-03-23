@@ -92,7 +92,6 @@ class Video extends Eloquent{
 				$limit. '');
 
 		foreach($returnData as $key => $item){
-			
 
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;
