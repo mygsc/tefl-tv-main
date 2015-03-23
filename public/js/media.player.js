@@ -7,23 +7,28 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
  	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
- 	updProgWidth = 0;
+ 	updProgWidth = 0, videoControls, volumeStatus;
 
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
-var plusVol = document.getElementById('plus-vol').offsetHeight;
+//var plusVol = document.getElementById('plus-vol').offsetHeight;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
-var volume = $('#volume-vertical').height();
+//var volume = $('#volume-vertical').height();
 var animate360 = document.getElementById('button-progress');
+$('#media-video').bind("contextmenu",function(){
+    return false;
+});
 function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
+	videoControls = document.getElementById('controls');
 	playPauseBtn = document.getElementById('play-pause');
 	replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
 	//progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
 	videoTimeLenght = document.getElementById('video-time-lenght');
+	volumeStatus = document.getElementById('volume');
 	mediaPlayer.controls = false;
 	// Add a listener for the timeupdate event so we can update the progress bar
 	mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
@@ -42,15 +47,54 @@ function GSCMediaPlayer(){
 		if (mediaPlayer.muted) changeButtonType(muteBtn, 'unmute');
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
-	mediaPlayer.addEventListener('ended', function() { this.pause(); }, false);
+	mediaPlayer.addEventListener('ended', function() { 
+		//mediaPlayer.pause(); 
+		mediaPlayer.currentTime=0;
+		playPauseBtn.src = "/img/icons/play.png";}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function() {
 	timeDuration = Math.round(mediaPlayer.duration);
 	timeSettings();
 	adsOn();
-});
-	
+	});
+	volumeStatus.addEventListener('change', setVolume, false);
 }
+
+// mediaPlayer.addEventListener('mouseout', function() { 
+// 			videoControls.style.opacity = 0; 
+// 		}, false); 
+
+document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 32) {
+    togglePlayPause();
+  }
+}, false);
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
 function adsOn(){
 	ads = Math.floor(timeDuration * adsTime / 100);
 	ads = Math.round(100 / ads);
@@ -64,14 +108,13 @@ function timeSettings(){
 	vidSecLenght = Math.round(mediaPlayer.duration - (vidMinLenght * 60));
 	hrs = Math.floor(vidMinLenght / 60);
 	mins =  (vidMinLenght - (hrs * 60));
-	tmpSecs =  Math.round(mediaPlayer.duration / 60);
-	secs =   Math.round(mediaPlayer.duration - (tmpSecs * 60));
+	secs =   Math.round(mediaPlayer.duration - (vidMinLenght * 60));
 	if(secs < 10) { secs = '0'+ secs; }
 	if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
-	//if(mins < 10) { mins = '0'+ mins; }
+	if(mins < 10) { mins = '0'+ mins; }
 	if(hrs < 10) { hrs = '0'+ hrs; }
 	if(timeDuration < 3600){
-		$('.ctime').html(mins + ':' + secs);
+		$('.ctime').html(vidMinLenght + ':' + vidSecLenght);
 	}else{
 		$('.ctime').html(hrs + ':' + mins + ':' + secs);
 	}
@@ -138,7 +181,9 @@ function changeVolume(sign) {
 			 }
 	}
 }
-
+function setVolume(){
+	mediaPlayer.volume = volumeStatus.value / 100;
+}
 // Toggles the media player's mute and unmute status
 function toggleMute() {
 	if (mediaPlayer.muted) {
@@ -212,18 +257,14 @@ function updateProgressBar(response) {
 					var finishTime = Math.round(videoCurrentTime);
 					var videoLenght = Math.round(mediaPlayer.duration);	
 					
-					if(finishTime == videoLenght){		
-						$('#play-pause').addClass('play').removeClass('pause');
-						playPauseBtn.src = "/img/icons/play.png";
-						videoPlaying=false;
-						//mediaPlayer.currentTime = 0;
-						//finishTime=0;
-						// videoCurrentTime=0;
-						//mediaPlayer.pause();
-						stopPlayer();
-						$('.advertisement').fadeOut();
-						$('.play-icon').fadeIn(500);
-					}
+					// if(finishTime == videoLenght){		
+					// 	$('#play-pause').addClass('play').removeClass('pause');
+					// 	playPauseBtn.src = "/img/icons/play.png";
+					// 	videoPlaying=false;
+					// 	stopPlayer();
+					// 	$('.advertisement').fadeOut();
+					// 	$('.play-icon').fadeIn(500);
+					// }
 							
 					
 					if(seconds == adsTime){

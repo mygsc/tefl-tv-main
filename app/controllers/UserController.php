@@ -49,38 +49,7 @@ class UserController extends BaseController {
 		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
 	}
 
-	public function getCancelUploadVideo(){
-		$fileName = Session::pull('fileName');
-		if(empty($fileName)){
-			return App::abort('404');
-		}
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS;
-		if(file_exists($destinationPath.$fileName)){
-			$this->delete_directory($destinationPath.$fileName);
-			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload', '=cancelled');
-		}
-			
 
-	}
-	public function delete_directory($dirname) {
-         if (is_dir($dirname))
-           $dir_handle = opendir($dirname);
-	 if (!$dir_handle)
-	      return false;
-	 while($file = readdir($dir_handle)) {
-	       if ($file != "." && $file != "..") {
-	            if (!is_dir($dirname."/".$file))
-	                 unlink($dirname."/".$file);
-	            else
-	                 delete_directory($dirname.'/'.$file);
-	       }
-	 }
-	 closedir($dir_handle);
-	 rmdir($dirname);
-	 return true;
-	}
 
 	public function postResendUserVerify(){
 		$channel_name = Input::get('channel_name');
@@ -91,7 +60,7 @@ class UserController extends BaseController {
 		$data = array(
 			'url' => route('homes.get.verify', $generateToken),
 			'first_name' => $getUserInfo->first_name
-			);
+		);
 
 		Mail::send('emails.users.verify', $data, function($message) {
 			$getUserInfo = User::where('channel_name', Input::get('channel_name'))->first();
@@ -367,7 +336,7 @@ class UserController extends BaseController {
 
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video;
+		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);

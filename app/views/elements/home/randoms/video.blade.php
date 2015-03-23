@@ -3,9 +3,9 @@
 <div class="col-md-3">
 	<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">
 		@if(file_exists($randomResult->video_poster))
-							<img width="200" height="100" src="{{$randomResult->poster_path}}">
+							<img width="100%" src="{{$randomResult->poster_path}}">
 						@else
-							<img width="200" height="100" src="/img/thumbnails/video.png">
+							<img width="100%" src="/img/thumbnails/video.png">
 						@endif
 		<div class="v-Info">
 			<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">{{$randomResult->title}}</a>
