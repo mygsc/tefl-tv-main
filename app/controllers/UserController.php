@@ -411,17 +411,8 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-
-		// $findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
-
-		// foreach($findUsersWatchLaters as $findUsersWatchLater){
-		// 	$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
-		// }
-		// return $videosWatchLater;
-		
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 
-		// return $join;
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
 	}
 
