@@ -148,76 +148,7 @@
                     <br/>
                 </div> <!--/.ui-tabs-panel-->
                 <!-- COMMENTS AREA -->
-                @if(isset(Auth::User()->id))
-                    <div class="comments row">
-                        <span id='errorlabel' style='color:red;'></span>
-                        <textarea id='comment'></textarea>
-                        <button id='btncomment' class='btn btn-primary pull-right'>Post</button>
-
-                        {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
-                        {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-                    @endif
-
-                    <div class="col-md-12 commentsarea row">
-                        <button id='btncomment' class='btn btn-info pull-right'>Top comments</button>
-                        <button id='btncomment' class='btn btn-info pull-right'>Newest first</button>
-                        @foreach($getVideoComments as $getVideoComment)
-                        <div class="commentsarea row">
-                            {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
-                            <br/>
-                            {{$getVideoComment->comment}}<br/>
-                            <?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?> |
-
-                            <!-- <button id='c'>Reply</button> -->
-                            @if(isset(Auth::User()->id))
-                                <a href="#" class='glyphicon glyphicon-thumbs-up' id="likedup">
-                                    <div id="likevalues">
-                                        <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-                                        <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-                                        <input type="hidden" value="like" status="">
-                                    </div>
-                                    {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-                                        {{Form::hidden('user_id',$userChannel->id)}}
-                                        {{Form::hidden('subscriber_id', $user_id)}}
-                                        {{Form::hidden('status','subscribeOn')}}
-                                        @if(!empty($ifAlreadySubscribe))
-                                            {{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
-                                        @else
-                                            {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
-                                        @endif
-                                    {{Form::close()}}
-                                </a>69
-                                |
-                                <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
-                            @endif
-                            <?php
-                            $getCommentReplies = DB::table('comments_reply')
-                            ->join('users', 'users.id', '=', 'comments_reply.user_id')
-                            ->where('comment_id', $getVideoComment->id)->get(); 
-                            ?>
-
-                            <div id="replysection">REPLY:<br/>
-                                <?php
-                                foreach($getCommentReplies as $getCommentReply):
-                                    echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
-                                    echo $getCommentReply->reply . "<br/>";
-                                    echo date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
-                                endforeach;
-                                ?>
-                                @if(isset(Auth::User()->id))
-                                    {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-                                        {{Form::hidden('comment_id', $getVideoComment->id)}}
-                                        {{Form::hidden('user_id', Auth::User()->id)}}
-                                        {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-                                        {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-                                    {{Form::close()}} 
-                                @endif
-                            </div>
-                            <hr/>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
+                    @include('elements/home/videoComments')
                 <!-- COMMENTS AREA -->
                 @include('elements/home/uploaderLatestVideo')
                 <!-- latest -->
