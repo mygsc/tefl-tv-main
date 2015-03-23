@@ -24,7 +24,7 @@
 				@endforeach
 				<div class="advertisement" style="display:none">
 					<span class="close">x</span> 
-					<h2 style="text-align:center;color:#fff;">GSC are hiring for web developer <a href="#">APPLY NOW!</a></h2>
+					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a href="#">APPLY NOW!</a></h2>
 				</div>
 				<div class="play-icon">
 					<span><img src="/img/icons/play-btn.png"></span>
@@ -72,12 +72,12 @@
 									<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 									<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 									<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-									<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+									<!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
                                     <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
-                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
                                     
 								</ul>						
 							</div>

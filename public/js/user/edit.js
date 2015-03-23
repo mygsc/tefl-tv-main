@@ -19,6 +19,7 @@ $(document).ready(function(){
 				$('input[id=close]').click(function(){
 					loader();
 				});
+				$('span[id^="tagDelete"]').remove();
 			});
 		});
 			$('span[id^="tagDelete"]').click(function(){

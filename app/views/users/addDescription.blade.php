@@ -3,25 +3,40 @@
 
 @section('content')
 <style type="text/css" media="screen">
-	#img-thumb-1{
-		position:relative;
-	}#img-thumb-1:hover{
-		outline:2px solid green;
-	}.img-thumb1:hover,.img-thumb2:hover, .img-thumb3:hover{
-		outline: 2px solid green;
-	}
-	video#video canvas{
-		display: none;
-	}
+canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
+	width:180px;
+	height:150px;
+	outline:1px solid #2a2a2a;
+	cursor:pointer;
+}
+canvas.thumb-1:hover, canvas.thumb-2:hover, canvas.thumb-3:hover {
+	outline:2px solid green;
+}
+.file-upload {
+position: relative;
+overflow: hidden;
+margin: 10px;
+}
+.file-upload input#poster {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
 </style>
 <div class="row White">
 	<div class="container page">	
 		<div class="content-padding">
-			@if ($errors->any())
+			{{--@if ($errors->any())
 			<ul>
 				{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 			</ul>
-			@endif
+			@endif--}}
 			@foreach($videos as $video)
 			<br><br>
 		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',$video->id)))}}
@@ -29,7 +44,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="embed-responsive embed-responsive-16by9 h-video">
-								<video width="400" id="video" controls poster="/img/thumbnails/video.png">
+								<video preload="auto" width="400" id="media-video" controls poster="/img/thumbnails/video.png">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
@@ -37,20 +52,32 @@
 							</div>
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Browse your video thumbnail</h3>	
+								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								
-									{{--<div id="screenshot"><center>
-										<div class="thumb" >
-											<input type="file" name="poster" id="poster" style="position:absolute;width:100%;height:100%;opacity:0;cursor:pointer">
-											Browse thumbnail
-										</div>							
-									</center></div>--}}
+									<div id="screenshot">
+										<canvas class="thumb-1" id="img-thumb-1" onclick="snap(1)">
+											
+										</canvas>
+										<canvas class="thumb-2" id="img-thumb-2" onclick="snap(2)">
+											
+										</canvas>
+										<canvas class="thumb-3" id="img-thumb-3" onclick="snap(3)">
+											
+										</canvas>						
+									</div>
 									<center>
-										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">		
-											<input type="file" name="poster" id="poster"/>										
-										</img>
+										<small>Or select desire thumbnail:</small><br>
+										<img id="thumbnail" src="/img/thumbnails/video.png" width="250" height="150">
+										<br>
+										<div class="file-upload btn btn-primary">
+											<span>Browse thumbnail</span>
+											<input type="file" name="poster" id="poster" accept="image/*"/>
+										</div>		
+																					
+										
+				
 									</center>
-							</div>	
+										</div>
 						</div>
 
 						<div class="col-md-6">
@@ -61,6 +88,9 @@
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
 									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true))}}
+									@if ($errors->has('title'))
+										<small style="color:red">{{$errors->first('title')}}</small>
+									@endif
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
@@ -73,11 +103,17 @@
 								<br/>
 								{{Form::label('Description:')}}
 								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true))}}
+									@if ($errors->has('description'))
+											<small style="color:red">{{$errors->first('description')}}</small><br>
+									@endif
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
 								{{Form::text('tags',null,array('class'=>'form-control','required'=>true))}}
+									@if ($errors->has('tags'))
+											<small style="color:red">{{$errors->first('tags')}}</small>
+									@endif
 								{{Form::hidden('encrypt',$video->file_name,array('id'=>'encrypt'))}}
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
-								{{Form::hidden('thumbnail', 1, array('id'=>'selected-thumbnail'))}}
+								{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
 								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
 								{{Form::hidden('tokenId', Session::get('tokenId'))}}
 							</div>
@@ -85,7 +121,7 @@
 							<br>
 								
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary'))}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary','onclick'=>'return checkThumbnail();'))}}
 								
 							</div>	
 
@@ -123,6 +159,6 @@
 
 
 @section('script')
-{{HTML::script('js/user/upload.js')}}
+{{HTML::script('js/user/upload-add-description.js')}}
 
 @stop

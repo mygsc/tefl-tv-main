@@ -38,5 +38,5 @@
 
 
 <div class="footer2">
-    <span>ALL RIGHTS RESERVED 2015</span>
+    <span>TEFL TV BETA VERSION 1.0</span>
 </div>

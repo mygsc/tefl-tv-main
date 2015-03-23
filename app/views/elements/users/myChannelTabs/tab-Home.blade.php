@@ -2,11 +2,11 @@
 <div class="row">
 	<br/>
 	<div class="col-md-6">
-		<img src="/img/thumbnails/vp.png">
+		 <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%">
 	</div>
 	<div class="col-md-6">
 		@if(empty($recentUpload))
-			No recent Activity
+			<p style="margin-left:30px;">No recent Activity</p>
 		@else
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{$recentUpload->created_at}}</p>
@@ -61,16 +61,12 @@
 
 			<div class="row">
 			@if($usersVideos->isEmpty())
-				No Videos Uploaded yet..
+				<p style="margin-left:30px;">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
-				<div class="col-md-4">
-					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
-						<div class="">
-							<video height="auto" width="100%" class="h-video">
-								<source src="/videos/{{$usersVideo->file_name}}" type="video/mp4"/>
-							</video>
-						</div>
+				<div class="col-md-4 col-sm-6">
+					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+						<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" alt="">
 					</a>
 					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
 						<div class="v-Info">
@@ -97,7 +93,7 @@
 			<br/>
 			<br/>
 			<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-4 col-sm-2">
 			@if(empty($usersPlaylists))
 				@foreach($usersPlaylists as $playlists)
 				<div class="" style="position:relative;">
@@ -108,7 +104,7 @@
 						<br/>
 						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 					</div>
-					<img src="/img/thumbnails/v3.png" class="h-video">
+					<img src="/img/thumbnails/v1.jpg" class="h-video">
 				</div>
 
 				<div class="v-Info">
@@ -120,12 +116,12 @@
 				</div>
 				@endforeach
 				@else
-					No Playlists yet
+					<p style="margin-left:30px;">No Playlists yet</p>
 				@endif
 			</div>
 			</div>
 		</div>
-		</div>
+
 	</div><!--/.2nd 6 column Playlists-->
 	<br/>
 	<!--Subscribers-->
@@ -139,12 +135,14 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriberProfile))
-				No subscribers yet.
+				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
 					@foreach($subscriberProfile as $key => $profile)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
+
 							<a href="{{route('view.users.channel')}}">
+
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
 							</a>&nbsp;
@@ -168,7 +166,7 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriptionProfile))
-					No Subscriptions yet
+					<p style="margin-left:30px;">No Subscriptions yet</p>
 				@else
 					@foreach($subscriptionProfile as $key => $profile1)
 						<div class="col-md-6">

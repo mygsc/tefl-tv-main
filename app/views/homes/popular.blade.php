@@ -8,9 +8,9 @@
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
 		<div class="col-md-3">
 			@if(file_exists($popularVideo->video_poster))
-			<img width="200" height="100" src="{{$popularVideo->poster_path}}">
+			<img width="100%" src="{{$popularVideo->poster_path}}">
 			@else
-			<img width="200" height="100" src="/img/thumbnails/video.png">
+			<img width="100%"" src="/img/thumbnails/video.png">
 			@endif
 
 			<div class="v-Info">

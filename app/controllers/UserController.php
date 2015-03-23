@@ -2,13 +2,14 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, WatchLater $watchLater){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
 		$this->User = $user;
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
+		$this->WatchLater = $watchLater;
 	}
 
 	public function getSignIn() {
@@ -48,38 +49,7 @@ class UserController extends BaseController {
 		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
 	}
 
-	public function getCancelUploadVideo(){
-		$fileName = Session::pull('fileName');
-		if(empty($fileName)){
-			return App::abort('404');
-		}
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName.DS;
-		if(file_exists($destinationPath.$fileName)){
-			$this->delete_directory($destinationPath.$fileName);
-			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload', '=cancelled');
-		}
-			
 
-	}
-	public function delete_directory($dirname) {
-         if (is_dir($dirname))
-           $dir_handle = opendir($dirname);
-	 if (!$dir_handle)
-	      return false;
-	 while($file = readdir($dir_handle)) {
-	       if ($file != "." && $file != "..") {
-	            if (!is_dir($dirname."/".$file))
-	                 unlink($dirname."/".$file);
-	            else
-	                 delete_directory($dirname.'/'.$file);
-	       }
-	 }
-	 closedir($dir_handle);
-	 rmdir($dirname);
-	 return true;
-	}
 
 	public function postResendUserVerify(){
 		$channel_name = Input::get('channel_name');
@@ -90,7 +60,7 @@ class UserController extends BaseController {
 		$data = array(
 			'url' => route('homes.get.verify', $generateToken),
 			'first_name' => $getUserInfo->first_name
-			);
+		);
 
 		Mail::send('emails.users.verify', $data, function($message) {
 			$getUserInfo = User::where('channel_name', Input::get('channel_name'))->first();
@@ -334,7 +304,9 @@ class UserController extends BaseController {
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
 
-		if(empty(Website::where('user_id',Auth::User()->id)->first())){
+		$findUserWebsite = Website::where('user_id',9)->first();
+		
+		if(isset($findUserWebsite)){
 			$userWebsite = new Website;
 			$userWebsite->user_id = Auth::User()->id;
 			$userWebsite->facebook = Input::get('facebook');
@@ -364,7 +336,7 @@ class UserController extends BaseController {
 
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video;
+		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -469,16 +441,9 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
+		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 
-		$findUsersWatchLaters = User::find(Auth::User()->id)->watchlater;
-
-		foreach($findUsersWatchLaters as $findUsersWatchLater){
-			$videosWatchLater[] = Video::find($findUsersWatchLater->video_id);
-		}
-
-		// $innerjoin = DB::table('videos')->join('users_watch_later', 'video_id', '=', 'users_watch_later.video_id')->select('video_id', 'status')->get();
-		
-		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters'));
+		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
 	}
 
 	public function postWatchLater() {

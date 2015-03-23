@@ -121,6 +121,21 @@ p.description_content{
   margin-bottom: 10px;
 
 }
+.userDp{
+
+  border:1px #ededed solid;
+   /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+  -webkit-border-radius: 10px; 
+
+  /* Firefox 1-3.6 */
+  -moz-border-radius: 10px; 
+  
+  /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+  border-radius: 10px; 
+
+  height: 150px;
+  width: 150px; 
+}
 .wellTitle{
   background:#4a8eb1!important;
   border-radius:0 0 85px 0;
@@ -216,6 +231,11 @@ a{
 .textbox-layout input[type="password"],
 .textbox-layout textarea{
   margin-bottom: 10px;
+}
+.textbox-layout2 input[type="text"],
+.textbox-layout2 input[type="password"],
+.textbox-layout2 textarea{
+  margin-top: 10px;
 }
 
 input[type="text"],
@@ -592,6 +612,7 @@ img.user{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+   margin-top: 10px!important;
 
 
 }
@@ -603,6 +624,7 @@ img.user{
   color: #323232;
   height: auto;
   margin-top: 0!important;
+  margin-bottom: 10px;
 
 }
 .categoryHead{
@@ -735,7 +757,7 @@ img.user{
 .gMapAlt{
   background: #E9E5DC;
   width:100%;
-  height:150px;
+  height:250px;
 }
 .cBox{
   height: 34px!Important;
@@ -984,6 +1006,10 @@ span.commentLink{
   position:absolute;
   right:15px;
   z-index:99;
+  background: rgba(255,255, 255, 0.4);
+  padding: 10px 10px;
+  border-radius: 0 0 0 10px;
+
 }
 
 /*=======BACK TO TOP BUTTON========*/
@@ -1239,14 +1265,14 @@ Main components
 }
 
 .Div-channelSubSection{
-  min-height: 420px!important;
+  min-height: 450px!important;
 
 }
 .Div-equalHeight{
   display: table;
 }
 .overlay-cover{
-  background:rgba(225,225,225,0.8);
+  background:rgba(225,225,225,0.5);
   padding:5px 10px 5px 10px;
   bottom:0;margin-right:5px; 
   position:absolute;
@@ -1330,6 +1356,7 @@ Main components
 .inputError{
   color: #d40505;
   font-size: 0.9em;
+  list-style: none;
 }
 
 .notes{
@@ -1514,8 +1541,6 @@ div.crop-square img {
    left: 10px;
    box-shadow: none!Important
 }
-
-
 
 
 
