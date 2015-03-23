@@ -119,4 +119,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		return true;
 	}
+
+	public function renewPassword($password = null, $user_id = null){
+		if(!empty($password) && !empty($user_id)){
+			$user = User::find($user_id);
+			$user->password = Hash::make($password);
+
+			if($user->verified == '0'){
+				$generateToken = Crypt::encrypt($user->email + rand(10,100));
+				$user->token = $generateToken;
+			}else{
+				$user->token = null;
+			}
+
+			$user->save();
+			return true;
+		}
+		return false;
+	}
 }
