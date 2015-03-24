@@ -814,4 +814,8 @@ class UserController extends BaseController {
 
 		return $notifications;
 	}
+
+	public function getWatchPlaylist(){
+		return View::make('users.watchplaylist');
+	}
 }

@@ -45,6 +45,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
+
 });
 
 
@@ -88,6 +89,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
+	Route::get('watchplaylist', array('as'=>'users.watchplaylist', 'uses'=>'UserController@getWatchPlaylist'));
 
 });
 //*********End of Channels************//
