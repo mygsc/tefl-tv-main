@@ -86,6 +86,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
+	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
 
 });
 //*********End of Channels************//

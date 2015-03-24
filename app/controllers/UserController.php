@@ -367,6 +367,9 @@ class UserController extends BaseController {
 	public function getedit($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::find($id);
+		if($video->user_id != Auth::User()->id){
+			return Redirect::route('users.channel');
+		}
 		$tags = explode(',',$video->tags);
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
@@ -427,6 +430,15 @@ class UserController extends BaseController {
 		$imploded_tag = implode(',',$tags);
 		$video->tags = $imploded_tag;
 		$video->save();
+	}
+	public function deleteVideo($id){
+		$id = Crypt::decrypt($id);
+		$video = Video::find($id);
+		if($video->user_id == Auth::User()->id){
+			$video->delete();
+			return Redirect::route('users.myvideos');
+		}
+		return Redirect::route('users.channel');
 	}
 
 	public function getUsersChangePassword() {

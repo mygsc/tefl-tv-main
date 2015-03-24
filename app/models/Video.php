@@ -4,6 +4,7 @@ class Video extends Eloquent{
   use SoftDeletingTrait;
 	protected $table = 'videos';
 	protected $dates = ['deleted_at'];
+	protected $softDelete = true;
 	protected $guarded = array('id');
 	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
 

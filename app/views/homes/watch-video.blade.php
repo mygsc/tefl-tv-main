@@ -160,7 +160,7 @@
                 <!-- advertisment small -->
                 <!--/advertisement-->
                 <!--Display number of search results-->
-                <div class="searchResult">About 288,000 results</div>
+                    <div class="searchResult">About {{$relationCounter}} result(s)</div>
                 <!--/search result-->
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($relations as $relation)
