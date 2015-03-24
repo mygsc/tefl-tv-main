@@ -15,10 +15,9 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getVideoByCategory('popular', '4');
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
-		// foreach($latests as $key => $item){
-		// 	echo $item->video_poster;
-		// }
-		//dd(file_exists('public\videos\17-mygsc\Dfc8PpTPkXS\Dfc8PpTPkXS.jpg'));
+
+		//return $randoms;
+		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
@@ -102,9 +101,11 @@ class HomeController extends BaseController {
 			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
 			HAVING v.id!='".$id."'
 			AND v.report_count < 5
+			OR v.report_count IS NULL
 			AND v.publish = 1
 			AND v.deleted_at IS NULL;
 			");
+		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -134,7 +135,6 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$like = null;
 		}
-
 		$likeCounter = Like::where('video_id','=',$id)->count();
 		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
@@ -143,7 +143,7 @@ class HomeController extends BaseController {
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 				->where('comments.video_id', $videoId)->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
 	}
 
 	public function postSignIn() {

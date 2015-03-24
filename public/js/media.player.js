@@ -12,9 +12,8 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
-//var plusVol = document.getElementById('plus-vol').offsetHeight;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
-//var volume = $('#volume-vertical').height();
+
 var animate360 = document.getElementById('button-progress');
 $('#media-video').bind("contextmenu",function(){
     return false;
@@ -58,6 +57,7 @@ function GSCMediaPlayer(){
 	adsOn();
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
+
 }
 
 // mediaPlayer.addEventListener('mouseout', function() { 
@@ -270,7 +270,9 @@ function updateProgressBar(response) {
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
-					//mediaPlayer.onwaiting = function() {alert('waiting');}
+					var b = mediaPlayer.buffered;
+					console.log(b.start(0));
+					console.log(b.end(0));
 
 		
 }

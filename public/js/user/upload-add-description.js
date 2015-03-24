@@ -14,6 +14,13 @@ $(document).ready(function(){
   var  playing=false; 
   // var canvas = document.getElementById("canvas");
   // var ctx = canvas.getContext("2d");
+  context1.font="20px Georgia";
+  context1.fillText("Please wait...",90,75);
+  context2.font="20px Georgia";
+  context2.fillText("Please wait...",90,75);
+  context3.font="20px Georgia";
+  context3.fillText("Please wait...",90,75);
+
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
 		onLoadTime();
@@ -24,14 +31,13 @@ $(document).ready(function(){
     h = parseInt(w / ratio, 10);
     // canvas1.width = 180;
     // canvas1.height = 150;
-    // w = 180;
-    // h = 150;
+
     setTimeout(function(){
       snap(1);
-    },2000);
+    },1000);
     setTimeout(function(){
       snap(2);
-    },5000);
+    },4000);
     setTimeout(function(){
       snap(3);
     },7000);
@@ -40,19 +46,22 @@ $(document).ready(function(){
 	});
   window.snap = function(num) {
     if(num==1){
-      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+      var duration = Math.floor(videoPlayer.duration);
+      var rdm = Math.floor((Math.random() * duration) + 1); 
       videoPlayer.currentTime = rdm;
       context1.fillRect(0, 0, w, h);
       context1.drawImage(videoPlayer, 0, 0, w, h);
     }
     if(num==2){
-      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+       var duration = Math.floor(videoPlayer.duration);
+      var rdm = Math.floor((Math.random() * duration) + 1); 
       videoPlayer.currentTime = rdm;
       context2.fillRect(0, 0, w, h);
       context2.drawImage(videoPlayer, 0, 0, w, h);
     }
     if(num==3){
-      var rdm = Math.floor((Math.random() * timeLenght) + 1); 
+      var duration = Math.floor(videoPlayer.duration);
+      var rdm = Math.floor((Math.random() * duration) + 1); 
       videoPlayer.currentTime = rdm;
       context3.fillRect(0, 0, w, h);
       context3.drawImage(videoPlayer, 0, 0, w, h);

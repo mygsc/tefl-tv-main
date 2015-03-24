@@ -4,11 +4,12 @@ class Video extends Eloquent{
   use SoftDeletingTrait;
 	protected $table = 'videos';
 	protected $dates = ['deleted_at'];
+	protected $softDelete = true;
 	protected $guarded = array('id');
 	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
 
 	public static $video_rules = array(
-		'video' => 'max:307200kb|mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
+		'video' => 'max:102400kb|mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
 		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
@@ -92,7 +93,6 @@ class Video extends Eloquent{
 				$limit. '');
 
 		foreach($returnData as $key => $item){
-			
 
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;

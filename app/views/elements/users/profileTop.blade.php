@@ -14,7 +14,7 @@
 						@endif
 						</div>
 						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
-							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'x-index:70;', 'width' => '100%'))}}
+							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
 							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
