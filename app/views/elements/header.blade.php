@@ -1,12 +1,10 @@
 <div class="brandingHeader">
     <div class="row">
-        <div class="container">
+        <!--widescreen-->
+        <div class="container hidden-xs hidden-sm">
             <div class="row">
                 <div class="col-md-4 hidden-sm hidden-xs ">
                     <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
-                </div>
-                <div class="col-xs-2  col-xs-3 visible-sm visible-xs">
-                    <a href="/"><img src="/img/logos/teflTv.png" class="text-left logo-sm" title="redirect to homepage"></a>
                 </div>
 
                 <div class="col-md-8 col-sm-10 text-right col-xs-10">
@@ -38,6 +36,18 @@
                     </div><!--/.row-->
                 </div><!--/.col-md-8-->
             </div><!--/.row-->
-        </div><!--/.container-->
+        </div><!--/.container widescrenn-->
+
+        <!--mobile-->
+        <div class="container visible-sm visible-xs">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12" style="border-bottom:1px solid #35435b;">
+                    <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
+                    <span style="position:absolute;top:0;right:0;">
+                         {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-upload')) }}
+                    </span>
+                </div>
+            </div><!--/.row-->
+        </div><!--/.container mobile-->
     </div>
 </div><!--/.brandingHeader-->
