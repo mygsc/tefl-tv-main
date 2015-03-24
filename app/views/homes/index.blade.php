@@ -211,7 +211,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($random->video_poster))
-							<img width="100%"  src="{{$recommended->poster_path}}">
+							<img width="100%"  src="{{$random->poster_path}}">
 						@else
 							<img width="100%" src="/img/thumbnails/video.png">
 						@endif

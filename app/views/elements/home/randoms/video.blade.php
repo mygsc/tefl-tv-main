@@ -1,5 +1,5 @@
 <h1>Videos</h1>
-@foreach($randomResults as $randomResult)
+@foreach($datas as $randomResult)
 <div class="col-md-3">
 	<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">
 		@if(file_exists($randomResult->video_poster))
@@ -14,7 +14,7 @@
 		<div class="count">
 			by: <a href="{{route('view.users.channel', array($randomResult->channel_name))}}">{{$randomResult->channel_name}}</a>
 			<br />
-			<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}} | <i class="fa fa-calendar"></i> {{$randomResult->created_at}}
+			<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($randomResult->created_at))}}
 		</div>
 
 	
