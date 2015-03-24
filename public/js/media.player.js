@@ -7,31 +7,33 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
  	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
- 	updProgWidth = 0, videoControls, volumeStatus;
+ 	updProgWidth = 0, videoControls, volumeStatus, playBtn, play, seekSlider;
 
+//this is the prefix of the function  
+var GSC;
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
-//var plusVol = document.getElementById('plus-vol').offsetHeight;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
-//var volume = $('#volume-vertical').height();
 var animate360 = document.getElementById('button-progress');
-$('#media-video').bind("contextmenu",function(){
-    return false;
-});
+
+//Events
 function GSCMediaPlayer(){
+	play = document.getElementById('play');
+	seekSlider = document.getElementById('seek-slider');
 	mediaPlayer = document.getElementById('media-video');
 	videoControls = document.getElementById('controls');
 	playPauseBtn = document.getElementById('play-pause');
 	replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
-	//progressBar = document.getElementById('progress-bar');
 	currentProgress =  document.getElementById('current-progress');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	volumeStatus = document.getElementById('volume');
 	mediaPlayer.controls = false;
+	play.addEventListener('click',PlayOrPause, false);
+	seekSlider.addEventListener('change',vidSeek, false);
 	// Add a listener for the timeupdate event so we can update the progress bar
-	mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
+	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false);
 	// Add a listener for the play and pause events so the buttons state can be updated
 	mediaPlayer.addEventListener('play', function() {
 		// Change the button to be a pause button
@@ -47,9 +49,8 @@ function GSCMediaPlayer(){
 		if (mediaPlayer.muted) changeButtonType(muteBtn, 'unmute');
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
-	mediaPlayer.addEventListener('ended', function() { 
-		//mediaPlayer.pause(); 
-		mediaPlayer.currentTime=0;
+	mediaPlayer.addEventListener('ended', function(){ 
+		play.innerHTML='&#9658;';
 		playPauseBtn.src = "/img/icons/play.png";}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function() {
@@ -60,9 +61,36 @@ function GSCMediaPlayer(){
 	volumeStatus.addEventListener('change', setVolume, false);
 }
 
-// mediaPlayer.addEventListener('mouseout', function() { 
-// 			videoControls.style.opacity = 0; 
-// 		}, false); 
+function disabledRightClick(){
+	$('#media-video').bind("contextmenu", function(){
+    return false;
+	});
+  }
+
+
+$('#media-video').bind('ended', function(){
+     if(!this.paused) this.pause();
+});
+
+function PlayOrPause(){
+	if(mediaPlayer.paused){
+		mediaPlayer.play();
+		play.innerHTML = '&#10074;&#10074;';
+		$('div.play-icon').fadeOut();
+	}else{
+		mediaPlayer.pause();
+		play.innerHTML = '&#9658;';
+		$('div.play-icon').fadeIn(500);
+	}
+}
+function vidSeek(){
+	var seekTo = mediaPlayer.duration * (seekSlider.value / 100);
+	mediaPlayer.currentTime = seekTo;
+}
+function seekTimeUpdate(){
+	var currentSeek = mediaPlayer.currentTime * (100 / mediaPlayer.duration);
+	seekSlider.value = currentSeek;
+}
 
 document.addEventListener("keydown", function(e) {
   if (e.keyCode == 32) {
@@ -261,18 +289,14 @@ function updateProgressBar(response) {
 					// 	$('#play-pause').addClass('play').removeClass('pause');
 					// 	playPauseBtn.src = "/img/icons/play.png";
 					// 	videoPlaying=false;
-					// 	stopPlayer();
 					// 	$('.advertisement').fadeOut();
 					// 	$('.play-icon').fadeIn(500);
 					// }
-							
-					
+						
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
-					}
-					//mediaPlayer.onwaiting = function() {alert('waiting');}
+					}	
 
-		
 }
 
 // Updates a button's title, innerHTML and CSS class to a certain value
@@ -393,22 +417,22 @@ function LetProcessYourVolume(e){
 		}
 }
 
-$('#progressbar').bind('mousedown', function(e) {	
+// $('#progressbar').bind('mousedown', function(e) {	
 
-	progressbarClick = true;
-	mouseX = e.pageX - $('#current-progress').offset().left;
-	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	//alert(Math.floor(currentTime));
-	mediaPlayer.currentTime = Math.floor(currentTime);
-	// if(videoPlaying == true) {
-	// 		togglePlayPause();
-	// 		playPauseBtn.src = "/img/icons/play.png";
-	// 		$('.play-icon').fadeIn(500);
-	// 		mediaPlayer.currentTime = Math.floor(currentTime);
-	// 		mouseX = e.pageX - $('#current-progress').offset().left;
-	// 		mediaPlayer.pause();
-	// 	}				
-});
+// 	progressbarClick = true;
+// 	mouseX = e.pageX - $('#current-progress').offset().left;
+// 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
+// 	mediaPlayer.currentTime = Math.floor(currentTime);
+
+// 	// if(videoPlaying == true) {
+// 	// 		togglePlayPause();
+// 	// 		playPauseBtn.src = "/img/icons/play.png";
+// 	// 		$('.play-icon').fadeIn(500);
+// 	// 		mediaPlayer.currentTime = Math.floor(currentTime);
+// 	// 		mouseX = e.pageX - $('#current-progress').offset().left;
+// 	// 		mediaPlayer.pause();
+// 	// 	}				
+// });
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');
