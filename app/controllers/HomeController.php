@@ -146,6 +146,9 @@ class HomeController extends BaseController {
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
 	}
+	public function getWatchPlaylist(){
+		return View::make('users.watchplaylist');
+	}
 
 	public function postSignIn() {
 		$input = Input::all();
