@@ -41,8 +41,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
+	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
 	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
-	
 	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
@@ -92,7 +92,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
 	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
-	Route::get('watchplaylist', array('as'=>'users.watchplaylist', 'uses'=>'UserController@getWatchPlaylist'));
+
 
 });
 //*********End of Channels************//

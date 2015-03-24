@@ -116,9 +116,8 @@ class HomeController extends BaseController {
 				(SELECT * FROM playlists_items AS i
 					WHERE i.playlist_id = p.id
 					AND
-					i.video_id = '".$id."'
-					AND
-					p.user_id = '".Auth::User()->id."')");
+					i.video_id = '".$id."')
+				AND p.user_id = '".Auth::User()->id."'");
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
@@ -144,6 +143,36 @@ class HomeController extends BaseController {
 				->where('comments.video_id', $videoId)->get();
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
+	}
+	public function getWatchPlaylist($videoId,$playlistId){
+		$playlistId = Crypt::decrypt($playlistId);
+		$video = Video::where('file_name',$videoId)->first();
+		$owner = User::find($video->user_id);
+		$itemId = PlaylistItem::where('video_id',$video->id)
+								->where('playlist_id',$playlistId)->first();
+		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			AND i.playlist_id = '".$playlistId."'
+			AND i.id > '".$itemId->id."'
+			ORDER BY i.id asc
+			LIMIT 1;");
+		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			AND i.playlist_id = '".$playlistId."'
+			AND i.id < '".$itemId->id."'
+			ORDER BY i.id desc
+			LIMIT 1;");
+		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$playlistId."'
+			");
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA'));
 	}
 
 	public function postSignIn() {
