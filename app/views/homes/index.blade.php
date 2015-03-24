@@ -43,10 +43,6 @@
 			
 				<span class="pull-right">
 					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
-
-					
-						
-					
 					<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 						<div class="volume" style="display:none">
 						<input id="volume" type="range" min="0" max="100" value="100">
@@ -101,11 +97,11 @@
 
 			<div class="col-md-4">
                 <div class="row">
-                    <div class="ad1 col-md-12 col-sm-6" style="margin-bottom:20px;">
+                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
                         <img src="/img/thumbnails/ad1.jpg" class="adDiv">
                     </div><!--/.ad1-->
                     
-                    <div class="ad2 col-md-12 col-sm-6">
+                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
                         <img src="/img/thumbnails/ad2.jpg" class="adDiv">
                    </div><!--/.ad2-->
                 </div><!--/.row of col4-->
@@ -117,7 +113,7 @@
 		<br/>
 		<!--RECOMMENDED VIDEOS SECTION -->
 		<div class="row">
-			<div class="categoryHead">
+			<div class="categoryHead" style="width:99%!Important">
 
 	            <h3>Recommended Videos</h3>
 	      	</div><!--/.recommended video-->
@@ -215,7 +211,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($random->video_poster))
-							<img width="100%"  src="{{$recommended->poster_path}}">
+							<img width="100%"  src="{{$random->poster_path}}">
 						@else
 							<img width="100%" src="/img/thumbnails/video.png">
 						@endif

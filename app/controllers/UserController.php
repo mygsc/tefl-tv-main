@@ -60,7 +60,7 @@ class UserController extends BaseController {
 		$data = array(
 			'url' => route('homes.get.verify', $generateToken),
 			'first_name' => $getUserInfo->first_name
-		);
+			);
 
 		Mail::send('emails.users.verify', $data, function($message) {
 			$getUserInfo = User::where('channel_name', Input::get('channel_name'))->first();
@@ -101,6 +101,63 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postForgotPassword(){
+		$generateToken = Crypt::encrypt(Input::get('email') + rand(10,100));
+
+		$validator = Validator::make(
+			array('email' => Input::get('email')),
+			array('email' => 'required|email'));	
+
+		$findUser = User::where('email', Input::get('email'))->get();
+		if($validator->fails() || $findUser->isEmpty()){
+			return Redirect::route('homes.signin')->with('flash_message', 'Please enter a valid E-mail address');
+		}
+
+		$data = array(
+			'url' => route('homes.resetpassword', $generateToken),
+			'first_name' => Input::get('first_name'));
+
+		Mail::send('emails.users.forgotpassword', $data, function($message) {
+			$getUserInfo = User::where('email', Input::get('email'))->first();
+			$message->to($getUserInfo->email)->subject('TEFL-TV forgot password');
+		});
+
+		$user = User::find($findUser->first()->id);
+		$user->token = $generateToken;
+		$user->save();
+
+		return Redirect::route('homes.signin')->with('flash_message', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
+
+	}
+
+	public function getResetPassword($token = null){
+		$findUser = User::where('token', $token)->get();
+
+		if($findUser->isEmpty()){
+			return app::abort(404, 'Page not available');
+		}
+		$userInfo = $findUser->first();
+
+		return View::make('homes.resetpassword', compact(array('userInfo','token')));
+		
+	}
+
+	public function postResetPassword(){
+		$input = Input::all();
+		$user_id = Crypt::decrypt($input['uid']);
+		$validator = Validator::make(
+			array('password' => $input['password'],
+				'password_confirmation' => $input['password_confirmation']),
+			array('password' => 'required|min:6', 'password_confirmation' => 'same:password'));
+
+		if(!$validator->fails()){
+			if($this->User->renewPassword($input['password'], $user_id) === true){
+				return Redirect::route('homes.signin')->with('flash_message', 'Password has been renewed');
+			}
+		}
+		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
+	}
+
 	public function getVerify($token = null){
 		if(!empty($token)){
 			$findUser = User::where('token', $token)->get();
@@ -127,27 +184,24 @@ class UserController extends BaseController {
 
 	public function getTopChannels(){
 		$auth = Auth::user();
-		$topChannels = DB::select('select users.id, users.channel_name, 
-			videos.user_id, sum(videos.views) as total
-			from videos inner join users on 
-			videos.user_id = users.id 
-			group by user_id 
-			order by total DESC
-			LIMIT 10');
 
-		foreach($topChannels as $key => $channels){
+		$datas = $this->User->getTopChannels();
+
+		//Insert additional data to $datas
+		foreach($datas as $key => $channels){
 			$img = 'img/user/'. $channels->id. '.jpg';
 			if(!empty($auth)){
-				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
 			}
 			if(!file_exists('public/'.$img)){
 				$img = 'img/user/0.jpg';
 			}
-			$topChannels[$key]->image_src = $img;
-			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+			$datas[$key]->image_src = $img;
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
+		//End of insert
 
-		return View::make('homes.topchannels', compact(array('topChannels','auth')));
+		return View::make('homes.topchannels', compact(array('datas','auth')));
 	}
 
 	public function getMoreTopChannels(){
@@ -161,10 +215,14 @@ class UserController extends BaseController {
 
 		foreach($topChannels as $key => $channels){
 			$img = 'img/user/'. $channels->id. '.jpg';
+			if(!empty($auth)){
+				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+			}
 			if(!file_exists('public/'.$img)){
 				$img = 'img/user/0.jpg';
 			}
 			$topChannels[$key]->image_src = $img;
+			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
@@ -188,7 +246,7 @@ class UserController extends BaseController {
 			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
 			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
 		}
-	
+
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		foreach($subscriptions as $subscription) {
@@ -202,7 +260,7 @@ class UserController extends BaseController {
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
 		// return $recentUpload;
 
-	 	return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite')); 
+		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -244,7 +302,7 @@ class UserController extends BaseController {
 			$validate = Validator::make(array('image' => Input::file('coverPhoto')), array('image' => 'image|mimes:jpg,jpeg,png'));
 
 			if($validate->passes()) {
-			
+
 				$filename = Input::file('coverPhoto')->getClientOriginalName();
 
 				$coverPhoto = public_path('img/user/cover_photo') . Auth::User()->id . '.jpg';
@@ -304,26 +362,26 @@ class UserController extends BaseController {
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
 
-		$findUserWebsite = Website::where('user_id',9)->first();
-		
-		if(isset($findUserWebsite)){
-			$userWebsite = new Website;
-			$userWebsite->user_id = Auth::User()->id;
-			$userWebsite->facebook = Input::get('facebook');
-			$userWebsite->twitter = Input::get('twitter');
-			$userWebsite->instagram = Input::get('instagram');
-			$userWebsite->gmail = Input::get('gmail');
-			$userWebsite->others = Input::get('others');
-			$userWebsite->save();
-		}else{
-			$userWebsite = Website::where('user_id',Auth::User()->id)->first();
-			$userWebsite->facebook = Input::get('facebook');
-			$userWebsite->twitter = Input::get('twitter');
-			$userWebsite->instagram = Input::get('instagram');
-			$userWebsite->gmail = Input::get('gmail');
-			$userWebsite->others = Input::get('others');
-			$userWebsite->save();
-		}
+			$findUserWebsite = Website::where('user_id',9)->first();
+
+			if(isset($findUserWebsite)){
+				$userWebsite = new Website;
+				$userWebsite->user_id = Auth::User()->id;
+				$userWebsite->facebook = Input::get('facebook');
+				$userWebsite->twitter = Input::get('twitter');
+				$userWebsite->instagram = Input::get('instagram');
+				$userWebsite->gmail = Input::get('gmail');
+				$userWebsite->others = Input::get('others');
+				$userWebsite->save();
+			}else{
+				$userWebsite = Website::where('user_id',Auth::User()->id)->first();
+				$userWebsite->facebook = Input::get('facebook');
+				$userWebsite->twitter = Input::get('twitter');
+				$userWebsite->instagram = Input::get('instagram');
+				$userWebsite->gmail = Input::get('gmail');
+				$userWebsite->others = Input::get('others');
+				$userWebsite->save();
+			}
 		}else{
 			return Redirect::route('users.edit.channel')->withErrors($validate);
 		}
@@ -447,15 +505,15 @@ class UserController extends BaseController {
 	}
 
 	public function postWatchLater() {
-	$user_id = Input::get('user_id');
-	$video_id = Input::get('video_id');
-	$database_userid = WatchLater::where('user_id', $user_id)->first();
-	$database_videoid = WatchLater::where('video_id', $video_id)->first();
+		$user_id = Input::get('user_id');
+		$video_id = Input::get('video_id');
+		$database_userid = WatchLater::where('user_id', $user_id)->first();
+		$database_videoid = WatchLater::where('video_id', $video_id)->first();
 
-	if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
-		
-		$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
-	}
+		if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
+
+			$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+		}
 
 	}
 
@@ -480,13 +538,13 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				INNER JOIN videos v ON i.video_id = v.id
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE i.playlist_id = '".$id."'");
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$id."'");
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
-	
+
 	}
 
 	public function getFeedbacks() {
@@ -513,17 +571,17 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
-			
-			foreach ($subscribers as $subscriber) {
-				$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-				$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
-			}
+
+		foreach ($subscribers as $subscriber) {
+			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+		}
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 
-			foreach($subscriptions as $subscription) {
-				$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-			}
+		foreach($subscriptions as $subscription) {
+			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
+		}
 		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos'));
 	}
 
@@ -614,12 +672,12 @@ class UserController extends BaseController {
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists'));
 	}
 	public function addSubscriber() {
-        $user_id = Input::get('user_id');
-        $subscriber_id = Input::get('subscriber_id');
-        $status = Input::get('status');
+		$user_id = Input::get('user_id');
+		$subscriber_id = Input::get('subscriber_id');
+		$status = Input::get('status');
 
-        if($status == 'subscribeOn'){
-        	$subscribe = new Subscribe;
+		if($status == 'subscribeOn'){
+			$subscribe = new Subscribe;
 			$subscribe->user_id = $user_id;
 			$subscribe->subscriber_id = $subscriber_id;
 			$subscribe->save();
@@ -629,97 +687,97 @@ class UserController extends BaseController {
 			//End notifications			
 
 			return Response::json(array(
-                'status' => 'subscribeOff',
-                'label' => 'Unsubscribe'
-            ));
-        }
-        if($status == 'subscribeOff'){
-        	$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
-        	return Response::json(array(
-                'status' => 'subscribeOn',
-                'label' => 'Subscribe'
-        	));
-        }
-    }
-    public function addPlaylist($id){
-    	$id = Crypt::decrypt($id);
-    	$name = Input::get('name');
-    	$description = Input::get('description');
-    	$privacy = Input::get('privacy');
-    	$user_id = Auth::User()->id;
-    	$duplicateValidator = Playlist::where('name','=',$name)
-    									->where('user_id','=',Auth::User()->id);
-    	$duplicate = Playlist::where('name','=',$name)
-    							->where('user_id','=',Auth::User()->id)->first();	
-    	if($duplicateValidator->count()){
-    		$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
-    										->where('video_id','=',$id);
-    		if(!$playlistDuplicate->count()){
-    			PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
-    		}
-    	}else{
-	    	$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
-	    	$playlistID = $createPlaylist->id;
-	    	PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
-    	}
-    }
-    public function addChkBoxPlaylist($id){
-    	$id = Crypt::decrypt($id);
-    	$playlistId = Crypt::decrypt(Input::get('value'));
-    	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
-    }
-    public function removePlaylist($id){
-    	$id = Crypt::decrypt($id);
-    	$playlistId = Crypt::decrypt(Input::get('value'));
-    	$counter = PlaylistItem::where('video_id','=',$id)
-    									->where('playlist_id','=',$playlistId);
-    	if($counter->count()){
-	    	$playlistItem = PlaylistItem::where('video_id','=',$id)
-	    									->where('playlist_id','=',$playlistId)->first();
-	    	$playlistItem->delete();
-  		}
-    }
-    public function addToFavorites($id){
-    	$id = Crypt::decrypt($id);
-    	$counter = Favorite::where('user_id','=',Auth::User()->id)
-    						->where('video_id','=',$id);
-    	if(!$counter->count()){
+				'status' => 'subscribeOff',
+				'label' => 'Unsubscribe'
+				));
+		}
+		if($status == 'subscribeOff'){
+			$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
+			return Response::json(array(
+				'status' => 'subscribeOn',
+				'label' => 'Subscribe'
+				));
+		}
+	}
+	public function addPlaylist($id){
+		$id = Crypt::decrypt($id);
+		$name = Input::get('name');
+		$description = Input::get('description');
+		$privacy = Input::get('privacy');
+		$user_id = Auth::User()->id;
+		$duplicateValidator = Playlist::where('name','=',$name)
+		->where('user_id','=',Auth::User()->id);
+		$duplicate = Playlist::where('name','=',$name)
+		->where('user_id','=',Auth::User()->id)->first();	
+		if($duplicateValidator->count()){
+			$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
+			->where('video_id','=',$id);
+			if(!$playlistDuplicate->count()){
+				PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
+			}
+		}else{
+			$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+			$playlistID = $createPlaylist->id;
+			PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
+		}
+	}
+	public function addChkBoxPlaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlistId = Crypt::decrypt(Input::get('value'));
+		PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
+	}
+	public function removePlaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlistId = Crypt::decrypt(Input::get('value'));
+		$counter = PlaylistItem::where('video_id','=',$id)
+		->where('playlist_id','=',$playlistId);
+		if($counter->count()){
+			$playlistItem = PlaylistItem::where('video_id','=',$id)
+			->where('playlist_id','=',$playlistId)->first();
+			$playlistItem->delete();
+		}
+	}
+	public function addToFavorites($id){
+		$id = Crypt::decrypt($id);
+		$counter = Favorite::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
 			Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
 		}
 	}
 	public function removeToFavorites($id){
 		$id = Crypt::decrypt($id);
 		$counter = Favorite::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id);
+		->where('video_id','=',$id);
 		if($counter->count()){
 			$favorite = Favorite::where('user_id','=',Auth::User()->id)
-								->where('video_id','=',$id)->first();
+			->where('video_id','=',$id)->first();
 			$favorite->delete();
 		}					
 	}
 	public function addToWatchLater($id){
 		$id = Crypt::decrypt($id);
 		$counter = WatchLater::where('user_id','=',Auth::User()->id)
-    						->where('video_id','=',$id);
-    	if(!$counter->count()){
+		->where('video_id','=',$id);
+		if(!$counter->count()){
 			$watchLater = WatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
 		}
 	}
 	public function removeToWatchLater($id){
 		$id = Crypt::decrypt($id);
 		$counter = WatchLater::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id);
+		->where('video_id','=',$id);
 		if($counter->count()){					
 			$favorite = WatchLater::where('user_id','=',Auth::User()->id)
-								->where('video_id','=',$id)->first();
+			->where('video_id','=',$id)->first();
 			$favorite->delete();
 		}			
 	}
 	public function likeVideo($id){
 		$id = Crypt::decrypt($id);
 		$counter = Like::where('user_id','=',Auth::User()->id)
-    						->where('video_id','=',$id);
-    	if(!$counter->count()){
+		->where('video_id','=',$id);
+		if(!$counter->count()){
 			$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
 		}
 	}
@@ -727,10 +785,10 @@ class UserController extends BaseController {
 	public function unlikeVideo($id){
 		$id = Crypt::decrypt($id);
 		$counter = Like::where('user_id','=',Auth::User()->id)
-							->where('video_id','=',$id);
+		->where('video_id','=',$id);
 		if($counter->count()){
 			$unlike = Like::where('user_id','=',Auth::User()->id)
-								->where('video_id','=',$id)->first();
+			->where('video_id','=',$id)->first();
 			$unlike->delete();
 		}
 	}
@@ -750,8 +808,8 @@ class UserController extends BaseController {
 	}
 
 	public function postCountNotification(){
-		//$user_id = Crypt::decrypt(Input::get('uid'));
-		$user_id = 3;
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		//$user_id = 3;
 		$notifications =  $this->Notification->getNotifications($user_id, 0);
 
 		return $notifications;

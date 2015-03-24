@@ -51,4 +51,6 @@
 		});
 </script>
 
+@yield('modal')
+
 </html>

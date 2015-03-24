@@ -21,9 +21,9 @@ $(document).ready(function() {
 			cache: false, 
         	data: $(this).serialize(),//{
         	success: function(data){
-        		$('input[name=status]').val(data['status']);
-        		$('input[id=subscribebutton]').val(data['label']);
-        		// alert(data['status']);
+        		$(this).val(data['status']);
+        		$(this).val(data['label']);
+        		 //alert(data['status']);
         		// window.location.href = 'search/product?'+q;
             }
         });

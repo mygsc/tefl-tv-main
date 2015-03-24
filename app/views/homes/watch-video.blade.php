@@ -187,8 +187,8 @@
 @stop
 
 @section('script')
+{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
-{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/comment.js')}}
 @stop

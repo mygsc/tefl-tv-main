@@ -4,7 +4,8 @@ class VideoController extends Controller {
 	protected $user;
 	protected $tmpImg;
 	protected $thumbImg;
-	public function __construct(Video $videos, User $users, Playlist $playlists){
+	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers){
+		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
@@ -42,20 +43,20 @@ class VideoController extends Controller {
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
-					$ext = $file->getClientOriginalExtension();
-					$videoFolderPath = $destinationPath. DS. $encrypt_name;
-					if(!file_exists($videoFolderPath)){
-						mkdir($videoFolderPath);
-					}
-					$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
-			return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
+				$ext = $file->getClientOriginalExtension();
+				$videoFolderPath = $destinationPath. DS. $encrypt_name;
+				if(!file_exists($videoFolderPath)){
+					mkdir($videoFolderPath);
+				}
+				$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
+				return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
+			}
 		}
-	}
-	return Redirect::route('get.upload')
+		return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
-}
+	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){
@@ -68,10 +69,11 @@ class VideoController extends Controller {
 			Video::where('file_name', $fileName)->delete();
 			return Redirect::route('get.upload', '=cancelled');
 		}
-			
+
 
 	}
 	public function delete_directory($dirname) {
+
          if (is_dir($dirname))
            $dir_handle = opendir($dirname);
 	 if (!$dir_handle)
@@ -103,68 +105,68 @@ class VideoController extends Controller {
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
-						
-				if($validator->passes()){
-					if(Input::hasFile('poster')){
-						$tags = explode(',',Input::get('tags'));
-						foreach($tags as $tag){
-							if($tag != null){
-								$newTags[] = strtolower($tag);
-							}
-						}
-						$posterExt = $poster->getClientOriginalExtension();
+
+		if($validator->passes()){
+			if(Input::hasFile('poster')){
+				$tags = explode(',',Input::get('tags'));
+				foreach($tags as $tag){
+					if($tag != null){
+						$newTags[] = strtolower($tag);
+					}
+				}
+				$posterExt = $poster->getClientOriginalExtension();
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						//$poster->move($destinationPath, $fileName.'.jpg');
-						Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
-						$uniqueTag = array_unique($newTags);
-						$implodeTag = implode(',',$uniqueTag);
-						$video = Video::find($id);
-						$uploadedVid = $video->uploaded;
-							if($uploadedVid==0){
-								$video->total_time = Input::get('totalTime');
-								$video->title = Input::get('title');
-								$video->description = Input::get('description');
-								$video->publish = Input::get('publish');
-								$video->tags =  $implodeTag;
-								$video->uploaded =  1;
-								$video->save();
-								return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
-							}
-							return Redirect::route('homes.index');
-						
-					}else{
-						$getImage = $thumbnailSelected;
-						$getImage = str_replace('data:image/png;base64,', '', $getImage);
-						$getImage = str_replace(' ', '+', $getImage);
-						$decodeImage = base64_decode($getImage);
-						$saveImage = $destinationPath.$fileName.".jpg";
-						$success = file_put_contents($saveImage, $decodeImage);
-						Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
-						$tags = explode(',',Input::get('tags'));
-						foreach($tags as $tag){
-							if($tag != null){
-								$newTags[] = strtolower($tag);
-							}
-						}
-						$uniqueTag = array_unique($newTags);
-						$implodeTag = implode(',',$uniqueTag);
-						$video = Video::find($id);
-						$uploadedVid = $video->uploaded;
-							if($uploadedVid==0){
-								$video->total_time = Input::get('totalTime');
-							$video->title = Input::get('title');
-							$video->description = Input::get('description');
-							$video->publish = Input::get('publish');
-							$video->tags =  $implodeTag;
-							$video->uploaded =  1;
-							$video->save();
-							return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
-							}
-							return Redirect::route('homes.index');
-						
-					}					
+				Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
+				$uniqueTag = array_unique($newTags);
+				$implodeTag = implode(',',$uniqueTag);
+				$video = Video::find($id);
+				$uploadedVid = $video->uploaded;
+				if($uploadedVid==0){
+					$video->total_time = Input::get('totalTime');
+					$video->title = Input::get('title');
+					$video->description = Input::get('description');
+					$video->publish = Input::get('publish');
+					$video->tags =  $implodeTag;
+					$video->uploaded =  1;
+					$video->save();
+					return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
 				}
-			
+				return Redirect::route('homes.index');
+
+			}else{
+				$getImage = $thumbnailSelected;
+				$getImage = str_replace('data:image/png;base64,', '', $getImage);
+				$getImage = str_replace(' ', '+', $getImage);
+				$decodeImage = base64_decode($getImage);
+				$saveImage = $destinationPath.$fileName.".jpg";
+				$success = file_put_contents($saveImage, $decodeImage);
+				Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
+				$tags = explode(',',Input::get('tags'));
+				foreach($tags as $tag){
+					if($tag != null){
+						$newTags[] = strtolower($tag);
+					}
+				}
+				$uniqueTag = array_unique($newTags);
+				$implodeTag = implode(',',$uniqueTag);
+				$video = Video::find($id);
+				$uploadedVid = $video->uploaded;
+				if($uploadedVid==0){
+					$video->total_time = Input::get('totalTime');
+					$video->title = Input::get('title');
+					$video->description = Input::get('description');
+					$video->publish = Input::get('publish');
+					$video->tags =  $implodeTag;
+					$video->uploaded =  1;
+					$video->save();
+					return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+				}
+				return Redirect::route('homes.index');
+
+			}					
+		}
+
 			// delete unselected thumbnail move, and rename 
 			// File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
 			// File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
@@ -183,23 +185,37 @@ class VideoController extends Controller {
 	}
 
 	public function getRandom($category = null){
+		$auth = Auth::user();
 		$options = array('video' => 'video','playlist' => 'playlist', 'channel' => 'channel');
 
-		$randomResults = $this->Video->getVideoByCategory('random', 16);	//Default Value of randomResults
+		$datas = $this->Video->getVideoByCategory('random', 16);	//Default Value of randomResults
 		$type = 'video';
+
 		if(!empty($category)){	//Check if there is a specified category
 			if($category == 'channel'){
-				$randomResults = $this->User->getRandomChannels();
-				$type = $category;
+
+				$datas = $this->User->getRandomChannels();
+				
+				foreach($datas as $key => $channels){
+					$img = 'img/user/'. $channels->id. '.jpg';
+					if(!empty($auth)){
+						$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+					}
+					if(!file_exists('public/'.$img)){
+						$img = 'img/user/0.jpg';
+					}
+					$datas[$key]->image_src = $img;
+					$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+				}
 			}
 
 			if($category == 'playlist'){
-				$randomResults = $this->Playlist->getRandomPlaylist();
-				$type = $category;
+				$datas = $this->Playlist->getRandomPlaylist();
 			}
+			$type = $category;
 		}
-		
-		return View::make('homes.random', compact(array('options','randomResults','type')));
+
+		return View::make('homes.random', compact(array('options','datas','type','auth')));
 	}
 
 	public function postRandom(){
@@ -226,18 +242,18 @@ class VideoController extends Controller {
 			
 		}else{
 			$longwords = 'SELECT DISTINCT v.id,v.user_id,u.channel_name, v.title,v.description,
-				v.tags,v.views,v.likes,v.publish,
-				v.report_count,v.deleted_at,v.created_at
-				FROM videos v 
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE
-				v.deleted_at IS NULL
-				AND
-				publish ="1"
-				AND
-				report_count < "5"
-				AND
-				MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)';
+			v.tags,v.views,v.likes,v.publish,
+			v.report_count,v.deleted_at,v.created_at
+			FROM videos v 
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE
+			v.deleted_at IS NULL
+			AND
+			publish ="1"
+			AND
+			report_count < "5"
+			AND
+			MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)';
 
 			$searchResults = DB::select($longwords);
 			if(strlen($search) < 3){
@@ -263,8 +279,8 @@ class VideoController extends Controller {
 		foreach($searchResults as $key => $searchResult){
 			$getTags = explode(',',$searchResult->tags);
 			foreach($getTags as $key2 => $getTags){
-			$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array($getTags));
-			$searchResults[$key]->tag[$key2]['tags'] = $getTags;
+				$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array($getTags));
+				$searchResults[$key]->tag[$key2]['tags'] = $getTags;
 			}
 		}
 

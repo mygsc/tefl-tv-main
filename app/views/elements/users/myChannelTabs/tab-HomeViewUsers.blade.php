@@ -60,17 +60,17 @@
 			@foreach($findVideos as $findVideo)
 			<div class="col-md-4">
 				<div class="row">
-				<div class="">
-					<video controls height="auto" width="100%" class="h-video">
-					<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
-					</video>
-				</div>
-				<div class="v-Info">
-					{{$findVideo->title}}
-				</div>
-				<div class="count">
-					{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-				</div>
+					<div class="">
+						<video controls height="auto" width="100%" class="h-video">
+							<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
+						</video>
+					</div>
+					<div class="v-Info">
+						{{$findVideo->title}}
+					</div>
+					<div class="count">
+						{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+					</div>
 				</div>
 			</div>
 			@endforeach
@@ -109,7 +109,7 @@
 				</div>
 				@endforeach
 				@else
-					No Playlists yet
+					<p style="margin-left:20px;">No Playlists yet</p>
 				@endif
 			</div>
 		</div>
@@ -124,7 +124,7 @@
 			<br/>
 			<div class="row">
 			@if($subscribers->isEmpty())
-				No Subscriber yet
+				<p style="margin-left:50px;">No Subscriber yet</p>
 			@else
 				@foreach($subscribers as $subscriber)
 				<div class="col-md-6">
@@ -157,7 +157,7 @@
 			<br/>
 			<div class="row">
 				@if($subscriptions->isEmpty())
-					No subscription yet
+					<p style="margin-left:50px;">No subscription yet</p>
 				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
