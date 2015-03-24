@@ -43,7 +43,9 @@ margin: 10px;
 				<div class="well">
 					<div class="row">
 						<div class="col-md-6">
+						<h3 style="text-align:center">Video Preview</h3>
 							<div class="embed-responsive embed-responsive-16by9 h-video">
+
 								<video preload="auto" width="400" id="media-video" controls poster="/img/thumbnails/video.png">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
@@ -54,16 +56,13 @@ margin: 10px;
 							<div class="col-sm-12" >
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								
-									<div id="screenshot">
-										<canvas class="thumb-1" id="img-thumb-1">
-											
-										</canvas>
-										<canvas class="thumb-2" id="img-thumb-2">
-											
-										</canvas>
-										<canvas class="thumb-3" id="img-thumb-3">
-											
-										</canvas>						
+									<div id="screenshot">				
+											<canvas class="thumb-1" id="img-thumb-1"></canvas>
+																
+											<canvas class="thumb-2" id="img-thumb-2"></canvas>
+																													
+											<canvas class="thumb-3" id="img-thumb-3"></canvas>
+																															
 									</div>
 									<center>
 										<small>Or select desire thumbnail:</small><br>
