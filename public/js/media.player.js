@@ -15,6 +15,10 @@ var GSC;
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
+<<<<<<< HEAD
+=======
+
+>>>>>>> b3473582efb47059f7d9c4105ca324e37e40d5ae
 var animate360 = document.getElementById('button-progress');
 
 //Events
@@ -59,6 +63,7 @@ function GSCMediaPlayer(){
 	adsOn();
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
+
 }
 
 function disabledRightClick(){
@@ -295,7 +300,8 @@ function updateProgressBar(response) {
 						
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
-					}	
+					}
+
 
 }
 

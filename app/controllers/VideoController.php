@@ -58,7 +58,7 @@ class VideoController extends Controller {
 		->with('message', 'There were validation errors.');
 	}
 	public function getCancelUploadVideo(){
-		$fileName = Session::pull('fileName');
+		$fileName = Session::get('fileName');
 		if(empty($fileName)){
 			return App::abort('404');
 		}
@@ -73,21 +73,22 @@ class VideoController extends Controller {
 
 	}
 	public function delete_directory($dirname) {
-		if (is_dir($dirname))
-			$dir_handle = opendir($dirname);
-		if (!$dir_handle)
-			return false;
-		while($file = readdir($dir_handle)) {
-			if ($file != "." && $file != "..") {
-				if (!is_dir($dirname."/".$file))
-					unlink($dirname."/".$file);
-				else
-					delete_directory($dirname.'/'.$file);
-			}
-		}
-		closedir($dir_handle);
-		rmdir($dirname);
-		return true;
+
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+	 if (!$dir_handle)
+	      return false;
+	 while($file = readdir($dir_handle)) {
+	       if ($file != "." && $file != "..") {
+	            if (!is_dir($dirname.DS.$file))
+	                 unlink($dirname.DS.$file);
+	            else
+	                 delete_directory($dirname.DS.$file);
+	       }
+	 }
+	 closedir($dir_handle);
+	 rmdir($dirname);
+	 return true;
 	}
 	public function getAddDescription($filename = null){
 		$videos = Video::where('file_name','=',$filename)->get();
@@ -116,7 +117,7 @@ class VideoController extends Controller {
 				$posterExt = $poster->getClientOriginalExtension();
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						//$poster->move($destinationPath, $fileName.'.jpg');
-				Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
+				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
 				$uniqueTag = array_unique($newTags);
 				$implodeTag = implode(',',$uniqueTag);
 				$video = Video::find($id);
@@ -140,7 +141,7 @@ class VideoController extends Controller {
 				$decodeImage = base64_decode($getImage);
 				$saveImage = $destinationPath.$fileName.".jpg";
 				$success = file_put_contents($saveImage, $decodeImage);
-				Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
+				$resizeImage = Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
 				$tags = explode(',',Input::get('tags'));
 				foreach($tags as $tag){
 					if($tag != null){
@@ -292,6 +293,8 @@ class VideoController extends Controller {
 		$video->views = $video->views+1;
 		$video->update();
 	}
+
+
 
 
 }

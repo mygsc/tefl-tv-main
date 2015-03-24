@@ -109,6 +109,10 @@ p.description_content{
   margin:0px;  
 } 
 
+.thumbnail{
+  width: 302px;
+  height: 170px;
+}
 .upPublish{
   background: #2e446d;
   border: 2px solid #8d9199;
@@ -612,7 +616,7 @@ img.user{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-   margin-top: 10px!important;
+   margin-top: 5px!important;
 
 
 }
@@ -869,7 +873,6 @@ img.editDp:hover{
 
 }
 img.userRep{
-
   border:#eee 2px solid;
   height:55px;
   width: 51px;
@@ -1006,9 +1009,10 @@ span.commentLink{
   position:absolute;
   right:15px;
   z-index:99;
-  background: rgba(255,255, 255, 0.4);
+  background: rgba(255,255, 255, 0.65);
   padding: 10px 10px;
   border-radius: 0 0 0 10px;
+  
 
 }
 
@@ -1542,10 +1546,20 @@ div.crop-square img {
    box-shadow: none!Important
 }
 
+.thumbnail{
+  width:302px;
+  height: 169px;
+}
+
+@media (max-width: 767px){
+  .thumbnail{
+  width:100%;
+  height:auto;
+}
+} 
 
 
-
-
+/*=====mobile navigation style=========*/
 
 
 

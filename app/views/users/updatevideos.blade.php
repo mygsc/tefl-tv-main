@@ -81,7 +81,9 @@
 								@endforeach
 							</div>
 							<br/>
-							{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
+							<div class="text-right"> 
+								{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
+							</div>
 					</div>
 			{{Form::close()}}
 
