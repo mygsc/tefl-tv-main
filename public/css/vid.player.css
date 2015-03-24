@@ -62,38 +62,7 @@
 		height:20px;
 		width:15px;
 	}
-	progress {
-		width: 100%;
-		height: 12px;
-		display: inline-block;
-		/* Important Thing */
-		-webkit-appearance: none;
-		border: none;
-		margin-bottom: 0;
-	}
-
-	/* All good till now. Now we'll style the background */
-	progress::-webkit-progress-bar{
-		background: black;
-		border-radius: 3px;
-		padding: 3px;
-		height: 10px;
-	}
-	/* Now the value part */
-	progress::-webkit-progress-value {
-		border-radius: 3px;
-		background: rgba(242,246,248,1);
-		background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-		background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(242,246,248,1)), color-stop(50%, rgba(216,225,231,1)), color-stop(51%, rgba(181,198,208,1)), color-stop(100%, rgba(224,239,249,1)));
-		background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-		background: -o-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-		background: -ms-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-		background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9', GradientType=0 );
-
-	}
-
-
+	
 
 div#progressbar{
 	width:100%;height:10px;background:#111111;padding:1px;border:2px solid #131313;margin-top: 5px;
@@ -119,6 +88,12 @@ div#progressbar #current-progress{
 	top: -11px;
 	margin-left: 10px;
 
+}div#buffered{
+	height: 100%;
+	position: absolute;
+	background: #777;
+	width: 0;
+	border-radius:5px;
 }
 .volume{
 	border-radius:5px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;

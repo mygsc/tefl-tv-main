@@ -24,14 +24,16 @@
 				 	<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>
 				</div>
-				<div class="play-icon">
+				<div class="play-icon" id ="play-icon">
 					<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper" id="controls">
 					<div id="progressbar">
-						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
+
+						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">
+						<div id="buffered"></div>			
 							<div id="current-progress">	
 								<div id="button-progress" class="progress-button">		
 								</div>	
