@@ -18,55 +18,63 @@
 	@endif
 	<div class="col-md-12 commentsarea">
 		@foreach($getVideoComments as $getVideoComment)
-		<div class="commentsarea row">
-			{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
-			| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
-			<br/>
-			<p style='margin-left:30px;text-align:justify;'>
-				{{$getVideoComment->comment}}
-			</p>
-			<br/>
+			<div class="commentsarea row">
+				{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
+				| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
+				<br/>
+				<p style='margin-left:30px;text-align:justify;'>
+					{{$getVideoComment->comment}}
+				</p>
+				<br/>
 
-			<!-- <button id='c'>Reply</button> -->
-			@if(isset(Auth::User()->id))
-				63 &nbsp; 
-				<span href="#" class='fa fa-thumbs-up' id="likedup">
-					<div id="likevalues">
-						<input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-						<input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-					</div>
-				</span>
-				|&nbsp;
-				23 &nbsp;<a href="#"><i class='fa fa-thumbs-down'></i></a>
-			@endif
-			<?php
-			$getCommentReplies = DB::table('comments_reply')
-			->join('users', 'users.id', '=', 'comments_reply.user_id')
-			->where('comment_id', $getVideoComment->id)->get(); 
-			?>
-
-			|&nbsp;<span class="repLink hand blueC">Reply</span>
-
-
-			<div id="replysection" class="panelReply">
-				<?php
-				foreach($getCommentReplies as $getCommentReply):
-					echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
-					echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
-					echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";
-				endforeach;
-				?>
+				<!-- <button id='c'>Reply</button> -->
 				@if(isset(Auth::User()->id))
-					{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-					{{Form::hidden('comment_id', $getVideoComment->id)}}
-					{{Form::hidden('user_id', Auth::User()->id)}}
-					{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-					{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-					{{Form::close()}} 
+					<!--like count-->
+					<?php
+						$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'like'))->count();
+						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'dislike'))->count();
+					?>
+					<!--like count-->
+					@if($likesCount != 0) {{$likesCount}} &nbsp; @endif
+
+					<div class='fa fa-thumbs-up likedup'>
+						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
+						<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
+						<input type="hidden" value="liked" name="status">
+					</div>
+					|&nbsp;
+					@if($dislikeCount != 0) {{$dislikeCount}} &nbsp; @endif
+					<a href="#"><i class='fa fa-thumbs-down'></i></a>
 				@endif
+				<?php
+					$getCommentReplies = DB::table('comments_reply')
+						->join('users', 'users.id', '=', 'comments_reply.user_id')
+						->where('comment_id', $getVideoComment->id)->get(); 
+				?>
+
+				|&nbsp;<span class="repLink hand blueC">Reply</span>
+
+
+				<div id="replysection" class="panelReply">
+					<?php
+					foreach($getCommentReplies as $getCommentReply):
+						echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+						echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
+						echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";
+						echo $getCommentReply->id;
+					endforeach;
+					?>
+					@if(isset(Auth::User()->id))
+						{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+							{{Form::hidden('comment_id', $getVideoComment->id)}}
+							{{Form::hidden('user_id', Auth::User()->id)}}
+							{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+							{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+						{{Form::close()}} 
+					@endif
+				</div>
 			</div>
-		</div>
-		<hr/>
+			<hr/>
 
 		@endforeach
 	</div>
