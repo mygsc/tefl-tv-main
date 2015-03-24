@@ -117,7 +117,7 @@ class VideoController extends Controller {
 				$posterExt = $poster->getClientOriginalExtension();
 						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
 						//$poster->move($destinationPath, $fileName.'.jpg');
-				Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
+				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
 				$uniqueTag = array_unique($newTags);
 				$implodeTag = implode(',',$uniqueTag);
 				$video = Video::find($id);
@@ -141,7 +141,7 @@ class VideoController extends Controller {
 				$decodeImage = base64_decode($getImage);
 				$saveImage = $destinationPath.$fileName.".jpg";
 				$success = file_put_contents($saveImage, $decodeImage);
-				Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
+				$resizeImage = Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
 				$tags = explode(',',Input::get('tags'));
 				foreach($tags as $tag){
 					if($tag != null){
