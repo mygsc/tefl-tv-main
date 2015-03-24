@@ -41,6 +41,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
+	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
 
 	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 });

@@ -90,7 +90,6 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
-			if(empty($token_id)) return Redirect::route('homes.index');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
@@ -216,8 +215,25 @@ class HomeController extends BaseController {
 			return Response::json(array('status' => 'success'));
         }
     }
+    public function addLiked(){
+		$likeCommentId = trim(Input::get('likeCommentId'));
+		$likeUserId = Input::get('likeUserId');
+		$status = Input::get('status');
 
-	public function testingpage(){
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty(trim($reply))){
+        	$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			return Response::json(array('status' => 'success'));
+        }
+    }
+
+	public function testingpage(){ 
 		define('DS', DIRECTORY_SEPARATOR);
 		$userFolderName = Auth::User()->id. '-'. Auth::User()->channel_name;
 		//return asset('videos/'. $userFolderName);
