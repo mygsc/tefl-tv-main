@@ -92,7 +92,9 @@
                                 <div class="well2">
                                     <div class="row">
                                         <div class="col-md-1">
+
                                             <img src="/img/user/u3.png" class="">
+
                                         </div>
                                         <div class="col-md-11">
                                             <h2 class="black">
@@ -132,6 +134,36 @@
                 </div>
                 <!--/search result-->
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
+
+                     <li class="ui-tabs-nav-item" id="">
+                        <a href="" id="">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/img/thumbnails/v1.jpg" />    
+                                </div>
+                                <div class="col-md-8">
+                                    <span>title</span><br/>
+                                    <span>by: </span><br/>
+                                    <small>date</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="ui-tabs-nav-item" id="" >
+                        <a href="" id=" " class="active">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/img/thumbnails/v1.jpg"/>    
+                                </div>
+                                <div class="col-md-8">
+                                    <span>title</span><br/>
+                                    <span>by: </span><br/>
+                                    <small>date</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="ui-tabs-nav-item" id="">
                         <a href="" id="">
                             <div class="row">
