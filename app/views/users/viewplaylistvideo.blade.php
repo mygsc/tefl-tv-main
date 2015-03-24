@@ -69,10 +69,11 @@
 						@if(empty($videos))
 							No videos available in {{$playlist->name}} playlist.
 						@else
+
 							@foreach($videos as $video)
 							<div class="row">						
 								<div class="col-md-2">
-									<a href="/watch={{$video->file_name}}"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
 								</div>
 								<div class="col-md-10">
 									<span class="pull-right" style="margin-right:20px;">
@@ -80,7 +81,7 @@
 										<button class="btn btn-default" title="remove from playlist" id="removeToplaylist{{$playlistCounter++}}" data-encrypt="{{Crypt::encrypt($video->playlist_id)}}" data-encrypt2 ="{{Crypt::encrypt($video->id)}}"><i class="fa fa-trash"></i></button>
 									
 									</span>
-									<a href="/watch={{$video->file_name}}"><p>{{$video->title}}</p></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}"><p>{{$video->title}}</p></a>
 									<small>{{$video->channel_name}}</small>
 								</div>
 							</div>

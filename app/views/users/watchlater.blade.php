@@ -1,51 +1,4 @@
 @extends('layouts.default')
-<style type="text/css">
- 
-.thumbnail {
-    position:relative;
-    overflow:hidden;
-}
-form{
-	display: inline;
-}
-.pad10 {
-    margin-bottom: 10px;}
- 
-.caption {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: none;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-.caption1 {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: block;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-
-
-.caption-inner {
-display: table;
-width: 100%;
-height: 100%;
-}
-.caption-content {
-vertical-align: middle;
-text-align: center;
-}
-
-</style>
 
 @section('content')
 <div class="row White">
@@ -111,13 +64,15 @@ text-align: center;
 									@if($watchLater->status==1)
 									<span title="Remove from watch later?" class="btn-sq">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
-											{{Form::open()}}
-												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
-											{{Form::close()}}
+											<span class="inline">
+												{{Form::open(array('class' => 'inline'))}}
+													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
 
 									</span>
 									@else
-									<span title="Remove from watch later?" class="btn-sq">		
+									<span title="Remove from watch later?" class="btn-sq inline">		
 											{{Form::open()}}
 												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 											{{Form::close()}}

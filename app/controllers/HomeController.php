@@ -89,7 +89,6 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
-			if(empty($token_id)) return Redirect::route('homes.index');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
@@ -102,9 +101,11 @@ class HomeController extends BaseController {
 			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
 			HAVING v.id!='".$id."'
 			AND v.report_count < 5
+			OR v.report_count IS NULL
 			AND v.publish = 1
 			AND v.deleted_at IS NULL;
 			");
+		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -115,9 +116,8 @@ class HomeController extends BaseController {
 				(SELECT * FROM playlists_items AS i
 					WHERE i.playlist_id = p.id
 					AND
-					i.video_id = '".$id."'
-					AND
-					p.user_id = '".Auth::User()->id."')");
+					i.video_id = '".$id."')
+				AND p.user_id = '".Auth::User()->id."'");
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
@@ -134,7 +134,6 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$like = null;
 		}
-
 		$likeCounter = Like::where('video_id','=',$id)->count();
 		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
@@ -143,7 +142,37 @@ class HomeController extends BaseController {
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 				->where('comments.video_id', $videoId)->get();
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
+	}
+	public function getWatchPlaylist($videoId,$playlistId){
+		$playlistId = Crypt::decrypt($playlistId);
+		$video = Video::where('file_name',$videoId)->first();
+		$owner = User::find($video->user_id);
+		$itemId = PlaylistItem::where('video_id',$video->id)
+								->where('playlist_id',$playlistId)->first();
+		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			AND i.playlist_id = '".$playlistId."'
+			AND i.id > '".$itemId->id."'
+			ORDER BY i.id asc
+			LIMIT 1;");
+		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			AND i.playlist_id = '".$playlistId."'
+			AND i.id < '".$itemId->id."'
+			ORDER BY i.id desc
+			LIMIT 1;");
+		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$playlistId."'
+			");
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA'));
 	}
 
 	public function postSignIn() {
@@ -215,8 +244,25 @@ class HomeController extends BaseController {
 			return Response::json(array('status' => 'success'));
         }
     }
+    public function addLiked(){
+		$likeCommentId = trim(Input::get('likeCommentId'));
+		$likeUserId = Input::get('likeUserId');
+		$status = Input::get('status');
 
-	public function testingpage(){
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty(trim($reply))){
+        	$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			return Response::json(array('status' => 'success'));
+        }
+    }
+
+	public function testingpage(){ 
 		define('DS', DIRECTORY_SEPARATOR);
 		$userFolderName = Auth::User()->id. '-'. Auth::User()->channel_name;
 		//return asset('videos/'. $userFolderName);

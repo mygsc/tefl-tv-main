@@ -1,11 +1,13 @@
 	<br/>
+	<div class="row">
 	@foreach($datas as $channel)
 
 	<div class="col-md-6">
 		<div class="well">
 			<div class="row">
 				<div class="col-md-4">
-					{{HTML::image($channel->image_src, '<img src="/img/user/0.png" class="userRep">')}}<br />
+					{{HTML::image($channel->image_src, '<img src="/img/user/0.png" class="userDp">', array('class' => 'userDp'))}}<br />
+
 				</div>
 				<div class="col-md-8">
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
@@ -48,13 +50,13 @@
 			</div><!--/.subscribers-->
 		</div><!--/.well-->
 	</div><!--/.col-md-6-->
-
-
-
 	@endforeach
+	</div>
 
 	<br>
 	<br>
-	<div class="text-center">
-		<a href="{{route('homes.more-top-channels')}}">Click here to view all top channels</a>
+	<div class="text-center row" style="">
+		<a href="{{route('homes.more-top-channels')}}"><b>Click here to view all top channels</b></a>
+
 	</div>
+	<br/>

@@ -55,4 +55,22 @@ $(document).ready(function(){
 		$("#replybutton").removeClass("hidden");
 		$("#replyLink").addClass("hidden");
 	});
+
+	$(".likedup").click(function() {
+		// var url = '$(this).prop('action')';
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: url,
+		// 	cache: false, 
+  //       	data: $(this).serialize(),//{
+  //       	success: function(data){
+  //       		$('input[name=status]').val(data['status']);
+  //       		$('input[id=subscribebutton]').val(data['label']);
+  //       		// alert(data['status']);
+  //       		// window.location.href = 'search/product?'+q;
+  //           }
+  //       });
+		
+		alert($(this).find('input[name=status]').val());
+	});
 }); 

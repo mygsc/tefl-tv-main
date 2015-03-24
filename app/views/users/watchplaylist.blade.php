@@ -4,9 +4,6 @@
 {{HTML::style('css/vid.player.css')}}
 @stop
 
-{{-- */$videourl = 1;/* --}}
-{{-- */$playlistCounter = 1;/* --}}
-{{-- */$playlistCounter2 = 1;/* --}}
 
 @section('content')
 
@@ -19,30 +16,28 @@
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
                             <p class="black">
-                                {{$videos->title}}
+                               {{$video->title}}
                             </p>
                             <!--video paler-->
-                            @include('elements/home/watchVideo-videoPlayer')
+                           <img src="/img/thumbnails/vp.png">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
                                         <br/>
                                         <span class="">
-                                            <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
-                                            @if(isset(Auth::User()->id))
-                                            @if(!empty($like))
+                                            <span id="views-counter">{{$video->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <span id="like-counter">12ike(s)</span>&nbsp;
+                                           
                                             <span id = "like-span">
                                                 <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
                                             </span>
-                                            @else
+                                        
                                             <span id = "like-span">
                                                 <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
                                             </span>
-                                            @endif
-                                            @else
+                                           
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            @endif
+                                           
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -60,8 +55,7 @@
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
-                                            @if(isset(Auth::User()->id))
+                                      
 
                                             <span class="dropdown" id="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -69,51 +63,22 @@
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
 
-                                                    @if(empty($favorites))
+                                                 
                                                     <li id="favotite-list"><p id="addToFavorites" style="cursor: pointer"><img src="img/icons/star.png"/>&nbsp;&nbsp;Favorites</p></li>
-                                                    @else
+                                                   
                                                     <li id="favotite-list"><p id="removeToFavorites" style="cursor: pointer"><img src="img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p></li>
-                                                    @endif
-                                                    @if(empty($watchLater))
+                                                    
                                                     <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
-                                                    @else
+                                                 
                                                     <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
-                                                    @endif
-                                                    <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
-
-                                                        @if(empty($playlists))
-                                                        <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
-                                                            @foreach($playlistNotChosens as $playlistNotChosen)
-                                                            <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
-                                                            @endforeach
-                                                        </ul>    
-                                                        @else
-                                                        {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
-                                                        <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
-                                                            @foreach($playlists as $playlist)
-                                                            <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
-                                                            @endforeach
-
-                                                            @if(!empty($playlistNotChosens))
-                                                            @foreach($playlistNotChosens as $playlistNotChosen)
-                                                            <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
-                                                            @endforeach
-                                                            @endif
-                                                        </ul>
-                                                        @endif   
-
-
-                                                        <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
+                                                  
+                                                      
+                                                        <ul></ul>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
 
-                                            @else
 
-                                            <a href="signin" role="button" aria-expanded="false">
-                                                <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
-                                            </a>
-                                            @endif
                                         </span><!--/links-->
                                     </div>
                                 </div><!--/.col-md-5-->
@@ -123,18 +88,20 @@
                                 <div class="well2">
                                     <div class="row">
                                         <div class="col-md-1">
+
                                             <img src="/img/user/u3.png" class="">
+
                                         </div>
                                         <div class="col-md-11">
                                             <h2 class="black">
-                                                <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Subscribers)</small>
+                                                <span>{{$owner->channel_name}}<small>(150,000 Followrs)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
-                                            <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
+                                            <p>Posted on <b>date</b> &nbsp; </p>
                                             <div class="seeVideoContent">
                                                 <p>
-                                                   {{$videos->description}}
+                                                 {{$video->description}}
                                                </p>
                                            </div>
                                        </div><!--./col-md-11-->
@@ -147,11 +114,6 @@
                     </div><!--well-->
                     <br/>
                 </div> <!--/.ui-tabs-panel-->
-                <!-- COMMENTS AREA -->
-                    @include('elements/home/videoComments')
-                <!-- COMMENTS AREA -->
-                @include('elements/home/uploaderLatestVideo')
-                <!-- latest -->
             </div><!--column 8-->
 
 
@@ -160,35 +122,68 @@
                 <!-- advertisment small -->
                 <!--/advertisement-->
                 <!--Display number of search results-->
-                    <div class="searchResult">About {{$relationCounter}} result(s)</div>
+                <div class="searchResult">
+                    <div class="row content-padding">
+                @if(empty($previousA))
+                    <a href="#"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
+                @else
+                    @foreach($previousA as $prev)
+                            <a href="/watchplaylist={{$prev->file_name}}/{{Crypt::encrypt($prev->playlist_id)}}"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
+                    @endforeach
+                @endif
+
+                @if(empty($nextA))
+                     <a href="#"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
+                @else
+                    @foreach($nextA as $next)
+                       <a href="/watchplaylist={{$next->file_name}}/{{Crypt::encrypt($next->playlist_id)}}"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
+                    @endforeach
+                @endif
+                    </div>
+                </div>
                 <!--/search result-->
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                    @foreach($relations as $relation)
-                    <li class="ui-tabs-nav-item" id="">
-                        <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
-                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" />
-                            <span>{{$relation->title}}</span><br/>
+                @foreach($playlistVideos as $playlistVideo)
+                    @if($playlistVideo->id == $video->id)
+                    <li class="ui-tabs-nav-item" id="" >
+                        <a href="#" id=" " class="active">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/img/thumbnails/v1.jpg"/>    
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{$playlistVideo->title}}</span><br/>
+                                    <span>by: {{$playlistVideo->channel_name}}</span><br/>
+                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                </div>
+                            </div>
                         </a>
-                        <span>by: {{$relation->channel_name}}</span><br/>
-                        <small>{{date('m/d/Y', $relation->created_at);}}</small>
-
                     </li>
-                    @endforeach
-                </ul><!--video list-->
 
-                    @include('elements/home/recommendedChannelList')
-                    @include('elements/home/carouselAds')
+                    @else
+                     <li class="ui-tabs-nav-item" id="">
+                        <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/img/thumbnails/v1.jpg" />    
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{$playlistVideo->title}}</span><br/>
+                                    <span>by: {{$playlistVideo->channel_name}}</span><br/>
+                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    @endif
+                @endforeach
+
+                </ul><!--video list--> 
             </div><!--col-md-4-->
-
         </div><!--/.featured-->
     </div><!--/.row-->
 </div><!--/padding-->
 </div><!--/.row-->
 @stop
 
-@section('script')
-{{HTML::script('js/jquery.js')}}
-{{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/media.player.js')}}
-{{HTML::script('js/homes/comment.js')}}
-@stop
+
