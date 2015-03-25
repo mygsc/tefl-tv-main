@@ -45,6 +45,7 @@ function GSCMediaPlayer(){
 		// Change the button to be a play button
 		changeButtonType(playPauseBtn, 'play');
 	}, false);
+	
 	// need to work on this one more...how to know it's muted?
 	mediaPlayer.addEventListener('volumechange', function(e) { 
 		// Update the button to be mute/unmute
@@ -60,6 +61,7 @@ function GSCMediaPlayer(){
 	adsOn();
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
+	this.currentTime = currentTime;
 }
 
 
@@ -153,7 +155,7 @@ function adsOn(){
 }
 function timeSettings(){
 	vidMinLenght = Math.floor(mediaPlayer.duration / 60);
-	vidSecLenght = Math.floor(mediaPlayer.duration - (vidMinLenght * 60));
+	vidSecLenght = Math.round(mediaPlayer.duration - (vidMinLenght * 60));
 	hrs = Math.floor(vidMinLenght / 60);
 	mins =  (vidMinLenght - (hrs * 60));
 	secs =   Math.floor(mediaPlayer.duration - (vidMinLenght * 60));
@@ -270,8 +272,8 @@ function updateProgressBar(response) {
 	 time = Math.floor(($('#current-progress').width() / progWidth) * mediaPlayer.duration),
 	 vidMin = Math.floor(mediaPlayer.duration / 60),
 
-	 vidSec = Math.floor(mediaPlayer.duration - (vidMin * 60)),
-	 videoCurrentTime = Math.floor(mediaPlayer.currentTime),
+	 vidSec = Math.round(mediaPlayer.duration - (vidMin * 60)),
+	 videoCurrentTime = Math.round(mediaPlayer.currentTime),
 	 seconds = 0,
 			hours = Math.floor(time / 3600),
 			minutes = Math.floor(time / 60),
@@ -299,7 +301,8 @@ function updateProgressBar(response) {
 					// A variable set which we'll use later on
 
 					if(response != true) {
-						//currentProgress.style.width = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
+						  //currentProgress.style.width = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
+						  //$('#current-progress').css({'width' : ((mediaPlayer.currentTime / timeDuration)*100) + "%"});
 						 $('#current-progress').css({'width' : updProgWidth+'px'});
 						 $('#button-progress').css({'left' : (updProgWidth-$('#button-progress').width())+'px'});
 					}
@@ -317,7 +320,7 @@ function updateProgressBar(response) {
 
 					
 					bufferedPercent();
-					setInterval(bufferedPercent, 1000);
+					// setInterval(bufferedPercent, 1000);
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
@@ -334,6 +337,7 @@ function bufferedPercent(){
       setInterval(bufferedPercent, 1000);
     }
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
+    	setInterval(bufferedPercent, 1000);
     	replay.src = '/img/icons/uploading.gif';
     	replay.width = 50; 
     	replay.height = 50;
@@ -475,7 +479,6 @@ $('#progressbar').bind('mousedown', function(e) {
 	mouseX = e.pageX - $('#current-progress').offset().left;
 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
 	mediaPlayer.currentTime = Math.floor(currentTime);
-
 	// if(videoPlaying == true) {
 	// 		togglePlayPause();
 	// 		playPauseBtn.src = "/img/icons/play.png";
