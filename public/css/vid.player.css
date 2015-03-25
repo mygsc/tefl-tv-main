@@ -163,6 +163,9 @@ input#seek-slider::-moz-range-thumb {
 	border: 1px solid #999;
 	height: 20px;
 	width: 20px;
+	cursor: pointer;
+}input#seek-slider:focus::-moz-range-track {
+    background: #ccc;
 }
 input#volume {
 	-webkit-appearance: none;
