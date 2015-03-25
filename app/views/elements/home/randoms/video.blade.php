@@ -5,11 +5,15 @@
 
 	<div class="col-md-3 col-sm-6 hidden-xs">
 		<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">	
-			@if(file_exists($randomResult->video_poster))
-				<img class="thumbnail" src="{{$randomResult->poster_path}}">
-			@else
-				<img class="thumbnail" src="/img/thumbnails/video.png">
-			@endif
+			<div class="thumbnail"> 
+				@if(file_exists($randomResult->video_poster))
+					<img class="hvr-grow-rotate" src="{{$randomResult->poster_path}}">
+				@else
+					<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
+				@endif
+
+				
+			</div>
 			<div class="v-Info">
 				<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">{{$randomResult->title}}</a>
 			</div>

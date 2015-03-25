@@ -69,25 +69,29 @@ div#progressbar{
 }
 
 div#progressbar #current-progress{
-	width:0px;height:100%;background:#D0D0D0;border-radius: 2px; position: relative;		
+	width:0;height:100%;border-radius: 2px; position: relative;background-color: red;	
 }div#button-progress{
 	z-index: 2;
-	width: 25px;
-	height: 25px;
+	width: 15px;
+	height: 15px;
 	position: absolute;
 	left: -20px;
 	text-decoration: overline;
-	background: url('/img/icons/handle.png') no-repeat 50% 50%;
+	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
+	background: #fff;
 	outline:none;
-	top: -11px;
+	top: -6px;
 	margin-left: 10px;
+	display: none;
+	border-radius: 20px;
 
 }div#buffered{
 	height: 100%;
 	position: absolute;
-	background: #777;
+	background: rgba(42,42,42,0.9);
 	width: 0;
 	border-radius:5px;
+	top:0;
 }
 .volume{
 	border-radius:5px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
@@ -120,26 +124,19 @@ div.volume div.volume-static-holder{
 	border-radius:10px;
 	position: relative;
 
-}/*#volume{
-	-webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
-    transform: rotate(270deg);
-    width: 100%;
-    position: relative;
-}*/
+}
+
  /*Special styling for WebKit/Blink */
 input#seek-slider{
 	-webkit-appearance: none;
 	border-radius: 5px;
 	box-shadow: inset 0 0 5px #333;
-	background-color: #999;
-	vertical-align: middle;
+	background-color: transparent;
 	width: 100%;
 	height: 100%;
 	border: none;
-	outline:none;	
+	outline: none;
+
 }input#seek-slider::-moz-range-track {
 	-moz-appearance: none;
 	border-radius: 5px;
@@ -156,8 +153,10 @@ input#seek-slider::-webkit-slider-thumb {
 	background-color: #FFF;
 	box-shadow:inset 0 0 10px rgba(000,000,000,0.5);
 	border: 1px solid #999;
-	height: 20px;
-	width: 20px;
+	height: 15px;
+	width: 15px;
+	border: none;
+	outline: none;
 }
 input#seek-slider::-moz-range-thumb {
 	-moz-appearance: none;
@@ -165,9 +164,19 @@ input#seek-slider::-moz-range-thumb {
 	background-color: #FFF;
 	box-shadow:inset 0 0 10px rgba(000,000,000,0.5);
 	border: 1px solid #999;
-	height: 20px;
-	width: 20px;
+	height: 15px;
+	width: 15px;
+	border: none;
+	outline:none;	
 }
+div#progress-amount {
+  display: block;
+  height: 100%;
+  background-color: #337AB7;
+  width: 0;
+  position: relative;
+}
+
 input#volume {
 	-webkit-appearance: none;
 	border-radius: 5px;
@@ -256,9 +265,15 @@ input#volume::-moz-range-thumb {
 .advertisement{
 	position: absolute;
 	bottom: 60px;
-	background:rgba(42,42,42,0.9);
+	background:transparent;
 	width: 100%;
 	min-height:10px;
+}.video-ads{
+	position: absolute;
+	bottom: 0px;
+	background:rgba(42,42,42,0.9);
+	width: 100%;
+	height:100%;
 }
 button#play{
 	background:rgba(42,42,42,0.9);

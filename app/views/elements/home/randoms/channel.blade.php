@@ -6,7 +6,14 @@
 		<div class="well">
 			<div class="row">
 				<div class="col-md-4">
-					{{HTML::image($channel->image_src, '<img src="/img/user/0.png" class="userDp">', array('class' => 'userDp'))}}<br />
+				@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
+
+					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					@else
+					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					@endif
+
+					
 
 				</div>
 				<div class="col-md-8">

@@ -151,8 +151,10 @@
                 <!-- COMMENTS AREA -->
                 @include('elements/home/videoComments')
                 <!-- COMMENTS AREA -->
+
                 
                 @include('elements/home/uploaderLatestVideo')
+
                 <!-- latest -->
             </div><!--column 8-->
 
@@ -162,18 +164,23 @@
                 <!-- advertisment small -->
                 <!--/advertisement-->
                 <!--Display number of search results-->
-                    <div class="searchResult">About {{$relationCounter}} result(s)</div>
+                <div class="searchResult">About {{$relationCounter}} result(s)</div>
                 <!--/search result-->
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($relations as $relation)
                     <li class="ui-tabs-nav-item" id="">
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
-                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" />
-                            <span>{{$relation->title}}</span><br/>
+                        <div class="row">
+                            <div class="col-md-4 col-xs-4">
+                               <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />    
+                            </div>
+                            <div class="col-md-8">
+                                <span>{{$relation->title}}</span><br/>
+                                <span>by: {{$relation->channel_name}}</span><br/>
+                                <small>{{date('m/d/Y', $relation->created_at);}}</small>
+                            </div>
+                        </div>
                         </a>
-                        <span>by: {{$relation->channel_name}}</span><br/>
-                        <small>{{date('m/d/Y', $relation->created_at);}}</small>
-
                     </li>
                     @endforeach
                 </ul><!--video list-->

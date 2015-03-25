@@ -120,7 +120,7 @@ margin: 10px;
 							<br>
 								
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary','onclick'=>'return checkThumbnail();'))}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary'))}} {{--,'onclick'=>'return checkThumbnail();'--}}
 								
 							</div>	
 
