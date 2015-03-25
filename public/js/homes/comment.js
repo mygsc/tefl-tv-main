@@ -65,7 +65,26 @@ $(document).ready(function(){
         	success: function(data){
         		if(data['status'] == 'success'){
         			$(this).find('span#likescount').text(data['likescount']);
-        			$(this).find('span#likescount').text(data['likescount']);
+        			$(this).find('input[name=status]').val(data['label']);
+        			// alert(data['likescount']);
+        		} 
+            }
+        });
+	});
+	$(".dislikedup").click(function() {
+		$.ajax({
+			type: 'POST',
+			url: '/adddisliked',
+			cache: false, 
+			context: this,
+        	data: {
+        		dislikeCommentId: $(this).find('input[name=dislikeCommentId]').val(),
+        		dislikeUserId: $(this).find('input[name=dislikeUserId]').val(),
+        		status: $(this).find('input[name=status]').val()
+        	},
+        	success: function(data){
+        		if(data['status'] == 'success'){
+        			$(this).find('span#dislikescount').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			// alert(data['likescount']);
         		} 

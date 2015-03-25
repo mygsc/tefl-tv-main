@@ -39,10 +39,10 @@
 						))->first();
 						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
 					?>
-					<!--like count-->
 					<div class='fa fa-thumbs-up likedup'>
 						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 						<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
+						<input type="hidden" value="{{$videoId}}" name="video_id">
 						@if(!$ifAlreadyLiked)
 							<input type="hidden" value="liked" name="status">
 						@else
@@ -51,8 +51,18 @@
 						<span class="likescount" id="likescount">{{$likesCount}}</span>
 					</div>
 					|&nbsp;
-					<a href="#"><i class='fa fa-thumbs-down'></i></a>
-					<span class="dislikescount">{{$dislikeCount}}</span> &nbsp; 
+					<div class='fa fa-thumbs-down dislikedup'>
+						<input type="hidden" value="{{$getVideoComment->id}}" name="dislikeCommentId">
+						<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
+						<input type="hidden" value="{{$videoId}}" name="video_id">
+						@if(!$ifAlreadyLiked)
+							<input type="hidden" value="liked" name="status">
+						@else
+							<input type="hidden" value="unliked" name="status">
+						@endif
+						<span class="dislikescount">{{$dislikeCount}}</span> &nbsp;
+					</div>
+					<!-- <a href="#"><i class='fa fa-thumbs-down'></i></a> -->
 				@endif
 				<?php
 					$getCommentReplies = DB::table('comments_reply')
@@ -76,6 +86,7 @@
 						{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
 							{{Form::hidden('comment_id', $getVideoComment->id)}}
 							{{Form::hidden('user_id', Auth::User()->id)}}
+							{{Form::hidden('video_id', $videoId)}}
 							{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
 							{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
 						{{Form::close()}} 
