@@ -15,18 +15,20 @@ class Notification extends Eloquent {
 			if($type == 'subscribed'){
 				$message = 'has subscribe to your channel';
 			}elseif($type == 'mentioned'){
-				$message = 'has mentioned you in a <a href="$routes">comment</a>';
+				$message = 'has mentioned you in a <a href="'.$routes.'">comment</a>';
 			}elseif($type == 'liked'){
 				$message = 'has liked your <a href="'.$routes.'">comment</a>';
 			}elseif($type == 'replied'){
 				$message = 'has replied to your <a href="'.$routes.'">comment</a>';
 			}elseif($type == 'upload'){
-				$message = 'has uploaded new <a href="'.$routes.'">comment</a>';
+				$message = 'has uploaded new <a href="'.$routes.'">video</a>';
 			}elseif($type == 'comment'){
-				$message = 'has added a comment to your <a href="{{$routes}}">video</a>';
+				$message = 'has added a comment to your <a href="'.$routes.'">video</a>';
 			}else{
 				return false;
 			}
+
+			$callback;
 
 			$completeNotification = $notifierLink .' '. $message;
 			if($this->insertNotifications($user_id, $completeNotification) === true){
