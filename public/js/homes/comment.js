@@ -26,11 +26,7 @@ $(document).ready(function(){
 	    	});
 		}
 	});
-	// $("#replyLink").click(function() {
-	// 	$("#txtreply").removeClass("hidden");
-	// 	$("#replybutton").removeClass("hidden");
-	// 	$("#replyLink").addClass("hidden");
-	// });
+
 	$('form#video-addReply').on('submit', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
@@ -45,7 +41,6 @@ $(document).ready(function(){
         		} else if(data['status'] == 'success'){
         			$('textarea#txtreply').val('');
 	        		// alert(data['status']);
-
 	        	}
         	}
     	});
@@ -54,5 +49,27 @@ $(document).ready(function(){
 		$("#txtreply").removeClass("hidden");
 		$("#replybutton").removeClass("hidden");
 		$("#replyLink").addClass("hidden");
+	});
+
+	$(".likedup").click(function() {
+		$.ajax({
+			type: 'POST',
+			url: '/addliked',
+			cache: false, 
+			context: this,
+        	data: {
+        		likeCommentId: $(this).find('input[name=likeCommentId]').val(),
+        		likeUserId: $(this).find('input[name=likeUserId]').val(),
+        		status: $(this).find('input[name=status]').val()
+        	},
+        	success: function(data){
+        		if(data['status'] == 'success'){
+        			$(this).find('span#likescount').text(data['likescount']);
+        			$(this).find('span#likescount').text(data['likescount']);
+        			$(this).find('input[name=status]').val(data['label']);
+        			// alert(data['likescount']);
+        		} 
+            }
+        });
 	});
 }); 

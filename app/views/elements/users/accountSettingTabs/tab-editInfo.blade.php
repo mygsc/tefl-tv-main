@@ -1,6 +1,4 @@
 <div class="col-md-10 textbox-layout"> 
-   
-
         <div class="col-md-3">
             <label><small>Click image to change</small></label>
             {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}            
@@ -15,19 +13,19 @@
         <div class="col-md-9">
             {{Form::label('interests', 'Interests: ')}}
             {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:230px;'))}}
-       </div>
-       <br/>
-            <div class="col-md-12">
-                <small class="notes"><b>Notes: </b><br/>
+        </div>
+        <br/>
+        <div class="col-md-12">
+            <small class="notes"><b>Notes: </b><br/>
                 Deactivate your account if you don't want your channel to be seen by others. All fields with asterisk (*) are required. Check all information you want to show in public.</small>
-                <select class="form-control autoW">    
-                    <option disabled>Account Privacy</option>
-                    <option>Activate</option>
-                    <option>Deactivate</option>
-                </select>
+             <select class="form-control autoW">    
+                <option disabled>Account Privacy</option>
+                <option>Activate</option>
+                <option>Deactivate</option>
+            </select>
                 <!--show this when deactivate is selected-->
-                <br/><br/>
-            </div>
+            <br/><br/>
+        </div>
         
 
         <div class="col-md-6 ">
@@ -122,7 +120,7 @@
             {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
         </div>
 
-        <div class="text-right">
+        <div class="text-right col-md-12">
            {{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
         </div>
     {{ Form::close()}}

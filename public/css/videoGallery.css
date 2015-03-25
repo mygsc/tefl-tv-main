@@ -52,9 +52,11 @@
 #featured li.ui-tabs-nav-item a > span{
 	font-size: 12px;
 }
-
-#featured ul.ui-tabs-nav li.ui-tabs-selected a, #featured ul.ui-tabs-nav li.ui-tabs-active a{ 
-
+#featured li.ui-tabs-nav-item .active{ 
+	background:#eef2fa; 
+	border:1px #8fa7ca solid;
+	border-left: 5px solid #8fa7ca;
+	height: 80px;
 }
 #featured .ui-tabs-panel{ 
 	width:100%;
@@ -125,6 +127,7 @@
 	 font-size:0.8em;
 	 margin-top: -20px;
 }
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */

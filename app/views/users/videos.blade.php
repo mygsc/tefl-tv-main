@@ -61,25 +61,30 @@
 					@foreach($usersVideos as $usersVideo)
 					<div id='list' class="col-md-3">
 						<div class="inlineVid">
-							{{Form::open()}}
+							
 							<span class="btn-sq">
 								<span class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                       	<span title="Add to Playist">{{Form::button('<i class="icon icon-playlist-add" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-                                    </a>
                                    	<span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
                                    		<li>gge</li>
                                    		<li>gfrhgte</li>
                                     </span>
                                 </span>
-								<a href="edit/1" data-target="#updateVideo" data-toggle="modal"><span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+
+								<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
+								<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+								{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
 								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+								{{Form::close()}}
 							</span>
-							{{Form::close()}}
+							
 							
 							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-								<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" alt="">
-							</a>				
+							
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
+									</video>
+							
+								
+							</a>
 						</div>
 
 						<div class="inlineInfo ">
@@ -105,9 +110,6 @@
 			</div>
 		</div>
 	</div>
-
-		<!--upload update Video modal-->
-
 @stop
 
 @section('script')

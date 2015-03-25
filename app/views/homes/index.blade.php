@@ -24,29 +24,33 @@
 				 	<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>
 				</div>
-				<div class="play-icon">
+				<div class="play-icon" id ="play-icon">
 					<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper" id="controls">
 					<div id="progressbar">
-						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
+						<div id="buffered"></div>			
+						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">		
+						<input id="seek-slider" type="range" min="0" max="100" step="1" value="0">	
+
 							<div id="current-progress">	
-								<div id="button-progress" class="progress-button">		
-								</div>	
+								{{-- <div id="button-progress" class="progress-button">		
+								</div>	 --}}
 							</div>
 						</div>
 					</div>
 				
-				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
+				<span class="img-play">
+
+				 <img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/>
+				 
+					 <button style="display:none"type="button" id="play">&#9658;</button> 
+				</span>
 			
 				<span class="pull-right">
 					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
-
-					
-						
-					
 					<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
 						<div class="volume" style="display:none">
 						<input id="volume" type="range" min="0" max="100" value="100">
@@ -57,7 +61,7 @@
 										</div>
 									</div>
 								</div>
-							<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}							
+							<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}				
 						</div>
 					</span>
 					
@@ -101,11 +105,11 @@
 
 			<div class="col-md-4">
                 <div class="row">
-                    <div class="ad1 col-md-12 col-sm-6" style="margin-bottom:20px;">
+                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
                         <img src="/img/thumbnails/ad1.jpg" class="adDiv">
                     </div><!--/.ad1-->
                     
-                    <div class="ad2 col-md-12 col-sm-6">
+                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
                         <img src="/img/thumbnails/ad2.jpg" class="adDiv">
                    </div><!--/.ad2-->
                 </div><!--/.row of col4-->
@@ -117,7 +121,7 @@
 		<br/>
 		<!--RECOMMENDED VIDEOS SECTION -->
 		<div class="row">
-			<div class="categoryHead">
+			<div class="categoryHead" style="width:99%!Important">
 
 	            <h3>Recommended Videos</h3>
 	      	</div><!--/.recommended video-->
@@ -215,7 +219,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6">
 						@if(file_exists($random->video_poster))
-							<img width="100%"  src="{{$recommended->poster_path}}">
+							<img width="100%"  src="{{$random->poster_path}}">
 						@else
 							<img width="100%" src="/img/thumbnails/video.png">
 						@endif
