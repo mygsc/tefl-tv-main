@@ -248,7 +248,6 @@ class HomeController extends BaseController {
 		$likeCommentId = trim(Input::get('likeCommentId'));
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
-		$tempThis = Input::get('tempThis');
 		
 
 		if($statuss == 'liked'){
@@ -259,7 +258,7 @@ class HomeController extends BaseController {
 			   	)
 			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'tempThis' => $tempThis));
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
 
 		} elseif($statuss == 'unliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
@@ -268,26 +267,25 @@ class HomeController extends BaseController {
 		}
     }
     public function addDisliked(){
-		$likeCommentId = trim(Input::get('likeCommentId'));
+		$dislikeCommentId = trim(Input::get('likeCommentId'));
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
-		$tempThis = Input::get('tempThis');
 		
 
 		if($statuss == 'liked'){
 			DB::table('comments_likesdislikes')->insert(
-			    array('comment_id' => $likeCommentId,
+			    array('comment_id' => $dislikeCommentId,
 			    	  'user_id'    => $likeUserId,
-			    	  'status' 	   => 'liked'
+			    	  'status' 	   => 'disliked'
 			   	)
 			);
-			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'tempThis' => $tempThis));
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
 
 		} elseif($statuss == 'unliked'){
-			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
-			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$dislikescount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
     }
 

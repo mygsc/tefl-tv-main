@@ -42,6 +42,7 @@
 					<div class='fa fa-thumbs-up likedup'>
 						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 						<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
+						<input type="hidden" value="{{$videoId}}" name="video_id">
 						@if(!$ifAlreadyLiked)
 							<input type="hidden" value="liked" name="status">
 						@else
@@ -50,9 +51,10 @@
 						<span class="likescount" id="likescount">{{$likesCount}}</span>
 					</div>
 					|&nbsp;
-					<div class='fa fa-thumbs-down likedup'>
-						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
-						<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
+					<div class='fa fa-thumbs-down dislikedup'>
+						<input type="hidden" value="{{$getVideoComment->id}}" name="dislikeCommentId">
+						<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
+						<input type="hidden" value="{{$videoId}}" name="video_id">
 						@if(!$ifAlreadyLiked)
 							<input type="hidden" value="liked" name="status">
 						@else
