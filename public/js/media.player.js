@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {GSCMediaPlayer();}, fa
 
 var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
 	playPauseBtn, timeDuration=0,
- 	muteBtn, playIcon = false, replay,
+ 	muteBtn, playIcon = false, replay, _time, curHrs, curMin, curSec, durHrs, durMin, durSec,
  	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
@@ -30,11 +30,12 @@ function GSCMediaPlayer(){
 	currentProgress =  document.getElementById('current-progress');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	volumeStatus = document.getElementById('volume');
+	_time = document.getElementById('time');
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
 	seekSlider.addEventListener('change',vidSeek, false);
 	// Add a listener for the timeupdate event so we can update the progress bar
-	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false);
+	mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
 	// Add a listener for the play and pause events so the buttons state can be updated
 	mediaPlayer.addEventListener('play', function() {
 		// Change the button to be a pause button
@@ -51,7 +52,6 @@ function GSCMediaPlayer(){
 		else changeButtonType(muteBtn, 'mute');
 	}, false);	
 	mediaPlayer.addEventListener('ended', function(){ 
-		play.innerHTML='&#9658;';
 		playPauseBtn.src = "/img/icons/play.png";}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function() {
@@ -92,6 +92,23 @@ function vidSeek(){
 function seekTimeUpdate(){
 	var currentSeek = mediaPlayer.currentTime * (100 / mediaPlayer.duration);
 	seekSlider.value = currentSeek;
+	bufferedPercent();
+	 curHrs = Math.floor(mediaPlayer.currentTime / 3600);
+	 curMin = Math.floor(mediaPlayer.currentTime / 60);
+	 curSec = Math.floor(mediaPlayer.currentTime - (curMin * 60));
+	 durHrs = Math.floor(curMin / 60);
+	 durMin = Math.floor(mediaPlayer.duration / 60);
+	 durSec = Math.round(mediaPlayer.duration - (durMin  * 60));
+	if(curHrs < 10){curHrs = "0"+curHrs;}
+	if(curMin < 10){curMin = "0"+curMin;}
+	if(curSec < 10){curSec = "0"+curSec;}
+	if(durSec < 10){durSec = "0"+durSec;}
+	_time.innerHTML = curHrs + ':' + curMin + ':' +curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
+
+	//document.getElementById('buffered').style.width = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
+	// document.getElementById('buffered').style.background = '#999';
+	 var i = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
+	 $('#buffered').css({'width': i, 'background':'red', 'border-right':'3px solid red'});
 }
 
 document.addEventListener("keydown", function(e) {
@@ -126,11 +143,12 @@ function toggleFullScreen() {
 }
 
 function adsOn(){
-	ads = Math.floor(timeDuration * adsTime / 100);
-	ads = Math.round(100 / ads);
+	//ads = Math.floor(timeDuration * adsTime / 100);
+	ads = (adsTime / timeDuration) * 100;
+	//ads = Math.round(100 / ads);
 	var adsbar = Math.floor(progWidth/adsTime);
 	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': '35%', 'height':'100%', 'position':'absolute'});
+	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
 	
 }
 function timeSettings(){
@@ -150,9 +168,17 @@ function timeSettings(){
 	}
 	
 }
+function toggleShowHanldeProgress(){
+	if(mediaPlayer.paused || mediaPlayer.ended){
+		$('#button-progress').fadeIn();
+	}else{
+		$('#button-progress').fadeOut();
+	}
+}
 function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
 	if (mediaPlayer.paused || mediaPlayer.ended) {
+		toggleShowHanldeProgress();
 		playPauseBtn.src = "/img/icons/pause.png";
 		changeButtonType(playPauseBtn, 'pause');
 		mediaPlayer.play();
@@ -163,6 +189,7 @@ function togglePlayPause() {
 	// Otherwise it must currently be playing
 	else {
 		changeButtonType(playPauseBtn, 'play');
+		toggleShowHanldeProgress();
 		playPauseBtn.src = "/img/icons/play.png";
 		mediaPlayer.pause();
 		videoPlaying = false;
@@ -265,9 +292,9 @@ function updateProgressBar(response) {
 					
 					// Set a zero before the number if its less than 10.
 					if(seconds < 10) { seconds = '0'+ seconds; }
-					// if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
-					// if(minutes < 10) { minutes = '0'+ minutes; }
-					// if(hours < 10) { hours = '0'+ hours; }
+					if(vidSecLenght < 10) { vidSecLenght = '0'+ vidSecLenght; }
+					if(minutes < 10) { minutes = '0'+ minutes; }
+					if(hours < 10) { hours = '0'+ hours; }
 					if(videoCurrentTime < 10){ videoCurrentTime = '0' + videoCurrentTime;}
 					// A variable set which we'll use later on
 
@@ -299,16 +326,13 @@ function updateProgressBar(response) {
 
 //Let's calculate amount buffering progress....
 function bufferedPercent(){
-	currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);//
+	currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
 	if (currentBuffered < timeDuration) {
-      document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
+      //document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
+      var i = ((currentBuffered / timeDuration) * 100) + "%";
+     $('#buffered').css({'width': i });
       setInterval(bufferedPercent, 1000);
     }
-    // if(Math.floor(mediaPlayer.currentTime) > Math.floor(currentBuffered)){
-    // 	replay.src = '/img/icons/uploading.gif';
-    // 	replay.width = 50; 
-    // 	replay.height = 50;
-    // }
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
     	replay.src = '/img/icons/uploading.gif';
     	replay.width = 50; 
@@ -445,22 +469,22 @@ function LetProcessYourVolume(e){
 }
 
 
-// $('#progressbar').bind('mousedown', function(e) {	
+$('#progressbar').bind('mousedown', function(e) {	
 
-// 	progressbarClick = true;
-// 	mouseX = e.pageX - $('#current-progress').offset().left;
-// 	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-// 	mediaPlayer.currentTime = Math.floor(currentTime);
+	progressbarClick = true;
+	mouseX = e.pageX - $('#current-progress').offset().left;
+	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
+	mediaPlayer.currentTime = Math.floor(currentTime);
 
-// 	// if(videoPlaying == true) {
-// 	// 		togglePlayPause();
-// 	// 		playPauseBtn.src = "/img/icons/play.png";
-// 	// 		$('.play-icon').fadeIn(500);
-// 	// 		mediaPlayer.currentTime = Math.floor(currentTime);
-// 	// 		mouseX = e.pageX - $('#current-progress').offset().left;
-// 	// 		mediaPlayer.pause();
-// 	// 	}				
-// });
+	// if(videoPlaying == true) {
+	// 		togglePlayPause();
+	// 		playPauseBtn.src = "/img/icons/play.png";
+	// 		$('.play-icon').fadeIn(500);
+	// 		mediaPlayer.currentTime = Math.floor(currentTime);
+	// 		mouseX = e.pageX - $('#current-progress').offset().left;
+	// 		mediaPlayer.pause();
+	// 	}				
+});
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');
