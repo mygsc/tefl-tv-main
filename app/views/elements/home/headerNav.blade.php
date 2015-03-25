@@ -86,7 +86,7 @@
                     <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                     <li><hr/></li>
                @if(Auth::check())
-                    <li><h4>&nbsp;&nbsp;Account</h4></li>
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
 
                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
 
@@ -98,7 +98,7 @@
                     <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                @endif
                     <li><hr/></li>
-                     <li><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
                     <li class="visible-xs">{{ link_to_route('homes.aboutus', 'About Us', null) }}</li>
                     <li class="visible-xs">{{ link_to_route('homes.privacy', 'Privacy', null) }}</li> 
                     <li class="visible-xs">{{ link_to_route('homes.copyright', 'Copyright', null) }}</li>

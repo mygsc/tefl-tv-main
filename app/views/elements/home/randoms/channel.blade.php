@@ -2,21 +2,19 @@
 	<div class="row">
 	@foreach($datas as $channel)
 
-	<div class="col-md-6">
-		<div class="well">
+	<div class="col-md-6" >
+		<div class="well ch" style="overflow:hidden;">
 			<div class="row">
-				<div class="col-md-4">
-				@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
+				<div class="col-md-4 col-xs-4">
+					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
 
-					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@endif
 
-					
-
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-8 col-xs-8">
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
 					<p><b>Org:</b> TEFL Educators</p>
 					<p class="text-justify">
