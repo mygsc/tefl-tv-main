@@ -7,25 +7,14 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
  	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
-<<<<<<< HEAD
- 	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress;
-=======
- 	updProgWidth = 0, videoControls, volumeStatus, playBtn, play, seekSlider;
->>>>>>> 8d89428cda8093148a27d57423a71b0c2d9e7919
+ 	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider;
 
-//this is the prefix of the function  
+//this is the prefix of every function  
 var GSC;
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> b3473582efb47059f7d9c4105ca324e37e40d5ae
->>>>>>> 8d89428cda8093148a27d57423a71b0c2d9e7919
 var animate360 = document.getElementById('button-progress');
 
 //Events
@@ -37,10 +26,7 @@ function GSCMediaPlayer(){
 	playPauseBtn = document.getElementById('play-pause');
 	replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
-<<<<<<< HEAD
 	bufferedAmount = document.getElementById('buffered');
-=======
->>>>>>> 8d89428cda8093148a27d57423a71b0c2d9e7919
 	currentProgress =  document.getElementById('current-progress');
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	volumeStatus = document.getElementById('volume');
@@ -301,34 +287,14 @@ function updateProgressBar(response) {
 						
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMin + ':' + vidSec);
 					}
-<<<<<<< HEAD
+
 					
 					bufferedPercent();
 					setInterval(bufferedPercent, 1000);
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
-					
-		
-=======
-
-					var finishTime = Math.round(videoCurrentTime);
-					var videoLenght = Math.round(mediaPlayer.duration);	
-					
-					// if(finishTime == videoLenght){		
-					// 	$('#play-pause').addClass('play').removeClass('pause');
-					// 	playPauseBtn.src = "/img/icons/play.png";
-					// 	videoPlaying=false;
-					// 	$('.advertisement').fadeOut();
-					// 	$('.play-icon').fadeIn(500);
-					// }
-						
-					if(seconds == adsTime){
-						$('.advertisement').fadeIn(2000);
-					}
-
-
->>>>>>> 8d89428cda8093148a27d57423a71b0c2d9e7919
+									
 }
 
 //Let's calculate amount buffering progress....
@@ -478,24 +444,7 @@ function LetProcessYourVolume(e){
 		}
 }
 
-<<<<<<< HEAD
-$('#progressbar').bind('mousedown', function(e) {	
 
-	progressbarClick = true;
-	mouseX = e.pageX - $('#current-progress').offset().left;
-	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	//alert(Math.floor(currentTime));
-	mediaPlayer.currentTime = Math.round(currentTime);
-	// if(videoPlaying == true) {
-	// 		togglePlayPause();
-	// 		playPauseBtn.src = "/img/icons/play.png";
-	// 		$('.play-icon').fadeIn(500);
-	// 		mediaPlayer.currentTime = Math.floor(currentTime);
-	// 		mouseX = e.pageX - $('#current-progress').offset().left;
-	// 		mediaPlayer.pause();
-	// 	}				
-});
-=======
 // $('#progressbar').bind('mousedown', function(e) {	
 
 // 	progressbarClick = true;
@@ -512,7 +461,6 @@ $('#progressbar').bind('mousedown', function(e) {
 // 	// 		mediaPlayer.pause();
 // 	// 	}				
 // });
->>>>>>> 8d89428cda8093148a27d57423a71b0c2d9e7919
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');

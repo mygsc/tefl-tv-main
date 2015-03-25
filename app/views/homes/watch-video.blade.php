@@ -147,10 +147,14 @@
                     </div><!--well-->
                     <br/>
                 </div> <!--/.ui-tabs-panel-->
+
                 <!-- COMMENTS AREA -->
-                    @include('elements/home/videoComments')
+                @include('elements/home/videoComments')
                 <!-- COMMENTS AREA -->
-                    @include('elements/home/uploaderLatestVideo')
+
+                
+                @include('elements/home/uploaderLatestVideo')
+
                 <!-- latest -->
             </div><!--column 8-->
 
