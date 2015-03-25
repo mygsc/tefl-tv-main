@@ -22,18 +22,16 @@
 				</div>
 
 				<div class="">
-					@if(empty($userComments))
-						No Comments yet
-					@else
-						@foreach($userComments as $comments)
-							{{$comments->comment}}
-							<br/>
-							{{$comments->likes}} Likes, {{$comments->dislikes}} Dislikes
-							<br/>
-							by: {{$comments->channel_name}}			
-							<br/>
-						@endforeach
-					@endif
+
+				Type your comment here:
+				<br/>
+				<input type="text" id="example"/>
+				<input type="text" id="result">
+				<br/>
+				 <label for="tags">Tags: </label>
+				<input id="tags1" name="tags1">
+				<br/>
+				<div id="responsecontainer"></div>
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
@@ -45,11 +43,10 @@
 
 
 @section('script')
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
-
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	{{HTML::script('js/mention.js')}}
+<!-- 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

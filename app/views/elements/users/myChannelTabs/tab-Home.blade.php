@@ -177,7 +177,7 @@
 								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b></b> Subscribers</span>&nbsp;
+								<span>w/ <b>asd</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>
