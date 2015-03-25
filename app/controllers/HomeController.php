@@ -217,6 +217,16 @@ class HomeController extends BaseController {
 			$comments->user_id = $user_id;
 			$comments->comment = $comment;
 			$comments->save();
+
+			/*Notification Start*/
+			$videoData = Video::find($video_id);
+			$channel_id = $videoData->user_id;
+			$notifier_id = $user_id;
+			$routes = route('homes.watch-video', $videoData->file_name);
+			$type = 'comment';
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+
 			return Response::json(array(
                 'status' => 'success',
                 'comment' => $comment,
@@ -224,6 +234,8 @@ class HomeController extends BaseController {
                 'user_id' => $user_id
             ));
         }
+
+
     }
 
     public function addReply(){
@@ -241,6 +253,16 @@ class HomeController extends BaseController {
 			$replies->user_id = $user_id;
 			$replies->reply = $reply;
 			$replies->save();
+
+			/*Notification Start*/
+			$videoData = Video::find($comment_id);
+			$channel_id = $videoData->user_id;
+			$notifier_id = $user_id;
+			$routes = route('homes.watch-video', $videoData->file_name);
+			$type = 'comment';
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+
 			return Response::json(array('status' => 'success'));
         }
     }
