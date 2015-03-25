@@ -200,7 +200,6 @@ class HomeController extends BaseController {
 		}else{
 			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 		}
-
 	}
 
 	public function addComment(){
@@ -217,6 +216,16 @@ class HomeController extends BaseController {
 			$comments->user_id = $user_id;
 			$comments->comment = $comment;
 			$comments->save();
+
+			/*Notification Start*/
+			$videoData = Video::find($video_id);
+			$channel_id = $videoData->user_id;
+			$notifier_id = $user_id;
+			$routes = route('homes.watch-video', $videoData->file_name);
+			$type = 'comment';
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+
 			return Response::json(array(
                 'status' => 'success',
                 'comment' => $comment,
@@ -224,12 +233,15 @@ class HomeController extends BaseController {
                 'user_id' => $user_id
             ));
         }
+
+
     }
 
     public function addReply(){
 		$reply = trim(Input::get('txtreply'));
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
+		$video_id = Input::get('video_id');
 		// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
@@ -241,25 +253,62 @@ class HomeController extends BaseController {
 			$replies->user_id = $user_id;
 			$replies->reply = $reply;
 			$replies->save();
+
+			/*Notification Start*/
+			$videoData = Video::find($video_id);
+			$channel_id = Comment::find($comment_id)->user_id;
+			$notifier_id = $user_id;
+			$routes = route('homes.watch-video', $videoData->file_name);
+			$type = 'replied';
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+
 			return Response::json(array('status' => 'success'));
         }
     }
     public function addLiked(){
 		$likeCommentId = trim(Input::get('likeCommentId'));
 		$likeUserId = Input::get('likeUserId');
-		$status = Input::get('status');
+		$statuss = Input::get('status');
+		
 
-		if(empty($reply)){
-			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		if($statuss == 'liked'){
+			DB::table('comments_likesdislikes')->insert(
+			    array('comment_id' => $likeCommentId,
+			    	  'user_id'    => $likeUserId,
+			    	  'status' 	   => 'liked'
+			   	)
+			);
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+
+		} elseif($statuss == 'unliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
-		if(!empty(trim($reply))){
-        	$replies = new CommentReply;
-			$replies->comment_id = $comment_id;
-			$replies->user_id = $user_id;
-			$replies->reply = $reply;
-			$replies->save();
-			return Response::json(array('status' => 'success'));
-        }
+    }
+    public function addDisliked(){
+		$dislikeCommentId = trim(Input::get('likeCommentId'));
+		$likeUserId = Input::get('likeUserId');
+		$statuss = Input::get('status');
+		
+
+		if($statuss == 'liked'){
+			DB::table('comments_likesdislikes')->insert(
+			    array('comment_id' => $dislikeCommentId,
+			    	  'user_id'    => $likeUserId,
+			    	  'status' 	   => 'disliked'
+			   	)
+			);
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+
+		} elseif($statuss == 'unliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$dislikescount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
+		}
     }
 
 	public function testingpage(){ 

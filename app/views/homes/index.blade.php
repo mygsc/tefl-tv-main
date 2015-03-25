@@ -139,12 +139,14 @@
 
 				@foreach($recommendeds as $recommended)
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
-		            <div class="col-md-2">
-		            	@if(file_exists($recommended->video_poster))
-							<video width="100%"  poster="{{$recommended->poster_path}}">
-						@else
-							<video width="100%"  poster="/img/thumbnails/video.png">
-						@endif
+		            <div class="col-lg-2 col-md-4 col-sm-6">
+		            	<div class="thumbnail-2">
+			            	@if(file_exists($recommended->video_poster))
+								<img class="hvr-grow-rotate"  src="{{$recommended->poster_path}}">
+							@else
+								<img class="hvr-grow-rotate"  src="/img/thumbnails/video.png">
+							@endif
+						</div>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
 		            	</div>
@@ -168,12 +170,14 @@
 
 					@foreach($populars as $popular)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
-					<div class="col-md-6">
-						@if(file_exists($popular->video_poster))
-							<img width="100%"  src="{{$recommended->poster_path}}">
-						@else
-							<img width="100%"  src="/img/thumbnails/video.png">
-						@endif
+					<div class="col-md-6 col-sm-6">
+						<div class="thumbnail-2">
+							@if(file_exists($popular->video_poster))
+								<img class="hvr-grow-rotate" src="{{$recommended->poster_path}}">
+							@else
+								<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
+							@endif
+						</div>
 						<div class="v-Info">
 							<a href="{{route('homes.watch-video', array($popular->file_name))}}">{{$popular->title}}</a>
 						</div>
@@ -196,12 +200,14 @@
 					</div>
 					@foreach($latests as $latest)
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
-					<div class="col-md-6">
-						@if(file_exists($latest->video_poster))
-							<img width="100%"  src="{{$latest->poster_path}}">
-						@else
-							<img width="100%"  src="/img/thumbnails/video.png">
-						@endif
+					<div class="col-md-6 col-sm-6">
+						<div class="thumbnail-2">
+							@if(file_exists($latest->video_poster))
+								<img class="hvr-grow-rotate"  src="{{$latest->poster_path}}">
+							@else
+								<img class="hvr-grow-rotate"  src="/img/thumbnails/video.png">
+							@endif
+						</div>
 						<div class="v-Info">
 							<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
 						</div>
@@ -225,12 +231,14 @@
 					</div>
 					@foreach($randoms as $random)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
-					<div class="col-md-6">
-						@if(file_exists($random->video_poster))
-							<img width="100%"  src="{{$random->poster_path}}">
-						@else
-							<img width="100%" src="/img/thumbnails/video.png">
-						@endif
+					<div class="col-md-6 col-sm-6">
+						<div class="thumbnail-2">
+							@if(file_exists($random->video_poster))
+								<img class="hvr-grow-rotate" src="{{$random->poster_path}}">
+							@else
+								<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
+							@endif
+						</div>
 						<div class="v-Info">
 							<a href="{{route('homes.watch-video', array($random->file_name))}}">{{$random->title}}</a>
 						</div>
