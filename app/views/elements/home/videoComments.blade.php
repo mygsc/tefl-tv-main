@@ -31,20 +31,28 @@
 				@if(isset(Auth::User()->id))
 					<!--like count-->
 					<?php
-						$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'like'))->count();
-						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'dislike'))->count();
+						$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
+						$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
+							'comment_id' => $getVideoComment->id, 
+							'user_id' => Auth::User()->id,
+							'status' => 'liked'
+						))->first();
+						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
 					?>
 					<!--like count-->
-					@if($likesCount != 0) {{$likesCount}} &nbsp; @endif
-
 					<div class='fa fa-thumbs-up likedup'>
 						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 						<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
-						<input type="hidden" value="liked" name="status">
+						@if(!$ifAlreadyLiked)
+							<input type="hidden" value="liked" name="status">
+						@else
+							<input type="hidden" value="unliked" name="status">
+						@endif
+						<span class="likescount" id="likescount">{{$likesCount}}</span>
 					</div>
 					|&nbsp;
-					@if($dislikeCount != 0) {{$dislikeCount}} &nbsp; @endif
 					<a href="#"><i class='fa fa-thumbs-down'></i></a>
+					<span class="dislikescount">{{$dislikeCount}}</span> &nbsp; 
 				@endif
 				<?php
 					$getCommentReplies = DB::table('comments_reply')

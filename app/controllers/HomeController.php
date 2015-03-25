@@ -171,7 +171,6 @@ class HomeController extends BaseController {
 		}else{
 			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 		}
-
 	}
 
 	public function addComment(){
@@ -218,19 +217,25 @@ class HomeController extends BaseController {
     public function addLiked(){
 		$likeCommentId = trim(Input::get('likeCommentId'));
 		$likeUserId = Input::get('likeUserId');
-		$status = Input::get('status');
+		$statuss = Input::get('status');
+		$tempThis = Input::get('tempThis');
+		
 
-		if(empty($reply)){
-			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		if($statuss == 'liked'){
+			DB::table('comments_likesdislikes')->insert(
+			    array('comment_id' => $likeCommentId,
+			    	  'user_id'    => $likeUserId,
+			    	  'status' 	   => 'liked'
+			   	)
+			);
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'tempThis' => $tempThis));
+
+		} elseif($statuss == 'unliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
-		if(!empty(trim($reply))){
-        	$replies = new CommentReply;
-			$replies->comment_id = $comment_id;
-			$replies->user_id = $user_id;
-			$replies->reply = $reply;
-			$replies->save();
-			return Response::json(array('status' => 'success'));
-        }
     }
 
 	public function testingpage(){ 
