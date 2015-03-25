@@ -24,22 +24,30 @@
 				 	<span class="close">x</span> 
 					<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>
 				</div>
-				<div class="play-icon">
+				<div class="play-icon" id ="play-icon">
 					<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
 				</div>
 
 			<div class="" style="margin-top:-7px;">
 				<div class="wrapper" id="controls">
 					<div id="progressbar">
-						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">			
+						<div id="buffered"></div>			
+						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">		
+						<input id="seek-slider" type="range" min="0" max="100" step="1" value="0">	
+
 							<div id="current-progress">	
-								<div id="button-progress" class="progress-button">		
-								</div>	
+								{{-- <div id="button-progress" class="progress-button">		
+								</div>	 --}}
 							</div>
 						</div>
 					</div>
 				
-				<span class="img-play"><img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/></span>
+				<span class="img-play">
+
+				 <img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/>
+				 
+					 <button style="display:none"type="button" id="play">&#9658;</button> 
+				</span>
 			
 				<span class="pull-right">
 					<span class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
@@ -53,7 +61,7 @@
 										</div>
 									</div>
 								</div>
-							<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}							
+							<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}				
 						</div>
 					</span>
 					

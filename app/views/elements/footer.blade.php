@@ -1,4 +1,4 @@
-<div class="footer1 ">
+<div class="footer1 hidden-xs">
     <div class="container">
         <div class="row">
 

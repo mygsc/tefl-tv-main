@@ -16,7 +16,7 @@
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
                             <p class="black">
-                               video title
+                               {{$video->title}}
                             </p>
                             <!--video paler-->
                            <img src="/img/thumbnails/vp.png">
@@ -25,7 +25,7 @@
                                     <div>
                                         <br/>
                                         <span class="">
-                                            <span id="views-counter">11</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <span id="views-counter">{{$video->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <span id="like-counter">12ike(s)</span>&nbsp;
                                            
                                             <span id = "like-span">
@@ -72,12 +72,8 @@
                                                  
                                                     <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
                                                   
-                                                    <li id="list"><p id="label-playlist"><i class="fa fa-list" ></i>&nbsp;&nbsp;Playlist</p>
-
                                                       
                                                         <ul></ul>
-
-                                                        <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -92,18 +88,20 @@
                                 <div class="well2">
                                     <div class="row">
                                         <div class="col-md-1">
+
                                             <img src="/img/user/u3.png" class="">
+
                                         </div>
                                         <div class="col-md-11">
                                             <h2 class="black">
-                                                <span>Channel Name<small>(150,000 Followrs)</small>
+                                                <span>{{$owner->channel_name}}<small>(150,000 Followrs)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
                                             <p>Posted on <b>date</b> &nbsp; </p>
                                             <div class="seeVideoContent">
                                                 <p>
-                                                  description
+                                                 {{$video->description}}
                                                </p>
                                            </div>
                                        </div><!--./col-md-11-->
@@ -126,26 +124,60 @@
                 <!--Display number of search results-->
                 <div class="searchResult">
                     <div class="row content-padding">
-                        <span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span>
-                        <span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span>
+                @if(empty($previousA))
+                    <a href="#"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
+                @else
+                    @foreach($previousA as $prev)
+                            <a href="/watchplaylist={{$prev->file_name}}/{{Crypt::encrypt($prev->playlist_id)}}"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
+                    @endforeach
+                @endif
+
+                @if(empty($nextA))
+                     <a href="#"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
+                @else
+                    @foreach($nextA as $next)
+                       <a href="/watchplaylist={{$next->file_name}}/{{Crypt::encrypt($next->playlist_id)}}"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
+                    @endforeach
+                @endif
                     </div>
                 </div>
                 <!--/search result-->
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                    <li class="ui-tabs-nav-item" id="">
-                        <a href="" id="">
+                @foreach($playlistVideos as $playlistVideo)
+                    @if($playlistVideo->id == $video->id)
+                    <li class="ui-tabs-nav-item" id="" >
+                        <a href="#" id=" " class="active">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="/img/thumbnails/v1.jpg"/>    
+                                </div>
+                                <div class="col-md-8">
+                                    <span>{{$playlistVideo->title}}</span><br/>
+                                    <span>by: {{$playlistVideo->channel_name}}</span><br/>
+                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    @else
+                     <li class="ui-tabs-nav-item" id="">
+                        <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
                             <div class="row">
                                 <div class="col-md-4">
                                     <img src="/img/thumbnails/v1.jpg" />    
                                 </div>
                                 <div class="col-md-8">
-                                    <span>title</span><br/>
-                                    <span>by: </span><br/>
-                                    <small>date</small>
+                                    <span>{{$playlistVideo->title}}</span><br/>
+                                    <span>by: {{$playlistVideo->channel_name}}</span><br/>
+                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
                                 </div>
                             </div>
                         </a>
                     </li>
+                    @endif
+                @endforeach
+
                 </ul><!--video list--> 
             </div><!--col-md-4-->
         </div><!--/.featured-->

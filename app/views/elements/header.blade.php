@@ -43,11 +43,9 @@
             <div class="row">
                 <div class="col-sm-12 col-xs-12" style="border-bottom:1px solid #35435b;">
                     <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
-                    <span style="position:absolute;top:0;right:0;">
-                         {{ link_to_route('get.upload', 'Upload', null, array('class' => 'btn btn-upload')) }}
-                    </span>
-                </div>
+                    <a href="{{ route('get.upload') }}" class="pull-right" style="position:absolute;top:30px; right:20px;" title="Upload"><img src="/img/icons/upload-sm.png"></a>
             </div><!--/.row-->
         </div><!--/.container mobile-->
+    </div>
     </div>
 </div><!--/.brandingHeader-->
