@@ -229,6 +229,7 @@ class HomeController extends BaseController {
 		$reply = trim(Input::get('txtreply'));
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
+		$video_id = Input::get('video_id');
 		// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
