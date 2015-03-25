@@ -72,16 +72,18 @@ div#progressbar #current-progress{
 	width:0;height:100%;border-radius: 2px; position: relative;background-color: red;	
 }div#button-progress{
 	z-index: 2;
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	position: absolute;
 	left: -20px;
 	text-decoration: overline;
-	background: url('/img/icons/handle.png') no-repeat 50% 50%;
+	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
+	background: #fff;
 	outline:none;
-	top: -8px;
+	top: -6px;
 	margin-left: 10px;
 	display: none;
+	border-radius: 20px;
 
 }div#buffered{
 	height: 100%;
