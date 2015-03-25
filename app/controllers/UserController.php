@@ -561,7 +561,6 @@ class UserController extends BaseController {
 	}
 
 	public function getFeedbacks() {
-
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -836,16 +835,16 @@ class UserController extends BaseController {
 	public function postFeedbacks() {
 
 		$channelName = Input::get('term');
-		$channelNames = array();
-		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$channelName."%'");
-
+		$name = str_replace('@', '', $channelName);
+		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
+		// $query = DB::table('users')->where('channel_name', 'LIKE', '%' .$channelName. '%')->get();
 		foreach($query as $q) {
 			$channelNames[] = array(
 				'id' => $q->id,
-				'channel_name' => $q->channel_name
+				'label' => $q->channel_name
 				);
 		}
-		return json_encode($channelNames);
+		return Response::json($channelNames);
 		// $term = Input::get('search');
 		// $data = ['R' => 'RED', 'B' => 'BLUE', 'G' => 'GREEN'];
 		// $result = [];
