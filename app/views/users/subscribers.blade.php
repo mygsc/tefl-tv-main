@@ -49,7 +49,7 @@
 
 										<a href="{{route('view.users.channel')}}"><span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span></a>&nbsp;
 										<br/>&nbsp;
-										<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+										<span>w/ <b>count</b> Subscribers</span>&nbsp;
 										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 									</div>
 								</div><!--subscibersDiv-->
