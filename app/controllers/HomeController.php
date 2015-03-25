@@ -255,11 +255,11 @@ class HomeController extends BaseController {
 			$replies->save();
 
 			/*Notification Start*/
-			$videoData = Video::find($comment_id);
-			$channel_id = $videoData->user_id;
+			$videoData = Video::find($video_id);
+			$channel_id = Comment::find($comment_id)->user_id;
 			$notifier_id = $user_id;
 			$routes = route('homes.watch-video', $videoData->file_name);
-			$type = 'comment';
+			$type = 'replied';
 			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
 			/*Notification End*/
 
