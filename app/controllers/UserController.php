@@ -814,20 +814,23 @@ class UserController extends BaseController {
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 
+		if($this->Notification->getTimePosted($notifications) === false){
+			app::abort(404, 'Error');
+		}
+
+		$notifications = $this->Notification->getTimePosted($notifications);
 		return View::make('users.notifications', compact('notifications'));
 	}
 
 	public function postLoadNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id);
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, 3);
 		$this->Notification->setStatus();
-
 		return $notifications;
 	}
 
 	public function postCountNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		//$user_id = 3;
 		$notifications =  $this->Notification->getNotifications($user_id, 0);
 
 		return $notifications;

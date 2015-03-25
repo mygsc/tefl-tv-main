@@ -32,6 +32,8 @@
 				<br>
 			@endif
 				{{$notification->notification}}
+				<br>
+				{{$notification->time_difference}}
 			@endforeach
 		</div>
 
