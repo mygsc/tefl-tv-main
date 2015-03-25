@@ -32,12 +32,18 @@
 					<!--like count-->
 					<?php
 						$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
+						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
+
 						$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
 							'comment_id' => $getVideoComment->id, 
 							'user_id' => Auth::User()->id,
 							'status' => 'liked'
 						))->first();
-						$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
+						$ifAlreadyDisliked = DB::table('comments_likesdislikes')->where(array(
+							'comment_id' => $getVideoComment->id, 
+							'user_id' => Auth::User()->id,
+							'status' => 'disliked'
+						))->first();
 					?>
 					<div class='fa fa-thumbs-up likedup'>
 						<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
@@ -55,18 +61,19 @@
 						<input type="hidden" value="{{$getVideoComment->id}}" name="dislikeCommentId">
 						<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
 						<input type="hidden" value="{{$videoId}}" name="video_id">
-						@if(!$ifAlreadyLiked)
-							<input type="hidden" value="liked" name="status">
+						@if(!$ifAlreadyDisliked)
+							<input type="hidden" value="disliked" name="status">
 						@else
-							<input type="hidden" value="unliked" name="status">
+							<input type="hidden" value="undisliked" name="status">
 						@endif
-						<span class="dislikescount">{{$dislikeCount}}</span> &nbsp;
+						<span class="dislikescount" id="dislikesCount">{{$dislikeCount}}</span> &nbsp;
 					</div>
 					<!-- <a href="#"><i class='fa fa-thumbs-down'></i></a> -->
 				@endif
 				<?php
 					$getCommentReplies = DB::table('comments_reply')
 						->join('users', 'users.id', '=', 'comments_reply.user_id')
+						->orderBy('comments_reply.created_at', 'asc')
 						->where('comment_id', $getVideoComment->id)->get(); 
 				?>
 
@@ -79,7 +86,6 @@
 						echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 						echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
 						echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";
-						echo $getCommentReply->id;
 					endforeach;
 					?>
 					@if(isset(Auth::User()->id))
