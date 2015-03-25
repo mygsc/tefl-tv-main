@@ -266,6 +266,29 @@ class HomeController extends BaseController {
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
     }
+    public function addDisliked(){
+		$likeCommentId = trim(Input::get('likeCommentId'));
+		$likeUserId = Input::get('likeUserId');
+		$statuss = Input::get('status');
+		$tempThis = Input::get('tempThis');
+		
+
+		if($statuss == 'liked'){
+			DB::table('comments_likesdislikes')->insert(
+			    array('comment_id' => $likeCommentId,
+			    	  'user_id'    => $likeUserId,
+			    	  'status' 	   => 'liked'
+			   	)
+			);
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'tempThis' => $tempThis));
+
+		} elseif($statuss == 'unliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
+		}
+    }
 
 	public function testingpage(){ 
 		define('DS', DIRECTORY_SEPARATOR);
