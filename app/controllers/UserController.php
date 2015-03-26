@@ -401,7 +401,9 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		
+		// $order = 'Likes';
+		// $result = DB::select("SELECT * FROM videos WHERE user_id ='" .$this->Auth->id. "ORDER BY created_at ASC'");
+		// return $result;
 		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
 	}
 
@@ -423,7 +425,7 @@ class UserController extends BaseController {
 
 	public function postRemoveFavorites($id) {
 
-		$deleteFavorite = Favorite::where('video_id', $id)->first();
+		$deleteFavorite = Favorite::find($id);
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
 	}
@@ -520,6 +522,10 @@ class UserController extends BaseController {
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
+	}
+
+	public function postDeleteWatchLater($id) {
+		return 'ANG GANDA MO CESS :D PAAYOS PO TONG BUHHTTTOON';
 	}
 
 	public function postWatchLater() {
@@ -860,8 +866,18 @@ class UserController extends BaseController {
 	public function getSortVideos() {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
-		if($order != ''){
-			$likes = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
+		if($order == 'Likes'){
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
+		}else{
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
 		}
+		str_replace('Recent', 'created_at', $order);
+		if($order == 'Recent'){
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
+		}else{
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
+		}
+
+		return Response::json($result);
 	}
 }

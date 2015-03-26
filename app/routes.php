@@ -69,6 +69,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
 	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));
 	Route::post('post-watch-later', array('as' => 'post.users.watch-later', 'uses' => 'UserController@postWatchLater'));
+	Route::post('delete-watch-later/{id}', array('as' => 'post.delete.watch-later', 'uses' => 'UserController@postDeleteWatchLater'));
 	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
 	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
 	Route::get('post-feedbacks', array('as' => 'post.users.feedbacks', 'uses' => 'UserController@postFeedbacks'));

@@ -62,20 +62,24 @@
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
 									@if($watchLater->status==1)
-									<span title="Remove from watch later?" class="btn-sq">
+									<span title="Remove from watch later?" class="btn-sq caption1">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
 
 									</span>
 									@else
-									<span title="Remove from watch later?" class="btn-sq inline">		
-											{{Form::open()}}
-												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
-											{{Form::close()}}
+									<span title="Remove from watch later?" class="btn-sq caption">
+											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
+											<span class="inline">
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
+													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
+
 									</span>
 									@endif
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
@@ -83,7 +87,7 @@
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-											<input type="hidden" id="video_id" value="{{$watchLater->id}}" style="z-index:9999999999">
+											<input type="hidden" id="video_id" value="{{$watchLater->video_id}}" style="z-index:9999999999">
 										</video>
 										<br/>
 										
