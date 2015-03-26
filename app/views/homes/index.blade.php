@@ -13,9 +13,9 @@
 				<div class="embed-responsive embed-responsive-16by9">
 
               	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-					<source src='/videos/bruce.mp4' type='video/mp4'>
-					<source src='/videos/bruce.webm' type='video/webm'>
-					<source src='/videos/bruce.ogv' type='video/ogg'>
+					<source src='/videos/bowling.mp4' type='video/mp4'>
+					<source src='/videos/bowling.webm' type='video/webm'>
+					<source src='/videos/bowling.ogv' type='video/ogg'>
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
@@ -44,7 +44,7 @@
 							<div id="buffered"></div>
 							<div style="display:none" id="current-progress">	
 
-								 <div id="button-progress" class="progress-button">		
+								 <div style="display:none" id="button-progress" class="progress-button">		
 								</div>	 
 							</div> 
 						</div>
@@ -78,11 +78,11 @@
 						<div class="hd-setting" style="display:none">
 						<small style="text-align:center;color:#fff">HD Quality</small>
 							<ul>
-								<li> <a href="#">1080p</a></li>
-								<li> <a href="#">720p</a></li>
-								<li> <a href="#">480p</a></li>
+								<li> <a href="#">High</a></li>
+								<li> <a href="#">Low</a></li>
+								{{-- <li> <a href="#">480p</a></li>
 								<li> <a href="#">360p</a></li>
-								<li> <a href="#">240p</a></li>
+								<li> <a href="#">240p</a></li> --}}
 							</ul>						
 						</div>
 						<div class="share-video" style="display:none">
