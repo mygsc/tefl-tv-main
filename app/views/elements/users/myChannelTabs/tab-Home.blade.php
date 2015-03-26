@@ -19,8 +19,8 @@
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
-			1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -170,7 +170,7 @@
 								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>asd</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>

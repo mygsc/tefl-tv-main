@@ -1,5 +1,18 @@
-var divList = $("#subscriberLists");
-divList.sort(function(a, b){
-    return $(a).data("subscriberList")-$(b).data("subscriberList")
-});
-$("#list").html(divList);
+// $('#dropdown').change(function() {
+
+function dynamic_select(dropdown){
+	// alert('asd');
+	$.ajax({
+		type: 'GET',
+		url: '/mychannels/sortvideos',
+		data: 'ch=' + dropdown,
+		dataType: 'html',
+		success: function(data){
+			console.log(data);
+		}
+// 		}
+	});
+}
+// });
+
+	
