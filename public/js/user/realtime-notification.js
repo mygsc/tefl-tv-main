@@ -38,7 +38,7 @@ $('#document').ready(function(){
 				}
 
 				$.each(notifications, function(i, item) {
-					$('#loading-notification').after('<li class="notification-item">'+item.notification+'</li>').fadeIn();
+					$('#loading-notification').after('<li class="notification-item"><div>'+item.notification+'</div></li>').fadeIn();
 				});
 
 				$('#loading-notification').hide();
