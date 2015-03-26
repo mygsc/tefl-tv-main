@@ -19,24 +19,28 @@
                                {{$video->title}}
                             </p>
                             <!--video paler-->
-                           <img src="/img/thumbnails/vp.png">
+                            @include('elements/home/watch_playlist')
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
                                         <br/>
                                         <span class="">
                                             <span id="views-counter">{{$video->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">12ike(s)</span>&nbsp;
+                                            <span id="like-counter">{{$likeCounter}}</span>&nbsp;
                                            
+                                            @if(isset(Auth::User()->id))
+                                            @if(!empty($like))
                                             <span id = "like-span">
                                                 <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
                                             </span>
-                                        
+                                            @else
                                             <span id = "like-span">
                                                 <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
                                             </span>
-                                           
+                                            @endif
+                                            @else
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            @endif
                                            
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -57,26 +61,34 @@
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                       
 
+                         {{Form::hidden('text1',Crypt::encrypt($video->id),array('id'=>'text1'))}}
+                                            @if(isset(Auth::User()->id))
+
                                             <span class="dropdown" id="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                                 </a>
                                                 <span class="dropdown-menu White noclose" style="padding:5px 5px;text-align:left;">
 
-                                                 
-                                                    <li id="favotite-list"><p id="addToFavorites" style="cursor: pointer"><img src="img/icons/star.png"/>&nbsp;&nbsp;Favorites</p></li>
-                                                   
-                                                    <li id="favotite-list"><p id="removeToFavorites" style="cursor: pointer"><img src="img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p></li>
-                                                    
-                                                    <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
-                                                 
-                                                    <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
-                                                  
-                                                      
-                                                        <ul></ul>
-                                                    </li>
+                                                    @if(empty($favorites))
+                                                    <li id="favotite-list"><p id="addToFavorites" style="cursor: pointer"><img src="/img/icons/star.png"/>&nbsp;&nbsp;Favorites</p></li>
+                                                    @else
+                                                    <li id="favotite-list"><p id="removeToFavorites" style="cursor: pointer"><img src="/img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p></li>
+                                                    @endif
+                                                    @if(empty($watchLater))
+                                                    <li id="watchlater-list"><p id="addToWatchLater" style="cursor: pointer"><img src="/img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                                                    @else
+                                                    <li id="watchlater-list"><p id="removeToWatchLater" style="cursor: pointer"><img src="/img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p></li>
+                                                    @endif
                                                 </span>
                                             </span><!--/.dropdown add to-->
+
+                                            @else
+
+                                            <a href="signin" role="button" aria-expanded="false">
+                                                <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
+                                            </a>
+                                            @endif
 
 
                                         </span><!--/links-->
@@ -98,7 +110,7 @@
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
-                                            <p>Posted on <b>date</b> &nbsp; </p>
+                                            <p>Posted on <b>{{$video->created_at->toFormattedDateString()}}</b> &nbsp; </p>
                                             <div class="seeVideoContent">
                                                 <p>
                                                  {{$video->description}}
@@ -185,5 +197,7 @@
 </div><!--/padding-->
 </div><!--/.row-->
 @stop
-
+@section('script')
+{{HTML::script('js/homes/watch.js')}}
+@stop
 
