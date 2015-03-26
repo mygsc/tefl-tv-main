@@ -335,7 +335,7 @@ class UserController extends BaseController {
 		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		
+
 		return View::make('users.editchannel', compact('userChannel','userWebsite', 'picture'));
 	}
 
@@ -401,7 +401,9 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		
+		// $order = 'Likes';
+		// $result = DB::select("SELECT * FROM videos WHERE user_id ='" .$this->Auth->id. "ORDER BY created_at ASC'");
+		// return $result;
 		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
 	}
 
@@ -860,8 +862,18 @@ class UserController extends BaseController {
 	public function getSortVideos() {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
-		if($order != ''){
-			$likes = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
+		if($order == 'Likes'){
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
+		}else{
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
 		}
+		str_replace('Recent', 'created_at', $order);
+		if($order == 'Recent'){
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
+		}else{
+			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
+		}
+
+		return Response::json($result);
 	}
 }

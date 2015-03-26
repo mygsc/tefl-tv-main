@@ -9,6 +9,7 @@ function dynamic_select(dropdown){
 		dataType: 'html',
 		success: function(data){
 			console.log(data);
+			$('$videosContainer').html(data);
 		}
 // 		}
 	});
