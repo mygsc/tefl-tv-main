@@ -64,6 +64,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
 	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+	Route::get('sortvideos', array('as' => 'sort.videos', 'uses' => 'UserController@getSortVideos'));
 	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
 	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
 	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));

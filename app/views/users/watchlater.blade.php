@@ -78,16 +78,12 @@
 											{{Form::close()}}
 									</span>
 									@endif
-
-									
-
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 										<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-
-											<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+											<input type="hidden" id="video_id" value="{{$watchLater->id}}" style="z-index:9999999999">
 										</video>
 										<br/>
 										
@@ -98,7 +94,9 @@
 							<div class="inlineInfo ">
 								<div class="count">
 									<div class="v-Info">
+										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 										{{$watchLater->title}}
+										</a>
 									</div>
 									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>

@@ -19,6 +19,7 @@
 	<div class="col-md-12 commentsarea">
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row">
+				{{HTML::image('img/user/'.$getVideoComment->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 				{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
 				| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 				<br/>

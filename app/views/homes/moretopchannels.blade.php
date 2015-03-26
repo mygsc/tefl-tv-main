@@ -12,7 +12,12 @@
     		<div class="well">
     			<div class="row">
     				<div class="col-md-4">
-    					{{HTML::image($topChannel->image_src, 'alt')}}<br />
+    					@if(file_exists(public_path('img/user/') . $topChannel->id . '.jpg'))
+
+					{{HTML::image('img/user/'. $topChannel->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					@else
+					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+					@endif
 					</div>
 					<div class="col-md-8">
 						<a href="#"><h3>{{$topChannel->channel_name}}</h3></a>

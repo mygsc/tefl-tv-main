@@ -55,22 +55,17 @@
 
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(($findUsersVideos->isEmpty()))
+						@if(empty($findUsersVideos))
 							No Favorites yet.
 						@else
-						<?php
-							$showFavoriteVideo ='';
-							foreach($findUsersVideos as $video){
-								$showFavoriteVideo = Video::find($video->video_id);
-							}
-						?>
 						<div id="list" class="col-md-3">
+							@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
 								<video controls width="100%" class="h-video">
-									<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
+									<source src="/videos/{{$showFavoriteVideo->file_name}}" type="video/mp4">
 								</video>
 								</a>
 							</div>
@@ -91,6 +86,7 @@
 								</div>
 							</div>
 						</div>
+						@endforeach
 						@endif
 					</div><!--videoContainer-->
 				</div>

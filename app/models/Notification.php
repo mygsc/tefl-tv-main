@@ -39,6 +39,43 @@ class Notification extends Eloquent {
 
 	}
 
+	public function getTimePosted($notifications = null){
+		if(isset($notifications)){
+			foreach($notifications as $key => $notification){
+				$getTimeDiff = (strtotime($notification->created_at) - time()) / 3600;
+				$roundedTime = round($getTimeDiff);
+				$getTime = abs($roundedTime);
+
+				switch (true) {
+					case ($getTime >= 6144):
+					$getTime = round($getTime / 6144);
+					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
+					break;
+					case ($getTime >= 720):
+					$getTime = round($getTime / 720);
+					$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
+					break;
+					case ($getTime >= 168):
+					$getTime = round($getTime / 168);
+					$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
+					break;
+					case ($getTime >= 24):
+					$getTime = round($getTime / 24);
+					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' days ago');
+					break;
+
+					default:
+					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
+					break;
+				}
+
+				$notifications[$key]['time_difference'] = $getTime;
+			}
+			return $notifications;
+		}
+		return false;
+	}
+
 	public function insertNotifications($user_id, $notificationMessage){
 		if(!empty($user_id) || !empty($completeNotification)){
 			$notification =  new Notification();
@@ -51,7 +88,7 @@ class Notification extends Eloquent {
 		return false;
 	}
 
-	public function getNotifications($id = null, $read = null, $paginate = null){
+	public function getNotifications($id = null, $read = null, $paginate = null, $limit = null){
 		if(!empty($id)){
 			if(isset($paginate)){
 				$result = Notification::whereUserId($id)
@@ -64,6 +101,13 @@ class Notification extends Eloquent {
 				->whereDeletedAt(null)
 				->whereRead($read)
 				->OrderBy('created_at', 'DESC')
+				->get();
+				return $result;
+			}elseif(isset($limit)){
+				$result = Notification::whereUserId($id)
+				->whereDeletedAt(null)
+				->OrderBy('created_at', 'DESC')
+				->take($limit)
 				->get();
 				return $result;
 			}

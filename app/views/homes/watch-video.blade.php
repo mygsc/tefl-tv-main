@@ -172,7 +172,9 @@
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
                             <div class="col-md-4 col-xs-4">
+    
                                <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />    
+
                             </div>
                             <div class="col-md-8">
                                 <span>{{$relation->title}}</span><br/>
