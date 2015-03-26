@@ -10,20 +10,20 @@ class Notification extends Eloquent {
 
 	public function constructNotificationMessage($user_id, $notifier_id, $type, $routes = null, $callback = null){
 		if(!empty($user_id) || !empty($notifier_id) || !empty($type)){
-			$notifierInfo = User::find($notifier_id);			$notifierLink = '<a href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
+			$notifierInfo = User::find($notifier_id);			$notifierLink = '<a class="inline" style="margin-right:0;" href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
 
 			if($type == 'subscribed'){
 				$message = 'has subscribe to your channel';
 			}elseif($type == 'mentioned'){
-				$message = 'has mentioned you in a <a href="'.$routes.'">comment</a>';
+				$message = 'has mentioned you in a <a class="inline" href="'.$routes.'">comment</a>';
 			}elseif($type == 'liked'){
-				$message = 'has liked your <a href="'.$routes.'">comment</a>';
+				$message = 'has liked your <a class="inline" href="'.$routes.'">comment</a>';
 			}elseif($type == 'replied'){
-				$message = 'has replied to your <a href="'.$routes.'">comment</a>';
+				$message = 'has replied to your <a class="inline" href="'.$routes.'">comment</a>';
 			}elseif($type == 'upload'){
-				$message = 'has uploaded new <a href="'.$routes.'">video</a>';
+				$message = 'has uploaded new <a class="inline" href="'.$routes.'">video</a>';
 			}elseif($type == 'comment'){
-				$message = 'has added a comment to your <a href="'.$routes.'">video</a>';
+				$message = 'has added a comment to your <a class="inline" href="'.$routes.'">video</a>';
 			}else{
 				return false;
 			}

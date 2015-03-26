@@ -259,12 +259,11 @@ class HomeController extends BaseController {
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
 		$video_id = Input::get('video_id');
-			// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
 			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
 		}
-		if(!empty(trim($reply))){
+		if(!empty($reply)){
 			$replies = new CommentReply;
 			$replies->comment_id = $comment_id;
 			$replies->user_id = $user_id;
@@ -279,14 +278,14 @@ class HomeController extends BaseController {
 				$routes = route('homes.watch-video', $videoData->file_name);
 				$type = 'replied';
 				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-				/*Notification End*/
-				return Response::json(array('status' => 'success'));
+			/*Notification End*/
 			}
+			return Response::json(array('status' => 'success'));
 		}
 	}
 
-	public function addLiked(){
-		$likeCommentId = trim(Input::get('likeCommentId'));
+    public function addLiked(){
+		$likeCommentId = Input::get('likeCommentId');
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
 		$video_id = Input::get('video_id');
@@ -318,61 +317,29 @@ class HomeController extends BaseController {
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
 	}
-	public function addDisliked(){
-		$dislikeCommentId = trim(Input::get('likeCommentId'));
-		$likeUserId = Input::get('likeUserId');
+
+    public function addDisliked(){
+		$dislikeCommentId = Input::get('dislikeCommentId');
+		$dislikeUserId = Input::get('dislikeUserId');
 		$statuss = Input::get('status');
 
-		if($statuss == 'liked'){
+		if($statuss == 'disliked'){
 			DB::table('comments_likesdislikes')->insert(
 				array('comment_id' => $dislikeCommentId,
-					'user_id'    => $likeUserId,
+					'user_id'    => $dislikeUserId,
 					'status' 	   => 'disliked'
 					)
 				);
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
-
-		} elseif($statuss == 'unliked'){
-			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
-			$dislikescount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+		} elseif($statuss == 'undisliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
 	}
 
 	public function testingpage(){ 
-		$notifications =  $this->Notification->getNotifications(1);
-
-		foreach($notifications as $key => $notification){
-			$getTimeDiff = (strtotime($notification->created_at) - time()) / 3600;
-			$roundedTime = round($getTimeDiff);
-			$getTime = abs($roundedTime);
-
-			switch (true) {
-				case ($getTime >= 6144):
-				$getTime = round($getTime / 6144);
-				$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
-				break;
-				case ($getTime >= 720):
-				$getTime = round($getTime / 720);
-				$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
-				break;
-				case ($getTime >= 168):
-				$getTime = round($getTime / 168);
-				$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
-				break;
-				case ($getTime >= 24):
-				$getTime = round($getTime / 24);
-				$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' days ago');
-				break;
-				
-				default:
-					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
-				break;
-			}
-			
-			$notifications[$key]['timeDiff'] = $getTime;
-		}
-		return $notifications;
+		
 	}
 }

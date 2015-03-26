@@ -13,7 +13,7 @@ $(document).ready(function() {
 			cache: false, 
 	        data: {user_id: $('input[id="user_id"]').val(), video_id: $(this).find('#video_id').val()},
 	         	success: function(data){
-	         		alert(data);
+
 	         		console.log(data);
 	         	}
 	    });
