@@ -55,23 +55,20 @@
 
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(($findUsersVideos->isEmpty()))
+						@if(empty($findUsersVideos))
 							No Favorites yet.
 						@else
-						<?php
-							$showFavoriteVideo ='';
-							foreach($findUsersVideos as $video){
-								$showFavoriteVideo = Video::find($video->video_id);
-							}
-						?>
 						<div id="list" class="col-md-3">
+							@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-								<video controls width="100%" class="h-video">
-									<source src="/videos/{{$showFavoriteVideo->file_name}}.{{$showFavoriteVideo->extension}}" type="video/mp4">
-								</video>
+								<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.ogg'}}" type="video/ogg" />
+									</video>
 								</a>
 							</div>
 
@@ -85,12 +82,13 @@
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{$showFavoriteVideo->created_at}}<br/>
+									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
 									<br/>
 								</div>
 							</div>
 						</div>
+						@endforeach
 						@endif
 					</div><!--videoContainer-->
 				</div>

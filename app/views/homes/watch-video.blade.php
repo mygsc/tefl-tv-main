@@ -175,7 +175,7 @@
                                <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />    
                             </div>
                             <div class="col-md-8">
-                                <span>{{$relation->title}}</span><br/>
+                                <div class="v-list"><span>{{$relation->title}}</span></div>
                                 <span>by: {{$relation->channel_name}}</span><br/>
                                 <small>{{date('m/d/Y', $relation->created_at);}}</small>
                             </div>
