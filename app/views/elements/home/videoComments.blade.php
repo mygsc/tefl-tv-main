@@ -101,7 +101,7 @@
 							{{Form::hidden('comment_id', $getVideoComment->id)}}
 							{{Form::hidden('user_id', Auth::User()->id)}}
 							{{Form::hidden('video_id', $videoId)}}
-							{{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
+							{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
 							{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
 						{{Form::close()}} 
 					@endif

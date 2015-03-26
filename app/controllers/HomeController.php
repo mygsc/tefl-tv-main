@@ -262,8 +262,8 @@ class HomeController extends BaseController {
 				$type = 'replied';
 				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
 			/*Notification End*/
-				return Response::json(array('status' => 'success'));
 			}
+			return Response::json(array('status' => 'success'));
 		}
 	}
 

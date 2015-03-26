@@ -37,13 +37,13 @@ $(document).ready(function(){
 			cache: false, 
         	data: $(this).serialize(),//{
         	success: function(data){
-        		alert(data['status']);
         		if(data['status'] == 'error'){
         			$('#errorlabel').text(data['label']);
         			$("#errorlabel").focus();
-        		} else if(data['status'] == 'success'){
-        			$(this).find('textarea#txtreply]').val('');
-	        		// alert(data['status']);
+        		}
+        		if(data['status'] == 'success'){
+        			alert(data['status']);
+        			$('textarea.txtreply').val('');
 	        	}
         	}
     	});
