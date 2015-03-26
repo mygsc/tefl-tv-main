@@ -26,7 +26,7 @@
                                         <br/>
                                         <span class="">
                                             <span id="views-counter">{{$video->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">{{$likeCounter}}</span>&nbsp;
+                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                            
                                             @if(isset(Auth::User()->id))
                                             @if(!empty($like))
@@ -85,7 +85,7 @@
 
                                             @else
 
-                                            <a href="signin" role="button" aria-expanded="false">
+                                            <a href="../signin" role="button" aria-expanded="false">
                                                 <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                             @endif

@@ -182,13 +182,20 @@ class HomeController extends BaseController {
 			or v.report_count > 5
 			and v.publish = 1
 			");
-		$like = Like::where('video_id','=',$video->id)
-			->where('user_id','=',Auth::User()->id)->first();
+		if(isset(Auth::User()->id)){
+			$like = Like::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$favorites = Favorite::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = WatchLater::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+		}
+		else{
+			$like = null;
+			$favorites = null;
+			$watchLater = null;
+		}
 		$likeCounter = Like::where('video_id','=',$video->id)->count();
-		$favorites = Favorite::where('video_id','=',$video->id)
-			->where('user_id','=',Auth::User()->id)->first();
-		$watchLater = WatchLater::where('video_id','=',$video->id)
-			->where('user_id','=',Auth::User()->id)->first();
 		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater'));
 	}
 
