@@ -323,38 +323,6 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$notifications =  $this->Notification->getNotifications(1);
-
-		foreach($notifications as $key => $notification){
-			$getTimeDiff = (strtotime($notification->created_at) - time()) / 3600;
-			$roundedTime = round($getTimeDiff);
-			$getTime = abs($roundedTime);
-
-			switch (true) {
-				case ($getTime >= 6144):
-				$getTime = round($getTime / 6144);
-				$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
-				break;
-				case ($getTime >= 720):
-				$getTime = round($getTime / 720);
-				$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
-				break;
-				case ($getTime >= 168):
-				$getTime = round($getTime / 168);
-				$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
-				break;
-				case ($getTime >= 24):
-				$getTime = round($getTime / 24);
-				$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' days ago');
-				break;
-				
-				default:
-					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
-				break;
-			}
-			
-			$notifications[$key]['timeDiff'] = $getTime;
-		}
-		return $notifications;
+		
 	}
 }
