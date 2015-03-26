@@ -10,9 +10,8 @@ $(document).ready(function(){
 				}
 			});
 			
-		}else{
-			false;
 		}
+
 	});
 	
 });

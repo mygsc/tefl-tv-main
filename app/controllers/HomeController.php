@@ -117,7 +117,7 @@ class HomeController extends BaseController {
 					WHERE i.playlist_id = p.id
 					AND
 					i.video_id = '".$id."')
-				AND p.user_id = '".Auth::User()->id."'");
+			AND p.user_id = '".Auth::User()->id."'");
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
@@ -140,22 +140,26 @@ class HomeController extends BaseController {
 			WHERE v.id = '".$id."';");
 		
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-				->where('comments.video_id', $videoId)->get();
+		->where('comments.video_id', $videoId)->get();
 
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
-		$video = Video::where('file_name',$videoId)->first();
+		$video = Video::where('file_name','=',$videoId)->first();
+		//return $video;
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
-								->where('playlist_id',$playlistId)->first();
+		->where('playlist_id',$playlistId)->first();
 		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
 			AND i.id > '".$itemId->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			ORDER BY i.id asc
 			LIMIT 1;");
 		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
@@ -164,6 +168,9 @@ class HomeController extends BaseController {
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
 			AND i.id < '".$itemId->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			ORDER BY i.id desc
 			LIMIT 1;");
 		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
@@ -171,8 +178,25 @@ class HomeController extends BaseController {
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$playlistId."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			");
-		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA'));
+		if(isset(Auth::User()->id)){
+			$like = Like::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$favorites = Favorite::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = WatchLater::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+		}
+		else{
+			$like = null;
+			$favorites = null;
+			$watchLater = null;
+		}
+		$likeCounter = Like::where('video_id','=',$video->id)->count();
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater'));
 	}
 
 	public function postSignIn() {
@@ -211,7 +235,7 @@ class HomeController extends BaseController {
 			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
 		}
 		if(!empty(trim($comment))){
-        	$comments = new Comment;
+			$comments = new Comment;
 			$comments->video_id = $video_id;
 			$comments->user_id = $user_id;
 			$comments->comment = $comment;
@@ -219,36 +243,35 @@ class HomeController extends BaseController {
 
 			/*Notification Start*/
 			$videoData = Video::find($video_id);
-			$channel_id = $videoData->user_id;
-			$notifier_id = $user_id;
-			$routes = route('homes.watch-video', $videoData->file_name);
-			$type = 'comment';
-			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			if($this->Auth->id != $videoData->user_id){
+				$channel_id = $videoData->user_id;
+				$notifier_id = $user_id;
+				$routes = route('homes.watch-video', $videoData->file_name);
+				$type = 'comment';
+				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			}
 			/*Notification End*/
 
 			return Response::json(array(
-                'status' => 'success',
-                'comment' => $comment,
-                'video_id' => $video_id,
-                'user_id' => $user_id
-            ));
-        }
+				'status' => 'success',
+				'comment' => $comment,
+				'video_id' => $video_id,
+				'user_id' => $user_id
+				));
+		}
+	}
 
-
-    }
-
-    public function addReply(){
+	public function addReply(){
 		$reply = trim(Input::get('txtreply'));
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
 		$video_id = Input::get('video_id');
-		// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
 			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
 		}
-		if(!empty(trim($reply))){
-        	$replies = new CommentReply;
+		if(!empty($reply)){
+			$replies = new CommentReply;
 			$replies->comment_id = $comment_id;
 			$replies->user_id = $user_id;
 			$replies->reply = $reply;
@@ -256,30 +279,43 @@ class HomeController extends BaseController {
 
 			/*Notification Start*/
 			$videoData = Video::find($video_id);
-			$channel_id = Comment::find($comment_id)->user_id;
-			$notifier_id = $user_id;
-			$routes = route('homes.watch-video', $videoData->file_name);
-			$type = 'replied';
-			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			if($this->Auth->id != $videoData->user_id){
+				$channel_id = Comment::find($comment_id)->user_id;
+				$notifier_id = $user_id;
+				$routes = route('homes.watch-video', $videoData->file_name);
+				$type = 'replied';
+				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
 			/*Notification End*/
-
+			}
 			return Response::json(array('status' => 'success'));
-        }
-    }
+		}
+	}
+
     public function addLiked(){
-		$likeCommentId = trim(Input::get('likeCommentId'));
+		$likeCommentId = Input::get('likeCommentId');
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
-		
+		$video_id = Input::get('video_id');
 
 		if($statuss == 'liked'){
 			DB::table('comments_likesdislikes')->insert(
-			    array('comment_id' => $likeCommentId,
-			    	  'user_id'    => $likeUserId,
-			    	  'status' 	   => 'liked'
-			   	)
-			);
+				array('comment_id' => $likeCommentId,
+					'user_id'    => $likeUserId,
+					'status' 	   => 'liked'
+					)
+				);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
+
+			/*Notification Start*/
+			$videoData = Video::find($video_id);
+			if($this->Auth->id != $videoData->user_id){
+				$channel_id = Comment::find($comment_id)->user_id;
+				$notifier_id = $user_id;
+				$routes = route('homes.watch-video', $videoData->file_name);
+				$type = 'liked';
+				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			}
+			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
 
 		} elseif($statuss == 'unliked'){
@@ -287,36 +323,30 @@ class HomeController extends BaseController {
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
-    }
-    public function addDisliked(){
-		$dislikeCommentId = trim(Input::get('likeCommentId'));
-		$likeUserId = Input::get('likeUserId');
-		$statuss = Input::get('status');
-		
+	}
 
-		if($statuss == 'liked'){
+    public function addDisliked(){
+		$dislikeCommentId = Input::get('dislikeCommentId');
+		$dislikeUserId = Input::get('dislikeUserId');
+		$statuss = Input::get('status');
+
+		if($statuss == 'disliked'){
 			DB::table('comments_likesdislikes')->insert(
-			    array('comment_id' => $dislikeCommentId,
-			    	  'user_id'    => $likeUserId,
-			    	  'status' 	   => 'disliked'
-			   	)
-			);
+				array('comment_id' => $dislikeCommentId,
+					'user_id'    => $dislikeUserId,
+					'status' 	   => 'disliked'
+					)
+				);
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
-
-		} elseif($statuss == 'unliked'){
-			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
-			$dislikescount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+		} elseif($statuss == 'undisliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
-    }
+	}
 
 	public function testingpage(){ 
-		define('DS', DIRECTORY_SEPARATOR);
-		$userFolderName = Auth::User()->id. '-'. Auth::User()->channel_name;
-		//return asset('videos/'. $userFolderName);
-		if(!file_exists('public'. DS. 'videos'.DS. $userFolderName)){
-			mkdir('public'. DS. 'videos'. DS. $userFolderName);
-		}
+		
 	}
 }

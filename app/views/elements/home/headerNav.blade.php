@@ -26,20 +26,21 @@
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>
                         <div class="btn-group hand" id="notification">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                Notifications<span class="badge btn-danger " id="notification-counter"></span>
+
+                            <a class="dropdown-toggle nl" data-toggle="dropdown">
+                                <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
                             </a>
-                            <ul class="dropdown-menu scrollable-menu bullet" role="menu" id="notifcation-area">
+                            <span class="dropdown-menu scrollable-menu bullet" role="menu" style="width:300px;padding:0!Important;">
                                 <div id="loading-notification">
                                     {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                     {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
+                                    <small>Looking for new Notification</small>
                                 </div>
-                                <small id="looking-notification">Looking for new Notification</small>
-                                <li><a href="{{route('users.notifications')}}"><small>see all</small></a></li>
-                            </ul>
+                                
+                                <div class="text-center"><a href="{{route('users.notifications')}}" style="display:inline;"><small>see all</small></a></div>
+                            </span>
                         </div>
                     </li>
-                    {{HTML::script('js/user/realtime-notification.js')}}
 
 
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
@@ -73,6 +74,7 @@
                     <li>
                     {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
                         <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:5px;">
+                            
                             {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
                             <span class="input-group-addon" style="padding:0!important;">
                                 {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
@@ -86,19 +88,18 @@
                     <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                     <li><hr/></li>
                @if(Auth::check())
-                    <li><h4>&nbsp;&nbsp;Account</h4></li>
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
 
                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
 
                     <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
-                        {{HTML::script('js/user/realtime-notification.js')}}
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                    
                 @else
                     <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                @endif
                     <li><hr/></li>
-                     <li><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
                     <li class="visible-xs">{{ link_to_route('homes.aboutus', 'About Us', null) }}</li>
                     <li class="visible-xs">{{ link_to_route('homes.privacy', 'Privacy', null) }}</li> 
                     <li class="visible-xs">{{ link_to_route('homes.copyright', 'Copyright', null) }}</li>
@@ -111,3 +112,6 @@
     </div>
     <!-- /.container -->
 </nav>
+
+
+ {{HTML::script('js/user/realtime-notification.js')}}
