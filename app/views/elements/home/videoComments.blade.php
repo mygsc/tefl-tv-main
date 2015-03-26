@@ -28,7 +28,6 @@
 				<p style='margin-left:30px;text-align:justify;'>
 					{{$getVideoComment->comment}}
 				</p>
-				<br/>
 
 				<!-- <button id='c'>Reply</button> -->
 				@if(isset(Auth::User()->id))

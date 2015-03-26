@@ -39,7 +39,7 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organization}}</td>
+										<td>{{$usersChannel->organization}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>

@@ -231,7 +231,6 @@ class UserController extends BaseController {
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
-
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
