@@ -65,7 +65,7 @@
 									<span title="Remove from watch later?" class="btn-sq caption1">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
@@ -75,7 +75,7 @@
 									<span title="Remove from watch later?" class="btn-sq caption">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>

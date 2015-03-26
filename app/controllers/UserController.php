@@ -425,7 +425,7 @@ class UserController extends BaseController {
 
 	public function postRemoveFavorites($id) {
 
-		$deleteFavorite = Favorite::where('video_id', $id)->first();
+		$deleteFavorite = Favorite::find($id);
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashMessage('Selected video deleted');
 	}
@@ -522,6 +522,10 @@ class UserController extends BaseController {
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 
 		return View::make('users.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater'));
+	}
+
+	public function postDeleteWatchLater($id) {
+		return 'ANG GANDA MO CESS :D PAAYOS PO TONG BUHHTTTOON';
 	}
 
 	public function postWatchLater() {
