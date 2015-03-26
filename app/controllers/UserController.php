@@ -335,7 +335,7 @@ class UserController extends BaseController {
 		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-
+		
 		return View::make('users.editchannel', compact('userChannel','userWebsite', 'picture'));
 	}
 
