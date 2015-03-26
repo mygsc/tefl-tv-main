@@ -554,13 +554,13 @@ class UserController extends BaseController {
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$id."'");
+
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
 
 	}
 
 	public function getFeedbacks() {
-
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -568,7 +568,12 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos'));
+		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, 
+			c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c 
+			INNER JOIN users as u ON u.id = c.user_id 
+			WHERE c.user_id = '" .Auth::User()->id."'");
+		// return $userComments;
+		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments'));
 	}
 
 	public function getSubscribers() {
@@ -808,22 +813,51 @@ class UserController extends BaseController {
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 
+		if($this->Notification->getTimePosted($notifications) === false){
+			app::abort(404, 'Error');
+		}
+
+		$notifications = $this->Notification->getTimePosted($notifications);
 		return View::make('users.notifications', compact('notifications'));
 	}
 
 	public function postLoadNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id);
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, 3);
 		$this->Notification->setStatus();
-
 		return $notifications;
 	}
 
 	public function postCountNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		//$user_id = 3;
 		$notifications =  $this->Notification->getNotifications($user_id, 0);
 
 		return $notifications;
+	}
+
+	public function postFeedbacks() {
+
+		$channelName = Input::get('term');
+		$name = str_replace('@', '', $channelName);
+		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
+		// $query = DB::table('users')->where('channel_name', 'LIKE', '%' .$channelName. '%')->get();
+		foreach($query as $q) {
+			$channelNames[] = array(
+				'id' => $q->id,
+				'label' => $q->channel_name
+				);
+		}
+		return Response::json($channelNames);
+		// $term = Input::get('search');
+		// $data = ['R' => 'RED', 'B' => 'BLUE', 'G' => 'GREEN'];
+		// $result = [];
+
+		// foreach($data as $key => $color){
+		// 	if(strpos(Str::lower($color), $term) !== FALSE){
+		// 		$result[] = ['value' => $color, 'id' => $key];
+		// 	}
+		// }
+		// // $a = DB::select("SELECT channel_name FROM users WHERE channel_name LIKE '%".$input."%'");
+		// return Response::json($result);
 	}
 }

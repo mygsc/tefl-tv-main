@@ -29,11 +29,6 @@
 					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
-                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
-                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
                 </span><!--/.dropdown-menu pull-right White-->
             </span><!--/.dropdown share-->
 		</span><!--/counts and share link-->
@@ -61,6 +56,7 @@
 					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 						<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" alt="">
 					</a>
+					
 					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
 						<div class="v-Info">
 							{{$usersVideo->title}}
@@ -170,7 +166,7 @@
 								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b></b> Subscribers</span>&nbsp;
+								<span>w/ <b>asd</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>

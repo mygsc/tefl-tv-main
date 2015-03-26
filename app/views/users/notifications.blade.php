@@ -28,10 +28,12 @@
 					$day = date('d',$r_date);
 					$year = date('Y',$r_date);
 				?>
-				{{$notification->created_at}}
+				{{date('F d, Y',strtotime($notification->created_at))}}
 				<br>
 			@endif
 				{{$notification->notification}}
+				<br>
+				{{$notification->time_difference}}
 			@endforeach
 		</div>
 

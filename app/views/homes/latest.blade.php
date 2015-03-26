@@ -6,13 +6,15 @@
 	<h1>Latest Videos</h1>
 	@foreach($latestVideos as $latestVideo)
 	
-	<div class="col-md-3 col-sm-6 hidden-xs">
-		<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}">
-			@if(file_exists($latestVideo->video_poster))
-			<img class="thumbnail" src="{{$latestVideo->poster_path}}">
-			@else
-			<img class="thumbnail"src="/img/thumbnails/video.png">
-			@endif
+	<div class="col-lg-3 col-md-3 col-sm-6 hidden-xs ">
+		<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}" class="thumbnail-h">
+			<div class="thumbnail"> 
+				@if(file_exists($latestVideo->video_poster))
+				<img class="hvr-grow-rotate" src="{{$latestVideo->poster_path}}">
+				@else
+				<img class="hvr-grow-rotate"src="/img/thumbnails/video.png">
+				@endif
+			</div>
 			<div class="v-Info">
 				<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}">{{$latestVideo->title}}</a>
 			</div>
