@@ -19,7 +19,9 @@
 	<div class="col-md-12 commentsarea">
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row">
-				{{HTML::image('img/user/'.$getVideoComment->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+				<div class="commentProfilePic">
+					{{HTML::image('img/user/'.$getVideoComment->user_id . '.jpg', 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+				</div>
 				{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
 				| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 				<br/>
@@ -84,6 +86,11 @@
 				<div id="replysection" class="panelReply">
 					<?php
 					foreach($getCommentReplies as $getCommentReply):
+						?>
+						<div class="commentProfilePic">
+							{{HTML::image('img/user/'.$getVideoComment->user_id . '.jpg', 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+						</div>
+						<?php
 						echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 						echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
 						echo "<p style='margin-left:30px;text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";

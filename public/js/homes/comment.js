@@ -33,18 +33,22 @@ $(document).ready(function(){
 		$.ajax({
 			type: 'POST',
 			url: url,
+			context: this,
 			cache: false, 
         	data: $(this).serialize(),//{
         	success: function(data){
+        		alert(data['status']);
         		if(data['status'] == 'error'){
         			$('#errorlabel').text(data['label']);
+        			$("#errorlabel").focus();
         		} else if(data['status'] == 'success'){
-        			$('textarea#txtreply').val('');
+        			$(this).find('textarea#txtreply]').val('');
 	        		// alert(data['status']);
 	        	}
         	}
     	});
     });
+
     $("#replyLink").click(function() {
 		$("#txtreply").removeClass("hidden");
 		$("#replybutton").removeClass("hidden");

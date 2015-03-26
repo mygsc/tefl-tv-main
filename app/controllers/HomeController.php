@@ -242,12 +242,11 @@ class HomeController extends BaseController {
 		$comment_id = Input::get('comment_id');
 		$user_id = Input::get('user_id');
 		$video_id = Input::get('video_id');
-			// return Response::json(array('status' => $reply));
 
 		if(empty($reply)){
 			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
 		}
-		if(!empty(trim($reply))){
+		if(!empty($reply)){
 			$replies = new CommentReply;
 			$replies->comment_id = $comment_id;
 			$replies->user_id = $user_id;
@@ -262,7 +261,7 @@ class HomeController extends BaseController {
 				$routes = route('homes.watch-video', $videoData->file_name);
 				$type = 'replied';
 				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-				/*Notification End*/
+			/*Notification End*/
 				return Response::json(array('status' => 'success'));
 			}
 		}
