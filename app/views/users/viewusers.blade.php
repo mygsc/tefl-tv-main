@@ -37,10 +37,10 @@
 										    @else
 										    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
 										    @endif
-										    {{Form::close()}}
-										@else
-											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
-									    @endif
+										{{Form::close()}}
+									@else
+										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
+								    @endif
 									</span>	
 								</div>
 							</div>	

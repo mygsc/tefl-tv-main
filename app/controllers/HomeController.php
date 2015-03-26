@@ -268,8 +268,8 @@ class HomeController extends BaseController {
 		}
 	}
 
-	public function addLiked(){
-		$likeCommentId = trim(Input::get('likeCommentId'));
+    public function addLiked(){
+		$likeCommentId = Input::get('likeCommentId');
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
 		$video_id = Input::get('video_id');
@@ -301,24 +301,24 @@ class HomeController extends BaseController {
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
 		}
 	}
-	public function addDisliked(){
-		$dislikeCommentId = trim(Input::get('likeCommentId'));
-		$likeUserId = Input::get('likeUserId');
+
+    public function addDisliked(){
+		$dislikeCommentId = Input::get('dislikeCommentId');
+		$dislikeUserId = Input::get('dislikeUserId');
 		$statuss = Input::get('status');
 
-		if($statuss == 'liked'){
+		if($statuss == 'disliked'){
 			DB::table('comments_likesdislikes')->insert(
 				array('comment_id' => $dislikeCommentId,
-					'user_id'    => $likeUserId,
+					'user_id'    => $dislikeUserId,
 					'status' 	   => 'disliked'
 					)
 				);
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
-
-		} elseif($statuss == 'unliked'){
-			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
-			$dislikescount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
+		} elseif($statuss == 'undisliked'){
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
 	}

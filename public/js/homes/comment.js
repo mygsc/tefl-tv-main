@@ -80,11 +80,12 @@ $(document).ready(function(){
         	data: {
         		dislikeCommentId: $(this).find('input[name=dislikeCommentId]').val(),
         		dislikeUserId: $(this).find('input[name=dislikeUserId]').val(),
-        		status: $(this).find('input[name=status]').val()
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
         	},
         	success: function(data){
         		if(data['status'] == 'success'){
-        			$(this).find('span#dislikescount').text(data['dislikescount']);
+        			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			// alert(data['likescount']);
         		} 
