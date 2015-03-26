@@ -547,10 +547,25 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
+		$thumbnail_playlistCounter = 0;
+		$thumbnail_playlistCounter2 = 0;
+		$idCounter = 0;
+		$channel_nameCounter = 0;
 
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
+			foreach($playlists as $playlist){
+				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$playlist->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1");
+			}
+
 		// return $playlists;
-		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos'));
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','thumbnail_playlistCounter','thumbnail_playlistCounter2','idCounter','channel_nameCounter'));
 	}
 	public function getViewPlaylistVideo($id){
 		$id = Crypt::decrypt($id);
@@ -564,8 +579,10 @@ class UserController extends BaseController {
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$id."'");
-
+			WHERE i.playlist_id = '".$id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1");
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
 
@@ -585,6 +602,22 @@ class UserController extends BaseController {
 			WHERE c.user_id = '" .Auth::User()->id."'");
 		// return $userComments;
 		return View::make('users.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments'));
+	}
+
+	public function editplaylistTitle($id){
+		$id = Crypt::decrypt($id);
+		$name = Input::get('name');
+		$playlist = Playlist::find($id);
+		$playlist->name = $name;
+		$playlist->save();
+		//return Response::json($id);
+	}
+	public function editplaylistDesc($id){
+		$id = Crypt::decrypt($id);
+		$description = Input::get('description');
+		$playlist = Playlist::find($id);
+		$playlist->description = $description;
+		$playlist->save();	
 	}
 
 	public function getSubscribers() {
@@ -835,7 +868,7 @@ class UserController extends BaseController {
 
 	public function postLoadNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id, null , null, 3);
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
 		$this->Notification->setStatus();
 		return $notifications;
 	}
