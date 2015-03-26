@@ -66,7 +66,7 @@
 						@else
 							<input type="hidden" value="undisliked" name="status">
 						@endif
-						<span class="dislikescount" id="dislikesCount">{{$dislikeCount}}</span> &nbsp;
+						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
 					</div>
 					<!-- <a href="#"><i class='fa fa-thumbs-down'></i></a> -->
 				@endif

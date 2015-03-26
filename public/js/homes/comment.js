@@ -85,7 +85,7 @@ $(document).ready(function(){
         	},
         	success: function(data){
         		if(data['status'] == 'success'){
-        			$(this).find('span#dislikesCount').text(data['dislikescount']);
+        			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			// alert(data['likescount']);
         		} 
