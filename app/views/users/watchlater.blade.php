@@ -62,7 +62,7 @@
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
 									@if($watchLater->status==1)
-									<span title="Remove from watch later?" class="btn-sq">
+									<span title="Remove from watch later?" class="btn-sq caption1">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
 												{{Form::open(array('class' => 'inline'))}}
@@ -72,10 +72,14 @@
 
 									</span>
 									@else
-									<span title="Remove from watch later?" class="btn-sq inline">		
-											{{Form::open()}}
-												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
-											{{Form::close()}}
+									<span title="Remove from watch later?" class="btn-sq caption">
+											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
+											<span class="inline">
+												{{Form::open(array('class' => 'inline'))}}
+													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
+
 									</span>
 									@endif
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
