@@ -3,7 +3,7 @@
 
 @section('content')
 <style type="text/css" media="screen">
-canvas.thumb-1, canvas.thumb-2, canvas.thumb-3, .file-choose{
+canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
 	width:180px;
 	height:101px;
 	border:1px solid #ccc;
@@ -11,18 +11,16 @@ canvas.thumb-1, canvas.thumb-2, canvas.thumb-3, .file-choose{
 	margin-right: auto;
 	margin-left: auto;
 }
-canvas.thumb-1:hover, canvas.thumb-2:hover, canvas.thumb-3:hover , .file-choose:hover {
+canvas.thumb-1:hover, canvas.thumb-2:hover, canvas.thumb-3:hover {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
-}
 .file-upload {
 position: relative;
 overflow: hidden;
 margin: 10px;
-z-index: 9999999999;
 }
 .file-upload input#poster {
 	position: absolute;
@@ -34,6 +32,14 @@ z-index: 9999999999;
 	cursor: pointer;
 	opacity: 0;
 	filter: alpha(opacity=0);
+}
+.upPoster{
+	width:180px;
+	height:101px;
+	border:1px solid #ccc;
+	cursor:pointer;
+	margin-right: auto;
+	margin-left: auto;
 }
 </style>
 <div class="row White">
@@ -60,6 +66,11 @@ z-index: 9999999999;
 								</video>
 							</div>
 
+							
+						</div>
+
+						<div class="col-md-6">
+
 							<div class="col-sm-12" >
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								<center>
@@ -73,19 +84,19 @@ z-index: 9999999999;
 									</div>
 									<br/>
 									
-										<small>Or select desire thumbnail:</small><br>
-										<img id="thumbnail" class="file-choose" src="/img/thumbnails/video.png">
+										<small>Or select desire thumbnail:</small><br><br/>
+										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 										<br><br/>
 										<div class="file-upload btn btn-primary">
 											<span>Browse thumbnail</span>
 											<input type="file" name="poster" id="poster" accept="image/*"/>
 										</div>
 										<br/><br/><br/><br/>
-									</center>
+								</center>
 							</div>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<h3>Add Information</h3>
 							
 							<div class="row">
@@ -129,6 +140,8 @@ z-index: 9999999999;
 								{{Form::submit('Save',array('class'=>'btn btn-primary'))}} {{--,'onclick'=>'return checkThumbnail();'--}}
 								
 							</div>	
+						</div>
+							
 
 
 							<div class="modal fade" id="cancel-upload-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -178,26 +178,26 @@ $("#poster").on("change", function(){
 
 
 $('canvas.thumb-1').on('click', function(){
-  $(this).css({'outline':'2px solid green'});
-  $('canvas.thumb-2').css({'outline':'1px solid #2a2a2a'});
-  $('canvas.thumb-3').css({'outline':'1px solid #2a2a2a'});
+  $(this).css({'outline':'2px solid #84AAFC'});
+  $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
+  $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-1');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;
   //$('#poster').reset();
 });
 $('canvas.thumb-2').on('click', function(){
- $(this).css({'outline':'2px solid green'});
- $('canvas.thumb-1').css({'outline':'1px solid #2a2a2a'});
-  $('canvas.thumb-3').css({'outline':'1px solid #2a2a2a'});
+ $(this).css({'outline':'2px solid #84AAFC'});
+ $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
+  $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-2');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;
 });
 $('canvas.thumb-3').on('click', function(){
-  $(this).css({'outline':'2px solid green'});
-  $('canvas.thumb-1').css({'outline':'1px solid #2a2a2a'});
-  $('canvas.thumb-2').css({'outline':'1px solid #2a2a2a'});
+  $(this).css({'outline':'2px solid #84AAFC'});
+  $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
+  $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-3');
   var image  = getImg.toDataURL("image/png");
   thumbnail.value = image;
