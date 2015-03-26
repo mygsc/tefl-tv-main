@@ -83,7 +83,7 @@
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-											<input type="hidden" id="video_id" value="{{$watchLater->id}}" style="z-index:9999999999">
+											<input type="hidden" id="video_id" value="{{$watchLater->video_id}}" style="z-index:9999999999">
 										</video>
 										<br/>
 										
