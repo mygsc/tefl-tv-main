@@ -26,17 +26,18 @@
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>
                         <div class="btn-group hand" id="notification">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
+
+                            <a class="dropdown-toggle nl" data-toggle="dropdown">
                                 <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
                             </a>
-                            <span class="dropdown-menu scrollable-menu bullet" role="menu" style="width:300px;">
+                            <span class="dropdown-menu scrollable-menu bullet" role="menu" style="width:300px;padding:0!Important;">
                                 <div id="loading-notification">
                                     {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                     {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
                                     <small>Looking for new Notification</small>
                                 </div>
                                 
-                                <span><a href="{{route('users.notifications')}}"><div class="row text-center"><small>see all</small></a></div></span>
+                                <div class="text-center"><a href="{{route('users.notifications')}}" style="display:inline;"><small>see all</small></a></div>
                             </span>
                         </div>
                     </li>

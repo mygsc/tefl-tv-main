@@ -13,8 +13,8 @@
                             {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
                             <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:20px;">
                                 <span class="input-group-addon" style="padding:0!important;">
-                                    <!--{{ Form::select('type',array('Video' => 'Video', 'Playlist' => 'Playlist', 'Channel' => 'Channel'),'Video', array('style' => 'height:20px;', 
-                                    'class' => 'cBox'))}}-->
+                                    {{ Form::select('type',array('Video' => 'Video', 'Playlist' => 'Playlist', 'Channel' => 'Channel'),'Video', array('style' => 'height:20px;', 
+                                    'class' => 'cBox'))}}
                                 </span>
                                 {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
                                 <span class="input-group-addon" style="padding:0!important;">
