@@ -37,13 +37,13 @@
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<!--<select class="form-control" style="width:auto!important;">
+						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Videos</button>-->
+						<button class="btn btn-unsub">Manage Videos</button>
 
 						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -86,7 +86,6 @@
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
-
 									</video>
 								
 							</a>
@@ -120,7 +119,7 @@
 @section('script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
+	{{HTML::script('js/sort.js')}}
 
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 

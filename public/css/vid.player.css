@@ -157,6 +157,10 @@ input#seek-slider::-webkit-slider-thumb {
 	width: 15px;
 	border: none;
 	outline: none;
+	cursor: pointer;
+	position: relative;
+	top:0;
+	z-index: 2;
 }
 input#seek-slider::-moz-range-thumb {
 	-moz-appearance: none;
@@ -173,6 +177,10 @@ input#seek-slider::-moz-range-thumb {
 	width: 15px;
 	border: none;
 	outline:none;	
+	cursor: pointer;
+	position: relative;
+	top:0;
+	z-index: 2;
 }
 div#progress-amount {
   display: block;
@@ -392,3 +400,4 @@ color:#fff;
         transform:rotate(360deg);
     }
 }*/
+

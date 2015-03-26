@@ -11,7 +11,6 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
 
 //this is the prefix of every function  
 var GSC;
-
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
@@ -34,35 +33,77 @@ function GSCMediaPlayer(){
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
 	seekSlider.addEventListener('change',vidSeek, false);
+
 	// Add a listener for the timeupdate event so we can update the progress bar
-	mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
-	// Add a listener for the play and pause events so the buttons state can be updated
+	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false); //updateProgressBar
+	
 	mediaPlayer.addEventListener('play', function() {
-		// Change the button to be a pause button
 		changeButtonType(playPauseBtn, 'pause');
 	}, false);
+
 	mediaPlayer.addEventListener('pause', function() {
-		// Change the button to be a play button
 		changeButtonType(playPauseBtn, 'play');
 	}, false);
 	
-	// need to work on this one more...how to know it's muted?
-	mediaPlayer.addEventListener('volumechange', function(e) { 
-		// Update the button to be mute/unmute
-		if (mediaPlayer.muted) changeButtonType(muteBtn, 'unmute');
-		else changeButtonType(muteBtn, 'mute');
+	
+	mediaPlayer.addEventListener('volumechange', function(e){ 
+		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'unmute'); volumeStatus.value = 0;}
+		else {changeButtonType(muteBtn, 'mute'); volumeStatus.value = 100;}
 	}, false);	
-	mediaPlayer.addEventListener('ended', function(){ 
-		playPauseBtn.src = "/img/icons/play.png";}, false);
 
-	mediaPlayer.addEventListener('loadedmetadata', function() {
-	timeDuration = Math.round(mediaPlayer.duration);
-	timeSettings();
-	adsOn();
+	mediaPlayer.addEventListener('ended', function(){ 
+		playPauseBtn.src = "/img/icons/play.png";
+	}, false);
+
+	mediaPlayer.addEventListener('loadedmetadata', function(){
+		timeDuration = Math.round(mediaPlayer.duration);
+		timeSettings();
+		adsOn();
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
 	this.currentTime = currentTime;
+
+	mediaPlayer.addEventListener('progress', loadBuffer, false);
 }
+
+// $('#media-video').bind("progress", function() {
+// 		if(mediaPlayer.buffered.length > 0){
+// 			var buffPercent = this.buffered.end(0);
+// 			buffPercent = ((buffPercent / timeDuration) * 100);
+// 			$('#buffered').css({'width': buffPercent +'%'});
+// 			if(mediaPlayer.currentTime >= buffPercent){
+// 				$('#replay-icon').fadeIn();
+// 				replay.src="/img/icons/uploading.gif";
+// 				replay.width = 50;
+// 				replay.height = 50;
+// 			}else{
+// 				//$('#replay-icon').fadeOut(500);
+// 				replay.src="/img/icons/post_play_button.png";
+// 			}
+// 		}else{
+// 			console.log('no buffer recieved...');
+// 		}
+// });
+
+function loadBuffer(){
+	if(mediaPlayer.buffered.length > 0){
+			var buffPercent = this.buffered.end(0);
+			buffPercent = ((buffPercent / timeDuration) * 100);
+			$('#buffered').css({'width': buffPercent +'%'});
+			if(mediaPlayer.currentTime >= buffPercent){
+				$('#replay-icon').fadeIn();
+				replay.src="/img/icons/uploading.gif";
+				replay.width = 50;
+				replay.height = 50;
+			}else{
+				//$('#replay-icon').fadeOut(500);
+				replay.src="/img/icons/post_play_button.png";
+			}
+		}else{
+			console.log('no buffer recieved...');
+		}
+}
+
 
 
 function disabledRightClick(){
@@ -97,20 +138,34 @@ function seekTimeUpdate(){
 	seekSlider.value = currentSeek;
 	 curHrs = Math.floor(mediaPlayer.currentTime / 3600);
 	 curMin = Math.floor(mediaPlayer.currentTime / 60);
-	 curSec = Math.round(mediaPlayer.currentTime - (curMin * 60));
-	 durHrs = Math.floor(vidMinLenght / 60);
-	 durMin = Math.floor(vidMinLenght - (durHrs * 60));//Math.floor(mediaPlayer.duration / 60);
-	 durSec = Math.round(mediaPlayer.duration - (vidMinLenght  * 60));
+	 curSec = Math.floor(mediaPlayer.currentTime - (curMin * 60));
+	 durHrs = Math.floor(curMin / 60);
+	 durMin = Math.floor(mediaPlayer.duration / 60);
+	 durSec = Math.floor(mediaPlayer.duration - (durMin  * 60));
 	if(curHrs < 10){curHrs = "0"+curHrs;}
-	if(curMin < 10){curMin = "0"+curMin;}
+	//if(curMin < 10){curMin = "0"+curMin;}
 	if(curSec < 10){curSec = "0"+curSec;}
 	if(durSec < 10){durSec = "0"+durSec;}
 	_time.innerHTML = curHrs + ':' + curMin + ':' + curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
-	//bufferedPercent();
-	//document.getElementById('buffered').style.width = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
-	// document.getElementById('buffered').style.background = '#999';
-	 //var i = ((mediaPlayer.currentTime / timeDuration)*100);
-	 
+	if(timeDuration >= 3600){
+		_time.innerHTML = curHrs + ':' + curMin + ':' + curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
+	}else{
+		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
+	}
+	if(curSec == adsTime){
+		$('.advertisement').fadeIn(2000);
+	}
+
+
+    // var r = mediaPlayer.buffered;
+    // var total = timeDuration;
+    // var start = r.start(0);
+    // var end = r.end(0);
+    // var newValue = (end/total)*100;
+    // var loader = newValue.toString().split(".");
+    // $('.play-icon').fadeIn();
+    // $('.play-icon').html(loader[0]+' loaded...');
+
 }
 
 document.addEventListener("keydown", function(e) {
@@ -330,17 +385,31 @@ function updateProgressBar(response) {
 
 //Let's calculate amount buffering progress....
 function bufferedPercent(){
+<<<<<<< HEAD
 	currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
 	if (currentBuffered < timeDuration) {
       //document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
       //var i = Math.floor(((currentBuffered / timeDuration) * 100));
      $('#buffered').css({'width': 0 + "%"});
     }
+=======
+// currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
+// if (currentBuffered < timeDuration) {
+//     document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
+//      var i = ((currentBuffered / timeDuration) * 100) + "%";
+//      $('#buffered').css({'width': i });
+//      setInterval(bufferedPercent, 1000);
+//    }
+>>>>>>> 5e9c61ae65c2c7f041a97c7f2df93da52123b170
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
     	setInterval(bufferedPercent, 1000);
+    	$('.play-icon').fadeIn();
     	replay.src = '/img/icons/uploading.gif';
     	replay.width = 50; 
     	replay.height = 50;
+	}else{
+		replay.src = '/img/icons/post_play_button.png';
+		$('.play-icon').fadeOut(500);
 	}
 }
 

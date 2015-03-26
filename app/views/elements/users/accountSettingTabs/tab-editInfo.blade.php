@@ -98,7 +98,28 @@
             {{Form::label('zip_code', 'Zip Code: ')}}
             {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
         </div>
-
+        @if(empty($userWebsite))   
+            <div class="col-md-6">
+            {{Form::label('facebook', 'Facebook: ')}}            
+            {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('twitter', 'Twitter: ')}}
+            {{Form::text('twitter', null, array('placeholder' => 'Twitter Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('instagram', 'Instagram: ')}}
+            {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('gmail', 'Gmail: ')}}
+            {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
+        </div>
+        <div class="col-md-6">
+            {{Form::label('others', 'Other Websites: ')}}
+            {{Form::text('others', null, array('placeholder' => 'Other Website Accounts'))}}
+        </div>
+        @else
         <div class="col-md-6">
             {{Form::label('facebook', 'Facebook: ')}}            
             {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account'))}}
@@ -119,6 +140,7 @@
             {{Form::label('others', 'Other Websites: ')}}
             {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
         </div>
+        @endif
 
         <div class="text-right col-md-12">
            {{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}

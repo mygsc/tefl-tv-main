@@ -26,18 +26,19 @@
                     <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                     <li>
                         <div class="btn-group hand" id="notification">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                Notifications<span class="badge btn-danger " id="notification-counter"></span>
+
+                            <a class="dropdown-toggle nl" data-toggle="dropdown">
+                                <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
                             </a>
-                            <ul class="dropdown-menu scrollable-menu bullet" role="menu">
+                            <span class="dropdown-menu scrollable-menu bullet" role="menu" style="width:300px;padding:0!Important;">
                                 <div id="loading-notification">
                                     {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                     {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
                                     <small>Looking for new Notification</small>
                                 </div>
                                 
-                                <li><a href="{{route('users.notifications')}}"><small>see all</small></a></li>
-                            </ul>
+                                <div class="text-center"><a href="{{route('users.notifications')}}" style="display:inline;"><small>see all</small></a></div>
+                            </span>
                         </div>
                     </li>
 
@@ -73,6 +74,7 @@
                     <li>
                     {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
                         <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:5px;">
+                            
                             {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
                             <span class="input-group-addon" style="padding:0!important;">
                                 {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}

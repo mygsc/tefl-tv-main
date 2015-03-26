@@ -11,20 +11,19 @@
 				<div class="col-md-12">
 				<div class="row  vid-wrapper">
 				<div class="embed-responsive embed-responsive-16by9">
-              	<video preload id="media-video" poster="/img/thumbnails/v1.png">
-					<source src='/videos/epic.mp4' type='video/mp4'>
-					<source src='/videos/bowling.webm' type='video/webm'>
-					<source src='/videos/bowling.ogg' type='video/ogg'>
-					<source src='/videos/movie.mov' type='video/mov'>
-					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>  
+
+              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+					<source src='/videos/bruce.mp4' type='video/mp4'>
+					<source src='/videos/bruce.webm' type='video/webm'>
+					<source src='/videos/bruce.ogv' type='video/ogg'>
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
 				 	<span class="close">x</span> 
 					{{--  <h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>  --}}
 					<div class="span12"><center>
-					<h4>970x90 Large Leaderboard HTML</h4><iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> </center>
+					<h4 style="color:#fff">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</h4><iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> </center>
+
 					</div>
 					
 				</div>
@@ -41,9 +40,10 @@
 					<div id="progressbar">
 						
 						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">		
-						 <input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
+						 <input  id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 							<div id="buffered"></div>
-							 <div id="current-progress">	
+							<div style="display:none" id="current-progress">	
+
 								 <div id="button-progress" class="progress-button">		
 								</div>	 
 							</div> 

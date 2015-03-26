@@ -33,18 +33,22 @@ $(document).ready(function(){
 		$.ajax({
 			type: 'POST',
 			url: url,
+			context: this,
 			cache: false, 
         	data: $(this).serialize(),//{
         	success: function(data){
         		if(data['status'] == 'error'){
         			$('#errorlabel').text(data['label']);
-        		} else if(data['status'] == 'success'){
-        			$('textarea#txtreply').val('');
-	        		// alert(data['status']);
+        			$("#errorlabel").focus();
+        		}
+        		if(data['status'] == 'success'){
+        			alert(data['status']);
+        			$('textarea.txtreply').val('');
 	        	}
         	}
     	});
     });
+
     $("#replyLink").click(function() {
 		$("#txtreply").removeClass("hidden");
 		$("#replybutton").removeClass("hidden");
@@ -80,11 +84,12 @@ $(document).ready(function(){
         	data: {
         		dislikeCommentId: $(this).find('input[name=dislikeCommentId]').val(),
         		dislikeUserId: $(this).find('input[name=dislikeUserId]').val(),
-        		status: $(this).find('input[name=status]').val()
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
         	},
         	success: function(data){
         		if(data['status'] == 'success'){
-        			$(this).find('span#dislikescount').text(data['dislikescount']);
+        			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			// alert(data['likescount']);
         		} 
