@@ -1,3 +1,7 @@
+var checkTimeout = function($param1, $param2){
+
+}
+
 $('#document').ready(function(){
 	uid = $('#notif_u_token').val();
 
@@ -15,30 +19,30 @@ $('#document').ready(function(){
 	}, 5000);
 
 	$('#notification').click(function(){
-		$('#looking-notification').show();
-		$('#loading-notification').show();
-		setTimeout(function(){
-			$.ajax({
-				type: 'POST',
-				cache: false,
-				url: '/mychannels/loadnotifications',
-				data: { 'uid': uid },
-				success: function (data){
-					var notifications = data;
-					if(notifications.length < 1){
-						$('#no-notification').remove();
-						$('#looking-notification').after('<small id="no-notification">No notification</small>');
-					}else{
-						$('.notification-item').remove();
-						$.each(notifications, function(i, item) {
-							$('#looking-notification').after('<li class="notification-item">'+item.notification+'</li>').fadeIn();
-						});
-						$('#no-notification').remove();
-					}
-					$('#looking-notification').hide();
-					$('#loading-notification').hide();
+		$.ajax({
+			type: 'POST',
+			cache: false,
+			url: '/mychannels/loadnotifications',
+			data: { 'uid': uid },
+			beforeSend: function(){
+				$('#loading-notification').show();
+			},
+			success: function (data){
+				var notifications = data;
+				$('.notification-item').remove();
+
+				if(notifications.length < 1){
+					$('#loading-notification').after('<small id="no-notification">No notification</small>');
+				}else{
+					$('#no-notification').remove();
 				}
-			});
-		}, 1500);
-	})
+
+				$.each(notifications, function(i, item) {
+					$('#loading-notification').after('<li class="notification-item">'+item.notification+'</li>').fadeIn();
+				});
+
+				$('#loading-notification').hide();
+			}
+		});
+	});
 });
