@@ -615,8 +615,27 @@ img.user{
   overflow: hidden;
   text-overflow: ellipsis;
    margin-top: 5px!important;
-
-
+}
+.in-limit{
+  width: 100%;
+  text-align: justify;
+  color: #1870dc;'
+  margin-bottom: 0;
+  max-height: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.v-list{
+  width: 100%;
+  text-align: left;
+  color: #1870dc;'
+  margin-bottom: 0;
+  height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0!important;
 }
 .count{
   width: 100%;
@@ -1695,8 +1714,34 @@ a.thumbnail-h:hover{
     z-index:2;
 }
 
+.notification-item{
+  border-bottom:1px solid #ccc;
+  padding: 5px 10px;
+  width: 100%;
+  background: transparent;
+  color: #1e1e1e;
+}
+.notification-item:hover{
+  background: #1f3359;
+  color: #fff;
+}
+.notification-item:hover > a{
+  color:#46b8da!Important;
+}
+}
+}
+.drop{
+  padding: none!important;
+}
 
-
+.un-img{
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+}
+.nl{
+  box-shadow: none!important;
+}
 /*=====mobile navigation style=========*/
 
 

@@ -16,10 +16,11 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
-					<p><b>Org:</b> TEFL Educators</p>
-					<p class="text-justify">
-						Interest: {{$channel->interests}}
-					</p>
+					<p><b>Org:</b>TEFL Educators</p>
+						<p class="text-justify">
+						{{ Str::limit($channel->interests, 120) }}
+			
+						</p>
 				
 					@if($auth)
 					{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
@@ -27,7 +28,7 @@
 					{{Form::hidden('subscriber_id', $auth->id)}}
 					@if(empty($datas->ifsubscribe))
 					{{Form::hidden('status','subscribeOn')}}
-					{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+					{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 					@else
 					{{Form::hidden('status','subscribeOff')}}
 					{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
