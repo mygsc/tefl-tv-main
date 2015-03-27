@@ -58,7 +58,8 @@ div canvas{
 			<div class="well text-center" style="margin-top:50px">
 				<div class="row">
 					<h1>Upload Video</h1>
-					<p>Video allowed types: wmv, mp4, webm, ogg</p>
+					<p>Video allowed types: wmv, mp4, webm, ogv</p>
+					<p>Recommended file extension: mp4</p>
 					<p>Maximum size limit: 100mb</p>
 
 					@if ($errors->any())
