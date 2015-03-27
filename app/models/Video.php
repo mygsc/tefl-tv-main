@@ -59,7 +59,7 @@ class Video extends Eloquent{
 		if($type == 'recommended'){
 			$additionaQuery = 
 				'AND recommended = "1"
-				ORDER BY (v.views) DESC';
+				ORDER BY (v.views + likes) DESC';
 		}elseif($type == 'popular'){
 			$additionaQuery = 
 				'ORDER BY (v.views) DESC';
@@ -75,7 +75,7 @@ class Video extends Eloquent{
 
 		$returnData = DB::select(
 				'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
-				v.views, v.tags, v.report_count,v.recommended, v.created_at,
+				v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes, v.tags, v.report_count,v.recommended, v.created_at,
 				v.deleted_at,u.channel_name,u.status FROM videos v
 				INNER JOIN users u ON
 				v.user_id = u.id
@@ -92,7 +92,6 @@ class Video extends Eloquent{
 				$limit. '');
 
 		foreach($returnData as $key => $item){
-
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;
 			$posterName = $fileName. '.jpg';
