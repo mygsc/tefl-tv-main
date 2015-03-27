@@ -136,7 +136,7 @@ class VideoController extends Controller {
 
 			}else{
 				$getImage = $thumbnailSelected;
-				if($getImage == 0){
+				if($getImage == 0){ //no selected thumbnail 
 					$tags = explode(',',Input::get('tags'));
 					foreach($tags as $tag){
 						if($tag != null){

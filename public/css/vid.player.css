@@ -16,9 +16,7 @@
 	}video::-o-media-controls {
 	  display:none !important;
 	}video::-ms-media-controls {
-	  display:none !important;
-
-		
+	  display:none !important;	
 	}
 	img#play-pause{
 		cursor:pointer;

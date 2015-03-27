@@ -54,7 +54,7 @@
 				</span><!--/.sound-->
 
 
-				<span ><img onclick='fullscreen();' title="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
+				<span ><img title="fullscreen" id="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
 				<div class="hd-setting" style="display:none">
 					<small style="text-align:center;color:#fff">HD Quality</small>
 					<ul>
