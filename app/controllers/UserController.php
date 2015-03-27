@@ -858,7 +858,7 @@ class UserController extends BaseController {
 
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-
+		
 		if($this->Notification->getTimePosted($notifications) === false){
 			app::abort(404, 'Error');
 		}

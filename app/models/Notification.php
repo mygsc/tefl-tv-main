@@ -99,26 +99,33 @@ class Notification extends Eloquent {
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'DESC')
 				->simplePaginate($paginate);
-				return $result;
 			}elseif(isset($read)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->whereRead($read)
 				->OrderBy('created_at', 'DESC')
 				->get();
-				return $result;
 			}elseif(isset($limit)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'DESC')
 				->take($limit)
 				->get();
-				return $result;
-			}
+			}else{
 			$result = Notification::whereUserId($id)
 			->whereDeletedAt(null)
 			->OrderBy('created_at', 'DESC')
 			->get();
+			}
+			foreach($result as $key => $user){
+				$fileName = $user->user_id. '.jpg';
+				$path = 'img/user/'.$fileName; 
+				if(!file_exists(public_path($path))){
+					$path = '/img/user/0.png';
+				}
+
+				$result[$key]->profile_picture = $path;
+			}
 			return $result;
 		}
 		return false;
