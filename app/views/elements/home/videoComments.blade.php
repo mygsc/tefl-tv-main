@@ -5,8 +5,6 @@
 	}
 </style>        
 <h3>Comments</h3>
-
-	
 	<div class="comments row">
 		@if(isset(Auth::User()->id))
 		<span id='errorlabel' style='color:red;'></span>
@@ -52,14 +50,10 @@
 							))->first();
 						?>
 						<div class='fa fa-thumbs-up likedup'>
+
 							<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 							<input type="hidden" value="{{$videoId}}" name="video_id">
-							@if(!$ifAlreadyLiked)
-								<input type="hidden" value="liked" name="status">
-							@else
-								<input type="hidden" value="unliked" name="status">
-							@endif
 							<span class="likescount" id="likescount">{{$likesCount}}</span>
 						</div>
 						&nbsp;
@@ -141,14 +135,17 @@
 	</div>
 </div>
 
-<!--show hide for reply Box-->
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".panelReply").hide('slow');
-		$(".repLink").click(function(){
-			$(".panelReply").hide();
-			$(this).parent().children(".panelReply").slideToggle(500); 
+@section('script')
+	{{HTML::script('js/homes/comment.js')}}
+	<!--show hide for reply Box-->
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".panelReply").hide('slow');
+			$(".repLink").click(function(){
+				$(".panelReply").hide();
+				$(this).parent().children(".panelReply").slideToggle(500); 
+			});
+			$("[name='my-checkbox']").bootstrapSwitch();
 		});
-		$("[name='my-checkbox']").bootstrapSwitch();
-	});
-</script>
+	</script>
+@stop

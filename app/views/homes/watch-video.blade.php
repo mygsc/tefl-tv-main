@@ -204,15 +204,12 @@
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-
-          $(".linkReadMore").click(function(){
-             $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+    $(document).ready(function(){
+        $(".linkReadMore").click(function(){
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
             $(".seeVideoContent").slideToggle("slow");
-          });
-          
-        });
+        });      
+    });
 </script>
 @stop
 
