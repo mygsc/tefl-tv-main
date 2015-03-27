@@ -28,6 +28,7 @@
                                     <div>
                                         <br/>
                                         <span class="">
+
                                             <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                             @if(isset(Auth::User()->id))
@@ -122,10 +123,10 @@
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
-                                        <div class="col-md-1">
+                                        <div class="col-md-1 col-sm-2">
                                             <img src="/img/user/u3.png" class="">
                                         </div>
-                                        <div class="col-md-11">
+                                        <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Subscribers)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
@@ -135,6 +136,7 @@
                                             <div class="seeVideoContent">
                                                 <p>
                                                    {{$videos->description}}
+
                                                </p>
                                            </div>
                                        </div><!--./col-md-11-->
@@ -153,7 +155,7 @@
                 <!-- COMMENTS AREA -->
 
                 
-                @include('elements/home/uploaderLatestVideo')
+               
 
                 <!-- latest -->
             </div><!--column 8-->
@@ -172,14 +174,13 @@
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
                             <div class="col-md-4 col-xs-4">
-                            @if(file_exists("/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg"))
+                            @if(file_exists("public/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg"))
                             <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
                             @else
                             <img src="/img/thumbnails/video.png" alt="" width="100%" />
                             @endif
-                                   
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-8 col-xs-4">
                                 <div class="v-list"><span>{{$relation->title}}</span></div>
                                 <span>by: {{$relation->channel_name}}</span><br/>
                                 <small>{{date('m/d/Y', $relation->created_at);}}</small>
@@ -190,13 +191,15 @@
                     @endforeach
                 </ul><!--video list-->
 
-                    @include('elements/home/recommendedChannelList')
+                    
                     @include('elements/home/carouselAds')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
+
     </div><!--/.row-->
 </div><!--/padding-->
+ <br/><br/><br/> 
 </div><!--/.row-->
 @stop
 
@@ -205,4 +208,18 @@
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
 {{HTML::script('js/homes/comment.js')}}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+          $(".linkReadMore").click(function(){
+             $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".seeVideoContent").slideToggle("slow");
+          });
+          
+        });
+</script>
 @stop
+
+

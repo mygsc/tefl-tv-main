@@ -29,15 +29,15 @@
                                             <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                            
                                             @if(isset(Auth::User()->id))
-                                            @if(!empty($like))
-                                            <span id = "like-span">
-                                                <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            </span>
-                                            @else
-                                            <span id = "like-span">
-                                                <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            </span>
-                                            @endif
+                                                @if(!empty($like))
+                                                <span id = "like-span">
+                                                    <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                                </span>
+                                                @else
+                                                <span id = "like-span">
+                                                    <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                                </span>
+                                                @endif
                                             @else
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             @endif
@@ -161,7 +161,7 @@
                         <a href="#" id=" " class="active">
                             <div class="row">
                                 <div class="col-md-4">
-                                @if(file_exists('/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
+                                @if(file_exists('public/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
                                     <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg"/> 
                                 @else
                                     <img src="/img/thumbnails/video.png">
@@ -182,7 +182,11 @@
                         <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
                             <div class="row">
                                 <div class="col-md-4">
+                                @if(file_exists('public/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
                                     <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg" />    
+                                @else
+                                    <img src="/img/thumbnails/video.png">
+                                @endif
                                 </div>
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>

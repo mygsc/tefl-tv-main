@@ -13,6 +13,7 @@
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
+				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
@@ -79,9 +80,7 @@
 							
 							
 							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-							
-								
-								
+									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
@@ -89,7 +88,9 @@
 
 
 									</video>
-								
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif								
 							</a>
 						</div>
 

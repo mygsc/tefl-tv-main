@@ -31,13 +31,17 @@
 
 				<div id="videosContainer" class='container'>
 					<!--upload update Video modal-->
-
+			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
 					<div class="col-md-5">
 						<br/>
-						<img src="/img/thumbnails/v2.png">
+						@if(file_exists("public/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg"))
+							<img src="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
+						@else
+							<img src="/img/thumbnails/video.png">
+						@endif
 
 					</div>
-			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
+
 					<div class="col-md-7">
 						@if($video->publish == 0)
 						@if($errors->has('publish'))

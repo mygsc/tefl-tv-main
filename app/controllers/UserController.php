@@ -431,6 +431,7 @@ class UserController extends BaseController {
 	public function getedit($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::find($id);
+		$owner = User::find($video->user_id);
 		if($video->user_id != Auth::User()->id){
 			return Redirect::route('users.channel');
 		}
@@ -443,7 +444,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
 		
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner'));
 	}
 	public function postedit($id){
 		$input = Input::all();

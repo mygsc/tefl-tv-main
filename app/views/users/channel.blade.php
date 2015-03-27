@@ -7,6 +7,7 @@
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
+
 			<br/>
 			<div class="Div-channel-border">
 				<ul class="nav nav-tabs" role="tablist inline">
@@ -39,7 +40,7 @@
 									<tr>
 										<td><small><label>Organizations</label></small></td>
 										<td><b>:</b></td>
-										<td>{{Auth::User()->organization}}</td>
+										<td>{{$usersChannel->organization}}</td>
 									</tr>
 									<tr>
 										<td><small><label>Work</label></small></td>
@@ -100,6 +101,7 @@
 					</div><!--/.tabpanel-->
 				</div><!--/.tab-content-->
 			</div>
+
 			<br/>
 			<div class="Div-channel-border White">
 
@@ -107,11 +109,12 @@
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
 				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
