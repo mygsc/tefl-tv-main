@@ -21,6 +21,7 @@ class HomeController extends BaseController {
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
+		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms')));
 	}
 
