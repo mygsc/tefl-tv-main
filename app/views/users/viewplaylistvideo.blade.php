@@ -58,9 +58,13 @@
 						{{Form::hidden("encrypt",Crypt::encrypt($playlist->id),array('id'=>'encrypt'))}}
 							<div class="col-md-3">
 								@if(empty($videos))
-									<img src="/img/logos/default-playlist.png">
+									<img src="/img/thumbnails/video.png">
 								@else
-								<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
+									@if(file_exists('/videos/'.$videos[0]->user_id.'-'.$videos[0]->channel_name.'/'.$videos[0]->file_name.'/'.$videos[0]->file_name.".jpg"))
+										<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
+									@else
+										<img src="/img/thumbnails/video.png">
+									@endif
 								@endif
 							</div>
 							<div class="col-md-9">
@@ -78,7 +82,13 @@
 							@foreach($videos as $video)
 							<div class="row">						
 								<div class="col-md-2">
-									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
+									@if(file_exists('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg'))
+										<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
+									@else
+										<img src="/img/thumbnails/video.png">
+									@endif
+									</a>
 								</div>
 								<div class="col-md-10">
 									<span class="pull-right" style="margin-right:20px;">

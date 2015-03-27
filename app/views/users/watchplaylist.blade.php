@@ -161,8 +161,11 @@
                         <a href="#" id=" " class="active">
                             <div class="row">
                                 <div class="col-md-4">
-
-                                    <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg"/>    
+                                @if(file_exists('/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
+                                    <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg"/> 
+                                @else
+                                    <img src="/img/thumbnails/video.png">
+                                @endif
                                 </div>
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>

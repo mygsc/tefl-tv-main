@@ -74,11 +74,12 @@
 							@foreach($playlists as $playlist)
 								<div id="playlists" class="col-xs-2 col-md-3">
 										<a href="videoplaylist/{{Crypt::encrypt($playlist->id)}}"  class="thumbnail">
-										@if(empty($thumbnail_playlists))
-											<img src="/img/logos/default-playlist.png">
-										@else
+									@if(file_exists('/videos/'.$thumbnail_playlists[$validatorIdCounter++][0]->user_id.'/'.$thumbnail_playlists[$validatorChannelCounter++][0]->channel_name.$thumbnail_playlists[$validatorThumbnailCounter++][0]->file_name.'/'.$thumbnail_playlists[$validatorThumbnail2Counter++][0]->file_name.'.jpg'))
+
 										<img src="/videos/{{$thumbnail_playlists[$idCounter++][0]->user_id}}-{{$thumbnail_playlists[$channel_nameCounter++][0]->channel_name}}/{{$thumbnail_playlists[$thumbnail_playlistCounter++][0]->file_name}}/{{$thumbnail_playlists[$thumbnail_playlistCounter2++][0]->file_name}}.jpg">
-										@endif
+									@else
+										<img src="/img/thumbnails/video.png">
+									@endif
 											<br/>
 											
 										</a>
