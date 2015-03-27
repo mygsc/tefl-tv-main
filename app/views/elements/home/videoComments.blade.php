@@ -75,7 +75,12 @@
 							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
 						</div>
 						&nbsp;
-						<span class="repLink hand blueC"><i class="fa fa-reply"></i></span>
+						<?php 
+							$getCommentReplies = DB::table('comments_reply')
+							->join('users', 'users.id', '=', 'comments_reply.user_id')
+							->where('comment_id', $getVideoComment->id)->count(); 
+						?>
+						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
 					@else
 						<?php
 							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
@@ -83,7 +88,12 @@
 						?>
 						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
-						<span class="repLink hand">2<i class="fa fa-reply"></i></span>
+						<?php 
+							$getCommentReplies = DB::table('comments_reply')
+							->join('users', 'users.id', '=', 'comments_reply.user_id')
+							->where('comment_id', $getVideoComment->id)->count(); 
+						?>
+						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
@@ -92,8 +102,6 @@
 							->orderBy('comments_reply.created_at', 'asc')
 							->where('comment_id', $getVideoComment->id)->get(); 
 					?>
-
-
 					<div id="replysection" class="panelReply">
 						<?php
 						foreach($getCommentReplies as $getCommentReply):
