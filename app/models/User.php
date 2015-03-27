@@ -118,13 +118,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getTopChannels(){
 		return DB::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
-			videos.user_id, SUM(videos.views) AS total
+			videos.user_id, SUM(videos.views) AS total, (Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers
 			FROM videos INNER JOIN users ON 
 			videos.user_id = users.id
 			INNER JOIN users_profile ON
 			videos.user_id = users_profile.user_id 
 			GROUP BY videos.user_id 
-			ORDER BY RAND()
+			ORDER BY subscribers DESC
 			LIMIT 50
 			');
 	}

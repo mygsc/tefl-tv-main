@@ -1,12 +1,13 @@
 //not compatible for EI browser :( by Gerald
 document.addEventListener("DOMContentLoaded", function() {GSCMediaPlayer();}, false);
-var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
+var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
 	playPauseBtn, timeDuration=0,
  	muteBtn, playIcon = false, replay, _time, curHrs, curMin, curSec, durHrs, durMin, durSec,
  	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
- 	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider;
+ 	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
+ 	highQual, lowQual;
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
@@ -17,6 +18,8 @@ var animate360 = document.getElementById('button-progress');
 function GSCMediaPlayer(){
 	play = document.getElementById('play');
 	seekSlider = document.getElementById('seek-slider');
+	highQual = document.getElementById('high-quality');
+	lowQual = document.getElementById('low-quality');
 	mediaPlayer = document.getElementById('media-video');
 	videoControls = document.getElementById('controls');
 	playPauseBtn = document.getElementById('play-pause');
@@ -30,6 +33,8 @@ function GSCMediaPlayer(){
 
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
+	highQual.addEventListener('click',highQuality, false);
+	lowQual.addEventListener('click',lowQuality, false);
 	seekSlider.addEventListener('change',vidSeek, false);
 
 	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false); //updateProgressBar
@@ -59,26 +64,26 @@ function GSCMediaPlayer(){
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('progress', loadBuffer, false);
-	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
-	mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
+	//mediaPlayer.addEventListener('canplay', canPlayVideo, false);
+	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
 
 function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
-			var buffPercent = this.buffered.end(0);
+			var buffPercent = mediaPlayer.buffered.end(0);
 			buffPercent = ((buffPercent / timeDuration) * 100);
 			$('#buffered').css({'width': buffPercent +'%'});
-			// if(mediaPlayer.currentTime >= buffPercent){
-			// 	$('#replay-icon').fadeIn();
-			// 	replay.src="/img/icons/uploading.gif";
-			// 	replay.width = 50;
-			// 	replay.height = 50;
-			// }else{
-			// 	replay.src="/img/icons/post_play_button.png";
-			// 	replay.width = 50;
-			// 	replay.height = 50;
-			// }
+			if(mediaPlayer.currentTime >= buffPercent){
+				$('#replay-icon').fadeIn();
+				replay.src="/img/icons/uploading.gif";
+				replay.width = 50;
+				replay.height = 50;
+			}else{
+				replay.src="/img/icons/post_play_button.png";
+				replay.width = 50;
+				replay.height = 50;
+			}
 		}else{
 			console.log('no buffer recieved...');
 		}
@@ -105,11 +110,23 @@ function disabledRightClick(){
     return false;
 	});
   }
-
+//list of bind more realiable codes....
+$('#media-video').bind("contextmenu", function(){
+    return false;
+	});
 
 $('#media-video').bind('ended', function(){
      if(!this.paused) this.pause();
 });
+
+function highQuality(e){
+	e.preventDefault();
+	alert('Sorry, no available high quality, under development.');
+}
+function lowQuality(e){
+	e.preventDefault();
+	alert('Sorry, no available low quality, under development.');
+}
 
 function PlayOrPause(){
 	if(mediaPlayer.paused){

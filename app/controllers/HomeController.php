@@ -401,6 +401,11 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		
+		$text = 'fdsafsfas sdafdasfdas sdaf sdafa sdfdsf sdf sfsdafsa';
+		$chars = 10;
+		if(strlen($text) < $chars){
+			return 'tama';
+		}
+		return 'mali';
 	}
 }

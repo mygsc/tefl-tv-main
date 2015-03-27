@@ -749,7 +749,9 @@ class UserController extends BaseController {
 			$subscribe->save();
 
 			//Add notifcation
-			$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			if($user_id != $this->Auth->id){
+				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			}
 			//End notifications			
 
 			return Response::json(array(
@@ -861,7 +863,7 @@ class UserController extends BaseController {
 
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-
+		
 		if($this->Notification->getTimePosted($notifications) === false){
 			app::abort(404, 'Error');
 		}

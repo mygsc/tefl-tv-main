@@ -333,12 +333,13 @@ button#play{
 }
 span.close{
 cursor:pointer;
-padding:3px;
-background:blue;
-color:#fff;
+padding:0 2px 2px 2px;
+background:transparent;
+color:red;
 position:absolute;
 right:2px;
 border-radius: 2px;
+font-weight: bold;
 }
 span.close:hover{
 background:red;
