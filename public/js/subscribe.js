@@ -19,8 +19,11 @@ $(document).ready(function() {
 			type: 'POST',
 			url: url,
 			cache: false, 
+			context: this,
         	data: $(this).serialize(),//{
         	success: function(data){
+        		$(this).find('input[name=status]').val(data['status']);
+        		$(this).find('#subscribebutton').val(data['label']);
         		$(this).val(data['status']);
         		$(this).val(data['label']);
         		 //alert(data['status']);

@@ -9,9 +9,9 @@
 	<h1> TOP 50 Channels</h1>
 	@foreach($topChannels as $topChannel)
 	<div class="col-md-6">
-    		<div class="well">
+    		<div class="well ch">
     			<div class="row">
-    				<div class="col-md-4">
+    				<div class="col-md-4 col-xs-4">
     					@if(file_exists(public_path('img/user/') . $topChannel->id . '.jpg'))
 
 					{{HTML::image('img/user/'. $topChannel->id . '.jpg', 'alt', array('class' => 'pic-Dp'))}}
@@ -19,15 +19,15 @@
 					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 					@endif
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-8 col-xs-8">
 						<a href="#"><h3>{{$topChannel->channel_name}}</h3></a>
 						<p><b>Org:</b> TEFL Educators</p>
     					<p class="text-justify">
     						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
     						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
    						</p>
-    					<a href="viewchannel"><button class="btn btn-info btn-xs">Learn More</button></a>&nbsp;
-    					<button class="btn btn-primary btn-xs">Subscribe</button>
+    					
+    					<button class="btn btn-primary">Subscribe</button>
     				</div>	
 				</div><!--/.row-->
 				<hr/>

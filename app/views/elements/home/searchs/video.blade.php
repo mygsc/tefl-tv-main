@@ -3,7 +3,7 @@
 @foreach($searchResults as $result)
 <div class="row">
 	<div class="col-md-4">
-		<img src="/img/thumbnails/v1.png">
+		<img src="{{$result->thumbnail}}">
 	</div>
 	<div class="col-md-8">
 		<a href="#">{{$result->title}}</a><br />
