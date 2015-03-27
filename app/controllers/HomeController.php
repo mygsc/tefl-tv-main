@@ -16,7 +16,6 @@ class HomeController extends BaseController {
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
 
-		//return $randoms;
 		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 

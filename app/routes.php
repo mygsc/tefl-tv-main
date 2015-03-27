@@ -71,6 +71,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('post-watch-later', array('as' => 'post.users.watch-later', 'uses' => 'UserController@postWatchLater'));
 	Route::post('delete-watch-later/{id}', array('as' => 'post.delete.watch-later', 'uses' => 'UserController@postDeleteWatchLater'));
 	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
+	Route::get('about', array('as' => 'users.about', 'uses' => 'UserController@getAbout'));
 	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
 	Route::get('post-feedbacks', array('as' => 'post.users.feedbacks', 'uses' => 'UserController@postFeedbacks'));
 	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
