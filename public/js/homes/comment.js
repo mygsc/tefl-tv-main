@@ -43,7 +43,7 @@ $(document).ready(function(){
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
-        			alert(data['status']);
+        			// alert(data['status']);
         			$('textarea.txtreply').val('');
 	        	}
         	}
@@ -71,6 +71,12 @@ $(document).ready(function(){
         		if(data['status'] == 'success'){
         			$(this).find('span#likescount').text(data['likescount']);
         			$(this).find('input[name=status]').val(data['label']);
+        			if(data['label'] == 'unliked'){
+        				$(this).find('span.fa-thumbs-up').addClass('blueC');
+        			} else if(data['label'] == 'liked'){
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+        			}
+        			$(this).find('span.fa-thumbs-up').val(data['label']);
         			// alert(data['likescount']);
         		} 
             }

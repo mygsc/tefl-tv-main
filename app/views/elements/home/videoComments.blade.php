@@ -5,8 +5,6 @@
 	}
 </style>        
 <h3>Comments</h3>
-
-	
 	<div class="comments row">
 		@if(isset(Auth::User()->id))
 		<span id='errorlabel' style='color:red;'></span>
@@ -52,14 +50,10 @@
 							))->first();
 						?>
 						<div class='fa fa-thumbs-up likedup'>
+
 							<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 							<input type="hidden" value="{{$videoId}}" name="video_id">
-							@if(!$ifAlreadyLiked)
-								<input type="hidden" value="liked" name="status">
-							@else
-								<input type="hidden" value="unliked" name="status">
-							@endif
 							<span class="likescount" id="likescount">{{$likesCount}}</span>
 						</div>
 						&nbsp;
@@ -75,7 +69,12 @@
 							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
 						</div>
 						&nbsp;
-						<span class="repLink hand blueC"><i class="fa fa-reply"></i></span>
+						<?php 
+							$getCommentReplies = DB::table('comments_reply')
+							->join('users', 'users.id', '=', 'comments_reply.user_id')
+							->where('comment_id', $getVideoComment->id)->count(); 
+						?>
+						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
 					@else
 						<?php
 							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
@@ -83,7 +82,12 @@
 						?>
 						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
-						<span class="repLink hand">2<i class="fa fa-reply"></i></span>
+						<?php 
+							$getCommentReplies = DB::table('comments_reply')
+							->join('users', 'users.id', '=', 'comments_reply.user_id')
+							->where('comment_id', $getVideoComment->id)->count(); 
+						?>
+						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
@@ -92,8 +96,6 @@
 							->orderBy('comments_reply.created_at', 'asc')
 							->where('comment_id', $getVideoComment->id)->get(); 
 					?>
-
-
 					<div id="replysection" class="panelReply">
 						<?php
 						foreach($getCommentReplies as $getCommentReply):
@@ -133,14 +135,17 @@
 	</div>
 </div>
 
-<!--show hide for reply Box-->
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".panelReply").hide('slow');
-		$(".repLink").click(function(){
-			$(".panelReply").hide();
-			$(this).parent().children(".panelReply").slideToggle(500); 
+@section('script')
+	{{HTML::script('js/homes/comment.js')}}
+	<!--show hide for reply Box-->
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$(".panelReply").hide('slow');
+			$(".repLink").click(function(){
+				$(".panelReply").hide();
+				$(this).parent().children(".panelReply").slideToggle(500); 
+			});
+			$("[name='my-checkbox']").bootstrapSwitch();
 		});
-		$("[name='my-checkbox']").bootstrapSwitch();
-	});
-</script>
+	</script>
+@stop
