@@ -1,51 +1,4 @@
 @extends('layouts.default')
-<style type="text/css">
- 
-.thumbnail {
-    position:relative;
-    overflow:hidden;
-}
-form{
-	display: inline;
-}
-.pad10 {
-    margin-bottom: 10px;}
- 
-.caption {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: none;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-.caption1 {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: block;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-
-
-.caption-inner {
-display: table;
-width: 100%;
-height: 100%;
-}
-.caption-content {
-vertical-align: middle;
-text-align: center;
-}
-
-</style>
 
 @section('content')
 <div class="row White">
@@ -111,28 +64,26 @@ text-align: center;
 									@if($watchLater->status==1)
 									<span title="Remove from watch later?" class="btn-sq">
 											<p class="inline" style="font-family:Teko;color:#fff!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
-											{{Form::open()}}
-												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
-											{{Form::close()}}
+											<span class="inline">
+												{{Form::open(array('class' => 'inline'))}}
+													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
 
 									</span>
 									@else
-									<span title="Remove from watch later?" class="btn-sq">		
+									<span title="Remove from watch later?" class="btn-sq inline">		
 											{{Form::open()}}
 												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 											{{Form::close()}}
 									</span>
 									@endif
-
-									
-
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 										<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-
-											<input type="hidden" id="video_id" value="{{$watchLater->id}}">
+											<input type="hidden" id="video_id" value="{{$watchLater->id}}" style="z-index:9999999999">
 										</video>
 										<br/>
 										
@@ -143,7 +94,9 @@ text-align: center;
 							<div class="inlineInfo ">
 								<div class="count">
 									<div class="v-Info">
+										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 										{{$watchLater->title}}
+										</a>
 									</div>
 									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>

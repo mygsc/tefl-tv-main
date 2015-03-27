@@ -90,13 +90,21 @@
 @stop
 
 @section('modal')
-<div class="modal fade" id="forgot-password" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade overlay" id="forgot-password" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
+
 		<div class="modal-content">
-		Please enter your email
-			{{Form::open(array('route' => 'post.forgotpassword'))}}
-			{{Form::email('email', null, array('class' => 'form-control'))}}
-			{{Form::submit('retrieve', array('class' => 'btn btn-warning'))}}
+				<div class="row content-padding">
+					<br/>
+					Please enter your email
+						{{Form::open(array('route' => 'post.forgotpassword'))}}
+						{{Form::email('email', null, array('class' => 'form-control'))}}
+						<br/><br/>
+						<div class="text-right"> 
+							{{Form::submit('retrieve', array('class' => 'btn btn-warning'))}}
+						</div>
+						<br/>
+				</div>
 		</div>
 	</div>
 </div>

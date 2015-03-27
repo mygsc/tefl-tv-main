@@ -6,11 +6,11 @@
 	@foreach($popularVideos as $key => $popularVideo)
 	<!-- 12 column / 3 column = 4 -->
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
-		<div class="col-md-3">
+		<div class="col-md-3 col-xs-6 hidden-xs">
 			@if(file_exists($popularVideo->video_poster))
-			<img width="100%" src="{{$popularVideo->poster_path}}">
+			<img class="thumbnail" src="{{$popularVideo->poster_path}}">
 			@else
-			<img width="100%"" src="/img/thumbnails/video.png">
+			<img class="thumbnail" src="/img/thumbnails/video.png">
 			@endif
 
 			<div class="v-Info">

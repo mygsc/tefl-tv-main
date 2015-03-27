@@ -22,7 +22,19 @@
 				</div>
 
 				<div class="">
-					Feedbacks
+				@foreach($userComments as $userComment)
+					{{$userComment->comment}}
+					<br/>
+					by: {{$userComment->channel_name}}
+					<br/>
+					 {{date('F d Y', strtotime($userComment->created_at))}}{{date('H:i a', strtotime($userComment->updated_at))}}
+				@endforeach
+				Type your comment here:
+				<br/>
+				 <label for="tags">Search: </label>
+				<input id="tags1" name="tags1">
+				<br/>
+				<div id="responsecontainer"></div>
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
@@ -34,11 +46,11 @@
 
 
 @section('script')
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
-
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	{{HTML::script('js/mention.js')}}
+<!-- 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

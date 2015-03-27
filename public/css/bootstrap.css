@@ -9,6 +9,7 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing:subpixel-antialiased;
 }
 body {
   margin: 0;
@@ -2528,7 +2529,6 @@ output {
   color: #555;
 }
 .form-control {
- 
   vertical-align: middle;
   display: inline-block;
   width: 100%;
@@ -4055,7 +4055,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
@@ -4184,10 +4184,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle {
   position: relative;
   float: right;
-  padding: 9px 10px;
-  margin-top: 8px;
+  margin-top: 5px;
   margin-right: 15px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -4515,11 +4514,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
-  border-color:#3b5a9b;
+  border-color:transparent  ;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #fff;
+  background-color: transparent;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #3b5a9b;
@@ -4883,12 +4882,12 @@ a.badge:focus {
 }
 .thumbnail {
   display: block;
-  padding: 4px;
-  margin-bottom: 20px;
+  padding: 3px;
+  margin-bottom: 10px;
   line-height: 1.42857143;
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 2px;
   -webkit-transition: border .2s ease-in-out;
        -o-transition: border .2s ease-in-out;
           transition: border .2s ease-in-out;
@@ -6603,20 +6602,16 @@ div#success{
 	width: 280px;
 	height: 45px;
 	padding: 10px;
-	color:red;
-	background-color: #FFE4C4;
-	-moz-box-shadow: 0 0 5px 5px #888;
-	-webkit-box-shadow: 0 0 5px 5px #888;
-	-ms-box-shadow: 0 0 5px 5px #888;
-	-o-box-shadow: 0 0 5px 5px #888;
-	box-shadow: 0 0 5px 5px #888;
 	margin: auto;
 	bottom: 0; right: 0;
 	display: none;
 	position:fixed;
 	z-index: 100;  
 	top:0%;  
-	left:0%;  
+	left:0%; 
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc; 
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
