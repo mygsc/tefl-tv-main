@@ -24,14 +24,14 @@
 
 				<div class="row">
 					<br/>
-					<div class="col-md-6">
+					<!--<div class="col-md-6">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>
+					</div>-->
 
 					<div class="col-md-5">
 				
@@ -44,7 +44,7 @@
 						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>-->
 					</div>
 
-					<div class="col-md-1 text-right">
+					<div class="col-md-12 text-right">
 						<div class="buttons pull-right">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
