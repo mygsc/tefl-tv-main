@@ -16,7 +16,7 @@ $('#document').ready(function(){
 				$('#notification-counter').html(notifications.length);
 			}
 		});
-	}, 5000);
+	}, 6000);
 
 	$('#notification').click(function(){
 		$.ajax({
@@ -26,13 +26,14 @@ $('#document').ready(function(){
 			data: { 'uid': uid },
 			beforeSend: function(){
 				$('#loading-notification').show();
+				$('.no-notification').remove();
 			},
 			success: function (data){
 				var notifications = data;
 				$('.notification-item').remove();
 
 				if(notifications.length < 1){
-					$('#loading-notification').after('<small id="no-notification">No notification</small>');
+					$('#loading-notification').after('<small class="no-notification">No notification</small>');
 				}else{
 					$('#no-notification').remove();
 				}
