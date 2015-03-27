@@ -13,9 +13,9 @@
 						<div class="embed-responsive embed-responsive-16by9">
 
 			              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-								<source src='/videos/bowling.mp4' type='video/mp4'>
-								<source src='/videos/bowling.webm' type='video/webm'>
-								<source src='/videos/bowling.ogv' type='video/ogg'>
+								<source src='/videos/tefltv.mp4' type='video/mp4'>
+								<source src='/videos/tefltv.webm' type='video/webm'>
+								<source src='/videos/tefltv.ogv' type='video/ogg'>
 							</video>
 						</div><!--/embed-responsive-->
 						@include('elements/videoPlayer')

@@ -58,8 +58,8 @@
 				<div class="hd-setting" style="display:none">
 					<small style="text-align:center;color:#fff">HD Quality</small>
 					<ul>
-						<li> <a href="#">High</a></li>
-						<li> <a href="#">Low</a></li>
+						<li> <a id="high-quality" href="#">High</a></li>
+						<li> <a id="low-quality" href="#">Low</a></li>
 						{{-- <li> <a href="#">480p</a></li>
 						<li> <a href="#">360p</a></li>
 						<li> <a href="#">240p</a></li> --}}
