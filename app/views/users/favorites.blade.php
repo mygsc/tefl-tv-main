@@ -59,9 +59,10 @@
 						@if(empty($findUsersVideos))
 							No Favorites yet.
 						@else
-						<div id="list" class="col-md-3">
-							@foreach($findUsersVideos as $showFavoriteVideo)
+						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
+						<div id="list" class="col-md-3">
+							
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
