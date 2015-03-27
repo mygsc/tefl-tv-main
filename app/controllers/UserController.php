@@ -231,7 +231,6 @@ class UserController extends BaseController {
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
-
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
@@ -867,7 +866,7 @@ class UserController extends BaseController {
 
 	public function postLoadNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, '8');
 		$this->Notification->setStatus();
 		return $notifications;
 	}

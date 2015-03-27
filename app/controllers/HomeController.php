@@ -16,11 +16,11 @@ class HomeController extends BaseController {
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
 
-		//return $randoms;
 		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
+		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms')));
 	}
 
@@ -252,12 +252,64 @@ class HomeController extends BaseController {
 			}
 			/*Notification End*/
 
+
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $comments->id, 'status' => 'liked'))->count();
+			$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $comments->id, 'status' => 'disliked'))->count();
+
+			$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
+				'comment_id' => $comments->id, 'user_id' => $user_id,'status' => 'liked'))->first();
+			$ifAlreadyDisliked = DB::table('comments_likesdislikes')->where(array(
+				'comment_id' => $comments->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
+
+			$userInfo = User::find($user_id);
+			$newComment =  
+				'<div class="commentProfilePic">'. 
+					HTML::image("img/user/$userInfo->id.jpg", "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+				</div>'.
+				link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+				| &nbsp;<small> just now. </small> 
+				<br/>
+				<p style="margin-left:30px;text-align:justify;">
+					'. $comments->comment . '
+				</p>
+				<div class="fa fa-thumbs-up likedup">
+					<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+					<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+					<input type="hidden" value="'.$video_id.'" name="video_id">
+					<input type="hidden" value="liked" name="status">
+					<span class="likescount" id="likescount">'.$likesCount.'</span>
+				</div>
+				|&nbsp;
+				<div class="fa fa-thumbs-down dislikedup">
+					<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+					<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+					<input type="hidden" value="'.$video_id.'" name="video_id">
+					<input type="hidden" value="disliked" name="status">
+					<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+				</div>
+				|&nbsp;
+				<span class="repLink hand blueC">Reply</span>
+				<div id="replysection" class="panelReply"> '.
+					Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+						<input type="hidden" name="comment_id" value="'.$comments->id.'">
+						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+						<input type="hidden" name="video_id" value="'.$video_id.'">
+						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+					</form>
+				</div>
+				<br/>
+				<hr/>
+			';
+
+
 			return Response::json(array(
 				'status' => 'success',
 				'comment' => $comment,
 				'video_id' => $video_id,
-				'user_id' => $user_id
-				));
+				'user_id' => $user_id,
+				'comment' => $newComment
+			));
 		}
 	}
 

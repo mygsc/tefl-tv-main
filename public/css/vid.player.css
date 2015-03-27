@@ -157,6 +157,10 @@ input#seek-slider::-webkit-slider-thumb {
 	width: 15px;
 	border: none;
 	outline: none;
+	cursor: pointer;
+	position: relative;
+	top:0;
+	z-index: 2;
 }
 input#seek-slider::-moz-range-thumb {
 	-moz-appearance: none;
@@ -166,8 +170,10 @@ input#seek-slider::-moz-range-thumb {
 	border: 1px solid #999;
 	height: 15px;
 	width: 15px;
-	border: none;
-	outline:none;	
+	cursor: pointer;
+	position: relative;
+	top:0;
+	z-index: 2;
 }
 div#progress-amount {
   display: block;
@@ -348,7 +354,7 @@ color:#fff;
   height: auto;
   z-index: -100;
 }
-.progress-button {
+/*.progress-button {
     -webkit-animation-name: spin;
     -webkit-animation-duration: 4000ms;
     -webkit-animation-iteration-count: infinite;
@@ -386,4 +392,5 @@ color:#fff;
     to {
         transform:rotate(360deg);
     }
-}
+}*/
+
