@@ -1,6 +1,5 @@
-
+//not compatible for EI browser :( by Gerald
 document.addEventListener("DOMContentLoaded", function() {GSCMediaPlayer();}, false);
-
 var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
 	playPauseBtn, timeDuration=0,
  	muteBtn, playIcon = false, replay, _time, curHrs, curMin, curSec, durHrs, durMin, durSec,
@@ -8,9 +7,6 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 10, ads=0, vidMinLe
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider;
-
-//this is the prefix of every function  
-var GSC;
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
@@ -31,39 +27,78 @@ function GSCMediaPlayer(){
 	videoTimeLenght = document.getElementById('video-time-lenght');
 	volumeStatus = document.getElementById('volume');
 	_time = document.getElementById('time');
+
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
 	seekSlider.addEventListener('change',vidSeek, false);
-	// Add a listener for the timeupdate event so we can update the progress bar
-	mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
-	// Add a listener for the play and pause events so the buttons state can be updated
+
+	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false); //updateProgressBar
+	
 	mediaPlayer.addEventListener('play', function() {
-		// Change the button to be a pause button
 		changeButtonType(playPauseBtn, 'pause');
 	}, false);
+
 	mediaPlayer.addEventListener('pause', function() {
-		// Change the button to be a play button
 		changeButtonType(playPauseBtn, 'play');
 	}, false);
 	
-	// need to work on this one more...how to know it's muted?
-	mediaPlayer.addEventListener('volumechange', function(e) { 
-		// Update the button to be mute/unmute
-		if (mediaPlayer.muted) changeButtonType(muteBtn, 'unmute');
-		else changeButtonType(muteBtn, 'mute');
+	
+	mediaPlayer.addEventListener('volumechange', function(e){ 
+		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'unmute');}
+		else {changeButtonType(muteBtn, 'mute'); }
 	}, false);	
-	mediaPlayer.addEventListener('ended', function(){ 
-		playPauseBtn.src = "/img/icons/play.png";}, false);
 
-	mediaPlayer.addEventListener('loadedmetadata', function() {
-	timeDuration = Math.round(mediaPlayer.duration);
-	timeSettings();
-	adsOn();
+	mediaPlayer.addEventListener('ended', function(){ 
+		playPauseBtn.src = "/img/icons/play.png";
+	}, false);
+
+	mediaPlayer.addEventListener('loadedmetadata', function(){
+		timeDuration = Math.round(mediaPlayer.duration);
+		timeSettings();
+		adsOn();
 	});
 	volumeStatus.addEventListener('change', setVolume, false);
-	this.currentTime = currentTime;
+	mediaPlayer.addEventListener('progress', loadBuffer, false);
+	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
+	mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
+	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
 
+function loadBuffer(){
+	if(mediaPlayer.buffered.length > 0){
+			var buffPercent = this.buffered.end(0);
+			buffPercent = ((buffPercent / timeDuration) * 100);
+			$('#buffered').css({'width': buffPercent +'%'});
+			// if(mediaPlayer.currentTime >= buffPercent){
+			// 	$('#replay-icon').fadeIn();
+			// 	replay.src="/img/icons/uploading.gif";
+			// 	replay.width = 50;
+			// 	replay.height = 50;
+			// }else{
+			// 	replay.src="/img/icons/post_play_button.png";
+			// 	replay.width = 50;
+			// 	replay.height = 50;
+			// }
+		}else{
+			console.log('no buffer recieved...');
+		}
+}
+function canPlayVideo() { //buffering done...
+	$('.play-icon').fadeOut();
+	replay.src="/img/icons/post_play_button.png";
+	replay.width = 50;
+	replay.height = 50;
+}
+function onWaitingBuffer() { //buffering occur...
+	$('.play-icon').fadeIn();
+	replay.src="/img/icons/uploading.gif";
+	replay.width = 50;
+	replay.height = 50;
+}
+function seekingNewPosition() { //find new position
+    var seekTo = mediaPlayer.duration * (seekSlider.value / 100);
+	mediaPlayer.currentTime = seekTo;
+}
 
 function disabledRightClick(){
 	$('#media-video').bind("contextmenu", function(){
@@ -94,23 +129,24 @@ function vidSeek(){
 function seekTimeUpdate(){
 	var currentSeek = mediaPlayer.currentTime * (100 / mediaPlayer.duration);
 	seekSlider.value = currentSeek;
-	bufferedPercent();
 	 curHrs = Math.floor(mediaPlayer.currentTime / 3600);
 	 curMin = Math.floor(mediaPlayer.currentTime / 60);
 	 curSec = Math.floor(mediaPlayer.currentTime - (curMin * 60));
 	 durHrs = Math.floor(curMin / 60);
 	 durMin = Math.floor(mediaPlayer.duration / 60);
-	 durSec = Math.round(mediaPlayer.duration - (durMin  * 60));
-	if(curHrs < 10){curHrs = "0"+curHrs;}
-	if(curMin < 10){curMin = "0"+curMin;}
+	 durSec = Math.floor(mediaPlayer.duration - (durMin  * 60));
 	if(curSec < 10){curSec = "0"+curSec;}
 	if(durSec < 10){durSec = "0"+durSec;}
-	_time.innerHTML = curHrs + ':' + curMin + ':' +curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
+	_time.innerHTML = curHrs + ':' + curMin + ':' + curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
+	if(timeDuration >= 3600){
+		_time.innerHTML = curHrs + ':' + curMin + ':' + curSec + '/' + durHrs + ':' + durMin + ':' +durSec;
+	}else{
+		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
+	}
+	if(curSec == adsTime){
+		$('.advertisement').fadeIn(2000);
+	}
 
-	//document.getElementById('buffered').style.width = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
-	// document.getElementById('buffered').style.background = '#999';
-	 var i = ((mediaPlayer.currentTime / timeDuration)*100) + "%";
-	 $('#buffered').css({'width': i, 'background':'red', 'border-right':'3px solid red'});
 }
 
 document.addEventListener("keydown", function(e) {
@@ -288,6 +324,7 @@ function updateProgressBar(response) {
 				if(minutes > 59){
 					hours = Math.floor(time / 3600); 
 					minutes = 0;
+					seconds = 0;
 				}				 
 				// Updated progress width
 					updProgWidth = Math.floor((videoCurrentTime / mediaPlayer.duration) * progWidth);
@@ -319,7 +356,7 @@ function updateProgressBar(response) {
 					}
 
 					
-					bufferedPercent();
+					//bufferedPercent();
 					// setInterval(bufferedPercent, 1000);
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
@@ -329,18 +366,23 @@ function updateProgressBar(response) {
 
 //Let's calculate amount buffering progress....
 function bufferedPercent(){
-	currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
-	if (currentBuffered < timeDuration) {
-      //document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
-      var i = ((currentBuffered / timeDuration) * 100) + "%";
-     $('#buffered').css({'width': i });
-      setInterval(bufferedPercent, 1000);
-    }
+// currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
+// if (currentBuffered < timeDuration) {
+//     document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
+//      var i = ((currentBuffered / timeDuration) * 100) + "%";
+//      $('#buffered').css({'width': i });
+//      setInterval(bufferedPercent, 1000);
+//    }
+
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
     	setInterval(bufferedPercent, 1000);
+    	$('.play-icon').fadeIn();
     	replay.src = '/img/icons/uploading.gif';
     	replay.width = 50; 
     	replay.height = 50;
+	}else{
+		replay.src = '/img/icons/post_play_button.png';
+		$('.play-icon').fadeOut(500);
 	}
 }
 
@@ -473,21 +515,12 @@ function LetProcessYourVolume(e){
 }
 
 
-$('#progressbar').bind('mousedown', function(e) {	
-
-	progressbarClick = true;
-	mouseX = e.pageX - $('#current-progress').offset().left;
-	currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
-	mediaPlayer.currentTime = Math.floor(currentTime);
-	// if(videoPlaying == true) {
-	// 		togglePlayPause();
-	// 		playPauseBtn.src = "/img/icons/play.png";
-	// 		$('.play-icon').fadeIn(500);
-	// 		mediaPlayer.currentTime = Math.floor(currentTime);
-	// 		mouseX = e.pageX - $('#current-progress').offset().left;
-	// 		mediaPlayer.pause();
-	// 	}				
-});
+//$('#progressbar').bind('mousedown', function(e) {	
+	// progressbarClick = true;
+	// mouseX = e.pageX - $('#current-progress').offset().left;
+	// currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
+	// mediaPlayer.currentTime(currentTime) 	
+//});
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');

@@ -11,21 +11,19 @@
 				<div class="col-md-12">
 				<div class="row  vid-wrapper">
 				<div class="embed-responsive embed-responsive-16by9">
-              	<video preload id="media-video" poster="/img/thumbnails/v1.png">
+
+              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 					<source src='/videos/bowling.mp4' type='video/mp4'>
 					<source src='/videos/bowling.webm' type='video/webm'>
-					<source src='/videos/bowling.ogg' type='video/ogg'>
-					<source src='/videos/movie.mov' type='video/mov'>
-					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>  
+					<source src='/videos/bowling.ogv' type='video/ogg'>
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
 				 	<span class="close">x</span> 
 					{{--  <h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>  --}}
 					<div class="span12"><center>
-					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> </center>
-					
+					<h4 style="color:#fff">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</h4><iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> </center>
+
 					</div>
 					
 				</div>
@@ -42,12 +40,13 @@
 					<div id="progressbar">
 						
 						<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">		
-						 <input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
+						 <input  id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 							<div id="buffered"></div>
-							<div id="current-progress">	
-								 <div id="button-progress" class="progress-button">		
+							<div style="display:none" id="current-progress">	
+
+								 <div style="display:none" id="button-progress" class="progress-button">		
 								</div>	 
-							</div>
+							</div> 
 						</div>
 					</div>
 				
@@ -79,11 +78,11 @@
 						<div class="hd-setting" style="display:none">
 						<small style="text-align:center;color:#fff">HD Quality</small>
 							<ul>
-								<li> <a href="#">1080p</a></li>
-								<li> <a href="#">720p</a></li>
-								<li> <a href="#">480p</a></li>
+								<li> <a href="#">High</a></li>
+								<li> <a href="#">Low</a></li>
+								{{-- <li> <a href="#">480p</a></li>
 								<li> <a href="#">360p</a></li>
-								<li> <a href="#">240p</a></li>
+								<li> <a href="#">240p</a></li> --}}
 							</ul>						
 						</div>
 						<div class="share-video" style="display:none">

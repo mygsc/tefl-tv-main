@@ -615,10 +615,17 @@ img.user{
   overflow: hidden;
   text-overflow: ellipsis;
    margin-top: 5px!important;
-
-
 }
-
+.in-limit{
+  width: 100%;
+  text-align: justify;
+  color: #1870dc;'
+  margin-bottom: 0;
+  max-height: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .v-list{
   width: 100%;
   text-align: left;
