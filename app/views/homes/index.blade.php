@@ -10,19 +10,19 @@
 			<div class="col-md-8" style="margin-bottom:20px;">
 				<div class="col-md-12">
 					<div class="row  vid-wrapper">
-						<div class="embed-responsive embed-responsive-16by9">
-
-			              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-								<source src='/videos/tefltv.mp4' type='video/mp4'>
-								<source src='/videos/tefltv.webm' type='video/webm'>
-								<source src='/videos/tefltv.ogv' type='video/ogg'>
-							</video>
-						</div><!--/embed-responsive-->
-						@include('elements/videoPlayer')
-			
-    		</div><!--/.row-->
-    	</div>
-		</div><!--/.col-md-8-->
+						<div id="vid-controls">
+							<div class="embed-responsive embed-responsive-16by9">
+				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+									<source src='/videos/tefltv.mp4' type='video/mp4'>
+									<source src='/videos/tefltv.webm' type='video/webm'>
+									<source src='/videos/tefltv.ogv' type='video/ogg'>
+								</video>
+							</div><!--/embed-responsive-->
+							@include('elements/videoPlayer')
+						</div>
+		    		</div><!--/.row-->
+    			</div>
+			</div><!--/.col-md-8-->
 
 			<div class="col-md-4">
                 <div class="row">

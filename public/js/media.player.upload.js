@@ -161,9 +161,9 @@ function seekTimeUpdate(){
 	}else{
 		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
 	}
-	if(curSec == adsTime){
-		$('.advertisement').fadeIn(2000);
-	}
+	// if(curSec == adsTime){
+	// 	$('.advertisement').fadeIn(2000);
+	// }
 
 }
 
@@ -204,7 +204,7 @@ function adsOn(){
 	ads = (adsTime / timeDuration) * 100;
 	//ads = Math.round(100 / ads);
 	var adsbar = Math.floor(progWidth/adsTime);
-	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
+	$('<div class="ads"> <div style="border-radius:2px;background:transparent;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
 	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
 	
 }

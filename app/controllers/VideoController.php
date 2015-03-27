@@ -136,6 +136,28 @@ class VideoController extends Controller {
 
 			}else{
 				$getImage = $thumbnailSelected;
+				if($getImage == 0){ //no selected thumbnail 
+					$tags = explode(',',Input::get('tags'));
+					foreach($tags as $tag){
+						if($tag != null){
+							$newTags[] = strtolower($tag);
+						}
+					}
+					$uniqueTag = array_unique($newTags);
+					$implodeTag = implode(',',$uniqueTag);
+					$video = Video::find($id);
+					$uploadedVid = $video->uploaded;
+					if($uploadedVid==0){
+						$video->total_time = Input::get('totalTime');
+						$video->title = Input::get('title');
+						$video->description = Input::get('description');
+						$video->publish = Input::get('publish');
+						$video->tags =  $implodeTag;
+						$video->uploaded =  1;
+						$video->save();
+						return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+					}
+				}
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
