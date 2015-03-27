@@ -1,9 +1,9 @@
 	<div class="advertisement" style="display:none">
 		<span class="close">x</span> 
 			{{--  <h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>  --}}
-			<div class="span12">
+			<div class="span12" style="background:rgba(0,0,0, 0.15)">
 				<center>
-					<h4 style="color:#fff">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</h4>
+					<p style="color:#fff!important;">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</p>
 					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> 
 				</center>
 			</div>
