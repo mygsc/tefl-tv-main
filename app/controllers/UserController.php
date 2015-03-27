@@ -642,7 +642,6 @@ class UserController extends BaseController {
 			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
 		}
 
-		return $subscriberCount;
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 
 		foreach($subscriptions as $subscription) {
