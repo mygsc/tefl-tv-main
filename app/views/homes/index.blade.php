@@ -13,9 +13,9 @@
 				<div class="embed-responsive embed-responsive-16by9">
 
               	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-					<source src='/videos/bowling.mp4' type='video/mp4'>
-					<source src='/videos/bowling.webm' type='video/webm'>
-					<source src='/videos/bowling.ogv' type='video/ogg'>
+					<source src='/videos/tefltv.mp4' type='video/mp4'>
+					<source src='/videos/tefltv.webm' type='video/webm'>
+					<source src='/videos/tefltv.ogv' type='video/ogg'>
 				</video>
 				</div>
 				<div class="advertisement" style="display:none">
@@ -78,8 +78,8 @@
 						<div class="hd-setting" style="display:none">
 						<small style="text-align:center;color:#fff">HD Quality</small>
 							<ul>
-								<li> <a href="#">High</a></li>
-								<li> <a href="#">Low</a></li>
+								<li> <a id="high-quality" href="#">High</a></li>
+								<li> <a id="low-quality" href="#">Low</a></li>
 								{{-- <li> <a href="#">480p</a></li>
 								<li> <a href="#">360p</a></li>
 								<li> <a href="#">240p</a></li> --}}
