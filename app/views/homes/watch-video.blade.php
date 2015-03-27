@@ -122,10 +122,10 @@
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
-                                        <div class="col-md-1">
+                                        <div class="col-md-1 col-sm-2">
                                             <img src="/img/user/u3.png" class="">
                                         </div>
-                                        <div class="col-md-11">
+                                        <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Subscribers)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
@@ -171,10 +171,10 @@
                     <li class="ui-tabs-nav-item" id="">
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
-                            <div class="col-md-4 col-xs-4">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
                                <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />    
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-8 col-xs-4">
                                 <div class="v-list"><span>{{$relation->title}}</span></div>
                                 <span>by: {{$relation->channel_name}}</span><br/>
                                 <small>{{date('m/d/Y', $relation->created_at);}}</small>
