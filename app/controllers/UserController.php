@@ -244,14 +244,14 @@ class UserController extends BaseController {
 
 		foreach ($subscribers as $subscriber) {
 			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->user_id)->get();			
 		}
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		foreach($subscriptions as $subscription) {
 			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
+			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->get();
 		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
@@ -397,7 +397,7 @@ class UserController extends BaseController {
 
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
+		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -414,7 +414,7 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		$findUsersVideos = DB::select("SELECT uf.id, uf.user_id, uf.video_id, uf.created_at, uf.updated_at, v.title, v.likes, v.views, v.file_name, v.description, u.channel_name FROM users_favorite AS uf
+		$findUsersVideos = DB::select("SELECT uf.id, uf.user_id, uf.video_id, uf.created_at, uf.updated_at, v.title, v.likes, v.views, v.file_name, v.description, u.channel_name, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM users_favorite AS uf
 			INNER JOIN videos as v ON uf.video_id = v.id
 			INNER JOIN users as u ON uf.user_id = u.id WHERE uf.user_id = '".$this->Auth->id."'");
 // return $findUsersVideos;
@@ -596,7 +596,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, 
-			c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c 
+			c.spam_count, c.created_at, c.updated_at, u.channel_name, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM comments AS c 
 			INNER JOIN users as u ON u.id = c.user_id 
 			WHERE c.user_id = '" .Auth::User()->id."'");
 		// return $userComments;
@@ -637,7 +637,7 @@ class UserController extends BaseController {
 			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
 		}
 
-		return $subscriberCount;
+		// return $subscriberCount;
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 
 		foreach($subscriptions as $subscription) {
@@ -898,11 +898,9 @@ class UserController extends BaseController {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
 		if($order == 'Likes'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
-		}
-
-		if($order == 'Recent'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
+		}else{
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
 		}
 		$var = '';
 
