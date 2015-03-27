@@ -401,9 +401,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		// $order = 'Likes';
-		// $result = DB::select("SELECT * FROM videos WHERE user_id ='" .$this->Auth->id. "ORDER BY created_at ASC'");
-		// return $result;
+
 		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
 	}
 
@@ -900,17 +898,48 @@ class UserController extends BaseController {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
 		if($order == 'Likes'){
-			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
-		}else{
-			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
-		}
-		str_replace('Recent', 'created_at', $order);
-		if($order == 'Recent'){
-			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'DESC");
-		}else{
-			$result = DB::select("SELECT * FROM videos WHERE user_id ='" .$auth. "'ORDER BY '".$order."'ASC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
 		}
 
-		return Response::json($result);
+		if($order == 'Recent'){
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
+		}
+		$var = '';
+
+		foreach ($results as $result){
+			 $var = $var . "<div id='list' class='col-md-3'>
+					<div class='inlineVid'>		
+						<span class='btn-sq'>
+							<span class='dropdown'>
+                        	  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+                             		<li>gge</li>
+                              		<li>gfrhgte</li>
+                                </span>
+                            </span>
+                            	<a href='#'>
+									<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span></a>
+										
+									</span>
+							<a href='#' target='_blank'>	
+								
+							</a>
+						</div>
+
+						<div class='inlineInfo'>
+							<div class='v-Info'>
+								".$result->title."
+							</div>
+							<div class='text-justify desc hide'>
+								<p>$result->description</p>
+								<br/>
+							</div>
+							<div class='count'>
+								<i class='fa fa-eye'></i> $result->views | <i class='fa fa-thumbs-up'></i> $result->likes | <i class='fa fa-calendar'></i> $result->created_at
+							</div>
+						</div>
+					</div>";
+		}
+
+		return $var;
 	}
 }
