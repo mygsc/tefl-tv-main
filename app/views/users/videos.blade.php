@@ -65,11 +65,11 @@
 							
 							<span class="btn-sq">
 								<span class="dropdown">
-                                   	<span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
-                                   		<li>gge</li>
-                                   		<li>gfrhgte</li>
-                                    </span>
-                                </span>
+                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
+                   		<li>gge</li>
+                   		<li>gfrhgte</li>
+                   </span>
+                </span>
 
 								<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
 								<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>

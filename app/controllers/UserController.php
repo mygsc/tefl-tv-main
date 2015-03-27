@@ -231,6 +231,7 @@ class UserController extends BaseController {
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
+
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
@@ -243,22 +244,24 @@ class UserController extends BaseController {
 
 		foreach ($subscribers as $subscriber) {
 			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->user_id)->get();			
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
 		}
 
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		foreach($subscriptions as $subscription) {
 			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->get();
+			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
 		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
+		// return $usersPlaylists;
 		$increment = 0;
 		
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
+		// return $recentUpload;
 
 		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount')); 
 	}
@@ -394,7 +397,7 @@ class UserController extends BaseController {
 
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video;
+		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -411,7 +414,7 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		$findUsersVideos = DB::select("SELECT uf.id, uf.user_id, uf.video_id, uf.created_at, uf.updated_at, v.title, v.likes, v.views, v.file_name, v.description, u.channel_name, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM users_favorite AS uf
+		$findUsersVideos = DB::select("SELECT uf.id, uf.user_id, uf.video_id, uf.created_at, uf.updated_at, v.title, v.likes, v.views, v.file_name, v.description, u.channel_name FROM users_favorite AS uf
 			INNER JOIN videos as v ON uf.video_id = v.id
 			INNER JOIN users as u ON uf.user_id = u.id WHERE uf.user_id = '".$this->Auth->id."'");
 // return $findUsersVideos;
@@ -428,6 +431,7 @@ class UserController extends BaseController {
 	public function getedit($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::find($id);
+		$owner = User::find($video->user_id);
 		if($video->user_id != Auth::User()->id){
 			return Redirect::route('users.channel');
 		}
@@ -440,7 +444,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
 		
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner'));
 	}
 	public function postedit($id){
 		$input = Input::all();
@@ -547,6 +551,10 @@ class UserController extends BaseController {
 		$thumbnail_playlistCounter2 = 0;
 		$idCounter = 0;
 		$channel_nameCounter = 0;
+		$validatorIdCounter = 0;
+		$validatorChannelCounter = 0;
+		$validatorThumbnailCounter = 0;
+		$validatorThumbnail2Counter = 0;
 
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
 			foreach($playlists as $playlist){
@@ -561,7 +569,7 @@ class UserController extends BaseController {
 			}
 
 		// return $playlists;
-		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','thumbnail_playlistCounter','thumbnail_playlistCounter2','idCounter','channel_nameCounter'));
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','thumbnail_playlistCounter','thumbnail_playlistCounter2','idCounter','channel_nameCounter','validatorIdCounter','validatorChannelCounter','validatorThumbnailCounter','validatorThumbnail2Counter'));
 	}
 	public function getViewPlaylistVideo($id){
 		$id = Crypt::decrypt($id);
@@ -593,7 +601,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, 
-			c.spam_count, c.created_at, c.updated_at, u.channel_name, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM comments AS c 
+			c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c 
 			INNER JOIN users as u ON u.id = c.user_id 
 			WHERE c.user_id = '" .Auth::User()->id."'");
 		// return $userComments;
@@ -634,7 +642,7 @@ class UserController extends BaseController {
 			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
 		}
 
-		// return $subscriberCount;
+		return $subscriberCount;
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
 
 		foreach($subscriptions as $subscription) {
@@ -725,10 +733,7 @@ class UserController extends BaseController {
 		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->paginate(10);
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
-		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
-		// dd($ifAlreadySubscribe);
-
-		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
+		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists'));
 	}
@@ -759,7 +764,7 @@ class UserController extends BaseController {
 			return Response::json(array(
 				'status' => 'subscribeOn',
 				'label' => 'Subscribe'
-			));
+				));
 		}
 	}
 	public function addPlaylist($id){
@@ -858,7 +863,7 @@ class UserController extends BaseController {
 
 	public function getNotification(){
 		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-
+		
 		if($this->Notification->getTimePosted($notifications) === false){
 			app::abort(404, 'Error');
 		}
@@ -869,7 +874,7 @@ class UserController extends BaseController {
 
 	public function postLoadNotification(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id, null , null, '8');
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
 		$this->Notification->setStatus();
 		return $notifications;
 	}
@@ -899,49 +904,58 @@ class UserController extends BaseController {
 	public function getSortVideos() {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
+
 		if($order == 'Likes'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
+
 		}else{
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
+
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
 		}
 		$var = '';
 
 		foreach ($results as $result){
-			 $var = $var . "<div id='list' class='col-md-3'>
-					<div class='inlineVid'>		
-						<span class='btn-sq'>
-							<span class='dropdown'>
-                        	  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
-                             		<li>gge</li>
-                              		<li>gfrhgte</li>
-                                </span>
+				if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+					$thumbnail ="<video poster='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.jpg'  width='100%'/>
+										<source src='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.mp4' type='video/mp4'/>
+								</video>";
+				}else{
+					$thumbnail = HTML::image('img/thumbnails/video.png');
+				}
+
+			 $var = $var . 
+			 "<div id='list' class='col-md-3'>
+				<div class='inlineVid'>		
+					<span class='btn-sq'>
+						<span class='dropdown'>
+                   		  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+                   		   		<li>gge</li>
+                          		<li>gfrhgte</li>
+                             </span>
                             </span>
-                            	<a href='#'>
-									<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span></a>
-										
-									</span>
-							<a href='#' target='_blank'>	
-								
-							</a>
-						</div>
+                     </span>
+               	<a href='#'>
+					<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+				</a>		
+					".$thumbnail."
+				</div>
 
-						<div class='inlineInfo'>
-							<div class='v-Info'>
-								".$result->title."
-							</div>
-							<div class='text-justify desc hide'>
-								<p>$result->description</p>
-								<br/>
-							</div>
-							<div class='count'>
-								<i class='fa fa-eye'></i> $result->views | <i class='fa fa-thumbs-up'></i> $result->likes | <i class='fa fa-calendar'></i> $result->created_at
-							</div>
-						</div>
-					</div>";
+				<div class='inlineInfo'>
+					<div class='v-Info'>
+						".$result->title."
+					</div>
+					<div class='text-justify desc hide'>
+						<p>".$result->description."</p>
+							<br/>
+					</div>
+				<div class='count'>
+					<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+				</div>
+				</div>
+			</div>";
+			}
+			return $var;
 		}
-
-		return $var;
-	}
 
 	public function getAbout() {
 

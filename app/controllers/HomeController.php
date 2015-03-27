@@ -96,15 +96,17 @@ class HomeController extends BaseController {
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
 			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
 			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
 			AND v.report_count < 5
 			OR v.report_count IS NULL
 			AND v.publish = 1
-			AND v.deleted_at IS NULL;
+			;
 			");
+		//return $relations;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p

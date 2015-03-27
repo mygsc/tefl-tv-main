@@ -32,7 +32,7 @@
 				<p><b>{{date('F d, Y',strtotime($notification->created_at))}}</b></p>
 				<hr/>
 			@endif
-				<p><img src="/img/user/4.jpg" class="un-img"> &nbsp; {{$notification->notification}}
+				<p><img src="{{$notification->profile_picture}}" class="un-img"> &nbsp; {{$notification->notification}}
 				&nbsp; - &nbsp;
 				{{$notification->time_difference}}
 				</p>
