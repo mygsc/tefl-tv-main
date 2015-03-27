@@ -79,9 +79,7 @@
 							
 							
 							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-							
-								
-								
+									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
@@ -89,7 +87,9 @@
 
 
 									</video>
-								
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif								
 							</a>
 						</div>
 

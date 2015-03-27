@@ -9,7 +9,7 @@
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
-		<p>Uploaded: {{$recentUpload->created_at}}</p>
+		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
 		<video controls>
 			<source src=""/>
@@ -54,10 +54,18 @@
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4 col-sm-6">
 					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-						<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" alt="">
+						@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
+									</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif
 					</a>
 					
-					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}">
+					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
 						<div class="v-Info">
 							{{$usersVideo->title}}
 						</div>
@@ -83,7 +91,9 @@
 			<br/>
 			<div class="row">
 			<div class="col-md-4 col-sm-2">
-			@if(empty($usersPlaylists))
+			@if($usersPlaylists->isEmpty())
+				<p style="margin-left:30px;">No Playlists yet</p>
+			@else
 				@foreach($usersPlaylists as $playlists)
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
@@ -104,8 +114,6 @@
 					{{$playlists->updated_at}}
 				</div>
 				@endforeach
-				@else
-					<p style="margin-left:30px;">No Playlists yet</p>
 				@endif
 			</div>
 			</div>
@@ -129,10 +137,8 @@
 				@foreach($subscriberProfile as $key => $profile)
 				<div class="col-md-6" >
 					<div class="row user-padding" id="subscriberLists">
-
-						<a href="{{route('view.users.channel')}}">
-
-						<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
+						<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 							<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
 						</a>&nbsp;
 						<br/>&nbsp;
@@ -161,7 +167,7 @@
 						<div class="col-md-6">
 							<div class="row user-padding">
 							
-								<a href="{{route('view.users.channel')}}">
+								<a href="{{route('view.users.channel', $profile1->user->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
 								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;

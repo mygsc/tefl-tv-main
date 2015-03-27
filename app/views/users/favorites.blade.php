@@ -64,11 +64,15 @@
 							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-								<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}"  width="100%" >
+								@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.webm'}}" type="video/webm" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.ogg'}}" type="video/ogg" />
 									</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif
 								</a>
 							</div>
 

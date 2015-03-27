@@ -48,7 +48,6 @@ class Video extends Eloquent{
 		return $this->hasMany('WatchLater');
 	}
 	public function getVideoByCategory($type = null, $limit = null){
-
 		if(empty($type)){
 			return false;
 		}
@@ -60,10 +59,10 @@ class Video extends Eloquent{
 		if($type == 'recommended'){
 			$additionaQuery = 
 				'AND recommended = "1"
-				ORDER BY (v.views + v.likes) DESC';
+				ORDER BY (v.views + likes) DESC';
 		}elseif($type == 'popular'){
 			$additionaQuery = 
-				'ORDER BY (v.views + v.likes) DESC';
+				'ORDER BY (v.views) DESC';
 		}elseif($type == 'latest'){
 			$additionaQuery = 
 				'ORDER BY v.created_at DESC';
@@ -76,7 +75,7 @@ class Video extends Eloquent{
 
 		$returnData = DB::select(
 				'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
-				v.views, v.likes, v.tags, v.report_count,v.recommended, v.created_at,
+				v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes, v.tags, v.report_count,v.recommended, v.created_at,
 				v.deleted_at,u.channel_name,u.status FROM videos v
 				INNER JOIN users u ON
 				v.user_id = u.id
@@ -93,7 +92,6 @@ class Video extends Eloquent{
 				$limit. '');
 
 		foreach($returnData as $key => $item){
-
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;
 			$posterName = $fileName. '.jpg';
@@ -142,5 +140,9 @@ class Video extends Eloquent{
 			$convertNumber = number_format($round, 3, ',', ' ') . 'm';
 		}
 		return $convertNumber;
+	}
+
+	public function countLikes(){
+		
 	}
 }
