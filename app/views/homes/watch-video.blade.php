@@ -28,6 +28,7 @@
                                     <div>
                                         <br/>
                                         <span class="">
+
                                             <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
                                             @if(isset(Auth::User()->id))
@@ -135,6 +136,7 @@
                                             <div class="seeVideoContent">
                                                 <p>
                                                    {{$videos->description}}
+
                                                </p>
                                            </div>
                                        </div><!--./col-md-11-->
@@ -171,8 +173,12 @@
                     <li class="ui-tabs-nav-item" id="">
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-4">
-                               <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />    
+                            <div class="col-md-4 col-xs-4">
+                            @if(file_exists("public/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg"))
+                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
+                            @else
+                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                            @endif
                             </div>
                             <div class="col-md-8 col-sm-8 col-xs-4">
                                 <div class="v-list"><span>{{$relation->title}}</span></div>

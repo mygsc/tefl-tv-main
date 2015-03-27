@@ -10,7 +10,7 @@ $(document).ready(function(){
 			if(name === ""){
 				$('#create-playlist-text').focus();
 			}else{
-			$.post('http://localhost:8000/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+			$.post('/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 				 $('#create-playlist-text').val("")
 					loader();
 				});
@@ -23,7 +23,7 @@ $(document).ready(function(){
 				var value = $(this).attr('data-encrypt');
 				var text1 = $(this).attr('data-encrypt2');
 				e.preventDefault();
-					$.post('http://localhost:8000/mychannels/removePlaylist/'+text1, {value:value},function(data){
+					$.post('/mychannels/removePlaylist/'+text1, {value:value},function(data){
 					removeloader();
 					});
 			});
@@ -46,7 +46,7 @@ $(document).ready(function(){
 							var name = $('#new_playlistName').val()
 							var encrypt = $('#encrypt').val();
 							e.preventDefault();
-							$.post('http://localhost:8000/mychannels/editTitle/'+encrypt,{name:name},function(data){
+							$.post('/mychannels/editTitle/'+encrypt,{name:name},function(data){
 								editTitleloader();
 							});
 						});
@@ -81,7 +81,7 @@ $(document).ready(function(){
 						var description = $('#new_playlistDesc').val();
 						var encrypt = $('#encrypt').val();
 						e.preventDefault();
-						$.post('http://localhost:8000/mychannels/editDesc/'+encrypt,{description:description},function(data){
+						$.post('/mychannels/editDesc/'+encrypt,{description:description},function(data){
 								editDescloader();
 						});
 					});

@@ -1,6 +1,8 @@
 @extends('layouts.default')
 
-
+@section('css')
+		{{HTML::style('css/vid.player.css')}}
+@stop
 @section('content')
 <style type="text/css" media="screen">
 canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
@@ -59,14 +61,14 @@ margin: 10px;
 						<h3 style="text-align:center">Video Preview</h3>
 							<div class="embed-responsive embed-responsive-16by9 h-video">
 
-								<video preload="auto" width="400" id="media-video" controls poster="/img/thumbnails/video.png">
+								<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
 								</video>
 							</div>
-
-							
+							@include('elements/videoPlayer')
+			
 						</div>
 
 						<div class="col-md-6">
@@ -178,5 +180,5 @@ margin: 10px;
 
 @section('script')
 {{HTML::script('js/user/upload-add-description.js')}}
-
+{{HTML::script('js/media.player.upload.js')}}
 @stop

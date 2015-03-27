@@ -11,9 +11,19 @@
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
-		<video controls>
-			<source src=""/>
-		</video>
+		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
+									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+
+
+									</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif								
+							</a>
 		<p class="text-justify">
 			Description: {{$recentUpload->description}}
 		</p>
@@ -134,34 +144,22 @@
 			@if(empty($subscriberProfile))
 				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
-				@foreach($subscriberProfile as $key => $profile)
-				<div class="col-md-6" >
-					<div class="row user-padding" id="subscriberLists">
-						<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+					@foreach($subscriberProfile as $key => $profile)
+					<div class="col-md-6" >
+						<div class="row user-padding" id="subscriberLists">
+
+							<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-							<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
-						</a>&nbsp;
-						<br/>&nbsp;
-						<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
-						<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
-						<?php
-							$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
-						?>
-						{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-			    			{{Form::hidden('user_id', $profile->id)}}
-			    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-			    			@if(!$ifAlreadySubscribe)
-			    				{{Form::hidden('status','subscribeOn')}}
-						    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-						    @else
-						    	{{Form::hidden('status','subscribeOff')}}
-						    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-						    @endif
-						{{Form::close()}}
+								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
+							</a>&nbsp;
+							<br/>&nbsp;
+							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+							<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
+						</div>
 					</div>
-				</div>
-				@endforeach						
-			@endif			
+					@endforeach						
+					@endif			
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
@@ -180,27 +178,14 @@
 					@foreach($subscriptionProfile as $key => $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
+							
 								<a href="{{route('view.users.channel', $profile1->user->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
 								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
-								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
-								<?php
-									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => Auth::User()->id, 'subscriber_id' => $profile1->id))->first();
-								?>
-								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-					    			{{Form::hidden('user_id', $profile->id)}}
-					    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-					    			@if(!$ifAlreadySubscribe)
-					    				{{Form::hidden('status','subscribeOn')}}
-								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-								    @else
-								    	{{Form::hidden('status','subscribeOff')}}
-								    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-								    @endif
-								{{Form::close()}}
+								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 						</div>
 						@endforeach					
