@@ -21,6 +21,8 @@ $(document).ready(function() {
 			cache: false, 
         	data: $(this).serialize(),//{
         	success: function(data){
+        		$('input[name=status]').val(data['status']);
+        		$('#subscribebutton').val(data['label']);
         		$(this).val(data['status']);
         		$(this).val(data['label']);
         		 //alert(data['status']);

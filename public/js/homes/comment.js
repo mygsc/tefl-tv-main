@@ -20,6 +20,7 @@ $(document).ready(function(){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
 		        		$('textarea#comment').val('');
+		        		$('.commentsarea .row').prepend(data['comment']);
 		        		// alert(data['status']);
 		        	}
 	           	}
