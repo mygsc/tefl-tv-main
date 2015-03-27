@@ -74,21 +74,21 @@ class VideoController extends Controller {
 	}
 	public function delete_directory($dirname) {
 
-         if (is_dir($dirname))
-           $dir_handle = opendir($dirname);
-	 if (!$dir_handle)
-	      return false;
-	 while($file = readdir($dir_handle)) {
-	       if ($file != "." && $file != "..") {
-	            if (!is_dir($dirname.DS.$file))
-	                 unlink($dirname.DS.$file);
-	            else
-	                 delete_directory($dirname.DS.$file);
-	       }
-	 }
-	 closedir($dir_handle);
-	 rmdir($dirname);
-	 return true;
+		if (is_dir($dirname))
+			$dir_handle = opendir($dirname);
+		if (!$dir_handle)
+			return false;
+		while($file = readdir($dir_handle)) {
+			if ($file != "." && $file != "..") {
+				if (!is_dir($dirname.DS.$file))
+					unlink($dirname.DS.$file);
+				else
+					delete_directory($dirname.DS.$file);
+			}
+		}
+		closedir($dir_handle);
+		rmdir($dirname);
+		return true;
 	}
 	public function getAddDescription($filename = null){
 		$videos = Video::where('file_name','=',$filename)->get();
@@ -264,7 +264,7 @@ class VideoController extends Controller {
 			
 		}else{
 			$longwords = 'SELECT DISTINCT v.id,v.user_id,u.channel_name, v.title,v.description,
-			v.tags,v.views,v.likes,v.publish,
+			v.tags,v.views,(SELECT count(ul.id) from users_likes ul where ul.video_id = v.id) as likes,v.publish, v.file_name,
 			v.report_count,v.deleted_at,v.created_at
 			FROM videos v 
 			INNER JOIN users u ON v.user_id = u.id
@@ -275,7 +275,7 @@ class VideoController extends Controller {
 			AND
 			report_count < "5"
 			AND
-			MATCH(title,description,tags) AGAINST("'.$search.'" IN BOOLEAN MODE)';
+			MATCH(title,description,tags) AGAINST("'.$search.'")';
 
 			$searchResults = DB::select($longwords);
 			if(strlen($search) < 3){
@@ -297,8 +297,20 @@ class VideoController extends Controller {
 				$searchResults = DB::select($longwords . $shortwords);
 			}
 		}
+		
 
 		foreach($searchResults as $key => $searchResult){
+			//Thumbnails
+			$folderName = $searchResult->user_id. '-'. $searchResult->channel_name;
+			$fileName = $searchResult->file_name;
+			$path = 'videos'.DS.$folderName.DS.$fileName.DS.$fileName.'.jpg';
+			$searchResults[$key]->thumbnail = 'img\thumbnails\video.png';
+			if(file_exists(public_path($path))){
+				$searchResults[$key]->thumbnail = $path;
+			}
+			//truncate text
+			$searchResults[$key]->description = $this->truncate($searchResult->description, 50);
+			//
 			$getTags = explode(',',$searchResult->tags);
 			foreach($getTags as $key2 => $getTags){
 				$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array($getTags));
@@ -314,6 +326,26 @@ class VideoController extends Controller {
 		$video = Video::where('id','=',$id)->first();
 		$video->views = $video->views+1;
 		$video->update();
+	}
+
+	public function fileExist($path, $filename, $ext = null, $user_id = null, $channel_name = null, $callback_message = null){
+		$userFolderName = $user_id. '-'. $channel_name;
+		$file = $filename .'.'. $ext;
+		$path = 'public' .DS. $path .DS. $userFolderName .DS. $filename. $file;
+		if(file_exists($path)){
+			return true;
+		} 
+		return $path;
+	}
+
+	public function truncate($text, $chars = 50) {
+		if(strlen($text) > $chars){
+			$text = $text." ";
+			$text = substr($text,0,$chars);
+			$text = substr($text,0,strrpos($text,' '));
+			$text = $text."...";
+		}
+		return $text;
 	}
 
 

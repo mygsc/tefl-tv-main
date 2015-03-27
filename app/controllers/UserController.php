@@ -744,7 +744,9 @@ class UserController extends BaseController {
 			$subscribe->save();
 
 			//Add notifcation
-			$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			if($user_id != $this->Auth->id){
+				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+			}
 			//End notifications			
 
 			return Response::json(array(
