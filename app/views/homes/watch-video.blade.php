@@ -153,7 +153,7 @@
                 <!-- COMMENTS AREA -->
 
                 
-                @include('elements/home/uploaderLatestVideo')
+               
 
                 <!-- latest -->
             </div><!--column 8-->
@@ -185,13 +185,15 @@
                     @endforeach
                 </ul><!--video list-->
 
-                    @include('elements/home/recommendedChannelList')
+                    
                     @include('elements/home/carouselAds')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
+
     </div><!--/.row-->
 </div><!--/padding-->
+ <br/><br/><br/> 
 </div><!--/.row-->
 @stop
 
@@ -200,4 +202,18 @@
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
 {{HTML::script('js/homes/comment.js')}}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+          $(".linkReadMore").click(function(){
+             $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".seeVideoContent").slideToggle("slow");
+          });
+          
+        });
+</script>
 @stop
+
+
