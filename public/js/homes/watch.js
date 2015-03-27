@@ -6,7 +6,7 @@ $(document).ready(function(){
 			var text1 = $('#text1').val();
 			e.preventDefault();
 			if(count<2){
-				$.post('http://localhost:8000/counter/'+text1,function(data){
+				$.post('/counter/'+text1,function(data){
 					});
 			}
 		});
@@ -15,7 +15,7 @@ $(document).ready(function(){
 		$('#addToFavorites').click(function(e){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-			$.post('http://localhost:8000/mychannels/addToFavorites/'+text1,function(data){
+			$.post('/mychannels/addToFavorites/'+text1,function(data){
 					favoriteLoader();
 				});
 		});
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		$('#removeToFavorites').click(function(e){
 			e.preventDefault();
 			var text1 = $('#text1').val();
-			$.post('http://localhost:8000/mychannels/removeToFavorites/'+text1,function(data){
+			$.post('/mychannels/removeToFavorites/'+text1,function(data){
 					favoriteLoader();
 				});
 		});
@@ -33,7 +33,7 @@ $(document).ready(function(){
 		$('#addToWatchLater').click(function(e){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-			$.post('http://localhost:8000/mychannels/addToWatchLater/'+text1,function(data){
+			$.post('/mychannels/addToWatchLater/'+text1,function(data){
 					watchLaterLoader();
 				});
 		});
@@ -42,7 +42,7 @@ $(document).ready(function(){
 		$('#removeToWatchLater').click(function(e){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-			$.post('http://localhost:8000/mychannels/removeToWatchLater/'+text1,function(data){
+			$.post('/mychannels/removeToWatchLater/'+text1,function(data){
 					watchLaterLoader ();
 				});
 		});
@@ -54,7 +54,7 @@ $(document).ready(function(){
 			var text1 = $('#text1').val();
 			var value = list.val();
 			e.preventDefault();
-				$.post('http://localhost:8000/mychannels/removePlaylist/'+text1, {value:value},function(data){
+				$.post('/mychannels/removePlaylist/'+text1, {value:value},function(data){
 					deleteLoader();
 				});
 			});
@@ -68,7 +68,7 @@ $(document).ready(function(){
 			var text1 = $('#text1').val();
 			var value = list.val();
 			e.preventDefault();
-				$.post('http://localhost:8000/mychannels/addChkBoxPlaylist/'+text1, {value:value},function(data){
+				$.post('/mychannels/addChkBoxPlaylist/'+text1, {value:value},function(data){
 					addLoader();
 				});
 			});
@@ -106,7 +106,7 @@ $(document).ready(function(){
 			}
 			else{
 				e.preventDefault();
-				$.post('http://localhost:8000/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+				$.post('/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 					loader();
 				});
 			}
@@ -149,7 +149,7 @@ $(document).ready(function(){
 				var description = $('textarea[id=description]').val();
 				var privacy = $('select[id=privacy]').val();
 					e.preventDefault();
-					$.post('http://localhost:8000/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+					$.post('/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 						loader();
 					});
 				});
@@ -160,7 +160,7 @@ $(document).ready(function(){
 		$('#like').click(function(e){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-				$.post('http://localhost:8000/mychannels/likeVideo/'+text1,function(data){
+				$.post('/mychannels/likeVideo/'+text1,function(data){
 					likeLoader();
 				});
 			});
@@ -169,7 +169,7 @@ $(document).ready(function(){
 		$('#unlike').click(function(e){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-				$.post('http://localhost:8000/mychannels/unlikeVideo/'+text1,function(data){
+				$.post('/mychannels/unlikeVideo/'+text1,function(data){
 					likeLoader();
 				});
 			});
