@@ -161,12 +161,14 @@
                         <a href="#" id=" " class="active">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="/img/thumbnails/v1.jpg"/>    
+
+                                    <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg"/>    
                                 </div>
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
                                     <span>by: {{$playlistVideo->channel_name}}</span><br/>
                                     <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                    
                                 </div>
                             </div>
                         </a>
@@ -177,7 +179,7 @@
                         <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="/img/thumbnails/v1.jpg" />    
+                                    <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg" />    
                                 </div>
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
