@@ -146,7 +146,8 @@ class HomeController extends BaseController {
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
-		$video = Video::where('file_name',$videoId)->first();
+		$video = Video::where('file_name','=',$videoId)->first();
+		//return $video;
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
 		->where('playlist_id',$playlistId)->first();
@@ -156,6 +157,9 @@ class HomeController extends BaseController {
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
 			AND i.id > '".$itemId->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			ORDER BY i.id asc
 			LIMIT 1;");
 		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
@@ -164,6 +168,9 @@ class HomeController extends BaseController {
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
 			AND i.id < '".$itemId->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			ORDER BY i.id desc
 			LIMIT 1;");
 		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
@@ -171,8 +178,25 @@ class HomeController extends BaseController {
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$playlistId."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1
 			");
-		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA'));
+		if(isset(Auth::User()->id)){
+			$like = Like::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$favorites = Favorite::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = WatchLater::where('video_id','=',$video->id)
+				->where('user_id','=',Auth::User()->id)->first();
+		}
+		else{
+			$like = null;
+			$favorites = null;
+			$watchLater = null;
+		}
+		$likeCounter = Like::where('video_id','=',$video->id)->count();
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater'));
 	}
 
 	public function postSignIn() {

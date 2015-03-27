@@ -55,13 +55,18 @@
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
+						{{Form::hidden("encrypt",Crypt::encrypt($playlist->id),array('id'=>'encrypt'))}}
 							<div class="col-md-3">
-								<img src="/img/thumbnails/v2.png">
+								@if(empty($videos))
+									<img src="/img/logos/default-playlist.png">
+								@else
+								<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
+								@endif
 							</div>
 							<div class="col-md-9">
-								<h4><i class="fa fa-globe"></i> &nbsp;{{$playlist->name}}</h4>
+								<h4><i class="fa fa-globe"></i> &nbsp;<span id="playlistName">{{$playlist->name}}</span></h4>
 								<p>{{$playlist->created_at->toFormattedDateString()}}</p>
-								<p class="text-justify">{{$playlist->description}}</p>
+								<p class="text-justify"><span id="playlistDesc">{{$playlist->description}}</span></p>
 							</div>
 						</div>
 
@@ -73,7 +78,7 @@
 							@foreach($videos as $video)
 							<div class="row">						
 								<div class="col-md-2">
-									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
 								</div>
 								<div class="col-md-10">
 									<span class="pull-right" style="margin-right:20px;">
@@ -81,7 +86,7 @@
 										<button class="btn btn-default" title="remove from playlist" id="removeToplaylist{{$playlistCounter++}}" data-encrypt="{{Crypt::encrypt($video->playlist_id)}}" data-encrypt2 ="{{Crypt::encrypt($video->id)}}"><i class="fa fa-trash"></i></button>
 									
 									</span>
-									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}"><p>{{$video->title}}</p></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><p>{{$video->title}}</p></a>
 									<small>{{$video->channel_name}}</small>
 								</div>
 							</div>
