@@ -742,21 +742,20 @@ class UserController extends BaseController {
 		$status = Input::get('status');
 
 		if($status == 'subscribeOn'){
-			$subscribe = new Subscribe;
-			$subscribe->user_id = $user_id;
-			$subscribe->subscriber_id = $subscriber_id;
-			$subscribe->save();
+			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
+			if(!$ifAlreadySubscribe){
+				$subscribe = new Subscribe;
+				$subscribe->user_id = $user_id;
+				$subscribe->subscriber_id = $subscriber_id;
+				$subscribe->save();
 
-			//Add notifcation
-			if($user_id != $this->Auth->id){
-				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
-			}
-			//End notifications			
+				//Notif() here
 
-			return Response::json(array(
-				'status' => 'subscribeOff',
-				'label' => 'Unsubscribe'
+				return Response::json(array(
+					'status' => 'subscribeOff',
+					'label' => 'Unsubscribe'
 				));
+			}
 		}
 		if($status == 'subscribeOff'){
 			$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
