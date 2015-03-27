@@ -126,22 +126,22 @@
 			@if(empty($subscriberProfile))
 				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
-					@foreach($subscriberProfile as $key => $profile)
-					<div class="col-md-6" >
-						<div class="row user-padding" id="subscriberLists">
+				@foreach($subscriberProfile as $key => $profile)
+				<div class="col-md-6" >
+					<div class="row user-padding" id="subscriberLists">
 
-							<a href="{{route('view.users.channel')}}">
+						<a href="{{route('view.users.channel')}}">
 
-							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
-							</a>&nbsp;
-							<br/>&nbsp;
-							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
-							<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
-						</div>
+						<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
+							<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
+						</a>&nbsp;
+						<br/>&nbsp;
+						<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+						<button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button>
 					</div>
-					@endforeach						
-					@endif			
+				</div>
+				@endforeach						
+			@endif			
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->

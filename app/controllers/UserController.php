@@ -256,11 +256,9 @@ class UserController extends BaseController {
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
-		// return $usersPlaylists;
 		$increment = 0;
 		
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
-		// return $recentUpload;
 
 		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount')); 
 	}
@@ -727,7 +725,10 @@ class UserController extends BaseController {
 		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->paginate(10);
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
-		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
+		// dd($ifAlreadySubscribe);
+
+		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
 
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists'));
 	}
@@ -756,7 +757,7 @@ class UserController extends BaseController {
 			return Response::json(array(
 				'status' => 'subscribeOn',
 				'label' => 'Subscribe'
-				));
+			));
 		}
 	}
 	public function addPlaylist($id){
