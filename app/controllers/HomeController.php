@@ -356,19 +356,19 @@ class HomeController extends BaseController {
 				array('comment_id' => $likeCommentId,
 					'user_id'    => $likeUserId,
 					'status' 	   => 'liked'
-					)
-				);
+				)
+			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 
 			/*Notification Start*/
 			// $videoData = Video::find($video_id);
-			// if($this->Auth->id != $videoData->user_id){
-			// 	$channel_id = Comment::find($comment_id)->user_id;
-			// 	$notifier_id = $user_id;
-			// 	$routes = route('homes.watch-video', $videoData->file_name);
-			// 	$type = 'liked';
-			// 	$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-			// }
+			// // if($this->Auth->id != $videoData->user_id){
+			// $channel_id = Comment::find($comment_id)->user_id;
+			// $notifier_id = $user_id;
+			// $routes = route('homes.watch-video', $videoData->file_name);
+			// $type = 'liked';
+			// $this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			// // }
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
 
