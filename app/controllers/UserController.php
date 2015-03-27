@@ -896,47 +896,55 @@ class UserController extends BaseController {
 	public function getSortVideos() {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
+
 		if($order == 'Likes'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, (SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
 		}else{
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at, FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
 		}
 		$var = '';
 
 		foreach ($results as $result){
-			 $var = $var . "<div id='list' class='col-md-3'>
-					<div class='inlineVid'>		
-						<span class='btn-sq'>
-							<span class='dropdown'>
-                        	  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
-                             		<li>gge</li>
-                              		<li>gfrhgte</li>
-                                </span>
-                            </span>
-                            	<a href='#'>
-									<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span></a>
-										
-									</span>
-							<a href='#' target='_blank'>	
-								
-							</a>
-						</div>
+				if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+					$thumbnail ="<video poster='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.jpg'  width='100%'/>
+										<source src='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.mp4' type='video/mp4'/>
+								</video>";
+				}else{
+					$thumbnail = HTML::image('img/thumbnails/video.png');
+				}
 
-						<div class='inlineInfo'>
-							<div class='v-Info'>
-								".$result->title."
-							</div>
-							<div class='text-justify desc hide'>
-								<p>$result->description</p>
-								<br/>
-							</div>
-							<div class='count'>
-								<i class='fa fa-eye'></i> $result->views | <i class='fa fa-thumbs-up'></i> $result->likes | <i class='fa fa-calendar'></i> $result->created_at
-							</div>
-						</div>
-					</div>";
+			 $var = $var . 
+			 "<div id='list' class='col-md-3'>
+				<div class='inlineVid'>		
+					<span class='btn-sq'>
+						<span class='dropdown'>
+                   		  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+                   		   		<li>gge</li>
+                          		<li>gfrhgte</li>
+                             </span>
+                            </span>
+                     </span>
+               	<a href='#'>
+					<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+				</a>		
+					".$thumbnail."
+				</div>
+
+				<div class='inlineInfo'>
+					<div class='v-Info'>
+						".$result->title."
+					</div>
+					<div class='text-justify desc hide'>
+						<p>".$result->description."</p>
+							<br/>
+					</div>
+				<div class='count'>
+					<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+				</div>
+				</div>
+			</div>";
+			}
+			return $var;
 		}
 
-		return $var;
-	}
 }
