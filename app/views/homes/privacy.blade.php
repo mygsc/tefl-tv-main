@@ -134,7 +134,7 @@
 			@include('elements/home/sideNav')
 			@include('elements/home/adverstisementSmall')
 			@include('elements/home/carouselAds')	
-			@include('elements/home/recommendedChannelList')
+
 		</div>
 	</div><!--/.col-3 right section navigations-->
 </div><!--/.container page-->

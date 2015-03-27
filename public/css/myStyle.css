@@ -181,7 +181,7 @@ p.description_content{
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-    border-bottom: 1px solid #cecece;
+
 }
 .tableLayout > thead > tr > th {
   vertical-align: bottom;
@@ -1027,7 +1027,7 @@ span.commentLink{
   position:absolute;
   right:15px;
   z-index:99;
-  background: rgba(255,255, 255, 0.65);
+  background: rgba(156,175,238, 0.45);
   padding: 10px 10px;
   border-radius: 0 0 0 10px;
   
