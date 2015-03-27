@@ -762,7 +762,7 @@ class UserController extends BaseController {
 			return Response::json(array(
 				'status' => 'subscribeOn',
 				'label' => 'Subscribe'
-				));
+			));
 		}
 	}
 	public function addPlaylist($id){
