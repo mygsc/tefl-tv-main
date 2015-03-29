@@ -62,7 +62,7 @@ function GSCMediaPlayer(){
 		timeSettings();
 		adsOn();
 	});
-	fullscreenVid.addEventListener('click', fullscreen, false);//toggleFullScreen
+	fullscreenVid.addEventListener('click', toggleFullScreen, false);//fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('progress', loadBuffer, false);
 	//mediaPlayer.addEventListener('canplay', canPlayVideo, false);
@@ -78,12 +78,12 @@ function loadBuffer(){
 			if(mediaPlayer.currentTime >= buffPercent){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
-				replay.width = 50;
-				replay.height = 50;
+				replay.width = 80;
+				replay.height = 80;
 			}else{
-				replay.src="/img/icons/post_play_button.png";
-				replay.width = 50;
-				replay.height = 50;
+				replay.src="/img/icons/play-btn.png";
+				replay.width = 80;
+				replay.height = 80;
 			}
 		}else{
 			console.log('no buffer recieved...');
@@ -176,15 +176,15 @@ document.addEventListener("keydown", function(e) {
 function toggleFullScreen() {
   if (!document.fullscreenElement &&    // alternative standard method
       !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-      document.documentElement.msRequestFullscreen();
-    } else if (videoControls.mozRequestFullScreen) {
+    if (mediaPlayer.requestFullscreen) {
+      mediaPlayer.requestFullscreen();
+    } else if (mediaPlayer.msRequestFullscreen) {
+      mediaPlayer.msRequestFullscreen();
+    } else if (mediaPlayer.mozRequestFullScreen) {
       videoControls.mozRequestFullScreen();
-
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    } else if (mediaPlayer.webkitRequestFullscreen) {
+      mediaPlayer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      //videoFullScreen.request(document.getElementById('media-video'));
     }
   } else {
     if (document.exitFullscreen) {
@@ -385,14 +385,6 @@ function updateProgressBar(response) {
 
 //Let's calculate amount buffering progress....
 function bufferedPercent(){
-// currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
-// if (currentBuffered < timeDuration) {
-//     document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
-//      var i = ((currentBuffered / timeDuration) * 100) + "%";
-//      $('#buffered').css({'width': i });
-//      setInterval(bufferedPercent, 1000);
-//    }
-
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
     	setInterval(bufferedPercent, 1000);
     	$('.play-icon').fadeIn();
@@ -405,17 +397,6 @@ function bufferedPercent(){
 	}
 }
 
-// var startBuffer = function() {
-//    var maxduration = mediaPlayer[0].duration;
-//    var currentBuffers = mediaPlayer[0].buffered.end(0);
-//    var percent = 100 * currentBuffers / maxduration;
-  
-//    $('#buffered').css('width', percent + '%');
-//    if(currentBuffers < timeDuration) {
-//       setTimeout(startBuffer, 500);
-//    }
-// }
-// Updates a button's title, innerHTML and CSS class to a certain value
 function changeButtonType(btn, value) {
 	btn.title = value;
 	btn.innerHTML = value;
@@ -453,12 +434,9 @@ function resetPlayer() {
 }
 
 function fullscreen(){
-videoFullScreen.request(document.getElementById('vid-controls'));
-//$('#vid-controls').css({'position':'absolute', 'bottom':'0px', 'left':'0px', 'right':'0px'});
+videoFullScreen.request(document.getElementById('media-video'));
+
 //screenfull.request($('.wrapper')[0]);
-//$('.wrapper').css({'position':'relative','bottom':'0','left':'0'});
-// does not require jQuery, can be used like this too:
-// screenfull.request(document.getElementById('container'));
 			
 
 }
