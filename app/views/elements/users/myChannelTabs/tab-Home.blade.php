@@ -154,11 +154,11 @@
 			@if(empty($subscriberProfile))
 				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
-					@foreach($subscriberProfile as $key => $profile)
+					@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 
-							<a href="{{route('view.users.channel')}}">
+							<a href="{{route('view.users.channel', $profile->channel_name)}}">
 
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
 								<span><b>{{$profile->channel_name}}</b></span>
@@ -199,16 +199,16 @@
 			@if(empty($subscriptionProfile))
 					<p style="margin-left:30px;">No Subscriptions yet</p>
 				@else
-					@foreach($subscriptionProfile as $key => $profile1)
+					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
 							
-								<a href="{{route('view.users.channel')}}">
+								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
 								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{$subscriptionCount}}</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{count($profile1)}}</b> Subscribers</span>&nbsp;
 
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								
