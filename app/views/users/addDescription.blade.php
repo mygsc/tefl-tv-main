@@ -54,7 +54,7 @@ margin: 10px;
 			@endif--}}
 			@foreach($videos as $video)
 			<br><br>
-		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',$video->id)))}}
+		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',Crypt::encrypt($video->id))))}}
 				<div class="well">
 					<div class="row">
 						<div class="col-md-6">

@@ -93,6 +93,7 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
+		$id = Crypt::decrypt($id);
 		$posterFilename = str_random(5);
 		$thumbnailSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
@@ -102,7 +103,7 @@ class VideoController extends Controller {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath =  'videos'.DS. $userFolderName.DS.$fileName.DS;
+		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
@@ -134,7 +135,7 @@ class VideoController extends Controller {
 
 			}else{
 				$getImage = $thumbnailSelected;
-				if($getImage == 0){ //no selected thumbnail 
+				if($getImage == '0'){ //no selected thumbnail 
 					$tags = explode(',',Input::get('tags'));
 					foreach($tags as $tag){
 						if($tag != null){
