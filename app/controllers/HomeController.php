@@ -106,6 +106,7 @@ class HomeController extends BaseController {
 			AND v.publish = 1
 			;
 			");
+		//return $token_id;
 		//return $relations;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
@@ -331,6 +332,26 @@ class HomeController extends BaseController {
 			$replies->reply = $reply;
 			$replies->save();
 
+			$userInfo = User::find($user_id);
+			if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
+				$temp = 'img/user/'. $user_id . '.jpg';
+			} else{
+				$temp = 'img/user/0.png';
+			}
+
+			$newReply = 
+				'<div class="commentProfilePic col-md-1">' .
+				 	HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", "width" => "48px")) . 
+			 	'</div>
+				<div class="col-md-11">
+					<div class="row">' .
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
+						'<small>just now.</small><br/>
+						<p style="text-align:justify;">' . $reply . '<br/>' . '</p></hr>
+					</div>
+				</div>	
+			';
+
 			/*Notification Start*/
 			$videoData = Video::find($video_id);
 			if($this->Auth->id != $videoData->user_id){
@@ -341,7 +362,7 @@ class HomeController extends BaseController {
 				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
 			/*Notification End*/
 			}
-			return Response::json(array('status' => 'success'));
+			return Response::json(array('status' => 'success', 'reply' => $newReply));
 		}
 	}
 

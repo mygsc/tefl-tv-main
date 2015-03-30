@@ -2,7 +2,17 @@
 <div class="row">
 	<br/>
 	<div class="col-md-6">
-		 <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%">
+
+		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
+		 <div class="embed-responsive embed-responsive-16by9 h-video">
+			<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
+				<source src="/videos/tefltv.mp4" type="video/mp4">
+				<source src="/videos/tefltv.webm" type="video/webm">
+				<source src="/videos/tefltv.ogv" type="video/ogg">
+			</video>
+		</div>
+		@include('elements/videoPlayer')
+
 	</div>
 	<div class="col-md-6">
 		@if(empty($recentUpload))
@@ -144,17 +154,19 @@
 			@if(empty($subscriberProfile))
 				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
-					@foreach($subscriberProfile as $key => $profile)
+					@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 
-							<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+							<a href="{{route('view.users.channel', $profile->channel_name)}}">
 
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
+								<span><b>{{$profile->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+							<?php $count = Subscribe::find($profile->id);?>
+							<span>w/ <b>{{count($count)}}</b> Subscribers</span>&nbsp;
+							{{$count}}
 							<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
 							<?php
 								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -189,16 +201,18 @@
 			@if(empty($subscriptionProfile))
 					<p style="margin-left:30px;">No Subscriptions yet</p>
 				@else
-					@foreach($subscriptionProfile as $key => $profile1)
+					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
 							
-								<a href="{{route('view.users.channel', $profile1->user->channel_name)}}">
+								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
+								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<?php $count1 = Subscribe::find($profile1->id);?>
+								<span>w/ <b>{{count($count1)}}</b> Subscribers</span>&nbsp;
+
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								<?php
 									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => Auth::User()->id, 'subscriber_id' => $profile1->id))->first();

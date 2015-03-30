@@ -11,8 +11,6 @@ class VideoController extends Controller {
 		$this->Video = $videos;
 		$this->Auth = Auth::User();
 		define('DS', DIRECTORY_SEPARATOR); 
-		$this->tmpImg = public_path().DS."videos".DS."tmp-img".DS;
-		$this->thumbImg = public_path().DS."videos".DS."img-vid-poster".DS;
 	}
 
 	public function getUpload(){
@@ -39,7 +37,7 @@ class VideoController extends Controller {
 			if($db_filename->save()){
 					//Start upload
 				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = 'videos'.DS. $userFolderName;
+				$destinationPath = public_path('videos'.DS. $userFolderName);
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -63,16 +61,16 @@ class VideoController extends Controller {
 			return App::abort('404');
 		}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS;
+		$destinationPath = public_path('videos'.DS. $userFolderName);
 		if(file_exists($destinationPath.$fileName)){
-			$this->delete_directory($destinationPath.$fileName);
+			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
 			return Redirect::route('get.upload', '=cancelled');
 		}
 
 
 	}
-	public function delete_directory($dirname) {
+	public function deleteDirectory($dirname) {
 
 		if (is_dir($dirname))
 			$dir_handle = opendir($dirname);
@@ -83,7 +81,7 @@ class VideoController extends Controller {
 				if (!is_dir($dirname.DS.$file))
 					unlink($dirname.DS.$file);
 				else
-					delete_directory($dirname.DS.$file);
+					deleteDirectory($dirname.DS.$file);
 			}
 		}
 		closedir($dir_handle);
@@ -95,6 +93,7 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
+		$id = Crypt::decrypt($id);
 		$posterFilename = str_random(5);
 		$thumbnailSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
@@ -104,7 +103,7 @@ class VideoController extends Controller {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath =  'videos'.DS. $userFolderName.DS.$fileName.DS;
+		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
@@ -136,7 +135,7 @@ class VideoController extends Controller {
 
 			}else{
 				$getImage = $thumbnailSelected;
-				if($getImage == 0){ //no selected thumbnail 
+				if($getImage == '0'){ //no selected thumbnail 
 					$tags = explode(',',Input::get('tags'));
 					foreach($tags as $tag){
 						if($tag != null){
@@ -188,13 +187,6 @@ class VideoController extends Controller {
 
 			}					
 		}
-
-			// delete unselected thumbnail move, and rename 
-			// File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
-			// File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
-			// $oldName = $this->tmpImg.$this->user->channel_name.'1.jpg';
-			// $newName = $this->thumbImg.$id.'.jpg';
-			// $rename = rename($oldName, $newName);	
 		
 		return Redirect::route('get.addDescription',$fileName)
 		->withInput()

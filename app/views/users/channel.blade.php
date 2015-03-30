@@ -6,9 +6,7 @@
 
 		<br/>
 		<div class="row">
-			@include('elements/users/profileTop')
-
-		
+			@include('elements/users/profileTop')		
 
 			<br/>
 			<div class="Div-channel-border White">

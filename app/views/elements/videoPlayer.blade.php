@@ -4,7 +4,7 @@
 			<div class="span12" style="background:rgba(0,0,0, 0.15)">
 				<center>
 					<p style="color:#fff!important;">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</p>
-					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" width="738" height="115" frameborder="0" scrolling="no"></iframe> 
+					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" height="115" frameborder="0" scrolling="no"></iframe> 
 				</center>
 			</div>
 	</div><!--advertisement-->

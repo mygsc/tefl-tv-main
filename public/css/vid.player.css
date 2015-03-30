@@ -176,22 +176,15 @@ input#seek-slider::-moz-range-thumb {
 	top:0;
 	z-index: 2;
 }
-div#controls{
+/*div#controls{
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  /*
-  min-height: 40px;
-  color: white;
-  font-size: .8em;
-  padding: 10px 5px;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.75);*/
   background: rgba(42,42,42,0.9);
   z-index: 2147483647;
-}
+}*/
 div#progress-amount {
   display: block;
   height: 100%;
