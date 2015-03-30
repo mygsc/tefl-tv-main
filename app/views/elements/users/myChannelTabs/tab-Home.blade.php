@@ -2,7 +2,7 @@
 <div class="row">
 	<br/>
 	<div class="col-md-6">
-		 <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%">
+		 @include('elements/videoPlayer')
 	</div>
 	<div class="col-md-6">
 		@if(empty($recentUpload))
