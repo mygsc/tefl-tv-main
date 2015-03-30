@@ -81,11 +81,7 @@
 									@endif
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-										<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" >
-											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
-											<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
+										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%">
 										@else
 											{{HTML::image('img/thumbnails/video.png')}}
 										@endif

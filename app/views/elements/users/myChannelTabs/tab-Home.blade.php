@@ -1,6 +1,9 @@
 
 <div class="row">
 	<br/>
+<<<<<<< HEAD
+	<div class="col-md-7">
+=======
 	<div class="col-md-6">
 		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 		 <div class="embed-responsive embed-responsive-16by9 h-video">
@@ -14,42 +17,34 @@
 
 	</div>
 	<div class="col-md-6">
+>>>>>>> 0aaf8c610d0791f0f176aae525a1d52712875ad6
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
+			
+		<div class="embed-responsive embed-responsive-16by9">
+			<video preload="auto" id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%">
+				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+			</video>
+		</div><!--/embed-responsive-->
+		@include('elements/videoPlayer')
+
+	
+	</div>
+	<div class="col-md-5">
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
-		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-
-
-									</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif								
-							</a>
 		<p class="text-justify">
 			Description: {{$recentUpload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			{{$recentUpload->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-			<span class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
-				</a>
-				<span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                </span><!--/.dropdown-menu pull-right White-->
-            </span><!--/.dropdown share-->
+			{{$recentUpload->likes}} &nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;
+			
 		</span><!--/counts and share link-->
 		@endif
 	</div><!--/.col-md-6-->

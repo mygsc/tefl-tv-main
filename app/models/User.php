@@ -64,8 +64,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		);
 
 	public static $userRules = array(
-		'email' => 'required|email|unique:users',
-		'channel_name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+		'email' => 'required|email|unique:users,email',
+		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
 		'password' => 'required',
 		'confirm_password' =>'same:password',
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
@@ -93,7 +93,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->token = $token;
 		$user->save();
 
-		$userProfile = new userProfile;
+		$userProfile = new UserProfile;
 		$userProfile->first_name = Input::get('first_name');
 		$userProfile->user_id = $user->id;
 		$userProfile->last_name = Input::get('last_name');

@@ -44,7 +44,7 @@
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Videos</button>
+					
 
 						<div class="buttons pull-right inline">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -65,11 +65,11 @@
 							
 							<span class="btn-sq">
 								<span class="dropdown">
-                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
-                   		<li>gge</li>
-                   		<li>gfrhgte</li>
-                   </span>
-                </span>
+				                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
+				                   		<li>gge</li>
+				                   		<li>gfrhgte</li>
+				                   </span>
+				                </span>
 
 								<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
 								<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
@@ -81,13 +81,8 @@
 							
 							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
-
-
-									</video>
+									<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+						
 									@else
 										{{HTML::image('img/thumbnails/video.png')}}
 									@endif								
