@@ -45,6 +45,7 @@ $(document).ready(function(){
         		if(data['status'] == 'success'){
         			// alert(data['status']);
         			$('textarea.txtreply').val('');
+        			$('#replyArea').append(data['reply']);
 	        	}
         	}
     	});
