@@ -245,15 +245,20 @@ class UserController extends BaseController {
 		//  INNER JOIN users AS u ON s.user_id = u.id');
 		// return $a;
 		foreach ($subscribers as $subscriber) {
+			// $subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
+			// $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();
 			$subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
 			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();			
 		}
 		// return $subscriberProfile;
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
-
 		foreach($subscriptions as $subscription) {
+			// $subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
+			// $subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->count();
+			
 			$subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
 			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->user_id)->count();
+
 		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
