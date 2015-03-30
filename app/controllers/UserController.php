@@ -762,6 +762,15 @@ class UserController extends BaseController {
 			));
 		}
 	}
+	public function createPlaylist($id){
+		$id = Crypt::decrypt($id);
+		$name = Input::get('name');
+		$description = Input::get('description');
+		$privacy = Input::get('privacy');
+		$user_id = Auth::User()->id;
+		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+	}
+
 	public function addPlaylist($id){
 		$id = Crypt::decrypt($id);
 		$name = Input::get('name');
@@ -964,6 +973,11 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 
 		return View::make('users.about', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
+
+	}
+	public function addFeedback() {
+
+		$var = 'l';
 
 	}
 }

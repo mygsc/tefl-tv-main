@@ -21,20 +21,8 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
-				@foreach($userComments as $userComment)
-					{{$userComment->comment}}
-					<br/>
-					by: {{$userComment->channel_name}}
-					<br/>
-					 {{date('F d Y', strtotime($userComment->created_at))}}{{date('H:i a', strtotime($userComment->updated_at))}}
-				@endforeach
-				Type your comment here:
-				<br/>
-				 <label for="tags">Search: </label>
-				<input id="tags1" name="tags1">
-				<br/>
-				<div id="responsecontainer"></div>
+				<div class="feedbackSection">
+					
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
