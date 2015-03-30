@@ -11,9 +11,14 @@ $(document).ready(function(){
 						$('input[id=button]').click(function(e){
 						var name = $('input[id=tags]').val();			
 							e.preventDefault();
-							$.post('/mychannels/edit_tag/'+text1, {name:name,encrypt:encrypt},function(data){
-								loader();
-							});
+								if(name === ""){
+									$('input[id=tags]').focus();
+								}else{
+									$.post('/mychannels/edit_tag/'+text1, {name:name,encrypt:encrypt},function(data){
+										loader();
+									});
+								}
+							
 						});
 				}
 				$('input[id=close]').click(function(){

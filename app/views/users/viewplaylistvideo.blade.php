@@ -60,7 +60,7 @@
 								@if(empty($videos))
 									<img src="/img/thumbnails/video.png">
 								@else
-									@if(file_exists('public/videos/'.$videos[0]->user_id.'-'.$videos[0]->channel_name.'/'.$videos[0]->file_name.'/'.$videos[0]->file_name.".jpg"))
+									@if(file_exists(public_path('/videos/'.$videos[0]->user_id.'-'.$videos[0]->channel_name.'/'.$videos[0]->file_name.'/'.$videos[0]->file_name.".jpg")))
 										<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
 									@else
 										<img src="/img/thumbnails/video.png">
@@ -83,7 +83,7 @@
 							<div class="row">						
 								<div class="col-md-2">
 									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
-									@if(file_exists('public/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg'))
+									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 										<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
 									@else
 										<img src="/img/thumbnails/video.png">
