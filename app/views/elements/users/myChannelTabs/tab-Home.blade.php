@@ -1,9 +1,6 @@
 
 <div class="row">
 	<br/>
-<<<<<<< HEAD
-	<div class="col-md-7">
-=======
 	<div class="col-md-6">
 		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 		 <div class="embed-responsive embed-responsive-16by9 h-video">
@@ -17,7 +14,6 @@
 
 	</div>
 	<div class="col-md-6">
->>>>>>> 0aaf8c610d0791f0f176aae525a1d52712875ad6
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
