@@ -385,36 +385,19 @@ function updateProgressBar(response) {
 
 //Let's calculate amount buffering progress....
 function bufferedPercent(){
-// currentBuffered = mediaPlayer.buffered.end(mediaPlayer.buffered.length - 1);
-// if (currentBuffered < timeDuration) {
-//     document.getElementById('buffered').style.width = ((currentBuffered / timeDuration) * 100) + "%";
-//      var i = ((currentBuffered / timeDuration) * 100) + "%";
-//      $('#buffered').css({'width': i });
-//      setInterval(bufferedPercent, 1000);
-//    }
-
     if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
     	setInterval(bufferedPercent, 1000);
     	$('.play-icon').fadeIn();
     	replay.src = '/img/icons/uploading.gif';
-    	replay.width = 50; 
-    	replay.height = 50;
+    	replay.width = 80; 
+    	replay.height = 80;
 	}else{
-		replay.src = '/img/icons/post_play_button.png';
+		replay.src = '/img/icons/play-btn.png';
+		replay.width = 80; 
+    	replay.height = 80;
 		$('.play-icon').fadeOut(500);
 	}
 }
-
-// var startBuffer = function() {
-//    var maxduration = mediaPlayer[0].duration;
-//    var currentBuffers = mediaPlayer[0].buffered.end(0);
-//    var percent = 100 * currentBuffers / maxduration;
-  
-//    $('#buffered').css('width', percent + '%');
-//    if(currentBuffers < timeDuration) {
-//       setTimeout(startBuffer, 500);
-//    }
-// }
 // Updates a button's title, innerHTML and CSS class to a certain value
 function changeButtonType(btn, value) {
 	btn.title = value;
