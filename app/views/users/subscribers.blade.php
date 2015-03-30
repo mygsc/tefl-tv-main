@@ -32,12 +32,12 @@
 								</div>
 								<br/>
 								<div class="searchPanel">
-									<div class="input-group">
+									<!--<div class="input-group">
 										{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
 										<span class="input-group-btn">
 											{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 										</span>
-									</div>
+									</div>-->
 								</div>
 								<br/><br/>
 								@if(empty($subscriberProfile))
@@ -67,12 +67,12 @@
 							</div>
 							<br/>
 							<div class="searchPanel">
-								<div class="input-group">
+								<!--<div class="input-group">
 								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscription', 'class' => 'form-control c-input ')) }}
 									<span class="input-group-btn">
 										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 									</span>
-								</div>
+								</div>-->
 							</div>
 							<br/><br/>
 

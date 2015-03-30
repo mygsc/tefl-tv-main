@@ -39,7 +39,7 @@ class VideoController extends Controller {
 			if($db_filename->save()){
 					//Start upload
 				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = 'public'. DS. 'videos'.DS. $userFolderName;
+				$destinationPath = 'videos'.DS. $userFolderName;
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -104,7 +104,7 @@ class VideoController extends Controller {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS.$fileName.DS;
+		$destinationPath =  'videos'.DS. $userFolderName.DS.$fileName.DS;
 
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
