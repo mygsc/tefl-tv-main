@@ -34,7 +34,7 @@
 			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
 					<div class="col-md-5">
 						<br/>
-						@if(file_exists("public/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg"))
+						@if(file_exists(public_path("/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg")))
 							<img src="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
 						@else
 							<img src="/img/thumbnails/video.png">
