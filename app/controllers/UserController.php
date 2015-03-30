@@ -12,8 +12,8 @@ class UserController extends BaseController {
 		$this->WatchLater = $watchLater;
 	}
 
-	public function getSignIn() {
-
+	public function getSignIn() { 
+		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
 
@@ -762,7 +762,7 @@ class UserController extends BaseController {
 			return Response::json(array(
 				'status' => 'subscribeOn',
 				'label' => 'Subscribe'
-				));
+			));
 		}
 	}
 	public function addPlaylist($id){

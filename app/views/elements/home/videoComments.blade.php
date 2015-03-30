@@ -22,8 +22,16 @@
 	<div class="col-md-12 commentsarea">
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row">
+				<?php
+					if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
+						$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
+					} else{
+						$temp = 'img/user/0.png';
+					}
+				?>
+
 				<div class="commentProfilePic col-md-1">
-					{{HTML::image('img/user/'.$getVideoComment->user_id . '.jpg', 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
 				</div>
 				<div class="col-md-11">
 					<div class="row">
@@ -107,10 +115,15 @@
 					<div id="replysection" class="panelReply">
 						<?php
 						foreach($getCommentReplies as $getCommentReply):
+								if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
+									$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
+								} else{
+									$temp = 'img/user/0.png';
+								}
 							?>
 
 							<div class="commentProfilePic col-md-1">
-								{{HTML::image('img/user/'.$getVideoComment->user_id . '.jpg', 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+								{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
 							</div>
 							<div class="col-md-11">
 								<div class="row">
@@ -123,15 +136,15 @@
 							<?php	endforeach;?>
 
 									
-									@if(isset(Auth::User()->id))
-										{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-											{{Form::hidden('comment_id', $getVideoComment->id)}}
-											{{Form::hidden('user_id', Auth::User()->id)}}
-											{{Form::hidden('video_id', $videoId)}}
-											{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
-											{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-										{{Form::close()}} 
-									@endif
+							@if(isset(Auth::User()->id))
+								{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+									{{Form::hidden('comment_id', $getVideoComment->id)}}
+									{{Form::hidden('user_id', Auth::User()->id)}}
+									{{Form::hidden('video_id', $videoId)}}
+									{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
+									{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+								{{Form::close()}} 
+							@endif
 
 					</div><!--/.reply section-->
 				</div><!--/.col-md-10-->
