@@ -14,6 +14,7 @@
 			</video>
 		</div>
 		@include('elements/videoPlayer')
+
 	</div>
 	<div class="col-md-6">
 >>>>>>> 0aaf8c610d0791f0f176aae525a1d52712875ad6
