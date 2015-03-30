@@ -113,7 +113,7 @@
 							->where('comment_id', $getVideoComment->id)->get(); 
 					?>
 					<div id="replysection" class="panelReply">
-						<div id="replyArea">
+						
 							<?php
 							foreach($getCommentReplies as $getCommentReply):
 								if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
@@ -135,10 +135,11 @@
 									</div>
 								</div>	
 							<?php endforeach;?>
-						</div>
+						
 									
 						@if(isset(Auth::User()->id))
 							{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
+								<div class="replyArea"></div>
 								{{Form::hidden('comment_id', $getVideoComment->id)}}
 								{{Form::hidden('user_id', Auth::User()->id)}}
 								{{Form::hidden('video_id', $videoId)}}

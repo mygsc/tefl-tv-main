@@ -344,7 +344,7 @@ class HomeController extends BaseController {
 			 	'</div>
 				<div class="col-md-11">
 					<div class="row">' .
-						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . 
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
 						'<small>just now.</small><br/>
 						<p style="text-align:justify;">' . $reply . '<br/>' . '</p></hr>
 					</div>
