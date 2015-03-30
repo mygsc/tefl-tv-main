@@ -253,7 +253,7 @@ class UserController extends BaseController {
 
 		foreach($subscriptions as $subscription) {
 			$subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->count();
+			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->user_id)->count();
 		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
