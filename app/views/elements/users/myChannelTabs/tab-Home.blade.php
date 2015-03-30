@@ -148,13 +148,13 @@
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 
-							<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+							<a href="{{route('view.users.channel', $profile)}}">
 
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
+								<span><b>{{$profile}}>/b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+							<span>w/ <b>{{$subscriberCount}}</b> Subscribers</span>&nbsp;
 							<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
 							<?php
 								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -193,12 +193,12 @@
 						<div class="col-md-6">
 							<div class="row user-padding">
 							
-								<a href="{{route('view.users.channel', $profile1->user->channel_name)}}">
+								<a href="{{route('view.users.channel', $profile1)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
+								<span><b>{{$profile1}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{$subscriptionCount}}</b> Subscribers</span>&nbsp;
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								<?php
 									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => Auth::User()->id, 'subscriber_id' => $profile1->id))->first();
