@@ -22,13 +22,7 @@
 				</div>
 
 				<div class="feedbackSection">
-					{{Form::open(array('route'=>'post.addfeedback', 'id' =>'mychannel-addFeedback', 'class' => 'inline'))}}
-						{{Form::hidden('comment_id', $getVideoComment->id)}}
-						{{Form::hidden('user_id', Auth::User()->id)}}
-						{{Form::hidden('video_id', $videoId)}}
-						{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
-						{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-					{{Form::close()}} 
+					
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
