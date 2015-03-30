@@ -241,13 +241,22 @@ class UserController extends BaseController {
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 		
 
+		// $a = Subscribe::where('user_id', Auth::User()->id)->take(10)->get();
+
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-
-	  	foreach ($subscribers as $subscriber) {
+  
+		  foreach ($subscribers as $subscriber) {
+		   
 		   $subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
-	 	  $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->user_id)->get();   
-	 	}
+		   $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();   
+		  }
 
+		
+	 	$countQuery = DB::select("SELECT id, user_id, 
+	 		(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+			AS numberOfSubscribers FROM subscribes s
+			WHERE s.user_id = 1 
+			GROUP BY(user_id)");
 
 		$subscriptionProfile = DB::table('subscribes')->join('users', 'users.id', '=', 'subscribes.user_id')->where('subscriber_id', Auth::User()->id)->paginate(10);
 

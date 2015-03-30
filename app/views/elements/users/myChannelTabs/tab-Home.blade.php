@@ -164,7 +164,9 @@
 								<span><b>{{$profile->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+							<?php $count = Subscribe::find($profile->id);?>
+							<span>w/ <b>{{count($count)}}</b> Subscribers</span>&nbsp;
+							{{$count}}
 							<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
 							<?php
 								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -208,7 +210,8 @@
 								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($profile1)}}</b> Subscribers</span>&nbsp;
+								<?php $count1 = Subscribe::find($profile1->id);?>
+								<span>w/ <b>{{count($count1)}}</b> Subscribers</span>&nbsp;
 
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								
