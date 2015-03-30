@@ -2,7 +2,15 @@
 <div class="row">
 	<br/>
 	<div class="col-md-6">
-		 <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%">
+		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
+		 <div class="embed-responsive embed-responsive-16by9 h-video">
+			<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
+				<source src="/videos/tefltv.mp4" type="video/mp4">
+				<source src="/videos/tefltv.webm" type="video/webm">
+				<source src="/videos/tefltv.ogv" type="video/ogg">
+			</video>
+		</div>
+		@include('elements/videoPlayer')
 	</div>
 	<div class="col-md-6">
 		@if(empty($recentUpload))

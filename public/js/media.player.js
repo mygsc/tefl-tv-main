@@ -55,16 +55,19 @@ function GSCMediaPlayer(){
 
 	mediaPlayer.addEventListener('ended', function(){ 
 		playPauseBtn.src = "/img/icons/play.png";
+		$('.advertisement').fadeOut(1000);
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
 		timeDuration = Math.round(mediaPlayer.duration);
 		timeSettings();
 		adsOn();
+		mediaPlayer.addEventListener('progress', loadBuffer, false);
+		
 	});
 	fullscreenVid.addEventListener('click', fullscreen, false);//toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
-	mediaPlayer.addEventListener('progress', loadBuffer, false);
+	mediaPlayer.addEventListener('error', hasError, false);
 	//mediaPlayer.addEventListener('canplay', canPlayVideo, false);
 	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
@@ -111,6 +114,9 @@ function disabledRightClick(){
     return false;
 	});
   }
+ function hasError(){
+ 	mediaPlayer.poster = '/img/error.png';
+ }
 //list of bind more realiable codes....
 $('#media-video').bind("contextmenu", function(){
     return false;
@@ -118,6 +124,7 @@ $('#media-video').bind("contextmenu", function(){
 
 $('#media-video').bind('ended', function(){
      if(!this.paused) this.pause();
+     $('.advertisement').fadeOut(1000);
 });
 
 function highQuality(e){
