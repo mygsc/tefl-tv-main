@@ -1,10 +1,8 @@
 
 <div class="row">
 	<br/>
-<<<<<<< HEAD
-	<div class="col-md-7">
-=======
 	<div class="col-md-6">
+
 		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 		 <div class="embed-responsive embed-responsive-16by9 h-video">
 			<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
@@ -17,34 +15,42 @@
 
 	</div>
 	<div class="col-md-6">
->>>>>>> 0aaf8c610d0791f0f176aae525a1d52712875ad6
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
-			
-		<div class="embed-responsive embed-responsive-16by9">
-			<video preload="auto" id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%">
-				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-				<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-			</video>
-		</div><!--/embed-responsive-->
-		@include('elements/videoPlayer')
-
-	
-	</div>
-	<div class="col-md-5">
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
+		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
+									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+
+
+									</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif								
+							</a>
 		<p class="text-justify">
 			Description: {{$recentUpload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			{{$recentUpload->likes}} &nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;
-			
+			{{$recentUpload->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<span class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+				</a>
+				<span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                </span><!--/.dropdown-menu pull-right White-->
+            </span><!--/.dropdown share-->
 		</span><!--/counts and share link-->
 		@endif
 	</div><!--/.col-md-6-->
@@ -148,17 +154,19 @@
 			@if(empty($subscriberProfile))
 				<p style="margin-left:30px;">No subscribers yet.</p>
 			@else
-					@foreach($subscriberProfile as $key => $profile)
+					@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 
-							<a href="{{route('view.users.channel', $profile->user->channel_name)}}">
+							<a href="{{route('view.users.channel', $profile->channel_name)}}">
 
 							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
-								<span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span>
+								<span><b>{{$profile->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
-							<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+							<?php $count = Subscribe::find($profile->id);?>
+							<span>w/ <b>{{count($count)}}</b> Subscribers</span>&nbsp;
+							{{$count}}
 							<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
 							<?php
 								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -193,16 +201,18 @@
 			@if(empty($subscriptionProfile))
 					<p style="margin-left:30px;">No Subscriptions yet</p>
 				@else
-					@foreach($subscriptionProfile as $key => $profile1)
+					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
 							
-								<a href="{{route('view.users.channel', $profile1->user->channel_name)}}">
+								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span>
+								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<?php $count1 = Subscribe::find($profile1->id);?>
+								<span>w/ <b>{{count($count1)}}</b> Subscribers</span>&nbsp;
+
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								<?php
 									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => Auth::User()->id, 'subscriber_id' => $profile1->id))->first();

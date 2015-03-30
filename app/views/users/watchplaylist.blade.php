@@ -161,7 +161,7 @@
                         <a href="#" id=" " class="active">
                             <div class="row">
                                 <div class="col-md-4">
-                                @if(file_exists('public/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
+                                @if(file_exists(public_path('/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg')))
                                     <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg"/> 
                                 @else
                                     <img src="/img/thumbnails/video.png">
@@ -182,7 +182,7 @@
                         <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
                             <div class="row">
                                 <div class="col-md-4">
-                                @if(file_exists('public/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg'))
+                                @if(file_exists(public_path('/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg')))
                                     <img src="/videos/{{$playlistVideo->user_id}}-{{$playlistVideo->channel_name}}/{{$playlistVideo->file_name}}/{{$playlistVideo->file_name}}.jpg" />    
                                 @else
                                     <img src="/img/thumbnails/video.png">

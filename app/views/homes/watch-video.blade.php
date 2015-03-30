@@ -195,7 +195,7 @@
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
                             <div class="col-md-4 col-xs-4">
-                            @if(file_exists("public/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg"))
+                            @if(file_exists(public_path("/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
                             <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
                             @else
                             <img src="/img/thumbnails/video.png" alt="" width="100%" />
