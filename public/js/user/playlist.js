@@ -46,9 +46,13 @@ $(document).ready(function(){
 							var name = $('#new_playlistName').val()
 							var encrypt = $('#encrypt').val();
 							e.preventDefault();
-							$.post('/mychannels/editTitle/'+encrypt,{name:name},function(data){
-								editTitleloader();
-							});
+							if(name === ""){
+								$('#new_playlistName').focus();
+							}else{
+								$.post('/mychannels/editTitle/'+encrypt,{name:name},function(data){
+									editTitleloader();
+								});
+							}
 						});
 						$('#cancel').click(function(){
 							$("#playlistName").load(window.location.href+' #playlistName',function(){
@@ -81,9 +85,13 @@ $(document).ready(function(){
 						var description = $('#new_playlistDesc').val();
 						var encrypt = $('#encrypt').val();
 						e.preventDefault();
-						$.post('/mychannels/editDesc/'+encrypt,{description:description},function(data){
-								editDescloader();
-						});
+						if(description === ""){
+							$('#new_playlistDesc').focus();
+						}else{
+							$.post('/mychannels/editDesc/'+encrypt,{description:description},function(data){
+									editDescloader();
+							});
+						}
 					});
 					$('#cancelDesc').click(function(){
 						$("#playlistDesc").load(window.location.href+' #playlistDesc',function(){

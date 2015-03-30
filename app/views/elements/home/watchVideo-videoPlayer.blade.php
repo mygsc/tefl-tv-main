@@ -4,7 +4,7 @@
 		<div class="row">
 				@foreach($video_path as $video)
 					<div class="embed-responsive embed-responsive-16by9">
-					@if(file_exists('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg'))
+					@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 					<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
 					@else
 					<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">

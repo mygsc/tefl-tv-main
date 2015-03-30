@@ -106,6 +106,7 @@ class HomeController extends BaseController {
 			AND v.publish = 1
 			;
 			");
+		//return $token_id;
 		//return $relations;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
