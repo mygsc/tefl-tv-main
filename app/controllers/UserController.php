@@ -957,4 +957,9 @@ class UserController extends BaseController {
 		return View::make('users.about', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews'));
 
 	}
+	public function addFeedback() {
+
+		$var = 'l';
+
+	}
 }

@@ -102,7 +102,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
 	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
 
-
+	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 });
 //*********End of Channels************//
 

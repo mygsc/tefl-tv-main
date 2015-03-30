@@ -21,20 +21,14 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
-				@foreach($userComments as $userComment)
-					{{$userComment->comment}}
-					<br/>
-					by: {{$userComment->channel_name}}
-					<br/>
-					 {{date('F d Y', strtotime($userComment->created_at))}}{{date('H:i a', strtotime($userComment->updated_at))}}
-				@endforeach
-				Type your comment here:
-				<br/>
-				 <label for="tags">Search: </label>
-				<input id="tags1" name="tags1">
-				<br/>
-				<div id="responsecontainer"></div>
+				<div class="feedbackSection">
+					{{Form::open(array('route'=>'post.addfeedback', 'id' =>'mychannel-addFeedback', 'class' => 'inline'))}}
+						{{Form::hidden('comment_id', $getVideoComment->id)}}
+						{{Form::hidden('user_id', Auth::User()->id)}}
+						{{Form::hidden('video_id', $videoId)}}
+						{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
+						{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+					{{Form::close()}} 
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
