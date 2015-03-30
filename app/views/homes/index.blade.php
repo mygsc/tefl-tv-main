@@ -21,6 +21,10 @@
 							@include('elements/videoPlayer')
 						</div>
 		    		</div><!--/.row-->
+
+		    		<!-- <div id="fb-root"></div> -->
+					<div class="fb-share-button" data-href="" data-layout="button"></div>
+
     			</div>
 			</div><!--/.col-md-8-->
 
@@ -185,6 +189,15 @@
 @section('script')
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/fullscreen.js')}}
-
+	<!--FACEBOOK SHARE SCRIPT-->
+	<script>
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
 @stop
 

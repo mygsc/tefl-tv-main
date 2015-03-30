@@ -12,8 +12,8 @@ class UserController extends BaseController {
 		$this->WatchLater = $watchLater;
 	}
 
-	public function getSignIn() {
-
+	public function getSignIn() { 
+		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
 
@@ -238,20 +238,27 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
+
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-
+		// $a = DB::select('SELECT s.user_id, s.subscriber_id, s.notifs, s.created_at, s.updated_at, u.channel_name FROM subscribes AS s
+		//  INNER JOIN users AS u ON s.user_id = u.id');
+		// return $a;
 		foreach ($subscribers as $subscriber) {
-			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+			// $subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
+			// $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();
+			$subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();			
 		}
-
+		// return $subscriberProfile;
 		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
-
 		foreach($subscriptions as $subscription) {
-			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->get();
+			// $subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
+			// $subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->count();
+			
+			$subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
+			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->user_id)->count();
+
 		}
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
@@ -753,7 +760,7 @@ class UserController extends BaseController {
 			return Response::json(array(
 				'status' => 'subscribeOn',
 				'label' => 'Subscribe'
-				));
+			));
 		}
 	}
 	public function addPlaylist($id){
@@ -922,10 +929,12 @@ class UserController extends BaseController {
                           		<li>gfrhgte</li>
                              </span>
                             </span>
-                     </span>
+                    
                	<a href='#'>
 					<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
-				</a>		
+				</a>
+		
+				 </span>		
 					".$thumbnail."
 				</div>
 
