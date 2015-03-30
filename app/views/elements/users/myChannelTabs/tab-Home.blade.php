@@ -1,23 +1,9 @@
 
 <div class="row">
 	<br/>
-<<<<<<< HEAD
-	<div class="col-md-7">
-=======
-	<div class="col-md-6">
-		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
-		 <div class="embed-responsive embed-responsive-16by9 h-video">
-			<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
-				<source src="/videos/tefltv.mp4" type="video/mp4">
-				<source src="/videos/tefltv.webm" type="video/webm">
-				<source src="/videos/tefltv.ogv" type="video/ogg">
-			</video>
-		</div>
-		@include('elements/videoPlayer')
 
-	</div>
-	<div class="col-md-6">
->>>>>>> 0aaf8c610d0791f0f176aae525a1d52712875ad6
+	<div class="col-md-7">
+
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
@@ -104,11 +90,12 @@
 			<br/>
 			<br/>
 			<div class="row">
-			<div class="col-md-4 col-sm-2">
+			
 			@if($usersPlaylists->isEmpty())
 				<p style="margin-left:30px;">No Playlists yet</p>
 			@else
 				@foreach($usersPlaylists as $playlists)
+			<div class="col-md-4 col-sm-2">
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
 						11
@@ -127,9 +114,10 @@
 				<div class="count">
 					{{$playlists->updated_at}}
 				</div>
+					</div>
 				@endforeach
 				@endif
-			</div>
+		
 			</div>
 		</div>
 

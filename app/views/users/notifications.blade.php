@@ -16,7 +16,12 @@
 		<div class="row">
 		<h3>Notifications</h3>
 		@if($notifications->isEmpty())
-		No notification
+		<div class="text-center">
+			<hr/>
+				<p>No notification</p>
+			<hr/>
+
+		</div>
 		@endif
 			@foreach($notifications as $key => $notification)
 			
