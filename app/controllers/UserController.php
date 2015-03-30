@@ -931,10 +931,12 @@ class UserController extends BaseController {
                           		<li>gfrhgte</li>
                              </span>
                             </span>
-                     </span>
+                    
                	<a href='#'>
 					<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
-				</a>		
+				</a>
+		
+				 </span>		
 					".$thumbnail."
 				</div>
 

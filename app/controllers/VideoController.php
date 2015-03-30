@@ -11,8 +11,6 @@ class VideoController extends Controller {
 		$this->Video = $videos;
 		$this->Auth = Auth::User();
 		define('DS', DIRECTORY_SEPARATOR); 
-		$this->tmpImg = public_path().DS."videos".DS."tmp-img".DS;
-		$this->thumbImg = public_path().DS."videos".DS."img-vid-poster".DS;
 	}
 
 	public function getUpload(){
@@ -39,7 +37,7 @@ class VideoController extends Controller {
 			if($db_filename->save()){
 					//Start upload
 				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = 'videos'.DS. $userFolderName;
+				$destinationPath = public_path('videos'.DS. $userFolderName);
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -63,16 +61,16 @@ class VideoController extends Controller {
 			return App::abort('404');
 		}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = 'public'.DS. 'videos'.DS. $userFolderName.DS;
+		$destinationPath = public_path('videos'.DS. $userFolderName);
 		if(file_exists($destinationPath.$fileName)){
-			$this->delete_directory($destinationPath.$fileName);
+			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
 			return Redirect::route('get.upload', '=cancelled');
 		}
 
 
 	}
-	public function delete_directory($dirname) {
+	public function deleteDirectory($dirname) {
 
 		if (is_dir($dirname))
 			$dir_handle = opendir($dirname);
@@ -83,7 +81,7 @@ class VideoController extends Controller {
 				if (!is_dir($dirname.DS.$file))
 					unlink($dirname.DS.$file);
 				else
-					delete_directory($dirname.DS.$file);
+					deleteDirectory($dirname.DS.$file);
 			}
 		}
 		closedir($dir_handle);
