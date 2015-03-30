@@ -10,7 +10,7 @@ $(document).ready(function(){
 			if(name === ""){
 				$('#create-playlist-text').focus();
 			}else{
-			$.post('/mychannels/addPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
+			$.post('/mychannels/createPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
 				 $('#create-playlist-text').val("")
 					loader();
 				});
