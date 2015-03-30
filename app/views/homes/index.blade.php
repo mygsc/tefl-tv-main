@@ -1,4 +1,16 @@
 @extends('layouts.default')
+	@section('meta')
+		<meta property="og:title" content="dynamic">
+		<meta property="og:site_name" content="test.tefltv.com">
+		<meta property="og:description" content="dynamic">
+		<meta property="og:url" content="dynamic">
+		<!-- <meta property="og:image" content="/videos/"> -->
+		<meta property="og:type" content="video">
+		<meta property="og:video:width" content="500"> 
+		<meta property="og:video:height" content="300"> 
+		<meta property="og:video" content="test.tefltv.com/watch=vWpcBEBlSre"> 
+		
+	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.css')}}
 	@stop
@@ -21,10 +33,6 @@
 							@include('elements/videoPlayer')
 						</div>
 		    		</div><!--/.row-->
-
-		    		<!-- <div id="fb-root"></div> -->
-					<div class="fb-share-button" data-href="" data-layout="button"></div>
-
     			</div>
 			</div><!--/.col-md-8-->
 
@@ -189,15 +197,6 @@
 @section('script')
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/fullscreen.js')}}
-	<!--FACEBOOK SHARE SCRIPT-->
-	<script>
-	(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-	</script>
 @stop
+
 
