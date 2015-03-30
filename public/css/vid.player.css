@@ -144,6 +144,9 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline:none;
+	position: relative;
+	top:0;
+	z-index: 2;
 }
 input#seek-slider::-webkit-slider-thumb {
 	-webkit-appearance: none !important;
@@ -172,6 +175,22 @@ input#seek-slider::-moz-range-thumb {
 	position: relative;
 	top:0;
 	z-index: 2;
+}
+div#controls{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  /*
+  min-height: 40px;
+  color: white;
+  font-size: .8em;
+  padding: 10px 5px;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.75);*/
+  background: rgba(42,42,42,0.9);
+  z-index: 2147483647;
 }
 div#progress-amount {
   display: block;
