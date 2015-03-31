@@ -20,6 +20,7 @@
 		@endif
 
 	<div class="col-md-12 commentsarea">
+		<div id="appendNewCommentHere"></div>
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row">
 				<?php
