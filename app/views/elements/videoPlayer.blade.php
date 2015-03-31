@@ -15,7 +15,7 @@
 	</div> --}}
 
 	<div class="play-icon" id ="play-icon">
-		<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
+		<span><img width="100%" height="100%" id="replay-icon" src="/img/icons/play-btn.png"/></span>
 	</div>
 
 	<div class="vd" style="margin-top:-7px;">
