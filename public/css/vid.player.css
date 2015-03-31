@@ -134,7 +134,6 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline: none;
-
 }input#seek-slider::-moz-range-track {
 	-moz-appearance: none;
 	border-radius: 5px;
@@ -144,9 +143,7 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline:none;
-	position: relative;
-	top:0;
-	z-index: 2;
+	
 }
 input#seek-slider::-webkit-slider-thumb {
 	-webkit-appearance: none !important;
