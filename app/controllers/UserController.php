@@ -243,14 +243,12 @@ class UserController extends BaseController {
   		$subscriberProfile = DB::select('SELECT *,
   	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
   	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
-  	  	WHERE s.subscriber_id = 1 
-  	  	GROUP BY(subscriber_id)');
+  	  	WHERE s.subscriber_id = "'.Auth::User()->id.'"GROUP BY(subscriber_id)');
 
 		$subscriptionProfile = DB::select('SELECT *,
   	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
   	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
-  	  	WHERE s.subscriber_id = 1 
-  	  	GROUP BY(user_id)');
+  	  	WHERE s.subscriber_id = "'.Auth::User()->id.'"GROUP BY(user_id)');
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
@@ -693,23 +691,29 @@ class UserController extends BaseController {
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 
 		if(empty($userChannel)) return View::make('users.channelnotexist');
-
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-
 		// if(empty($usersVideos)) {
 		// 	return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
 		// }
-
 		$videosChannelName = User::where('channel_name', $channel_name)->first();
 		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
-
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$subscribers = $userSubscribe->subscribe;
 
-		$subscribers = Subscribe::where('user_id', $userChannel->id)->get();
-		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->paginate(10);
+		$subscribers = DB::select('SELECT *, 
+				(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+				AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
+				WHERE s.subscriber_id = "'.$userChannel->id.'" 
+				GROUP BY(subscriber_id)');
+
+		$subscriptions = DB::select('SELECT *,
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
+  	  	WHERE s.subscriber_id = "'.$userChannel->id.'"GROUP BY(user_id)');
+
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
-		return $recentUpload->user->channel_name;
+		// return $recentUpload;
+
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 
