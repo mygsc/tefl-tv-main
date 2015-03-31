@@ -70,13 +70,11 @@
 					<ul>
 						<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 						<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-						<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
 						<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-						<a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
-						<a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+						<!--<a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
-						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
 
 					</ul>							
 				</div><!--/.share-video-->

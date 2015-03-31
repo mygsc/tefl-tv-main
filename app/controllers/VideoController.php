@@ -339,6 +339,9 @@ class VideoController extends Controller {
 		}
 		return $text;
 	}
+	public function getEmbedVideo($id=NULL){
+		return View::make('homes.embedvideo');
+	}
 
 
 
