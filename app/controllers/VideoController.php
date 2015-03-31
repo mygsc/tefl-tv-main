@@ -340,7 +340,12 @@ class VideoController extends Controller {
 		return $text;
 	}
 	public function getEmbedVideo($id=NULL){
-		return View::make('homes.embedvideo');
+		$vidFilename = Video::where('file_name', $id)->first();
+		$vidOwner = User::find($vidFilename->user_id);
+		if($vidFilename->count() && $vidOwner->count()){
+			return View::make('homes.embedvideo', compact('vidFilename','vidOwner'));
+		}
+		return app::abort(404, 'Page not available');
 	}
 
 
