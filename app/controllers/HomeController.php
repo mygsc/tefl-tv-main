@@ -145,6 +145,9 @@ class HomeController extends BaseController {
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
 
+
+		// ayusin ung addComment
+
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -265,9 +268,15 @@ class HomeController extends BaseController {
 				'comment_id' => $comments->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
 
 			$userInfo = User::find($user_id);
+			
+			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
+				$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
+			} else{
+				$temp = 'img/user/0.png';
+			}
 			$newComment =  
 				'<div class="commentProfilePic">'. 
-					HTML::image("img/user/$userInfo->id.jpg", "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
 				</div>'.
 				link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
 				| &nbsp;<small> just now. </small> 

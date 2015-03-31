@@ -66,8 +66,9 @@ margin: 10px;
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
 								</video>
+								@include('elements/videoPlayer')
 							</div>
-							@include('elements/videoPlayer')
+							
 			
 						</div>
 
