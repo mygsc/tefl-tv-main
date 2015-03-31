@@ -21,21 +21,23 @@
 						{{ Str::limit($channel->interests, 120) }}
 			
 						</p>
-				
-					@if($auth)
-					{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-					{{Form::hidden('user_id',$channel->id)}}
-					{{Form::hidden('subscriber_id', $auth->id)}}
-					@if(empty($datas->ifsubscribe))
-					{{Form::hidden('status','subscribeOn')}}
-					{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
-					@else
-					{{Form::hidden('status','subscribeOff')}}
-					{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
-					@endif
-					{{Form::close()}}
-					@else
-					{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
+					@if($auth->id != $channel->id)
+						@if($auth)
+							
+							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+							{{Form::hidden('user_id',$channel->id)}}
+							{{Form::hidden('subscriber_id', $auth->id)}}
+								@if(isset($datas->ifsubscribe))
+								{{Form::hidden('status','subscribeOn')}}
+								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
+								@else
+								{{Form::hidden('status','subscribeOff')}}
+								{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+								@endif
+							{{Form::close()}}
+							@else
+							{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
+						@endif
 					@endif
 				</div>	
 			</div><!--/.row-->
@@ -45,7 +47,7 @@
 					<h3 class="inline">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$channel->total}} Views</h3>
 					<br/>
 					@foreach($channel->subscribers as $subscriber)
-						@if(file_exists('public/img/user/'.$subscriber->subscriber_id.'.jpg'))
+						@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
 						<img src="/img/user/{{$subscriber->subscriber_id}}.jpg" class="userRep">
 						@else
 						<img src="/img/user/0.png" class="userRep">
@@ -57,12 +59,5 @@
 		</div><!--/.well-->
 	</div><!--/.col-md-6-->
 	@endforeach
-	</div>
-
-	<br>
-	<br>
-	<div class="text-center row" style="">
-		<a href="{{route('homes.more-top-channels')}}"><b>Click here to view all top channels</b></a>
-
 	</div>
 	<br/>
