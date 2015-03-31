@@ -173,9 +173,15 @@
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
+                                    @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/u3.png" class="">
+                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
                                         </div>
+                                    @else
+                                        <div class="col-md-1 col-sm-2">
+                                            <img src="/img/user/0.png" class="">
+                                        </div>
+                                    @endif
                                         <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Subscribers)</small>
@@ -221,13 +227,11 @@
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-                <!--Display number of search results-->
-                <div class="searchResult">About {{$relationCounter}} result(s)</div>
-                <!--/search result-->
+               <br/>
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($relations as $relation)
                     <li class="ui-tabs-nav-item" id="">
-                        <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
+                        <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
                             <div class="col-md-4 col-xs-4">
                             @if(file_exists(public_path("/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))

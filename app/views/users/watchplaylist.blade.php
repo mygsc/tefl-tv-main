@@ -99,11 +99,15 @@
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
+                                    @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1">
-
-                                            <img src="/img/user/u3.png" class="">
-
+                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
                                         </div>
+                                    @else
+                                        <div class="col-md-1">
+                                            <img src="/img/user/0.png" class="">
+                                        </div>
+                                    @endif
                                         <div class="col-md-11">
                                             <h2 class="black">
                                                 <span>{{$owner->channel_name}}<small>(150,000 Followrs)</small>
