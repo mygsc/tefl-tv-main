@@ -240,10 +240,11 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 
+
   		$subscriberProfile = DB::select('SELECT *,
-  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
-  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
-  	  	WHERE s.subscriber_id = "'.Auth::User()->id.'"GROUP BY(subscriber_id)');
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
+  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.subscriber_id = u.id
+  	  	WHERE s.user_id = "'.Auth::User()->id.'"');
 
 		$subscriptionProfile = DB::select('SELECT *,
   	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
@@ -698,18 +699,17 @@ class UserController extends BaseController {
 		$videosChannelName = User::where('channel_name', $channel_name)->first();
 		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-		$subscribers = $userSubscribe->subscribe;
 
-		$subscribers = DB::select('SELECT *, 
-				(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
-				AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
-				WHERE s.subscriber_id = "'.$userChannel->id.'" 
-				GROUP BY(subscriber_id)');
+
+		$subscribers = DB::select('SELECT *,
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.subscriber_id = u.id
+  	  	WHERE s.user_id = "'.$userChannel->id.'"');
 
 		$subscriptions = DB::select('SELECT *,
-  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
   	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
-  	  	WHERE s.subscriber_id = "'.$userChannel->id.'"GROUP BY(user_id)');
+  	  	WHERE s.subscriber_id = "'.$userChannel->id.'"');
 
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
 		// return $recentUpload;
