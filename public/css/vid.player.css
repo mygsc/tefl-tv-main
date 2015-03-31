@@ -314,6 +314,7 @@ button#play{
   	border: 1px solid #fff;
   	cursor: pointer;
   	background: rgba(27,27,27,0.6);
+  	padding: 10px;
 }.play-icon span{
 	color:#fff;
 	margin: auto;  

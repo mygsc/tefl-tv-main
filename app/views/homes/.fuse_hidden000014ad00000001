@@ -9,7 +9,7 @@
         <!-- <meta property="og:video:width" content="500"> 
         <meta property="og:video:height" content="300"> 
         <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  --> 
-        <script src="https://apis.google.com/js/platform.js" async defer></script> 
+
 @stop
 @section('css')
 {{HTML::style('css/vid.player.css')}}
@@ -29,7 +29,7 @@
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
                             <p class="black">
-                                {{str_limit($videos->title,70)}}
+                                {{$videos->title}}
                             </p>
                             <!--video paler-->
                             @include('elements/home/watchVideo-videoPlayer')
@@ -66,17 +66,13 @@
                                                    <a class="twitter-share-button"
                                                       href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
                                                       data-url="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
-                                                      data-counturl="http://test.tefltv.com//watch!v={{$videos->file_name}}"
+                                                      data-counturl="http://test.tefltv.com"
                                                       data-count="horizontal">
-                                                     Tweet
+                                                    Tweet
                                                     </a>
-                                                   <div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"></div>
-                                                  
-                                                    <!--<a  data-href="http://www.test.tefltv.com" class="fb-share-button" data-layout="button_count">
-                                                        <i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i>
-                                                    </a> 
-                                                    <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>-->
+                                                   <!-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
+                                                    <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>-->
+                                                    <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
                                                     <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
@@ -199,7 +195,7 @@
                         <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
                         <div class="row">
                             <div class="col-md-4 col-xs-4">
-                            @if(file_exists(public_path("/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
+                            @if(file_exists("public/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg"))
                             <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
                             @else
                             <img src="/img/thumbnails/video.png" alt="" width="100%" />
@@ -241,21 +237,19 @@
             $(".seeVideoContent").slideToggle("slow");
         });      
     });
-</script>
-<!-- TWITTER -->
-<script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-</script>
-<script>
+
+// TWITTER SHARE SCRIPT
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+
+// FACEBOOK SHARE SCRIPT
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=131997643656114&version=v2.3";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
 @stop
-
-
 
 

@@ -165,6 +165,6 @@
 			$(".panelReply").hide();
 			$(this).parent().children(".panelReply").slideToggle(500); 
 		});
-		$("[name='my-checkbox']").bootstrapSwitch();
+		// $("input[name=my-checkbox]").bootstrapSwitch();
 	});
 </script>
