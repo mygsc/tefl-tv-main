@@ -187,13 +187,6 @@ class VideoController extends Controller {
 
 			}					
 		}
-
-			// delete unselected thumbnail move, and rename 
-			// File::delete($this->tmpImg.$this->user->channel_name.'2.jpg');
-			// File::delete($this->tmpImg.$this->user->channel_name.'3.jpg');
-			// $oldName = $this->tmpImg.$this->user->channel_name.'1.jpg';
-			// $newName = $this->thumbImg.$id.'.jpg';
-			// $rename = rename($oldName, $newName);	
 		
 		return Redirect::route('get.addDescription',$fileName)
 		->withInput()
