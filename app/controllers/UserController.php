@@ -239,55 +239,36 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
-		
 
-		// $a = Subscribe::where('user_id', Auth::User()->id)->take(10)->get();
+  		$subscriberProfile = DB::select('SELECT *,
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
+  	  	WHERE s.subscriber_id = 1 
+  	  	GROUP BY(subscriber_id)');
 
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-  
-		  foreach ($subscribers as $subscriber) {
-		   
-		   $subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
-		   $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();   
-		  }
-
-		
-	 	$countQuery = DB::select("SELECT id, user_id, 
-	 		(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
-			AS numberOfSubscribers FROM subscribes s
-			WHERE s.user_id = 1 
-			GROUP BY(user_id)");
-
-		$subscriptionProfile = DB::table('subscribes')->join('users', 'users.id', '=', 'subscribes.user_id')->where('subscriber_id', Auth::User()->id)->paginate(10);
+		$subscriptionProfile = DB::select('SELECT *,
+  	  	(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.subscriber_id = s.user_id) 
+  	  	AS numberOfSubscribers FROM subscribes s INNER JOIN users AS u ON s.user_id = u.id
+  	  	WHERE s.subscriber_id = 1 
+  	  	GROUP BY(user_id)');
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
-
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
-		// return $usersPlaylists;
 		$increment = 0;
-		
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
-		// return $recentUpload;
-
+	
 		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount')); 
 	}
 	
 	public function postUsersUploadImage($id) {
 
-
 		If(Input::hasFile('image')) {
-
 			$validate = Validator::make(array('image' => Input::file('image')), array('image' => 'image|mimes:jpg,jpeg,png'));
-
 			if($validate->passes()) {
 				$filename = Input::file('image')->getClientOriginalName();
-
 				$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-
 				$newName = Auth::User()->id.'.jpg';
-
 				$path = public_path('img/user/');
-
 
 				if(file_exists($picture))
 				{
@@ -715,9 +696,9 @@ class UserController extends BaseController {
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 
-		if(empty($usersVideos)) {
-			return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
-		}
+		// if(empty($usersVideos)) {
+		// 	return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
+		// }
 
 		$videosChannelName = User::where('channel_name', $channel_name)->first();
 		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
@@ -728,10 +709,11 @@ class UserController extends BaseController {
 		$subscribers = Subscribe::where('user_id', $userChannel->id)->get();
 		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->paginate(10);
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
+		return $recentUpload->user->channel_name;
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos'));
 	}
 	public function addSubscriber() {
 		$user_id = Input::get('user_id');
