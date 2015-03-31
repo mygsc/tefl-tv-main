@@ -29,8 +29,9 @@
 									<source src='/videos/tefltv.webm' type='video/webm'>
 									<source src='/videos/tefltv.ogv' type='video/ogg'>
 								</video>
+								@include('elements/videoPlayer')
 							</div><!--/embed-responsive-->
-							@include('elements/videoPlayer')
+							
 						</div>
 		    		</div><!--/.row-->
     			</div>

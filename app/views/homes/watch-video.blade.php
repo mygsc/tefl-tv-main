@@ -221,9 +221,7 @@
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-                <!--Display number of search results-->
-                <div class="searchResult">About {{$relationCounter}} result(s)</div>
-                <!--/search result-->
+               <br/>
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($relations as $relation)
                     <li class="ui-tabs-nav-item" id="">

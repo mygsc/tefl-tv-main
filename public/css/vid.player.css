@@ -176,7 +176,7 @@ input#seek-slider::-moz-range-thumb {
 	top:0;
 	z-index: 2;
 }
-/*div#controls{
+div#controls{
   position: absolute;
   bottom: 0;
   left: 0;
@@ -184,7 +184,7 @@ input#seek-slider::-moz-range-thumb {
   width: 100%;
   background: rgba(42,42,42,0.9);
   z-index: 2147483647;
-}*/
+}
 div#progress-amount {
   display: block;
   height: 100%;

@@ -13,10 +13,10 @@
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogv' type='video/ogg'>
-						</video>
-
+					</video>
+						@include('elements/videoPlayer')
 					</div>
-					@include('elements/videoPlayer')
+					
 					</div>
 				@endforeach
 				
