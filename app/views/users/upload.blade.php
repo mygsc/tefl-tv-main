@@ -39,7 +39,7 @@ div canvas{
 					<h1>Upload Video</h1>
 					<p>Video allowed types: wmv, mp4, webm, ogv</p>
 					<p>Recommended file extension: mp4</p>
-					<p>Maximum size limit: 100mb</p>
+					<p>Maximum size limit: 150mb</p>
 
 					@if ($errors->any())
 					<ul style="list-style:none;color:red">
