@@ -39,7 +39,7 @@ $(document).ready(function(){
         	data: $(this).serialize(),//{
         	success: function(data){
         		if(data['status'] == 'error'){
-        			$('#errorlabel').text(data['label']);
+        			$(this).find('.replyError').text(data['label']);
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
