@@ -17,37 +17,7 @@ div canvas{
  div canvas:hover{
     	outline:2px solid green;
  }
- .fileContainer {
-    overflow: hidden;
-    position: relative;
-}
 
-.fileContainer [type=file] {
-    cursor: inherit;
-    display: block;
-    font-size: 999px;
-    filter: alpha(opacity=0);
-    min-height: 100%;
-    min-width: 100%;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-}
-
-/* Example stylistic flourishes */
-
-.fileContainer {
-    border-radius: .5em;
-    margin-right: auto!important;
-    margin-left: auto!important;
-    padding: .5em;
-}
-
-.fileContainer [type=file] {
-    cursor: pointer;
-}
 
 </style>
 
