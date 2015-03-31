@@ -76,9 +76,9 @@ function GSCMediaPlayer(){
 function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
-			buffPercent = ((buffPercent / timeDuration) * 100);
-			$('#buffered').css({'width': buffPercent +'%'});
-			if(mediaPlayer.currentTime >= buffPercent){
+			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
+			$('#buffered').css({'width': percentLoaded + '%'});
+			if(mediaPlayer.currentTime >= percentLoaded){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
 				replay.width = 80;
@@ -171,14 +171,13 @@ function seekTimeUpdate(){
 	if(curSec == adsTime){
 		$('.advertisement').fadeIn(2000);
 	}
-
 }
 
-document.addEventListener("keydown", function(e) {
-  if (e.keyCode == 32) {
-    togglePlayPause();
-  }
-}, false);
+// document.addEventListener("keydown", function(e) {
+//   if (e.keyCode == 32) {
+//     togglePlayPause();
+//   }
+// }, false);
 
 function toggleFullScreen() {
   if (!document.fullscreenElement &&    // alternative standard method
@@ -190,7 +189,8 @@ function toggleFullScreen() {
     } else if (mediaPlayer.mozRequestFullScreen) {
       videoControls.mozRequestFullScreen();
     } else if (mediaPlayer.webkitRequestFullscreen) {
-      mediaPlayer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    	mediaPlayer.webkitRequestFullscreen();
+      //mediaPlayer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
       //videoFullScreen.request(document.getElementById('media-video'));
     }
   } else {
@@ -312,12 +312,14 @@ function toggleMute() {
 		changeButtonType(muteBtn, 'mute');
 		muteBtn.src = "/img/icons/sound.png";
 		mediaPlayer.muted = false;
+		volumeStatus.value = 100; 
 	}
 	else {
 		// Change the button to be an unmute button
 		changeButtonType(muteBtn, 'unmute');
 		muteBtn.src = "/img/icons/sound-off.png";
 		mediaPlayer.muted = true;
+		volumeStatus.value = 0;	
 	}
 }
 
@@ -381,9 +383,6 @@ function updateProgressBar(response) {
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMin + ':' + vidSec);
 					}
 
-					
-					//bufferedPercent();
-					// setInterval(bufferedPercent, 1000);
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
@@ -442,15 +441,15 @@ function resetPlayer() {
 
 function fullscreen(){
 videoFullScreen.request(document.getElementById('media-video'));
-
-//screenfull.request($('.wrapper')[0]);
-			
-
+//screenfull.request($('.wrapper')[0]);		
 }
 $('#mute-icon').hover(function(){
 	soundHover=true;
 	if(soundHover==true){
 		$('.volume').fadeIn(1000);	
+		setTimeout(function(){
+			$('.volume').fadeOut(500);
+		},10000);
 	}	
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
@@ -475,7 +474,6 @@ $('.volume').mouseleave(function(){
 	}
 });
 
-
 $('#volume-vertical').mousedown(function(e){
 	LetProcessYourVolume(e)
 });
@@ -489,7 +487,6 @@ $('.volume-static-holder').mousedown(function(e){
 // 	if(volumeDrag==true){
 // 		LetProcessYourVolume(e);
 // 	}
-	
 // });
 
 function LetProcessYourVolume(e){
@@ -509,7 +506,6 @@ function LetProcessYourVolume(e){
 		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
 		volumeY = $('#volume-vertical').height() / $(this).height();
 		
-
 		if($('#volume-vertical').height() < 15){
 			$('#volume-button').css({'background':'red'});
 			$('#volume-vertical').css('overflow','hidden');
@@ -525,6 +521,7 @@ function LetProcessYourVolume(e){
 	// currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
 	// mediaPlayer.currentTime(currentTime) 	
 //});
+
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');

@@ -1,5 +1,16 @@
 @extends('layouts.default')
+@section('meta')
+    <meta property="og:title" content="{{$videos->title}}">
+        <meta property="og:site_name" content="test.tefltv.com">
+        <meta property="og:description" content="{{$videos->description}}">
+        <meta property="og:url" content="http://www.localhost:8000/watch!v={{$videos->file_name}}">
+        <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:type" content="video">
+        <!-- <meta property="og:video:width" content="500"> 
+        <meta property="og:video:height" content="300"> 
+        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  --> 
 
+@stop
 @section('css')
 {{HTML::style('css/vid.player.css')}}
 @stop
@@ -9,7 +20,9 @@
 {{-- */$playlistCounter2 = 1;/* --}}
 
 @section('content')
+
 <div class="row White">
+
 <div class="container page">
     <div class="">
         <div class="row">
@@ -25,6 +38,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
+
                                     <br/>
                                     <div class="row">
                                         <div class="col-md-8">
@@ -35,9 +49,12 @@
                                         <div class="col-md-4 text-right">
                                          <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
                                         </div>
+
                                     </div>
                                     <div class="row">
-
+                                        <div class="col-md-12">
+                                        <br/>
+                                        <span class="">
                                         <div class="col-md-6">
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
                                             @if(isset(Auth::User()->id))
@@ -97,19 +114,28 @@
                                             <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                                                    <div id="fb-root"></div>
+                                                    <div class="fb-share-button" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}" data-layout="button_count"> </div>
+                                                   <a class="twitter-share-button"
+                                                      href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
+                                                      data-url="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
+                                                      data-counturl="http://test.tefltv.com"
+                                                      data-count="horizontal">
+                                                    Tweet
+                                                    </a>
+                                                   <!-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
+                                                    <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>-->
+                                                    <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
                                                     <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
-
-                                                </span><!--/.dropdown-menu pull-right White-->
-                                            </span><!--/.dropdown share-->
+                                                </span>
+                                            </span>
                                             
                                         </div>
                                         <div class="col-md-6 text-right">
@@ -140,6 +166,7 @@
                                         </div>
                                     </div>
                                 </div><!--/.col-md-5-->
+                                </div>
                             </div><!--/.row-->
                             <br/>
                             <div class="info" >
@@ -245,6 +272,18 @@
             $(".seeVideoContent").slideToggle("slow");
         });      
     });
+
+// TWITTER SHARE SCRIPT
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+
+// FACEBOOK SHARE SCRIPT
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
 @stop
 

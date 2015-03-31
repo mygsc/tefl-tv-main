@@ -1012,10 +1012,11 @@ span.commentLink{
 
 .searchResult{
   padding:5px;
-  border: 3px solid  #8fa7ca;
-  border-left: 1px solid  #8fa7ca;
-  border-right: 1px solid  #8fa7ca;
+  border:5px solid #e3e3e3;
+  border-left: 5px solid #e3e3e3;
+  border-right: 5px solid #e3e3e3;
   text-align: center;
+  margin-top: 20px;
 }
 .c-about{
   padding:10px 10px;

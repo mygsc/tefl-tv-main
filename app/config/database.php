@@ -57,6 +57,7 @@ return array(
 
 			'host'      => 'localhost',
 
+
 			'database'  => 'tefl-tv',
 			'username'  => 'gil',
 			'password'  => 'gsc2014',
