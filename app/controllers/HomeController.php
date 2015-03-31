@@ -240,7 +240,7 @@ class HomeController extends BaseController {
 		if(empty($comment)){
 			return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
 		}
-		if(!empty(trim($comment))){
+		if(!empty($comment)){
 			$comments = new Comment;
 			$comments->video_id = $video_id;
 			$comments->user_id = $user_id;
@@ -268,7 +268,7 @@ class HomeController extends BaseController {
 				'comment_id' => $comments->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
 
 			$userInfo = User::find($user_id);
-			
+
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
 				$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
 			} else{
