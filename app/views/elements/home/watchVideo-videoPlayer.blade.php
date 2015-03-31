@@ -1,8 +1,9 @@
 
 <div class="">
 	<div class="col-md-12">
-		<div class="row">
+		<div class="row" id="vid-wrapper">
 				@foreach($video_path as $video)
+					<div id="vid-controls">
 					<div class="embed-responsive embed-responsive-16by9">
 					@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 					<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
@@ -16,6 +17,7 @@
 
 					</div>
 					@include('elements/videoPlayer')
+					</div>
 				@endforeach
 				
 		</div><!--/.row-->

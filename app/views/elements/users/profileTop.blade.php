@@ -1,4 +1,3 @@
-
 		<div style="border:5px solid #e3e3e3;" class="White">
 		
 			<div class="col-md-12">
@@ -73,9 +72,17 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">Update Cover Photo</h4>
 		      </div>
-		      <div class="modal-body">
-		         {{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
-        		{{Form::file('coverPhoto')}}
+		      <div class="modal-body text-center">
+
+		      	<div style="margin-left:auto; margin-right:auto;" >
+		      		{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
+		      		<label class="fileContainer" style="margin-left:auto;">
+		      			<img src="/img/icons/upload.png">
+		      			{{Form::file('coverPhoto')}}
+		      		</label>
+		      	</div>
+		         
+        		
 		     
 		      </div>
 		      <div class="modal-footer">

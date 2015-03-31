@@ -12,7 +12,7 @@
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
 		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
 									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
@@ -137,22 +137,18 @@
 			</div>
 			<br/>
 			<div class="row">
-			@if($subscribers->isEmpty())
+			@if(empty($subscribers))
 				<p style="margin-left:50px;">No Subscriber yet</p>
 			@else
 				@foreach($subscribers as $subscriber)
 				<div class="col-md-6">
-				<?php
-						$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-						$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
-							?>
 					<div class="row user-padding">
-						<a href="{{route('view.users.channel')}}">
+						<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
+						<span><b>{{$subscriber->channel_name}}</b></span>
 						</a>&nbsp;
 						<br/>&nbsp;
-						<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+						<span>w/ <b>{{$subscriber->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					</div>
 				</div>
@@ -170,20 +166,18 @@
 			</div>
 			<br/>
 			<div class="row">
-				@if($subscriptions->isEmpty())
+				@if(empty($subscriptions))
 					<p style="margin-left:50px;">No subscription yet</p>
 				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
+								<a href="{{route('view.users.channel', $subscription->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<?php
-									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
-									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
-								?>
-								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
+								<span><b>{{$subscription->channel_name}}</b></span>
+								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{$subscription->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 							
