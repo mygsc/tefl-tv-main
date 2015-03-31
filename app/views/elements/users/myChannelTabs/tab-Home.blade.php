@@ -110,11 +110,12 @@
 			<br/>
 			<br/>
 			<div class="row">
-			<div class="col-md-4 col-sm-2">
+			
 			@if($usersPlaylists->isEmpty())
 				<p style="margin-left:30px;">No Playlists yet</p>
 			@else
 			@foreach($usersPlaylists as $key=>$playlist)
+			<div class="col-md-4 col-sm-2">
 			<div class="" style="position:relative;">
 				@if(isset($thumbnail_playlists[$key][0]))	
 					@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
@@ -154,9 +155,10 @@
 				<div class="count">
 					{{$playlist->updated_at}}
 				</div>
+			</div>
 			@endforeach
 			@endif
-			</div>
+			
 			</div>
 		</div>
 
