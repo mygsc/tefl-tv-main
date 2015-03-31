@@ -83,7 +83,7 @@
 
 				<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
 				<span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
-				<a href="{{route('public.watch.video','video='.str_random(5))}}"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
+				<a href="#"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->
 	</div><!--/vd-->

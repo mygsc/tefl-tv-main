@@ -46,7 +46,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
 	Route::post('adddisliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLiked'));
 
-	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
+	//Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));

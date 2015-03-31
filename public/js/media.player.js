@@ -81,12 +81,12 @@ function loadBuffer(){
 			if(mediaPlayer.currentTime >= percentLoaded){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
-				replay.width = 80;
-				replay.height = 80;
+				replay.width = '100%';
+				replay.height = '100%';
 			}else{
 				replay.src="/img/icons/play-btn.png";
-				replay.width = 80;
-				replay.height = 80;
+				replay.width = '100%';
+				replay.height = '100%';
 			}
 		}else{
 			console.log('no buffer recieved...');

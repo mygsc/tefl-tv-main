@@ -87,7 +87,7 @@ class HomeController extends BaseController {
 		return View::make('homes.advertisements');
 	}
 
-	public function watchVideo($idtitle){
+	public function watchVideo($idtitle=null){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
 		$id = $token_id->id;
 		$videoId = $id;
