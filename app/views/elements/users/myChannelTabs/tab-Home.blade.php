@@ -22,8 +22,9 @@
 		 	@else
 		 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
 		 	@endif	
-		</div>
+		
 		@include('elements/videoPlayer')
+		</div>
 
 	</div>
 	@endif
