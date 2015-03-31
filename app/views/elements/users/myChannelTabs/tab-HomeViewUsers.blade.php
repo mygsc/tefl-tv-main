@@ -5,14 +5,27 @@
 		<img src="/img/thumbnails/vp.png">
 	</div>
 	<div class="col-md-6">
-		<h3><b>{{$recentUpload->title}}</b></h3>
-		<p>Uploaded: {{$recentUpload->created_at}}</p>
+		@if(empty($recentUpload))
+			<p style="margin-left:30px;">No recent Activity</p>
+		@else
+		<h3><b>Title: {{$recentUpload->title}}</b></h3>
+		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
-		<video controls>
-			<source src=""/>
-		</video>
+		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
+									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+
+
+									</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif								
+							</a>
 		<p class="text-justify">
-			{{$recentUpload->description}}
+			Description: {{$recentUpload->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
@@ -42,6 +55,7 @@
 				</span>
 			</span><!--/.dropdown-->
 		</span><!--/counts and share link-->
+		@endif
 	</div><!--/.col-md-6-->
 </div>
 <br/>
@@ -123,22 +137,18 @@
 			</div>
 			<br/>
 			<div class="row">
-			@if($subscribers->isEmpty())
+			@if(empty($subscribers))
 				<p style="margin-left:50px;">No Subscriber yet</p>
 			@else
 				@foreach($subscribers as $subscriber)
 				<div class="col-md-6">
-				<?php
-						$subscriberProfile = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-						$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();
-							?>
 					<div class="row user-padding">
-						<a href="{{route('view.users.channel')}}">
+						<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
 						<img src="/img/user/u1.png" class="userRep2">&nbsp;
-						<span><b>{{$subscriberProfile->first_name}} {{$subscriberProfile->last_name}}</b></span>
+						<span><b>{{$subscriber->channel_name}}</b></span>
 						</a>&nbsp;
 						<br/>&nbsp;
-						<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+						<span>w/ <b>{{$subscriber->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 					</div>
 				</div>
@@ -156,20 +166,18 @@
 			</div>
 			<br/>
 			<div class="row">
-				@if($subscriptions->isEmpty())
+				@if(empty($subscriptions))
 					<p style="margin-left:50px;">No subscription yet</p>
 				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
 							<div class="row user-padding">
+								<a href="{{route('view.users.channel', $subscription->channel_name)}}">
 								<img src="/img/user/u1.png" class="userRep2">&nbsp;
-								<?php
-									$subscriptionProfile = UserProfile::where('user_id', $subscription->user_id)->first();
-									$subscriptionCount = DB::table('subscribes')->where('subscriber_id', $subscription->user_id)->get();
-								?>
-								<span><b>{{$subscriptionProfile->first_name}} {{$subscriptionProfile->last_name}}</b></span>&nbsp;
+								<span><b>{{$subscription->channel_name}}</b></span>
+								</a>&nbsp;
 								<br/>&nbsp;
-								<span>w/ <b>{{count($subscriptionCount)}}</b> Subscribers</span>&nbsp;
+								<span>w/ <b>{{$subscription->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
 							</div>
 							

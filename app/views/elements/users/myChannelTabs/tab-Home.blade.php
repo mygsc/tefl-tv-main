@@ -1,19 +1,32 @@
 
 <div class="row">
 	<br/>
+	@if(empty($recentUpload))
+	<div class="text-center alert alert-info">
+		<h3>
+			{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
+		</div>
+	</div>
+	@else
+
 	<div class="col-md-6">
 
 		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 		 <div class="embed-responsive embed-responsive-16by9 h-video">
-			<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
-				<source src="/videos/tefltv.mp4" type="video/mp4">
-				<source src="/videos/tefltv.webm" type="video/webm">
-				<source src="/videos/tefltv.ogv" type="video/ogg">
-			</video>
+		 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+			 	<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+			 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+			 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+			 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+				</video>
+		 	@else
+		 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+		 	@endif	
 		</div>
 		@include('elements/videoPlayer')
 
 	</div>
+	@endif
 	<div class="col-md-6">
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
@@ -21,19 +34,7 @@
 		<h3><b>Title: {{$recentUpload->title}}</b></h3>
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
-		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-
-
-									</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif								
-							</a>
+		
 		<p class="text-justify">
 			Description: {{$recentUpload->description}}
 		</p>
@@ -164,9 +165,9 @@
 								<span><b>{{$profile->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
-							<?php $count = Subscribe::find($profile->id);?>
-							<span>w/ <b>{{count($count)}}</b> Subscribers</span>&nbsp;
-							{{$count}}
+
+							<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+
 							<!-- <button class="btn btn-primary btn-xs pull-right" id="subscribe{{$increment++}}">Subscribe</button> -->
 							<?php
 								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -210,8 +211,9 @@
 								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
-								<?php $count1 = Subscribe::find($profile1->id);?>
-								<span>w/ <b>{{count($count1)}}</b> Subscribers</span>&nbsp;
+
+								<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+
 
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								<?php
