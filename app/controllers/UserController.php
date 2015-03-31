@@ -185,7 +185,7 @@ class UserController extends BaseController {
 	public function getTopChannels(){
 		$auth = Auth::user();
 
-		$datas = $this->User->getTopChannels();
+		$datas = $this->User->getTopChannels(10);
 
 		//Insert additional data to $datas
 		foreach($datas as $key => $channels){
@@ -205,29 +205,24 @@ class UserController extends BaseController {
 	}
 
 	public function getMoreTopChannels(){
-		$topChannels = DB::select('select users.id, users.channel_name, 
-			videos.user_id, sum(videos.views) as total
-			from videos inner join users on 
-			videos.user_id = users.id 
-			group by user_id 
-			order by total DESC
-			LIMIT 50');
+		$datas = $datas = $this->User->getTopChannels('50');
+		$auth = Auth::user();
 
-		foreach($topChannels as $key => $channels){
-			$img = 'img/user/'. $channels->id. '.jpg';
+		foreach($datas as $key => $channels){
+			$profilePicture = 'img/user/'. $channels->id. '.jpg';
 			if(!empty($auth)){
-				$topChannels[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
 			}
-			if(!file_exists('public/'.$img)){
-				$img = 'img/user/0.jpg';
+			if(!file_exists(public_path($profilePicture))){
+				$profilePicture = 'img/user/0.jpg';
 			}
-			$topChannels[$key]->image_src = $img;
-			$topChannels[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+			$datas[$key]->image_src = $profilePicture;
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
 		$usersChannel = UserProfile::find(Auth::User()->id);
 
-		return View::make('homes.moretopchannels', compact(array('topChannels')));
+		return View::make('homes.moretopchannels', compact(array('datas','auth')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
