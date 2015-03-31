@@ -1,21 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @extends('layouts.default')
 @section('meta')
     <meta property="og:title" content="{{$videos->title}}">
@@ -38,6 +22,8 @@
 {{-- */$playlistCounter2 = 1;/* --}}
 
 @section('content')
+
+<div class="row White">
 <div class="container page">
     <div class="content-padding">
         <div class="row">
@@ -294,6 +280,7 @@
 </div><!--/padding-->
  <br/><br/><br/> 
 </div><!--/.row-->
+</div>
 @stop
 
 @section('script')
