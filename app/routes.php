@@ -13,8 +13,6 @@
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
-
-	
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
@@ -136,5 +134,5 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 //**********ADMIN**********//
 
 Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
-
+Route::get('embed/{id?}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));

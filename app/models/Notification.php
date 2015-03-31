@@ -31,7 +31,7 @@ class Notification extends Eloquent {
 			$callback;
 
 			$completeNotification = $notifierLink .' '. $message;
-			if($this->insertNotifications($user_id, $completeNotification) === true){
+			if($this->insertNotifications($user_id, $completeNotification, $notifier_id, $type) === true){
 				return 'success';
 			}
 		}
@@ -80,8 +80,18 @@ class Notification extends Eloquent {
 		return false;
 	}
 
-	public function insertNotifications($user_id, $notificationMessage){
+	public function insertNotifications($user_id, $notificationMessage,$notifier_id,$type){
 		if(!empty($user_id) || !empty($completeNotification)){
+			if($type == 'subscribe'){
+				$findNotification = Notification::where('user_id', $user_id)
+				->where('notification', $notificationMessage)
+				->where('notifier_id', $notifier_id)->get();
+
+				if(!$findNotification->isEmpty()){
+					return true;
+				}
+
+			}
 			$notification =  new Notification();
 			$notification->user_id = $user_id;
 			$notification->notification = $notificationMessage;

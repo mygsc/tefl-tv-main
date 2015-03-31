@@ -16,38 +16,17 @@ div canvas{
  }
  div canvas:hover{
     	outline:2px solid green;
- }
- .fileContainer {
-    overflow: hidden;
-    position: relative;
+ }div#wrapper{
+	width:100%;
+	height: 10px;
+	background:transparent;
+	border:1px solid #000000;
+}div#wrapper div#progressbar-loaded{
+	width:0;
+	height: 8px;
+	background:#337AB7;
 }
 
-.fileContainer [type=file] {
-    cursor: inherit;
-    display: block;
-    font-size: 999px;
-    filter: alpha(opacity=0);
-    min-height: 100%;
-    min-width: 100%;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-}
-
-/* Example stylistic flourishes */
-
-.fileContainer {
-    border-radius: .5em;
-    margin-right: auto!important;
-    margin-left: auto!important;
-    padding: .5em;
-}
-
-.fileContainer [type=file] {
-    cursor: pointer;
-}
 
 </style>
 
@@ -60,7 +39,7 @@ div canvas{
 					<h1>Upload Video</h1>
 					<p>Video allowed types: wmv, mp4, webm, ogv</p>
 					<p>Recommended file extension: mp4</p>
-					<p>Maximum size limit: 100mb</p>
+					<p>Maximum size limit: 150mb</p>
 
 					@if ($errors->any())
 					<ul style="list-style:none;color:red">
@@ -79,6 +58,10 @@ div canvas{
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
+							<div id="wrapper">
+								<div id="progressbar-loaded"></div>
+							</div><br/>
+							<label id="percentage"></label>
 						</div>
 					</label> 
 					{{Form::close()}}

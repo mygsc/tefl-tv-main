@@ -1,13 +1,13 @@
+	<!--advertisement-->
 	<div class="advertisement" style="display:none">
-		<span class="close">x</span> 
-			{{--  <h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>  --}}
 			<div class="span12" style="background:rgba(0,0,0, 0.15)">
-				<center>
-					<p style="color:#fff!important;">Place your ads here!{{-- 970x90 Large Leaderboard HTML --}}</p>
-					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" height="115" frameborder="0" scrolling="no"></iframe> 
-				</center>
+				<div class="col-md-10 col-md-offset-1">
+					<span class="close">x</span> 
+					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
+				</div>
 			</div>
-	</div><!--advertisement-->
+	</div>
+	<!--advertisement-->
 
 	{{--<div class="video-ads">
 	<span class="close" style="margin-right:30px;">x</span> 
@@ -15,7 +15,7 @@
 	</div> --}}
 
 	<div class="play-icon" id ="play-icon">
-		<span><img id="replay-icon" src="/img/icons/play-btn.png"/></span>
+		<span><img width="100%" height="100%" id="replay-icon" src="/img/icons/play-btn.png"/></span>
 	</div>
 
 	<div class="vd" style="margin-top:-7px;">
@@ -70,13 +70,11 @@
 					<ul>
 						<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 						<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-						<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
 						<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-						<a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
-						<a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+						<!--<a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
-						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
 
 					</ul>							
 				</div><!--/.share-video-->

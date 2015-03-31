@@ -61,7 +61,7 @@ class VideoController extends Controller {
 			return App::abort('404');
 		}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = public_path('videos'.DS. $userFolderName);
+		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
@@ -338,6 +338,14 @@ class VideoController extends Controller {
 			$text = $text."...";
 		}
 		return $text;
+	}
+	public function getEmbedVideo($id=NULL){
+		$vidFilename = Video::where('file_name', $id)->first();
+		$vidOwner = User::find($vidFilename->user_id);
+		if($vidFilename->count() && $vidOwner->count()){
+			return View::make('homes.embedvideo', compact('vidFilename','vidOwner'));
+		}
+		return app::abort(404, 'Page not available');
 	}
 
 

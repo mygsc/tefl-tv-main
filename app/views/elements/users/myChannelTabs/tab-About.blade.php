@@ -1,7 +1,7 @@
 <br/>
 <div class="row">
 	<div class="col-md-12">
-		<div class="well" id="about" style="margin:20px 20px;">
+		<div class="well mg-20" id="about">
 			<div class="" >
 				<h3 class="tBlue">-Interests-</h3>
 				<p class="text-justify">
@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="col-md-12">
-		<div class="well-2" style="margin:20px 30px;">
+		<div class="well-2 mg-20">
 		<h3 class="tBlue">-Personal Information-</h3>
 			<table class="tableLayout">
 				<tr>

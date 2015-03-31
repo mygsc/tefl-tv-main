@@ -51,7 +51,7 @@
 						</div>
 						{{Form::close()}}
 					</div>
-					
+
 					<!--<div class="col-md-1 text-right">
 						<div class="buttons">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -59,36 +59,61 @@
 						</div>
 					</div>-->
 
-					
+
 
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
-							@if($playlists->isEmpty())
+						@if($playlists->isEmpty())
 							No playlists yet
-							@else
+						@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">
 								<a href="videoplaylist/{{Crypt::encrypt($playlist->id)}}"  class="thumbnail">
-									@if(!isset($thumbnail_playlists))
-									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
-
+								@if(isset($thumbnail_playlists[$key][0]))
+									@if(file_exists('public/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg'))
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($thumbnail_playlists[$key])}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
 									<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
-									
+									</div>
 									@else
-									<img src="/img/thumbnails/video.png">
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($thumbnail_playlists[$key])}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
+										<img src="/img/thumbnails/video.png">
+									</div>
 									@endif
-									@else
+								@else
+								<div class="" style="position:relative;">
+								<div class="playlist-info" >
+										0
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
 									<img src="/img/thumbnails/video.png">
-									@endif
+								</div>
+								@endif
 									<br/>
-									
+
 								</a>
 								{{$playlist->name}}
 								<br/>
 							</div>
 							@endforeach
-							@endif
+						@endif
 						</div>
 					</div><!--videoContainer-->
 				</div>
