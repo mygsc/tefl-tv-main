@@ -145,6 +145,7 @@
 
 
                                                         <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
+                                                        <a href="#embed" data-toggle="modal" class="btn btn-unsub">Embed Video</a>
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -294,6 +295,26 @@
 </div><!--/padding-->
  <br/><br/><br/> 
 </div><!--/.row-->
+
+<!--MODAL FOR EMBED VIDEO-->
+<div class="modal fade" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
+      </div>
+      <div class="modal-body">
+            <input type="text" class="form-control" value="<iframe width='560' height='315' src='https://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+      </div>
+     <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <a href="{{route('user.upload.video.cancel',"v=". $videos->file_name)}}" class="btn btn-primary">Yes</a>
+      </div> -->
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('script')
@@ -307,7 +328,7 @@
         $(".linkReadMore").click(function(){
             $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
             $(".seeVideoContent").slideToggle("slow");
-        });      
+        });    
     });
 
 // TWITTER SHARE SCRIPT

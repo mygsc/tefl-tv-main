@@ -16,7 +16,16 @@ div canvas{
  }
  div canvas:hover{
     	outline:2px solid green;
- }
+ }div#wrapper{
+	width:100%;
+	height: 10px;
+	background:transparent;
+	border:1px solid #000000;
+}div#wrapper div#progressbar-loaded{
+	width:0;
+	height: 8px;
+	background:#337AB7;
+}
 
 
 </style>
@@ -49,6 +58,10 @@ div canvas{
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
+							<div id="wrapper">
+								<div id="progressbar-loaded"></div>
+							</div><br/>
+							<label id="percentage"></label>
 						</div>
 					</label> 
 					{{Form::close()}}
