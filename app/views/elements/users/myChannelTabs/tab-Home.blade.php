@@ -115,29 +115,50 @@
 			@if($usersPlaylists->isEmpty())
 				<p style="margin-left:30px;">No Playlists yet</p>
 			@else
-				@foreach($usersPlaylists as $playlists)
-				<div class="col-md-4 col-sm-2">
-				<div class="" style="position:relative;">
+			@foreach($usersPlaylists as $key=>$playlist)
+			<div class="col-md-4 col-sm-2">
+			<div class="" style="position:relative;">
+				@if(isset($thumbnail_playlists[$key][0]))	
+					@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 					<div class="playlist-info" >
-						11
+						{{count($thumbnail_playlists[$key])}}
 						<br/>
-						Videos
+						Video(s)
 						<br/>
 						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 					</div>
-					<img src="/img/thumbnails/v1.jpg" class="h-video">
-				</div>
-
-				<div class="v-Info">
-					<span class="fa fa-globe"></span> | {{$playlists->name}}
-				</div>
-
-				<div class="count">
-					{{$playlists->updated_at}}
-				</div>
-				</div>
-				@endforeach
+						<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
+					@else	
+					<div class="playlist-info" >
+						{{count($thumbnail_playlists[$key])}}
+						<br/>
+						Video(s)
+						<br/>
+						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+					</div>
+						<img src="/img/thumbnails/video.png">
+					@endif
+				@else
+					<div class="playlist-info" >
+						0
+						<br/>
+						Video(s)
+						<br/>
+						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+					</div>
+					<img src="/img/thumbnails/video.png">
 				@endif
+					</div>
+				<div class="v-Info">
+					<span class="fa fa-globe"></span> | {{$playlist->name}}
+				</div>
+					
+				<div class="count">
+					{{$playlist->updated_at}}
+				</div>
+			</div>
+			@endforeach
+			@endif
 			
 			</div>
 		</div>

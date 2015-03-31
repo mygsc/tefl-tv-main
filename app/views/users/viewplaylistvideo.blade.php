@@ -58,12 +58,39 @@
 						{{Form::hidden("encrypt",Crypt::encrypt($playlist->id),array('id'=>'encrypt'))}}
 							<div class="col-md-3">
 								@if(empty($videos))
+								<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										0
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
 									<img src="/img/thumbnails/video.png">
+								</div>
 								@else
 									@if(file_exists(public_path('/videos/'.$videos[0]->user_id.'-'.$videos[0]->channel_name.'/'.$videos[0]->file_name.'/'.$videos[0]->file_name.".jpg")))
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($videos)}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
 										<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
+									</div>
 									@else
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($videos)}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
 										<img src="/img/thumbnails/video.png">
+									</div>
 									@endif
 								@endif
 							</div>
