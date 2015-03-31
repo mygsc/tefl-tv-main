@@ -20,7 +20,7 @@ $(document).ready(function(){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
 		        		$('textarea#comment').val('');
-		        		$('.commentsarea .row').prepend(data['comment']);
+		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		// alert(data['status']);
 		        	}
 	           	}
@@ -39,7 +39,7 @@ $(document).ready(function(){
         	data: $(this).serialize(),//{
         	success: function(data){
         		if(data['status'] == 'error'){
-        			$('#errorlabel').text(data['label']);
+        			$(this).find('.replyError').text(data['label']);
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){

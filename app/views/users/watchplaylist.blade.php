@@ -15,53 +15,47 @@
                     <br/>
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
-                            <p class="black">
-                               {{$video->title}}
-                            </p>
                             <!--video paler-->
                             @include('elements/home/watch_playlist')
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
-                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p class="black wv-title">
+                                                    {{$video->title}}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                                <p class="black wv-views" id="views-counter">{{$video->views}} View(s)</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <span id="like-counter">{{$likeCounter}}</span>&nbsp;
+                                           
+                                                    @if(isset(Auth::User()->id))
+                                                        @if(!empty($like))
+                                                        <span id = "like-span">
+                                                            <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                        @else
+                                                        <span id = "like-span">
+                                                            <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
+                                                        </span>
+                                                        @endif
+                                                    @else
+                                                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                                                    @endif
+                                            </div>
+                                        </div>
+
                                         <span class="">
-                                            <span id="views-counter">{{$video->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
-                                           
-                                            @if(isset(Auth::User()->id))
-                                                @if(!empty($like))
-                                                <span id = "like-span">
-                                                    <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                                </span>
-                                                @else
-                                                <span id = "like-span">
-                                                    <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                                </span>
-                                                @endif
-                                            @else
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            @endif
-                                           
-                                            <span class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                    <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
-                                                </a>
-                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                                                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
 
-                                                </span><!--/.dropdown-menu pull-right White-->
-                                            </span><!--/.dropdown share-->
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                                      
-
-                         {{Form::hidden('text1',Crypt::encrypt($video->id),array('id'=>'text1'))}}
+                                        {{Form::hidden('text1',Crypt::encrypt($video->id),array('id'=>'text1'))}}
                                             @if(isset(Auth::User()->id))
 
                                             <span class="dropdown" id="dropdown">
@@ -89,7 +83,23 @@
                                                 <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                             @endif
+                                             &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <span class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+                                                </a>
+                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                                                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
 
+                                                </span><!--/.dropdown-menu pull-right White-->
+                                            </span><!--/.dropdown share-->
 
                                         </span><!--/links-->
                                     </div>
