@@ -61,7 +61,7 @@ class VideoController extends Controller {
 			return App::abort('404');
 		}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = public_path('videos'.DS. $userFolderName);
+		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
