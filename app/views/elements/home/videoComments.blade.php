@@ -41,7 +41,7 @@
 					<p class="text-justify">
 						{{$getVideoComment->comment}}
 					</p>
-					<br/>
+		
 					
 					@if(isset(Auth::User()->id))
 						<?php

@@ -239,22 +239,17 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
+		
 
 		$subscribers = Subscribe::where('user_id', Auth::User()->id)->paginate(10);
-		// $a = DB::select('SELECT s.user_id, s.subscriber_id, s.notifs, s.created_at, s.updated_at, u.channel_name FROM subscribes AS s
-		//  INNER JOIN users AS u ON s.user_id = u.id');
-		// return $a;
-		foreach ($subscribers as $subscriber) {
-			$subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->count();			
-		}
-		// return $subscriberProfile;
-		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->paginate(10);
 
-		foreach($subscriptions as $subscription) {
-			$subscriptionProfile[] = User::where('id', $subscription->user_id)->first();
-			$subscriptionCount = DB::table('subscribes')->where('user_id', $subscription->subscriber_id)->count();
-		}
+	  	foreach ($subscribers as $subscriber) {
+		   $subscriberProfile[] = User::where('id',$subscriber->subscriber_id)->first();
+	 	  $subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->user_id)->get();   
+	 	}
+
+
+		$subscriptionProfile = DB::table('subscribes')->join('users', 'users.id', '=', 'subscribes.user_id')->where('subscriber_id', Auth::User()->id)->paginate(10);
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 
@@ -549,14 +544,6 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$thumbnail_playlistCounter = 0;
-		$thumbnail_playlistCounter2 = 0;
-		$idCounter = 0;
-		$channel_nameCounter = 0;
-		$validatorIdCounter = 0;
-		$validatorChannelCounter = 0;
-		$validatorThumbnailCounter = 0;
-		$validatorThumbnail2Counter = 0;
 
 		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
 			foreach($playlists as $playlist){
@@ -569,9 +556,8 @@ class UserController extends BaseController {
 			or v.report_count > 5
 			and v.publish = 1");
 			}
-
 		// return $playlists;
-		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','thumbnail_playlistCounter','thumbnail_playlistCounter2','idCounter','channel_nameCounter','validatorIdCounter','validatorChannelCounter','validatorThumbnailCounter','validatorThumbnail2Counter'));
+		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists'));
 	}
 	public function getViewPlaylistVideo($id){
 		$id = Crypt::decrypt($id);
@@ -767,6 +753,15 @@ class UserController extends BaseController {
 			));
 		}
 	}
+	public function createPlaylist($id){
+		$id = Crypt::decrypt($id);
+		$name = Input::get('name');
+		$description = Input::get('description');
+		$privacy = Input::get('privacy');
+		$user_id = Auth::User()->id;
+		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+	}
+
 	public function addPlaylist($id){
 		$id = Crypt::decrypt($id);
 		$name = Input::get('name');
