@@ -254,13 +254,22 @@ class UserController extends BaseController {
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
 
 		$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
-		// return $usersPlaylists;
+		foreach($usersPlaylists as $playlist){
+				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$playlist->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1");
+			}
 		$increment = 0;
 		
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
 		// return $recentUpload;
 
-		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount')); 
+		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists')); 
 	}
 	
 	public function postUsersUploadImage($id) {
@@ -556,7 +565,6 @@ class UserController extends BaseController {
 			or v.report_count > 5
 			and v.publish = 1");
 			}
-		// return $playlists;
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists'));
 	}
 	public function getViewPlaylistVideo($id){
