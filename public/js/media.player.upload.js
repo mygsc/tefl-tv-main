@@ -74,16 +74,16 @@ function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
 			buffPercent = ((buffPercent / timeDuration) * 100);
-			$('#buffered').css({'width': buffPercent +'%'});
+			//$('#buffered').css({'width': buffPercent +'%'});
 			if(mediaPlayer.currentTime >= buffPercent){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
-				replay.width = 50;
-				replay.height = 50;
+				replay.width = 80;
+				replay.height = 80;
 			}else{
-				replay.src="/img/icons/post_play_button.png";
-				replay.width = 50;
-				replay.height = 50;
+				replay.src="/img/icons/play-btn.png";
+				replay.width = 80;
+				replay.height = 80;
 			}
 		}else{
 			console.log('no buffer recieved...');
