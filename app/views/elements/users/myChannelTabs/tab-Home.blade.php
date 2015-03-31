@@ -111,11 +111,12 @@
 			<br/>
 			<br/>
 			<div class="row">
-			<div class="col-md-4 col-sm-2">
+			
 			@if($usersPlaylists->isEmpty())
 				<p style="margin-left:30px;">No Playlists yet</p>
 			@else
 				@foreach($usersPlaylists as $playlists)
+				<div class="col-md-4 col-sm-2">
 				<div class="" style="position:relative;">
 					<div class="playlist-info" >
 						11
@@ -134,9 +135,10 @@
 				<div class="count">
 					{{$playlists->updated_at}}
 				</div>
+				</div>
 				@endforeach
 				@endif
-			</div>
+			
 			</div>
 		</div>
 

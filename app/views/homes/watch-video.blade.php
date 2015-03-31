@@ -118,7 +118,7 @@
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
                                                     <div id="fb-root"></div>
-                                                    <div class="fb-share-button" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}" data-layout="button_count"> </div>
+                                                    <div class="fb-share-button btn btn-info" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}" data-layout="button_count"> </div>
                                                    <a class="twitter-share-button"
                                                       href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
                                                       data-url="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
