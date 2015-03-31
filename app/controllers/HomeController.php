@@ -145,6 +145,9 @@ class HomeController extends BaseController {
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
 
+
+		// ayusin ung addComment
+
 		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
