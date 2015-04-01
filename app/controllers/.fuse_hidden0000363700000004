@@ -238,11 +238,11 @@ class UserController extends BaseController {
 
 		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 			AS numberOfSubscribers FROM subscribes AS s 
-			INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.Auth::User()->id.'"LIMIT 5');
+			INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.Auth::User()->id.'"');
 
 		$subscriptionProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
 		AS numberOfSubscribers from subscribes AS s 
-		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.Auth::User()->id.'"LIMIT 5');
+		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.Auth::User()->id.'"');
 
 
 		$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
@@ -438,21 +438,21 @@ class UserController extends BaseController {
 	}
 	public function postedit($id){
 		$input = Input::all();
-		$poster = $input['poster'];
+		$poster = Input::file('poster');
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make($input,Video::$video_edit_rules);
 		if($validator->passes()){
-			if($input['poster']){
+			if(Input::hasFile('poster')){
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg'); 
 				}
-				$resizeImage = Image::make($poster->getRealPath())->fit(1280,720)->save($destinationPath.$fileName.'.jpg');
+				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg');
 			}
 		$id = Crypt::decrypt($id);
 		$video = Video::find($id);
-		$video->title = $input['title'];
+		$video->title = Input::get('title');
 		$video->description = Input::get('description');
 		$video->publish = Input::get('publish');
 		if(Input::get('new_tags') != null){
@@ -717,11 +717,11 @@ class UserController extends BaseController {
 
 		$subscribers = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 			AS numberOfSubscribers FROM subscribes AS s 
-			INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$userChannel->id.'"ORDER BY DESC LIMIT 5');
+			INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$userChannel->id.'"');
 
 		$subscriptions = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
 		AS numberOfSubscribers from subscribes AS s 
-		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"ORDER BY DESC LIMIT 5');
+		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"');
 
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
 		// return $recentUpload;

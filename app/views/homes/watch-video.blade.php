@@ -274,7 +274,7 @@
         <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
       </div>
       <div class="modal-body">
-            <input type="text" class="form-control" value="<iframe width='560' height='315' src='https://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+            <input type="text" class="form-control" value="<iframe width='500' height='315' src='http://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
       </div>
      <!--  <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
