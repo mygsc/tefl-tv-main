@@ -150,6 +150,13 @@
     width: 100%;
     height: 230px;
 }
-
+.wv-title{
+	font-size: 1.2em!Important;
+	margin-top: 7px;
+}
+.wv-views{
+	font-size: 1.0em!Important;
+	margin-top: 7px;
+}
 
 }

@@ -37,6 +37,7 @@
 @yield('script')
 @yield('some_script') <!--DONT REMOVE THIS YIELD ASK ME FIRST GRALD-->
 
+
 <!--list and gri display for my channel-->
 <script type="text/javascript">
 		$('.grid').click(function() {

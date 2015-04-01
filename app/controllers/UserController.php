@@ -532,7 +532,10 @@ class UserController extends BaseController {
 	}
 
 	public function postDeleteWatchLater($id) {
-		return 'ANG GANDA MO CESS :D PAAYOS PO TONG BUHHTTTOON';
+		$deleteWatchLater = WatchLater::find($id);
+		$deleteWatchLater->delete();
+
+		return Redirect::route('users.watchlater')->withFlashMessage('Successfully deleted');
 	}
 
 	public function postWatchLater() {
@@ -557,7 +560,8 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
-		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
+		$playlists = Playlist::where('user_id', Auth::User()->id)
+								->where('deleted_at','=',NULL)->get();
 			foreach($playlists as $playlist){
 				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -577,7 +581,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
@@ -587,8 +591,20 @@ class UserController extends BaseController {
 			or v.report_count > 5
 			and v.publish = 1");
 		$playlist = Playlist::where('id',$id)->first();
-		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
+		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture'));
 
+	}
+	public function deleteplaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlist = Playlist::find($id);
+		$playlistItems = PlaylistItem::where('playlist_id','=',$id)->get();
+		$playlist->delete();
+		if(!empty($playlistItems)){
+			foreach($playlistItems as $playlistItem){
+				$playlistItem->delete();
+			}
+		}
+		return Redirect::route('users.playlists')->withFlashMessage('Playlist successfully removed');
 	}
 
 	public function getFeedbacks() {
