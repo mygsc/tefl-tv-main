@@ -3,14 +3,17 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
-						<div class="uploaded_img">
+						<div class="uploaded_img pic-Dp">
 
 						 @if(file_exists($picture))
-                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-                @else
-                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-                @endif
-						</div>
+		                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+		                @else
+		                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => ''))}}
+		                @endif
+		                <button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
+						
+		               </div>
+
 						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
 							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
@@ -18,7 +21,7 @@
 						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
-							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
+							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
 
 							<div class="overlay-cover">
 

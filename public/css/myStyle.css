@@ -735,6 +735,12 @@ img.user{
   margin-top: 20px;
   background: #337ab7!important;
 }
+.dp-btn{
+  position: absolute;
+  right: 0;
+  top:0;
+  z-index: 99999;
+}
 .u-content{
   padding: 20px;
   border-radius: 10px;
