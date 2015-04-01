@@ -10,7 +10,7 @@
 		                @else
 		                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => ''))}}
 		                @endif
-		                <button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
+		                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
 						
 		               </div>
 
@@ -66,6 +66,7 @@
 
 @section('script')
 	{{HTML::script('js/user/upload_image.js')}}
+	{{HTML::script('js/user/modalclearing.js')}}
 @stop
 
 @section('modal')

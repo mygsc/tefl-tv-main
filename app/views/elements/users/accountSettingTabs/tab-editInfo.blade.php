@@ -1,8 +1,6 @@
 <div class="col-md-10 textbox-layout"> 
         <div class="col-md-3">
             <label><small>Click image to change</small></label>
-            {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}            
-               
         </div>
 
         <div class="col-md-9">
@@ -142,4 +140,3 @@
         </div>
     {{ Form::close()}}
 </div>
-
