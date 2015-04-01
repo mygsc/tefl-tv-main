@@ -2,8 +2,8 @@ $(document).ready(function() {
 	
 	$('.watch').click(function(e) {
 		e.preventDefault();
-		 alert($(this).find('#user_id').val());
-		alert($($(this).find('#video_id')).val());
+		//alert($(this).find('#user_id').val());
+		//alert($($(this).find('#video_id')).val());
 		// alert($(this).find('#watch'))
 		$(this).find('.caption').slideDown(250);
 
