@@ -55,7 +55,12 @@
 				@endif
 
 				{{Form::password('confirm_password', array('placeholder' => 'Confirm Password', 'class' => 'txt_password'))}}
-
+				@if($errors->has('confirm_password'))
+				<span class="inputError">
+					{{$errors->first('confirm_password')}}
+				</span>
+				@endif
+				
 				{{Form::text('first_name', null, array('placeholder' => 'Firstname'))}}
 				@if($errors->has('first_name'))
 				<span class="inputError">

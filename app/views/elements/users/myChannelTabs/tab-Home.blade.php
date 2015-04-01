@@ -2,9 +2,11 @@
 <div class="row">
 	<br/>
 	@if(empty($recentUpload))
-	<div class="text-center alert alert-info">
-		<h3>
-			{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
+	<div class="row">
+		<div class="text-center alert alert-info noA">
+			<h3>
+				{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
+			</h3>
 		</div>
 	</div>
 	@else

@@ -8,7 +8,7 @@ body{
   width: 100%;
   height: 100%;
   background-color: #ecf3fb;
-  overflow-x: hidden;
+  overflow-x: hidden!Important;
 }
 h1,
 h2,
@@ -347,6 +347,12 @@ img.logo-sm {
   font-style: 1.8em;
 
 }
+.dp-btn{
+  position: absolute;
+  right: 0;
+  top:0;
+  z-index: 99999;
+}
 .btn-pos{
   text-align: right;
   padding: 0 10px 20px 10px;
@@ -503,8 +509,8 @@ div.photosLinks {
   float:right;
 }
 img.user{
-  max-height: 50px;
-  max-width: 50px;
+  height: 50px;
+  width: 50px;
 
 }
 .sideLinksDiv li a img{
@@ -1330,16 +1336,18 @@ Main components
   position: absolute;
   left: 0;
   border-radius: 5px;
+  padding:2px;
 }
-
+.pic-Dp img{
+  width: 150px;
+  height: 150px;
+}
 .tabs-left > .nav-tabs > li,
 .tabs-right > .nav-tabs > li {
   float: none;
   background:#8b9dc1;
   border-radius: 5px;
   border: none!important;
-
-
   
 }
 
@@ -1638,6 +1646,13 @@ a.thumbnail-h:hover{
   }
   .ch{
     height: 380px;
+  }
+  .well{
+    padding:0!Important;
+  }
+  body{
+  overflow-x: hidden!Important;
+  width:100%;
   }
 }
 /* -sm- */
