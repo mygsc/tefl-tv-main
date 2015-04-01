@@ -82,9 +82,7 @@
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">								
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
 										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%">
-										</a>
 										@else
-										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 											{{HTML::image('img/thumbnails/video.png')}}
 										</a>
 										@endif
