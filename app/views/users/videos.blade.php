@@ -125,7 +125,7 @@
 		$(document).ready( function( $ ) {
 			var success = $('#uploaded').val();
 			if(success == 1){
-				$('<div id="success" style="width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+				$('<div id="success" style="border:1px solid green;width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
 			}
 			$('#form-add-setting').on('submit', function() {

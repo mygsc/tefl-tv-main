@@ -32,7 +32,7 @@
 
 			<span class="img-play">
 
-				<img onclick='togglePlayPause();' id="play-pause" class='play'  src="/img/icons/play.png"/>
+				<img id="play-pause" class='play'  src="/img/icons/play.png"/>
 
 				<button style="display:none"type="button" id="play">&#9658;</button> 
 			</span>

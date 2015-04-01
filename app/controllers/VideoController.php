@@ -114,8 +114,6 @@ class VideoController extends Controller {
 					}
 				}
 				$posterExt = $poster->getClientOriginalExtension();
-						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
-						//$poster->move($destinationPath, $fileName.'.jpg');
 				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
 				$uniqueTag = array_unique($newTags);
 				$implodeTag = implode(',',$uniqueTag);
