@@ -152,6 +152,10 @@ class HomeController extends BaseController {
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
+		$playlist = Playlist::find($playlistId);
+		if(!isset(Auth::User()->id)){
+			if($playlist->privacy == '0') return Redirect::route('homes.index');
+		}
 		$video = Video::where('file_name','=',$videoId)->first();
 		//return $video;
 		$owner = User::find($video->user_id);
