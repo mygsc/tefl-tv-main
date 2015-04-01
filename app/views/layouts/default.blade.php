@@ -33,6 +33,7 @@
 <!-- scripts -->
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
+{{HTML::script('js/overlaytext.js')}}
 @yield('script')
 
 <!--list and gri display for my channel-->
