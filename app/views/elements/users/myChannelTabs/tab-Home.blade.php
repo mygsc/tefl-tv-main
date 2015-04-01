@@ -243,10 +243,10 @@
 
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								<?php
-									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => Auth::User()->id, 'subscriber_id' => $profile1->id))->first();
+									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
 								?>
 								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-					    			{{Form::hidden('user_id', $profile->id)}}
+					    			{{Form::hidden('user_id', $profile1->id)}}
 					    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
 					    			@if(!$ifAlreadySubscribe)
 					    				{{Form::hidden('status','subscribeOn')}}
