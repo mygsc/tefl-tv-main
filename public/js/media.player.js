@@ -9,8 +9,8 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLen
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
  	highQual, lowQual, fullscreenVid, mouseMoving=false;
 
-var progWidth = document.getElementById('progressbar').offsetWidth;
-var progress = document.getElementById('current-progress').offsetWidth;
+var progWidth;
+var progress;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var animate360 = document.getElementById('button-progress');
 var controlBar = "#controls";
@@ -31,6 +31,8 @@ function GSCMediaPlayer(){
 	volumeStatus = document.getElementById('volume');
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
+	progWidth = document.getElementById('progressbar').offsetWidth;
+	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
 	highQual.addEventListener('click',highQuality, false);
@@ -83,12 +85,12 @@ function loadBuffer(){
 			if(mediaPlayer.currentTime >= percentLoaded){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
-				replay.width = '100%';
-				replay.height = '100%';
+				replay.width = 80;
+				replay.height = 80;
 			}else{
 				replay.src="/img/icons/play-btn.png";
-				replay.width = '100%';
-				replay.height = '100%';
+				replay.width = 80;
+				replay.height = 80;
 			}
 		}else{
 			console.log('no buffer recieved...');
@@ -556,32 +558,12 @@ $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
 
-// $('#media-video').bind('mousemove', function(){
-// 	mouseMoving = true;
-// 	showControls();
+// $('#media-video').bind('mouseleave', function(){
+// 	$('#controls').fadeOut();
 // });
-// $('#media-video').bind('mouseout', function(){
-// 	mouseMoving = false;
-// 	showControls();
-// });
-// $('#controls,#media-video').bind('mouseover', function(){
+// $('#media-video,#controls').bind('mouseover', function(){
 // 	$('#controls').fadeIn();
 // });
-
-// function showControls(){
-// 	if(mouseMoving){
-// 		$('#controls').fadeIn();
-// 	}else{
-// 		$('#controls').fadeOut();
-// 	}
-// }
-var count = 0;
-$('#media-video').bind('mouseleave', function(){
-	$('#controls').fadeOut();
-});
-$('#media-video,#controls').bind('mouseover', function(){
-	$('#controls').fadeIn();
-});
 
 
 

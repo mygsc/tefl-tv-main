@@ -49,7 +49,7 @@ margin: 10px;
 
 				<div id="videosContainer" class='container'>
 					<!--upload update Video modal-->
-			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
+			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
 					<div class="col-md-5">
 						<br/>
 						@if(file_exists(public_path("/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg")))
@@ -84,14 +84,14 @@ margin: 10px;
 								{{$errors->first('title')}}
 							</span>
 						@endif
-						{{ Form::text('title', null, array('class'=>'form-control')) }}
+						{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
 						{{ Form::label('Description:')}}
 						@if($errors->has('description'))
 							<span class="inputError">
 								{{$errors->first('description')}}
 							</span>
 						@endif
-						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;")) }}
+						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
 						{{ Form::label('Tags:')}}
 						{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
 						{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
