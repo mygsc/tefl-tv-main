@@ -274,7 +274,7 @@ class HomeController extends BaseController {
 			$userInfo = User::find($user_id);
 
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
-				$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
+				$temp = 'img/user/'.$userInfo->id . '.jpg';
 			} else{
 				$temp = 'img/user/0.png';
 			}
