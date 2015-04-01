@@ -502,7 +502,62 @@
           					<li><i class="fa fa-check"></i> governmental and/or regulatory and/or statutory authorities and/or court orders in compliance with applicable laws; or</li>
           					<li><i class="fa fa-check"></i> third party service providers which provide supporting services to us; who (i) are under duty of confidentiality to us with respect to the use, hold, process, retain and/or transfer of personal data supplied by you; and (ii) have the need to know or handle such personal data (please see further paragraph 8 herein below). </li>
           				</ul>
-
+          				<p>
+          					<b>Personal data supplied by you may be provided to third parties for direct marketing activities (i.e. cross-marketing) only in accordance with the requirements set out under the Ordinance. In that event, you will be:- </b>
+          				</p>
+          				<ul style="list-style:none;">
+          					<li><i class="fa fa-check"></i> informed in writing of our intention to provide your personal data to third parties for direct marketing activities;</li>
+          					<li><i class="fa fa-check"></i> informed of, with specific information, the kinds of personal data to be provided, the classes of marketing subjects and the class of persons in relation to which the personal data is to be provided;</li>
+          					<li><i class="fa fa-check"></i> informed in writing that provision of your personal data to third parties for direct marketing activities will be for gain (if that is the case);</li>
+          					<li><i class="fa fa-check"></i> informed that your personal data will not be provided to third parties for direct marketing activities unless we have received your written consent;</li>
+          					<li><i class="fa fa-check"></i> given opportunity to communicate your consent at no extra charge from us; and</li>
+          					<li><i class="fa fa-check"></i> given the liberty, at any time, to require the cessation of our provision of personal data to third parties for direct marketing activities and notify the third party to cease the use of your personal data in direct marketing activities at no extra charge from us.</li>
+          				</ul>
+          				<p>Notwithstanding our security measures for protecting your personal data, you acknowledge that no data transmission over the Internet is completely secure, and by providing your personal data you are transmitting information at your own risk. </p>
+          				<p>
+          					<b>Under and in accordance with the Ordinance, among others, you have the rights: </b>
+          				</p>
+          				<ul style="list-style:none;">
+          					<li><i class="fa fa-check"></i> to check whether we are holding your personal data;</li>
+          					<li><i class="fa fa-check"></i> to access your personal data held by us; and/or</li>
+          					<li><i class="fa fa-check"></i> to require us to correct any of your personal data which is or has become inaccurate.</li>
+          				</ul>
+          				<p>
+          					Cookies are small bits of data automatically stored in the hard drive of the end user, which can save the user from registering again when re-visiting a web site and are commonly used to track preferences in relation to the subject of such website. If you enable these cookies, then your web browser adds the text in a small file. You may wish to set your web browser to notify you of a cookie placement request or refuse to accept cookies by modifying relevant internet options or browsing preferences of your computer system, but to do so you may not be able to utilize or activate certain available functions on this Website. 
+          				</p>
+          				<p>
+          					We may have third party merchants or service providers hosted in this Website which are operated by third party merchants or service providers. If you want to use, order or receive any services and/or products from any of them, you shall take the risk that personal data supplied by you, once transferred to any of such merchants or service providers, will be beyond our control and thus outside the scope of protection afforded by us. 
+          				</p>
+          				<h3>Assignment</h3>
+          				<p>
+          					Publisher may not assign this Agreement, in whole or in part, without written consent from Graphic Studio Central Ltd. Any attempt to assign this Agreement without such consent will be null and void. 
+          				</p>
+          				<h3>Confidentiality </h3>
+          				<p>
+          					The Parties agree that the terms are confidential. The Parties shall each keep the terms and conditions of this Agreement and its subject matter confidential and agree not to disclose such information, including, without limitation, documents and information related to products, clients, strategy, development, financial, business practices, to any third parties except as necessary to any business and legal representatives or as necessary to perform the obligations under these Terms. 
+          				</p>
+          				<h3>
+          					Electronic communications
+          				</h3>
+          				<p>
+          					The communications between you and www.tefltv.com use electronic means, whether you visit the Website or App or otherwise use the Service or send www.tefltv.com e-mails, or whether www.tefltv.com posts notices on the Website or App or communicates with you via e-mail. For contractual purposes, you (a) consent to receive communications from www.tefltv.com  in an electronic form; and (b) agree that all terms and conditions, agreements, notices, disclosures, and other communications that www.tefltv.com  provides to you electronically satisfy any legal requirement that such communications would satisfy if it were be in writing. The foregoing does not affect your statutory rights.
+          				</p>
+          				<h3>Governing Law and Arbitration </h3>
+          				<p>
+          					This Agreement shall be governed by the laws of the Hong Kong without giving effect to any conflict of laws principles that may provide the application of the law of another jurisdiction. You shall always comply with all the international and domestic laws, ordinance, regulations and statutes that are applicable to your use of the Services.
+          				</p>
+          				<h3>Ability to Enter into Agreement</h3>
+          				<p>
+          					By executing this Agreement, Publisher warrants that Publisher (or Authorized Representative of Publisher) is at least 18 years of age, and that there is no legal reason that Publisher cannot enter into a binding contract.
+          				</p>
+          				<h3>Relationship of Parties</h3>
+          				<p>
+          					You and we are independent contractors, and nothing in this Agreement will create any Partnership, joint venture, agency, franchise, sales representative, or employment relationship between us. You have no authority to make or accept any offers or representations on our behalf. You will not make any statement, whether on your site or in any other place, that would reasonably contradict anything in this section.
+          				</p>
+          				<h3>Termination</h3>
+          				<p>
+          					 Graphic Studio Central Ltd. reserves the right to terminate any Publisher's relationship with the Graphic Studio Central Ltd. platform at any time, with or without cause. Termination notice may be provided via email or any other public means and will be effective immediately. Upon receipt of such termination notice, Publisher agrees to immediately remove from his/her website Graphic Studio Central Ltd's html code for serving Creative from Graphic Studio Central Ltd. Publisher will be paid, in the next scheduled payment cycle, all legitimate earnings due up to the time of termination.
+          				</p>
                     </div>
                 </div><!--/.tabContent-->
 			</div>
