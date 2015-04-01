@@ -438,8 +438,9 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
 	public function postedit($id){
 		$input = Input::all();
