@@ -40,11 +40,11 @@
 			<div class="col-md-4">
                 <div class="row">
                     <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
-                        <img src="/img/thumbnails/ad1.jpg" class="adDiv">
+                        <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
                     </div><!--/.ad1-->
                     
                     <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-                        <img src="/img/thumbnails/ad2.jpg" class="adDiv">
+                        <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
                    </div><!--/.ad2-->
                 </div><!--/.row of col4-->
 			</div><!--/.col-md-4-->
