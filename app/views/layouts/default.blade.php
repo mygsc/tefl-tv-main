@@ -17,7 +17,7 @@
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::style('css/vid.player.css') }}
 	{{HTML::script('js/jquery.js')}}
-	{{HTML::script('js/bootstrap.min.js')}}
+	
 	@yield('css')
 </head>
 <body>
@@ -31,8 +31,9 @@
 </body>
 
 <!-- scripts -->
-
+{{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
+{{HTML::script('js/overlaytext.js')}}
 @yield('script')
 
 <!--list and gri display for my channel-->

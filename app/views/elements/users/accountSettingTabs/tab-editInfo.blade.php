@@ -1,13 +1,6 @@
 <div class="col-md-10 textbox-layout"> 
         <div class="col-md-3">
             <label><small>Click image to change</small></label>
-            {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}            
-                @if(file_exists($picture))
-                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-                @else
-                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-                @endif
-            <br/>
         </div>
 
         <div class="col-md-9">
@@ -147,32 +140,3 @@
         </div>
     {{ Form::close()}}
 </div>
-
-@section('modal')
-<!-- Modal -->
-<div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog black">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
-            {{ Form::file('image', array('id' => 'uploaded_img'))}}
-
-      </div>
-      <div class="modal-body">
-            <div class="uploaded_img">
-                {{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
-            </div>
-
-            
-            
-      </div>
-      <div class="modal-footer">
-        {{Form::submit("Save", array('class' => 'btn btn-info'))}}
-        {{Form::close()}}
-        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-@stop

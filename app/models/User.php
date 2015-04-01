@@ -23,7 +23,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function userprofile() {
 
-		return $this->hasOne('userProfile');
+		return $this->hasOne('UserProfile');
 	}
 
 	public function video() {
@@ -70,7 +70,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'confirm_password' =>'same:password',
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
-		'contact_number' => 'regex:/(^[0-9]+$)+/');
+		'contact_number' => 'regex:/(^[+0-9]+$)+/');
 
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',

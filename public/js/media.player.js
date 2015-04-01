@@ -7,13 +7,13 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLen
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
- 	highQual, lowQual, fullscreenVid;
+ 	highQual, lowQual, fullscreenVid, mouseMoving=false;
 
-var progWidth = document.getElementById('progressbar').offsetWidth;
-var progress = document.getElementById('current-progress').offsetWidth;
+var progWidth;
+var progress;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var animate360 = document.getElementById('button-progress');
-
+var controlBar = "#controls";
 //Events
 function GSCMediaPlayer(){
 	play = document.getElementById('play');
@@ -31,6 +31,8 @@ function GSCMediaPlayer(){
 	volumeStatus = document.getElementById('volume');
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
+	progWidth = document.getElementById('progressbar').offsetWidth;
+	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
 	play.addEventListener('click',PlayOrPause, false);
 	highQual.addEventListener('click',highQuality, false);
@@ -55,7 +57,9 @@ function GSCMediaPlayer(){
 
 	mediaPlayer.addEventListener('ended', function(){ 
 		playPauseBtn.src = "/img/icons/play.png";
+		$('.play-icon').fadeIn(500);
 		$('.advertisement').fadeOut(1000);
+		videoPlaying = false;
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
@@ -171,6 +175,7 @@ function seekTimeUpdate(){
 	if(curSec == adsTime){
 		$('.advertisement').fadeIn(2000);
 	}
+	
 }
 
 // document.addEventListener("keydown", function(e) {
@@ -552,6 +557,14 @@ $('#media-video').bind('click', function(){
 $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
+
+// $('#media-video').bind('mouseleave', function(){
+// 	$('#controls').fadeOut();
+// });
+// $('#media-video,#controls').bind('mouseover', function(){
+// 	$('#controls').fadeIn();
+// });
+
 
 
 

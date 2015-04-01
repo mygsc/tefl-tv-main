@@ -5,6 +5,24 @@
 	{{-- */$explodeID = 0;/* --}}
 	{{-- */$tagDelete = 1;/* --}}
 	{{-- */$explodeRemove = 0;/* --}}
+	<style type="text/css" media="screen">
+	.file-upload {
+position: relative;
+overflow: hidden;
+margin: 10px;
+}
+.file-upload input#poster {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+	</style>
 <div class="row White">
 	<div class="container page">
 		<br/>
@@ -31,15 +49,19 @@
 
 				<div id="videosContainer" class='container'>
 					<!--upload update Video modal-->
-			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
+			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
 					<div class="col-md-5">
 						<br/>
 						@if(file_exists(public_path("/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg")))
-							<img src="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
+							<img id="thumbnail" src="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
 						@else
-							<img src="/img/thumbnails/video.png">
+							<img id="thumbnail" src="/img/thumbnails/video.png">
 						@endif
-
+						<div class="file-upload btn btn-primary">
+							<span>Browse thumbnail</span>
+							<input type="file" name="poster" id="poster" accept="image/*"/>
+							<input type="hidden" value="{{$video->file_name}}" name="filename"/>
+						</div>
 					</div>
 
 					<div class="col-md-7">
@@ -62,14 +84,14 @@
 								{{$errors->first('title')}}
 							</span>
 						@endif
-						{{ Form::text('title', null, array('class'=>'form-control')) }}
+						{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
 						{{ Form::label('Description:')}}
 						@if($errors->has('description'))
 							<span class="inputError">
 								{{$errors->first('description')}}
 							</span>
 						@endif
-						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;")) }}
+						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
 						{{ Form::label('Tags:')}}
 						{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
 						{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
@@ -146,6 +168,24 @@
 		        //prevent the form from actually submitting in browser
 		        return false;
 		    } );
+		$("#poster").on("change", function(){
+		  var reader = new FileReader();
+		     var files = !!this.files ? this.files : [];
+		            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+		 
+		          if (/^image/.test( files[0].type)){ // only image file
+		              reader.readAsDataURL(files[0]); // read the local file
+		   
+		              reader.onloadend = function(){ // set image data as background of div
+		                var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
+		                  
+		                  thumb.src=this.result;
+		                  videoPlayer.poster=this.result;
+		                   thumb.height=150;
+		                    thumb.width=250;
+		              }
+		          }
+		    });
 	} );
 </script>
 @stop
