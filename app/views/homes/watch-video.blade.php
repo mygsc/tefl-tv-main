@@ -286,7 +286,7 @@
 
 @stop
 
-@section('script')
+@section('some_script')
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
