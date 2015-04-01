@@ -280,13 +280,13 @@ class UserController extends BaseController {
 				{
 					File::delete($picture);
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.edit.channel')->withFlashMessage('Successfully Updated!');
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Updated!');
 				}else{
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.edit.channel')->withFlashMessage('Successfully Created New Picture!');
+					return Redirect::route('users.channel')->withFlashMessage('Successfully Created New Picture!');
 				}
 			}else{
-				return Redirect::route('users.edit.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+				return Redirect::route('users.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
 			}
 		}
 	}
