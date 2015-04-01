@@ -35,6 +35,7 @@
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 @yield('script')
+@yield('some_script')
 
 <!--list and gri display for my channel-->
 <script type="text/javascript">
