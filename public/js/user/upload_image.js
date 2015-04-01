@@ -1,4 +1,4 @@
-$("#uploaded_img").change(function(){
+$('#uploaded_img').change(function(){
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {

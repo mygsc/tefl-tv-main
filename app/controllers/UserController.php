@@ -226,7 +226,9 @@ class UserController extends BaseController {
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
-
+		if(!Auth::check()){
+			return Redirect::route('homes.post.signin')->with('flash_message','Please Sign-in to view your channel');
+		}else{
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
@@ -234,7 +236,7 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
-
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 			AS numberOfSubscribers FROM subscribes AS s 
@@ -259,8 +261,9 @@ class UserController extends BaseController {
 			}
 		$increment = 0;
 		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
-		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists')); 
 
+		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
+		}
 	}
 	
 	public function postUsersUploadImage($id) {
