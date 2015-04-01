@@ -11,7 +11,7 @@ $(document).ready(function() {
 			type: 'POST',
 			url: '/mychannels/post-watch-later',
 			cache: false, 
-	        data: {user_id: $('input[id="user_id"]').val(), video_id: $(this).find('#video_id').val()},
+	        data: {user_id: $(this).find('#user_id').val(), video_id: $(this).find('#video_id').val()},
 	         	success: function(data){
 
 	         		console.log(data);
