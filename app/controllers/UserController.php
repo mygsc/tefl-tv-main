@@ -538,7 +538,8 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 
-		$playlists = Playlist::where('user_id', Auth::User()->id)->get();
+		$playlists = Playlist::where('user_id', Auth::User()->id)
+								->where('deleted_at','=',NULL)->get();
 			foreach($playlists as $playlist){
 				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -570,6 +571,18 @@ class UserController extends BaseController {
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos'));
 
+	}
+	public function deleteplaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlist = Playlist::find($id);
+		$playlistItems = PlaylistItem::where('playlist_id','=',$id)->get();
+		$playlist->delete();
+		if(!empty($playlistItems)){
+			foreach($playlistItems as $playlistItem){
+				$playlistItem->delete();
+			}
+		}
+		return Redirect::route('users.playlists')->withFlashMessage('Playlist successfully removed');
 	}
 
 	public function getFeedbacks() {

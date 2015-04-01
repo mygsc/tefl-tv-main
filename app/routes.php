@@ -100,6 +100,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
 	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
 	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
+	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 });
