@@ -1333,14 +1333,18 @@ Main components
   width: 150px;
   height: 150px;
   border:1px solid #ededed;
+  background: #ededed;
   position: absolute;
   left: 0;
-  border-radius: 5px;
-  padding:2px;
+  padding:2px 2px 5px 2px;
+  border-radius:5px;
+  overflow: hidden;
 }
 .pic-Dp img{
-  width: 150px;
-  height: 150px;
+  width: 146px;
+  height: 146px;
+  margin: auto;
+  border-radius:7px 7px;
 }
 .tabs-left > .nav-tabs > li,
 .tabs-right > .nav-tabs > li {
@@ -1362,6 +1366,11 @@ Main components
 
 }
 
+.noA{
+  width:95%;
+  margin-left:auto;
+  margin-right:auto;
+}
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;

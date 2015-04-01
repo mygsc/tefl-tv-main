@@ -532,7 +532,10 @@ class UserController extends BaseController {
 	}
 
 	public function postDeleteWatchLater($id) {
-		return 'ANG GANDA MO CESS :D PAAYOS PO TONG BUHHTTTOON';
+		$deleteWatchLater = WatchLater::find($id);
+		$deleteWatchLater->delete();
+
+		return Redirect::route('users.watchlater')->withFlashMessage('Successfully deleted');
 	}
 
 	public function postWatchLater() {
