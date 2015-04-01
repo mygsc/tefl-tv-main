@@ -540,7 +540,7 @@ class UserController extends BaseController {
 		$video_id = Input::get('video_id');
 		$database_userid = WatchLater::where('user_id', $user_id)->first();
 		$database_videoid = WatchLater::where('video_id', $video_id)->first();
-
+		
 		if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
 
 			$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
