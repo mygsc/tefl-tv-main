@@ -7,13 +7,13 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLen
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
- 	highQual, lowQual, fullscreenVid;
+ 	highQual, lowQual, fullscreenVid, mouseMoving=false;
 
 var progWidth = document.getElementById('progressbar').offsetWidth;
 var progress = document.getElementById('current-progress').offsetWidth;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var animate360 = document.getElementById('button-progress');
-
+var controlBar = "#controls";
 //Events
 function GSCMediaPlayer(){
 	play = document.getElementById('play');
@@ -55,7 +55,9 @@ function GSCMediaPlayer(){
 
 	mediaPlayer.addEventListener('ended', function(){ 
 		playPauseBtn.src = "/img/icons/play.png";
+		$('.play-icon').fadeIn(500);
 		$('.advertisement').fadeOut(1000);
+		videoPlaying = false;
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
@@ -81,12 +83,12 @@ function loadBuffer(){
 			if(mediaPlayer.currentTime >= percentLoaded){
 				$('#replay-icon').fadeIn();
 				replay.src="/img/icons/uploading.gif";
-				replay.width = 80;
-				replay.height = 80;
+				replay.width = '100%';
+				replay.height = '100%';
 			}else{
 				replay.src="/img/icons/play-btn.png";
-				replay.width = 80;
-				replay.height = 80;
+				replay.width = '100%';
+				replay.height = '100%';
 			}
 		}else{
 			console.log('no buffer recieved...');
@@ -171,6 +173,7 @@ function seekTimeUpdate(){
 	if(curSec == adsTime){
 		$('.advertisement').fadeIn(2000);
 	}
+	
 }
 
 // document.addEventListener("keydown", function(e) {
@@ -552,6 +555,34 @@ $('#media-video').bind('click', function(){
 $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
+
+// $('#media-video').bind('mousemove', function(){
+// 	mouseMoving = true;
+// 	showControls();
+// });
+// $('#media-video').bind('mouseout', function(){
+// 	mouseMoving = false;
+// 	showControls();
+// });
+// $('#controls,#media-video').bind('mouseover', function(){
+// 	$('#controls').fadeIn();
+// });
+
+// function showControls(){
+// 	if(mouseMoving){
+// 		$('#controls').fadeIn();
+// 	}else{
+// 		$('#controls').fadeOut();
+// 	}
+// }
+var count = 0;
+$('#media-video').bind('mouseleave', function(){
+	$('#controls').fadeOut();
+});
+$('#media-video,#controls').bind('mouseover', function(){
+	$('#controls').fadeIn();
+});
+
 
 
 

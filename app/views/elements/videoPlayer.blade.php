@@ -1,13 +1,13 @@
+	<!--advertisement-->
 	<div class="advertisement" style="display:none">
-		
-			{{--<h2 style="text-align:center;color:#fff;">GSC is hiring for web developer <a target="_blank" href="http://www.graphicstudiocentral.com">APPLY NOW!</a></h2>  --}}
 			<div class="span12" style="background:rgba(0,0,0, 0.15)">
 				<div class="col-md-10 col-md-offset-1">
 					<span class="close">x</span> 
 					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
 				</div>
 			</div>
-	</div><!--advertisement-->
+	</div>
+	<!--advertisement-->
 
 	{{--<div class="video-ads">
 	<span class="close" style="margin-right:30px;">x</span> 
@@ -81,7 +81,7 @@
 
 				<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
 				<span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
-				<a href="{{route('public.watch.video','video='.str_random(5))}}"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
+				<a href="#"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->
 	</div><!--/vd-->

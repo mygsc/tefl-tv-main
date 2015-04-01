@@ -447,55 +447,35 @@ class UserController extends BaseController {
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make($input,Video::$video_edit_rules);
 		if($validator->passes()){
-			if($poster){
-				
-				File::delete($destinationPath.$fileName.'.jpg');
-				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
-				$id = Crypt::decrypt($id);
-				$video = Video::find($id);
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
-				if(Input::get('new_tags') != null){
-					$video_tag = Video::where('id',$id)->first()->toArray();
-					$new_tags = explode(',',Input::get('new_tags'));
-					foreach($new_tags as $new_tag){
-						if($new_tag != null){
-							$tag_result[] = strtolower($new_tag);
-						}
-					}
-					$explode_existing_tag = explode(',',$video_tag['tags']);
-					$mergingTag = array_merge($tag_result,$explode_existing_tag);
-					$unique_tag = array_unique($mergingTag);
-					$final_tag = implode(',',$unique_tag);
-					$video->tags = $final_tag;
+			if(Input::hasFile('poster')){
+				if(file_exists($destinationPath.$fileName.'.jpg')){
+					File::delete($destinationPath.$fileName.'.jpg'); 
 				}
-				$video->save();
-				return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashMessage('Successfully updated');
+				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg');
 			}
-			$id = Crypt::decrypt($id);
-			$video = Video::find($id);
-			$video->title = Input::get('title');
-			$video->description = Input::get('description');
-			$video->publish = Input::get('publish');
-			if(Input::get('new_tags') != null){
-				$video_tag = Video::where('id',$id)->first()->toArray();
-				$new_tags = explode(',',Input::get('new_tags'));
-				foreach($new_tags as $new_tag){
-					if($new_tag != null){
-						$tag_result[] = strtolower($new_tag);
-					}
+		$id = Crypt::decrypt($id);
+		$video = Video::find($id);
+		$video->title = Input::get('title');
+		$video->description = Input::get('description');
+		$video->publish = Input::get('publish');
+		if(Input::get('new_tags') != null){
+			$video_tag = Video::where('id',$id)->first()->toArray();
+			$new_tags = explode(',',Input::get('new_tags'));
+			foreach($new_tags as $new_tag){
+				if($new_tag != null){
+					$tag_result[] = strtolower($new_tag);
 				}
-				$explode_existing_tag = explode(',',$video_tag['tags']);
-				$mergingTag = array_merge($tag_result,$explode_existing_tag);
-				$unique_tag = array_unique($mergingTag);
-				$final_tag = implode(',',$unique_tag);
-				$video->tags = $final_tag;
 			}
-			$video->save();
-	
-			return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashMessage('Successfully updated');
+			$explode_existing_tag = explode(',',$video_tag['tags']);
+			$mergingTag = array_merge($tag_result,$explode_existing_tag);
+			$unique_tag = array_unique($mergingTag);
+			$final_tag = implode(',',$unique_tag);
+			$video->tags = $final_tag;
 		}
+		$video->save();
+		return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashMessage('Successfully updated');
+		}
+
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashMessage('Fill up the required fields');
 		
 	}
