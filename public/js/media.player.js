@@ -82,16 +82,16 @@ function loadBuffer(){
 			var buffPercent = mediaPlayer.buffered.end(0);
 			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
 			//$('#buffered').css({'width': percentLoaded + '%'});
-			// if(mediaPlayer.currentTime >= percentLoaded){
-			// 	$('#replay-icon').fadeIn();
-			// 	replay.src="/img/icons/uploading.gif";
-			// 	replay.width = 80;
-			// 	replay.height = 80;
-			// }else{
-			// 	replay.src="/img/icons/play-btn.png";
-			// 	replay.width = 80;
-			// 	replay.height = 80;
-			// }
+			if(seekSlider.value >= percentLoaded){
+				$('#replay-icon').fadeIn();
+				// replay.src="/img/icons/uploading.gif";
+				// replay.width = 80;
+				// replay.height = 80;
+			}else{
+				// replay.src="/img/icons/play-btn.png";
+				// replay.width = 80;
+				// replay.height = 80;
+			}
 		}else{
 			console.log('no buffer recieved...');
 		}

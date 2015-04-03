@@ -27,7 +27,7 @@
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
-									<source src='/videos/tefltv.ogv' type='video/ogg'>
+									<source src='/videos/tefltv.ogg' type='video/ogg'>
 								</video>
 								@include('elements/videoPlayer')
 							</div><!--/embed-responsive-->
@@ -195,7 +195,7 @@
 	</div><!--/.container page-->
 </div>
 @stop
-@section('script')
+@section('some_script')
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/fullscreen.js')}}
 @stop
