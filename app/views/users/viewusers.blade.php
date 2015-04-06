@@ -31,8 +31,14 @@
 										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							    			{{Form::hidden('user_id',$userChannel->id)}}
 							    			{{Form::hidden('subscriber_id', $user_id)}}
-							    			{{Form::hidden('status','subscribeOn')}}
-							    		
+							    			@if(!$ifAlreadySubscribe)
+							    				{{Form::hidden('status','subscribeOn')}}
+										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    @else
+										    	{{Form::hidden('status','subscribeOff')}}
+										    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+										    @endif
+							    		{{Form::close()}}
 									@else
 										{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
 								    @endif
@@ -319,7 +325,7 @@
 </div>
 
 @stop
-@section('script')
+@section('some_script')
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 	{{HTML::script('js/subscribe.js')}}
 @stop
