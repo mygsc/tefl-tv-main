@@ -21,9 +21,9 @@
 						{{ Str::limit($channel->interests, 120) }}
 			
 						</p>
-					@if($auth->id != $channel->id)
+					
 						@if($auth)
-							
+							@if($auth->id != $channel->id)
 							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							{{Form::hidden('user_id',$channel->id)}}
 							{{Form::hidden('subscriber_id', $auth->id)}}

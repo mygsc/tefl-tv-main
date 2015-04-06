@@ -209,7 +209,6 @@ class VideoController extends Controller {
 			if($category == 'channel'){
 
 				$datas = $this->User->getRandomChannels();
-				
 				foreach($datas as $key => $channels){
 					$img = 'img/user/'. $channels->id. '.jpg';
 					if(!empty($auth)){

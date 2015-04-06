@@ -95,13 +95,13 @@ class Video extends Eloquent{
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;
 			$posterName = $fileName. '.jpg';
-			$videoFolderPath = 'public'. DIRECTORY_SEPARATOR. 'videos'.DIRECTORY_SEPARATOR. $folderName;
-			$filePath = $videoFolderPath .DIRECTORY_SEPARATOR. $fileName .DIRECTORY_SEPARATOR. $posterName;
-			$posterPath = 'videos' . DIRECTORY_SEPARATOR. $folderName. DIRECTORY_SEPARATOR. $fileName. DIRECTORY_SEPARATOR. $posterName;
-
-			$returnData[$key]->user_folder = $folderName;
-			$returnData[$key]->video_poster = $filePath;
-			$returnData[$key]->poster_path = $posterPath;
+			$filePath = 'videos' .DIRECTORY_SEPARATOR. $folderName .DIRECTORY_SEPARATOR. $fileName; 
+			$thumbnail= $filePath .DIRECTORY_SEPARATOR. $posterName;
+			$returnData[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnail))){
+				$returnData[$key]->thumbnail = $thumbnail;
+			}
+			
 		}
 		return $returnData;
 	}

@@ -7,11 +7,7 @@
 	<!-- 12 column / 3 column = 4 -->
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
 		<div class="col-md-3 col-xs-6 hidden-xs">
-			@if(file_exists($popularVideo->video_poster))
-			<img class="thumbnail" src="{{$popularVideo->poster_path}}">
-			@else
-			<img class="thumbnail" src="/img/thumbnails/video.png">
-			@endif
+			<img class="thumbnail" src="{{$popularVideo->thumbnail}}">
 
 			<div class="v-Info">
 				<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">{{$popularVideo->title}}</a>
