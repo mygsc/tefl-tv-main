@@ -41,19 +41,11 @@
 @stop
 
 @section('some_script')
-<<<<<<< HEAD
-	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
-=======
 	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
 
-	
-
->>>>>>> 114b47a71b4680d407e7e88466015b0029c9dd77
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
