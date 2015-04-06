@@ -145,6 +145,8 @@
 								{{Form::hidden('video_id', $videoId)}}
 								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
 								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+
+								<span class='replyError' style='color:red;'></span>
 							{{Form::close()}} 
 						@endif
 

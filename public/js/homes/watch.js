@@ -86,7 +86,7 @@ $(document).ready(function(){
 		});
 	}
 	function createtext(create){
-		$('#list').append('<input type="text" name="playlist" id="create" placeholder="Create playlist"><textarea placeholder="Description" id="description"></textarea><select id="privacy"><option value="1">Publish</option><option value="0">Unpublish</option></select><br/><button id="back">Back</button><input type="submit" id="submit" value="Create"/>');
+		$('#list').append('<input type="text" name="playlist" id="create" placeholder="Create playlist" style="margin-bottom:5px;"><textarea placeholder="Description" id="description"></textarea><select id="privacy" class="form-control"><option value="1">Publish</option><option value="0">Unpublish</option></select><br/><br/><button id="back" class="btn-ico" title="Back"><i class="fa fa-arrow-left"></i></button>&nbsp;<button type="submit" id="submit" value="Create" class="btn-ico pull-right" title="Create"><i class="fa fa-floppy-o"></i> Save</button>');
 			create.hide();
 			$('#list-checkbox').hide();
 			$('#search-playlist').hide();
@@ -180,7 +180,7 @@ $(document).ready(function(){
 			$('#playlist-div-create').html('Sucessfully created');
 			$('#playlist-div-create').css({
 	         'opacity' : 0.7,
-	         'position': 'fixed',
+	         'position': 'absolute',
 	         'top': 0,
 	         'left': 0,
 	         'background-color': 'black',

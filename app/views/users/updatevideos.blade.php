@@ -49,14 +49,36 @@ margin: 10px;
 
 				<div id="videosContainer" class='container'>
 					<!--upload update Video modal-->
-			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id))))}}
+			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
 					<div class="col-md-5">
 						<br/>
-						@if(file_exists(public_path("/videos/".$video->user_id."-".$owner->channel_name."/".$video->file_name."/".$video->file_name.".jpg")))
-							<img id="thumbnail" src="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
-						@else
-							<img id="thumbnail" src="/img/thumbnails/video.png">
-						@endif
+
+
+				
+					<div id="vid-controls">
+						<div class="embed-responsive embed-responsive-16by9">
+							@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+								<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+								</video>
+							@else
+								<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+								</video>
+							@endif
+							@include('elements/videoPlayer')
+						</div>
+					
+					</div>
+			
+				
+		
+
+
 						<div class="file-upload btn btn-primary">
 							<span>Browse thumbnail</span>
 							<input type="file" name="poster" id="poster" accept="image/*"/>
@@ -84,14 +106,14 @@ margin: 10px;
 								{{$errors->first('title')}}
 							</span>
 						@endif
-						{{ Form::text('title', null, array('class'=>'form-control')) }}
+						{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
 						{{ Form::label('Description:')}}
 						@if($errors->has('description'))
 							<span class="inputError">
 								{{$errors->first('description')}}
 							</span>
 						@endif
-						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;")) }}
+						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
 						{{ Form::label('Tags:')}}
 						{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
 						{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
@@ -133,20 +155,18 @@ margin: 10px;
 
 @stop
 
-@section('script')
+@section('some_script')
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/media.player.js')}}
-
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-
+<!-- <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 <script type="text/javascript">
-	$(document).ready( function( $ ) {
-		var success = $('#uploaded').val();
-		if(success == 1){
-			$('<div id="success" style="width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
-			$('#success').fadeOut(20000);
-		}
+	$(document).ready(function() {
+		// var success = $('#uploaded').val();
+		// if(success == 1){
+		// 	$('<div id="success" style="border:1px solid green; width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+		// 	$('#success').fadeOut(20000);
+		// }
 		$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
@@ -164,7 +184,7 @@ margin: 10px;
 		        //.....
 		        //do anything else you might want to do
 		        //.....
-
+		        //
 		        //prevent the form from actually submitting in browser
 		        return false;
 		    } );
@@ -177,12 +197,12 @@ margin: 10px;
 		              reader.readAsDataURL(files[0]); // read the local file
 		   
 		              reader.onloadend = function(){ // set image data as background of div
-		                var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
-		                  
-		                  thumb.src=this.result;
+		                //var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
+		                  //thumb.src=this.result;
+		                  var videoPlayer = document.getElementById('media-video');
 		                  videoPlayer.poster=this.result;
-		                   thumb.height=150;
-		                    thumb.width=250;
+		                   videoPlayer.height='100%';
+		                   videoPlayer.width='100%';
 		              }
 		          }
 		    });

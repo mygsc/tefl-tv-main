@@ -12,8 +12,9 @@
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
 						</video>
-					</div>
+					
 					@include('elements/videoPlayer')
+					</div>
 		</div><!--/.row-->
 	</div><!--/.col-md-7-->
 </div>

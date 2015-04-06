@@ -7,13 +7,12 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLen
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
- 	highQual, lowQual, fullscreenVid;
+ 	highQual, lowQual, fullscreenVid, mouseMoving=false;
 
-var progWidth = document.getElementById('progressbar').offsetWidth;
-var progress = document.getElementById('current-progress').offsetWidth;
+var progWidth;
+var progress;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var animate360 = document.getElementById('button-progress');
-
 //Events
 function GSCMediaPlayer(){
 	play = document.getElementById('play');
@@ -23,7 +22,7 @@ function GSCMediaPlayer(){
 	mediaPlayer = document.getElementById('media-video');
 	videoControls = document.getElementById('vid-controls');
 	playPauseBtn = document.getElementById('play-pause');
-	replay = document.getElementById('replay-icon');
+	// replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
 	bufferedAmount = document.getElementById('buffered');
 	currentProgress =  document.getElementById('current-progress');
@@ -31,7 +30,10 @@ function GSCMediaPlayer(){
 	volumeStatus = document.getElementById('volume');
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
+	progWidth = document.getElementById('progressbar').offsetWidth;
+	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
+	playPauseBtn.addEventListener('click',togglePlayPause, false);
 	play.addEventListener('click',PlayOrPause, false);
 	highQual.addEventListener('click',highQuality, false);
 	lowQual.addEventListener('click',lowQuality, false);
@@ -55,7 +57,9 @@ function GSCMediaPlayer(){
 
 	mediaPlayer.addEventListener('ended', function(){ 
 		playPauseBtn.src = "/img/icons/play.png";
+		$('.play-icon').fadeIn(500);
 		$('.advertisement').fadeOut(1000);
+		videoPlaying = false;
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
@@ -77,16 +81,16 @@ function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
 			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
-			$('#buffered').css({'width': percentLoaded + '%'});
-			if(mediaPlayer.currentTime >= percentLoaded){
+			//$('#buffered').css({'width': percentLoaded + '%'});
+			if(seekSlider.value >= percentLoaded){
 				$('#replay-icon').fadeIn();
-				replay.src="/img/icons/uploading.gif";
-				replay.width = 80;
-				replay.height = 80;
+				// replay.src="/img/icons/uploading.gif";
+				// replay.width = 80;
+				// replay.height = 80;
 			}else{
-				replay.src="/img/icons/play-btn.png";
-				replay.width = 80;
-				replay.height = 80;
+				// replay.src="/img/icons/play-btn.png";
+				// replay.width = 80;
+				// replay.height = 80;
 			}
 		}else{
 			console.log('no buffer recieved...');
@@ -115,7 +119,7 @@ function disabledRightClick(){
 	});
   }
  function hasError(){
- 	mediaPlayer.poster = '/img/error.png';
+ 	alert('cannot play video');
  }
 //list of bind more realiable codes....
 $('#media-video').bind("contextmenu", function(){
@@ -171,6 +175,7 @@ function seekTimeUpdate(){
 	if(curSec == adsTime){
 		$('.advertisement').fadeIn(2000);
 	}
+	
 }
 
 // document.addEventListener("keydown", function(e) {
@@ -389,19 +394,6 @@ function updateProgressBar(response) {
 									
 }
 
-//Let's calculate amount buffering progress....
-function bufferedPercent(){
-    if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
-    	setInterval(bufferedPercent, 1000);
-    	$('.play-icon').fadeIn();
-    	replay.src = '/img/icons/uploading.gif';
-    	replay.width = 50; 
-    	replay.height = 50;
-	}else{
-		replay.src = '/img/icons/post_play_button.png';
-		$('.play-icon').fadeOut(500);
-	}
-}
 
 function changeButtonType(btn, value) {
 	btn.title = value;
@@ -552,6 +544,14 @@ $('#media-video').bind('click', function(){
 $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
+
+// $('#media-video').bind('mouseleave', function(){
+// 	$('#controls').fadeOut();
+// });
+// $('#media-video,#controls').bind('mouseover', function(){
+// 	$('#controls').fadeIn();
+// });
+
 
 
 

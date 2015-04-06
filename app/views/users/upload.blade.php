@@ -18,13 +18,14 @@ div canvas{
     	outline:2px solid green;
  }div#wrapper{
 	width:100%;
-	height: 10px;
+	height: 20px;
 	background:transparent;
 	border:1px solid #000000;
+	display: none;
 }div#wrapper div#progressbar-loaded{
 	width:0;
-	height: 8px;
-	background:#337AB7;
+	height: 18px;
+	background:#20BF3D;
 }
 
 
@@ -46,25 +47,29 @@ div canvas{
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
+					{{Form::open(array('route' => 'post.upload','files' => true,'id'=>'vidSubmit'))}}
 					<div style="margin-left:auto; margin-right:auto;" >
-						{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
 						<label class="fileContainer" style="margin-left:auto;">
 							<img src="/img/icons/upload.png">
-							{{Form::file('video', array('class'=>'','id'=>'vids-upload','accept'=>"video/*"))}}
+							{{Form::file('video', array('id'=>'vids-upload','accept'=>"video/*"))}}						
 						</label>
 					</div>
+					
 					<br>
 					<label class="myLabel">
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
-							<div id="wrapper">
+							
+						</div>
+
+					</label> 
+					<div id="wrapper">
 								<div id="progressbar-loaded"></div>
 							</div><br/>
 							<label id="percentage"></label>
-						</div>
-					</label> 
 					{{Form::close()}}
+
 				</div>
 			</div>
 		</div>
@@ -74,7 +79,8 @@ div canvas{
 
 @stop
 
-@section('css')
+@section('some_script')
 {{HTML::script('js/user/upload.js')}}
+{{HTML::script('js/jquery.form.min.js')}}
 @stop
 

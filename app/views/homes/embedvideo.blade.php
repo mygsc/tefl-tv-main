@@ -3,15 +3,36 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="localhost:8000/css/vid.player.css">
-	<script src="localhost:8000/js/media.player.js" type="text/javascript" charset="utf-8" async defer></script>
+	<meta property="og:title" content="{{$vidFilename->title}}">
+	<meta property="og:site_name" content="test.tefltv.com">
+	<meta property="og:description" content="{{$vidFilename->description}}">
+	<meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$vidFilename->file_name}}"> 
+	<meta property="og:image" content="/videos/{{$vidOwner->id}}-{{$vidOwner->channel_name}}/{{$vidFilename->file_name}}/{{$vidFilename->file_name}}.jpg">
+	<meta property="og:type" content="video">
+	<meta property="og:video:width" content="500"> 
+	<meta property="og:video:height" content="315"> 
+	<meta property="og:video" content="/videos/{{$vidOwner->id}}-{{$vidOwner->channel_name}}/{{$vidFilename->file_name}}/{{$vidFilename->file_name}}.mp4">  
+	<title>Embed Video</title>
+	{{HTML::style('css/vid.player.css')}}
+	{{HTML::script('js/jquery.js')}}
+	{{HTML::script('js/media.player.js')}}
 </head>
 <body>
-	<video width="100%" height="100%" id="media-video" poster="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.jpg">
-		<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.mp4" type="video/mp4">
-		<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.webm" type="video/webm">
-		<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.ogv" type="video/ogg">
-	</video> 
+<div class="col-md-12">
+	<div class="row  vid-wrapper">
+		<div id="vid-controls">
+			<div class="embed-responsive embed-responsive-16by9">
+              	<video id="media-video" poster="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.jpg">
+					<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.mp4" type="video/mp4">
+					<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.webm" type="video/webm">
+					<source src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.ogg" type="video/ogg">
+				</video> 
+				 @include('elements/videoPlayer') 
+			</div>
+			
+		</div>
+	</div>
+</div>
+
 </body>
 </html>

@@ -61,12 +61,11 @@
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
-									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
 									@if($watchLater->status==1)
 									<span title="Remove from watch later?" class="btn-sq">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
@@ -79,15 +78,22 @@
 											{{Form::close()}}
 									</span>
 									@endif
+									<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
+									<div>
 									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%">
-										@else
-											{{HTML::image('img/thumbnails/video.png')}}
-										@endif
-										<br/>
-										
-									</a>			
+									
+											@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
+														<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" >
+															<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+															<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+															<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+														</video>
+														@else
+															{{HTML::image('img/thumbnails/video.png')}}
+														@endif
+										</a>
+										</div>
+										<br/>		
 								</div>
 							</div>
 

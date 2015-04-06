@@ -5,10 +5,10 @@
     <meta property="og:title" content="{{$videos->title}}">
         <meta property="og:site_name" content="test.tefltv.com">
         <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="http://www.localhost:8000/watch!v={{$videos->file_name}}">
+        <meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$videos->file_name}}">
         <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:type" content="video">
-        <!-- <meta property="og:video:width" content="500"> 
+        <meta property="og:video:width" content="500"> 
         <meta property="og:video:height" content="300"> 
         <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  --> 
 
@@ -274,7 +274,7 @@
         <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
       </div>
       <div class="modal-body">
-            <input type="text" class="form-control" value="<iframe width='560' height='315' src='https://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+            <input type="text" class="form-control" value="<iframe width='500' height='315' src='http://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
       </div>
      <!--  <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
@@ -286,7 +286,7 @@
 
 @stop
 
-@section('script')
+@section('some_script')
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
