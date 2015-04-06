@@ -5,10 +5,10 @@
     <meta property="og:title" content="{{$videos->title}}">
         <meta property="og:site_name" content="test.tefltv.com">
         <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="http://www.localhost:8000/watch!v={{$videos->file_name}}">
+        <meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$videos->file_name}}">
         <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:type" content="video">
-        <!-- <meta property="og:video:width" content="500"> 
+        <meta property="og:video:width" content="500"> 
         <meta property="og:video:height" content="300"> 
         <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  --> 
 

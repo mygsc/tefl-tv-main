@@ -1,26 +1,53 @@
 $(document).ready(function(){
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
-   		$(this).closest("#vidSubmit").submit();
-   			$('.file-upload').fadeOut();
-            $('#progress').fadeIn(500);
-            uploadFile();
-            // setTimeout(function(){
-            //     $('#select-upload').fadeOut();
-            //     $('#vids-thumbnails').fadeIn(1500);
-            //     $('#progress').hide(); 
-            //     var canvases = $('canvas'), imgThumb, n;
-            //     for(n = 1; n < 4; n++){
-            //         imgThumb = n * 3;
-            //         VideoSnapper.captureAsCanvas(video, { width: 150, height: 100, time:imgThumb}, function(canvas) {
-            //         $('#screenshot').append(canvas);     
-            //         $('canvas').addClass('img-thumb'); 
-            //             if (canvases.length == 3) 
-            //               canvases.eq(0).remove();
-            //         });              
-            //     }   
-            // }, 2000); 
+        $(this).closest("#vidSubmit").submit();
+        $('.file-upload').fadeOut();
+        $('#progress').fadeIn(500); 
+        $('#wrapper').fadeIn(500); 		
    	});
+
+    $('form#vidSubmit').on('submit',function(e){
+        e.preventDefault();
+        $(this).ajaxSubmit({ 
+                url:   'upload', 
+                beforeSubmit: function() {
+                  $("#progressbar-loaded").width('0%');
+                },
+                uploadProgress: function (event, position, total, percentComplete){ 
+                    $("#progressbar-loaded").width(percentComplete + '%');
+                    //$("#progressbar-loaded").html('<div id="progress-status">' + percentComplete +' %</div>')
+                    $('#percentage').html('Processing... '+percentComplete+"%");
+                },
+                success: function(response){
+                    $('#progress').fadeOut();
+                    $('#wrapper').fadeOut();
+                    $('#percentage').html('Done...');
+                    window.location.href = "add-description!v="+response.file;
+                },
+                error: function(response, status, e){
+                    alert(e);
+                },
+                resetForm: true 
+            });
+    });
+    function startUpload(){
+        $.ajax({
+            url: 'upload',
+            type: 'POST',
+            data: new FormData(this),                           
+            contentType: false,
+            cache: false,
+            processData: false,
+            success:function(response, status, e){
+                //alert(response);
+                window.location.href = "add-description!v="+response.file;
+            },
+            error: function(response,status,e){
+                alert(e);
+            }
+        }); 
+    }
 
     function thisId(id){
         return document.getElementById(id);
@@ -43,11 +70,13 @@ $(document).ready(function(){
     }
     function successful(event){
         thisId('progressbar-loaded').style.background = 'green';
+        thisId('#percentage').innerHTML = event.target.responseText;
         //window.location.href = "add-description/Y5f8AXHQW5J";
     }
     function checkError(){
         thisId('percentage').innerHTML = 'Failed to load your video please try again.';
     }
+
 
 });//end of function
 
