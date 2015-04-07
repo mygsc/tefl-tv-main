@@ -140,11 +140,15 @@ class VideoController extends Controller {
 			$implodeTag = implode(',',$uniqueTag);
 			$video = Video::find($id);
 			$uploadedVid = $video->uploaded;
+			if(Input::has('cat')){
+				$selectedCategory = implode(',',Input::get('cat'));
+			}
 			if($uploadedVid==0){
 				$video->total_time = Input::get('totalTime');
 				$video->title = Input::get('title');
 				$video->description = Input::get('description');
 				$video->publish = Input::get('publish');
+				$video->category = $selectedCategory;
 				$video->tags =  $implodeTag;
 				$video->uploaded =  1;
 				$video->save();
