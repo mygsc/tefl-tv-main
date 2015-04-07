@@ -2,14 +2,14 @@
 
 class VideoController extends Controller {
 	protected $user;
-	protected $tmpImg;
-	protected $thumbImg;
+	protected $url;
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
 		$this->Auth = Auth::User();
+		$this->url = URL::full();
 		define('DS', DIRECTORY_SEPARATOR); 
 	}
 
@@ -19,12 +19,28 @@ class VideoController extends Controller {
 	public function postUpload(){
 		$fileName = str_random(11);
 		$input = Input::all();
+		$file = Input::file('video');
+		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$destinationPath = public_path('videos'.DS. $userFolderName);
+		//Sonus::convert()->input($destinationPath.DS.'OU3gWxIxFld'.DS.'OU3gWxIxFld.mp4')->bitrate(300, 'video')->output($destinationPath.DS.'bar.webm')->go();
+		// $vidFile = 'public'.DS.'videos'.DS. $userFolderName.DS.'OU3gWxIxFld'.DS.'OU3gWxIxFld.mp4';
+		// $ffmpeg = FFMpeg\FFMpeg::create();
+		// $video = $ffmpeg->open($vidFile);
+		// $video->filters()
+		// 	  ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+		// 	  ->synchronize();
+		// $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+		//       ->save($destinationPath.DS.'frame.jpg');
+		// $video->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.'export-x264.mp4')
+		//       ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
+		//       ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
+	 //    return Response::json(['file'=>$fileName]);
+
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
 			//insert into database
-			$file = Input::file('video');
 			$input['user_id'] = $this->Auth->id;//'1';
-			$input['extension'] = $file->getClientOriginalExtension();
+			//$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
@@ -36,8 +52,7 @@ class VideoController extends Controller {
 
 			if($db_filename->save()){
 					//Start upload
-				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = public_path('videos'.DS. $userFolderName);
+				
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -47,7 +62,8 @@ class VideoController extends Controller {
 					mkdir($videoFolderPath);
 				}
 				$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
-				return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
+				return Response::json([ 'file'=>$fileName]);
+				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
 		}
 		return Redirect::route('get.upload')
@@ -94,10 +110,8 @@ class VideoController extends Controller {
 	}
 	public function postAddDescription($id){
 		$id = Crypt::decrypt($id);
-		$posterFilename = str_random(5);
 		$thumbnailSelected = Input::get('thumbnail');
 		$poster = Input::file('poster');
-		$uploadPosterDir = $this->thumbImg;
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
 		$input = Input::all(); 
@@ -114,8 +128,6 @@ class VideoController extends Controller {
 					}
 				}
 				$posterExt = $poster->getClientOriginalExtension();
-						// $modifiedImage = Image::make($poster->getRealPath()->resize('1280','720')->save($uploadPosterDir.$posterFilename.$id.'.'.$posterExt));
-						//$poster->move($destinationPath, $fileName.'.jpg');
 				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
 				$uniqueTag = array_unique($newTags);
 				$implodeTag = implode(',',$uniqueTag);
@@ -195,6 +207,9 @@ class VideoController extends Controller {
 	}
 
 	public function getViewVideoPlayer(){
+		
+		$filename = str_replace('http://localhost:8000/watch?v=', '', $this->url);
+		return $filename;
 		return View::make('videoplayer');
 	}
 

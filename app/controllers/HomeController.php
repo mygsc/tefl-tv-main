@@ -152,6 +152,10 @@ class HomeController extends BaseController {
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
+		$playlist = Playlist::find($playlistId);
+		if(!isset(Auth::User()->id)){
+			if($playlist->privacy == '0') return Redirect::route('homes.index');
+		}
 		$video = Video::where('file_name','=',$videoId)->first();
 		//return $video;
 		$owner = User::find($video->user_id);
@@ -270,7 +274,7 @@ class HomeController extends BaseController {
 			$userInfo = User::find($user_id);
 
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
-				$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
+				$temp = 'img/user/'.$userInfo->id . '.jpg';
 			} else{
 				$temp = 'img/user/0.png';
 			}

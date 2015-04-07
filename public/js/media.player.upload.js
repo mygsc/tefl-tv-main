@@ -167,12 +167,6 @@ function seekTimeUpdate(){
 
 }
 
-document.addEventListener("keydown", function(e) {
-  if (e.keyCode == 32) {
-    togglePlayPause();
-  }
-}, false);
-
 function toggleFullScreen() {
   if (!document.fullscreenElement &&    // alternative standard method
       !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods

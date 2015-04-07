@@ -45,8 +45,9 @@
 					<div class="col-md-3 text-right">
 						
 						<div class="buttons">
-							<button class="btn btn-primary">Delete Playlist</button>
-							
+						{{Form::model($playlist, array('route' => array('playlistdelete.post',Crypt::encrypt($playlist->id))))}}
+							{{Form::submit('Delete Playlist',array('class'=>'btn btn-primary'))}}
+						{{Form::close()}}
 						</div>
 					</div>
 

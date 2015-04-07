@@ -100,6 +100,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
 	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
 	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
+	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 });
@@ -133,6 +134,6 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 });
 //**********ADMIN**********//
 
-Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 Route::get('embed/{id?}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
