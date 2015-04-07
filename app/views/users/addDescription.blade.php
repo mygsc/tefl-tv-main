@@ -212,7 +212,7 @@ margin: 10px;
 @stop
 
 
-@section('script')
+@section('some_script')
 {{HTML::script('js/user/upload-add-description.js')}}
 {{HTML::script('js/media.player.upload.js')}}
 @stop
