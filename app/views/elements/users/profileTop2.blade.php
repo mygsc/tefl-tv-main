@@ -6,16 +6,16 @@
 						<div class="uploaded_img pic-Dp">
 
 						 				@if(file_exists($picture))
-		                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+		                {{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 		                @else
-		                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => ''))}}
+		                {{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => ''))}}
 		                @endif
 		                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
 						
 		               </div>
 
-						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
-							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
+							{{HTML::image('img/user/cover_photo/' . $userChannel . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
 							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
@@ -26,9 +26,9 @@
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
-									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label>{{count($countVideos)}} Videos</label> &nbsp;
-									<label>{{$countAllViews}} Views</label>
+									<label>count Subscribers</label>
+									<label>count Videos</label> &nbsp;
+									<label>count Views</label>
 								</span>
 								
 
@@ -58,9 +58,9 @@
 			</div>
 			<div class="c-about" >
 				<div class="labelThis" style="margin-top:-20px;">
-					{{Auth::User()->channel_name}}
+					{{$userChannel->channel_name}}
 				</div>
-				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 			</div>
 		</div>
 
@@ -106,13 +106,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
+          {{Form::open(array('route' => ['users.upload.image', $userChannel->id], 'files' => 'true'))}}
             {{ Form::file('image', array('id' => 'uploaded_img'))}}
 
       </div>
       <div class="modal-body">
             <div>
-                {{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
+                {{HTML::image('img/user/' . $userChannel->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
             </div>            
       </div>
       <div class="modal-footer">
