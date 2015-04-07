@@ -15,12 +15,13 @@
 		{{HTML::style('css/vid.player.css')}}
 	@stop
 @section('content')
-<div class="row White">
-	<div class="container page">
-		<div class="row">	
-			<br/>
-			<div class="col-md-8" style="margin-bottom:20px;">
-				<div class="col-md-12">
+<div class="row">
+	<div class="container page2">
+		<BR/>
+		<div class="row same-H">	
+
+			<div class="col-md-7 col-lg-height" style="margin-bottom:20px;">
+				<div class="">
 					<div class="row  vid-wrapper">
 						<div id="vid-controls">
 							<div class="embed-responsive embed-responsive-16by9">
@@ -37,8 +38,9 @@
     			</div>
 			</div><!--/.col-md-8-->
 
-			<div class="col-md-4">
+			<div class="col-md-5 col-lg-height col-top">
                 <div class="row">
+                	<div class="col-md-7">
                     <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
                         <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
                     </div><!--/.ad1-->
@@ -46,15 +48,38 @@
                     <div class="ad2 col-md-12 col-sm-6 col-xs-6">
                         <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
                    </div><!--/.ad2-->
-                </div><!--/.row of col4-->
-			</div><!--/.col-md-4-->
+
+                   </div>
+      
+	
+				<div class="col-md-5 ctgryDiv hidden-sm">
+				<h4>Categories</h4>
+				<span class="">
+					<li><a>Instructional</a></li>
+					<li><a>Video Blog</a></li>
+					<li><a>Video CV </a></li>
+					<li><a>Job AD </a></li>
+					<li><a>Music</a></li>
+					<li><a>Music video</a></li>
+					<li><a>Animated Video</a></li>
+					<li><a>Animated Music Video</a></li>
+					<li><a>Questions & Answers</a></li>
+					<li><a>Advice</a></li>
+					<li><a>Podcast</a></li>
+					<li><a>Interviews</a></li>
+					<li><a>Documentaries</a></li>
+					<li><a>miscellaneous</a></li>
+				</span>
+				</div>
+			</div><!--/.row of col4-->
+		</div>
 
 
 		</div><!--/.row 1st-->
 
 		<br/>
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row">
+		<div class="row same-H">
 			<div class="categoryHead" style="width:99%!Important">
 
 	            <h3>Recommended Videos</h3>
@@ -88,8 +113,8 @@
 		        </div>
 	        </div><!--/.col-md-12-->
 		</div><!--/.row for recommended videos-->
-
-		<div class="row">
+		<br/>
+		<div class="row same-H">
 			<div class="col-md-4">
 				<div class="row">
 					<div class="categoryHead">
@@ -191,7 +216,7 @@
 			</div><!--/.col-4 for random-->
 
 		</div><!--/.row for threee categories-->
-
+		<br/>
 	</div><!--/.container page-->
 </div>
 @stop
