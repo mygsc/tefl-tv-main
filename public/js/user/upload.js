@@ -1,14 +1,27 @@
 $(document).ready(function(){
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
-        $(this).closest("#vidSubmit").submit();
-        $('.file-upload').fadeOut();
-        $('#progress').fadeIn(500); 
-        $('#wrapper').fadeIn(500); 		
+        var limitSize = 157286400; //eq. 150 mb 10485760=10mb
+        var file = document.getElementById('vids-upload').value;
+        var fileSize = document.getElementById('vids-upload').files[0];
+        var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
+            if(fileSize.size > limitSize){
+                return $('#percentage').html('Error: Size is too big.').css({'color':'#cc3510'});
+            }
+            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv") {
+                $(this).closest("#vidSubmit").submit();
+                $('.file-upload').fadeOut();
+                $('#progress').fadeIn(500); 
+                $('#wrapper').fadeIn(500); 
+            }else{
+                return $('#percentage').html('Error: File type is not valid.').css({'color':'#cc3510'});
+            }    
+        		
    	});
 
     $('form#vidSubmit').on('submit',function(e){
         e.preventDefault();
+
         $(this).ajaxSubmit({ 
                 url:   'upload', 
                 beforeSubmit: function() {
@@ -16,13 +29,12 @@ $(document).ready(function(){
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    //$("#progressbar-loaded").html('<div id="progress-status">' + percentComplete +' %</div>')
                     $('#percentage').html('Processing... '+percentComplete+"%");
                 },
                 success: function(response){
                     $('#progress').fadeOut();
                     $('#wrapper').fadeOut();
-                    $('#percentage').html('Done...');
+                    $('#percentage').html('Done please wait a moment...');
                     window.location.href = "add-description!v="+response.file;
                 },
                 error: function(response, status, e){
@@ -79,6 +91,8 @@ $(document).ready(function(){
 
 
 });//end of function
+
+
 
 
 

@@ -12,18 +12,17 @@
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 		<br/>
 		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
 
-
-									</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif								
-							</a>
+									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+									<video poster="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+			</video>
+			@else
+				{{HTML::image('img/thumbnails/video.png')}}
+			@endif								
+		</a>
 		<p class="text-justify">
 			Description: {{$recentUpload->description}}
 		</p>
@@ -149,7 +148,25 @@
 						</a>&nbsp;
 						<br/>&nbsp;
 						<span>w/ <b>{{$subscriber->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+						<!-- <button class="btn btn-primary btn-xs pull-right">Subscribe</button> -->
+						@if(isset(Auth::User()->id))
+							@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
+								<?php
+									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscriber->id, 'subscriber_id' => Auth::User()->id))->first();
+								?>
+								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+					    			{{Form::hidden('user_id', $subscriber->id)}}
+					    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+					    			@if(!$ifAlreadySubscribe)
+					    				{{Form::hidden('status','subscribeOn')}}
+								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+								    @else
+								    	{{Form::hidden('status','subscribeOff')}}
+								    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+								    @endif
+								{{Form::close()}}
+							@endif
+						@endif
 					</div>
 				</div>
 				@endforeach					
@@ -178,9 +195,26 @@
 								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{$subscription->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
+								@if(isset(Auth::User()->id))
+									@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
+										<?php
+											$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscription->id, 'subscriber_id' => Auth::User()->id))->first();
+										?>
+										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+							    			{{Form::hidden('user_id', $subscription->id)}}
+							    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+							    			@if(!$ifAlreadySubscribe)
+							    				{{Form::hidden('status','subscribeOn')}}
+										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+										    @else
+										    	{{Form::hidden('status','subscribeOff')}}
+										    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+										    @endif
+										{{Form::close()}}
+									@endif
+								@endif
 							</div>
-							
 						</div>
 					@endforeach
 				@endif

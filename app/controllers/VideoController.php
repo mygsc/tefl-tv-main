@@ -22,24 +22,10 @@ class VideoController extends Controller {
 		$file = Input::file('video');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName);
-		//Sonus::convert()->input($destinationPath.DS.'OU3gWxIxFld'.DS.'OU3gWxIxFld.mp4')->bitrate(300, 'video')->output($destinationPath.DS.'bar.webm')->go();
-		// $vidFile = 'public'.DS.'videos'.DS. $userFolderName.DS.'OU3gWxIxFld'.DS.'OU3gWxIxFld.mp4';
-		// $ffmpeg = FFMpeg\FFMpeg::create();
-		// $video = $ffmpeg->open($vidFile);
-		// $video->filters()
-		// 	  ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-		// 	  ->synchronize();
-		// $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-		//       ->save($destinationPath.DS.'frame.jpg');
-		// $video->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.'export-x264.mp4')
-		//       ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
-		//       ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
-	    //   return Response::json(['file'=>$fileName]);
-
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
 			//insert into database
-			$input['user_id'] = $this->Auth->id;//'1';
+			$input['user_id'] = $this->Auth->id;
 			//$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
 			//Find / Updated
@@ -109,9 +95,21 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
-		$id = Crypt::decrypt($id);
-		$thumbnailSelected = Input::get('thumbnail');
-		$poster = Input::file('poster');
+		// $ffmpeg = FFMpeg\FFMpeg::create();
+		// $video = $ffmpeg->open('video.mpg');
+		// $video
+		//     ->filters()
+		//     ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+		//     ->synchronize();
+		// $video
+		//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+		//     ->save('frame.jpg');
+		// $video
+		// ->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
+		// ->save(new FFMpeg\Format\Video\WMV(), 'export-wmv.wmv')
+		// ->save(new FFMpeg\Format\Video\WebM(), 'export-webm.webm');
+
+		$id = Crypt::decrypt($id);  
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
 		$input = Input::all(); 
@@ -121,83 +119,38 @@ class VideoController extends Controller {
 
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$tags = explode(',',Input::get('tags'));
-				foreach($tags as $tag){
-					if($tag != null){
-						$newTags[] = strtolower($tag);
-					}
-				}
-				$posterExt = $poster->getClientOriginalExtension();
-				$resizeImage = Image::make($poster->getRealPath())->resize(1280,720)->save($destinationPath.$fileName.'.jpg'); 
-				$uniqueTag = array_unique($newTags);
-				$implodeTag = implode(',',$uniqueTag);
-				$video = Video::find($id);
-				$uploadedVid = $video->uploaded;
-				if($uploadedVid==0){
-					$video->total_time = Input::get('totalTime');
-					$video->title = Input::get('title');
-					$video->description = Input::get('description');
-					$video->publish = Input::get('publish');
-					$video->tags =  $implodeTag;
-					$video->uploaded =  1;
-					$video->save();
-					return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
-				}
-				return Redirect::route('homes.index');
-
-			}else{
-				$getImage = $thumbnailSelected;
-				if($getImage == '0'){ //no selected thumbnail 
-					$tags = explode(',',Input::get('tags'));
-					foreach($tags as $tag){
-						if($tag != null){
-							$newTags[] = strtolower($tag);
-						}
-					}
-					$uniqueTag = array_unique($newTags);
-					$implodeTag = implode(',',$uniqueTag);
-					$video = Video::find($id);
-					$uploadedVid = $video->uploaded;
-					if($uploadedVid==0){
-						$video->total_time = Input::get('totalTime');
-						$video->title = Input::get('title');
-						$video->description = Input::get('description');
-						$video->publish = Input::get('publish');
-						$video->tags =  $implodeTag;
-						$video->uploaded =  1;
-						$video->save();
-						return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
-					}
-				}
+				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpg');
+			}
+			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
+				$getImage = $input['thumbnail'];
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
-				$saveImage = $destinationPath.$fileName.".jpg";
+				$saveImage = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($saveImage, $decodeImage);
-				$resizeImage = Image::make($saveImage)->resize(1280,720)->save($destinationPath.$fileName.'.jpg');		
-				$tags = explode(',',Input::get('tags'));
-				foreach($tags as $tag){
-					if($tag != null){
-						$newTags[] = strtolower($tag);
-					}
+				$this->imageResize($saveImage, 1280, 720, $destinationPath.$fileName.'.jpg');	
+			}		
+			$tags = explode(',',Input::get('tags'));
+			foreach($tags as $tag){
+				if($tag != null){
+					$newTags[] = strtolower($tag);
 				}
-				$uniqueTag = array_unique($newTags);
-				$implodeTag = implode(',',$uniqueTag);
-				$video = Video::find($id);
-				$uploadedVid = $video->uploaded;
-				if($uploadedVid==0){
-					$video->total_time = Input::get('totalTime');
-					$video->title = Input::get('title');
-					$video->description = Input::get('description');
-					$video->publish = Input::get('publish');
-					$video->tags =  $implodeTag;
-					$video->uploaded =  1;
-					$video->save();
-					return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
-				}
-				return Redirect::route('homes.index');
-
-			}					
+			}
+			$uniqueTag = array_unique($newTags);
+			$implodeTag = implode(',',$uniqueTag);
+			$video = Video::find($id);
+			$uploadedVid = $video->uploaded;
+			if($uploadedVid==0){
+				$video->total_time = Input::get('totalTime');
+				$video->title = Input::get('title');
+				$video->description = Input::get('description');
+				$video->publish = Input::get('publish');
+				$video->tags =  $implodeTag;
+				$video->uploaded =  1;
+				$video->save();
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+			}
+			return Redirect::route('get.upload');					
 		}
 		
 		return Redirect::route('get.addDescription',$fileName)
@@ -205,9 +158,11 @@ class VideoController extends Controller {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 	}
+	public function imageResize($image, $w, $h, $destination){
+		Image::make($image)->resize($w,$h)->encode('jpg', 10)->save($destination);
+	}
 
 	public function getViewVideoPlayer(){
-		
 		$filename = str_replace('http://localhost:8000/watch?v=', '', $this->url);
 		return $filename;
 		return View::make('videoplayer');
