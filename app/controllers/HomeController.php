@@ -279,43 +279,47 @@ class HomeController extends BaseController {
 				$temp = 'img/user/0.png';
 			}
 			$newComment =  
-				'<div class="commentProfilePic">'. 
-					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-				</div>'.
-				link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
-				| &nbsp;<small> just now. </small> 
-				<br/>
-				<p style="margin-left:30px;text-align:justify;">
-					'. $comments->comment . '
-				</p>
-				<div class="fa fa-thumbs-up likedup">
-					<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-					<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-					<input type="hidden" value="'.$video_id.'" name="video_id">
-					<input type="hidden" value="liked" name="status">
-					<span class="likescount" id="likescount">'.$likesCount.'</span>
+				'<div class="commentsarea row">
+					<div class="commentProfilePic col-md-1">'. 
+						HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+					</div>
+					<div class="col-md-11">
+						<div class="row">'.
+							link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+							| &nbsp;<small> just now. </small> 
+							<br/>
+							<p class="text-justify">
+								'. $comments->comment . '
+							</p>
+							<div class="fa fa-thumbs-up likedup">
+								<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+								<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+								<input type="hidden" value="'.$video_id.'" name="video_id">
+								<input type="hidden" value="liked" name="status">
+								<span class="likescount" id="likescount">'.$likesCount.'</span>
+							</div>
+							|&nbsp;
+							<div class="fa fa-thumbs-down dislikedup">
+								<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+								<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+								<input type="hidden" value="'.$video_id.'" name="video_id">
+								<input type="hidden" value="disliked" name="status">
+								<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+							</div>
+							|&nbsp;
+							<span class="repLink hand blueC">Reply</span>
+							<div id="replysection" class="panelReply"> '.
+								Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+									<input type="hidden" name="comment_id" value="'.$comments->id.'">
+									<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+									<input type="hidden" name="video_id" value="'.$video_id.'">
+									<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+									<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+								</form>
+							</div>
+						</div>
+					</div
 				</div>
-				|&nbsp;
-				<div class="fa fa-thumbs-down dislikedup">
-					<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
-					<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
-					<input type="hidden" value="'.$video_id.'" name="video_id">
-					<input type="hidden" value="disliked" name="status">
-					<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-				</div>
-				|&nbsp;
-				<span class="repLink hand blueC">Reply</span>
-				<div id="replysection" class="panelReply"> '.
-					Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-						<input type="hidden" name="comment_id" value="'.$comments->id.'">
-						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-						<input type="hidden" name="video_id" value="'.$video_id.'">
-						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
-					</form>
-				</div>
-				<br/>
-				<hr/>
 			';
 
 
