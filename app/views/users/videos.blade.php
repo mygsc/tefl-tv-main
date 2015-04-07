@@ -4,9 +4,9 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
+			
 			<div class="Div-channel-border">
 
 				<div role="tabpanel">
@@ -56,60 +56,63 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
-				@if($usersVideos->isEmpty())
-					No Videos yet.
-				@else
-					@foreach($usersVideos as $usersVideo)
-					<div id='list' class="col-md-3">
-						<div class="inlineVid">
-							
-							<span class="btn-sq">
-								<span class="dropdown">
-				                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
-				                   		<li>gge</li>
-				                   		<li>gfrhgte</li>
-				                   </span>
-				                </span>
+					<div class="col-md-12 mg-l--20">
+						@if($usersVideos->isEmpty())
+							No Videos yet.
+						@else
+						@foreach($usersVideos as $usersVideo)
+						<div id='list' class="col-md-3 mg-b-10">
+							<div class="inlineVid">
+								
+								<span class="btn-sq">
+									<span class="dropdown">
+					                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
+					                   		<li>gge</li>
+					                   		<li>gfrhgte</li>
+					                   </span>
+					                </span>
 
-								<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
-								<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
-								{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
-								<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-								{{Form::close()}}
-							</span>
+									<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
+									<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+									{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
+									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+									{{Form::close()}}
+								</span>
+								
+								
+								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
 							
-							
-							<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-									<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-						
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif								
-							</a>
-						</div>
+										@else
+											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
+										@endif								
+								</a>
+							</div>
 
-						<div class="inlineInfo ">
-							<div class="v-Info">
-								{{$usersVideo->title}}
-							</div>
-							<div class="text-justify desc hide">
-								<p>{{$usersVideo->description}}</p>
-								<br/>
-							</div>
-							<div class="count">
-								<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{$usersVideo->created_at}}
+							<div class="inlineInfo ">
+								<div class="v-Info">
+									{{$usersVideo->title}}
+								</div>
+								<div class="text-justify desc hide">
+									<p>{{$usersVideo->description}}</p>
+									<br/>
+								</div>
+								<div class="count">
+									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{$usersVideo->created_at}}
+								</div>
 							</div>
 						</div>
-					</div>
 					@endforeach	
 
 				</div>
 					@endif
+				</div>
 					</div>
 
 				</div>
 			</div>
+			<br/>
 		</div>
 	</div>
 @stop

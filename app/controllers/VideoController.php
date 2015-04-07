@@ -183,7 +183,6 @@ class VideoController extends Controller {
 			if($category == 'channel'){
 
 				$datas = $this->User->getRandomChannels();
-				
 				foreach($datas as $key => $channels){
 					$img = 'img/user/'. $channels->id. '.jpg';
 					if(!empty($auth)){
@@ -222,67 +221,8 @@ class VideoController extends Controller {
 		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 
-		if($type == 'playlist'){
-			$searchResults = Playlist::where('name', $search)->get();
-
-		}else if($type == 'channel'){
-			$searchresults = User::where('channel_name', $search)->get();
-			
-		}else{
-			$longwords = 'SELECT DISTINCT v.id,v.user_id,u.channel_name, v.title,v.description,
-			v.tags,v.views,(SELECT count(ul.id) from users_likes ul where ul.video_id = v.id) as likes,v.publish, v.file_name,
-			v.report_count,v.deleted_at,v.created_at
-			FROM videos v 
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE
-			v.deleted_at IS NULL
-			AND
-			publish ="1"
-			AND
-			report_count < "5"
-			AND
-			MATCH(title,description,tags) AGAINST("'.$search.'")';
-
-			$searchResults = DB::select($longwords);
-			if(strlen($search) < 3){
-				$shortwords = ' or title like "%'. $search .'%"
-				AND
-				v.deleted_at IS NULL
-				AND
-				publish ="1"
-				AND
-				report_count < "5"
-				or tags like "%'. $search .'%"
-				AND
-				v.deleted_at IS NULL
-				AND
-				publish ="1"
-				AND
-				report_count < "5"';
-
-				$searchResults = DB::select($longwords . $shortwords);
-			}
-		}
-		
-
-		foreach($searchResults as $key => $searchResult){
-			//Thumbnails
-			$folderName = $searchResult->user_id. '-'. $searchResult->channel_name;
-			$fileName = $searchResult->file_name;
-			$path = 'videos'.DS.$folderName.DS.$fileName.DS.$fileName.'.jpg';
-			$searchResults[$key]->thumbnail = 'img\thumbnails\video.png';
-			if(file_exists(public_path($path))){
-				$searchResults[$key]->thumbnail = $path;
-			}
-			//truncate text
-			$searchResults[$key]->description = $this->truncate($searchResult->description, 50);
-			//
-			$getTags = explode(',',$searchResult->tags);
-			foreach($getTags as $key2 => $getTags){
-				$searchResults[$key]->tag[$key2]['url'] = route('homes.searchresult', array($getTags));
-				$searchResults[$key]->tag[$key2]['tags'] = $getTags;
-			}
-		}
+		$searchResults = $this->Video->searchVideos($search);
+		//return $searchResults;
 
 		return View::make('homes.searchresult', compact(array('type','searchResults')));
 	}
@@ -304,15 +244,6 @@ class VideoController extends Controller {
 		return $path;
 	}
 
-	public function truncate($text, $chars = 50) {
-		if(strlen($text) > $chars){
-			$text = $text." ";
-			$text = substr($text,0,$chars);
-			$text = substr($text,0,strrpos($text,' '));
-			$text = $text."...";
-		}
-		return $text;
-	}
 	public function getEmbedVideo($id=NULL){
 		$vidFilename = Video::where('file_name', $id)->first();
 		$vidOwner = User::find($vidFilename->user_id);

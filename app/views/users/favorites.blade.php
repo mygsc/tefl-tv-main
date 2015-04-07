@@ -4,9 +4,9 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
+		
 			<div class="Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -61,10 +61,11 @@
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-						<div id="list" class="col-md-3">
+						<div id="list" class="col-md-3 mg-b-10">
 							
-							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							<div class="inlineVid ">
+								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
+							
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
 									<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
@@ -84,7 +85,7 @@
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
+									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->numberOfLikes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
 									<br/>
 								</div>
@@ -96,6 +97,7 @@
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
+		<br/>
 	</div><!--/.container page-->
 </div>
 @stop

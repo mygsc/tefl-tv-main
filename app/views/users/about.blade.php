@@ -5,10 +5,9 @@
 	<div class="container pageH">
 
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			
-			<br/>
+
 			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
