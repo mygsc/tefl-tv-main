@@ -34,7 +34,7 @@ class VideoController extends Controller {
 		// $video->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.'export-x264.mp4')
 		//       ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
 		//       ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
-	 //    return Response::json(['file'=>$fileName]);
+	    //   return Response::json(['file'=>$fileName]);
 
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
