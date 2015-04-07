@@ -216,7 +216,6 @@
 									@endif
 								@endif
 							</div>
-							
 						</div>
 					@endforeach
 				@endif
