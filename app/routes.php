@@ -107,6 +107,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 //*********End of Channels************//
 
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
+Route::get('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'view.users.feedbacks2', 'uses' => 'UserController@getViewUsersFeedbacks'));
+Route::post('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersComments'));
 
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {

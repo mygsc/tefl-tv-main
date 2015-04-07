@@ -738,7 +738,7 @@ class UserController extends BaseController {
 		$videosChannelName = User::where('channel_name', $channel_name)->first();
 		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
 		$subscribers = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 			AS numberOfSubscribers FROM subscribes AS s 
@@ -755,7 +755,48 @@ class UserController extends BaseController {
 		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id));
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos'));
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture'));
+	}
+
+	public function getViewUsersFeedbacks($channel_name) {
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
+
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks'));
+	}
+
+	public function postViewUsersComments() {
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
+		}else{
+			$feedback = Input::get('feedback');
+			$userFeedback = Input::get('user_id');
+			$channelFeedback = Input::get('channel_id');
+
+			if(empty($feedback)){
+				return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+			}else{
+				$addNewFeedback = new Feedback;
+				$addNewFeedback->channel_id = $channelFeedback;
+				$addNewFeedback->user_id = $userFeedback;
+				$addNewFeedback->feedback = $feedback;
+				$addNewFeedback->save();
+
+				$newFeedback = '
+				<div id="feedbacksContainer">
+				<br/>
+				'.$addNewFeedback->feedback.'
+				<br/>
+				'.$addNewFeedback->user_id.'
+				<br/>
+				'.$addNewFeedback->created_at.'
+				</div>
+				';
+			}
+			return $newFeedback;
+		}
 	}
 	public function addSubscriber() {
 		$user_id = Input::get('user_id');
@@ -1005,4 +1046,5 @@ class UserController extends BaseController {
 		$var = 'l';
 
 	}
+
 }
