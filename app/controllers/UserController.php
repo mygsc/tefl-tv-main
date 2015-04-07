@@ -752,7 +752,8 @@ class UserController extends BaseController {
 		// return $recentUpload;
 
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
-		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id));
+		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 
 		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture'));
 	}
