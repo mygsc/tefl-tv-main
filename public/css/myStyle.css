@@ -491,6 +491,19 @@ div.archiveLinks {
   height: 295px;
 
 }
+
+.ctgryDiv li{
+    list-style: none;
+}
+
+.same-H{
+  border:1px solid #e2e2e2;
+  background: #fff;
+  padding: 10px 10px 10px 10px!Important;
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.50);
+  -moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.50);
+  box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.50);
+}
 .archiveLinks li{
   border-bottom:1px solid #B0AEAE;
   display: block;
@@ -1634,7 +1647,13 @@ a.thumbnail-h{
 a.thumbnail-h:hover{
   background:#000;
 }
+
+.ctgryDiv a:hover{
+  cursor: pointer;
+}
+
 /* -xs- */
+
 @media (max-width: 767px) {
   .thumbnail{
     width:100%!important;
@@ -1700,6 +1719,13 @@ a.thumbnail-h:hover{
   .ch{
     height: 380px;
   }
+  .ctgryDiv{
+  height: 27em;
+  overflow: auto;
+  background: #ecf3fb;
+  padding: 10px 10px 10px 10px;
+  border:#dce6f1 1px solid;
+  }
 }
 
 /* -lg */
@@ -1721,6 +1747,13 @@ a.thumbnail-h:hover{
   }
   .ch{
     height: 340px;
+  }
+  .ctgryDiv{
+  height: 31.5em;
+  overflow: auto;
+  background: #ecf3fb;
+  padding: 10px 10px 10px 10px;
+  border:#dce6f1 1px solid;
   }
 }
 
@@ -1805,9 +1838,57 @@ a.thumbnail-h:hover{
   margin:20px 20px!Important;
 }
 
+/*table column style */
+/* vertical alignment styles */
 
+.col-top {
+  vertical-align: top;
+}
+.col-middle {
+  vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
+}
 
+/* columns of same height styles */
 
+.row-full-height {
+  height: 100%;
+}
+.col-full-height {
+  height: 100%;
+  vertical-align: middle;
+}
+.row-same-height {
+  display: table;
+  width: 100%;
+  /* fix overflow */
+  table-layout: fixed;
+}
+.col-xs-height {
+  display: table-cell;
+  float: none !important;
+}
+
+@media (min-width: 768px) {
+  .col-sm-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
 
 
 
