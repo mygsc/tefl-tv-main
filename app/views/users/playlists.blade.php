@@ -4,7 +4,7 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
 
 			<div class=" Div-channel-border">

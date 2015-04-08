@@ -4,6 +4,7 @@
 				<div class="col-md-10 col-md-offset-1">
 					<span class="close">x</span> 
 					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
+				
 				</div>
 			</div>
 	</div>

@@ -618,6 +618,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
+
 		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, 
 			c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c 
 			INNER JOIN users as u ON u.id = c.user_id 
@@ -747,7 +748,12 @@ class UserController extends BaseController {
 		AS numberOfSubscribers from subscribes AS s 
 		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"LIMIT 5');
 
-		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
+		
+		$recentUpload = DB::select(
+			'SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes 
+			FROM videos AS v INNER JOIN users AS u ON v.user_id = u.id WHERE v.user_id = 1 ORDER BY v.created_at DESC LIMIT 1');
+
+			// return $recentUpload;
 
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
@@ -765,10 +771,13 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
-		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks'));
+		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers'));
 	}
 
 	public function postViewUsersComments() {

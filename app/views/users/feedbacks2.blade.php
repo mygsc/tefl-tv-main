@@ -12,19 +12,28 @@
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
 				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
-				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+				    	<li role="presentation"><a href="#">Videos</a></li>
+				    	<li role="presentation"><a href="#">Favorites</a></li>
+				    	<li role="presentation"><a href="#">WatchLater</a></li>
+				  		<li role="presentation"><a href="#">Playlists</a></li>
 				  		<li role="presentation" class="active">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+				  		<li role="presentation"><a href="#">Subscribers/Subscriptions</a></li>
 				  	</ul><!--tabNav-->
 				</div>
 
 				<div class="feedbackSection">
 					<h3>Comments</h3>
-				@if(empty($userFeedbacks))
+				@if($userFeedbacks->isEmpty())
 					No feedbacks yet..
+					<br/>
+					{{Form::open(array('route' => ['post.view.users.comments', $userChannel->channel_name], 'id' => 'postFeedback'))}}
+							@if(Auth::check())
+							{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+							{{Form::hidden('channel_id', $userChannel->id, array('id' => 'channel_id'))}}
+							@endif
+							{{Form::textarea('feedback', null, array('placeholder' => 'Leave a feedback..', 'id' => 'textAreaFeedback'))}}
+							{{Form::submit('Leave a feedback', array('id' => 'feedback'))}}
+						{{Form::close()}}
 				@else
 					<div id="feedbacksContainer">
 					@foreach($userFeedbacks as $feedbacks)
