@@ -150,21 +150,23 @@
 						<span>w/ <b>{{$subscriber->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 						<!-- <button class="btn btn-primary btn-xs pull-right">Subscribe</button> -->
 						@if(isset(Auth::User()->id))
-							@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
-								<?php
-									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscriber->id, 'subscriber_id' => Auth::User()->id))->first();
-								?>
-								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-					    			{{Form::hidden('user_id', $subscriber->id)}}
-					    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-					    			@if(!$ifAlreadySubscribe)
-					    				{{Form::hidden('status','subscribeOn')}}
-								    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-								    @else
-								    	{{Form::hidden('status','subscribeOff')}}
-								    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-								    @endif
-								{{Form::close()}}
+							@if(isset($subscriber->id))
+								@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
+									<?php
+										$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscriber->id, 'subscriber_id' => Auth::User()->id))->first();
+									?>
+									{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+						    			{{Form::hidden('user_id', $subscriber->id)}}
+						    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+						    			@if(!$ifAlreadySubscribe)
+						    				{{Form::hidden('status','subscribeOn')}}
+									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+									    @else
+									    	{{Form::hidden('status','subscribeOff')}}
+									    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+									    @endif
+									{{Form::close()}}
+								@endif
 							@endif
 						@endif
 					</div>
@@ -197,21 +199,23 @@
 								<span>w/ <b>{{$subscription->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
 								@if(isset(Auth::User()->id))
-									@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
-										<?php
-											$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscription->id, 'subscriber_id' => Auth::User()->id))->first();
-										?>
-										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-							    			{{Form::hidden('user_id', $subscription->id)}}
-							    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-							    			@if(!$ifAlreadySubscribe)
-							    				{{Form::hidden('status','subscribeOn')}}
-										    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-										    @else
-										    	{{Form::hidden('status','subscribeOff')}}
-										    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-										    @endif
-										{{Form::close()}}
+									@if(isset($subscription->id))
+										@if((Auth::User()->id) AND (Auth::User()->id != $subscription->id))
+											<?php
+												$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscription->id, 'subscriber_id' => Auth::User()->id))->first();
+											?>
+											{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+								    			{{Form::hidden('user_id', $subscription->id)}}
+								    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+								    			@if(!$ifAlreadySubscribe)
+								    				{{Form::hidden('status','subscribeOn')}}
+											    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+											    @else
+											    	{{Form::hidden('status','subscribeOff')}}
+											    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+											    @endif
+											{{Form::close()}}
+										@endif
 									@endif
 								@endif
 							</div>
