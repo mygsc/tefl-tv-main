@@ -52,7 +52,7 @@
 		<br/>
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			{{$recentUpload->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			LIKES Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
