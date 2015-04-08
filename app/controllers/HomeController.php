@@ -320,6 +320,7 @@ class HomeController extends BaseController {
 						</div>
 					</div>
 				</div>
+				<hr/>
 			';
 
 

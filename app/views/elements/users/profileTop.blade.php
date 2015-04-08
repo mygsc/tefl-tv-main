@@ -1,10 +1,9 @@
 		<div style="border:5px solid #e3e3e3;" class="White">
-		{{$picture}}
 			<div class="col-md-12">
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
 						<div class="uploaded_img pic-Dp">
-							@if(file_exists($picture))
+							@if(file_exists('img/user/1.jpg'))
 			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @else
 			                	{{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
@@ -63,7 +62,7 @@
 			</div>
 		</div>
 
-@section('script')
+@section('some_script')
 	{{HTML::script('js/user/upload_image.js')}}
 	{{HTML::script('js/user/modalclearing.js')}}
 @stop
