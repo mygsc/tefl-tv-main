@@ -320,7 +320,7 @@
 </div>
 
 @stop
-@section('some_script')
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+@section('script')
+	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/subscribe.js')}}
 @stop
