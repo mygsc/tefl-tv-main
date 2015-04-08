@@ -80,10 +80,10 @@
 							<input type="hidden" value="{{$videoId}}" name="video_id">
 							@if(!$ifAlreadyDisliked)
 								<input type="hidden" value="disliked" name="status">
-								<span class='fa-thumbs-up'></span>
+								<span class='fa-thumbs-down'></span>
 							@else
 								<input type="hidden" value="undisliked" name="status">
-								<span class='fa-thumbs-up redC'></span>
+								<span class='fa-thumbs-down redC'></span>
 							@endif
 							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
 						</div>
