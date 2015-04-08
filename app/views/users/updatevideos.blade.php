@@ -23,14 +23,12 @@ margin: 10px;
 	filter: alpha(opacity=0);
 }
 	</style>
-<div class="row White">
+<div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
 			<div class="Div-channel-border">
-
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
@@ -42,108 +40,99 @@ margin: 10px;
 						<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 
-					</ul><!--tabNav-->
-				</div>
-
+					</ul>
+				</div><!--tabpanel-->
 				<br/>
 
 				<div id="videosContainer" class='container'>
+					<div class="col-md-12">
 					<!--upload update Video modal-->
-			{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
-					<div class="col-md-5">
-						<br/>
-
-
-				
-					<div id="vid-controls">
-						<div class="embed-responsive embed-responsive-16by9">
-							@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-								<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
-								</video>
-							@else
-								<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
-								</video>
-							@endif
-							@include('elements/videoPlayer')
-						</div>
-					
-					</div>
+						{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
+							<div class="col-md-5">
+								<br/>
+								<div id="vid-controls">
+									<div class="embed-responsive embed-responsive-16by9">
+										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+											</video>
+										@else
+											<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+											</video>
+										@endif
+										@include('elements/videoPlayer')
+									</div><!--embed-responsive-->
+								</div><!--vid-controls-->
 			
-				
-		
+	
+								<div class="file-upload btn btn-primary">
+									<span>Browse thumbnail</span>
+									<input type="file" name="poster" id="poster" accept="image/*"/>
+									<input type="hidden" value="{{$video->file_name}}" name="filename"/>
+								</div>
+							</div><!--/.col-md-5-->
 
-
-						<div class="file-upload btn btn-primary">
-							<span>Browse thumbnail</span>
-							<input type="file" name="poster" id="poster" accept="image/*"/>
-							<input type="hidden" value="{{$video->file_name}}" name="filename"/>
-						</div>
-					</div>
-
-					<div class="col-md-7">
-						@if($video->publish == 0)
-						@if($errors->has('publish'))
-							<span class="inputError">
-								{{$errors->first('publish')}}
-							</span>
-						@endif
-						<?php $publish = array('0' => 'Unpublish', '1' => 'Publish');?>
-						{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
-						@else
-						<?php $publish = array('1' => 'Publish' , '0' => 'Unpublish');?>
-						{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
-						@endif
-						<br/>
-						{{ Form::label('Title:')}}
-						@if($errors->has('title'))
-							<span class="inputError">
-								{{$errors->first('title')}}
-							</span>
-						@endif
-						{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
-						{{ Form::label('Description:')}}
-						@if($errors->has('description'))
-							<span class="inputError">
-								{{$errors->first('description')}}
-							</span>
-						@endif
-						{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
-						{{ Form::label('Tags:')}}
-						{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
-						{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
-						<p><font color="red">*Double click the existing tag to edit.</font></p>
-							<div id="wrapper">
-								@foreach($tags as $key=>$tag)
-									<div style="	
-										background-color:#1f3359;
-										padding: 10px 5px;
-										color: #fff;
-										margin-bottom:5px;
-										display: inline-block;" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span></div>
-								@endforeach
-							</div>
-							<br/>
-							<div class="text-right"> 
-								{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
-							</div>
-					</div>
-			{{Form::close()}}
-
-
-				</div>
-
-
-			</div>
-
-		</div>
-	</div>
-</div>
+							<div class="col-md-7">
+								@if($video->publish == 0)
+								@if($errors->has('publish'))
+									<span class="inputError">
+										{{$errors->first('publish')}}
+									</span>
+								@endif
+									<?php $publish = array('0' => 'Unpublish', '1' => 'Publish');?>
+									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+								@else
+									<?php $publish = array('1' => 'Publish' , '0' => 'Unpublish');?>
+									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+								@endif
+								<br/>
+								{{ Form::label('Title:')}}
+								@if($errors->has('title'))
+									<span class="inputError">
+										{{$errors->first('title')}}
+									</span>
+								@endif
+								{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
+								{{ Form::label('Description:')}}
+								@if($errors->has('description'))
+									<span class="inputError">
+										{{$errors->first('description')}}
+									</span>
+								@endif
+								{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
+								{{ Form::label('Tags:')}}
+								{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
+								{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
+								<p class="notes">*Double click the existing tag to edit.</p>
+									<div id="wrapper">
+										@foreach($tags as $key=>$tag)
+											<div style="	
+												background-color:#1f3359;
+												padding: 10px 5px;
+												color: #fff;
+												margin-bottom:5px;
+												display: inline-block;" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
+											</div>
+										@endforeach
+									</div>
+									<br/>
+									<div class="text-right mg-b-10"> 
+										{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
+									</div>
+							</div><!--/.col-md-7-->
+						{{Form::close()}}
+					</div><!--/.col-md-12-->
+				</div><!--/.videos-container-->
+			</div><!--/.Div-channel-border-->
+		</div><!--/.row same-H-->
+		<br/>
+	</div><!--/.containerpage row-->
+</div><!--/.row-->
 
 
 @if(Session::has('success'))
