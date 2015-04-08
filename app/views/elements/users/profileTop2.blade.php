@@ -17,7 +17,7 @@
 						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
 							{{HTML::image('img/user/cover_photo/' . $userChannel . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
-							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
+							{{HTML::image('img/user/cover'. '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
