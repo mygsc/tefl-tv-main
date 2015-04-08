@@ -8,28 +8,28 @@
 		@if(empty($recentUpload))
 			<p style="margin-left:30px;">No recent Activity</p>
 		@else
-		<h3><b>Title: {{$recentUpload->title}}</b></h3>
-		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
+		<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
+		<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
 		<br/>
-		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
+		<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
 
-									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-									<video poster="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+		@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
+		<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
+			<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+			<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+			<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 			</video>
 			@else
 				{{HTML::image('img/thumbnails/video.png')}}
 			@endif								
 		</a>
 		<p class="text-justify">
-			Description: {{$recentUpload->description}}
+			Description: {{$recentUpload[0]->description}}
 		</p>
 		<br/>
 		<span class=""><!--/counts and share link-->
-			1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

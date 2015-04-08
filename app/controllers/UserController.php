@@ -747,7 +747,12 @@ class UserController extends BaseController {
 		AS numberOfSubscribers from subscribes AS s 
 		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"LIMIT 5');
 
-		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
+		
+		$recentUpload = DB::select(
+			'SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes 
+			FROM videos AS v INNER JOIN users AS u ON v.user_id = u.id WHERE v.user_id = 1 ORDER BY v.created_at DESC LIMIT 1');
+
+			// return $recentUpload;
 
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
