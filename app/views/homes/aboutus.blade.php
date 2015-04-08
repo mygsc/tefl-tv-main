@@ -60,11 +60,13 @@
 		</div><!--/.col-md-9-->
 
 		<div class="col-md-3">
-			<div class="sideLinksDiv2">
-				@include('elements/home/sideNav')
-				@include('elements/home/adverstisementSmall')
-				@include('elements/home/carouselAds')	
-		
+			<div class="row">
+				<div class="sideLinksDiv2">
+					@include('elements/home/sideNav')
+					@include('elements/home/adverstisementSmall')
+					@include('elements/home/carouselAds')	
+			
+				</div>
 			</div>
 		</div><!--/.col-3 right section navigations-->
 

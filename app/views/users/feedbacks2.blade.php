@@ -1,48 +1,67 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row">
-	<br/>
-	<div class="container pageH">
-		<div class="row same-H">
-			@include('elements/users/profileTop')		
-			<div class="Div-channel-border White">
-
+<div class="row White">
+	<div class="container page">
+		<br/>
+		<div class="row">
+			@include('elements/users/profileTop2')
+			<br/>
+			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation" class="active">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  		
 				  	</ul><!--tabNav-->
+				</div>
 
-				  	<!-- Tab panes -->
-				    <div class="tab-content">
-					  	<div role="tabpanel" class="tab-pane active" id="home">
-							@include('elements/users/myChannelTabs/tab-Home')
-					  	</div>				    
-				  	</div><!--/.tab-content-->
-				</div><!--/.tabpanel-->		
-			</div><!--/.div-channel-border-->
-			
-		</div><!--/.contentpadding-->
-		<br/>
+				<div class="feedbackSection">
+					<h3>Comments</h3>
+				@if(empty($userFeedbacks))
+					No feedbacks yet..
+				@else
+					<div id="feedbacksContainer">
+					@foreach($userFeedbacks as $feedbacks)
+						<br/>
+						{{$feedbacks->feedback}}
+
+						<br/>
+						{{$feedbacks->user_id}}
+						<br/>
+						{{$feedbacks->created_at}}
+					@endforeach
+					</div>
+					<br/>
+						{{Form::open(array('route' => ['post.view.users.comments', $userChannel->channel_name], 'id' => 'postFeedback'))}}
+							@if(Auth::check())
+							{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+							{{Form::hidden('channel_id', $userChannel->id, array('id' => 'channel_id'))}}
+							@endif
+							{{Form::textarea('feedback', null, array('placeholder' => 'Leave a feedback..', 'id' => 'textAreaFeedback'))}}
+							{{Form::submit('Leave a feedback', array('id' => 'feedback'))}}
+						{{Form::close()}}
+				@endif
+				</div>
+			</div><!--!/.shadow div-channel-border-->
+		</div><!--/.row-->
 	</div><!--/.container page-->
-</div>
-
+</div>	
 @stop
 
+
 @section('some_script')
-	{{HTML::script('js/jquery.js')}}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
+	{{HTML::script('js/user/channel_comments.js')}}
+	{{HTML::script('js/mention.js')}}
+<!-- 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

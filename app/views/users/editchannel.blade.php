@@ -7,26 +7,24 @@
       <br/>
 
       <div class="">
-         <div class="wrapper-account">
+         <div class="Div-channel-border">
               <div class="well White " style="margin-bottom:0;min-height:350px;">
-                 <div class="row">
+                <div class="row">
+                  <br/>
+                  <div class="text-center">
+                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                  </div>
 
-                      <!-- tabs left -->
-                      <div class="tabbable tabs-left">
-                          <br/><br/>
-                          <ul class="nav nav-tabs" style="margin-left:-20px">
-                            <li class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
-                            <li >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-                            <li class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
-                          </ul>
 
-                          <div class="tab-content">
-                              <div class="tab-pane active" id="updateAccount">
-                                  @include('elements/users/accountSettingTabs/tab-editInfo')
-                              </div>
-                          </div><!--/.tabContent-->
-                      </div><!--/.tabbable tabs-left-->
-                  </div><!--/.row-->
+
+                  @include('elements/users/accountSettingTabs/tab-editInfo')
+
+                         
+                </div><!--/.row-->
               </div><!--/.well-->
           </div><!--/.wrapperAccount-->
           <br/>

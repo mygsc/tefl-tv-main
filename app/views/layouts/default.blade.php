@@ -35,7 +35,7 @@
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 @yield('script')
-@yield('some_script') <!--DONT REMOVE THIS YIELD ASK ME FIRST GRALD-->
+@yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 
 
 <!--list and gri display for my channel-->
