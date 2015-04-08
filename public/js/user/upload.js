@@ -6,7 +6,7 @@ $(document).ready(function(){
         var fileSize = document.getElementById('vids-upload').files[0];
         var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
             if(fileSize.size > limitSize){
-                return $('#percentage').html('Error: Size is too big.').css({'color':'#cc3510'});
+                return $('#percentage').html('Error: File size is too big.').css({'color':'#cc3510'});
             }
             if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv") {
                 $(this).closest("#vidSubmit").submit();
@@ -14,7 +14,7 @@ $(document).ready(function(){
                 $('#progress').fadeIn(500); 
                 $('#wrapper').fadeIn(500); 
             }else{
-                return $('#percentage').html('Error: File is not valid.').css({'color':'#cc3510'});
+                return $('#percentage').html('Error: File type is not valid.').css({'color':'#cc3510'});
             }    
         		
    	});
@@ -29,7 +29,6 @@ $(document).ready(function(){
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    //$("#progressbar-loaded").html('<div id="progress-status">' + percentComplete +' %</div>')
                     $('#percentage').html('Processing... '+percentComplete+"%");
                 },
                 success: function(response){

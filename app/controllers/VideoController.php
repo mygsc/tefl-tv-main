@@ -22,25 +22,6 @@ class VideoController extends Controller {
 		$file = Input::file('video');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName);
-		//Sonus::convert()->input($destinationPath.DS.'OU3gWxIxFld'.DS.'OU3gWxIxFld.mp4')->bitrate(300, 'video')->output($destinationPath.DS.'bar.webm')->go();
-		// $vidFile = public_path('videos'.DS. '3-gil'.DS.'JwamuAdNIKQ'.DS.'JwamuAdNIKQ.mp4');
-		// $ffmpeg = FFMpeg\FFMpeg::create(array(
-		//     'ffmpeg.binaries'  => '/opt/local/ffmpeg/bin/ffmpeg',
-		//     'ffprobe.binaries' => '/opt/local/ffmpeg/bin/ffprobe',
-		//     'timeout'          => 3600,
-		//     'ffmpeg.threads'   => 12,  
-		// ));
-		// $video = $ffmpeg->open($vidFile);
-		// $video->filters()
-		// 	  ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-		// 	  ->synchronize();
-		// $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-		//       ->save($destinationPath.DS.'frame.jpg');
-		// $video->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.'export-x264.mp4')
-		//       ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
-		//       ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
-	 // 	   return Response::json(['file'=>$fileName]);
-
 		$validator = Validator::make($input,Video::$video_rules);
 		if($validator->passes()){
 			//insert into database
@@ -114,6 +95,20 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
+		// $ffmpeg = FFMpeg\FFMpeg::create();
+		// $video = $ffmpeg->open('video.mpg');
+		// $video
+		//     ->filters()
+		//     ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+		//     ->synchronize();
+		// $video
+		//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+		//     ->save('frame.jpg');
+		// $video
+		// ->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
+		// ->save(new FFMpeg\Format\Video\WMV(), 'export-wmv.wmv')
+		// ->save(new FFMpeg\Format\Video\WebM(), 'export-webm.webm');
+
 		$id = Crypt::decrypt($id);  
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];

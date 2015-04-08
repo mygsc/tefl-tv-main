@@ -24,8 +24,9 @@ div canvas{
 	display: none;
 }div#wrapper div#progressbar-loaded{
 	width:0;
-	height: 18px;
-	background:#20BF3D;
+	height: 100%;
+	background:#0C78D6;
+	
 }
 
 
