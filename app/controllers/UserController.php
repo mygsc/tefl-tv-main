@@ -618,6 +618,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
+
 		$userComments = DB::select("SELECT c.id, c.video_id, c.user_id, c.comment, c.likes, c.dislikes, 
 			c.spam_count, c.created_at, c.updated_at, u.channel_name FROM comments AS c 
 			INNER JOIN users as u ON u.id = c.user_id 
@@ -739,6 +740,7 @@ class UserController extends BaseController {
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
+		
 		$subscribers = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 			AS numberOfSubscribers FROM subscribes AS s 
 			INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$userChannel->id.'"LIMIT 5');

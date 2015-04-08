@@ -26,9 +26,9 @@
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
-									<label>{{count($subscribers)}} Subscribers</label>
-									<label>{{$countVideos}} Videos</label> &nbsp;
-									<label>{{$countAllViews}} Views</label>
+									<label> Subscribers</label>
+									<label> Videos</label> &nbsp;
+									<label> Views</label>
 								</span>
 								
 
@@ -60,7 +60,6 @@
 				<div class="labelThis" style="margin-top:-20px;">
 					{{$userChannel->channel_name}}
 				</div>
-				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 			</div>
 		</div>
 
