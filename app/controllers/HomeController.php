@@ -307,7 +307,7 @@ class HomeController extends BaseController {
 								<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
 							</div>
 							|&nbsp;
-							<span class="repLink hand blueC">Reply</span>
+							<span class="repLink hand">0<i class="fa fa-reply"></i></span>
 							<div id="replysection" class="panelReply"> '.
 								Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
 									<input type="hidden" name="comment_id" value="'.$comments->id.'">
@@ -318,7 +318,7 @@ class HomeController extends BaseController {
 								</form>
 							</div>
 						</div>
-					</div
+					</div>
 				</div>
 			';
 
