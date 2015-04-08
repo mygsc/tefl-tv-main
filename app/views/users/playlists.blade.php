@@ -6,7 +6,7 @@
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
