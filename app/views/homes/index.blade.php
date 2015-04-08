@@ -55,20 +55,9 @@
 				<div class="col-md-5 ctgryDiv hidden-sm">
 				<h4>Categories</h4>
 				<span class="">
-					<li><a>Instructional</a></li>
-					<li><a>Video Blog</a></li>
-					<li><a>Video CV </a></li>
-					<li><a>Job AD </a></li>
-					<li><a>Music</a></li>
-					<li><a>Music video</a></li>
-					<li><a>Animated Video</a></li>
-					<li><a>Animated Music Video</a></li>
-					<li><a>Questions & Answers</a></li>
-					<li><a>Advice</a></li>
-					<li><a>Podcast</a></li>
-					<li><a>Interviews</a></li>
-					<li><a>Documentaries</a></li>
-					<li><a>miscellaneous</a></li>
+					@foreach($categories as $category)
+						{{$category}}
+					@endforeach
 				</span>
 				</div>
 			</div><!--/.row of col4-->

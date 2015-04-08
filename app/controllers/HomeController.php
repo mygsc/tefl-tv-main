@@ -15,13 +15,14 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getVideoByCategory('popular', '4');
 		$latests = $this->Video->getVideoByCategory('latest', '4');
 		$randoms = $this->Video->getVideoByCategory('random', '4');
+		$categories = $this->Video->getCategory();
 
 		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
 		
-		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms')));
+		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
 	public function getAboutUs() {
@@ -437,6 +438,35 @@ class HomeController extends BaseController {
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
+	}
+
+	public function getCategory($category = null){
+		if(!empty($category)){
+			$videos = Video::select('videos.id',
+					'videos.user_id',
+					'videos.title',
+					'videos.description',
+					'users.channel_name',
+					'videos.tags',
+					'videos.file_name',
+					'videos.views',
+					'videos.created_at',
+					DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'))
+			->where('category', 'LIKE', '%'.$category.'%')
+			->where('deleted_at', NULL)
+			->where('publish', 1)
+			->where('report_count', '<', 5)
+			->orderBy(DB::raw('(views + likes)'))
+			->join('users', 'user_id', '=', 'users.id')
+			->get();
+
+			if(!$videos->isEmpty()){
+				return $videos;	
+				return View::make('homes.category', compact(array('videos','category')));
+			}
+		}
+		return 'Empty e';
+		return Redirect::route('homes.index');
 	}
 
 	public function testingpage(){ 
