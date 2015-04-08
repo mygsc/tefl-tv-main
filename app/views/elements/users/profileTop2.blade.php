@@ -22,14 +22,11 @@
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
 
 							<div class="overlay-cover">
-
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</span>
-								
-
 								<span class="pull-right" >
 									<span class="pull-right" >
 										@if(empty($usersWebsite))
@@ -64,7 +61,6 @@
 										    @endif
 									</span> 
 								</span>	
-
 							</div>
 						</div>	
 					</div>

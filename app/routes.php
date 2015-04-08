@@ -37,17 +37,15 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	Route::any('watch!v={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
-	
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
 	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
 	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
 	Route::post('adddisliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLiked'));
-
-	//Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
+	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 
 });
 

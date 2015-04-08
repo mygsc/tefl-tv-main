@@ -95,20 +95,6 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
-		// $ffmpeg = FFMpeg\FFMpeg::create();
-		// $video = $ffmpeg->open('video.mpg');
-		// $video
-		//     ->filters()
-		//     ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-		//     ->synchronize();
-		// $video
-		//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-		//     ->save('frame.jpg');
-		// $video
-		// ->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
-		// ->save(new FFMpeg\Format\Video\WMV(), 'export-wmv.wmv')
-		// ->save(new FFMpeg\Format\Video\WebM(), 'export-webm.webm');
-
 		$id = Crypt::decrypt($id);  
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
@@ -116,7 +102,7 @@ class VideoController extends Controller {
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
-
+		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
 				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpg');
@@ -140,11 +126,15 @@ class VideoController extends Controller {
 			$implodeTag = implode(',',$uniqueTag);
 			$video = Video::find($id);
 			$uploadedVid = $video->uploaded;
+			if(Input::has('cat')){
+				$selectedCategory = implode(',',Input::get('cat'));
+			}
 			if($uploadedVid==0){
 				$video->total_time = Input::get('totalTime');
 				$video->title = Input::get('title');
 				$video->description = Input::get('description');
 				$video->publish = Input::get('publish');
+				$video->category = $selectedCategory;
 				$video->tags =  $implodeTag;
 				$video->uploaded =  1;
 				$video->save();
