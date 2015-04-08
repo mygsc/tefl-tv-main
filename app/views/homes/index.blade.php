@@ -20,19 +20,19 @@
 		<BR/>
 		<div class="row same-H">	
 
-			<div class="col-md-7 col-lg-height" style="margin-bottom:20px;">
+			<div class="col-md-7" style="margin-bottom:20px;">
 				<div class="">
 					<div class="row  vid-wrapper">
 						<div id="vid-controls">
-							<div class="embed-responsive embed-responsive-16by9">
+							<div class="embed-responsive embed-responsive-16by9 n-mg-b">
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
 									<source src='/videos/tefltv.ogg' type='video/ogg'>
 								</video>
-								@include('elements/videoPlayer')
+								
 							</div><!--/embed-responsive-->
-							
+							@include('elements/videoPlayer')
 						</div>
 		    		</div><!--/.row-->
     			</div>
@@ -92,11 +92,7 @@
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-lg-2 col-md-4 col-sm-6">
 		            	<div class="thumbnail-2">
-			            	@if(file_exists($recommended->video_poster))
-								<img class="hvr-grow-rotate"  src="{{$recommended->poster_path}}">
-							@else
-								<img class="hvr-grow-rotate"  src="/img/thumbnails/video.png">
-							@endif
+								<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
 						</div>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
@@ -125,11 +121,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
 						<div class="thumbnail-2">
-							@if(file_exists($popular->video_poster))
-								<img class="hvr-grow-rotate" src="{{$recommended->poster_path}}">
-							@else
-								<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
-							@endif
+								<img class="hvr-grow-rotate" src="{{$recommended->thumbnail}}">
 						</div>
 						
 						<div class="v-Info">
@@ -158,11 +150,7 @@
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 						<div class="col-md-6 col-sm-6">
 							<div class="thumbnail-2">
-								@if(file_exists($latest->video_poster))
-									<img class="hvr-grow-rotate"  src="{{$latest->poster_path}}">
-								@else
-									<img class="hvr-grow-rotate"  src="/img/thumbnails/video.png">
-								@endif
+									<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
 							</div>
 							<div class="v-Info">
 								<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
@@ -191,11 +179,7 @@
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
 						<div class="thumbnail-2">
-							@if(file_exists($random->video_poster))
-								<img class="hvr-grow-rotate" src="{{$random->poster_path}}">
-							@else
-								<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
-							@endif
+								<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
 						</div>
 						<div class="v-Info">
 							<a href="{{route('homes.watch-video', array($random->file_name))}}">{{$random->title}}</a>
