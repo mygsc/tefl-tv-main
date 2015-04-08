@@ -26,9 +26,9 @@
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
-									<label> Subscribers</label>
-									<label> Videos</label> &nbsp;
-									<label> Views</label>
+									<label>{{count($countSubscribers)}} Subscribers</label>
+									<label>{{$countVideos}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
 								</span>
 								
 
