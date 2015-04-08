@@ -1867,10 +1867,17 @@ a.thumbnail-h:hover{
 
 /*=======Style overwrite=========*/
 .mg-20{
-  margin:20px 20px!Important;
+  margin:20px 20px!important;
 }
 .mg-r-20{
-  margin-right: 20px!Important;
+  margin-right: 20px!important;
+}
+.mg-l--20{
+  margin-left: -20px;
+}
+
+.mg-b-10{
+  margin-bottom: 10px!important;
 }
 /*table column style */
 /* vertical alignment styles */

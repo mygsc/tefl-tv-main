@@ -56,12 +56,12 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
-					<div class="col-md-12" style="margin-left:-10px;">
+					<div class="col-md-12 mg-l--20">
 						@if($usersVideos->isEmpty())
 							No Videos yet.
 						@else
 						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3">
+						<div id='list' class="col-md-3 mg-b-10">
 							<div class="inlineVid">
 								
 								<span class="btn-sq">
