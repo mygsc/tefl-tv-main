@@ -26,28 +26,28 @@
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
-									<label>count Subscribers</label>
-									<label>count Videos</label> &nbsp;
-									<label>count Views</label>
+									<label>{{count($subscribers)}} Subscribers</label>
+									<label>{{$countVideos}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
 								</span>
 								
 
 								<span class="pull-right" >
 									<span class="pull-right" >
-									@if(empty($usersWebsite))
-										<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
-										<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
-										<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
-										<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
-										<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
-										<a href=""><i class="socialMedia socialMedia-site"></i></a>
-									@else
-										<a href="http://{{$usersWebsite->facebook}}"><i class="socialMedia socialMedia-facebook"></i></a>
-										<a href="http://{{$usersWebsite->twitter}}"><i class="socialMedia socialMedia-twitter"></i></a>
-										<a href="http://{{$usersWebsite->instagram}}"><i class="socialMedia socialMedia-instagram"></i></a>
-										<a href="http://{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
-										<a href="http://{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
-									@endif
+										@if(empty($usersWebsite))
+											<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
+											<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
+											<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
+											<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
+											<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
+											<a href=""><i class="socialMedia socialMedia-site"></i></a>
+										@else
+											<a href="http://{{$usersWebsite->facebook}}"><i class="socialMedia socialMedia-facebook"></i></a>
+											<a href="http://{{$usersWebsite->twitter}}"><i class="socialMedia socialMedia-twitter"></i></a>
+											<a href="http://{{$usersWebsite->instagram}}"><i class="socialMedia socialMedia-instagram"></i></a>
+											<a href="http://{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
+											<a href="http://{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
+										@endif
 									</span> 
 								</span>	
 
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 
-@section('script')
+@section('some_script')
 	{{HTML::script('js/user/upload_image.js')}}
 	{{HTML::script('js/user/modalclearing.js')}}
 @stop

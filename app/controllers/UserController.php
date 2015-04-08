@@ -732,9 +732,6 @@ class UserController extends BaseController {
 
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		// if(empty($usersVideos)) {
-		// 	return Redirect::route('users.viewusers.channel', compact('usersVideos'))->withFlashMessage('Channel does not exist');
-		// }
 		$videosChannelName = User::where('channel_name', $channel_name)->first();
 		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
@@ -749,13 +746,18 @@ class UserController extends BaseController {
 		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"LIMIT 5');
 
 		$recentUpload = Video::where('user_id', $userChannel->id)->orderBy('created_at', 'desc')->first();
-		// return $recentUpload;
 
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
-		// $ifAlreadySubscribe = Subscribe::where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id));
-		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 
-		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture'));
+		//r3mmel
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
+		//r3mmel
+
+		return View::make('users.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture', 'countVideos', 'countSubscribers', 'countAllViews'));
 	}
 
 	public function getViewUsersFeedbacks($channel_name) {
