@@ -737,6 +737,9 @@ img.user{
 .blueC{
   color: #1870dc!Important;
 }
+.redC{
+  color: red!Important;
+}
 .modalbg{
   background: rgba(24,27,48,0.8);
 }

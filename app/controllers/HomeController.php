@@ -320,6 +320,7 @@ class HomeController extends BaseController {
 						</div>
 					</div>
 				</div>
+				<hr/>
 			';
 
 
@@ -439,11 +440,28 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$text = 'fdsafsfas sdafdasfdas sdaf sdafa sdfdsf sdf sfsdafsa';
-		$chars = 10;
-		if(strlen($text) < $chars){
-			return 'tama';
-		}
-		return 'mali';
+		$s = 'aaa';
+
+		$query = "MATCH (videos.title, videos.description,videos.tags) AGAINST ('$s' IN BOOLEAN MODE)";
+    	$video = Video::select('videos.id',
+    			'videos.user_id',
+    			'videos.title',
+    			'users.channel_name',
+    			'videos.views',
+    			'videos.created_at',
+    			DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'),
+    			DB::raw("MATCH (videos.title) AGAINST ('$s') as title_relevance"),
+    			DB::raw("MATCH (videos.description) AGAINST ('$s') as desc_relevance"),
+    			DB::raw("MATCH (videos.tags) AGAINST ('$s') as tags_relevance"))
+    	->whereRaw($query)
+    	->where('deleted_at', NULL)
+    	->where('publish', '1')
+    	->where('report_count', '<', 5)
+    	->orderBy(DB::raw('((title_relevance * 0.50)+ (desc_relevance * 0.2998) + (tags_relevance * 0.20)) + (views * 0.0001) + (likes * 0.0001)'), 'desc')
+    	->join('users', 'user_id', '=', 'users.id')
+    	->paginate(5);
+
+    	return $video;
+
 	}
 }

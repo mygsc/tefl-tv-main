@@ -1,5 +1,7 @@
 
+
 		<div class="White Div-channel-border">
+
 
 			<div class="col-md-12">
 				<div class="row">
@@ -14,12 +16,14 @@
 						
 		               	</div>
 		               	<div>
-						@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
-							{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-						@else
-							{{HTML::image('img/user/cover'. '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-						@endif
+							@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
+								{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+							@else
+								{{HTML::image('img/user/cover'. '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+							@endif
+
 						</div>
+
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
@@ -71,7 +75,7 @@
 			</div>
 		</div>
 
-@section('script')
+@section('some_script')
 	{{HTML::script('js/user/upload_image.js')}}
 	{{HTML::script('js/user/modalclearing.js')}}
 @stop
