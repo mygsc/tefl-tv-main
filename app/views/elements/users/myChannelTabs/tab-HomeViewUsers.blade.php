@@ -73,14 +73,22 @@
 			@foreach($findVideos as $findVideo)
 			<div class="col-md-4">
 				<div class="row">
-					<div class="">
-						<video controls height="auto" width="100%" class="h-video">
-							<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
-						</video>
+					<div id="findVid">
+					<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">
+						@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
+							<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+							</video>
+						@else
+							{{HTML::image('img/thumbnails/video.png')}}
+						@endif
 					</div>
 					<div class="v-Info">
 						{{$findVideo->title}}
 					</div>
+					</a>
 					<div class="count">
 						{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 					</div>
