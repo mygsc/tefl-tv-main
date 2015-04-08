@@ -1,5 +1,4 @@
-		<div style="border:5px solid #e3e3e3;" class="White">
-		
+		<div class="White Div-channel-border">
 			<div class="col-md-12">
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
@@ -22,7 +21,7 @@
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
-
+							
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
@@ -60,7 +59,13 @@
 				<div class="labelThis" style="margin-top:-20px;">
 					{{Auth::User()->channel_name}}
 				</div>
+	
 				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+				<br/><br/>
+				<p class="text-justify notes center-block">"
+					{{ Str::limit($usersChannel->interests, 200) }}
+			"
+				</p>
 			</div>
 		</div>
 

@@ -8,23 +8,22 @@
       <br/> <br/>
 
       <div class="col-md-row">
-         <div class="wrapper-account">
+        <div class="Div-channel-border">
               <div class="well White " style="margin-bottom:0;min-height:350px;">
-                 <div class="row">
-
-                      <!-- tabs left -->
-                      <div class="tabbable tabs-left">
-                          <br/><br/>
-                          <ul class="nav nav-tabs" style="margin-left:-20px">
-                            <li >{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</li>
-                            <li >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-                            <li class="active">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
-                          </ul>
-
-
-                          <div class="tab-content">
-                              <div class="tab-pane active" id="changePassword">
-                                  <div class="col-md-6 col-md-offset-2 textbox-layout"> 
+                    <div class="row">
+                        <br/>
+                        <div class="text-center">
+                            <span class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</span>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <span class=""><b>{{ link_to_route('users.change-email', 'Change Email', null) }}</b></span>
+                        </div>
+                        <br/>
+                        <div class="col-md-12 LightestBlue">
+                          <div class="textbox-layout "> 
+                                <h3 class="tBlue text-center">-Your new email will be your primary contact-</h3>
+                                <div class="well2">
   	                                {{Form::open(array('route' => 'users.post.change-email'))}}
                 										{{Form::label('email', 'Email: ')}}
                 										{{Form::text('email', null)}}
