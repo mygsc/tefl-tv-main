@@ -260,8 +260,8 @@ class UserController extends BaseController {
 			and v.publish = 1");
 			}
 		$increment = 0;
-		$recentUpload = DB::table('videos')->where('user_id', Auth::User()->id)->orderBy('created_at','desc')->first();
-
+		$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = 1 ORDER BY created_at DESC LIMIT 1');
+		return $recentUpload[0]->numberOfLikes;
 		return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
 	}
@@ -770,9 +770,7 @@ class UserController extends BaseController {
 	}
 
 	public function postViewUsersComments() {
-		if(!Auth::check()){
-			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
-		}else{
+
 			$feedback = Input::get('feedback');
 			$userFeedback = Input::get('user_id');
 			$channelFeedback = Input::get('channel_id');
@@ -780,6 +778,9 @@ class UserController extends BaseController {
 			if(empty($feedback)){
 				return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
 			}else{
+				if(!Auth::check()){
+					return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
+				}
 				$addNewFeedback = new Feedback;
 				$addNewFeedback->channel_id = $channelFeedback;
 				$addNewFeedback->user_id = $userFeedback;
@@ -799,7 +800,6 @@ class UserController extends BaseController {
 			}
 			return $newFeedback;
 		}
-	}
 	public function addSubscriber() {
 		$user_id = Input::get('user_id');
 		$subscriber_id = Input::get('subscriber_id');
