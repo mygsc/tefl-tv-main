@@ -6,10 +6,11 @@
 						<div class="uploaded_img pic-Dp">
 
 						 				@if(file_exists($picture))
-		                {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+		              	  {{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 		                @else
-		                {{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+		            	    {{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 		                @endif
+		                
 		                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
 						
 		               </div>
@@ -19,6 +20,7 @@
 						@else
 							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
+
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
