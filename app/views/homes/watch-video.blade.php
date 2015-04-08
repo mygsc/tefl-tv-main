@@ -10,7 +10,7 @@
         <meta property="og:type" content="video">
         <meta property="og:video:width" content="500"> 
         <meta property="og:video:height" content="300"> 
-        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  --> 
+        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4"> 
 
 @stop
 @section('css')

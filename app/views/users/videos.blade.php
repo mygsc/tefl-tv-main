@@ -117,18 +117,16 @@
 	</div>
 @stop
 
-@section('script')
+@section('some_script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/sort.js')}}
-
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready( function( $ ) {
 			var success = $('#uploaded').val();
 			if(success == 1){
-				$('<div id="success" style="border:1px solid green;width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
 			}
 			$('#form-add-setting').on('submit', function() {
