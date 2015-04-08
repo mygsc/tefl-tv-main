@@ -8,7 +8,6 @@
 			@include('elements/users/profileTop')
 			
 			<div class="Div-channel-border">
-
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -20,7 +19,6 @@
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  		
 				  	</ul><!--tabNav-->
 				</div>
 

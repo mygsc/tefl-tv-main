@@ -41,13 +41,13 @@
 			<div class="col-md-5 col-lg-height col-top">
                 <div class="row">
                 	<div class="col-md-7">
-                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
-                        <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
-                    </div><!--/.ad1-->
+	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
+	                        <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
+	                    </div><!--/.ad1-->
                     
-                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-                        <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
-                   </div><!--/.ad2-->
+	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
+	                        <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
+	                   </div><!--/.ad2-->
 
                    </div>
       
@@ -91,8 +91,11 @@
 				@foreach($recommendeds as $recommended)
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-lg-2 col-md-4 col-sm-6">
+		            	<span class="v-time inline">12:00</span> 	
 		            	<div class="thumbnail-2">
-								<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+
+							<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+								
 						</div>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>

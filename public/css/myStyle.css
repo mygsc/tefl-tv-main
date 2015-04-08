@@ -1059,6 +1059,7 @@ span.commentLink{
   overflow-y:auto;
   overflow-x:hidden;
 }
+
 .btn-sq{
   position:absolute;
   right:15px;
@@ -1066,10 +1067,16 @@ span.commentLink{
   background: rgba(156,175,238, 0.65);
   padding: 10px 10px;
   border-radius: 0 0 0 10px;
-  
-
 }
-
+.v-time{
+  position:absolute;
+  z-index:99;
+  background: rgba(156,175,238, 0.65);
+  padding: 3px 5px!important;
+  border-radius: 0 0 10px 0 ;
+  color: #000!important;
+  font-size: 0.8em!important;
+}
 /*=======BACK TO TOP BUTTON========*/
 /* -------------------------------- 
 
@@ -1769,6 +1776,9 @@ a.thumbnail-h:hover{
   .thumbnail-2{
   width:180px!Important;
   height:101px;
+  }
+  .v-time{
+      left:15px;
   }
   .user-Dp{
   margin: 10px;

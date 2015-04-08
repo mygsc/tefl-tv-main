@@ -22,7 +22,7 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="container">
+				<div class="row mg-l--20">
 					<br/>
 					<!--<div class="col-md-6">
 						<div class="input-group">
@@ -33,16 +33,16 @@
 						</div>
 					</div>-->
 
-					<div class="col-md-5">
+					<!--<div class="col-md-5">
 				
-						<!--<select class="form-control" style="width:auto!important;">
+						<select class="form-control" style="width:auto!important;">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
 						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>-->
-					</div>
+						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
+					</div>-->
 
 					<div class="col-md-12 text-right">
 						<div class="buttons pull-right">
@@ -62,7 +62,7 @@
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 									@if($watchLater->status==1)
-									<span title="Remove from watch later?" class="btn-sq inline">
+									<span title="Remove from watch later?" class="time inline">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
 												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline'))}}

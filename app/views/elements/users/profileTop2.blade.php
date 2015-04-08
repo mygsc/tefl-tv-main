@@ -1,10 +1,8 @@
 		<div class="White Div-channel-border">
-	
 			<div class="col-md-12">
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
 						<div class="uploaded_img pic-Dp">
-
 							@if(file_exists($picture))
 			                	{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @else
@@ -76,6 +74,11 @@
 				<div class="labelThis" style="margin-top:-20px;">
 					{{$userChannel->channel_name}}
 				</div>
+
+				<p class="text-justify notes center-block">
+				<br/>"
+				{{ Str::limit($userChannel->userprofile->interests, 200) }}
+				</p>
 			</div>
 		</div>
 
