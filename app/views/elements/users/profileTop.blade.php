@@ -3,7 +3,7 @@
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
 						<div class="uploaded_img pic-Dp">
-							@if(file_exists('img/user/1.jpg'))
+							@if(file_exists($picture))
 			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @else
 			                	{{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
@@ -17,10 +17,11 @@
 						@else
 							{{HTML::image('cover'. '.jpg', 'alt', array('class' => 'pic-Dp'))}}
 						@endif
+
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
-
+							
 							<div class="overlay-cover">
 
 								<span class="infoCounts">
@@ -58,7 +59,13 @@
 				<div class="labelThis" style="margin-top:-20px;">
 					{{Auth::User()->channel_name}}
 				</div>
+	
 				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+				<br/><br/>
+				<p class="text-justify notes center-block">"
+					{{ Str::limit($usersChannel->interests, 200) }}
+			"
+				</p>
 			</div>
 		</div>
 
