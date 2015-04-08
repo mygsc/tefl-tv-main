@@ -99,6 +99,11 @@ $(document).ready(function(){
         		if(data['status'] == 'success'){
         			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
+        			if(data['label'] == 'undisliked'){
+        				$(this).find('span.fa-thumbs-down').addClass('redC');
+        			} else if(data['label'] == 'disliked'){
+        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        			}
         			// alert(data['likescount']);
         		} 
             }
