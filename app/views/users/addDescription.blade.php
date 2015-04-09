@@ -67,9 +67,9 @@ margin: 10px;
 							<div class="embed-responsive embed-responsive-16by9 h-video">
 
 								<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm" >
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg" >
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4" >
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm">
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg">
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4">
 								</video>
 								@include('elements/videoPlayer')
 							</div>
@@ -167,7 +167,7 @@ margin: 10px;
 								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
 								{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
 								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
-								{{Form::hidden('tokenId', Session::get('tokenId'))}}
+								{{--Form::hidden('tokenId')--}}
 							</div>
 							<div class="text-right">
 							<br>

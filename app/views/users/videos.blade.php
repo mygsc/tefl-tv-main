@@ -117,7 +117,7 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
+	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">

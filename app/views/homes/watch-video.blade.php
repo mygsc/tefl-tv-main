@@ -14,7 +14,7 @@
 
 @stop
 @section('css')
-{{HTML::style('css/vid.player.css')}}
+{{--HTML::style('css/vid.player.css')--}}
 @stop
 
 {{-- */$videourl = 1;/* --}}

@@ -114,7 +114,7 @@
 					<div class="col-md-6 col-sm-6">
 					<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
-								<img class="hvr-grow-rotate" src="{{$recommended->thumbnail}}">
+								<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
 						</div>
 						
 						<div class="v-Info">
