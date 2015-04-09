@@ -4,9 +4,9 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 					<!-- Nav tabs -->

@@ -4,10 +4,10 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 		{{-- */$playlistCounter = 1;/* --}}
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -133,10 +133,10 @@
 						<hr/>
 					</div><!--videoContainer-->
 				</div>
-				<br/>
+			
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
-
+	<br/>
 	</div><!--/.container page-->
 </div>
 

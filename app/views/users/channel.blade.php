@@ -1,14 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row White">
+<div class="row">
+	<br/>
 	<div class="container pageH">
-
-		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')		
-
-			<br/>
 			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
@@ -33,27 +30,20 @@
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
 			</div><!--/.div-channel-border-->
-			<br/>
+			
 		</div><!--/.contentpadding-->
+		<br/>
 	</div><!--/.container page-->
 </div>
 
 @stop
 
 @section('some_script')
-<<<<<<< HEAD
-	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
-=======
 	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
 
-	
-
->>>>>>> 114b47a71b4680d407e7e88466015b0029c9dd77
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');

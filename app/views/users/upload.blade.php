@@ -24,8 +24,9 @@ div canvas{
 	display: none;
 }div#wrapper div#progressbar-loaded{
 	width:0;
-	height: 18px;
-	background:#20BF3D;
+	height: 100%;
+	background:#0C78D6;
+	
 }
 
 
@@ -38,7 +39,7 @@ div canvas{
 			<div class="well text-center" style="margin-top:50px">
 				<div class="row">
 					<h1>Upload Video</h1>
-					<p>Video allowed types: wmv, mp4, webm, ogv</p>
+					<p>Video allowed types: wmv, mp4, webm, ogg</p>
 					<p>Recommended file extension: mp4</p>
 					<p>Maximum size limit: 150mb</p>
 
@@ -60,14 +61,17 @@ div canvas{
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
-							
 						</div>
-
 					</label> 
 					<div id="wrapper">
-								<div id="progressbar-loaded"></div>
-							</div><br/>
-							<label id="percentage"></label>
+							<div id="progressbar-loaded"></div> 
+					</div><br/>
+					 <label id="percentage"></label> 
+
+
+    
+
+
 					{{Form::close()}}
 
 				</div>

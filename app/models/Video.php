@@ -1,7 +1,7 @@
 <?php
 
 class Video extends Eloquent{
-  use SoftDeletingTrait;
+	use SoftDeletingTrait;
 	protected $table = 'videos';
 	protected $dates = ['deleted_at'];
 	protected $softDelete = true;
@@ -26,8 +26,8 @@ class Video extends Eloquent{
 		);
 
 
-    public function tags(){
-    return $this->belongsToMany('Tag');
+	public function tags(){
+		return $this->belongsToMany('Tag');
 	}
 
 	public function users(){
@@ -58,50 +58,50 @@ class Video extends Eloquent{
 
 		if($type == 'recommended'){
 			$additionaQuery = 
-				'AND recommended = "1"
-				ORDER BY (v.views + likes) DESC';
+			'AND recommended = "1"
+			ORDER BY (v.views + likes) DESC';
 		}elseif($type == 'popular'){
 			$additionaQuery = 
-				'ORDER BY (v.views) DESC';
+			'ORDER BY (v.views) DESC';
 		}elseif($type == 'latest'){
 			$additionaQuery = 
-				'ORDER BY v.created_at DESC';
+			'ORDER BY v.created_at DESC';
 		}elseif($type == 'random'){
 			$additionaQuery =
-				'ORDER BY RAND()';
+			'ORDER BY RAND()';
 		}else{
 			return false;
 		}
 
 		$returnData = DB::select(
-				'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
-				v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes, v.tags, v.report_count,v.recommended, v.created_at,
-				v.deleted_at,u.channel_name,u.status FROM videos v
-				INNER JOIN users u ON
-				v.user_id = u.id
-				WHERE
-				v.deleted_at IS NULL
-				AND
-				v.report_count < 5
-				AND
-				NOT(u.status = "0")
-				AND
-				publish = "1"'.
-				$additionaQuery.
-				' '.
-				$limit. '');
+			'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
+			v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes, v.tags, v.report_count,v.recommended, v.created_at,
+			v.deleted_at,v.total_time,u.channel_name,u.status FROM videos v
+			INNER JOIN users u ON
+			v.user_id = u.id
+			WHERE
+			v.deleted_at IS NULL
+			AND
+			v.report_count < 5
+			AND
+			NOT(u.status = "0")
+			AND
+			publish = "1"'.
+			$additionaQuery.
+			' '.
+			$limit. '');
 
 		foreach($returnData as $key => $item){
 			$folderName = $item->uid.'-'.$item->channel_name;
 			$fileName = $item->file_name;
 			$posterName = $fileName. '.jpg';
-			$videoFolderPath = 'public'. DIRECTORY_SEPARATOR. 'videos'.DIRECTORY_SEPARATOR. $folderName;
-			$filePath = $videoFolderPath .DIRECTORY_SEPARATOR. $fileName .DIRECTORY_SEPARATOR. $posterName;
-			$posterPath = 'videos' . DIRECTORY_SEPARATOR. $folderName. DIRECTORY_SEPARATOR. $fileName. DIRECTORY_SEPARATOR. $posterName;
-
-			$returnData[$key]->user_folder = $folderName;
-			$returnData[$key]->video_poster = $filePath;
-			$returnData[$key]->poster_path = $posterPath;
+			$filePath = 'videos' .DIRECTORY_SEPARATOR. $folderName .DIRECTORY_SEPARATOR. $fileName; 
+			$thumbnail= $filePath .DIRECTORY_SEPARATOR. $posterName;
+			$returnData[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnail))){
+				$returnData[$key]->thumbnail = $thumbnail;
+			}
+			
 		}
 		return $returnData;
 	}
@@ -109,7 +109,7 @@ class Video extends Eloquent{
 	public function countViews($countAllViews = null){
 		$a = $countAllViews;
 		$convertNumber = number_format($a);
-			
+
 		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
 			$a = $countAllViews;
 			$round = round(($a/1000), 1);
@@ -127,7 +127,7 @@ class Video extends Eloquent{
 	public function countVideos($countAllViews = null){
 		$a = $countAllViews;
 		$convertNumber = number_format($a);
-			
+
 		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
 			$a = $countAllViews;
 			$round = round(($a/1000), 1);
@@ -144,5 +144,104 @@ class Video extends Eloquent{
 
 	public function countLikes(){
 		
+	}
+
+	public function searchVideos($search = null){
+		if(!empty($search)){
+			if(strlen($search) >3){
+				$query = "MATCH (videos.title, videos.description,videos.tags) AGAINST ('$search' IN BOOLEAN MODE)";
+
+				$videoData =  Video::select('videos.id',
+					'videos.user_id',
+					'videos.title',
+					'videos.description',
+					'users.channel_name',
+					'videos.tags',
+					'videos.file_name',
+					'videos.views',
+					'videos.created_at',
+					DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'),
+					DB::raw("MATCH (videos.title) AGAINST ('$search') as title_relevance"),
+					DB::raw("MATCH (videos.description) AGAINST ('$search') as desc_relevance"),
+					DB::raw("MATCH (videos.tags) AGAINST ('$search') as tags_relevance"))
+				->whereRaw($query)
+				->where('deleted_at', NULL)
+				->where('publish', '1')
+				->where('report_count', '<', 5)
+				->orderBy(DB::raw('((title_relevance * 0.50)+ (desc_relevance * 0.2998) + (tags_relevance * 0.20)) + (views * 0.0001) + (likes * 0.0001)'), 'desc')
+				->join('users', 'user_id', '=', 'users.id')
+				->paginate(5);	
+			}else{
+				$videoData = Video::select('videos.id',
+					'videos.user_id',
+					'videos.title',
+					'videos.description',
+					'users.channel_name',
+					'videos.tags',
+					'videos.file_name',
+					'videos.views',
+					'videos.created_at',
+					DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'))
+				->where('title', 'LIKE', '%'.$search.'%')
+				->where('description', 'LIKE', '%'.$search.'%')
+				->where('tags', 'LIKE', '%'.$search.'%')
+				->where('deleted_at', NULL)
+				->where('publish', 1)
+				->where('report_count', '<', 5)
+				->orWhere("channel_name", "LIKE", "%".$search."%")
+				->join('users', 'user_id', '=', 'users.id')
+				->orderBy(DB::raw('((views) + (likes))'), 'desc')
+				->paginate(5);
+			}
+
+			return $this->addOtherVideoData($videoData);
+		}
+		return false;
+	}
+
+	public function addOtherVideoData($videoData = null){
+		foreach($videoData as $key => $video){
+			//Thumbnails
+			$folderName = $video->user_id. '-'. $video->channel_name;
+			$fileName = $video->file_name;
+			$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$videoData[$key]->thumbnail = 'img\thumbnails\video.png';
+			if(file_exists(public_path($thumbnail))){
+				$videoData[$key]->thumbnail = $thumbnail;
+			}
+
+			//truncate text
+			$videoData[$key]->description = $this->truncate($video->description, 50);
+
+			//Tags
+			$getTags = explode(',',$video->tags);
+			foreach($getTags as $key2 => $tags){
+				$arraysOfTags[] = $tags;
+				$videoData[$key]->tags = $arraysOfTags;
+			}
+		}
+		return $videoData;
+		
+	}
+
+	public function truncate($text, $chars = 50) {
+		if(strlen($text) > $chars){
+			$text = $text." ";
+			$text = substr($text,0,$chars);
+			$text = substr($text,0,strrpos($text,' '));
+			$text = $text."...";
+		}
+		return $text;
+	}
+
+	public function getCategory(){
+		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		foreach ($categoryList as $key => $category) {
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->get();
+			if(!$findCategory->isEmpty()){
+				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
+			}
+		}
+		return $categories;
 	}
 }

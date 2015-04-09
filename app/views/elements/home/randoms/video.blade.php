@@ -6,12 +6,8 @@
 	<div class="col-md-3 col-sm-6 hidden-xs">
 		<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">	
 			<div class="thumbnail"> 
-				@if(file_exists($randomResult->video_poster))
-					<img class="hvr-grow-rotate" src="{{$randomResult->poster_path}}">
-				@else
-					<img class="hvr-grow-rotate" src="/img/thumbnails/video.png">
-				@endif
 
+					<img class="hvr-grow-rotate" src="{{$randomResult->thumbnail}}">
 				
 			</div>
 			<div class="v-Info">
@@ -31,11 +27,7 @@
 		<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">
 			<div class="row">
 				<div class="col-xs-4">
-					@if(file_exists($randomResult->video_poster))
-						<img class="thumbnail" src="{{$randomResult->poster_path}}">
-					@else
-						<img class="thumbnail" src="/img/thumbnails/video.png">
-					@endif
+						<img class="thumbnail" src="{{$randomResult->thumbnail}}">
 				</div>
 				<div class="col-xs-8">
 					<div class="v-Info">

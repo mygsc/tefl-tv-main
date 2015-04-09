@@ -15,7 +15,6 @@ var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':
 var animate360 = document.getElementById('button-progress');
 //Events
 function GSCMediaPlayer(){
-	play = document.getElementById('play');
 	seekSlider = document.getElementById('seek-slider');
 	highQual = document.getElementById('high-quality');
 	lowQual = document.getElementById('low-quality');
@@ -34,7 +33,7 @@ function GSCMediaPlayer(){
 	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
 	playPauseBtn.addEventListener('click',togglePlayPause, false);
-	play.addEventListener('click',PlayOrPause, false);
+	muteBtn.addEventListener('click',toggleMute, false);
 	highQual.addEventListener('click',highQuality, false);
 	lowQual.addEventListener('click',lowQuality, false);
 	seekSlider.addEventListener('change',vidSeek, false);
@@ -42,21 +41,20 @@ function GSCMediaPlayer(){
 	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false); //updateProgressBar
 	
 	mediaPlayer.addEventListener('play', function() {
-		changeButtonType(playPauseBtn, 'pause');
+		changeButtonType(playPauseBtn, 'player pause', 'Pause');
 	}, false);
 
 	mediaPlayer.addEventListener('pause', function() {
-		changeButtonType(playPauseBtn, 'play');
+		changeButtonType(playPauseBtn, 'player play', 'Play');
 	}, false);
 	
 	
 	mediaPlayer.addEventListener('volumechange', function(e){ 
-		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'unmute');}
-		else {changeButtonType(muteBtn, 'mute'); }
+		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'player sound-off', 'Unmute');}
+		else {changeButtonType(muteBtn, 'player sound-on', 'Mute'); }
 	}, false);	
 
 	mediaPlayer.addEventListener('ended', function(){ 
-		playPauseBtn.src = "/img/icons/play.png";
 		$('.play-icon').fadeIn(500);
 		$('.advertisement').fadeOut(1000);
 		videoPlaying = false;
@@ -72,7 +70,7 @@ function GSCMediaPlayer(){
 	fullscreenVid.addEventListener('click', toggleFullScreen, false);//fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('error', hasError, false);
-	//mediaPlayer.addEventListener('canplay', canPlayVideo, false);
+	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
 	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
@@ -83,7 +81,7 @@ function loadBuffer(){
 			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
 			//$('#buffered').css({'width': percentLoaded + '%'});
 			if(seekSlider.value >= percentLoaded){
-				$('#replay-icon').fadeIn();
+				//$('#replay-icon').fadeIn();
 				// replay.src="/img/icons/uploading.gif";
 				// replay.width = 80;
 				// replay.height = 80;
@@ -97,10 +95,7 @@ function loadBuffer(){
 		}
 }
 function canPlayVideo() { //buffering done...
-	$('.play-icon').fadeOut();
-	replay.src="/img/icons/post_play_button.png";
-	replay.width = 50;
-	replay.height = 50;
+	alert('Video canplay');
 }
 function onWaitingBuffer() { //buffering occur...
 	$('.play-icon').fadeIn();
@@ -113,14 +108,10 @@ function seekingNewPosition() { //find new position
 	mediaPlayer.currentTime = seekTo;
 }
 
-function disabledRightClick(){
-	$('#media-video').bind("contextmenu", function(){
-    return false;
-	});
-  }
- function hasError(){
- 	alert('cannot play video');
+function hasError(){
+ 	return alert('cannot play video');
  }
+
 //list of bind more realiable codes....
 $('#media-video').bind("contextmenu", function(){
     return false;
@@ -140,17 +131,6 @@ function lowQuality(e){
 	alert('Sorry, no available low quality, under development.');
 }
 
-function PlayOrPause(){
-	if(mediaPlayer.paused){
-		mediaPlayer.play();
-		play.innerHTML = '&#10074;&#10074;';
-		$('div.play-icon').fadeOut();
-	}else{
-		mediaPlayer.pause();
-		play.innerHTML = '&#9658;';
-		$('div.play-icon').fadeIn(500);
-	}
-}
 function vidSeek(){
 	var seekTo = mediaPlayer.duration * (seekSlider.value / 100);
 	mediaPlayer.currentTime = seekTo;
@@ -178,12 +158,6 @@ function seekTimeUpdate(){
 	
 }
 
-// document.addEventListener("keydown", function(e) {
-//   if (e.keyCode == 32) {
-//     togglePlayPause();
-//   }
-// }, false);
-
 function toggleFullScreen() {
   if (!document.fullscreenElement &&    // alternative standard method
       !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
@@ -192,8 +166,10 @@ function toggleFullScreen() {
     } else if (mediaPlayer.msRequestFullscreen) {
       mediaPlayer.msRequestFullscreen();
     } else if (mediaPlayer.mozRequestFullScreen) {
+    	$('#controls').addClass('controls');
       videoControls.mozRequestFullScreen();
     } else if (mediaPlayer.webkitRequestFullscreen) {
+    	$('#controls').addClass('controls');
     	mediaPlayer.webkitRequestFullscreen();
       //mediaPlayer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
       //videoFullScreen.request(document.getElementById('media-video'));
@@ -248,8 +224,8 @@ function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
 	if (mediaPlayer.paused || mediaPlayer.ended) {
 		toggleShowHanldeProgress();
-		playPauseBtn.src = "/img/icons/pause.png";
-		changeButtonType(playPauseBtn, 'pause');
+		//playPauseBtn.src = "/img/icons/pause.png";
+		changeButtonType(playPauseBtn, 'player pause', 'Pause');
 		mediaPlayer.play();
 		videoPlaying = true;
 		playIcon = false;
@@ -257,9 +233,9 @@ function togglePlayPause() {
 	}
 	// Otherwise it must currently be playing
 	else {
-		changeButtonType(playPauseBtn, 'play');
+		changeButtonType(playPauseBtn, 'player play','Play');
 		toggleShowHanldeProgress();
-		playPauseBtn.src = "/img/icons/play.png";
+		//playPauseBtn.src = "/img/icons/play.png";
 		mediaPlayer.pause();
 		videoPlaying = false;
 		playIcon=true;
@@ -314,15 +290,15 @@ function setVolume(){
 function toggleMute() {
 	if (mediaPlayer.muted) {
 		// Change the button to be a mute button
-		changeButtonType(muteBtn, 'mute');
-		muteBtn.src = "/img/icons/sound.png";
+		changeButtonType(muteBtn, 'player sound-on','Mute');
+		//muteBtn.src = "/img/icons/sound.png";
 		mediaPlayer.muted = false;
 		volumeStatus.value = 100; 
 	}
 	else {
 		// Change the button to be an unmute button
-		changeButtonType(muteBtn, 'unmute');
-		muteBtn.src = "/img/icons/sound-off.png";
+		changeButtonType(muteBtn,'player sound-off', 'Unmute');
+		//muteBtn.src = "/img/icons/sound-off.png";
 		mediaPlayer.muted = true;
 		volumeStatus.value = 0;	
 	}
@@ -395,10 +371,9 @@ function updateProgressBar(response) {
 }
 
 
-function changeButtonType(btn, value) {
-	btn.title = value;
-	btn.innerHTML = value;
-	btn.className = value;
+function changeButtonType(btn, toggleclass, title) {
+	btn.title = title;
+	btn.className = toggleclass;
 }
 
 // Loads a video item into the media player
@@ -428,7 +403,7 @@ function canPlayVideo(ext) {
 function resetPlayer() {
 	progress = 0;
 	mediaPlayer.currentTime = 0;
-	changeButtonType(playPauseBtn, 'play');
+	changeButtonType(playPauseBtn, 'player play', 'Play');
 }
 
 function fullscreen(){

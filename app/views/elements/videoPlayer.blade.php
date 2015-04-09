@@ -15,7 +15,7 @@
 	</div> --}}
 
 	<div class="play-icon" id ="play-icon">
-		
+		<img id="play" src="/img/icons/play-btn.png" alt="Play">
 	</div>
 
 	<div class="vd" style="margin-top:-7px;">
@@ -30,16 +30,14 @@
 				</div>
 			</div><!--/.progress-bar-->
 
-			<span class="img-play">
-
-				<img id="play-pause" class='play'  src="/img/icons/play.png"/>
-
-				<button style="display:none"type="button" id="play">&#9658;</button> 
+			<span class='img-play'>
+				<i id='play-pause' class='player play' title='Play'></i>
 			</span>
 
 			<span class="pull-right">
 				<span id="time" class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
-				<span class="sound" title="Volume"><img id='mute-icon' src="/img/icons/sound.png"  onclick='toggleMute("true");' />
+				<span class="sound" title="Volume">
+				<i id='mute-icon' class='player sound-on'></i>
 					<div class="volume" style="display:none">
 						<input id="volume" type="range" min="0" max="100" value="100">
 						{{-- <div onclick='changeVolume("+")' id="plus-vol">+</div>
@@ -52,9 +50,7 @@
 						<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}				
 					</div>
 				</span><!--/.sound-->
-
-
-				<span ><img title="fullscreen" id="fullscreen" class="fullscreen" src="/img/icons/fullscreen.png"></span>
+				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
 				<div class="hd-setting" style="display:none">
 					<small style="text-align:center;color:#fff">HD Quality</small>
 					<ul>
@@ -78,9 +74,8 @@
 
 					</ul>							
 				</div><!--/.share-video-->
-
-				<span><img id="hd-setting" title="HD setting" src="/img/icons/setting.png"></span>
-				<span><img id="share-video" title="Share video" src="/img/icons/share.png"></span>
+				<i id='hd-setting' title='HD setting' class='player setting'></i>
+				<i id='share-video' title='Share video' class='player share'></i>
 				<a href="#"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->

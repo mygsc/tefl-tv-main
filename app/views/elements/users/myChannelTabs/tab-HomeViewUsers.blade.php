@@ -1,62 +1,75 @@
 
 <div class="row">
-	<br/>
-	<div class="col-md-6">
-		<img src="/img/thumbnails/vp.png">
+	<div class="content-padding">
+		<br/>
+			@if(empty($recentUpload))
+				<p style="margin-left:30px;">No recent Activity</p>
+			@else
+
+			<div class="col-md-6">
+			 	<div id="vid-wrapper">
+			 		<div id="vid-controls">
+				 		<div class="embed-responsive embed-responsive-16by9 h-video">
+							@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
+								<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+								</video>
+							@else
+								{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+				 				<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+								</video>
+							@endif
+								@include('elements/videoPlayer')	
+						</div>
+					</div>		
+				</div>					
+			</div>
+
+			<div class="col-md-6">
+			
+			<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
+			<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
+			<br/>
+			
+			<p class="text-justify">
+				Description: {{$recentUpload[0]->description}}
+			</p>
+			<br/>
+			<span class=""><!--/counts and share link-->
+				{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+				{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+
+				<span class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
+					</a>
+					<span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
+						<!--facebook-->
+						<span style="background:#3d5a98;" class="snBg">
+							<img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
+						</span>
+						<span class="snCount" style="border:1px solid #3d5a98;">
+							100,000
+						</span><!--/facebook-->
+						<br/><br/>
+						<!--google-->
+						<span style="background:#dd6b6b;" class="snBg">
+							<img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
+						</span>
+						<span style="border:1px solid #dd6b6b;" class="snCount">
+							100,000
+						</span><!--/google-->
+					</span>
+				</span><!--/.dropdown-->
+			</span><!--/counts and share link-->
+			@endif
+		</div><!--/.col-md-6-->
 	</div>
-	<div class="col-md-6">
-		@if(empty($recentUpload))
-			<p style="margin-left:30px;">No recent Activity</p>
-		@else
-		<h3><b>Title: {{$recentUpload->title}}</b></h3>
-		<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
-		<br/>
-		<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-
-
-									</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif								
-							</a>
-		<p class="text-justify">
-			Description: {{$recentUpload->description}}
-		</p>
-		<br/>
-		<span class=""><!--/counts and share link-->
-			1,800,753 Views &nbsp;&nbsp;|&nbsp;&nbsp;
-			1,800,753 Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-
-			<span class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
-				</a>
-				<span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
-					<!--facebook-->
-					<span style="background:#3d5a98;" class="snBg">
-						<img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-					</span>
-					<span class="snCount" style="border:1px solid #3d5a98;">
-						100,000
-					</span><!--/facebook-->
-					<br/><br/>
-					<!--google-->
-					<span style="background:#dd6b6b;" class="snBg">
-						<img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-					</span>
-					<span style="border:1px solid #dd6b6b;" class="snCount">
-						100,000
-					</span><!--/google-->
-				</span>
-			</span><!--/.dropdown-->
-		</span><!--/counts and share link-->
-		@endif
-	</div><!--/.col-md-6-->
 </div>
 <br/>
 
@@ -74,14 +87,22 @@
 			@foreach($findVideos as $findVideo)
 			<div class="col-md-4">
 				<div class="row">
-					<div class="">
-						<video controls height="auto" width="100%" class="h-video">
-							<source src="/videos/{{$findVideo->file_name}}.{{$findVideo->extension}}" type="video/mp4"/>
-						</video>
+					<div id="findVid">
+					<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">
+						@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
+							<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+							<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+							</video>
+						@else
+							{{HTML::image('img/thumbnails/video.png')}}
+						@endif
 					</div>
 					<div class="v-Info">
 						{{$findVideo->title}}
 					</div>
+					</a>
 					<div class="count">
 						{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 					</div>
@@ -149,7 +170,27 @@
 						</a>&nbsp;
 						<br/>&nbsp;
 						<span>w/ <b>{{$subscriber->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-						<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+						<!-- <button class="btn btn-primary btn-xs pull-right">Subscribe</button> -->
+						@if(isset(Auth::User()->id))
+							@if(isset($subscriber->id))
+								@if((Auth::User()->id) AND (Auth::User()->id != $subscriber->id))
+									<?php
+										$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscriber->id, 'subscriber_id' => Auth::User()->id))->first();
+									?>
+									{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+						    			{{Form::hidden('user_id', $subscriber->id)}}
+						    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+						    			@if(!$ifAlreadySubscribe)
+						    				{{Form::hidden('status','subscribeOn')}}
+									    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+									    @else
+									    	{{Form::hidden('status','subscribeOff')}}
+									    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+									    @endif
+									{{Form::close()}}
+								@endif
+							@endif
+						@endif
 					</div>
 				</div>
 				@endforeach					
@@ -178,9 +219,28 @@
 								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{$subscription->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-								<button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button>
+								<!-- <button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button> -->
+								@if(isset(Auth::User()->id))
+									@if(isset($subscription->id))
+										@if((Auth::User()->id) AND (Auth::User()->id != $subscription->id))
+											<?php
+												$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscription->id, 'subscriber_id' => Auth::User()->id))->first();
+											?>
+											{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+								    			{{Form::hidden('user_id', $subscription->id)}}
+								    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+								    			@if(!$ifAlreadySubscribe)
+								    				{{Form::hidden('status','subscribeOn')}}
+											    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+											    @else
+											    	{{Form::hidden('status','subscribeOff')}}
+											    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+											    @endif
+											{{Form::close()}}
+										@endif
+									@endif
+								@endif
 							</div>
-							
 						</div>
 					@endforeach
 				@endif
