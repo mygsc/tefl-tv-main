@@ -7,8 +7,8 @@
 <style type="text/css" media="screen">
 canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
 	width:180px;
-	height:101px;
-	border:1px solid #ccc;
+	height:100px;
+	outline:1px solid #ccc;
 	cursor:pointer;
 	margin-right: auto;
 	margin-left: auto;
@@ -80,7 +80,7 @@ margin: 10px;
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
+								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail: <small id="recreate-thumb" style="cursor:pointer">Refresh thumbnail</small></h3>	
 								<center>
 									<div id="screenshot">				
 											<canvas class="thumb-1" id="img-thumb-1"></canvas>

@@ -7,23 +7,21 @@ var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLen
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
- 	highQual, lowQual, fullscreenVid;
+ 	highQual, lowQual, fullscreenVid, mouseMoving=false;
 
-var progWidth = document.getElementById('progressbar').offsetWidth;
-var progress = document.getElementById('current-progress').offsetWidth;
+var progWidth;
+var progress;
 var videoQuality = {'9001p':'highres', '1080p':'hd1080', '720p':'hd720', '480p':'large', '360p':'medium', '240p':'small', '144p':'tiny'};
 var animate360 = document.getElementById('button-progress');
-
 //Events
 function GSCMediaPlayer(){
-	play = document.getElementById('play');
 	seekSlider = document.getElementById('seek-slider');
 	highQual = document.getElementById('high-quality');
 	lowQual = document.getElementById('low-quality');
 	mediaPlayer = document.getElementById('media-video');
 	videoControls = document.getElementById('vid-controls');
 	playPauseBtn = document.getElementById('play-pause');
-	replay = document.getElementById('replay-icon');
+	// replay = document.getElementById('replay-icon');
 	muteBtn = document.getElementById('mute-icon');
 	bufferedAmount = document.getElementById('buffered');
 	currentProgress =  document.getElementById('current-progress');
@@ -31,8 +29,11 @@ function GSCMediaPlayer(){
 	volumeStatus = document.getElementById('volume');
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
+	progWidth = document.getElementById('progressbar').offsetWidth;
+	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
-	play.addEventListener('click',PlayOrPause, false);
+	playPauseBtn.addEventListener('click',togglePlayPause, false);
+	muteBtn.addEventListener('click',toggleMute, false);
 	highQual.addEventListener('click',highQuality, false);
 	lowQual.addEventListener('click',lowQuality, false);
 	seekSlider.addEventListener('change',vidSeek, false);
@@ -40,32 +41,36 @@ function GSCMediaPlayer(){
 	mediaPlayer.addEventListener('timeupdate', seekTimeUpdate, false); //updateProgressBar
 	
 	mediaPlayer.addEventListener('play', function() {
-		changeButtonType(playPauseBtn, 'pause');
+		changeButtonType(playPauseBtn, 'player pause', 'Pause');
 	}, false);
 
 	mediaPlayer.addEventListener('pause', function() {
-		changeButtonType(playPauseBtn, 'play');
+		changeButtonType(playPauseBtn, 'player play', 'Play');
 	}, false);
 	
 	
 	mediaPlayer.addEventListener('volumechange', function(e){ 
-		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'unmute');}
-		else {changeButtonType(muteBtn, 'mute'); }
+		if (mediaPlayer.muted) {changeButtonType(muteBtn, 'player sound-off', 'Unmute');}
+		else {changeButtonType(muteBtn, 'player sound-on', 'Mute'); }
 	}, false);	
 
 	mediaPlayer.addEventListener('ended', function(){ 
-		playPauseBtn.src = "/img/icons/play.png";
+		$('.play-icon').fadeIn(500);
+		$('.advertisement').fadeOut(1000);
+		videoPlaying = false;
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
 		timeDuration = Math.round(mediaPlayer.duration);
 		timeSettings();
 		adsOn();
+		mediaPlayer.addEventListener('progress', loadBuffer, false);
+		
 	});
-	fullscreenVid.addEventListener('click', fullscreen, false);//toggleFullScreen
+	fullscreenVid.addEventListener('click', toggleFullScreen, false);//fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
-	mediaPlayer.addEventListener('progress', loadBuffer, false);
-	//mediaPlayer.addEventListener('canplay', canPlayVideo, false);
+	mediaPlayer.addEventListener('error', hasError, false);
+	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
 	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
@@ -73,27 +78,24 @@ function GSCMediaPlayer(){
 function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
-			buffPercent = ((buffPercent / timeDuration) * 100);
-			//$('#buffered').css({'width': buffPercent +'%'});
-			if(mediaPlayer.currentTime >= buffPercent){
-				$('#replay-icon').fadeIn();
-				replay.src="/img/icons/uploading.gif";
-				replay.width = 80;
-				replay.height = 80;
+			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
+			//$('#buffered').css({'width': percentLoaded + '%'});
+			if(seekSlider.value >= percentLoaded){
+				//$('#replay-icon').fadeIn();
+				// replay.src="/img/icons/uploading.gif";
+				// replay.width = 80;
+				// replay.height = 80;
 			}else{
-				replay.src="/img/icons/play-btn.png";
-				replay.width = 80;
-				replay.height = 80;
+				// replay.src="/img/icons/play-btn.png";
+				// replay.width = 80;
+				// replay.height = 80;
 			}
 		}else{
 			console.log('no buffer recieved...');
 		}
 }
 function canPlayVideo() { //buffering done...
-	$('.play-icon').fadeOut();
-	replay.src="/img/icons/post_play_button.png";
-	replay.width = 50;
-	replay.height = 50;
+	alert('Video canplay');
 }
 function onWaitingBuffer() { //buffering occur...
 	$('.play-icon').fadeIn();
@@ -106,11 +108,10 @@ function seekingNewPosition() { //find new position
 	mediaPlayer.currentTime = seekTo;
 }
 
-function disabledRightClick(){
-	$('#media-video').bind("contextmenu", function(){
-    return false;
-	});
-  }
+function hasError(){
+ 	return alert('cannot play video');
+ }
+
 //list of bind more realiable codes....
 $('#media-video').bind("contextmenu", function(){
     return false;
@@ -118,6 +119,7 @@ $('#media-video').bind("contextmenu", function(){
 
 $('#media-video').bind('ended', function(){
      if(!this.paused) this.pause();
+     $('.advertisement').fadeOut(1000);
 });
 
 function highQuality(e){
@@ -129,17 +131,6 @@ function lowQuality(e){
 	alert('Sorry, no available low quality, under development.');
 }
 
-function PlayOrPause(){
-	if(mediaPlayer.paused){
-		mediaPlayer.play();
-		play.innerHTML = '&#10074;&#10074;';
-		$('div.play-icon').fadeOut();
-	}else{
-		mediaPlayer.pause();
-		play.innerHTML = '&#9658;';
-		$('div.play-icon').fadeIn(500);
-	}
-}
 function vidSeek(){
 	var seekTo = mediaPlayer.duration * (seekSlider.value / 100);
 	mediaPlayer.currentTime = seekTo;
@@ -161,24 +152,27 @@ function seekTimeUpdate(){
 	}else{
 		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
 	}
-	// if(curSec == adsTime){
-	// 	$('.advertisement').fadeIn(2000);
-	// }
-
+	if(curSec == adsTime){
+		$('.advertisement').fadeIn(2000);
+	}
+	
 }
 
 function toggleFullScreen() {
   if (!document.fullscreenElement &&    // alternative standard method
       !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-      document.documentElement.msRequestFullscreen();
-    } else if (videoControls.mozRequestFullScreen) {
+    if (mediaPlayer.requestFullscreen) {
+      mediaPlayer.requestFullscreen();
+    } else if (mediaPlayer.msRequestFullscreen) {
+      mediaPlayer.msRequestFullscreen();
+    } else if (mediaPlayer.mozRequestFullScreen) {
+    	$('#controls').addClass('controls');
       videoControls.mozRequestFullScreen();
-
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    } else if (mediaPlayer.webkitRequestFullscreen) {
+    	$('#controls').addClass('controls');
+    	mediaPlayer.webkitRequestFullscreen();
+      //mediaPlayer.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      //videoFullScreen.request(document.getElementById('media-video'));
     }
   } else {
     if (document.exitFullscreen) {
@@ -194,12 +188,10 @@ function toggleFullScreen() {
 }
 
 function adsOn(){
-	//ads = Math.floor(timeDuration * adsTime / 100);
-	ads = (adsTime / timeDuration) * 100;
-	//ads = Math.round(100 / ads);
-	var adsbar = Math.floor(progWidth/adsTime);
-	$('<div class="ads"> <div style="border-radius:2px;background:transparent;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
+	// ads = (adsTime / timeDuration) * 100;
+	// var adsbar = Math.floor(progWidth/adsTime);
+	// $('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
+	// $('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
 	
 }
 function timeSettings(){
@@ -230,8 +222,8 @@ function togglePlayPause() {
 	// If the mediaPlayer is currently paused or has ended
 	if (mediaPlayer.paused || mediaPlayer.ended) {
 		toggleShowHanldeProgress();
-		playPauseBtn.src = "/img/icons/pause.png";
-		changeButtonType(playPauseBtn, 'pause');
+		//playPauseBtn.src = "/img/icons/pause.png";
+		changeButtonType(playPauseBtn, 'player pause', 'Pause');
 		mediaPlayer.play();
 		videoPlaying = true;
 		playIcon = false;
@@ -239,9 +231,9 @@ function togglePlayPause() {
 	}
 	// Otherwise it must currently be playing
 	else {
-		changeButtonType(playPauseBtn, 'play');
+		changeButtonType(playPauseBtn, 'player play','Play');
 		toggleShowHanldeProgress();
-		playPauseBtn.src = "/img/icons/play.png";
+		//playPauseBtn.src = "/img/icons/play.png";
 		mediaPlayer.pause();
 		videoPlaying = false;
 		playIcon=true;
@@ -296,15 +288,17 @@ function setVolume(){
 function toggleMute() {
 	if (mediaPlayer.muted) {
 		// Change the button to be a mute button
-		changeButtonType(muteBtn, 'mute');
-		muteBtn.src = "/img/icons/sound.png";
+		changeButtonType(muteBtn, 'player sound-on','Mute');
+		//muteBtn.src = "/img/icons/sound.png";
 		mediaPlayer.muted = false;
+		volumeStatus.value = 100; 
 	}
 	else {
 		// Change the button to be an unmute button
-		changeButtonType(muteBtn, 'unmute');
-		muteBtn.src = "/img/icons/sound-off.png";
+		changeButtonType(muteBtn,'player sound-off', 'Unmute');
+		//muteBtn.src = "/img/icons/sound-off.png";
 		mediaPlayer.muted = true;
+		volumeStatus.value = 0;	
 	}
 }
 
@@ -368,35 +362,16 @@ function updateProgressBar(response) {
 						$('.ctime').html(minutes + ':' + seconds +'/' + vidMin + ':' + vidSec);
 					}
 
-					
-					//bufferedPercent();
-					// setInterval(bufferedPercent, 1000);
 					if(seconds == adsTime){
 						$('.advertisement').fadeIn(2000);
 					}
 									
 }
 
-//Let's calculate amount buffering progress....
-function bufferedPercent(){
-    if (mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING) {
-    	setInterval(bufferedPercent, 1000);
-    	$('.play-icon').fadeIn();
-    	replay.src = '/img/icons/uploading.gif';
-    	replay.width = 80; 
-    	replay.height = 80;
-	}else{
-		replay.src = '/img/icons/play-btn.png';
-		replay.width = 80; 
-    	replay.height = 80;
-		$('.play-icon').fadeOut(500);
-	}
-}
-// Updates a button's title, innerHTML and CSS class to a certain value
-function changeButtonType(btn, value) {
-	btn.title = value;
-	btn.innerHTML = value;
-	btn.className = value;
+
+function changeButtonType(btn, toggleclass, title) {
+	btn.title = title;
+	btn.className = toggleclass;
 }
 
 // Loads a video item into the media player
@@ -426,23 +401,20 @@ function canPlayVideo(ext) {
 function resetPlayer() {
 	progress = 0;
 	mediaPlayer.currentTime = 0;
-	changeButtonType(playPauseBtn, 'play');
+	changeButtonType(playPauseBtn, 'player play', 'Play');
 }
 
 function fullscreen(){
-videoFullScreen.request(document.getElementById('vid-controls'));
-//$('#vid-controls').css({'position':'absolute', 'bottom':'0px', 'left':'0px', 'right':'0px'});
-//screenfull.request($('.wrapper')[0]);
-//$('.wrapper').css({'position':'relative','bottom':'0','left':'0'});
-// does not require jQuery, can be used like this too:
-// screenfull.request(document.getElementById('container'));
-			
-
+videoFullScreen.request(document.getElementById('media-video'));
+//screenfull.request($('.wrapper')[0]);		
 }
 $('#mute-icon').hover(function(){
 	soundHover=true;
 	if(soundHover==true){
 		$('.volume').fadeIn(1000);	
+		setTimeout(function(){
+			$('.volume').fadeOut(500);
+		},10000);
 	}	
 });
 $('.volume, .volume-static-holder, #volume-vertical').hover(function(){	
@@ -467,7 +439,6 @@ $('.volume').mouseleave(function(){
 	}
 });
 
-
 $('#volume-vertical').mousedown(function(e){
 	LetProcessYourVolume(e)
 });
@@ -481,7 +452,6 @@ $('.volume-static-holder').mousedown(function(e){
 // 	if(volumeDrag==true){
 // 		LetProcessYourVolume(e);
 // 	}
-	
 // });
 
 function LetProcessYourVolume(e){
@@ -501,7 +471,6 @@ function LetProcessYourVolume(e){
 		mediaPlayer.volume = $('#volume-vertical').height() / $(this).height();
 		volumeY = $('#volume-vertical').height() / $(this).height();
 		
-
 		if($('#volume-vertical').height() < 15){
 			$('#volume-button').css({'background':'red'});
 			$('#volume-vertical').css('overflow','hidden');
@@ -517,6 +486,7 @@ function LetProcessYourVolume(e){
 	// currentTime = (Math.floor(mouseX) /  Math.floor(progWidth)) * Math.floor(mediaPlayer.duration);
 	// mediaPlayer.currentTime(currentTime) 	
 //});
+
 
 $('#hd-setting').bind('click', function(){
   $('.hd-setting').toggle('show');
@@ -547,6 +517,14 @@ $('#media-video').bind('click', function(){
 $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
+
+// $('#media-video').bind('mouseleave', function(){
+// 	$('#controls').fadeOut();
+// });
+// $('#media-video,#controls').bind('mouseover', function(){
+// 	$('#controls').fadeIn();
+// });
+
 
 
 

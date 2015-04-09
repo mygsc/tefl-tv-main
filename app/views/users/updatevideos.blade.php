@@ -1,5 +1,57 @@
 @extends('layouts.default')
-
+@section('some_script')
+{{HTML::script('js/subscribe.js')}}
+{{HTML::script('js/user/edit.js')}}
+{{HTML::script('js/media.player.js')}}
+<script type="text/javascript">
+	$(document).ready(function() {
+		// var success = $('#uploaded').val();
+		// if(success == 1){
+		// 	$('<div id="success" style="border:1px solid green; width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
+		// 	$('#success').fadeOut(20000);
+		// }
+		$('#form-add-setting').on('submit', function() {
+		        //.....
+		        //show some spinner etc to indicate operation in progress
+		        //.....
+		        $.post(
+		        	$(this).prop( 'action' ),{
+		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
+		        		"setting_name": $( '#setting_name' ).val(),
+		        		"setting_value": $( '#setting_value' ).val()
+		        	},
+		        	function( data ) {
+		                //do something with data/response returned by server
+		            },'json'
+		            );
+		        //.....
+		        //do anything else you might want to do
+		        //.....
+		        //
+		        //prevent the form from actually submitting in browser
+		        return false;
+		    } );
+		$("#poster").on("change", function(){
+		  var reader = new FileReader();
+		     var files = !!this.files ? this.files : [];
+		            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+		 
+		          if (/^image/.test( files[0].type)){ // only image file
+		              reader.readAsDataURL(files[0]); // read the local file
+		   
+		              reader.onloadend = function(){ // set image data as background of div
+		                //var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
+		                  //thumb.src=this.result;
+		                  var videoPlayer = document.getElementById('media-video');
+		                  videoPlayer.poster=this.result;
+		                   videoPlayer.height='100%';
+		                   videoPlayer.width='100%';
+		              }
+		          }
+		    });
+	} );
+</script>
+@stop
 @section('content')
 	{{-- */$tagID = 1;/* --}}
 	{{-- */$explodeID = 0;/* --}}
@@ -144,59 +196,6 @@ margin: 10px;
 
 @stop
 
-@section('some_script')
-{{HTML::script('js/subscribe.js')}}
-{{HTML::script('js/user/edit.js')}}
-{{HTML::script('js/media.player.js')}}
-<!-- <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		// var success = $('#uploaded').val();
-		// if(success == 1){
-		// 	$('<div id="success" style="border:1px solid green; width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
-		// 	$('#success').fadeOut(20000);
-		// }
-		$('#form-add-setting').on('submit', function() {
-		        //.....
-		        //show some spinner etc to indicate operation in progress
-		        //.....
-		        $.post(
-		        	$(this).prop( 'action' ),{
-		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
-		        		"setting_name": $( '#setting_name' ).val(),
-		        		"setting_value": $( '#setting_value' ).val()
-		        	},
-		        	function( data ) {
-		                //do something with data/response returned by server
-		            },'json'
-		            );
-		        //.....
-		        //do anything else you might want to do
-		        //.....
-		        //
-		        //prevent the form from actually submitting in browser
-		        return false;
-		    } );
-		$("#poster").on("change", function(){
-		  var reader = new FileReader();
-		     var files = !!this.files ? this.files : [];
-		            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-		 
-		          if (/^image/.test( files[0].type)){ // only image file
-		              reader.readAsDataURL(files[0]); // read the local file
-		   
-		              reader.onloadend = function(){ // set image data as background of div
-		                //var thumb = document.getElementById('thumbnail');//$("#thumbnail-local").css("background-image", "url("+this.result+")");
-		                  //thumb.src=this.result;
-		                  var videoPlayer = document.getElementById('media-video');
-		                  videoPlayer.poster=this.result;
-		                   videoPlayer.height='100%';
-		                   videoPlayer.width='100%';
-		              }
-		          }
-		    });
-	} );
-</script>
-@stop
+
 
 
