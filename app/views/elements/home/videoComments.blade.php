@@ -27,7 +27,7 @@
 					if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
 						$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
 					} else{
-						$temp = 'img/user/0.png';
+						$temp = 'img/user/0.jpg';
 					}
 				?>
 
@@ -122,7 +122,7 @@
 								if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
 									$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
 								} else{
-									$temp = 'img/user/0.png';
+									$temp = 'img/user/0.jpg';
 								}
 								?>
 
@@ -162,6 +162,7 @@
 	</div>
 </div>
 
+{{HTML::script('js/jquery.js')}}
 <!--show hide for reply Box-->
 <script type="text/javascript">
 	jQuery(document).ready(function($) {

@@ -2,6 +2,20 @@
 
 @section('content')
 	<div class="container page">
+		<div class="col-md-3">
+			<div class="row">
+			<br/>
+				<div class="same-H">
+					<div class="">
+						@include('elements/home/sideNav')
+						@include('elements/home/adverstisementSmall')
+						<br/>
+						@include('elements/home/carouselAds')	
+
+					</div>
+				</div>
+			</div>
+		</div><!--/.col-3 right section navigations-->
 		<div class="col-md-9">
 			<div class="row">
 				<br/>
@@ -129,16 +143,7 @@
 
 	</div><!--/.col-md-9 left section, writeUps-->
 
-	<div class="col-md-3">
-		<div class="row">
-			<div class="sideLinksDiv2">
-				@include('elements/home/sideNav')
-				@include('elements/home/adverstisementSmall')
-				@include('elements/home/carouselAds')	
-
-			</div>
-		</div>
-	</div><!--/.col-3 right section navigations-->
+	
 </div><!--/.container page-->
 
 @stop

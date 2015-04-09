@@ -17,7 +17,7 @@
 		 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 		 <div id="vid-wrapper">
 			 <div id="vid-controls">
-				 <div class="embed-responsive embed-responsive-16by9 h-video">
+				 <div class="embed-responsive embed-responsive-16by9">
 				 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')))
 					 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
@@ -32,8 +32,9 @@
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 						</video>
 				 	@endif	
-					@include('elements/videoPlayer')
+					
 				</div>
+				@include('elements/videoPlayer')
 			</div>
 		</div>
 

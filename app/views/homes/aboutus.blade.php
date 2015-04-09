@@ -2,7 +2,21 @@
 
 @section('content')
 	<div class='container page'>
-		
+		<div class="col-md-3">
+			<div class="row">
+			<br/>
+				<div class="same-H">
+					<div class="">
+						@include('elements/home/sideNav')
+						@include('elements/home/adverstisementSmall')
+						<br/>
+						@include('elements/home/carouselAds')	
+
+					</div>
+				</div>
+			</div>
+		</div><!--/.col-3 right section navigations-->
+
 		<div class="col-md-9">
 			<h1>About TEFL TV</h1>
 			<!--about us content-->
@@ -59,16 +73,7 @@
 
 		</div><!--/.col-md-9-->
 
-		<div class="col-md-3">
-			<div class="row">
-				<div class="sideLinksDiv2">
-					@include('elements/home/sideNav')
-					@include('elements/home/adverstisementSmall')
-					@include('elements/home/carouselAds')	
-			
-				</div>
-			</div>
-		</div><!--/.col-3 right section navigations-->
+		
 
 	</div><!--/.container page-->
 

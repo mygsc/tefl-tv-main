@@ -7,6 +7,7 @@
 	@foreach($latestVideos as $latestVideo)
 	
 	<div class="col-lg-3 col-md-3 col-sm-6 hidden-xs ">
+	<span class="v-time inline">{{$latestVideo->total_time}}</span>
 		<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}" class="thumbnail-h">
 			<div class="thumbnail"> 
 				<img class="hvr-grow-rotate" src="{{$latestVideo->thumbnail}}">

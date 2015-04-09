@@ -10,7 +10,7 @@
 
 					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-					{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('class' => 'user-Dp'))}}
+					{{HTML::image('/img/user/0.jpg'))}}
 					@endif
 
 				</div>
@@ -50,7 +50,7 @@
 						@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
 						<img src="/img/user/{{$subscriber->subscriber_id}}.jpg" class="userRep">
 						@else
-						<img src="/img/user/0.png" class="userRep">
+						<img src="/img/user/0.jpg" class="userRep">
 						@endif
 					@endforeach
 					<a href="/channels/{{$channel->channel_name}}"><img src="/img/user/more.png" class="userRep hvr-glow hand"></a>
