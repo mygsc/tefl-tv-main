@@ -199,6 +199,7 @@ class UserController extends BaseController {
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
+
 		//End of insert
 
 		return View::make('homes.topchannels', compact(array('datas','auth')));

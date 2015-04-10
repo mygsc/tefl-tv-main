@@ -27,7 +27,7 @@
 							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							{{Form::hidden('user_id',$channel->id)}}
 							{{Form::hidden('subscriber_id', $auth->id)}}
-								@if(isset($datas->ifsubscribe))
+								@if($datas->ifsubscribe == NULL))
 								{{Form::hidden('status','subscribeOn')}}
 								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 								@else

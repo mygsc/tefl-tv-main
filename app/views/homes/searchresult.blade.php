@@ -8,7 +8,7 @@
 	<div class="container page">
 		<div class="col-md-8">
 			<div class="row">
-				@if($searchResults->isEmpty())
+				@if(empty($searchResults))
 					<br/><br/><br/>
 					<div class="text-center">
 					<p style="font-size:1.8em;font-style:italic;">Nothing Found</p>
