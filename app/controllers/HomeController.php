@@ -3,11 +3,12 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video,Notification $notification) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
+		$this->Subscribe = $subscribes;
 	}
 
 	public function getIndex() {
@@ -147,11 +148,9 @@ class HomeController extends BaseController {
 		
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 
-
-		// ayusin ung addComment
-
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter', 'countSubscribers'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
