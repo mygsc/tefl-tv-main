@@ -7,7 +7,7 @@
 	<!-- 12 column / 3 column = 4 -->
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
 		<div class="col-md-3 col-xs-6 hidden-xs">
-			<span class="v-time inline">12:00</span>
+			<span class="v-time inline">{{$popularVideo->total_time}}</span>
 			<img class="thumbnail" src="{{$popularVideo->thumbnail}}">
 
 			<div class="v-Info">
