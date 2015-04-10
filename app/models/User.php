@@ -75,11 +75,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',
 		'newPassword' => 'required|min: 6',
-		'confirmPassword' => 'same:newPassword');
+		'confirmPassword' => 'required|same:newPassword');
 
 	public static $userEmailRules = array(
 		'email' => 'required|email',
-		'newEmail' => 'required|email',
+		'newEmail' => 'required|email|unique:users,email',
 		'password' => 'required',
 		'confirmPassword' => 'same:password');
 

@@ -1,5 +1,5 @@
 <div class="categoryNav hidden-sm hidden-xs">
-    <div class="row">
+    <div class="">
         <div class="container">
             <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">

@@ -686,7 +686,7 @@ class UserController extends BaseController {
 				if($newPassword != $inputNewPassword){
 					$user = User::where('id', Auth::User()->id)->update(['password' => Hash::make(Input::get('newPassword'))]);
 					Auth::logout();
-					return Redirect::route('users.signout');
+					return Redirect::route('homes.index')->withFlashMessage('Successfully changed the password.');
 				}else{
 					return Redirect::route('users.change-password')->withFlashMessage('Current Password and New Password must not match');
 				}
@@ -708,7 +708,7 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userEmailRules);
 
 		if($validate->fails()){
-			return Redirect::route('users.change-email')->withErrors($validate)->withFlashMessage('Error changes in your Email');
+			return Redirect::route('users.change-email')->withErrors($validate);
 		}else{
 			$currentEmail = Auth::User()->email;
 			$newEmail = Input::get('newEmail');
@@ -723,6 +723,8 @@ class UserController extends BaseController {
 			}else{
 				return Redirect::route('users.change-email')->withFlashMessage('Current Email and New Email must not match')->withErrors($validate);
 			}
+			$user = User::where('email', Auth::User()->email)->update(['email' => $newEmail]);
+
 			return Redirect::route('users.channel')->withFlashMessage('Successful, Please open your email');
 		}
 	}
@@ -769,6 +771,7 @@ class UserController extends BaseController {
 	}
 
 	public function getViewUsersFeedbacks($channel_name) {
+		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -777,7 +780,121 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
-		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers'));
+		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id'));
+	}
+
+	public function getViewUsersVideos($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
+		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+		return View::make('users.videos2', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id'));
+	}
+
+	public function getViewUsersFavorites($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+		$findUsersVideos = DB::select('SELECT uf.id, uf.user_id, uf.video_id, uf.created_at, uf.updated_at, v.title, v.views, v.file_name, v.description, u.channel_name,
+			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes
+			FROM users_favorite AS uf
+			INNER JOIN videos AS v ON uf.video_id = v.id
+			INNER JOIN users AS u ON uf.user_id = u.id WHERE uf.user_id ="'.$userChannel->id.'"');
+
+		return View::make('users.favorites2', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id'));
+	}
+
+	public function getViewUsersWatchLater($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->get();
+		$usersVideos = User::find($userChannel->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$usersWatchLater = $this->WatchLater->getWatchLater($userChannel->id);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+		return View::make('users.watchlater2', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id'));
+	}
+
+	public function getViewUsersAbout($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$countAllViews = $this->Video->countViews($allViews);
+
+		return View::make('users.about2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id'));
+	}
+
+	public function getViewUsersPlaylists($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::find($userChannel->id);
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+		$playlists = Playlist::where('user_id', $userChannel->id)
+								->where('deleted_at','=',NULL)->get();
+			foreach($playlists as $playlist){
+				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
+			LEFT JOIN playlists_items i ON p.id = i.playlist_id
+			INNER JOIN videos v ON i.video_id = v.id
+			INNER JOIN users u ON v.user_id = u.id
+			WHERE i.playlist_id = '".$playlist->id."'
+			and v.deleted_at IS NULL
+			or v.report_count > 5
+			and v.publish = 1");
+			}
+		return View::make('users.playlists2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id'));
+	}
+
+	public function getViewUsersSubscribers($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video;
+		$subscribers = User::find($userChannel->id)->subscribe;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id',$userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$subscribers = Subscribe::where('user_id', $userChannel->id)->get();
+
+		foreach ($subscribers as $subscriber) {
+			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+		}
+
+		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->get();
+
+		foreach($subscriptions as $subscription) {
+			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
+		}
+		return View::make('users.subscribers2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
 	}
 
 	public function postViewUsersComments() {
@@ -787,7 +904,7 @@ class UserController extends BaseController {
 			$channelFeedback = Input::get('channel_id');
 
 			if(empty($feedback)){
-				return Response::json(array('status'=>'error','label' => 'The comment field is required.'));
+				return $feedback = (array('status'=>'error','label' => 'The comment field is required.'));
 			}else{
 				if(!Auth::check()){
 					return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
@@ -810,7 +927,8 @@ class UserController extends BaseController {
 				';
 			}
 			return $newFeedback;
-		}
+	}
+
 	public function addSubscriber() {
 		$user_id = Input::get('user_id');
 		$subscriber_id = Input::get('subscriber_id');

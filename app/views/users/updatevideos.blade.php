@@ -65,8 +65,9 @@ margin: 10px;
 												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
 											</video>
 										@endif
-										@include('elements/videoPlayer')
+										
 									</div><!--embed-responsive-->
+									@include('elements/videoPlayer')
 								</div><!--vid-controls-->
 			
 	

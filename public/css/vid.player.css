@@ -47,6 +47,7 @@
 		color: #fff;
 		font-size: 0.9em;
 		padding: 2px;
+		margin-top: -10px;
 	}
 
 	.title{
@@ -58,7 +59,7 @@
 	}
 	.playerLogo{
 		height:20px;
-		width:15px;
+		width:15px;]
 	}
 
 div#progressbar{
@@ -173,15 +174,19 @@ input#seek-slider::-moz-range-thumb {
 	top:0;
 	z-index: 2;
 }
+
+div#controls{
+
 /*.controls{
   position: absolute;
   bottom: 0;/*-10px !important;*/
   left: 0;
   right: 0;
+
   width: 100%;
   background: rgba(42,42,42,0.9);
   z-index: 1111;/*2147483647*/
-}*/
+}
 
 div#progress-amount {
   display: block;
@@ -310,6 +315,13 @@ button#play{
   	height: 15%;
   	cursor: pointer;
   	border-radius: 5px;
+<<<<<<< HEAD
+  	/*background: rgba(27,27,27,0.6);*/
+  	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}.play-icon span{
+=======
   	background: rgba(27,27,27,0.6);
 	padding: 15px;
 }
@@ -326,6 +338,7 @@ img#play{
   	padding: 15px;
 }
 .play-icon span{
+>>>>>>> dc52234addb51e16fb84f51fc1e905e8f58d9e4e
 	color:#fff;
 	margin: auto;  
   	position: absolute;
@@ -335,7 +348,11 @@ img#play{
   	bottom: 0;
   	cursor: pointer;
   	text-align:center;
+<<<<<<< HEAD
+  	 padding: 20px;
+=======
   	padding: 20px;
+>>>>>>> dc52234addb51e16fb84f51fc1e905e8f58d9e4e
 
 }.play-icon:hover{
 	-moz-box-shadow:inset 0px 2px 13px #ffffff;
