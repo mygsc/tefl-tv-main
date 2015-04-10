@@ -189,6 +189,7 @@ class UserController extends BaseController {
 
 		//Insert additional data to $datas
 		foreach($datas as $key => $channels){
+//return Subscribe::where(array('user_id' => $channels->id, 'subscriber_id' => $auth->id))->first();
 			$img = 'img/user/'. $channels->id. '.jpg';
 			if(!empty($auth)){
 				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
@@ -198,8 +199,11 @@ class UserController extends BaseController {
 			}
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+//dd($datas[$key]->ifsubscribe == null);
 		}
 		//End of insert
+
+
 
 		return View::make('homes.topchannels', compact(array('datas','auth')));
 	}
@@ -219,8 +223,6 @@ class UserController extends BaseController {
 			$datas[$key]->image_src = $profilePicture;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
-
-		$usersChannel = UserProfile::find(Auth::User()->id);
 
 		return View::make('homes.moretopchannels', compact(array('datas','auth')));
 	}
@@ -762,7 +764,8 @@ class UserController extends BaseController {
 		//r3mmel
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countVideos = Video::where('user_id', $userChannel->id)->get();
+
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		//r3mmel
@@ -897,36 +900,39 @@ class UserController extends BaseController {
 		return View::make('users.subscribers2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
 	}
 
-	public function postViewUsersComments() {
+	public function postViewUsersComments($channel_name) {
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
+		}
 
 			$feedback = Input::get('feedback');
-			$userFeedback = Input::get('user_id');
-			$channelFeedback = Input::get('channel_id');
 
+			$userFeedback = Input::get('user_id');
+
+			$channelFeedback = Input::get('channel_id');
+			
 			if(empty($feedback)){
-				return $feedback = (array('status'=>'error','label' => 'The comment field is required.'));
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message', 'Error!');
 			}else{
-				if(!Auth::check()){
-					return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
-				}
+				
 				$addNewFeedback = new Feedback;
 				$addNewFeedback->channel_id = $channelFeedback;
 				$addNewFeedback->user_id = $userFeedback;
 				$addNewFeedback->feedback = $feedback;
 				$addNewFeedback->save();
 
-				$newFeedback = '
-				<div id="feedbacksContainer">
-				<br/>
-				'.$addNewFeedback->feedback.'
-				<br/>
-				'.$addNewFeedback->user_id.'
-				<br/>
-				'.$addNewFeedback->created_at.'
-				</div>
-				';
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message','Successfully post your Feedback!');
+				// $newFeedback = '
+				// <div id="feedbacksContainer">
+				// <br/>
+				// '.$addNewFeedback->feedback.'
+				// <br/>
+				// '.$addNewFeedback->user_id.'
+				// <br/>
+				// '.$addNewFeedback->created_at.'
+				// </div>
+				// ';
 			}
-			return $newFeedback;
 	}
 
 	public function addSubscriber() {

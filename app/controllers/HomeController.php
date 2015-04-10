@@ -422,8 +422,9 @@ class HomeController extends BaseController {
 			$favorites = null;
 			$watchLater = null;
 		}
+		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$likeCounter = Like::where('video_id','=',$video->id)->count();
-		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater'));
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers'));
 	}
 
 	public function postSignIn() {
@@ -493,7 +494,7 @@ class HomeController extends BaseController {
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
 				$temp = 'img/user/'.$userInfo->id . '.jpg';
 			} else{
-				$temp = 'img/user/0.png';
+				$temp = 'img/user/0.jpg';
 			}
 			$newComment =  
 			'<div class="commentsarea row">
