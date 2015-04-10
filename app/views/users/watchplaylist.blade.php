@@ -115,7 +115,7 @@
                                         </div>
                                     @else
                                         <div class="col-md-1">
-                                            <img src="/img/user/0.png" class="">
+                                            <img src="/img/user/0.jpg" class="">
                                         </div>
                                     @endif
                                         <div class="col-md-11">
