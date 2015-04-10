@@ -139,7 +139,7 @@ margin: 10px;
 <div class="success">
 	<p style="color:green">{{Session::pull('success')}}</p>
 </div>
-@endif()
+@endif
 
 
 @stop

@@ -3,11 +3,12 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video,Notification $notification) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
+		$this->Subscribe = $subscribes;
 	}
 
 	public function getIndex() {
@@ -21,7 +22,7 @@ class HomeController extends BaseController {
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
-		
+		//return $recommendeds;
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -111,17 +112,19 @@ class HomeController extends BaseController {
 		//return $relations;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
-			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
 				WHERE i.video_id = '".$id."'
-				HAVING p.user_id = '".Auth::User()->id."';");
+				HAVING p.user_id = '".Auth::User()->id."'
+				AND p.deleted_at IS NULL;");
 			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
 				WHERE NOT EXISTS
 				(SELECT * FROM playlists_items AS i
 					WHERE i.playlist_id = p.id
 					AND
 					i.video_id = '".$id."')
-			AND p.user_id = '".Auth::User()->id."'");
+			AND p.user_id = '".Auth::User()->id."'
+			AND p.deleted_at IS NULL");
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
@@ -145,11 +148,9 @@ class HomeController extends BaseController {
 		
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 
-
-		// ayusin ung addComment
-
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter'));
+		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter', 'countSubscribers'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
@@ -482,5 +483,10 @@ public function addReply(){
 	public function testingpage(){ 
 		dd(file_exists(public_path('/videos/7-mygsc/ZsBuaZgQdg9/ZsBuaZgQdg9.jpg')));
 
+	}
+
+	public function getChangeLogs() {
+
+		return View::make('homes.changelogs');
 	}
 }

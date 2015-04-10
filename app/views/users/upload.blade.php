@@ -61,14 +61,17 @@ div canvas{
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
-							
 						</div>
-
 					</label> 
 					<div id="wrapper">
-								<div id="progressbar-loaded"></div>
-							</div><br/>
-							<label id="percentage"></label>
+							<div id="progressbar-loaded"></div> 
+					</div><br/>
+					 <label id="percentage"></label> 
+
+
+    
+
+
 					{{Form::close()}}
 
 				</div>

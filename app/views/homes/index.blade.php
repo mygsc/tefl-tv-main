@@ -20,7 +20,7 @@
 		<BR/>
 		<div class="row same-H">	
 
-			<div class="col-md-7" style="margin-bottom:20px;">
+			<div class="col-md-6" style="">
 				<div class="">
 					<div class="row  vid-wrapper">
 						<div id="vid-controls">
@@ -29,8 +29,7 @@
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
 									<source src='/videos/tefltv.ogg' type='video/ogg'>
-								</video>
-								
+								</video>	
 							</div><!--/embed-responsive-->
 							@include('elements/videoPlayer')
 						</div>
@@ -38,16 +37,16 @@
     			</div>
 			</div><!--/.col-md-8-->
 
-			<div class="col-md-5 col-lg-height col-top">
+			<div class="col-md-6 col-lg-height col-top">
                 <div class="row">
                 	<div class="col-md-7">
-                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
-                        <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
-                    </div><!--/.ad1-->
+	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">
+	                        <a href="http://tefleducators.com/"><img src="/img/thumbnails/ad1.jpg" class="adDiv"></a>
+	                    </div><!--/.ad1-->
                     
-                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-                        <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
-                   </div><!--/.ad2-->
+	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
+	                        <a href="http://www.auathailand.org/"><img src="/img/thumbnails/ad2.jpg" class="adDiv"></a>
+	                   </div><!--/.ad2-->
 
                    </div>
       
@@ -80,8 +79,11 @@
 				@foreach($recommendeds as $recommended)
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-lg-2 col-md-4 col-sm-6">
+		            	<span class="v-time inline">{{$recommended->total_time}}</span> 	
 		            	<div class="thumbnail-2">
-								<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+
+							<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+								
 						</div>
 		            	<div class="v-Info">
 		            		<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
@@ -109,8 +111,9 @@
 					@foreach($populars as $popular)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
+					<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
-								<img class="hvr-grow-rotate" src="{{$recommended->thumbnail}}">
+								<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
 						</div>
 						
 						<div class="v-Info">
@@ -138,6 +141,7 @@
 					@foreach($latests as $latest)
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 						<div class="col-md-6 col-sm-6">
+						<span class="v-time inline">{{$latest->total_time}}</span>
 							<div class="thumbnail-2">
 									<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
 							</div>
@@ -167,6 +171,7 @@
 					@foreach($randoms as $random)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
+					<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 								<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
 						</div>

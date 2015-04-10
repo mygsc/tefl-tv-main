@@ -14,7 +14,7 @@
 
 @stop
 @section('css')
-{{HTML::style('css/vid.player.css')}}
+{{--HTML::style('css/vid.player.css')--}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -184,7 +184,7 @@
                                     @endif
                                         <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
-                                                <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Subscribers)</small>
+                                                <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 

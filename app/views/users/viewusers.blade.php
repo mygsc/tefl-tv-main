@@ -4,134 +4,136 @@
 <div class="row White">
 	<div class="container pageH">
 		<br/>
-		<div class="row">
-			<div style="border:5px solid #e3e3e3;background:#fff;">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="" style="height:224px;overflow:hidden;">
-						@include('elements/users/profileTop2')
-					</div>
-				</div>
-			</div>
-			<div class="c-about" style="">
-				<div class="labelThis" style="margin-top:-25px;">
-					{{$userChannel->channel_name}}
-				</div>
-				<ul class="nav nav-tabs" role="tablist inline">
-			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
-			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
-				</ul>
-				<div class="tab-content inline">
-			  		<div role="tabpanel" class="tab-pane active" id="about">
-						<div class="" style="margin-top:20px;">
-							<p class="text-justify">
-								{{$userChannel->userprofile->interests}}
-							</p>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="learn">
 
-						<div class="row" style="margin-top:20px;">
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>Name</label></small> </td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->first_name}} {{$userChannel->last_name}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Birthdate</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->birthdate}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Organizations</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->organiztion}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Work</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->organiztion}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>Email</label></small> </td>
-										<td><b>:</b></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><small><label>Website</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->website}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Contact Number</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->contact_number}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Address</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->address}}</td>
-									</tr>
-								</table>
-
-							</div>
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>City</label></small> </td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->city}}</td>
-									</tr>
-									<tr>
-										<td><small><label>State</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->state}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Zip Code</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->zip_code}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Country</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$userChannel->country_id}}</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div><!--/.tabpanel-->
-				</div>
-			</div>
-		</div>
-
-			<br/>
+		<div class="row same-H">
+			@include('elements/users/profileTop2')
+		
 			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation"><a href="#Videos" aria-controls="Videos" role="tab" data-toggle="tab">Videos</a></li>
-				    	<li role="presentation"><a href="#MyFavorites" aria-controls="MyFavorites" role="tab" data-toggle="tab">My Favorites</a></li>
-				    	<li role="presentation"><a href="#WatchLater" aria-controls="WatchLater" role="tab" data-toggle="tab">Watch Later</a></li>
-				  		<li role="presentation"><a href="#Playlists" aria-controls="Playlists" role="tab" data-toggle="tab">Playlists</a></li>
-				  	  <li role="presentation">{{link_to_route('view.users.feedbacks2','Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation"><a href="#Subscribers" aria-controls="Subscribers" role="tab" data-toggle="tab">Subscribers</a></li>
-				  		<li role="presentation"><a href="#Subscriptions" aria-controls="Subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+				    	<li role="presentation" class="active">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
+				  	<br/>
 
 				  	<!-- Tab panes -->
 				    <div class="tab-content">
 					  	<div role="tabpanel" class="tab-pane active" id="home">
 							@include('elements/users/myChannelTabs/tab-HomeViewUsers')
-					  	</div>				    
+					  	</div>	
+
+					  	<div role="tabpanel" class="tab-pane" id="About">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="" id="about">
+										<div class="col-md-12 LighterBlue">
+										<h3 class="tBlue text-center">-Interests-</h3>
+										<div class="well2">
+											<p class="text-justify">
+												{{$userChannel->userprofile->interests}}
+											</p>
+											</div>
+										</div>
+									</div>
+								
+									<div class="col-md-12 LightestBlue">
+										<h3 class="tBlue text-center">-Personal Information-</h3>
+										<div class="well2">
+											<table class="tableLayout">
+												<tr class="">
+													<td width="20%"><small><label>Name</label></small> </td>
+													<td width="5%"><b>:</b></td>
+													<td width="75%">{{$userChannel->first_name}} {{$userChannel->last_name}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Birthdate</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->birthdate}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Organizations</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->organization}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Work</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->work}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="col-md-12 LighterBlue">
+										<h3 class="tBlue text-center">-Contact Information-</h3>
+										<div class="well2">
+											<table class="tableLayout">
+												
+												<tr>
+													<td width="20%"><small><label>Email</label></small> </td>
+													<td width="5%"><b>:</b></td>
+													<td width="75%">{{$userChannel->email}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Website</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->website}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Contact Number</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->contact_number}}</td>
+												</tr>
+												<tr>
+													<td><small><label>Zip Code</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->zip_code}}</td>
+												</tr>
+												
+											</table>
+										</div>
+									</div>
+									<div class="col-md-12 LightestBlue">
+										<h3 class="tBlue text-center">-Address-</h3>
+										<div class="well2">
+											<table class="tableLayout">
+												<tr>
+													<td width="20%"><small><label>Address</label></small></td>
+													<td width="5%"><b>:</b></td>
+													<td width="75%">{{$userChannel->address}}</td>
+												</tr>
+												<tr>
+													<td><small><label>City</label></small> </td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->city}}</td>
+												</tr>
+												<tr>
+													<td><small><label>State</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->state}}</td>
+												</tr>
+												
+												<tr>
+													<td><small><label>Country</label></small></td>
+													<td><b>:</b></td>
+													<td>{{$userChannel->country_id}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									
+
+
+									</div><!--/.tabpanel-->
+								</div><!--/.tab-content-->
+					  	</div>					    
 					    		
 					  	<div role="tabpanel" class="tab-pane" id="Videos">
 					  		<div class="row">
