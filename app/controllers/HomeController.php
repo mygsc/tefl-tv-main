@@ -495,4 +495,9 @@ class HomeController extends BaseController {
     	return $video;
 
 	}
+
+	public function getChangeLogs() {
+
+		return View::make('homes.changelogs');
+	}
 }

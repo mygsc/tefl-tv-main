@@ -20,7 +20,7 @@
 		<BR/>
 		<div class="row same-H">	
 
-			<div class="col-md-7" style="margin-bottom:20px;">
+			<div class="col-md-6" style="">
 				<div class="">
 					<div class="row  vid-wrapper">
 						<div id="vid-controls">
@@ -29,8 +29,7 @@
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
 									<source src='/videos/tefltv.ogg' type='video/ogg'>
-								</video>
-								
+								</video>	
 							</div><!--/embed-responsive-->
 							@include('elements/videoPlayer')
 						</div>
@@ -38,7 +37,7 @@
     			</div>
 			</div><!--/.col-md-8-->
 
-			<div class="col-md-5 col-lg-height col-top">
+			<div class="col-md-6 col-lg-height col-top">
                 <div class="row">
                 	<div class="col-md-7">
 	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:20px;">

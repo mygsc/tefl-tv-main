@@ -8,7 +8,7 @@
         <br/> <br/>
         <div class="">
            <div class="Div-channel-border">
-              <div class="well White " style="margin-bottom:0;min-height:350px;">
+                <div class="well White " style="margin-bottom:0;min-height:350px;">
                     <div class="row">
                         <br/>
                         <div class="text-center">
@@ -20,22 +20,31 @@
                         </div>
                         <br/>
                         <div class="col-md-12 LighterBlue">
-                            <div class="textbox-layout "> 
+                            <div class=""> 
                                 <h3 class="tBlue text-center">-For a stronger password mix characters and numbers-</h3>
                                 <div class="well2">
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
+                                    
                                     {{Form::label('currentPassword', ' Current Password: ')}}
                                     {{Form::password('currentPassword', null, array('required' => true))}}
-                                    {{$errors->first('currentPassword')}}
-                                    <br/>
+                                    <span class="inputError">
+                                        {{$errors->first('currentPassword')}}
+                                    </span>
+                                    <br/><br/>
                                     {{Form::label('newPassword', 'New Password: ')}}
                                     {{Form::password('newPassword', null, array('required' => true))}}
-                                    {{$errors->first('newPassword')}}
-                                    <br/>
+                                    <span class="inputError">
+                                        {{$errors->first('newPassword')}}
+                                    </span>
+                                    <br/><br/>
+                                   
                                     {{Form::label('confirmPassword', 'Confirm New Password: ')}}
+               
                                     {{Form::password('confirmPassword', null, array('required' => true))}}
-                                    {{$errors->first('confirmPassword')}}
-                                    <br/>
+                                    <span class="inputError">
+                                        {{$errors->first('confirmPassword')}}
+                                    </span>
+                                    <br/> <br/>
                                     <div class="text-right">
                                         {{Form::submit('Save Changes' ,array('class' => 'btn btn-info'))}}
                                     </div>
@@ -43,14 +52,9 @@
                                 {{Form::close()}}
                             </div>
                         </div>
-
-                                </div>
-                            </div><!--/.tabContent-->
-                        </div><!--/.tabbable tabs-left-->
-                    </div><!--/.row-->
+                    </div>
                 </div><!--/.well-->
             </div><!--/.wrapperAccount-->
-            <br/>
         </div><!--/.col-md-12-->
     </div><!--/.container row-->
 </div>

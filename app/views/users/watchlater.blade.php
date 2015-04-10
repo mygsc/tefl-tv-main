@@ -62,7 +62,7 @@
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
 									@if($watchLater->status==1)
-									<span title="Remove from watch later?" class="time inline">
+									<span title="Remove from watch later?" class="btn-sq inline">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
 												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline'))}}
