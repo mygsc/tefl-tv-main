@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="container page">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<div class="row">
 		<h3>Notifications</h3>
 		@if($notifications->isEmpty())
@@ -50,8 +50,10 @@
 		{{$notifications->links()}}
 		</div>
 	</div>
-	<div class="col-md-4">
-		<div class="sideLinksDiv2">
+	<div class="col-md-3">
+	<br/>
+		<div class="same-H">
+
 			@include('elements/home/adverstisementSmall')
 			@include('elements/home/carouselAds')	
 			@include('elements/home/recommendedChannelList')
