@@ -10,7 +10,7 @@
 
 					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-					{{HTML::image('/img/user/0.jpg'))}}
+					{{HTML::image('/img/user/0.jpg')}}
 					@endif
 
 				</div>

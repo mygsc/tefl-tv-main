@@ -242,6 +242,10 @@ class Video extends Eloquent{
 				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
 			}
 		}
-		return $categories;
+		if(!empty($categories)){
+			return $categories;
+		}
+		return false;
+		
 	}
 }
