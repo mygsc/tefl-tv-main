@@ -4,10 +4,10 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 		{{-- */$playlistCounter = 1;/* --}}
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -25,19 +25,19 @@
 				<div class="">
 					<br/>
 					<div class="col-md-5">
-						<div class="input-group">
+						<!--<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
-						</div>
+						</div>-->		
 					</div>
 					<div class="col-md-4">
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<!--<button class="btn btn-unsub">Manage Playlist</button>-->
-						<button class="btn btn-unsub">Add Video</button>
+						<!--<button class="btn btn-unsub">Manage Playlist</button>
+						<button class="btn btn-unsub">Add Video</button>-->
 					</div>
 
 				
@@ -45,8 +45,9 @@
 					<div class="col-md-3 text-right">
 						
 						<div class="buttons">
-							<button class="btn btn-primary">Delete Playlist</button>
-							
+						{{Form::model($playlist, array('route' => array('playlistdelete.post',Crypt::encrypt($playlist->id))))}}
+							{{Form::submit('Delete Playlist',array('class'=>'btn btn-primary'))}}
+						{{Form::close()}}
 						</div>
 					</div>
 
@@ -55,13 +56,49 @@
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
+						{{Form::hidden("encrypt",Crypt::encrypt($playlist->id),array('id'=>'encrypt'))}}
 							<div class="col-md-3">
-								<img src="/img/thumbnails/v2.png">
+								@if(empty($videos))
+								<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										0
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
+									<img src="/img/thumbnails/video.png">
+								</div>
+								@else
+									@if(file_exists(public_path('/videos/'.$videos[0]->user_id.'-'.$videos[0]->channel_name.'/'.$videos[0]->file_name.'/'.$videos[0]->file_name.".jpg")))
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($videos)}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
+										<img src="/videos/{{$videos[0]->user_id}}-{{$videos[0]->channel_name}}/{{$videos[0]->file_name}}/{{$videos[0]->file_name}}.jpg">
+									</div>
+									@else
+									<div class="" style="position:relative;">
+									<div class="playlist-info" >
+										{{count($videos)}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
+										<img src="/img/thumbnails/video.png">
+									</div>
+									@endif
+								@endif
 							</div>
 							<div class="col-md-9">
-								<h4><i class="fa fa-globe"></i> &nbsp;{{$playlist->name}}</h4>
+								<h4><i class="fa fa-globe"></i> &nbsp;<span id="playlistName">{{$playlist->name}}</span></h4>
 								<p>{{$playlist->created_at->toFormattedDateString()}}</p>
-								<p class="text-justify">{{$playlist->description}}</p>
+								<p class="text-justify"><span id="playlistDesc">{{$playlist->description}}</span></p>
 							</div>
 						</div>
 
@@ -69,18 +106,25 @@
 						@if(empty($videos))
 							No videos available in {{$playlist->name}} playlist.
 						@else
+
 							@foreach($videos as $video)
 							<div class="row">						
 								<div class="col-md-2">
-									<a href="/watch={{$video->file_name}}"><img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg"></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
+									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+										<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
+									@else
+										<img src="/img/thumbnails/video.png">
+									@endif
+									</a>
 								</div>
 								<div class="col-md-10">
 									<span class="pull-right" style="margin-right:20px;">
-										<button class="btn btn-default" title="set as playlist thumbnail"><i class="fa fa-file-image-o"></i></button> &nbsp;
+										<!--<button class="btn btn-default" title="set as playlist thumbnail"><i class="fa fa-file-image-o"></i></button> &nbsp;-->
 										<button class="btn btn-default" title="remove from playlist" id="removeToplaylist{{$playlistCounter++}}" data-encrypt="{{Crypt::encrypt($video->playlist_id)}}" data-encrypt2 ="{{Crypt::encrypt($video->id)}}"><i class="fa fa-trash"></i></button>
 									
 									</span>
-									<a href="/watch={{$video->file_name}}"><p>{{$video->title}}</p></a>
+									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><p>{{$video->title}}</p></a>
 									<small>{{$video->channel_name}}</small>
 								</div>
 							</div>
@@ -89,10 +133,10 @@
 						<hr/>
 					</div><!--videoContainer-->
 				</div>
-				<br/>
+			
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
-
+	<br/>
 	</div><!--/.container page-->
 </div>
 

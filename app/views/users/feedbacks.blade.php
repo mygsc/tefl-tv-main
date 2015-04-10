@@ -6,7 +6,7 @@
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -21,8 +21,8 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
-					Feedbacks
+				<div class="feedbackSection">
+					
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
@@ -34,11 +34,11 @@
 
 
 @section('script')
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
-
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	{{HTML::script('js/mention.js')}}
+<!-- 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

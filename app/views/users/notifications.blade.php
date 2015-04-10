@@ -16,10 +16,15 @@
 		<div class="row">
 		<h3>Notifications</h3>
 		@if($notifications->isEmpty())
-		No notification
+		<div class="text-center">
+			<hr/>
+				<p>No notification</p>
+			<hr/>
+
+		</div>
 		@endif
 			@foreach($notifications as $key => $notification)
-			<hr/>
+			
 			<!------To Display date-------->
 			<?php $r_date = strtotime($notification->created_at); ?>
 			@if($month != date('m',$r_date)||$day != date('d',$r_date)||$year != date('Y',$r_date))
@@ -28,10 +33,16 @@
 					$day = date('d',$r_date);
 					$year = date('Y',$r_date);
 				?>
-				{{$notification->created_at}}
-				<br>
+				<hr/>
+				<p><b>{{date('F d, Y',strtotime($notification->created_at))}}</b></p>
+				<hr/>
 			@endif
-				{{$notification->notification}}
+				<p><img src="{{$notification->profile_picture}}" class="un-img"> &nbsp; {{$notification->notification}}
+				&nbsp; - &nbsp;
+				{{$notification->time_difference}}
+				</p>
+			
+				
 			@endforeach
 		</div>
 

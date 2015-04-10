@@ -23,7 +23,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function userprofile() {
 
-		return $this->hasOne('userProfile');
+		return $this->hasOne('UserProfile');
 	}
 
 	public function video() {
@@ -64,22 +64,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		);
 
 	public static $userRules = array(
-		'email' => 'required|email|unique:users',
-		'channel_name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+		'email' => 'required|email|unique:users,email',
+		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
 		'password' => 'required',
 		'confirm_password' =>'same:password',
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
-		'contact_number' => 'regex:/(^[0-9]+$)+/');
+		'contact_number' => 'regex:/(^[+0-9]+$)+/');
 
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',
 		'newPassword' => 'required|min: 6',
-		'confirmPassword' => 'same:newPassword');
+		'confirmPassword' => 'required|same:newPassword');
 
 	public static $userEmailRules = array(
 		'email' => 'required|email',
-		'newEmail' => 'required|email',
+		'newEmail' => 'required|email|unique:users,email',
 		'password' => 'required',
 		'confirmPassword' => 'same:password');
 
@@ -104,10 +104,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 	
 	public function getRandomChannels(){
-		return User::orderByRaw("RAND()")
-		->where('status', '1')
-		->where('verified', '1')
-		->get(array('id','channel_name'));
+		return db::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
+	videos.user_id, SUM(videos.views) AS total
+			FROM videos INNER JOIN users ON 
+			videos.user_id = users.id
+			INNER JOIN users_profile ON
+			videos.user_id = users_profile.user_id 
+			GROUP BY videos.user_id 
+			ORDER BY RAND()
+			LIMIT 16
+			');
+	}
+
+	public function getTopChannels($limit = null){
+		return DB::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
+			videos.user_id, SUM(videos.views) AS total, (Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers
+			FROM videos INNER JOIN users ON 
+			videos.user_id = users.id
+			INNER JOIN users_profile ON
+			videos.user_id = users_profile.user_id 
+			GROUP BY videos.user_id 
+			ORDER BY subscribers DESC
+			LIMIT '.$limit.'
+			');
 	}
 
 	public function setVerifyStatus($verify_status, $user_id){
@@ -118,5 +137,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->save();
 
 		return true;
+	}
+
+	public function renewPassword($password = null, $user_id = null){
+		if(!empty($password) && !empty($user_id)){
+			$user = User::find($user_id);
+			$user->password = Hash::make($password);
+
+			if($user->verified == '0'){
+				$generateToken = Crypt::encrypt($user->email + rand(10,100));
+				$user->token = $generateToken;
+			}else{
+				$user->token = null;
+			}
+
+			$user->save();
+			return true;
+		}
+		return false;
 	}
 }

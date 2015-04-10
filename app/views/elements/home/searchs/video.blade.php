@@ -3,17 +3,17 @@
 @foreach($searchResults as $result)
 <div class="row">
 	<div class="col-md-4">
-		<img src="/img/thumbnails/v1.png">
+		<a href="{{route('homes.watch-video', array($result->file_name))}}"><img src="{{$result->thumbnail}}"></a>
 	</div>
 	<div class="col-md-8">
-		<a href="#">{{$result->title}}</a><br />
+		<a href="{{route('homes.watch-video', array($result->file_name))}}">{{$result->title}}</a><br />
 		By: <a href="#">{{$result->channel_name}}</a><br />
 		<p class="text-justify">{{$result->description}}</p>
-		<i class="fa fa-eye"></i> {{$result->views}} | <i class="fa fa-thumbs-up"></i> {{$result->likes}} | <i class="fa fa-calendar"></i> {{$result->created_at}}
+		<i class="fa fa-eye"></i> {{$result->views}} | <i class="fa fa-thumbs-up"></i> {{$result->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($result->created_at))}}
 		<br/>
 		<small><b>Tags:</b></small>
-		@foreach($result->tag as $tag)
-			<a href="{{$tag['url']}}">{{ $tag['tags'] }}</a>
+		@foreach($result->tags as $tag)
+			<a href="/search-result?search={{$tag}}">{{ $tag }}</a> 
 		@endforeach
 
 	<br /><br />
@@ -21,3 +21,4 @@
 </div>
 <hr/>
 @endforeach
+{{$searchResults->appends(Input::get())->links()}}

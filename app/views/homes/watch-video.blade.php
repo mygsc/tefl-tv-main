@@ -1,7 +1,20 @@
-@extends('layouts.default')
 
+
+@extends('layouts.default')
+@section('meta')
+    <meta property="og:title" content="{{$videos->title}}">
+        <meta property="og:site_name" content="test.tefltv.com">
+        <meta property="og:description" content="{{$videos->description}}">
+        <meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$videos->file_name}}">
+        <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:type" content="video">
+        <meta property="og:video:width" content="500"> 
+        <meta property="og:video:height" content="300"> 
+        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4"> 
+
+@stop
 @section('css')
-{{HTML::style('css/vid.player.css')}}
+{{--HTML::style('css/vid.player.css')--}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -10,6 +23,7 @@
 
 @section('content')
 
+<div class="row White">
 <div class="container page">
     <div class="content-padding">
         <div class="row">
@@ -18,49 +32,26 @@
                     <br/>
                     <div id="" class="ui-tabs-panel" style="">
                         <div class="well">
-                            <p class="black">
-                                {{$videos->title}}
-                            </p>
                             <!--video paler-->
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
                                     <div>
-                                        <br/>
-                                        <span class="">
-                                            <span id="views-counter">{{$videos->views}}</span> View(s) &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <span id="like-counter">{{$likeCounter}} Like(s)</span>&nbsp;
-                                            @if(isset(Auth::User()->id))
-                                            @if(!empty($like))
-                                            <span id = "like-span">
-                                                <i class="fa fa-thumbs-down hand" id="unlike"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            </span>
-                                            @else
-                                            <span id = "like-span">
-                                                <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            </span>
-                                            @endif
-                                            @else
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            @endif
-                                            <span class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                    <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
-                                                </a>
-                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-youtube" title="Share on Youtube"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
+                                    <br/>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <p class="black wv-title">
+                                                    {{$videos->title}}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 text-right">
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
+                                            </div>
 
-                                                </span><!--/.dropdown-menu pull-right White-->
-                                            </span><!--/.dropdown share-->
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                               
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
                                             @if(isset(Auth::User()->id))
 
@@ -105,6 +96,7 @@
 
 
                                                         <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
+                                                        
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -115,20 +107,84 @@
                                                 <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                             @endif
-                                        </span><!--/links-->
-                                    </div>
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                             <span class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+
+                                                </a>
+                                                <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+                                                    <div id="fb-root"></div>
+                                                    <div class="fb-share-button" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}" data-layout="button_count"> </div>
+                                                   <a class="twitter-share-button"
+                                                      href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
+                                                      data-url="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
+                                                      data-counturl="http://test.tefltv.com"
+                                                      data-count="horizontal">
+                                                    Tweet
+                                                    </a>
+                                                     <div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"></div>
+                                                   <!-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
+                                                    <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>-->
+                                                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
+
+                                                </span><!--/.dropdown-menu pull-right White-->
+                                            </span><!--/.dropdown share-->
+                                            
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                 <span class="">
+            
+                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;
+                                                    @if(isset(Auth::User()->id))
+                                                        @if(!empty($like))
+                                                        <span id = "like-span">
+                                                            <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                        </span>
+                                                        @else
+                                                        <span id = "like-span">
+                                                            <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
+                                                        </span>
+                                                        @endif
+                                                    @else
+                                                      <i class="fa fa-thumbs-up hand" title="like this" ></i>
+                                                    @endif
+                                                    <!--&nbsp; &nbsp; &nbsp;
+                                                     <span id = "like-span">
+                                                       0 <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                    </span>-->
+                                                    
+                                                </span><!--/links-->
+                                            </div>
+                                            
+                                        </div>  
+                                        </div>
+                                       
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
                             <br/>
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
-                                        <div class="col-md-1">
-                                            <img src="/img/user/u3.png" class="">
+                                    @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
+                                        <div class="col-md-1 col-sm-2">
+                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
                                         </div>
-                                        <div class="col-md-11">
+                                    @else
+                                        <div class="col-md-1 col-sm-2">
+                                            <img src="/img/user/0.jpg" class="">
+                                        </div>
+                                    @endif
+                                        <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
-                                                <span>{{ucfirst($owner->channel_name)}} <small>(150,000 Followrs)</small>
+                                                <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
@@ -136,6 +192,7 @@
                                             <div class="seeVideoContent">
                                                 <p>
                                                    {{$videos->description}}
+
                                                </p>
                                            </div>
                                        </div><!--./col-md-11-->
@@ -148,63 +205,19 @@
                     </div><!--well-->
                     <br/>
                 </div> <!--/.ui-tabs-panel-->
+
                 <!-- COMMENTS AREA -->
-                @if(isset(Auth::User()->id))
-                <div class="comments row">
-                    <span id='errorlabel' style='color:red;'></span>
-                    <textarea id='comment'></textarea>
-                    <button id='btncomment'>Post</button>
-
-                    {{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}.
-                    @if(isset(Auth::User()->id))
-                    {{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-                    @endif
-
-                    <div class="col-md-12 commentsarea row">
-                        @foreach($getVideoComments as $getVideoComment)
-                        <div class="commentsarea row">
-                            {{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
-                            <br/>
-                            {{$getVideoComment->comment}}<br/>
-                            <?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?> |
-
-                            <!-- <button id='c'>Reply</button> -->
-                            <a href="#" class='glyphicon glyphicon-thumbs-up' id="likedup">
-                                <div id="likevalues">
-                                    <input type="hidden" value="{{$getVideoComment->id}}"id="likeCommentId">
-                                    <input type="hidden" value="{{Auth::User()->id}}"id="likeUserId">
-                                </div>
-                            </a>69
-                            |
-                            <a href="#" class='glyphicon glyphicon-thumbs-down'></a>23
-                            <?php
-                            $getCommentReplies = DB::table('comments_reply')
-                            ->join('users', 'users.id', '=', 'comments_reply.user_id')
-                            ->where('comment_id', $getVideoComment->id)->get(); 
-                            ?>
-
-                            <div id="replysection">REPLY:<br/>
-                                <?php
-                                foreach($getCommentReplies as $getCommentReply):
-                                    echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "</br>";
-                                echo $getCommentReply->reply . "<br/>" .
-                                date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</hr>";
-                                endforeach;
-                                ?>
-                                {{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-                                    {{Form::hidden('comment_id', $getVideoComment->id)}}
-                                    {{Form::hidden('user_id', Auth::User()->id)}}
-                                    {{Form::textarea('txtreply', '', array('class' =>'form-control', 'id'=>'txtreply'))}}
-                                    {{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
-                                {{Form::close()}} 
-                            </div>
-                            <hr/>
-                        </div>
-                        @endforeach
+                <div class="well">
+                    <div class="row">
+                        <div class="content-padding">
+                         @include('elements/home/videoComments')
+                         </div>
                     </div>
                 </div>
-                @endif
                 <!-- COMMENTS AREA -->
+
+                
+               
 
                 <!-- latest -->
             </div><!--column 8-->
@@ -214,34 +227,94 @@
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-                <!--Display number of search results-->
-                <div class="searchResult">About 288,000 results</div>
-                <!--/search result-->
+               <br/>
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                    @foreach($relations as $relation)
-                    <li class="ui-tabs-nav-item" id="">
-                        <a href="watch={{$relation->file_name}}" id="videourl{{$videourl++}}">
-                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" />
-                            <span>{{$relation->title}}</span><br/>
-                        </a>
-                        <span>by: {{$relation->channel_name}}</span><br/>
-                        <small>{{date('m/d/Y', $relation->created_at);}}</small>
-
-                    </li>
-                    @endforeach
+                    @foreach($newRelation as $relation)
+                        @if($relation->id != $videos->id)
+                            <li class="ui-tabs-nav-item" id="">
+                                <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-4">
+                                    @if(file_exists(public_path("/videos/".$relation->uid."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
+                                    <img src="/videos/{{$relation->uid}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
+                                    @else
+                                    <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                                    @endif
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-4">
+                                        <div class="v-list"><span>{{$relation->title}}</span></div>
+                                        <span>by: {{$relation->channel_name}}</span><br/>
+                                        <small>{{date('m-d-Y',strtotime($relation->created_at))}}</small>
+                                    </div>
+                                </div>
+                                </a>
+                            </li>
+                        @endif
+                        @endforeach
                 </ul><!--video list-->
 
+                    
+                    @include('elements/home/carouselAds')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
+
     </div><!--/.row-->
 </div><!--/padding-->
+ <br/><br/><br/> 
 </div><!--/.row-->
+
+</div>
+
+
+<!--MODAL FOR EMBED VIDEO-->
+<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
+      </div>
+      <div class="modal-body">
+            <input type="text" class="form-control" value="<iframe width='500' height='315' src='http://www.test.tefltv.com/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+      </div>
+     <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <a href="{{route('user.upload.video.cancel',"v=". $videos->file_name)}}" class="btn btn-primary">Yes</a>
+      </div> -->
+    </div>
+  </div>
+</div>
+
 @stop
 
-@section('script')
+@section('some_script')
+{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/media.player.js')}}
-{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/comment.js')}}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".linkReadMore").click(function(){
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".seeVideoContent").slideToggle("slow");
+        });    
+    });
+
+// TWITTER SHARE SCRIPT
+</script>
+<script type="text/javascript">
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=131997643656114&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+ <script src="https://apis.google.com/js/platform.js" async defer></script> 
 @stop

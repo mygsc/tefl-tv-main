@@ -1,117 +1,23 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row White">
+<div class="row">
+	<br/>
 	<div class="container pageH">
-
-		<br/>
-		<div class="row">
-			@include('elements/users/profileTop')
-			<br/>
-			<div class="Div-channel-border">
-				<ul class="nav nav-tabs" role="tablist inline">
-					
-			    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
-			    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
-				</ul>
-				<div class="tab-content inline">
-			  		<div role="tabpanel" class="tab-pane active" id="about">
-						<div class="" style="margin-top:20px;">
-							<p class="text-justify">
-								{{$usersChannel->interests}}
-							</p>
-						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="learn">
-						<div class="row" style="margin-top:20px;">
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>Name</label></small> </td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Birthdate</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->birthdate}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Organizations</label></small></td>
-										<td><b>:</b></td>
-										<td>{{Auth::User()->organization}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Work</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->work}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>Email</label></small> </td>
-										<td><b>:</b></td>
-										<td>{{Auth::User()->email}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Website</label></small></td>
-										<td><b>:</b></td>
-										<td>{{Auth::User()->website}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Contact Number</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->contact_number}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Address</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->address}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="col-md-4">
-								<table class="tableLayout">
-									<tr>
-										<td><small><label>City</label></small> </td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->city}}</td>
-									</tr>
-									<tr>
-										<td><small><label>State</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->state}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Zip Code</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->zip_code}}</td>
-									</tr>
-									<tr>
-										<td><small><label>Country</label></small></td>
-										<td><b>:</b></td>
-										<td>{{$usersChannel->country_id}}</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div><!--/.tabpanel-->
-				</div><!--/.tab-content-->
-			</div>
-			<br/>
+		<div class="row same-H">
+			@include('elements/users/profileTop')		
 			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home')}}</li>
+				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
@@ -124,19 +30,19 @@
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
 			</div><!--/.div-channel-border-->
-			<br/>
+			
 		</div><!--/.contentpadding-->
+		<br/>
 	</div><!--/.container page-->
 </div>
 
 @stop
 
-@section('script')
+@section('some_script')
+	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
-
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

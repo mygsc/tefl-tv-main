@@ -182,45 +182,48 @@
     background-image:url('/img/icons/player.png');
     background-repeat: no-repeat;
     display: inline-block;
+  
 }
 
-.player-fullscreen {
+.fullscreen {
     width: 15px;
     height: 15px;
     background-position: -5px -5px;
 }
 
-.player-pause {
+.pause {
     width: 15px;
     height: 15px;
     background-position: -30px -5px;
+    cursor: pointer;
 }
 
-.player-play {
+.play {
     width: 15px;
     height: 15px;
     background-position: -55px -5px;
+    cursor: pointer;
 }
 
-.player-setting {
+.setting {
     width: 15px;
     height: 15px;
     background-position: -80px -5px;
 }
 
-.player-share {
+.share {
     width: 15px;
     height: 15px;
     background-position: -105px -5px;
 }
 
-.player-sound {
+.sound-on {
     width: 15px;
     height: 15px;
     background-position: -130px -5px;
 }
 
-.player-sound-off {
+.sound-off {
     width: 15px;
     height: 15px;
     background-position: -155px -5px;
@@ -242,7 +245,6 @@
 .btn-ico{
     padding: none!important;
      display: inline-block;
-  padding: 4px 10px;
   margin-bottom: 0;
   text-align: center;
   white-space: nowrap;

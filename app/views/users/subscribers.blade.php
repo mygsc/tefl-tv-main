@@ -4,20 +4,21 @@
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
+
 			<div class="Div-channel-border">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
+						<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 						<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 						<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-						<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-						<li role="presentation" class="active">{{link_to_route('users.subscribers', 'Subscribers')}}</li>
+						<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+						<li role="presentation" class="active">{{link_to_route('users.subscribers', 'Subscribers/Subscriptionss')}}</li>
 
 					</ul><!--tabNav-->
 				</div>
@@ -31,12 +32,12 @@
 								</div>
 								<br/>
 								<div class="searchPanel">
-									<div class="input-group">
+									<!--<div class="input-group">
 										{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
 										<span class="input-group-btn">
 											{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 										</span>
-									</div>
+									</div>-->
 								</div>
 								<br/><br/>
 								@if(empty($subscriberProfile))
@@ -60,66 +61,69 @@
 					</div>
 			
 					<div class="col-md-6">
-						<div class="well2 subscriptionsDiv">
-							<div class="subLabelThis">
-								<span>Subscriptions</span>&nbsp;
-							</div>
-							<br/>
-							<div class="searchPanel">
-								<div class="input-group">
-								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscription', 'class' => 'form-control c-input ')) }}
-									<span class="input-group-btn">
-										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-									</span>
+						<div class="well2 Div-channelSubSection">
+							<div class="subscibersDiv">
+								<div class="subLabelThis">
+									<span>Subscriptions</span>&nbsp;
 								</div>
+								<br/>
+								<div class="searchPanel">
+									<!--<div class="input-group">
+									{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscription', 'class' => 'form-control c-input ')) }}
+										<span class="input-group-btn">
+											{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+										</span>
+									</div>-->
+								</div>
+								<br/><br/>
+								
+								<table class="table">
+									<tr>
+										<td>{{ Form::checkbox(false)}}</td>
+										<td>
+											<select>
+												<option>Actions</option>
+											</select>
+										</td>
+										<td class="text-center">
+											Send me updates
+										</td>
+										<td class="text-center">
+											Actvity Feeds
+										</td>
+										<td class="text-right">
+											Subscribe/Unsubscribe
+										</td>
+									</tr>
+									@if(empty($subscriptionProfile))
+										No Subscriptions
+									@else
+									@foreach($subscriptionProfile as $key => $profile1)
+									<tr>
+										<td>{{ Form::checkbox(false)}}</td>
+										<td>
+											<img src="/img/user/u1.png" class="userRep2">&nbsp;
+
+											<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span></a>&nbsp;
+										</td>
+										<td class="text-center">{{ Form::checkbox(false)}}</td>
+										<td class="text-center">
+											<select>
+												<option>All Activities</option>
+											</select>
+										</td>
+										<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
+									</tr>
+									@endforeach
+									@endif
+								</table>
 							</div>
-							<br/><br/>
-
-							<table class="table">
-								<tr>
-									<td>{{ Form::checkbox(false)}}</td>
-									<td>
-										<select>
-											<option>Actions</option>
-										</select>
-									</td>
-									<td class="text-center">
-										Send me updates
-									</td>
-									<td class="text-center">
-										Actvity Feeds
-									</td>
-									<td class="text-right">
-										Subscribe/Unsubscribe
-									</td>
-								</tr>
-								@if(empty($subscriptionProfile))
-									No Subscriptions
-								@else
-								@foreach($subscriptionProfile as $key => $profile1)
-								<tr>
-									<td>{{ Form::checkbox(false)}}</td>
-									<td>
-										<img src="/img/user/u1.png" class="userRep2">&nbsp;
-
-										<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span></a>&nbsp;
-									</td>
-									<td class="text-center">{{ Form::checkbox(false)}}</td>
-									<td class="text-center">
-										<select>
-											<option>All Activities</option>
-										</select>
-									</td>
-									<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
-								</tr>
-								@endforeach
-								@endif
-							</table>
 						</div><!--subscriptions-->
 					</div>
-				</div>
+				</div><!--/.row-->
 			</div>
 		</div><!--/.shadow Div-channel-border-->
+		<br/>
 	</div><!--container-->
 </div><!--/.row-->
 @stop

@@ -13,10 +13,8 @@
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
-
-	
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
-	Route::get('add-description/{id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
+	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result/{type?}/{search?}', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
@@ -37,12 +35,21 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
-	Route::any('watch={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
+	Route::any('watch!v={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
+	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
+	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
+	Route::post('adddisliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLiked'));
+	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
+	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
+	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
+	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 
-	Route::get('watch', array('as'=>'public.watch.video', 'uses'=>'HomeController@getWatchVideo'));
+	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
+	
+
 });
 
 
@@ -56,12 +63,16 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
 	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));
+	Route::get('sortvideos', array('as' => 'sort.videos', 'uses' => 'UserController@getSortVideos'));
 	Route::get('myfavorites', array('as' => 'users.myfavorites', 'uses' => 'UserController@getMyFavorites'));
 	Route::post('post-my-favorites/{id}', array('as' => 'users.post.favorites', 'uses' => 'UserController@postRemoveFavorites'));
 	Route::get('watchlater', array('as' => 'users.watchlater', 'uses' => 'UserController@getWatchLater'));
 	Route::post('post-watch-later', array('as' => 'post.users.watch-later', 'uses' => 'UserController@postWatchLater'));
+	Route::post('delete-watch-later/{id}', array('as' => 'post.delete.watch-later', 'uses' => 'UserController@postDeleteWatchLater'));
 	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
+	Route::get('about', array('as' => 'users.about', 'uses' => 'UserController@getAbout'));
 	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
+	Route::get('post-feedbacks', array('as' => 'post.users.feedbacks', 'uses' => 'UserController@postFeedbacks'));
 	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
 	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
@@ -69,6 +80,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 	Route::get('subscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::post('addPlaylist/{id}', array('as'=>'add.playlist','uses'=>'UserController@addPlaylist'));
+	Route::post('createPlaylist/{id}', array('as'=>'create.playlist','uses'=>'UserController@createPlaylist'));
 	Route::post('removePlaylist/{id}', array('as'=>'remove.playlist','uses'=>'UserController@removePlaylist'));
 	Route::post('addChkBoxPlaylist/{id}', array('as'=>'addChkBoxPlaylist.playlist','uses'=>'UserController@addChkBoxPlaylist'));
 	Route::post('addToFavorites/{id}', array('as'=>'add.favorites','uses'=>'UserController@addToFavorites'));
@@ -83,12 +95,27 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@postCountNotification'));
 	Route::get('videoplaylist/{id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
 	Route::get('edit/{id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
+	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
+	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
+	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
+	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
+	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
+	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
+	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
+	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 });
 //*********End of Channels************//
 
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
-
+Route::get('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'view.users.feedbacks2', 'uses' => 'UserController@getViewUsersFeedbacks'));
+Route::post('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersComments'));
+Route::get('channels/{channel_name}/videos', array('before' => 'auth.channels', 'as' => 'view.users.videos2', 'uses' => 'UserController@getViewUsersVideos'));
+Route::get('channels/{channel_name}/favorites', array('before' => 'auth.channels', 'as' => 'view.users.favorites2', 'uses' => 'UserController@getViewUsersFavorites'));
+Route::get('channels/{channel_name}/watchlater', array('before' => 'auth.channels', 'as' => 'view.users.watchLater2', 'uses' => 'UserController@getViewUsersWatchLater'));
+Route::get('channels/{channel_name}/about', array('before' => 'auth.channels', 'as' => 'view.users.about2', 'uses' => 'UserController@getViewUsersAbout'));
+Route::get('channels/{channel_name}/playlists', array('before' => 'auth.channels', 'as' => 'view.users.playlists2', 'uses' => 'UserController@getViewUsersPlaylists'));
+Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channels', 'as' => 'view.users.subscribers2', 'uses' => 'UserController@getViewUsersSubscribers'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
@@ -108,13 +135,12 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('adminsignup', array('as' => 'post.admin.adminsignup', 'uses' => 'AdminController@postAdminSignup'));
 	Route::get('reportedvideos', array('as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
-	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 
 });
 //**********ADMIN**********//
 
-Route::get('videoplayer', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
-
+Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+Route::get('embed/{id?}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));

@@ -9,71 +9,82 @@ Upload
 .image-upload > input{
     display: none;
 }
-.file-upload {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
+div canvas{
+    	padding: 3px;
+    	cursor:pointer;
+    	position: relative;
+ }
+ div canvas:hover{
+    	outline:2px solid green;
+ }div#wrapper{
+	width:100%;
+	height: 20px;
+	background:transparent;
+	border:1px solid #000000;
+	display: none;
+}div#wrapper div#progressbar-loaded{
+	width:0;
+	height: 100%;
+	background:#0C78D6;
+	
 }
-.file-upload input#vids-upload {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}
+
 
 </style>
 
 
 <div class="row White">
 	<div class="container page" id="select-upload">
-		<div class="col-md-8 col-md-offset-2">
-			
+		<div class="col-md-8 col-md-offset-2">	
 			<div class="well text-center" style="margin-top:50px">
 				<div class="row">
-
 					<h1>Upload Video</h1>
 					<p>Video allowed types: wmv, mp4, webm, ogg</p>
-					<p>Maximum size limit: 300mb</p>
+					<p>Recommended file extension: mp4</p>
+					<p>Maximum size limit: 150mb</p>
 
 					@if ($errors->any())
 					<ul style="list-style:none;color:red">
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 					</ul>
 					@endif
-	
-					{{Form::open(array('route' => 'post.upload', 'method' => 'POST' ,'files' => true,'id'=>'vidSubmit'))}}
-
-					<div class="file-upload btn btn-primary">
-					<span>Select video to upload</span>
-					{{Form::file('video', array('class'=>'','id'=>'vids-upload','accept'=>"video/*"))}}
+					{{Form::open(array('route' => 'post.upload','files' => true,'id'=>'vidSubmit'))}}
+					<div style="margin-left:auto; margin-right:auto;" >
+						<label class="fileContainer" style="margin-left:auto;">
+							<img src="/img/icons/upload.png">
+							{{Form::file('video', array('id'=>'vids-upload','accept'=>"video/*"))}}						
+						</label>
 					</div>
-
+					
 					<br>
-					 <label class="myLabel">
+					<label class="myLabel">
 						<div style="display:none" id="progress">
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px')) }}
 						</div>
 					</label> 
-					{{Form::close()}}
-					
-					
-					
-				</div>
+					<div id="wrapper">
+							<div id="progressbar-loaded"></div> 
+					</div><br/>
+					 <label id="percentage"></label> 
 
+
+    
+
+
+					{{Form::close()}}
+
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 
 @stop
 
-@section('css')
+@section('some_script')
 {{HTML::script('js/user/upload.js')}}
+{{HTML::script('js/jquery.form.min.js')}}
 @stop
 

@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"intervention/image": "~2.0"
+		"intervention/image": "~2.0",
+		"php-ffmpeg/php-ffmpeg": "~0.5",
+		"closca/sonus": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

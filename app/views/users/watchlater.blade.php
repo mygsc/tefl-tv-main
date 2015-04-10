@@ -1,86 +1,40 @@
 @extends('layouts.default')
-<style type="text/css">
- 
-.thumbnail {
-    position:relative;
-    overflow:hidden;
-}
-
-.pad10 {
-    margin-bottom: 10px;}
- 
-.caption {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: none;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-.caption1 {
-    position:absolute;
-    padding:15px 0;
-    background:rgba(152, 217, 255, 0.50	);
- 		width: 90%;
-  	height: auto;
-    display: block;
-    text-align: center;
-    color:#fff !important;
-    z-index:2;
-}
-
-
-.caption-inner {
-display: table;
-width: 100%;
-height: 100%;
-}
-.caption-content {
-vertical-align: middle;
-text-align: center;
-}
-
-</style>
 
 @section('content')
 <div class="row White">
 	<div class="container page">
 		<br/>
-		<div class="row">
+		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<br/>
+			
 			<div class="Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
+				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="row">
+				<div class="row mg-l--20">
 					<br/>
-					<div class="col-md-6">
+					<!--<div class="col-md-6">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>
+					</div>-->
 
-					<div class="col-md-5">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+					<!--<div class="col-md-5">
+				
 						<select class="form-control" style="width:auto!important;">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
@@ -88,15 +42,15 @@ text-align: center;
 						</select>
 						&nbsp;&nbsp;
 						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
-					</div>
+					</div>-->
 
-					<div class="col-md-1 text-right">
-						<div class="buttons">
+					<div class="col-md-12 text-right">
+						<div class="buttons pull-right">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
 					</div>
-					<br/><hr class="" />
+					<br/><hr/>
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if(empty($usersWatchLater))
@@ -107,50 +61,52 @@ text-align: center;
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
-									<input type="hidden" class="status" id="watch{{$watchLater->id}}" value="{{$watchLater->status}}"/>
 									@if($watchLater->status==1)
-									<div class="caption1">
-										<div class="caption-inner">
-											<p class="caption-content">
-											<br/>
-											<h1>Watched</h1>
-											<br/>
-											</p>
-										</div>
-									</div>
+									<span title="Remove from watch later?" class="btn-sq inline">
+											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
+											<span class="inline">
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline'))}}
+													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
+
+									</span>
 									@else
-										<div class="caption">
-										<div class="caption-inner">
-											<p class="caption-content">
-											<br/>
-											<h1>Watched</h1>
-											<br/>
-											</p>
-										</div>
-									</div>
+									<span title="Remove from watch later?" class="btn-sq inline">		
+											{{Form::open()}}
+												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+											{{Form::close()}}
+									</span>
 									@endif
-
-									{{Form::open()}}
-									<span title="Add to Playist" class="btn-sq">{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn btn-default'))}}</span>
-									{{Form::close()}}
-
-									<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-									<video width="250" height="150" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" class="h-video" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-
-										<input type="hidden" id="video_id" value="{{$watchLater->id}}">
-										</video>
-										<br/>
-										{{$watchLater->title}}	
-										</a>			
+									<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
+									<div>
+										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
+											@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
+												<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" >
+													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+												</video>
+											@else
+												{{HTML::image('img/thumbnails/video.png')}}
+											@endif
+										</a>
+									</div>
+									<br/>		
 								</div>
 							</div>
+
+							<div class="inlineInfo ">
 								<div class="count">
-									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}" target="_blank">{{$watchLater->channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->likes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+									<div class="v-Info">
+										<!-- <a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank"> -->
+										{{$watchLater->title}}
+										<!-- </a> -->
+									</div>
+									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 									<br/>
+								</div>
 							</div>
 						</div><!--/#list-->
 						@endforeach
@@ -159,6 +115,7 @@ text-align: center;
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
+		<br/>
 	</div><!--/.container page-->
 @stop
 

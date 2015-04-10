@@ -1,5 +1,5 @@
   
-<div class="sideLinksDiv">
+<div class="">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">

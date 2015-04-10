@@ -16,7 +16,7 @@
 	{{ HTML::style('css/dropdown.enhancement.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::style('css/vid.player.css') }}
-	{{HTML::script('js/jquery.js')}}
+	
 	
 	@yield('css')
 </head>
@@ -31,9 +31,14 @@
 </body>
 
 <!-- scripts -->
+{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
-@yield('script')
+{{HTML::script('js/overlaytext.js')}}
+
+@yield('script') 
+@yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
+
 
 <!--list and gri display for my channel-->
 <script type="text/javascript">
@@ -50,5 +55,7 @@
 		    $('.desc').removeClass('hide');
 		});
 </script>
+
+@yield('modal')
 
 </html>
