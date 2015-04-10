@@ -79,7 +79,7 @@
 				@foreach($recommendeds as $recommended)
 				<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 		            <div class="col-lg-2 col-md-4 col-sm-6">
-		            	<span class="v-time inline">12:00</span> 	
+		            	<span class="v-time inline">{{$recommended->total_time}}</span> 	
 		            	<div class="thumbnail-2">
 
 							<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
@@ -111,8 +111,9 @@
 					@foreach($populars as $popular)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
+					<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
-								<img class="hvr-grow-rotate" src="{{$recommended->thumbnail}}">
+								<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
 						</div>
 						
 						<div class="v-Info">
@@ -140,6 +141,7 @@
 					@foreach($latests as $latest)
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 						<div class="col-md-6 col-sm-6">
+						<span class="v-time inline">{{$latest->total_time}}</span>
 							<div class="thumbnail-2">
 									<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
 							</div>
@@ -169,6 +171,7 @@
 					@foreach($randoms as $random)
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<div class="col-md-6 col-sm-6">
+					<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 								<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
 						</div>

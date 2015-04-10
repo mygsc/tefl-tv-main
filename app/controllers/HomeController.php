@@ -21,7 +21,7 @@ class HomeController extends BaseController {
 		if($recommendeds === false || $populars === false || $latests === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
-		
+		//return $recommendeds;
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -111,17 +111,19 @@ class HomeController extends BaseController {
 		//return $relations;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
-			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id FROM playlists p
+			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
 				WHERE i.video_id = '".$id."'
-				HAVING p.user_id = '".Auth::User()->id."';");
+				HAVING p.user_id = '".Auth::User()->id."'
+				AND p.deleted_at IS NULL;");
 			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
 				WHERE NOT EXISTS
 				(SELECT * FROM playlists_items AS i
 					WHERE i.playlist_id = p.id
 					AND
 					i.video_id = '".$id."')
-			AND p.user_id = '".Auth::User()->id."'");
+			AND p.user_id = '".Auth::User()->id."'
+			AND p.deleted_at IS NULL");
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
