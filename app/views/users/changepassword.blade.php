@@ -25,15 +25,15 @@
                                 <div class="well2">
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
                                     {{Form::label('currentPassword', ' Current Password: ')}}
-                                    {{Form::password('currentPassword', null)}}
+                                    {{Form::password('currentPassword', null, array('required' => true))}}
                                     {{$errors->first('currentPassword')}}
                                     <br/>
                                     {{Form::label('newPassword', 'New Password: ')}}
-                                    {{Form::password('newPassword', null)}}
+                                    {{Form::password('newPassword', null, array('required' => true))}}
                                     {{$errors->first('newPassword')}}
                                     <br/>
                                     {{Form::label('confirmPassword', 'Confirm New Password: ')}}
-                                    {{Form::password('confirmPassword', null)}}
+                                    {{Form::password('confirmPassword', null, array('required' => true))}}
                                     {{$errors->first('confirmPassword')}}
                                     <br/>
                                     <div class="text-right">
