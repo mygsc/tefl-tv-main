@@ -246,5 +246,6 @@ class Video extends Eloquent{
 			return $categories;
 		}
 		return false;
+		
 	}
 }
