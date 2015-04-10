@@ -897,36 +897,39 @@ class UserController extends BaseController {
 		return View::make('users.subscribers2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
 	}
 
-	public function postViewUsersComments() {
+	public function postViewUsersComments($channel_name) {
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
+		}
 
 			$feedback = Input::get('feedback');
-			$userFeedback = Input::get('user_id');
-			$channelFeedback = Input::get('channel_id');
 
+			$userFeedback = Input::get('user_id');
+
+			$channelFeedback = Input::get('channel_id');
+			
 			if(empty($feedback)){
-				return $feedback = (array('status'=>'error','label' => 'The comment field is required.'));
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message', 'Error!');
 			}else{
-				if(!Auth::check()){
-					return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
-				}
+				
 				$addNewFeedback = new Feedback;
 				$addNewFeedback->channel_id = $channelFeedback;
 				$addNewFeedback->user_id = $userFeedback;
 				$addNewFeedback->feedback = $feedback;
 				$addNewFeedback->save();
 
-				$newFeedback = '
-				<div id="feedbacksContainer">
-				<br/>
-				'.$addNewFeedback->feedback.'
-				<br/>
-				'.$addNewFeedback->user_id.'
-				<br/>
-				'.$addNewFeedback->created_at.'
-				</div>
-				';
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message','Successfully post your Feedback!');
+				// $newFeedback = '
+				// <div id="feedbacksContainer">
+				// <br/>
+				// '.$addNewFeedback->feedback.'
+				// <br/>
+				// '.$addNewFeedback->user_id.'
+				// <br/>
+				// '.$addNewFeedback->created_at.'
+				// </div>
+				// ';
 			}
-			return $newFeedback;
 	}
 
 	public function addSubscriber() {

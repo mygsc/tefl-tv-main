@@ -67,7 +67,7 @@ function GSCMediaPlayer(){
 		mediaPlayer.addEventListener('progress', loadBuffer, false);
 		
 	});
-	fullscreenVid.addEventListener('click', toggleFullScreen, false);//fullscreen toggleFullScreen
+	fullscreenVid.addEventListener('click', fullscreen, false);//fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('error', hasError, false);
 	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
@@ -109,7 +109,7 @@ function seekingNewPosition() { //find new position
 }
 
 function hasError(){
- 	return alert('cannot play video');
+ 	return alert('cannot play video.Please try again later.');
  }
 
 //list of bind more realiable codes....
