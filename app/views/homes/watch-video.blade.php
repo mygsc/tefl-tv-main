@@ -154,7 +154,7 @@
                                                         </span>
                                                         @endif
                                                     @else
-                                                      <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
+                                                      <i class="fa fa-thumbs-up hand" title="like this" ></i>
                                                     @endif
                                                     <!--&nbsp; &nbsp; &nbsp;
                                                      <span id = "like-span">
@@ -179,7 +179,7 @@
                                         </div>
                                     @else
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/0.png" class="">
+                                            <img src="/img/user/0.jpg" class="">
                                         </div>
                                     @endif
                                         <div class="col-md-11 col-sm-10">
@@ -229,26 +229,28 @@
                 <!--/advertisement-->
                <br/>
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
-                    @foreach($relations as $relation)
-                    <li class="ui-tabs-nav-item" id="">
-                        <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
-                        <div class="row">
-                            <div class="col-md-4 col-xs-4">
-                            @if(file_exists(public_path("/videos/".$relation->user_id."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
-                            <img src="/videos/{{$relation->user_id}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
-                            @else
-                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
-                            @endif
-                            </div>
-                            <div class="col-md-8 col-sm-8 col-xs-4">
-                                <div class="v-list"><span>{{$relation->title}}</span></div>
-                                <span>by: {{$relation->channel_name}}</span><br/>
-                                <small>{{date('m/d/Y', $relation->created_at);}}</small>
-                            </div>
-                        </div>
-                        </a>
-                    </li>
-                    @endforeach
+                    @foreach($newRelation as $relation)
+                        @if($relation->id != $videos->id)
+                            <li class="ui-tabs-nav-item" id="">
+                                <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-4">
+                                    @if(file_exists(public_path("/videos/".$relation->uid."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
+                                    <img src="/videos/{{$relation->uid}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
+                                    @else
+                                    <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                                    @endif
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-4">
+                                        <div class="v-list"><span>{{$relation->title}}</span></div>
+                                        <span>by: {{$relation->channel_name}}</span><br/>
+                                        <small>{{date('m-d-Y',strtotime($relation->created_at))}}</small>
+                                    </div>
+                                </div>
+                                </a>
+                            </li>
+                        @endif
+                        @endforeach
                 </ul><!--video list-->
 
                     

@@ -105,9 +105,223 @@ class HomeController extends BaseController {
 			and v.deleted_at IS NULL
 			AND v.report_count < 5
 			OR v.report_count IS NULL
-			AND v.publish = 1
-			;
-			");
+			AND v.publish = 1;");
+		$counter = count($relations);
+		if($counter == 0){
+			$randoms = $this->Video->getVideoByCategory('random', '15');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 1){
+			$randoms = $this->Video->getVideoByCategory('random', '14');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 2){
+			$randoms = $this->Video->getVideoByCategory('random', '13');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 3){
+			$randoms = $this->Video->getVideoByCategory('random', '12');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 4){
+			$randoms = $this->Video->getVideoByCategory('random', '11');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 5){
+			$randoms = $this->Video->getVideoByCategory('random', '10');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 6){
+			$randoms = $this->Video->getVideoByCategory('random', '9');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 7){
+			$randoms = $this->Video->getVideoByCategory('random', '8');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+
+		}
+		if($counter == 8){
+			$randoms = $this->Video->getVideoByCategory('random', '7');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+
+		}
+		if($counter == 9){
+			$randoms = $this->Video->getVideoByCategory('random', '6');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 10){
+			$randoms = $this->Video->getVideoByCategory('random', '5');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 11){
+			$randoms = $this->Video->getVideoByCategory('random', '4');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 12){
+			$randoms = $this->Video->getVideoByCategory('random', '3');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 13){
+			$randoms = $this->Video->getVideoByCategory('random', '2');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter == 14){
+			$randoms = $this->Video->getVideoByCategory('random', '1');
+			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			AND v.publish = 1;");
+			$merging = array_merge($randoms,$relations);
+			$newRelation = array_unique($merging, SORT_REGULAR);
+			sort($newRelation);
+		}
+		if($counter >= 15){
+			$newRelation = $relations;
+		}
 		//return $token_id;
 		//return $relations;
 		$relationCounter = count($relations);
@@ -150,7 +364,8 @@ class HomeController extends BaseController {
 		->where('comments.video_id', $videoId)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 
-		return View::make('homes.watch-video',compact('videos','relations','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter', 'countSubscribers'));
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers'));
+
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$playlistId = Crypt::decrypt($playlistId);
@@ -356,7 +571,7 @@ public function addReply(){
 		if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
 			$temp = 'img/user/'. $user_id . '.jpg';
 		} else{
-			$temp = 'img/user/0.png';
+			$temp = 'img/user/0.jpg';
 		}
 
 		$newReply = 
