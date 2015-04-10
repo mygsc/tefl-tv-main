@@ -901,6 +901,7 @@ class UserController extends BaseController {
 		if(!Auth::check()){
 			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
 		}
+
 			$feedback = Input::get('feedback');
 
 			$userFeedback = Input::get('user_id');
@@ -908,8 +909,7 @@ class UserController extends BaseController {
 			$channelFeedback = Input::get('channel_id');
 			
 			if(empty($feedback)){
-				$validate = Validator::make(Input::all(), array($feedback, $userFeedback, $channelFeedback));
-				return Redirect::route('view.users.feedbacks2')->with('flash_message', 'Error!');
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message', 'Error!');
 			}else{
 				
 				$addNewFeedback = new Feedback;
@@ -918,7 +918,7 @@ class UserController extends BaseController {
 				$addNewFeedback->feedback = $feedback;
 				$addNewFeedback->save();
 
-				return Redirect::route('view.users.feedbacks2')->with('flash_message','Successfully post your Feedback!');
+				return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message','Successfully post your Feedback!');
 				// $newFeedback = '
 				// <div id="feedbacksContainer">
 				// <br/>
