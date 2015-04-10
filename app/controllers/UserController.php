@@ -686,7 +686,7 @@ class UserController extends BaseController {
 				if($newPassword != $inputNewPassword){
 					$user = User::where('id', Auth::User()->id)->update(['password' => Hash::make(Input::get('newPassword'))]);
 					Auth::logout();
-					return Redirect::route('users.signout');
+					return Redirect::route('homes.index')->withFlashMessage('Successfully changed the password.');
 				}else{
 					return Redirect::route('users.change-password')->withFlashMessage('Current Password and New Password must not match');
 				}
@@ -708,7 +708,7 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userEmailRules);
 
 		if($validate->fails()){
-			return Redirect::route('users.change-email')->withErrors($validate)->withFlashMessage('Error changes in your Email');
+			return Redirect::route('users.change-email')->withErrors($validate);
 		}else{
 			$currentEmail = Auth::User()->email;
 			$newEmail = Input::get('newEmail');
@@ -723,6 +723,8 @@ class UserController extends BaseController {
 			}else{
 				return Redirect::route('users.change-email')->withFlashMessage('Current Email and New Email must not match')->withErrors($validate);
 			}
+			$user = User::where('email', Auth::User()->email)->update(['email' => $newEmail]);
+
 			return Redirect::route('users.channel')->withFlashMessage('Successful, Please open your email');
 		}
 	}
