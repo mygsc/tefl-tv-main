@@ -174,10 +174,6 @@ input#seek-slider::-moz-range-thumb {
 	z-index: 2;
 }
 div#controls{
-  position: absolute;
-  bottom: -10px !important;
-  left: 0;
-  right: 0;
   width: 100%;
   background: rgba(42,42,42,0.9);
   z-index: 1111;
@@ -312,7 +308,6 @@ button#play{
   	border-radius: 5px;
   	/*background: rgba(27,27,27,0.6);*/
   	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
- 
 	padding-top: 10px;
 	padding-bottom: 10px;
 }.play-icon span{
@@ -325,7 +320,7 @@ button#play{
   	bottom: 0;
   	cursor: pointer;
   	text-align:center;
-  	  	padding: 20px;
+  	 padding: 20px;
 
 }.play-icon:hover{
 	-moz-box-shadow:inset 0px 2px 13px #ffffff;

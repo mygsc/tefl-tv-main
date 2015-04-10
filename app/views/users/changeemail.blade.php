@@ -21,26 +21,34 @@
                         </div>
                         <br/>
                         <div class="col-md-12 LightestBlue">
-                          <div class="textbox-layout "> 
+                          <div class=""> 
                                 <h3 class="tBlue text-center">-Your new email will be your primary contact-</h3>
                                 <div class="well2">
   	                                {{Form::open(array('route' => 'users.post.change-email'))}}
-                										{{Form::label('email', 'Email: ')}}
+                										{{Form::label('email', '*Email: ')}}
                 										{{Form::text('email', null)}}
-                										{{$errors->first('email')}}
-                										<br>
-                										{{Form::label('newEmail', 'New Email: ')}}
+                                    <span class="inputError">
+                										  {{$errors->first('email')}}
+                                    </span>
+                										<br/><br/>
+                										{{Form::label('newEmail', '*New Email: ')}}
                 										{{Form::text('newEmail', null)}}
-                										{{$errors->first('newEmail')}}
-                										<br>
-                										{{Form::label('password', 'Password: ')}}
+                                    <span class="inputError">
+                										  {{$errors->first('newEmail')}}
+                                    </span>
+                										<br/><br/>
+                										{{Form::label('password', '*Password: ')}}
                 										{{Form::password('password', null)}}
-                										{{$errors->first('password')}}
-                										<br>
-                										{{Form::label('confirmPassword', 'Confirm Password: ')}}
+                                    <span class="inputError">
+                										  {{$errors->first('password')}}
+                                    </span>
+                										<br/><br/>
+                										{{Form::label('confirmPassword', '*Confirm Password: ')}}
                 										{{Form::password('confirmPassword', null)}}
-                										{{$errors->first('confirmPassword')}}
-                										<br>
+                                    <span class="inputError">
+                										  {{$errors->first('confirmPassword')}}
+                                    </span>
+                										<br/><br/>
                 										<div class="text-right">
                 											{{Form::submit('Submit',array('class' => 'btn btn-info'))}}
                 										</div>

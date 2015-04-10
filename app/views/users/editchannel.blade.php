@@ -26,8 +26,9 @@
                 </div><!--/.row-->
               </div><!--/.well-->
           </div><!--/.wrapperAccount-->
-          <br/>
+         
       </div><!--/.col-md-12-->
+       <br/>
   </div><!--/.container row-->
 </div>
 @stop

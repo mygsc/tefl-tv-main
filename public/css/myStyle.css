@@ -470,19 +470,20 @@ ul .ctgryNav{
 .sidelinks li{
   display: block;
   width: 100%!Important;
-  border-bottom: 5px #bacae1 solid;
+  width: 100%;
+  background:#fff;
+  border-bottom: 3px solid #e3e3e3;
   padding: 5px 10px;
-  border-radius: 0 0 10px 10px;
 
 }
 .sidelinks li:hover{
-  border-bottom: 5px #134c79 solid;
-  border-radius: 0 0 10px 10px;
+  color: #1f3359;
+  background:#d1dff9;
+  border-radius: none !Important;
   cursor: pointer;
 }
 .sidelinks a{
- font-weight: bold;
- color: #134c79;
+
 }
 .VSthumbnails li {
   border-bottom:1px solid #B0AEAE;
@@ -739,6 +740,9 @@ img.user{
 }
 .redC{
   color: red!Important;
+}
+.darkBlueC{
+  color: #3b5a9b!Important;
 }
 .modalbg{
   background: rgba(24,27,48,0.8);
@@ -1262,7 +1266,16 @@ Main components
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 }
-
+.well-2 {
+  min-height: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #ecf3fb;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
 .well3 {
   min-height: 20px;
   padding: 10px;
@@ -1442,18 +1455,25 @@ Main components
 }
 .tc li{
   width: 100%;
-  background:#181b2e;
-  border-bottom: 2px solid #fff;
+  background:#fff;
+  border-bottom: 3px solid #e3e3e3;
    border-radius: none!Important;
 }
 
 .tc a{
-  color: #fff;
+  color: #337ab7;
 }
 .tc li a:hover{
   color: #1f3359;
   background:#d1dff9;
   border-radius: none !Important;
+}
+.tc .active{
+  background:#eef2fa!important;
+  border:2px #8fa7ca solid;
+}
+.tc .active li >a{
+    color: #3b5a9b!important;
 }
 .wrapper-account{
   background: #e3e3e3;
@@ -1791,7 +1811,7 @@ a.thumbnail-h:hover{
     height: 340px;
   }
   .ctgryDiv{
-  height: 31.5em;
+  height: 30em;
   overflow: auto;
   background: #ecf3fb;
   padding: 10px 10px 10px 10px;

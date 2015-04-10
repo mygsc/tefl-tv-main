@@ -8,7 +8,7 @@
 			                @else
 			                	{{HTML::image('http://www.fm-base.co.uk/forum/attachments/football-manager-2014-manager-stories/618828d1403554937-ups-downs-building-one-default_original_profile_pic.png'. '.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => ''))}}
 			                @endif
-			                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
+			             
 							
 		               </div>
 
@@ -19,7 +19,7 @@
 						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
-							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
+							
 
 							<div class="overlay-cover">
 								<span class="infoCounts">
