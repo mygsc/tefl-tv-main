@@ -220,8 +220,6 @@ class UserController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
 
-		$usersChannel = UserProfile::find(Auth::User()->id);
-
 		return View::make('homes.moretopchannels', compact(array('datas','auth')));
 	}
 

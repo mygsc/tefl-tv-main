@@ -54,9 +54,11 @@
 				<div class="col-md-5 ctgryDiv hidden-sm">
 				<h4>Categories</h4>
 				<span class="">
+					@if(!empty($categories))
 					@foreach($categories as $category)
 						{{$category}}
 					@endforeach
+					@endif
 				</span>
 				</div>
 			</div><!--/.row of col4-->
