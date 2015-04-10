@@ -13,7 +13,6 @@
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-<<<<<<< HEAD
 				    	<li role="presentation" class="active">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
@@ -62,7 +61,7 @@
 												<tr>
 													<td><small><label>Organizations</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->organization}}</td>
+													<td>{{$userChannel->organization}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Work</label></small></td>
@@ -80,12 +79,12 @@
 												<tr>
 													<td width="20%"><small><label>Email</label></small> </td>
 													<td width="5%"><b>:</b></td>
-													<td width="75%">{{Auth::User()->email}}</td>
+													<td width="75%">{{$userChannel->email}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Website</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->website}}</td>
+													<td>{{$userChannel->website}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Contact Number</label></small></td>
