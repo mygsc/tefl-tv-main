@@ -62,9 +62,6 @@
 					<p> - Dislike functionality for video and comments</p>
 					<p> - Terms and condition content</p>
 				</div>
-				<p><b>File sources can be found in:</b></p>
-				<p>Development: <a href="https://github.com/mygsc/tefl-tv-main/tree/development">https://github.com/mygsc/tefl-tv-main/tree/development</a></p>
-				<p>Master: <a href="https://github.com/mygsc/tefl-tv-main/tree/development">https://github.com/mygsc/tefl-tv-main/tree/master</a></p>
 			</div>
 			
 		</div>

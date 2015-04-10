@@ -115,12 +115,12 @@
                                         </div>
                                     @else
                                         <div class="col-md-1">
-                                            <img src="/img/user/0.png" class="">
+                                            <img src="/img/user/0.jpg" class="">
                                         </div>
                                     @endif
                                         <div class="col-md-11">
                                             <h2 class="black">
-                                                <span>{{$owner->channel_name}}<small>(150,000 Followrs)</small>
+                                                <span>{{$owner->channel_name}}<small> {{count($countSubscribers)}} Subscriber(s)</small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 

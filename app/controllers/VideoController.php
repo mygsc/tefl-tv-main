@@ -41,8 +41,13 @@ class VideoController extends BaseController {
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
+					//Start upload
+				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+				$destinationPath = 'videos'.DIRECTORY_SEPARATOR. $userFolderName;
+
 				//Start upload
 				$videoFolderPath = $destinationPath. DS. $encrypt_name;
+
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -104,6 +109,7 @@ class VideoController extends BaseController {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$selectedCategory = null;
 		if($validator->passes()){
