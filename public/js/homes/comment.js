@@ -43,7 +43,7 @@ $(document).ready(function(){
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
-        			alert(data['status']);
+        			// alert(data['status']);
         			$('textarea.txtreply').val('');
         			$(this).prepend(data['reply']);
 	        	}
