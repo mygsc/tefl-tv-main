@@ -6,21 +6,26 @@
 		<!-- tabs left -->
         <div class="tabbable">
 			<div class="col-md-3">
+				<br/>
 				<div class="row">
-					<div class="sideLinksDiv2">
-						<ul class="nav nav-tabs tc" role="tablist">
-							<li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users Terms and Conditions</a></li>
-							<li role="presentation"><a href="#partners" aria-controls="partners" role="tab" data-toggle="tab">Partner Program Terms and Conditions</a></li>
-							<li role="presentation"><a href="#publishers" aria-controls="publishers" role="tab" data-toggle="tab">Publisher Terms and Conditions</a></li>
-							<li role="presentation"><a href="#advertisers" aria-controls="advertisers" role="tab" data-toggle="tab">Terms and Conditions for Advertisers</a></li>
-						</ul><!--tabNav-->
-						@include('elements/home/carouselAds')
-						@include('elements/home/sideNav')
+					<div class="same-H">
+						<div class="">
+							<ul class="nav tc" role="tablist">
+								<li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users Terms and Conditions</a></li>
+								<li role="presentation"><a href="#partners" aria-controls="partners" role="tab" data-toggle="tab">Partner Program Terms and Conditions</a></li>
+								<li role="presentation"><a href="#publishers" aria-controls="publishers" role="tab" data-toggle="tab">Publisher Terms and Conditions</a></li>
+								<li role="presentation"><a href="#advertisers" aria-controls="advertisers" role="tab" data-toggle="tab">Terms and Conditions for Advertisers</a></li>
+							</ul><!--tabNav-->
+							@include('elements/home/carouselAds')
+							@include('elements/home/sideNav')
+						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 			<div class="col-md-9">
+				<div class="">
+					<div class="">
 				<div class="tab-content">
                     <div class="tab-pane active text-justify" id="users">
                     	<div id="users-H"></div>
@@ -822,7 +827,7 @@
 						<p class="text-justify">Your access to and use of the Site may be interrupted at different times due to equipment malfunctions, site updates, maintenance or site repair or any other reason that may or may not be under the control of www.tefltv.com.  www.tefltv.com reserves the right to suspend or discontinue the availability of the Site and any Service at any time for any reason.  www.tefltv.com reserves the right to remove any Content at any time at its sole discretion and without any prior notice. www.tefltv.com may also impose limits on certain features and Services or restrict your access to parts of or all of the Site and the Services without any prior notice and with no liability to www.tefltv.com. www.tefltv.com should not be used or relied upon for the storage of your videos and www.tefltv.com will not assume any liability for deleted content.  www.tefltv.com directs users to keep their own copies of any content posted to the Site. Since the Website is not designed to back up video data, you are responsible for taking all necessary precautions in that regard. Finally, and in accordance with Internet practice and custom, advertisements may be incorporated into the Website.</p>
 						
 						<h2>DEFINITIONS</h2>
-						<ul>
+						<ul class="text-justify">
 							<li>"Ad" means any advertisement provided by Agency on behalf of an Advertiser.</li>
 							<li>"Advertiser" means the advertiser for which Agency is the agent under an applicable IO. </li>
 							<li>"Advertising Materials" means artwork, copy, or active URLs for Ads. </li>
@@ -938,5 +943,6 @@
 			</div>
 		</div><!--/.tabbable tabs-left-->
 	</div><!--/.container page-->
-
+</div>
+</div>
 @stop

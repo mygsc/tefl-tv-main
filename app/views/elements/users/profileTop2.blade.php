@@ -1,9 +1,9 @@
-		<div style="border:5px solid #e3e3e3;" class="White">
-		
+		<div class="White Div-channel-border">
 			<div class="col-md-12">
 				<div class="row">
 					<div class="" style="height:224px;overflow:hidden;">
 						<div class="uploaded_img pic-Dp">
+
 
 						 				@if(file_exists($picture))
 		                {{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
@@ -11,7 +11,6 @@
 		                {{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 		                @endif
 		                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
-						
 		               </div>
 
 						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
@@ -21,17 +20,14 @@
 						@endif
 						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
 
-							<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
+							
 
 							<div class="overlay-cover">
-
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{count($countVideos)}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</span>
-								
-
 								<span class="pull-right" >
 									<span class="pull-right" >
 										@if(empty($usersWebsite))
@@ -48,9 +44,24 @@
 											<a href="http://{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
 											<a href="http://{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
 										@endif
+										&nbsp;
+		 								@if($user_id)
+												{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+									    			{{Form::hidden('user_id',$userChannel->id)}}
+									    			{{Form::hidden('subscriber_id', $user_id)}}
+									    			@if(!$ifAlreadySubscribe)
+									    				{{Form::hidden('status','subscribeOn')}}
+												    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+												    @else
+												    	{{Form::hidden('status','subscribeOff')}}
+												    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+												    @endif
+									    		{{Form::close()}}
+											@else
+												{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
+										    @endif
 									</span> 
 								</span>	
-
 							</div>
 						</div>	
 					</div>
@@ -60,6 +71,11 @@
 				<div class="labelThis" style="margin-top:-20px;">
 					{{$userChannel->channel_name}}
 				</div>
+
+				<p class="text-justify notes center-block">
+				<br/>"
+				{{ Str::limit($userChannel->userprofile->interests, 200) }}
+				</p>
 			</div>
 		</div>
 

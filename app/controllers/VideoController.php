@@ -1,6 +1,6 @@
 <?php
 
-class VideoController extends Controller {
+class VideoController extends BaseController {
 	protected $user;
 	protected $url;
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers){
@@ -16,15 +16,19 @@ class VideoController extends Controller {
 	public function getUpload(){
 		return View::make('users.upload');
 	}
-	public function postUpload(){
-		$fileName = str_random(11);
+	public function postUpload($randomNo = 11){
+		$fileName = str_random($randomNo);
 		$input = Input::all();
 		$file = Input::file('video');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName);
 		$validator = Validator::make($input,Video::$video_rules);
+		$checkFilenameExist = Video::where('file_name', '=', $fileName);
+		if($checkFilenameExist->count()){
+			$fileName = str_random($randomNo+1);
+		}
 		if($validator->passes()){
-			//insert into database
+			//insert into table
 			$input['user_id'] = $this->Auth->id;
 			//$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
@@ -34,19 +38,18 @@ class VideoController extends Controller {
 			Session::put('fileName', $fileName);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $encrypt_name;
-			$db_filename->uploaded = 0;
+			$db_filename->publish = 0;
 
 			if($db_filename->save()){
-					//Start upload
-				
+				//Start upload
+				$videoFolderPath = $destinationPath. DS. $encrypt_name;
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
-				$ext = $file->getClientOriginalExtension();
-				$videoFolderPath = $destinationPath. DS. $encrypt_name;
 				if(!file_exists($videoFolderPath)){
 					mkdir($videoFolderPath);
 				}
+				$ext = $file->getClientOriginalExtension();
 				$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
 				return Response::json([ 'file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
@@ -95,20 +98,6 @@ class VideoController extends Controller {
 		return View::make('users.addDescription',compact('videos'));
 	}
 	public function postAddDescription($id){
-		// $ffmpeg = FFMpeg\FFMpeg::create();
-		// $video = $ffmpeg->open('video.mpg');
-		// $video
-		//     ->filters()
-		//     ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-		//     ->synchronize();
-		// $video
-		//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-		//     ->save('frame.jpg');
-		// $video
-		// ->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
-		// ->save(new FFMpeg\Format\Video\WMV(), 'export-wmv.wmv')
-		// ->save(new FFMpeg\Format\Video\WebM(), 'export-webm.webm');
-
 		$id = Crypt::decrypt($id);  
 		$videos = Video::where('id','=',$id)->get();
 		$fileName = $videos[0]['file_name'];
@@ -116,7 +105,7 @@ class VideoController extends Controller {
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
-
+		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
 				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpg');
@@ -139,14 +128,17 @@ class VideoController extends Controller {
 			$uniqueTag = array_unique($newTags);
 			$implodeTag = implode(',',$uniqueTag);
 			$video = Video::find($id);
-			$uploadedVid = $video->uploaded;
-			if($uploadedVid==0){
-				$video->total_time = Input::get('totalTime');
-				$video->title = Input::get('title');
-				$video->description = Input::get('description');
-				$video->publish = Input::get('publish');
+			$publish = $video->publish;
+			if(Input::has('cat')){
+				$selectedCategory = implode(',',Input::get('cat'));
+			}
+			if($publish == 0){
+				$video->total_time = $input['totalTime'];
+				$video->title = $input['title'];
+				$video->description = $input['description'];
+				$video->category = $selectedCategory;
 				$video->tags =  $implodeTag;
-				$video->uploaded =  1;
+				$video->publish =  $input['publish'];
 				$video->save();
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
 			}

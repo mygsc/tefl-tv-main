@@ -8,7 +8,6 @@
 			@include('elements/users/profileTop')
 			
 			<div class="Div-channel-border">
-
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -20,7 +19,6 @@
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  		
 				  	</ul><!--tabNav-->
 				</div>
 
@@ -56,12 +54,12 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
-					<div class="col-md-12" style="margin-left:-10px;">
+					<div class="col-md-12 mg-l--20">
 						@if($usersVideos->isEmpty())
 							No Videos yet.
 						@else
 						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3">
+						<div id='list' class="col-md-3 mg-b-10">
 							<div class="inlineVid">
 								
 								<span class="btn-sq">
@@ -119,7 +117,7 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
+	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">

@@ -76,7 +76,7 @@ class Video extends Eloquent{
 		$returnData = DB::select(
 			'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
 			v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes, v.tags, v.report_count,v.recommended, v.created_at,
-			v.deleted_at,u.channel_name,u.status FROM videos v
+			v.deleted_at,v.total_time,u.channel_name,u.status FROM videos v
 			INNER JOIN users u ON
 			v.user_id = u.id
 			WHERE
@@ -186,7 +186,7 @@ class Video extends Eloquent{
 				->where('description', 'LIKE', '%'.$search.'%')
 				->where('tags', 'LIKE', '%'.$search.'%')
 				->where('deleted_at', NULL)
-				->where('publish', '1')
+				->where('publish', 1)
 				->where('report_count', '<', 5)
 				->orWhere("channel_name", "LIKE", "%".$search."%")
 				->join('users', 'user_id', '=', 'users.id')
@@ -232,5 +232,16 @@ class Video extends Eloquent{
 			$text = $text."...";
 		}
 		return $text;
+	}
+
+	public function getCategory(){
+		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		foreach ($categoryList as $key => $category) {
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->get();
+			if(!$findCategory->isEmpty()){
+				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
+			}
+		}
+		return $categories;
 	}
 }
