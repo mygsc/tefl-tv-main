@@ -762,7 +762,8 @@ class UserController extends BaseController {
 		//r3mmel
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countVideos = Video::where('user_id', $userChannel->id)->get();
+
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		//r3mmel
