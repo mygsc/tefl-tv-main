@@ -22,7 +22,7 @@
 
 							
 
-							<div class="overlay-cover">
+							<div class="overlay-cover">user
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{count($countVideos)}} Videos</label> &nbsp;

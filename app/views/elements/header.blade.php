@@ -1,5 +1,5 @@
 <div class="brandingHeader">
-    <div class="row">
+    <div class="">
         <!--widescreen-->
         <div class="container hidden-xs hidden-sm">
             <div class="row">
