@@ -8,21 +8,19 @@
 		<div class="row same-H">
 			@include('elements/users/profileTop2')
 		
-
 			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation"><a href="#About" aria-controls="About" role="tab" data-toggle="tab">About</a></li>
-				    	<li role="presentation"><a href="#Videos" aria-controls="Videos" role="tab" data-toggle="tab">Videos</a></li>
-				    	<li role="presentation"><a href="#MyFavorites" aria-controls="MyFavorites" role="tab" data-toggle="tab">My Favorites</a></li>
-				    	<li role="presentation"><a href="#WatchLater" aria-controls="WatchLater" role="tab" data-toggle="tab">Watch Later</a></li>
-				  		<li role="presentation"><a href="#Playlists" aria-controls="Playlists" role="tab" data-toggle="tab">Playlists</a></li>
-				  	  <li role="presentation">{{link_to_route('view.users.feedbacks2','Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation"><a href="#Subscribers" aria-controls="Subscribers" role="tab" data-toggle="tab">Subscribers</a></li>
-				  		<li role="presentation"><a href="#Subscriptions" aria-controls="Subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+				    	<li role="presentation" class="active">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				  	<br/>
 
@@ -63,7 +61,7 @@
 												<tr>
 													<td><small><label>Organizations</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->organization}}</td>
+													<td>{{$userChannel->organization}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Work</label></small></td>
@@ -81,12 +79,12 @@
 												<tr>
 													<td width="20%"><small><label>Email</label></small> </td>
 													<td width="5%"><b>:</b></td>
-													<td width="75%">{{Auth::User()->email}}</td>
+													<td width="75%">{{$userChannel->email}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Website</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->website}}</td>
+													<td>{{$userChannel->website}}</td>
 												</tr>
 												<tr>
 													<td><small><label>Contact Number</label></small></td>
