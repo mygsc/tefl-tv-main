@@ -21,7 +21,7 @@
 
 
 
-
+                        {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
                             <!--<small class="notes"><b>Notes: </b>
