@@ -571,7 +571,7 @@ public function addReply(){
 		if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
 			$temp = 'img/user/'. $user_id . '.jpg';
 		} else{
-			$temp = 'img/user/0.png';
+			$temp = 'img/user/0.jpg';
 		}
 
 		$newReply = 
