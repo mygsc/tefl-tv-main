@@ -51,13 +51,12 @@
 					</div>
 					<ul class="nav nav-tabs" role="tablist inline">
 				    	<li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><small>About</small></a></li>
-				    	<li role="presentation" class=""><a href="#learn" aria-controls="learn" role="tab" data-toggle="tab"><small>Learn More</small></a></li>
 					</ul>
 					<div class="tab-content inline">
 				  		<div role="tabpanel" class="tab-pane active" id="about">
 							<div class="" style="margin-top:20px;">
 								<p class="text-justify">
-									{{$userChannel->userprofile->interests}}
+									"<i>{{$userChannel->userprofile->interests}}</i>"
 								</p>
 							</div>
 						</div>
@@ -149,14 +148,14 @@
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation"><a href="#Videos" aria-controls="Videos" role="tab" data-toggle="tab">Videos</a></li>
-				    	<li role="presentation"><a href="#MyFavorites" aria-controls="MyFavorites" role="tab" data-toggle="tab">My Favorites</a></li>
-				    	<li role="presentation"><a href="#WatchLater" aria-controls="WatchLater" role="tab" data-toggle="tab">Watch Later</a></li>
-				  		<li role="presentation"><a href="#Playlists" aria-controls="Playlists" role="tab" data-toggle="tab">Playlists</a></li>
-				  	  <li role="presentation">{{link_to_route('view.users.feedbacks2','Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation"><a href="#Subscribers" aria-controls="Subscribers" role="tab" data-toggle="tab">Subscribers</a></li>
-				  		<li role="presentation"><a href="#Subscriptions" aria-controls="Subscriptions" role="tab" data-toggle="tab">Subscriptions</a></li>
+				    	<li role="presentation" class="active">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 
 				  	<!-- Tab panes -->
