@@ -17,7 +17,7 @@
 				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li>
 				  		<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+				  		<!-- <li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li> -->
 				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 					</ul><!--tabNav-->
 				</div>
@@ -40,7 +40,7 @@
 						
 					</div>-->
 
-					<div class="col-md-3">
+		<!-- 			<div class="col-md-3">
 						{{Form::open()}}
 						<div class="input-group" style="">
 							{{Form::hidden('text1',Crypt::encrypt($userChannel->id),array('id'=>'text1'))}}
@@ -50,7 +50,7 @@
 							</span>
 						</div>
 						{{Form::close()}}
-					</div>
+					</div> -->
 
 					<!--<div class="col-md-1 text-right">
 						<div class="buttons">

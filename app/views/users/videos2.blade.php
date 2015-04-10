@@ -18,7 +18,7 @@
 				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+				  		<!-- <li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li> -->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
