@@ -194,7 +194,7 @@ class UserController extends BaseController {
 				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
 			}
 			if(!file_exists('public/'.$img)){
-				$img = 'img/user/0.jpg';
+				$img = '/img/user/0.jpg';
 			}
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
