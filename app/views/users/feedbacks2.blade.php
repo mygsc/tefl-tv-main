@@ -17,7 +17,7 @@
 				    	<li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li>
 				  		<li role="presentation"><a href="#">Playlists</a></li>
 				  		<li role="presentation" class="active">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation"><a href="#">Subscribers/Subscriptions</a></li>
+				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 				  	</ul><!--tabNav-->
 				</div>
 
