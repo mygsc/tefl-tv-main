@@ -7,12 +7,9 @@
 			<div class="row">
 				<div class="col-md-4 col-xs-4">
 					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
-
-					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
+						{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-
-					{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp)))}}
-
+						{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@endif
 
 				</div>

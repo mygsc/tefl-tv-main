@@ -303,7 +303,7 @@ class UserController extends BaseController {
 			$findUserWebsite = Website::where('user_id',9)->first();
 
 			if(isset($findUserWebsite)){
-				DB::table('websites')->insert(array('user_id' => Auth::User()->id, 'facebook' => Input::get('facebook'), 'twitter' => Input::get('twitter')), 'instagram' => Input::get('instagram')), 'gmail' => Input::get('gmail')), 'others' => Input::get('others')));
+				DB::table('websites')->insert(array('user_id' => Auth::User()->id, 'facebook' => Input::get('facebook'), 'twitter' => Input::get('twitter'), 'instagram' => Input::get('instagram'), 'gmail' => Input::get('gmail'), 'others' => Input::get('others')));
 			}else{
 				$userWebsite = Website::where('user_id',Auth::User()->id)->first();
 				$userWebsite->facebook = Input::get('facebook');
