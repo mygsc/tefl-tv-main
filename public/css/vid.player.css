@@ -90,7 +90,15 @@ div#progressbar #current-progress{
 	width: 0%;
 	border-radius:5px;
 	top:0;
-}
+}#loadbar > span{
+		position:absolute;
+		left:0;
+		top:0;
+		display:inline-block;
+		height:20px;
+		background:#337BA7;
+		box-shadow:inset 0 0 0 1px #fff, inset 0 0 0 2px #390;
+	}
 .volume{
 	border-radius:5px;height:150px;min-width:5px;position:absolute;bottom:20px;right:0;
 	background:transparent;padding: 8px;
@@ -321,6 +329,17 @@ button#play{
 }.play-icon span{
   	background: rgba(27,27,27,0.6);
 	padding: 15px;
+}div#error-handler{
+	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 30%;
+  	height: 15%;
+  	background: rgba(42,42,42,0.9);
+  	color:#c92626;
 }
 img#play{
 	margin: auto;  

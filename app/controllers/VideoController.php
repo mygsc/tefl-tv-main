@@ -34,10 +34,11 @@ class VideoController extends BaseController {
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
-			$encrypt_name = $fileName;
+			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
 			$db_filename = Video::find($latest_id);
-			$db_filename->file_name = $encrypt_name;
+			$db_filename->file_name = $fileName;
+			$db_filename->title = 'Untitled';
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
@@ -46,7 +47,7 @@ class VideoController extends BaseController {
 				$destinationPath = 'videos'.DIRECTORY_SEPARATOR. $userFolderName;
 
 				//Start upload
-				$videoFolderPath = $destinationPath. DS. $encrypt_name;
+				$videoFolderPath = $destinationPath. DS. $fileName;
 
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
@@ -55,7 +56,7 @@ class VideoController extends BaseController {
 					mkdir($videoFolderPath);
 				}
 				$ext = $file->getClientOriginalExtension();
-				$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
+				$file->move($videoFolderPath, $fileName.'.'.$ext);  
 				return Response::json([ 'file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
