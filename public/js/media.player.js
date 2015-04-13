@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {GSCMediaPlayer();}, fa
 var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
 	playPauseBtn, timeDuration=0,
  	muteBtn, playIcon = false, replay, _time, curHrs, curMin, curSec, durHrs, durMin, durSec,
- 	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false, error = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
@@ -61,20 +61,45 @@ function GSCMediaPlayer(){
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
-		timeDuration = Math.round(mediaPlayer.duration);
-		timeSettings();
-		adsOn();
-		mediaPlayer.addEventListener('progress', loadBuffer, false);
-		
+		try{
+			timeDuration = Math.round(mediaPlayer.duration);
+			timeSettings();
+			adsOn();	
+			loadBuffer();	
+		}catch(e){
+			alert(e.message);
+		}
 	});
-	fullscreenVid.addEventListener('click', fullscreen, false);//fullscreen toggleFullScreen
+	mediaPlayer.addEventListener('progress', loadBuffer, false);
+	fullscreenVid.addEventListener('click', fullscreen, false); //fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('error', hasError, false);
 	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
 	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
-
+function onprogress(){
+	var progress = document.body.appendChild(document.createElement('div'));
+	progress.id = 'loadbar';
+			//get the buffered ranges data
+			var ranges = [];
+			for(var i = 0; i < mediaPlayer.buffered.length; i ++){
+				ranges.push([mediaPlayer.buffered.start(i),mediaPlayer.buffered.end(i)]);
+			}
+			//get the current collection of spans inside the container
+			var spans = progress.getElementsByTagName('span');
+			//then add or remove spans so we have the same number as time ranges
+			while(spans.length < mediaPlayer.buffered.length){
+				progress.appendChild(document.createElement('span'));
+			}
+			while(spans.length > mediaPlayer.buffered.length){
+				progress.removeChild(progress.lastChild);
+			}
+			for(var i = 0; i < mediaPlayer.buffered.length; i ++){
+				spans[i].style.left = Math.round((100 / mediaPlayer.duration) * ranges[i][0]) + '%';
+				spans[i].style.width = Math.round((100 / mediaPlayer.duration) * (ranges[i][1] - ranges[i][0])) + '%';
+			}
+		}
 function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
@@ -95,7 +120,7 @@ function loadBuffer(){
 		}
 }
 function canPlayVideo() { //buffering done...
-	alert('Video canplay');
+	//alert('Video canplay');
 }
 function onWaitingBuffer() { //buffering occur...
 	$('.play-icon').fadeIn();
@@ -156,6 +181,21 @@ function seekTimeUpdate(){
 		$('.advertisement').fadeIn(2000);
 	}
 	
+	checkVid();
+}
+
+function checkVid(){
+
+	if(isNaN(durSec)){
+		error = true;
+		mediaPlayer.poster = '/img/error.jpg'; 
+		$('.ctime').fadeOut('fast');
+		if(error){
+			$('video').append('<div id="error-handler">Error while playing a video please try again later.</div>');
+			error = false;
+		}
+		
+	}
 }
 
 function toggleFullScreen() {

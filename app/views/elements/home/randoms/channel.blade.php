@@ -10,7 +10,9 @@
 
 					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
+
 					{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp)))}}
+
 					@endif
 
 				</div>
@@ -18,16 +20,16 @@
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
 					<p><b>Org:</b>TEFL Educators</p>
 						<p class="text-justify">
-						{{ Str::limit($channel->interests, 120) }}
+						{{ Str::limit($channel->interests, 120, '...') }}
 			
 						</p>
 					
-						@if($auth)
-							@if($auth->id != $channel->id)
+						@if(Auth::check())
+							@if(Auth::user()->id != $channel->id)
 							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							{{Form::hidden('user_id',$channel->id)}}
-							{{Form::hidden('subscriber_id', $auth->id)}}
-								@if(isset($datas->ifsubscribe))
+							{{Form::hidden('subscriber_id', Auth::user()->id)}}
+								@if($channel->ifsubscribe == 'No')
 								{{Form::hidden('status','subscribeOn')}}
 								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 								@else
@@ -37,8 +39,8 @@
 							{{Form::close()}}
 							@else
 							{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
+							@endif
 						@endif
-					@endif
 				</div>	
 			</div><!--/.row-->
 			<hr/>

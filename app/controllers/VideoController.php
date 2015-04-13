@@ -34,15 +34,19 @@ class VideoController extends BaseController {
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
-			$encrypt_name = $fileName;
+			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
+			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+			$destinationPath = public_path('videos'.DIRECTORY_SEPARATOR. $userFolderName);
+			$videoFolderPath = $destinationPath. DS. $fileName;
 			$db_filename = Video::find($latest_id);
-			$db_filename->file_name = $encrypt_name;
+			$db_filename->file_name = $fileName;
+			$db_filename->title = 'Untitled';
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
 				//Start upload
-				$videoFolderPath = $destinationPath. DS. $encrypt_name;
+
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -50,7 +54,7 @@ class VideoController extends BaseController {
 					mkdir($videoFolderPath);
 				}
 				$ext = $file->getClientOriginalExtension();
-				$file->move($videoFolderPath, $encrypt_name.'.'.$ext);  
+				$file->move($videoFolderPath, $fileName.'.'.$ext);  
 				return Response::json([ 'file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
@@ -104,6 +108,7 @@ class VideoController extends BaseController {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$selectedCategory = null;
 		if($validator->passes()){

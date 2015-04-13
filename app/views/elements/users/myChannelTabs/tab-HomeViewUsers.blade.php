@@ -5,45 +5,46 @@
 			@if(empty($recentUpload))
 				<p class="mg-l--30">No recent Activity</p>
 			@else
+			@if(isset($recentUpload[0]->id))
+				<div class="col-md-6">
+				 	<div id="vid-wrapper">
+				 		<div id="vid-controls">
+					 		<div class="embed-responsive embed-responsive-16by9 h-video">
+								@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
+									<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+									</video>
+								@else
+									{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+					 				<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+									</video>
+								@endif
+										
+							</div>
+							@include('elements/videoPlayer')
+						</div>		
+					</div>					
+				</div>
 
-			<div class="col-md-6">
-			 	<div id="vid-wrapper">
-			 		<div id="vid-controls">
-				 		<div class="embed-responsive embed-responsive-16by9 h-video">
-							@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
-								<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
-								</video>
-							@else
-								{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-				 				<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
-								</video>
-							@endif
-									
-						</div>
-						@include('elements/videoPlayer')
-					</div>		
-				</div>					
-			</div>
+				<div class="col-md-6">
+				
+				<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
+				<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
+				<br/>
+				
+				<p class="text-justify">
+					Description: {{$recentUpload[0]->description}}
+				</p>
+				<br/>
+				<span class=""><!--/counts and share link-->
+					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
-			<div class="col-md-6">
-			
-			<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
-			<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
-			<br/>
-			
-			<p class="text-justify">
-				Description: {{$recentUpload[0]->description}}
-			</p>
-			<br/>
-			<span class=""><!--/counts and share link-->
-				{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-				{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
 				<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -56,6 +57,7 @@
                 </span><!--/.dropdown-menu pull-right White-->
             </span><!--/.dropdown share-->
 			</span><!--/counts and share link-->
+
 			@endif
 		</div><!--/.col-md-6-->
 	</div>
@@ -74,30 +76,32 @@
 
 			
 			@foreach($findVideos as $findVideo)
-			<div class="col-md-4">
-				
-				<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
-					<div id="findVid">
-							@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
-								<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
-								<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-								<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-								<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-								</video>
-							@else
-								{{HTML::image('img/thumbnails/video.png')}}
-							@endif
+				@if(isset($findVideo[0]->id))
+					<div class="col-md-4">
+						
+						<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
+							<div id="findVid">
+									@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
+										<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+										</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif
 
+							</div>
+							<div class="v-Info">
+								{{$findVideo->title}}
+							</div>
+						</a>
+							<div class="count">
+								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+							</div>
+						
 					</div>
-					<div class="v-Info">
-						{{$findVideo->title}}
-					</div>
-				</a>
-					<div class="count">
-						{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-					</div>
-				
-			</div>
+				@endif
 			@endforeach
 
 		</div><!--well-->

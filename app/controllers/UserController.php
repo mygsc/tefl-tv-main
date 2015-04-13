@@ -183,23 +183,25 @@ class UserController extends BaseController {
 
 
 	public function getTopChannels(){
-		$auth = Auth::user();
 
 		$datas = $this->User->getTopChannels(10);
-
 		//Insert additional data to $datas
-		foreach($datas as $key => $channels){
-			$img = 'img/user/'. $channels->id. '.jpg';
-			if(!empty($auth)){
-				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+		foreach($datas as $key => $channel){
+			$img = 'img/user/'. $channel->id. '.jpg';
+			if(Auth::check()){
+				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+				$datas[$key]->ifsubscribe = 'No';
+				if(!$ifsubscribe->isEmpty()){
+					$datas[$key]->ifsubscribe = 'Yes';
+				}
 			}
-			if(!file_exists('public/'.$img)){
+			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
 			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+
 		}
-		//End of insert
 
 		return View::make('homes.topchannels', compact(array('datas','auth')));
 	}
@@ -219,8 +221,6 @@ class UserController extends BaseController {
 			$datas[$key]->image_src = $profilePicture;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
 		}
-
-		$usersChannel = UserProfile::find(Auth::User()->id);
 
 		return View::make('homes.moretopchannels', compact(array('datas','auth')));
 	}
@@ -762,7 +762,8 @@ class UserController extends BaseController {
 		//r3mmel
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countVideos = Video::where('user_id', $userChannel->id)->get();
+
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		//r3mmel
