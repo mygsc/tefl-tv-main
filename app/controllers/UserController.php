@@ -13,6 +13,7 @@ class UserController extends BaseController {
 	}
 
 	public function getSignIn() { 
+		return Session::all();
 		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
@@ -34,14 +35,14 @@ class UserController extends BaseController {
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
 				}elseif($status == '2'){
 					Auth::logout();
-					return Redirect::route('homes.signin')->with('flash_message','Your account is banned! Please contact the TEFLTV Administrator');
+					return Redirect::route('homes.signin')->with('flash_message','Your account was banned! Please contact the TEFLTV Administrator');
 				}else{
 					Auth::logout();
-					return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+					return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withFlashType('error')->withInput();
 				}
 			}
 		}
-		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withFlashType('error')->withInput();
 	}
 
 	public function postResendUserVerify(){
@@ -162,11 +163,12 @@ class UserController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.topchannels', compact(array('datas','auth')));
+		return View::make('homes.topchannels', compact(array('datas')));
 	}
 
 	public function getMoreTopChannels(){
 		//Insert additional data to $datas
+		$datas = $this->User->getTopChannels(50);
 		foreach($datas as $key => $channel){
 			$img = 'img/user/'. $channel->id. '.jpg';
 			if(Auth::check()){
@@ -182,7 +184,7 @@ class UserController extends BaseController {
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 		}
-		return View::make('homes.moretopchannels', compact(array('datas','auth')));
+		return View::make('homes.moretopchannels', compact(array('datas')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
@@ -816,6 +818,10 @@ class UserController extends BaseController {
 			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+
+				//Notification
+					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
 		}
