@@ -64,6 +64,7 @@
 				    <div class="tab-content">
 					  	<div role="tabpanel" class="tab-pane active" id="home">
 							@include('elements/users/myChannelTabs/tab-Home')
+							{{ (microtime(true) - LARAVEL_START) }}
 					  	</div>				    
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		

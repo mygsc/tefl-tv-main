@@ -79,6 +79,7 @@
 				<i id='share-video' title='Share video' class='player share'></i>
 				{{-- <i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i> --}}
 				<img src="/img/logos/teflTv.png" class="playerLogo">
+
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->
 	</div><!--/vd-->
