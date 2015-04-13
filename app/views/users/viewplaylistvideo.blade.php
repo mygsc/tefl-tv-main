@@ -95,7 +95,10 @@
 									@endif
 								@endif
 							</div>
+
 							<div class="col-md-9">
+									<div class ="row" id="alert-edit-playlist">
+									</div>
 								<h4><i class="fa fa-globe"></i> &nbsp;<span id="playlistName">{{$playlist->name}}</span></h4>
 								<p>{{$playlist->created_at->toFormattedDateString()}}</p>
 								<p class="text-justify"><span id="playlistDesc">{{$playlist->description}}</span></p>

@@ -13,6 +13,7 @@ class UserController extends BaseController {
 	}
 
 	public function getSignIn() { 
+		//return Session::all();
 		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
@@ -28,20 +29,20 @@ class UserController extends BaseController {
 			if($attempt){
 				$verified = Auth::User()->verified; $status = Auth::User()->status; $role = Auth::User()->role; //VARIABLES		
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name1']);
+					return Redirect::intended('/')->withFlashGood('Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
 				}elseif($status == '2'){
 					Auth::logout();
-					return Redirect::route('homes.signin')->with('flash_message','Your account is banned! Please contact the TEFLTV Administrator');
+					return Redirect::route('homes.signin')->with('flash_bad','Your account was banned! Please contact the TEFLTV Administrator');
 				}else{
 					Auth::logout();
-					return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+					return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
 				}
 			}
 		}
-		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+		return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
 	}
 
 	public function postResendUserVerify(){
@@ -86,7 +87,7 @@ class UserController extends BaseController {
 		$findUser = User::where('email', Input::get('email'))->get();
 
 		if($validator->fails() || $findUser->isEmpty()){
-			return Redirect::route('homes.signin')->with('flash_message', 'Please enter a valid E-mail address');
+			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
@@ -98,7 +99,7 @@ class UserController extends BaseController {
 		$user->token = $generateToken;
 		$user->save();
 
-		return Redirect::route('homes.signin')->with('flash_message', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
+		return Redirect::route('homes.signin')->with('flash_good', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
 	}
 
 	public function getResetPassword($token = null){
@@ -117,7 +118,7 @@ class UserController extends BaseController {
 			array('password' => 'required|min:6', 'password_confirmation' => 'same:password'));
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
-				return Redirect::route('homes.signin')->with('flash_message', 'Password has been renewed');
+				return Redirect::route('homes.signin')->with('flash_good', 'Password has been renewed');
 			}
 		}
 		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
@@ -128,10 +129,10 @@ class UserController extends BaseController {
 			$findUser = User::where('token', $token)->get();
 			if(!$findUser->isEmpty()){
 				$this->User->setVerifyStatus(1, $findUser->first()->id);
-				return Redirect::route('homes.signin')->with('flash_message', 'Your account has been verfied. You may now sign in your account');
+				return Redirect::route('homes.signin')->with('flash_good', 'Your account has been verfied. You may now sign in your account');
 			}
 		}
-		return Redirect::route('homes.index')->with('flash_message', 'Invalid request');
+		return Redirect::route('homes.index')->with('flash_warning', 'Invalid request');
 	}
 
 	public function getUsersIndex() {
@@ -162,11 +163,12 @@ class UserController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.topchannels', compact(array('datas','auth')));
+		return View::make('homes.topchannels', compact(array('datas')));
 	}
 
 	public function getMoreTopChannels(){
 		//Insert additional data to $datas
+		$datas = $this->User->getTopChannels(50);
 		foreach($datas as $key => $channel){
 			$img = 'img/user/'. $channel->id. '.jpg';
 			if(Auth::check()){
@@ -182,12 +184,12 @@ class UserController extends BaseController {
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 		}
-		return View::make('homes.moretopchannels', compact(array('datas','auth')));
+		return View::make('homes.moretopchannels', compact(array('datas')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
 		if(!Auth::check()){
-			return Redirect::route('homes.post.signin')->with('flash_message','Please Sign-in to view your channel');
+			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		} else{
 			$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 			
@@ -361,7 +363,11 @@ class UserController extends BaseController {
 		if($video->user_id != Auth::User()->id){
 			return Redirect::route('users.channel');
 		}
-		$tags = explode(',',$video->tags);
+		if($video->tags == ""){
+			$tags = null;
+		}else{
+			$tags = explode(',',$video->tags);
+		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -370,7 +376,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
 	public function postedit($id){
@@ -803,10 +808,10 @@ class UserController extends BaseController {
 		$userFeedback = Input::get('user_id');
 		$channelFeedback = Input::get('channel_id');
 		if(empty($feedback)){
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message', 'Error!');
+			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_bad', 'Error!');
 		} else{
 			DB::table('feedbacks')->insert(array('channel_id' => $channelFeedback, 'user_id' => $userFeedback, 'feedback' => $feedback));
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message','Successfully post your Feedback!');
+			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_good','Successfully post your Feedback!');
 		}
 	}
 
@@ -818,6 +823,10 @@ class UserController extends BaseController {
 			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+
+				//Notification
+					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
 		}

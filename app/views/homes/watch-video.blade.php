@@ -20,6 +20,34 @@
 {{-- */$videourl = 1;/* --}}
 {{-- */$playlistCounter = 1;/* --}}
 {{-- */$playlistCounter2 = 1;/* --}}
+@section('some_script')
+{{HTML::script('js/jquery.js')}}
+{{HTML::script('js/homes/watch.js')}}
+{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/homes/comment.js')}}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".linkReadMore").click(function(){
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".seeVideoContent").slideToggle("slow");
+        });    
+    });
+</script>
+<script type="text/javascript">
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=131997643656114&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+ <script src="https://apis.google.com/js/platform.js" async defer></script> 
+@stop
 
 @section('content')
 
@@ -114,16 +142,9 @@
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <div id="fb-root"></div>
-                                                    <div class="fb-share-button" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}" data-layout="button_count"> </div>
-                                                   <a class="twitter-share-button"
-                                                      href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
-                                                      data-url="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"
-                                                      data-counturl="http://test.tefltv.com"
-                                                      data-count="horizontal">
-                                                    Tweet
-                                                    </a>
-                                                     <div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.test.tefltv.com/watch!v={{$videos->file_name}}"></div>
+                                                    <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v= {{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v= {{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                    <!-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
                                                     <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>-->
@@ -170,6 +191,8 @@
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
                             <br/>
+                                            <div class="row" id="alert-playlist">
+                                            </div>
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
@@ -288,33 +311,4 @@
 
 @stop
 
-@section('some_script')
-{{HTML::script('js/jquery.js')}}
-{{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/media.player.js')}}
-{{HTML::script('js/homes/comment.js')}}
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".linkReadMore").click(function(){
-            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
-            $(".seeVideoContent").slideToggle("slow");
-        });    
-    });
-
-// TWITTER SHARE SCRIPT
-</script>
-<script type="text/javascript">
-window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-</script>
-<script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=131997643656114&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
- <script src="https://apis.google.com/js/platform.js" async defer></script> 
-@stop
