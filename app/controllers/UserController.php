@@ -183,7 +183,6 @@ class UserController extends BaseController {
 
 
 	public function getTopChannels(){
-
 		$datas = $this->User->getTopChannels(10);
 		//Insert additional data to $datas
 		foreach($datas as $key => $channel){
