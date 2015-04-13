@@ -1,5 +1,6 @@
 $(document).ready(function(){
+	var id= this.id;
     $(".userReply").click(function(){
-      	$(this).find('.replybox').fadeIn();
+      	$('.userReply > .replybox').slideToggle('slow');
     });    
 });
