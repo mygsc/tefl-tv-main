@@ -24,7 +24,7 @@
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 									</video>
 								@endif
-										
+					@endif			
 							</div>
 							@include('elements/videoPlayer')
 						</div>		
@@ -99,10 +99,10 @@
 								<div class="count">
 									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 								</div>
-					@endif
-				@endforeach
-			@endif
-			</div>
+								@endif
+							@endforeach
+						@endif
+					</div>
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -136,9 +136,9 @@
 					{{$playlists->updated_at}}
 				</div>
 				@endforeach
-				@else
+			@else
 					<p class="mg-l-20">No Playlists yet</p>
-				@endif
+			@endif
 			</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 				@endforeach					
-				@endif				
+			@endif				
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
