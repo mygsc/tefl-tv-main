@@ -43,18 +43,7 @@ $(document).ready(function(){
     },7000);
     
 	});
-  $('#recreate-thumb').click(function(){
-    setTimeout(function(){
-      snap(1);
-    },1000);
-    setTimeout(function(){
-      snap(2);
-    },4000);
-    setTimeout(function(){
-      snap(3);
-    },7000);
-    alert('Please wait a few seconds.');
-  });
+ 
   window.snap = function(num) {
     if(num==1){
       var duration = Math.floor(videoPlayer.duration);
@@ -189,7 +178,7 @@ $("#poster").on("change", function(){
 
 
 $('canvas.thumb-1').on('click', function(){
-  $(this).css({'outline':'2px solid #84AAFC'});
+  $(this).css({'outline':'3px solid green'});
   $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-1');
@@ -198,7 +187,7 @@ $('canvas.thumb-1').on('click', function(){
   //$('#poster').reset();
 });
 $('canvas.thumb-2').on('click', function(){
- $(this).css({'outline':'2px solid #84AAFC'});
+ $(this).css({'outline':'3px solid green'});
  $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-2');
@@ -206,7 +195,7 @@ $('canvas.thumb-2').on('click', function(){
   thumbnail.value = image;
 });
 $('canvas.thumb-3').on('click', function(){
-  $(this).css({'outline':'2px solid #84AAFC'});
+  $(this).css({'outline':'3px solid green'});
   $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-3');
