@@ -42,7 +42,7 @@
 	@endif
 	<div class="col-md-6">
 		@if(empty($recentUpload))
-			<p style="margin-left:30px;">No recent Activity</p>
+			<p class="hide">No recent Activity</p>
 		@else
 		<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
 		<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
@@ -59,9 +59,9 @@
 
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
 				</a>
-				<span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+				<span class="dropdown-menu drop pull-right White snBg span-share">
 					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
@@ -80,13 +80,13 @@
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
 				<span>Videos</span>&nbsp;|&nbsp;
-				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.myvideos', 'Show All')}}</small>
+				<small class="ch-link">{{link_to_route('users.myvideos', 'Show All')}}</small>
 			</div>
 			<br/><br/>
 
 			<div class="row">
 			@if($usersVideos->isEmpty())
-				<p style="margin-left:30px;">No Videos Uploaded yet..</p>
+				<p class="mg-l--30">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4 col-sm-6">
@@ -122,18 +122,18 @@
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
 				<span>Playlists</span>&nbsp;|&nbsp; 
-				<small class="ch-link" style="font-size:1.0em!Important;">{{link_to_route('users.playlists', 'Show All')}}</small>
+				<small class="ch-link">{{link_to_route('users.playlists', 'Show All')}}</small>
 			</div>
 			<br/>
 			<br/>
 			<div class="row">
 			
 			@if($usersPlaylists->isEmpty())
-				<p style="margin-left:30px;">No Playlists yet</p>
+				<p class="mg-l-20">No Playlists yet</p>
 			@else
 			@foreach($usersPlaylists as $key=>$playlist)
 			<div class="col-md-4 col-sm-2">
-			<div class="" style="position:relative;">
+			<div class="p-relative">
 				@if(isset($thumbnail_playlists[$key][0]))	
 					@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 					<div class="playlist-info" >
@@ -150,7 +150,7 @@
 						<br/>
 						Video(s)
 						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+						<span class="glyphicon glyphicon-list fs-24"></span>
 					</div>
 						<img src="/img/thumbnails/video.png">
 					@endif
@@ -160,7 +160,7 @@
 						<br/>
 						Video(s)
 						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+						<span class="glyphicon glyphicon-list fs-24"></span>
 					</div>
 					<img src="/img/thumbnails/video.png">
 				@endif
@@ -192,7 +192,7 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriberProfile))
-				<p style="margin-left:30px;">No subscribers yet.</p>
+				<p class="mg-l--30">No subscribers yet.</p>
 			@else
 				@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >
@@ -243,7 +243,7 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriptionProfile))
-					<p style="margin-left:30px;">No Subscriptions yet</p>
+					<p class="mg-l-20">No Subscriptions yet</p>
 				@else
 					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">

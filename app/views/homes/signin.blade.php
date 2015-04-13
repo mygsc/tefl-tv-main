@@ -82,7 +82,7 @@
 				</span>
 				@endif
 				<br/>
-				<div class="text-right" style="margin-top:10px;"> 
+				<div class="text-right mg-t-10"> 
 					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
 				</div>
 				{{ Form::close()}}

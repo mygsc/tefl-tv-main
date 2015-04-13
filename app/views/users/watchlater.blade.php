@@ -24,6 +24,7 @@
 
 				<div class="row mg-l--20">
 					<br/>
+					<div class="content-padding">
 					<!--<div class="col-md-6">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
@@ -51,10 +52,11 @@
 						</div>
 					</div>
 					<br/><hr/>
+					</div>
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if(empty($usersWatchLater))
-							No watch later yet.
+							<p class="text-center">There's no video to watch later.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
 						<div id='list' class="col-md-3">

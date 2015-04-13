@@ -20,9 +20,6 @@ class Subscribe extends Eloquent {
 			INNER JOIN users u2 ON s.subscriber_id = u2.id
 			WHERE user_id = "'. $getChannelID->first()->id.'"'. $limit);
 		
-		if(empty($getSubscriber)){
-			return NULL;
-		}
 		return $getSubscriber;
 	}
 

@@ -3,7 +3,7 @@
 Category: {{$category}} - TEFL-tv
 @stop
 @section('content')
-<div class="container">
+<div class="container page">
 	<h1>{{$category}}</h1>
 		<div class="col-md-12">
 			@foreach($videos as $video)

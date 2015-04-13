@@ -17,9 +17,9 @@
 			<div class="well2">
 				<table class="tableLayout">
 					<tr class="">
-						<td width="20%"><small><label>Name</label></small> </td>
-						<td width="5%"><b>:</b></td>
-						<td width="75%">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+						<td class="w-20per"><small><label>Name</label></small> </td>
+						<td class="w-5per"><b>:</b></td>
+						<td class="w-75per">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
 					</tr>
 					<tr>
 						<td><small><label>Birthdate</label></small></td>
@@ -45,9 +45,9 @@
 				<table class="tableLayout">
 					
 					<tr>
-						<td width="20%"><small><label>Email</label></small> </td>
-						<td width="5%"><b>:</b></td>
-						<td width="75%">{{$userChannel->email}}</td>
+						<td class="w-20per"><small><label>Email</label></small> </td>
+						<td class="w-5per"><b>:</b></td>
+						<td class="w-75per">{{$userChannel->email}}</td>
 					</tr>
 					<tr>
 						<td><small><label>Website</label></small></td>
@@ -73,9 +73,9 @@
 			<div class="well2">
 				<table class="tableLayout">
 					<tr>
-						<td width="20%"><small><label>Address</label></small></td>
-						<td width="5%"><b>:</b></td>
-						<td width="75%">{{$usersChannel->address}}</td>
+						<td class="w-20per"><small><label>Address</label></small></td>
+						<td class="w-5per"><b>:</b></td>
+						<td class="w-75per">{{$usersChannel->address}}</td>
 					</tr>
 					<tr>
 						<td><small><label>City</label></small> </td>
