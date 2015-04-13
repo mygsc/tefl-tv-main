@@ -215,8 +215,8 @@
 								<?php
 									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
 								?>
-								@if(isset($subscriber->id))
-									@if(Auth::User()->id != $subscriber->id)
+								@if(isset($profile->id))
+									@if(Auth::User()->id != $profile->id)
 										{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							    			{{Form::hidden('user_id', $profile->id)}}
 							    			{{Form::hidden('subscriber_id', Auth::User()->id)}}

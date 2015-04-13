@@ -218,7 +218,7 @@ class UserController extends BaseController {
 				and v.deleted_at IS NULL
 				or v.report_count > 5
 				and v.publish = 1");
-				}
+			}
 			$increment = 0;
 			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = 1 ORDER BY created_at DESC LIMIT 1');
 
