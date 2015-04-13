@@ -10,7 +10,7 @@
 	<!--advertisement-->
 
 	{{--<div class="video-ads">
-	<span class="close" style="margin-right:30px;">x</span> 
+	<span class="close mg-r-30">x</span> 
 		<h1>Video ads</h1>
 	</div> --}}
 
@@ -21,7 +21,7 @@
 	<div class="vd" style="margin-top:-7px;">
 		<div class="wrapper" id="controls">
 			<div id="progressbar">
-				<div id="progress-ads-line" style="background:transparent;position:relative;width:100%;height:100%">		
+				<div id="progress-ads-line"  class="prog-ads-line">		
 					<input  id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 					<div id="buffered"></div>
 					<div style="display:none" id="current-progress">	
@@ -51,8 +51,8 @@
 					</div>
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
-				<div class="hd-setting" style="display:none">
-					<small style="text-align:center;color:#fff">HD Quality</small>
+				<div class="hd-setting hide">
+					<small class="vp-text">HD Quality</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
 						<li> <a id="low-quality" href="#">Low</a></li>
@@ -62,7 +62,7 @@
 					</ul>						
 				</div><!--/.hd-setting-->
 				<div class="share-video" style="display:none">
-					<small style="text-align:center;color:#fff">Share to:</small>
+					<small class="vp-text">Share to:</small>
 					<ul>
 						<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 						<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>

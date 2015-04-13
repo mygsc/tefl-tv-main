@@ -7,9 +7,10 @@
   <div class="container page">
       <br/> <br/>
 
-      <div class="col-md-row">
+    <div class="col-md-row">
+      <div class="same-H">
         <div class="Div-channel-border">
-              <div class="well White " style="margin-bottom:0;min-height:350px;">
+              <div class="well White div-change">
                     <div class="row">
                         <br/>
                         <div class="text-center">
@@ -60,6 +61,7 @@
                       </div><!--/.tabbable tabs-left-->
                   </div><!--/.row-->
               </div><!--/.well-->
+            </div>
           </div><!--/.wrapperAccount-->
           <br/>
       </div><!--/.col-md-12-->

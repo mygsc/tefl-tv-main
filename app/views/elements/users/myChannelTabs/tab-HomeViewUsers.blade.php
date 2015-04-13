@@ -3,7 +3,7 @@
 	<div class="content-padding">
 		<br/>
 			@if(empty($recentUpload))
-				<p style="margin-left:30px;">No recent Activity</p>
+				<p class="mg-l--30">No recent Activity</p>
 			@else
 			@if(isset($recentUpload[0]->id))
 				<div class="col-md-6">
@@ -45,30 +45,19 @@
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
-					<span class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
-						</a>
-						<span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
-							<!--facebook-->
-							<span style="background:#3d5a98;" class="snBg">
-								<img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-							</span>
-							<span class="snCount" style="border:1px solid #3d5a98;">
-								100,000
-							</span><!--/facebook-->
-							<br/><br/>
-							<!--google-->
-							<span style="background:#dd6b6b;" class="snBg">
-								<img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-							</span>
-							<span style="border:1px solid #dd6b6b;" class="snCount">
-								100,000
-							</span><!--/google-->
-						</span>
-					</span><!--/.dropdown-->
-				</span><!--/counts and share link-->
-				@endif
+
+				<span class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+				</a>
+				<span class="dropdown-menu drop pull-right White snBg span-share">
+					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                </span><!--/.dropdown-menu pull-right White-->
+            </span><!--/.dropdown share-->
+			</span><!--/counts and share link-->
+
 			@endif
 		</div><!--/.col-md-6-->
 	</div>
@@ -81,7 +70,7 @@
 		<div class="well2 Div-channelSubSection">
 			
 			<div class="subLabelThis">
-				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 					<div class="col-md-4">
@@ -121,20 +110,20 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
 			<div class="col-md-4">
 			@if(empty($usersPlaylists))
 				@foreach($usersPlaylists as $playlists)
-				<div class="" style="position:relative;">
+				<div class="p-relative">
 					<div class="playlist-info" >
 						11
 						<br/>
 						Videos
 						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+						<span class="glyphicon glyphicon-list fs-24"></span>
 					</div>
 					<img src="/img/thumbnails/v3.png" class="h-video">
 				</div>
@@ -148,7 +137,7 @@
 				</div>
 				@endforeach
 				@else
-					<p style="margin-left:20px;">No Playlists yet</p>
+					<p class="mg-l-20">No Playlists yet</p>
 				@endif
 			</div>
 		</div>
@@ -158,7 +147,7 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
@@ -207,12 +196,12 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
 				@if(empty($subscriptions))
-					<p style="margin-left:50px;">No subscription yet</p>
+					<p class="mg-l-20">No subscription yet</p>
 				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">

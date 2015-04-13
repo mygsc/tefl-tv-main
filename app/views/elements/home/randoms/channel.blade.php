@@ -7,10 +7,9 @@
 			<div class="row">
 				<div class="col-md-4 col-xs-4">
 					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
-
-					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
+						{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-					{{HTML::image('/img/user/0.jpg')}}
+						{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@endif
 
 				</div>
@@ -22,12 +21,12 @@
 			
 						</p>
 					
-						@if($auth)
-							@if($auth->id != $channel->id)
+						@if(Auth::check())
+							@if(Auth::user()->id != $channel->id)
 							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 							{{Form::hidden('user_id',$channel->id)}}
-							{{Form::hidden('subscriber_id', $auth->id)}}
-								@if(isset($datas->ifsubscribe))
+							{{Form::hidden('subscriber_id', Auth::user()->id)}}
+								@if($channel->ifsubscribe == 'No')
 								{{Form::hidden('status','subscribeOn')}}
 								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 								@else
@@ -35,10 +34,10 @@
 								{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
 								@endif
 							{{Form::close()}}
-							@else
+							@endif
+						@else
 							{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
 						@endif
-					@endif
 				</div>	
 			</div><!--/.row-->
 			<hr/>
