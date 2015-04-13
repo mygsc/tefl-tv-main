@@ -434,7 +434,11 @@ class UserController extends BaseController {
 		if($video->user_id != Auth::User()->id){
 			return Redirect::route('users.channel');
 		}
-		$tags = explode(',',$video->tags);
+		if($video->tags == ""){
+			$tags = null;
+		}else{
+			$tags = explode(',',$video->tags);
+		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -443,7 +447,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
 	public function postedit($id){
