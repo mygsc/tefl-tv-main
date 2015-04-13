@@ -20,7 +20,7 @@
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
 					<p><b>Org:</b>TEFL Educators</p>
 						<p class="text-justify">
-						{{ Str::limit($channel->interests, 120, '...') }}
+						{{ Str::limit($channel->interests, 120) }}
 			
 						</p>
 					
