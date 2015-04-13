@@ -406,6 +406,10 @@ color:red;
 .n-mg-b{
 	margin-bottom: 0!important;
 }
+.vp-text{
+	text-align:center;
+	color:#fff;
+}
 /*.progress-button {
     -webkit-animation-name: spin;
     -webkit-animation-duration: 4000ms;

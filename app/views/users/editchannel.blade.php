@@ -8,10 +8,10 @@
 
       <div class="same-H row">
          <div class="Div-channel-border">
-              <div class="well White " style="margin-bottom:0;min-height:350px;">
+              <div class="well White" style="margin-bottom:0;min-height:350px;">
                 <div class="row">
                   <div class="text-center">
-                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
                     &nbsp;&nbsp;|&nbsp;&nbsp;

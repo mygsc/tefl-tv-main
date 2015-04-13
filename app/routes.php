@@ -59,7 +59,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('/', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
 	
-	Route::get('edit-channel/{channel_name}', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
+	Route::get('edit-channel', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
 	Route::get('myvideos', array('as' => 'users.myvideos', 'uses' => 'UserController@getMyVideos'));

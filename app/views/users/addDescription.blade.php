@@ -4,51 +4,7 @@
 		{{HTML::style('css/vid.player.css')}}
 @stop
 @section('content')
-<style type="text/css" media="screen">
-canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{
-	width:180px;
-	height:100px;
-	outline:1px solid #ccc;
-	cursor:pointer;
-	margin-right: auto;
-	margin-left: auto;
-}
-canvas.thumb-1:hover, canvas.thumb-2:hover, canvas.thumb-3:hover {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-}
-.file-upload {
-position: relative;
-overflow: hidden;
-margin: 10px;
-}
-.file-upload input#poster {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}
-.upPoster{
-	width:180px;
-	height:101px;
-	border:1px solid #ccc;
-	cursor:pointer;
-	margin-right: auto;
-	margin-left: auto;
-}/*div input[type=checkbox] label {
-	cursor:pointer;
-	font-weight: normal;
-	color:#3b5a9b;
-}*/
 
-</style>
 <div class="row White">
 	<div class="container page">	
 		<div class="content-padding">
