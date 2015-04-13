@@ -37,7 +37,7 @@ class VideoController extends BaseController {
 			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
 			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-			$destinationPath = public_path('videos'.DIRECTORY_SEPARATOR. $userFolderName);
+			$destinationPath = public_path('videos'.DS. $userFolderName);
 			$videoFolderPath = $destinationPath. DS. $fileName;
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
@@ -112,15 +112,16 @@ class VideoController extends BaseController {
 		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpeg');
+				$this->imageResize($input['poster'], 600, 339, $destinationPath.$fileName.'.jpg');
+			}
 			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
 				$getImage = $input['thumbnail'];
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
-				$saveImage = $destinationPath.$fileName.'.jpeg';
+				$saveImage = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($saveImage, $decodeImage);
-				$this->imageResize($saveImage, 1280, 720, $destinationPath.$fileName.'.jpeg');	
+				$this->imageResize($saveImage, 600, 339, $destinationPath.$fileName.'.jpg');	
 
 			}		
 			$tags = explode(',',Input::get('tags'));

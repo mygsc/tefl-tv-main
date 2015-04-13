@@ -12,8 +12,8 @@ $(document).ready(function(){
   var videoHeight, videoWidth, drawTimer = null;
   var ssContainer = document.getElementById("screenShots");
   var  playing=false; 
-   var canvas = document.getElementById("canvas");
-   var ctx = canvas.getContext("2d");
+   // var canvas = document.getElementById("canvas");
+   // var ctx = canvas.getContext("2d");
   context1.font="20px Georgia";
   context1.fillText("Please wait...",90,75);
   context2.font="20px Georgia";
