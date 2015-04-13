@@ -10,6 +10,7 @@
 				 	<div id="vid-wrapper">
 				 		<div id="vid-controls">
 					 		<div class="embed-responsive embed-responsive-16by9 h-video">
+					 		<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
 									<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
@@ -24,7 +25,8 @@
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 									</video>
 								@endif
-										
+							</a>
+					@endif			
 							</div>
 							@include('elements/videoPlayer')
 						</div>		
@@ -73,37 +75,36 @@
 				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-
-			
-			@foreach($findVideos as $findVideo)
-				@if(isset($findVideo[0]->id))
 					<div class="col-md-4">
-						
-						<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
-							<div id="findVid">
-									@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
-										<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif
-
-							</div>
-							<div class="v-Info">
-								{{$findVideo->title}}
-							</div>
-						</a>
-							<div class="count">
-								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-							</div>
-						
+						@if($findVideos->isEmpty())
+							No videos yet..
+						@else
+							@foreach($findVideos as $findVideo)
+								@if(isset($findVideo[0]->id))
+								<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
+								<div id="findVid">
+										@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
+											<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+											</video>
+										@else
+											{{HTML::image('img/thumbnails/video.png')}}
+										@endif
+	
+								</div>
+								<div class="v-Info">
+									{{$findVideo->title}}
+								</div>
+							</a>
+								<div class="count">
+									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+								</div>
+								@endif
+							@endforeach
+						@endif
 					</div>
-				@endif
-			@endforeach
-
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -137,9 +138,9 @@
 					{{$playlists->updated_at}}
 				</div>
 				@endforeach
-				@else
+			@else
 					<p class="mg-l-20">No Playlists yet</p>
-				@endif
+			@endif
 			</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
@@ -188,7 +189,7 @@
 					</div>
 				</div>
 				@endforeach					
-				@endif				
+			@endif				
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->

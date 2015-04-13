@@ -3,26 +3,20 @@
 	@foreach($datas as $channel)
 
 	<div class="col-md-6" >
-		<div class="well ch h-hide">
+		<div class="well ch" style="overflow:hidden;">
 			<div class="row">
 				<div class="col-md-4 col-xs-4">
 					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
-
-					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
+						{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-
-					{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp)))}}
-
+						{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@endif
 
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
 					<p><b>Org:</b>TEFL Educators</p>
-						<p class="text-justify">
-						{{ Str::limit($channel->interests, 120) }}
-			
-						</p>
+						<p class="text-justify">{{ Str::limit($channel->interests, 120) }}</p>
 					
 						@if(Auth::check())
 							@if(Auth::user()->id != $channel->id)
