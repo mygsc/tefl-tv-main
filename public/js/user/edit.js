@@ -30,10 +30,16 @@ $(document).ready(function(){
 			$('span[id^="tagDelete"]').click(function(){
 				var text1 = $('#text1').val();
 				var encrypt = $(this).attr('data-encrypt');
+				var divs = $('span[id^="tagDelete"]').length;
 				if(confirm("Are you sure do you want to delete this tag?")){
-					$.post('/mychannels/removeTag/'+text1,{encrypt:encrypt},function(data){
-							loader();
-					});		
+					if(divs === 1){
+						alert('Deleting the last tag is not available.');
+					}
+					else{
+						$.post('/mychannels/removeTag/'+text1,{encrypt:encrypt},function(data){
+								loader();
+						});
+					}	
 				}else{}
 			});
 
