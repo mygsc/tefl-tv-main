@@ -86,7 +86,7 @@
 
 			<div class="row">
 			@if($usersVideos->isEmpty())
-				<p class="mg-l--30">No Videos Uploaded yet..</p>
+				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4 col-sm-6">
@@ -129,7 +129,7 @@
 			<div class="row">
 			
 			@if($usersPlaylists->isEmpty())
-				<p class="mg-l-20">No Playlists yet</p>
+				<p class="text-center">No Playlists yet</p>
 			@else
 			@foreach($usersPlaylists as $key=>$playlist)
 			<div class="col-md-4 col-sm-2">
@@ -192,7 +192,7 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriberProfile))
-				<p class="mg-l--30">No subscribers yet.</p>
+				<p class="text-center">No subscribers yet.</p>
 			@else
 				@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >
@@ -243,7 +243,7 @@
 			<br/><br/>
 			<div class="row">
 			@if(empty($subscriptionProfile))
-					<p class="mg-l-20">No Subscriptions yet</p>
+					<p class="text-center">No Subscriptions yet</p>
 				@else
 					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">

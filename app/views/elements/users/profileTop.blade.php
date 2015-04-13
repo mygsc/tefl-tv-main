@@ -61,7 +61,7 @@
 				</div>
 			</div>
 			<div class="c-about" >
-				<div class="labelThis mg-t-20">
+				<div class="labelThis mg-t--20">
 					{{Auth::User()->channel_name}}
 				</div>
 	
