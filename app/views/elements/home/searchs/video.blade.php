@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-8">
 		<a href="{{route('homes.watch-video', array($result->file_name))}}">{{$result->title}}</a><br />
-		By: <a href="#">{{$result->channel_name}}</a><br />
+		By: <a href="/channels/{{$result->channel_name}}">{{$result->channel_name}}</a><br />
 		<p class="text-justify">{{$result->description}}</p>
 		<i class="fa fa-eye"></i> {{$result->views}} | <i class="fa fa-thumbs-up"></i> {{$result->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($result->created_at))}}
 		<br/>

@@ -45,12 +45,14 @@
 						<br/>
 						{{$feedbacks->created_at}}
 						<br/>
-						<button id="userReply">Reply</button>
-						<div id="replybox" style="">
+
+						<button id="{{'reply_'.$feedbacks->id}}" class="userReply">Reply</button>
+
+						<div class="replybox" style="display: none">						
 							{{Form::open()}}
 								{{Form::textarea('reply', null, ['placeholder' => 'Leave a reply..'])}}
 								<br/>
-								{{Form::Submit('Reply')}}
+								{{Form::Submit('submit')}}
 							{{Form::close()}}
 						</div>
 					@endforeach

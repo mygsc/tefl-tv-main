@@ -15,7 +15,7 @@
 	</div> --}}
 
 	<div class="play-icon" id ="play-icon">
-		<img id="play" src="/img/icons/play-btn.png" alt="Play">
+		 
 	</div>
 
 	<div class="vd" style="margin-top:-7px;">
@@ -32,6 +32,7 @@
 
 			<span class='img-play'>
 				<i id='play-pause' class='player play' title='Play'></i>
+				<i id='vid-error'></i>
 			</span>
 
 			<span class="pull-right">
@@ -64,11 +65,11 @@
 				<div class="share-video" style="display:none">
 					<small class="vp-text">Share to:</small>
 					<ul>
-						<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-						<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-						<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-						<!--<a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
-						<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
+						<a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+						<a target="_blank" href="http://twitter.com/home?status=static+www.test.tefltv.com/watch!v=7gfUxVixcrz"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+						<a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v=7gfUxVixcrz"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+						<a target="_blank" href="http://www.tumblr.com/share?v=3&u=www.test.tefltv.com/watch!v=7gfUxVixcrz&t=static"><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+						<!--<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
 						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
 
@@ -76,7 +77,8 @@
 				</div><!--/.share-video-->
 				<i id='hd-setting' title='HD setting' class='player setting'></i>
 				<i id='share-video' title='Share video' class='player share'></i>
-				<a href="#"><img src="/img/logos/teflTv.png" class="playerLogo"></a>
+				<i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i>
+				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->
 	</div><!--/vd-->

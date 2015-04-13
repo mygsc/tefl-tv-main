@@ -4,19 +4,21 @@
 <div class="col-md-3">
 	<div class="p-relative">
 		<div class="playlist-info" >
-			18
+			{{$randomResult->video_count}}
 			<br/>
 			Videos
 			<br/>
 			<span class="glyphicon glyphicon-list fs-24"></span>
 		</div>
+		<a href="#">
 		<img src="/img/thumbnails/v1.png" class="h-video">
+		</a>
 	</div>
 	<div class="v-Info">
 		<a href="#">{{$randomResult->name}}</a>
 	</div>
 	<div class="count">
-		by:Playlist Owner Here
+		by:<a href="/channels/{{$randomResult->channel_name}}">{{$randomResult->channel_name}}</a>
 	</div>
 </div>
 

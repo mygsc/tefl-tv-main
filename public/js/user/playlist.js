@@ -111,19 +111,9 @@ $(document).ready(function(){
 	}
 	function loader(){
 	$("#videosContainer").load(window.location.href+' #videosContainer',function(){
-		$('body').append('<div id="playlist-div-create"></div>');
-			$('#playlist-div-create').html('Sucessfully created');
-			$('#playlist-div-create').css({
-	         'opacity' : 0.7,
-	         'position': 'fixed',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'color':'white',
-	         'width': '150px',
-	         'height':'50px',
-	         'z-index': 5000
-			});
+		$('#alert-playlist').append('<div id="playlist-div-create"></div>');
+			$('#playlist-div-create').html('<a class="alert-link"><i class="fa fa-check"></i><small>Sucessfully created</small></a>');
+			$('#playlist-div-create').addClass("alert alert-success alert-dismissible");
 			setTimeout(function(){
 				if ($('#playlist-div-create').length > 0) {
 					$('#playlist-div-create').remove();
@@ -140,17 +130,6 @@ $(document).ready(function(){
 	$("#videosContainer").load(window.location.href+' #videosContainer',function(){
 		$('body').append('<div id="playlist-div-remove"></div>');
 			$('#playlist-div-remove').html('Sucessfully removed');
-			$('#playlist-div-remove').css({
-	         'opacity' : 0.7,
-	         'position': 'fixed',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'color':'white',
-	         'width': '150px',
-	         'height':'50px',
-	         'z-index': 5000
-			});
 			setTimeout(function(){
 				if ($('#playlist-div-remove').length > 0) {
 					$('#playlist-div-remove').remove();
@@ -164,19 +143,10 @@ $(document).ready(function(){
 	}
 	function editTitleloader(){
 		$("#playlistName").load(window.location.href+' #playlistName',function(){
-			$('body').append('<div id="playlist-span-create"></div>');
-				$('#playlist-span-create').html('Sucessfully edited');
-				$('#playlist-span-create').css({
-		         'opacity' : 0.7,
-		         'position': 'fixed',
-		         'top': 0,
-		         'left': 0,
-		         'background-color': 'black',
-		         'color':'white',
-		         'width': '150px',
-		         'height':'50px',
-		         'z-index': 5000
-				});
+			$('#alert-edit-playlist').append('<div id="playlist-span-create"></div>');
+				$('#playlist-span-create').html('<a class="alert-link"><i class="fa fa-check"></i><small>Sucessfully edited</small></a>');
+				$('#playlist-span-create').addClass("alert alert-success alert-dismissible");
+				$('#playlist-span-create').css({'width':'50%'});
 				setTimeout(function(){
 					if ($('#playlist-span-create').length > 0) {
 						$('#playlist-span-create').remove();
@@ -190,19 +160,10 @@ $(document).ready(function(){
 		}
 	function editDescloader(){
 		$("#playlistDesc").load(window.location.href+' #playlistDesc',function(){
-			$('body').append('<div id="playlist-span-create"></div>');
-				$('#playlist-span-create').html('Sucessfully edited');
-				$('#playlist-span-create').css({
-		         'opacity' : 0.7,
-		         'position': 'fixed',
-		         'top': 0,
-		         'left': 0,
-		         'background-color': 'black',
-		         'color':'white',
-		         'width': '150px',
-		         'height':'50px',
-		         'z-index': 5000
-				});
+			$('#alert-edit-playlist').append('<div id="playlist-span-create"></div>');
+				$('#playlist-span-create').html('<a class="alert-link"><i class="fa fa-check"></i><small>Sucessfully edited</small></a>');
+				$('#playlist-span-create').addClass("alert alert-success alert-dismissible");
+				$('#playlist-span-create').css({'width':'50%'});
 				setTimeout(function(){
 					if ($('#playlist-span-create').length > 0) {
 						$('#playlist-span-create').remove();
