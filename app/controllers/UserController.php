@@ -183,27 +183,25 @@ class UserController extends BaseController {
 
 
 	public function getTopChannels(){
-		$auth = Auth::user();
 
 		$datas = $this->User->getTopChannels(10);
-
 		//Insert additional data to $datas
-		foreach($datas as $key => $channels){
-//return Subscribe::where(array('user_id' => $channels->id, 'subscriber_id' => $auth->id))->first();
-			$img = 'img/user/'. $channels->id. '.jpg';
-			if(!empty($auth)){
-				$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+		foreach($datas as $key => $channel){
+			$img = 'img/user/'. $channel->id. '.jpg';
+			if(Auth::check()){
+				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+				$datas[$key]->ifsubscribe = 'No';
+				if(!$ifsubscribe->isEmpty()){
+					$datas[$key]->ifsubscribe = 'Yes';
+				}
 			}
-			if(!file_exists('public/'.$img)){
+			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
 			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
-//dd($datas[$key]->ifsubscribe == null);
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+
 		}
-		//End of insert
-
-
 
 		return View::make('homes.topchannels', compact(array('datas','auth')));
 	}
