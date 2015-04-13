@@ -13,7 +13,7 @@ class UserController extends BaseController {
 	}
 
 	public function getSignIn() { 
-		return Session::all();
+		//return Session::all();
 		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
