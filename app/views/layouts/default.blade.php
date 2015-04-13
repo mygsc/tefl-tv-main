@@ -35,6 +35,7 @@
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
+{{HTML::script('js/user/reply.js')}}
 
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
@@ -58,4 +59,7 @@
 
 @yield('modal')
 
+<br/>
+<center>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render</center>
+<br/>
 </html>

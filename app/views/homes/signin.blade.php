@@ -3,8 +3,8 @@
 
 @section('content')
 @include('elements/flash_verify')
-<div class='container pageh'>
-	<br/><br/>
+<div class='container pageH'>
+	<br/>
 	<div class="row">
 		<div class="col-md-4 col-sm-5">
 			<div class="loginDivH textbox-layout">
@@ -14,7 +14,7 @@
 				<a href="#" id="forgotpw" data-toggle="modal" data-target="#forgot-password">forgot password?</a>
 				{{Form::open(array('route' => 'homes.post.signin'))}}
 				
-				{{Form::text('channel_name',null,array('placeholder' => 'Channel Name'))}}
+				{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
 				
 				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
 				<div class="text-right">
@@ -82,14 +82,14 @@
 				</span>
 				@endif
 				<br/>
-				<div class="text-right" style="margin-top:10px;"> 
+				<div class="text-right mg-t-10"> 
 					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
 				</div>
 				{{ Form::close()}}
 			</div>
 		</div>
 	</div>
-	<BR/><br/>
+	<br/>
 </div><!--/.container page-->
 
 @stop

@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12"> 
                 <div class="">
-                    <ul class="ctgryNav" style="margin-left:-65px;">
+                    <ul class="ctgryNav mg-l-65">
                         <li>{{ link_to_route('get.admin.users', 'Users', null, array('class' => 'btn')) }}</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">

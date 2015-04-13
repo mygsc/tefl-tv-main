@@ -57,7 +57,7 @@
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if(empty($findUsersVideos))
-							No Favorites yet.
+							<p class="text-center">You don't have favorites yet.</p>
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}

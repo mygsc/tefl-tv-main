@@ -176,19 +176,9 @@ $(document).ready(function(){
 		}
 	function loader(){
 		$("#dropdown").load(window.location.href+' #dropdown',function(){
-		$('body').append('<div id="playlist-div-create"></div>');
-			$('#playlist-div-create').html('Sucessfully created');
-			$('#playlist-div-create').css({
-	         'opacity' : 0.7,
-	         'position': 'absolute',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'color':'white',
-	         'width': '150px',
-	         'height':'50px',
-	         'z-index': 5000
-			});
+		$('#alert-playlist').append('<div id="playlist-div-create"></div>');
+			$('#playlist-div-create').html('<a class="alert-link"><i class="fa fa-check"></i><small>Successfully Created</small></a>');
+			$('#playlist-div-create').addClass("alert alert-success alert-dismissible");
 			setTimeout(function(){
 				if ($('#playlist-div-create').length > 0) {
 					$('#playlist-div-create').remove();
@@ -208,19 +198,9 @@ $(document).ready(function(){
 	}
 	function deleteLoader(){
 		$("#dropdown").load(window.location.href+' #dropdown',function(){
-			$('body').append('<div id="playlist-div-remove"></div>');
-			$('#playlist-div-remove').html('Sucessfully removed on your playlist');
-			$('#playlist-div-remove').css({
-	         'opacity' : 0.7,
-	         'position': 'fixed',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'color':'white',
-	         'width': '150px',
-	         'height':'50px',
-	         'z-index': 5000
-			});
+			$('#alert-playlist').append('<div id="playlist-div-remove"></div>');
+			$('#playlist-div-remove').html('<a class="alert-link"><i class="fa fa-check"></i><small>Sucessfully removed on your playlist</small></a>');
+			$('#playlist-div-remove').addClass("alert alert-success alert-dismissible");
 			setTimeout(function(){
 				if ($('#playlist-div-remove').length > 0) {
 					$('#playlist-div-remove').remove();
@@ -241,19 +221,9 @@ $(document).ready(function(){
 
 	function addLoader(){
 		$("#dropdown").load(window.location.href+' #dropdown',function(){
-			$('body').append('<div id="playlist-div-add"></div>');
-			$('#playlist-div-add').html('Sucessfully added on your playlist');
-			$('#playlist-div-add').css({
-	         'opacity' : 0.7,
-	         'position': 'fixed',
-	         'top': 0,
-	         'left': 0,
-	         'background-color': 'black',
-	         'color':'white',
-	         'width': '150px',
-	         'height':'50px',
-	         'z-index': 5000
-			});
+			$('#alert-playlist').append('<div id="playlist-div-add"></div>');
+			$('#playlist-div-add').html('<a class="alert-link"><i class="fa fa-check"></i><small>Sucessfully added on your playlist</small></a>');
+			$('#playlist-div-add').addClass("alert alert-success alert-dismissible");
 			setTimeout(function(){
 				if ($('#playlist-div-add').length > 0) {
 					$('#playlist-div-add').remove();

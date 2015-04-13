@@ -36,15 +36,17 @@ class VideoController extends BaseController {
 			$latest_id = $create->id;
 			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
+			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+			$destinationPath = public_path('videos'.DIRECTORY_SEPARATOR. $userFolderName);
+			$videoFolderPath = $destinationPath. DS. $fileName;
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
+			$db_filename->tags = null;
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
 				//Start upload
-				$videoFolderPath = $destinationPath. DS. $fileName;
-
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -53,7 +55,7 @@ class VideoController extends BaseController {
 				}
 				$ext = $file->getClientOriginalExtension();
 				$file->move($videoFolderPath, $fileName.'.'.$ext);  
-				return Response::json([ 'file'=>$fileName]);
+				return Response::json(['file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
 		}
@@ -174,21 +176,28 @@ class VideoController extends BaseController {
 			if($category == 'channel'){
 
 				$datas = $this->User->getRandomChannels();
-				foreach($datas as $key => $channels){
-					$img = 'img/user/'. $channels->id. '.jpg';
-					if(!empty($auth)){
-						$datas[$key]->ifsubscribe = Subscribe::where(array('user_id' => $auth->id, 'subscriber_id' => $channels->id))->first();
+				//Insert additional data to $datas
+				foreach($datas as $key => $channel){
+					$img = 'img/user/'. $channel->id. '.jpg';
+					if(Auth::check()){
+						$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+						$datas[$key]->ifsubscribe = 'No';
+						if(!$ifsubscribe->isEmpty()){
+							$datas[$key]->ifsubscribe = 'Yes';
+						}
 					}
-					if(!file_exists('public/'.$img)){
-						$img = 'img/user/0.jpg';
+					if(!file_exists(public_path($img))){
+						$img = '/img/user/0.jpg';
 					}
 					$datas[$key]->image_src = $img;
-					$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channels->channel_name, 10);
+					$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+
 				}
 			}
 
 			if($category == 'playlist'){
 				$datas = $this->Playlist->getRandomPlaylist();
+				//return $datas;
 			}
 			$type = $category;
 		}

@@ -3,13 +3,14 @@
 	<div class="content-padding">
 		<br/>
 			@if(empty($recentUpload))
-				<p style="margin-left:30px;">No recent Activity</p>
+				<p class="mg-l--30">No recent Activity</p>
 			@else
 			@if(isset($recentUpload[0]->id))
 				<div class="col-md-6">
 				 	<div id="vid-wrapper">
 				 		<div id="vid-controls">
 					 		<div class="embed-responsive embed-responsive-16by9 h-video">
+					 		<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
 									<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
@@ -17,14 +18,15 @@
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 									</video>
 								@else
-									{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+									{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
 					 				<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
 										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 									</video>
 								@endif
-										
+							</a>
+					@endif			
 							</div>
 							@include('elements/videoPlayer')
 						</div>		
@@ -45,30 +47,19 @@
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
-					<span class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							<h4 style="display:inline;">Share&nbsp;&nbsp;<i class="fa fa-share-alt hand"></i></h4>
-						</a>
-						<span class="dropdown-menu pull-right White" style="padding:5px 5px;text-align:center;">
-							<!--facebook-->
-							<span style="background:#3d5a98;" class="snBg">
-								<img src="/img/icons/fb_i.png" class="hand" title="Share on Facebook">&nbsp;Share
-							</span>
-							<span class="snCount" style="border:1px solid #3d5a98;">
-								100,000
-							</span><!--/facebook-->
-							<br/><br/>
-							<!--google-->
-							<span style="background:#dd6b6b;" class="snBg">
-								<img src="/img/icons/gp_i.png" class="hand" title="Share on Google +">&nbsp;Share
-							</span>
-							<span style="border:1px solid #dd6b6b;" class="snCount">
-								100,000
-							</span><!--/google-->
-						</span>
-					</span><!--/.dropdown-->
-				</span><!--/counts and share link-->
-				@endif
+
+				<span class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+				</a>
+				<span class="dropdown-menu drop pull-right White snBg span-share">
+					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+                </span><!--/.dropdown-menu pull-right White-->
+            </span><!--/.dropdown share-->
+			</span><!--/counts and share link-->
+
 			@endif
 		</div><!--/.col-md-6-->
 	</div>
@@ -81,40 +72,39 @@
 		<div class="well2 Div-channelSubSection">
 			
 			<div class="subLabelThis">
-				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-
-			
-			@foreach($findVideos as $findVideo)
-				@if(isset($findVideo[0]->id))
 					<div class="col-md-4">
-						
-						<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
-							<div id="findVid">
-									@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
-										<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif
-
-							</div>
-							<div class="v-Info">
-								{{$findVideo->title}}
-							</div>
-						</a>
-							<div class="count">
-								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-							</div>
-						
+						@if($findVideos->isEmpty())
+							No videos yet..
+						@else
+							@foreach($findVideos as $findVideo)
+								@if(isset($findVideo[0]->id))
+								<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
+								<div id="findVid">
+										@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
+											<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+											</video>
+										@else
+											{{HTML::image('img/thumbnails/video.png')}}
+										@endif
+	
+								</div>
+								<div class="v-Info">
+									{{$findVideo->title}}
+								</div>
+							</a>
+								<div class="count">
+									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+								</div>
+								@endif
+							@endforeach
+						@endif
 					</div>
-				@endif
-			@endforeach
-
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 
@@ -122,20 +112,20 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
 			<div class="col-md-4">
 			@if(empty($usersPlaylists))
 				@foreach($usersPlaylists as $playlists)
-				<div class="" style="position:relative;">
+				<div class="p-relative">
 					<div class="playlist-info" >
 						11
 						<br/>
 						Videos
 						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+						<span class="glyphicon glyphicon-list fs-24"></span>
 					</div>
 					<img src="/img/thumbnails/v3.png" class="h-video">
 				</div>
@@ -148,9 +138,9 @@
 					{{$playlists->updated_at}}
 				</div>
 				@endforeach
-				@else
-					<p style="margin-left:20px;">No Playlists yet</p>
-				@endif
+			@else
+					<p class="mg-l-20">No Playlists yet</p>
+			@endif
 			</div>
 		</div>
 	</div><!--/.2nd 6 column Playlists-->
@@ -159,7 +149,7 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscribers</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
@@ -199,7 +189,7 @@
 					</div>
 				</div>
 				@endforeach					
-				@endif				
+			@endif				
 			</div>
 		</div>
 	</div><!--/.3rd column 6 Subscribers-->
@@ -208,12 +198,12 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Subscriptions</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 			<div class="row">
 				@if(empty($subscriptions))
-					<p style="margin-left:50px;">No subscription yet</p>
+					<p class="mg-l-20">No subscription yet</p>
 				@else
 					@foreach($subscriptions as $subscription)
 						<div class="col-md-6">
