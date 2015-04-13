@@ -189,6 +189,9 @@ class Video extends Eloquent{
 				->where('publish', 1)
 				->where('report_count', '<', 5)
 				->orWhere("channel_name", "LIKE", "%".$search."%")
+				->where('deleted_at', NULL)
+				->where('publish', 1)
+				->where('report_count', '<', 5)
 				->join('users', 'user_id', '=', 'users.id')
 				->orderBy(DB::raw('((views) + (likes))'), 'desc')
 				->paginate(5);
@@ -211,7 +214,7 @@ class Video extends Eloquent{
 			}
 
 			//truncate text
-			$videoData[$key]->description = $this->truncate($video->description, 50);
+			$videoData[$key]->description = Str::limit($video->description, 150, '...');
 
 			//Tags
 			$getTags = explode(',',$video->tags);

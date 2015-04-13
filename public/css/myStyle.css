@@ -397,8 +397,7 @@ ul .ctgryNav{
   display:inline-block!important;
   padding-top: 10px!important;
   padding-bottom: 10px;
-  margin-left: -120px!important;  
-  margin-left:-40px;
+
 }
 .ctgryNav li{
   display:inline-block;
@@ -1971,7 +1970,7 @@ a.thumbnail-h:hover{
   height:100%;
 }
 
-.div-colorDp{
+.div-coverDp{
   height:224px;
   overflow:hidden;
 }
@@ -2045,6 +2044,9 @@ a.thumbnail-h:hover{
 }
 .mg-l0-20{
   margin-left: 20px!important;
+}
+.mg-t--20{
+  margin-top: -20px;
 }
 .mg-t-20{
   margin-top: 20px;

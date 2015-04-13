@@ -3,7 +3,7 @@
         <div class="container">
             <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">
-                    <ul class="ctgryNav">
+                    <ul class="ctgryNav mg-l--30">
                         <li>
                             {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                         </li>
