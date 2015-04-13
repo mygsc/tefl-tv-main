@@ -197,6 +197,7 @@ class VideoController extends BaseController {
 
 			if($category == 'playlist'){
 				$datas = $this->Playlist->getRandomPlaylist();
+				//return $datas;
 			}
 			$type = $category;
 		}
