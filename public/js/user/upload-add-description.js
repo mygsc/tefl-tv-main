@@ -178,7 +178,7 @@ $("#poster").on("change", function(){
 
 
 $('canvas.thumb-1').on('click', function(){
-  $(this).css({'outline':'3px solid green'});
+  $(this).css({'outline':'3px solid #00FF00'});
   $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-1');
@@ -187,7 +187,7 @@ $('canvas.thumb-1').on('click', function(){
   //$('#poster').reset();
 });
 $('canvas.thumb-2').on('click', function(){
- $(this).css({'outline':'3px solid green'});
+ $(this).css({'outline':'3px solid #00FF00'});
  $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-2');
@@ -195,7 +195,7 @@ $('canvas.thumb-2').on('click', function(){
   thumbnail.value = image;
 });
 $('canvas.thumb-3').on('click', function(){
-  $(this).css({'outline':'3px solid green'});
+  $(this).css({'outline':'3px solid #00FF00'});
   $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
   $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-3');
