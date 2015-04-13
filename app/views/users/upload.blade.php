@@ -3,7 +3,10 @@
 @section('title')
 Upload
 @stop
-
+@section('some_script')
+{{HTML::script('js/user/upload.js')}}
+{{HTML::script('js/jquery.form.min.js')}}
+@stop
 @section('content')
 <style type="text/css">
 .image-upload > input{
@@ -83,8 +86,5 @@ div canvas{
 
 @stop
 
-@section('some_script')
-{{HTML::script('js/user/upload.js')}}
-{{HTML::script('js/jquery.form.min.js')}}
-@stop
+
 

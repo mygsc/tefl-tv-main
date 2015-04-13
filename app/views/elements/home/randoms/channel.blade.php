@@ -3,14 +3,14 @@
 	@foreach($datas as $channel)
 
 	<div class="col-md-6" >
-		<div class="well ch" style="overflow:hidden;">
+		<div class="well ch h-hide">
 			<div class="row">
 				<div class="col-md-4 col-xs-4">
 					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
 
 					{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
-					{{HTML::image('/img/user/0.jpg'))}}
+					{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp)))}}
 					@endif
 
 				</div>
