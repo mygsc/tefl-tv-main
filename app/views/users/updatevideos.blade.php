@@ -158,11 +158,14 @@ margin: 10px;
 									</span>
 								@endif
 								{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
-								{{ Form::label('Tags:')}}
+								{{ Form::label('Tags:')}}&nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
 								{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
 								{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 								<p class="notes">*Double click the existing tag to edit.</p>
 									<div id="wrapper">
+									@if($tags == null)
+										No tags available.
+									@else
 										@foreach($tags as $key=>$tag)
 											<div style="	
 												background-color:#1f3359;
@@ -172,6 +175,7 @@ margin: 10px;
 												display: inline-block;" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
 											</div>
 										@endforeach
+									@endif
 									</div>
 									<br/>
 									<div class="text-right mg-b-10"> 
