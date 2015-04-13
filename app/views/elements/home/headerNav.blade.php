@@ -1,9 +1,9 @@
 <div class="categoryNav hidden-sm hidden-xs">
-    <div class="">
+    <div class="row">
         <div class="container">
             <div class="col-md-6 text-left col-sm-6"> 
                 <div class="row">
-                    <ul class="ctgryNav" style="margin-left:-40px;">
+                    <ul class="ctgryNav mg-l--30">
                         <li>
                             {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                         </li>
@@ -30,14 +30,14 @@
                             <a class="dropdown-toggle nl" data-toggle="dropdown">
                                 <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
                             </a>
-                            <span class="dropdown-menu scrollable-menu bullet" role="menu" style="width:300px;padding:0!Important;">
+                            <span class="dropdown-menu scrollable-menu bullet noti" role="menu">
                                 <div id="loading-notification">
                                     {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                     {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
                                     <small>Looking for new Notification</small>
                                 </div>
                                 
-                                <div class="text-center"><a href="{{route('users.notifications')}}" style="display:inline;"><small>see all</small></a></div>
+                                <div class="text-center"><a href="{{route('users.notifications')}}" class="inline"><small>see all</small></a></div>
                             </span>
                         </div>
                     </li>
@@ -57,7 +57,7 @@
 <nav class="navbar navbar-inverse visible-sm visible-xs categoryNav" role="navigation">
     <div class="">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header" style="padding:0!important">
+        <div class="navbar-header">
            
             <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -72,10 +72,10 @@
             <ul class="nav navbar-nav">
                 <li>
                     {{Form::open(array('route' => 'homes.searchresult','method' => 'GET', 'style' => ''))}}
-                    <div class="input-group" style="background:#eee; padding:3px 3px; margin-bottom:5px;margin-top:5px;">
+                    <div class="input-group div-search">
                         
                         {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
-                        <span class="input-group-addon" style="padding:0!important;">
+                        <span class="input-group-addon pad-0">
                             {{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
                         </span>
                     </div><!--/.input group-->

@@ -1,7 +1,7 @@
 		<div class="White Div-channel-border">
 			<div class="col-md-12">
 				<div class="row">
-					<div class="" style="height:224px;overflow:hidden;">
+					<div class="div-coverDp">
 						<div class="uploaded_img pic-Dp">
 
 
@@ -18,7 +18,7 @@
 						@else
 							{{HTML::image('img/user/cover.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@endif
-						<div class="" style="position:absolute;z-index:80;top:0;height:100%;width:100%;">
+						<div class="div-coverP">
 
 							
 
@@ -68,14 +68,18 @@
 				</div>
 			</div>
 			<div class="c-about" >
-				<div class="labelThis" style="margin-top:-20px;">
+				<div class="labelThis mg-t--20">
 					{{$userChannel->channel_name}}
 				</div>
-
-				<p class="text-justify notes center-block">
-				<br/>"
-				{{ Str::limit($userChannel->userprofile->interests, 200) }}
-				</p>
+				@if(empty($userChannel->interests))
+					<br/><br/>
+					<p class="text-justify notes center-block"></p>
+				@else
+					<p class="text-justify notes center-block">
+					<br/>
+					"{{ Str::limit($userChannel->userprofile->interests, 200) }}"
+					</p>
+				@endif
 			</div>
 		</div>
 
@@ -93,7 +97,6 @@
 		        <h4 class="modal-title" id="myModalLabel">Update Cover Photo</h4>
 		      </div>
 		      <div class="modal-body text-center">
-
 		      	<div style="margin-left:auto; margin-right:auto;" >
 		      		{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
 		      		<label class="fileContainer" style="margin-left:auto;">
@@ -101,9 +104,6 @@
 		      			{{Form::file('coverPhoto')}}
 		      		</label>
 		      	</div>
-		         
-        		
-		     
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -115,27 +115,26 @@
 		</div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog black">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{Form::open(array('route' => ['users.upload.image', $userChannel->id], 'files' => 'true'))}}
-            {{ Form::file('image', array('id' => 'uploaded_img'))}}
-
-      </div>
-      <div class="modal-body">
-            <div>
-                {{HTML::image('img/user/' . $userChannel->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
-            </div>            
-      </div>
-      <div class="modal-footer">
-        {{Form::submit("Save", array('class' => 'btn btn-info'))}}
-        {{Form::close()}}
-        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<!-- Modal -->
+		<div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog black">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        {{Form::open(array('route' => ['users.upload.image', $userChannel->id], 'files' => 'true'))}}
+		        {{ Form::file('image', array('id' => 'uploaded_img'))}}
+		      </div>
+		      <div class="modal-body">
+		            <div>
+		                {{HTML::image('img/user/' . $userChannel->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
+		            </div>            
+		      </div>
+		      <div class="modal-footer">
+		        {{Form::submit("Save", array('class' => 'btn btn-info'))}}
+		        {{Form::close()}}
+		        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 @stop

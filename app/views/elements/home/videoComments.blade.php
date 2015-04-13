@@ -1,16 +1,11 @@
-<style type="text/css">
-	textarea{
-		min-height: 60px!Important;
-		margin-bottom: 10px;
-	}
-</style>        
+       
 <h3>Comments</h3>
 
 	
 	<div class="comments row">
 		@if(isset(Auth::User()->id))
-		<span id='errorlabel' style='color:red;'></span>
-		<textarea id='comment' class="form-control" placeholder="Write your comment.."></textarea>
+		<span id='errorlabel' class='input-error'></span>
+		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
 		<div class="text-right">
 			<button id='btncomment' class="btn btn-info">Post</button>
 		</div>
@@ -134,7 +129,7 @@
 										<?php
 										echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 										echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
-										echo "<p style='text-align:justify;'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
+										echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
 									</div>
 								</div>	
 							<?php endforeach;?>
@@ -148,7 +143,7 @@
 								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
 								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
 
-								<span class='replyError' style='color:red;'></span>
+								<span class='replyError inputError'></span>
 							{{Form::close()}} 
 						@endif
 
@@ -163,14 +158,4 @@
 </div>
 
 {{HTML::script('js/jquery.js')}}
-<!--show hide for reply Box-->
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".panelReply").hide('slow');
-		$(".repLink").click(function(){
-			$(".panelReply").hide();
-			$(this).parent().children(".panelReply").slideToggle(500); 
-		});
-		// $("input[name=my-checkbox]").bootstrapSwitch();
-	});
-</script>
+{{HTML::script('js/showHideToggle.js')}}
