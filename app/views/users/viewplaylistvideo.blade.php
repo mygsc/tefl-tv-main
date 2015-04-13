@@ -25,19 +25,19 @@
 				<div class="">
 					<br/>
 					<div class="col-md-5">
-						<div class="input-group">
+						<!--<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
-						</div>
+						</div>-->		
 					</div>
 					<div class="col-md-4">
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<!--<button class="btn btn-unsub">Manage Playlist</button>-->
-						<button class="btn btn-unsub">Add Video</button>
+						<!--<button class="btn btn-unsub">Manage Playlist</button>
+						<button class="btn btn-unsub">Add Video</button>-->
 					</div>
 
 				

@@ -1,61 +1,26 @@
 @extends('layouts.default')
 
-@section('some_script')
-	{{HTML::script('js/subscribe.js')}}
-	{{--HTML::script('js/media.player.js')--}}
-	{{HTML::script('js/sort.js')}}
-
-	<script type="text/javascript">
-		$(document).ready( function( $ ) {
-			var success = $('#uploaded').val();
-			if(success == 1){
-				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
-					$('#success').fadeOut(20000);
-			}
-			$('#form-add-setting').on('submit', function() {
-		        //.....
-		        //show some spinner etc to indicate operation in progress
-		        //.....
-		        $.post(
-		        	$(this).prop( 'action' ),{
-		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
-		        		"setting_name": $( '#setting_name' ).val(),
-		        		"setting_value": $( '#setting_value' ).val()
-		        	},
-		        	function( data ) {
-		                //do something with data/response returned by server
-		            },'json'
-		        );
-		        //.....
-		        //do anything else you might want to do
-		        //.....
-
-		        //prevent the form from actually submitting in browser
-		        return false;
-		    } );
-		} );
-	</script>
-@stop
-
 @section('content')
 <div class="row White">
 	<div class="container page">
 		<br/>
 		<div class="row same-H">
-			@include('elements/users/profileTop')
+			@include('elements/users/profileTop2')
 			
 			<div class="Div-channel-border">
+
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
-				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
-				    	<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
-				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+				    	<li role="presentation" class="active">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+				  		
 				  	</ul><!--tabNav-->
 				</div>
 
@@ -91,12 +56,12 @@
 					<br/><br/><hr class="" />
 
 				<div id="videosContainer" class='container'>
-					<div class="col-md-12 mg-l--20">
+					<div class="col-md-12" style="margin-left:-10px;">
 						@if($usersVideos->isEmpty())
 							No Videos yet.
 						@else
 						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3 mg-b-10">
+						<div id='list' class="col-md-3">
 							<div class="inlineVid">
 								
 								<span class="btn-sq">
@@ -116,8 +81,8 @@
 								
 								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+										@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
 							
 										@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
@@ -152,6 +117,41 @@
 	</div>
 @stop
 
+@section('some_script')
+	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/sort.js')}}
 
+	<script type="text/javascript">
+		$(document).ready( function( $ ) {
+			var success = $('#uploaded').val();
+			if(success == 1){
+				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
+					$('#success').fadeOut(20000);
+			}
+			$('#form-add-setting').on('submit', function() {
+		        //.....
+		        //show some spinner etc to indicate operation in progress
+		        //.....
+		        $.post(
+		        	$(this).prop( 'action' ),{
+		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
+		        		"setting_name": $( '#setting_name' ).val(),
+		        		"setting_value": $( '#setting_value' ).val()
+		        	},
+		        	function( data ) {
+		                //do something with data/response returned by server
+		            },'json'
+		        );
+		        //.....
+		        //do anything else you might want to do
+		        //.....
+
+		        //prevent the form from actually submitting in browser
+		        return false;
+		    } );
+		} );
+	</script>
+@stop
 
 

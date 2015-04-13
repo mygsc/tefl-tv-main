@@ -75,11 +75,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',
 		'newPassword' => 'required|min: 6',
-		'confirmPassword' => 'same:newPassword');
+		'confirmPassword' => 'required|same:newPassword');
 
 	public static $userEmailRules = array(
 		'email' => 'required|email',
-		'newEmail' => 'required|email',
+		'newEmail' => 'required|email|unique:users,email',
 		'password' => 'required',
 		'confirmPassword' => 'same:password');
 
@@ -92,6 +92,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->password = Hash::make(Input::get('password'));
 		$user->token = $token;
 		$user->save();
+	
 
 		$userProfile = new UserProfile;
 		$userProfile->first_name = Input::get('first_name');
@@ -99,6 +100,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$userProfile->last_name = Input::get('last_name');
 		$userProfile->contact_number = Input::get('contact_number');
 		$userProfile->save();
+
+		$website = new Website;
+		$website->user_id = $user->id;
+		$website->save();
 
 		return true;
 	}

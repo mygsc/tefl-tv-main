@@ -13,8 +13,9 @@
 							<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
 						</video>
 					
-					@include('elements/videoPlayer')
+					
 					</div>
+					@include('elements/videoPlayer')
 		</div><!--/.row-->
 	</div><!--/.col-md-7-->
 </div>

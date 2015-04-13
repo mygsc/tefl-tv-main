@@ -27,8 +27,8 @@ $(document).ready(function(){
     $(this).trigger('video_really_ready');
     timeLenght = Math.floor(videoPlayer.duration);
     ratio = videoPlayer.videoWidth / videoPlayer.videoHeight;
-    w = videoPlayer.videoWidth - 100;
-    h = parseInt(w / ratio, 10);
+    w = Math.floor(videoPlayer.videoWidth/videoPlayer.videoWidth * 300);
+    h =  Math.floor(videoPlayer.videoHeight/videoPlayer.videoHeight * 150);//parseInt(w / ratio, 10);
     // canvas1.width = 180;
     // canvas1.height = 150;
 
@@ -41,9 +41,20 @@ $(document).ready(function(){
     setTimeout(function(){
       snap(3);
     },7000);
-
     
 	});
+  $('#recreate-thumb').click(function(){
+    setTimeout(function(){
+      snap(1);
+    },1000);
+    setTimeout(function(){
+      snap(2);
+    },4000);
+    setTimeout(function(){
+      snap(3);
+    },7000);
+    alert('Please wait a few seconds.');
+  });
   window.snap = function(num) {
     if(num==1){
       var duration = Math.floor(videoPlayer.duration);
