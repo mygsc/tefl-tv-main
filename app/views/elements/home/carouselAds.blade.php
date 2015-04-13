@@ -1,5 +1,5 @@
   
-<div class="">
+<div class="di">
   <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -11,10 +11,10 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="/img/logos/te.png" alt="...">
-      </div>
+        <img src="/img/logos/te.jpg" alt="..." class="center-block">
+      </div>  
       <div class="item">
-        <img src="/img/logos/bt.png" alt="...">
+        <img src="/img/logos/aua.jpg" alt="...">
         
       </div>
       <div class="item">

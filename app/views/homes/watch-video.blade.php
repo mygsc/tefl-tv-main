@@ -216,10 +216,8 @@
                 </div>
                 <!-- COMMENTS AREA -->
 
-                
-               
-
                 <!-- latest -->
+                @include('elements/home/uploaderLatestVideo')
             </div><!--column 8-->
 
 
@@ -255,6 +253,7 @@
 
                     
                     @include('elements/home/carouselAds')
+                    @include('elements/home/recommendedChannelList')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->

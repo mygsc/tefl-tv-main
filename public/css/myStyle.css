@@ -590,7 +590,7 @@ img.user{
   display: inline!important;
 }
 .content-padding{
-  padding:0 30px;
+  padding:0 30px 0 30px!important;
   height: auto;
   min-height: 100%;
 }
@@ -1796,7 +1796,7 @@ a.thumbnail-h:hover{
     height: 380px;
   }
   .ctgryDiv{
-  height: 20em;
+  height: 27em;
   overflow: auto;
 
   padding: 10px 10px 10px 10px;
@@ -1828,7 +1828,7 @@ a.thumbnail-h:hover{
     height: 340px;
   }
   .ctgryDiv{
-  height: 20em;
+  height: 27em;
   overflow: auto;
 
   padding: 10px 10px 10px 10px;
@@ -2027,14 +2027,14 @@ a.thumbnail-h:hover{
     margin-bottom: 10px;
   }
 
-.w-20per{
-  width: 20%;
+td.w-20per{
+  width: 20%!important;
 }
-.w-5per{
-  width: 20%;
+td.w-5per{
+  width: 20%!important;
 }
-.w-75per{
-  width: 20%;
+td.w-75per{
+  width: 20%!important;
 }
 
 .mg-20{
@@ -2043,7 +2043,7 @@ a.thumbnail-h:hover{
 .mg-r-20{
   margin-right: 20px!important;
 }
-.mg-l0-20{
+.mg-l-20{
   margin-left: 20px!important;
 }
 .mg-t--20{
@@ -2064,6 +2064,10 @@ a.thumbnail-h:hover{
 .mg-t-10{
   margin-top:10px;
 }
+.mg-r-10{
+  margin-right:10px;
+}
+
 .mg-b-10{
   margin-bottom: 10px!important;
 }
