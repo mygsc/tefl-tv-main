@@ -93,7 +93,7 @@
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12 mg-l--20">
 						@if($usersVideos->isEmpty())
-							No Videos yet.
+							<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
 						@else
 						@foreach($usersVideos as $usersVideo)
 						<div id='list' class="col-md-3 mg-b-10">
