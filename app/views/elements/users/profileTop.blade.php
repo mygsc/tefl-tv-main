@@ -64,12 +64,18 @@
 				<div class="labelThis mg-t--20">
 					{{Auth::User()->channel_name}}
 				</div>
-	
-				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
-				<br/><br/>
-				<p class="text-justify notes center-block">
-				"{{ Str::limit($usersChannel->interests, 200) }}" 
-				</p>
+				@if(empty($usersChannel->interests))
+					<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+					<br/><br/>
+					<p class="text-justify notes center-block"></p>
+				@else
+					<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+					<br/><br/>
+					<p class="text-justify notes center-block">
+					
+					"{{ Str::limit($usersChannel->interests, 200) }}" 
+					@endif
+					</p>
 			</div>
 		</div>
 

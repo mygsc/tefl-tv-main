@@ -71,11 +71,15 @@
 				<div class="labelThis mg-t--20">
 					{{$userChannel->channel_name}}
 				</div>
-
-				<p class="text-justify notes center-block">
-				<br/>"
-				{{ Str::limit($userChannel->userprofile->interests, 200) }}
-				</p>
+				@if(empty($userChannel->interests))
+					<br/><br/>
+					<p class="text-justify notes center-block"></p>
+				@else
+					<p class="text-justify notes center-block">
+					<br/>
+					"{{ Str::limit($userChannel->userprofile->interests, 200) }}"
+					</p>
+				@endif
 			</div>
 		</div>
 

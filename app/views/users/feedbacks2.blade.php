@@ -46,7 +46,7 @@
 						{{$feedbacks->created_at}}
 						<br/>
 						<button id="userReply">Reply</button>
-						<div id="replybox">
+						<div id="replybox" style="">
 							{{Form::open()}}
 								{{Form::textarea('reply', null, ['placeholder' => 'Leave a reply..'])}}
 								<br/>

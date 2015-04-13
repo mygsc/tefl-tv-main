@@ -18,7 +18,10 @@
 		 <div id="vid-wrapper">
 			 <div id="vid-controls">
 				 <div class="embed-responsive embed-responsive-16by9">
+				 	<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
 				 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')))
+
+				 
 					 	<video preload="auto" id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
@@ -31,7 +34,9 @@
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
 					 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
 						</video>
-				 	@endif	
+					
+				 	@endif
+				 	</a>
 					
 				</div>
 				@include('elements/videoPlayer')
@@ -55,7 +60,7 @@
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 
-			{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;
 
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
