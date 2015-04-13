@@ -189,10 +189,9 @@ div#controls{
   bottom: 0;/*-10px !important;*/
   left: 0;
   right: 0;
-
   width: 100%;
   background: rgba(42,42,42,0.9);
-  z-index: 1111;/*2147483647*/
+  /*z-index: 2147483647*/
 }
 
 div#progress-amount {

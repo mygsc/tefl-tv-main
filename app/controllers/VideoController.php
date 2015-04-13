@@ -42,11 +42,11 @@ class VideoController extends BaseController {
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
+			$db_filename->tags = null;
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
 				//Start upload
-
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
@@ -55,7 +55,7 @@ class VideoController extends BaseController {
 				}
 				$ext = $file->getClientOriginalExtension();
 				$file->move($videoFolderPath, $fileName.'.'.$ext);  
-				return Response::json([ 'file'=>$fileName]);
+				return Response::json(['file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
 		}
