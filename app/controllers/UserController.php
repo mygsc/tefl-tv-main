@@ -25,14 +25,14 @@ class UserController extends BaseController {
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
 		}else{
-			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
+			$attempt = User::getUserLogin($input['channel_name1'], $input['password']);
 			if($attempt){
 				$verified = Auth::User()->verified;
 				$status = Auth::User()->status;
 				$role = Auth::User()->role;
 				
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name']);
+					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
@@ -703,7 +703,7 @@ class UserController extends BaseController {
 		return View::make('users.changeemail');
 	}
 
-	public function postChangeEmail() {
+	public function postChangeEmail($channel_name) {
 
 		$input = Input::all();
 

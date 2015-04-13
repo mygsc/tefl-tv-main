@@ -84,37 +84,36 @@
 				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link" style="font-size:1.0em!Important;"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-
-			
-			@foreach($findVideos as $findVideo)
-				@if(isset($findVideo[0]->id))
 					<div class="col-md-4">
-						
-						<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
-							<div id="findVid">
-									@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
-										<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif
-
-							</div>
-							<div class="v-Info">
-								{{$findVideo->title}}
-							</div>
-						</a>
-							<div class="count">
-								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-							</div>
-						
-					</div>
-				@endif
-			@endforeach
-
+						@if($findVideos->isEmpty())
+							No videos yet..
+						@else
+							@foreach($findVideos as $findVideo)
+								@if(isset($findVideo[0]->id))
+								<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
+								<div id="findVid">
+										@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
+											<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+											</video>
+										@else
+											{{HTML::image('img/thumbnails/video.png')}}
+										@endif
+	
+								</div>
+								<div class="v-Info">
+									{{$findVideo->title}}
+								</div>
+							</a>
+								<div class="count">
+									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+								</div>
+					@endif
+				@endforeach
+			@endif
+			</div>
 		</div><!--well-->
 	</div><!--1st 6 column Videos-->
 

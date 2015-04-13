@@ -66,7 +66,7 @@
 					{{Auth::User()->channel_name}}
 				</div>
 	
-				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</b></span>
+				<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 				<br/><br/>
 				<p class="text-justify notes center-block">"
 					{{ Str::limit($usersChannel->interests, 200) }}

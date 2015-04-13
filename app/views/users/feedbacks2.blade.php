@@ -12,6 +12,7 @@
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
 				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
 				    	<!-- <li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li> -->
 				    	<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
@@ -39,11 +40,19 @@
 					@foreach($userFeedbacks as $feedbacks)
 						<br/>
 						{{$feedbacks->feedback}}
-
 						<br/>
 						{{$feedbacks->user_id}}
 						<br/>
 						{{$feedbacks->created_at}}
+						<br/>
+						<button id="userReply">Reply</button>
+						<div id="replybox">
+							{{Form::open()}}
+								{{Form::textarea('reply', null, ['placeholder' => 'Leave a reply..'])}}
+								<br/>
+								{{Form::Submit('Reply')}}
+							{{Form::close()}}
+						</div>
 					@endforeach
 					</div>
 					<br/>
