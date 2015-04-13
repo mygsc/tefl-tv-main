@@ -83,7 +83,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'password' => 'required',
 		'confirmPassword' => 'same:password');
 
-	public static $userLoginRules = array('channel_name' => 'required', 'password' => 'required');
+	public static $userLoginRules = array('channel_name1' => 'required', 'password' => 'required');
 
 	public function signup($token) {
 		$user = new User;

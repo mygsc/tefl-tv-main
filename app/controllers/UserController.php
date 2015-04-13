@@ -25,11 +25,11 @@ class UserController extends BaseController {
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
 		}else{
-			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
+			$attempt = User::getUserLogin($input['channel_name1'], $input['password']);
 			if($attempt){
 				$verified = Auth::User()->verified; $status = Auth::User()->status; $role = Auth::User()->role; //VARIABLES		
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name']);
+					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
@@ -220,7 +220,7 @@ class UserController extends BaseController {
 				and v.deleted_at IS NULL
 				or v.report_count > 5
 				and v.publish = 1");
-				}
+			}
 			$increment = 0;
 			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = 1 ORDER BY created_at DESC LIMIT 1');
 
@@ -616,7 +616,9 @@ class UserController extends BaseController {
 		return View::make('users.changeemail');
 	}
 
-	public function postChangeEmail() {
+
+	public function postChangeEmail($channel_name) {
+
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userEmailRules);
 
