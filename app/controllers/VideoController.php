@@ -36,18 +36,16 @@ class VideoController extends BaseController {
 			$latest_id = $create->id;
 			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
+			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+			$destinationPath = public_path('videos'.DIRECTORY_SEPARATOR. $userFolderName);
+			$videoFolderPath = $destinationPath. DS. $fileName;
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
 			$db_filename->publish = 0;
 
 			if($db_filename->save()){
-					//Start upload
-				$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-				$destinationPath = 'videos'.DIRECTORY_SEPARATOR. $userFolderName;
-
 				//Start upload
-				$videoFolderPath = $destinationPath. DS. $fileName;
 
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
