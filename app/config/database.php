@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 
-			'host'      => '192.168.254.110',
+			'host'      => '192.168.254.101',
 
 
 			'database'  => 'tefl-tv',
