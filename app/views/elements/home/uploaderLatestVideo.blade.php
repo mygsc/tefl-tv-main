@@ -5,54 +5,31 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-4">
-            <div class="vThumbnails">
-                <a href="viewchannel" class="">
-                        <img src="/img/thumbnails/v9.png">
-                    <a href="">
-
-                        <h4>title</h4>
-                        <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <div class="count">
-                         <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
-                        </div>
-    
+    @if(empty($ownerVideos))
+        <h3><p>No latest upload yet.</p></h3>
+    @else
+        @foreach($ownerVideos as $ownerVideo)
+            <div class="col-md-4">
+                <div class="vThumbnails">
+                    <a href="/watch!v={{$ownerVideo->file_name}}" class="">
+                    @if(file_exists(public_path("/videos/".$ownerVideo->user_id."-".$owner->channel_name."/".$ownerVideo->file_name."/".$ownerVideo->file_name.".jpg")))
+                           <img src="/videos/{{$ownerVideo->user_id}}-{{$owner->channel_name}}/{{$ownerVideo->file_name}}/{{$ownerVideo->file_name}}.jpg" alt=""/>
+                    @else
+                              <img src="/img/thumbnails/video.png" alt="" />
+                    @endif
+                            <h4>{{$ownerVideo->title}}</h4>
+                            <small><p class="text-justify">{{ Str::limit($ownerVideo->description, 60) }}</p></small><br/>
+                            <div class="count">
+                             <i class="fa fa-eye"></i> {{$ownerVideo->views}}  | <i class="fa fa-thumbs-up"></i> {{$likeownerVideos[$likeownerVideosCounter++]}} | <i class="fa fa-calendar"></i> {{$ownerVideo->created_at->toFormattedDateString()}}
+                            </div>
+        
                     </a>
-                </a>
-            </div>
-        </div>
-          <div class="col-md-4">
-            <div class="vThumbnails">
-                <a href="viewchannel" class="">
-                        <img src="/img/thumbnails/v1.png">
-                    <a href="">
+                </div>
 
-                        <h4>title</h4>
-                        <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <div class="count">
-                            <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
-                        </div>
-    
-                    </a>
-                </a>
             </div>
-        </div>
-          <div class="col-md-4">
-            <div class="vThumbnails">
-                <a href="viewchannel" class="">
-                        <img src="/img/thumbnails/v3.png">
-                    <a href="">
+        @endforeach
 
-                        <h4>title</h4>
-                        <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <div class="count">
-                            <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
-                        </div>
-    
-                    </a>
-                </a>
-            </div>
-        </div>
+    @endif
     </div>
 
 

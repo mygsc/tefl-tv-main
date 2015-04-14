@@ -87,11 +87,12 @@
 	{{-- */$explodeID = 0;/* --}}
 	{{-- */$tagDelete = 1;/* --}}
 	{{-- */$explodeRemove = 0;/* --}}
-	<style type="text/css" media="screen">
+
+<style type="text/css" media="screen">
 	.file-upload {
-position: relative;
-overflow: hidden;
-margin: 10px;
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
 }
 .file-upload input#poster {
 	position: absolute;
@@ -108,7 +109,7 @@ margin: 10px;
 	top:0;
 	left:0;
 }
-	</style>
+</style>
 
 <div class="row">
 	<div class="container page">
@@ -135,10 +136,14 @@ margin: 10px;
 					<div class="col-md-12">
 					<!--upload update Video modal-->
 						{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
+							
 							<div class="col-md-5">
 								<br/>
+								
 								<div id="vid-controls">
+
 									<div class="embed-responsive embed-responsive-16by9">
+										
 										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 											<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
 												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
@@ -156,16 +161,15 @@ margin: 10px;
 									</div><!--embed-responsive-->
 									@include('elements/videoPlayer')
 								</div><!--vid-controls-->
-			
-	
-								<div class="file-upload btn btn-primary">
-									<span>Browse thumbnail</span>
-									<input type="file" name="poster" id="poster" accept="image/*"/>
-									<input type="hidden" value="{{$video->file_name}}" name="filename"/>
-								</div>
+								
 							</div><!--/.col-md-5-->
 
-							<div class="col-md-7">
+							<div class="col-md-7 content-padding">
+								<span class="file-upload mg-l--2">
+									<span class="btn btn-default"><i class="fa fa-arrow-up"></i> Update Video Cover</span>
+									<input type="file" name="poster" id="poster" accept="image/*"/>
+									<input type="hidden" value="{{$video->file_name}}" name="filename"/>
+								</span>
 								@if($video->publish == 0)
 								@if($errors->has('publish'))
 									<span class="inputError">

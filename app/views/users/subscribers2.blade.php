@@ -47,16 +47,34 @@
 								<div class="subscribers">
 									<div class="col-md-6">
 										@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-			             		{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			              @else
-			            	  {{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			              @endif
+						             		{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						              	@else
+						            	  	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						             	 @endif
 										&nbsp;
 
 										<a href="{{route('view.users.channel')}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 										<br/>&nbsp;
-										<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+										@if(isset(Auth::User()->id))
+											<?php
+												$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
+											?>
+											@if(isset($profile->id))
+												@if(Auth::User()->id != $profile->id)
+													{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+										    			{{Form::hidden('user_id', $profile->id)}}
+										    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+										    			@if(!$ifAlreadySubscribe)
+										    				{{Form::hidden('status','subscribeOn')}}
+													    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+													    @else
+													    	{{Form::hidden('status','subscribeOff')}}
+													    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+													    @endif
+													{{Form::close()}}
+												@endif
+											@endif
+										@endif
 									</div>
 								</div><!--subscibersDiv-->
 								@endforeach
@@ -103,27 +121,46 @@
 									@if(empty($subscriptionProfile))
 										No Subscriptions
 									@else
-									@foreach($subscriptionProfile as $key => $profile1)
-									<tr>
-										<td>{{ Form::checkbox(false)}}</td>
-										<td>
-											@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-			                	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			                @else
-			                	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			                @endif
-											&nbsp;
-											<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
-										</td>
-										<td class="text-center">{{ Form::checkbox(false)}}</td>
-										<td class="text-center">
-											<select>
-												<option>All Activities</option>
-											</select>
-										</td>
-										<td class="text-center"><button class="btn btn-unsub btn-xs pull-right">Unsubscribe</button></td>
-									</tr>
-									@endforeach
+										@foreach($subscriptionProfile as $key => $profile1)
+											<tr>
+												<td>{{ Form::checkbox(false)}}</td>
+												<td>
+													@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
+									                	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+									                @else
+									                	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+									                @endif
+													&nbsp;
+													<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
+												</td>
+												<td class="text-center">{{ Form::checkbox(false)}}</td>
+												<td class="text-center">
+													<select>
+														<option>All Activities</option>
+													</select>
+												</td>
+												@if(isset(Auth::User()->id))
+													<?php
+														$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
+													?>
+													@if(isset($profile1->id))
+														@if(Auth::User()->id != $profile1->id)
+															{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+												    			{{Form::hidden('user_id', $profile1->id)}}
+												    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+												    			@if(!$ifAlreadySubscribe)
+												    				{{Form::hidden('status','subscribeOn')}}
+															    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+															    @else
+															    	{{Form::hidden('status','subscribeOff')}}
+															    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+															    @endif
+															{{Form::close()}}
+														@endif
+													@endif
+												@endif
+											</tr>
+										@endforeach
 									@endif
 								</table>
 							</div>

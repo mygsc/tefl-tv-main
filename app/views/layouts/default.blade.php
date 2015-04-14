@@ -10,7 +10,7 @@
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.min.css') }}
-	{{ HTML::style('css/myStyle.min.css') }}
+	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{ HTML::style('css/vid.player.min.css') }}
@@ -31,8 +31,8 @@
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/reply.js')}}
-
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 
