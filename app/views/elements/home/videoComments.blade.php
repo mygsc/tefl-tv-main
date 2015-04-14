@@ -60,7 +60,7 @@
 								<span class='fa-thumbs-up'></span>
 								<input type="hidden" value="liked" name="status">
 							@else
-								<span class='fa-thumbs-up blueC'></span>
+								<span class='fa-thumbs-up blueC hand'></span>
 								<input type="hidden" value="unliked" name="status">
 							@endif
 							<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
@@ -78,7 +78,7 @@
 								<span class='fa-thumbs-down'></span>
 							@else
 								<input type="hidden" value="undisliked" name="status">
-								<span class='fa-thumbs-down redC'></span>
+								<span class='fa-thumbs-down redC hand'></span>
 							@endif
 							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
 						</div>
@@ -158,5 +158,4 @@
 </div>
 
 {{HTML::script('js/jquery.js')}}
-{{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/showHideToggle.js')}}

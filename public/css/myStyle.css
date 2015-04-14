@@ -1,5 +1,5 @@
 /*============FONTS===========*/
-@import url(http://fonts.googleapis.com/css?family=Teko);
+
 @font-face {
   font-family: 'Teko';
   src: url('/fonts/Teko-Regular.ttf');
@@ -304,6 +304,9 @@ span .ad{
 
 }
 /*===========LAYOUT FORMATTING===========*/
+.v-latestUp{
+  height: 300px!important;
+}
 .center{
   margin-left: auto!important;
   margin-right: auto!important;
@@ -748,7 +751,7 @@ img.user{
   color: #1870dc!important;
 }
 .redC{
-  color: red!important;
+  color: #ca2027!important;
 }
 .darkBlueC{
   color: #3b5a9b!important;
@@ -879,6 +882,18 @@ img.user{
 }
 .pageH{
   min-height: 100vh!important;
+}
+.span-tags{
+  background-color:#1f3359;
+  padding: 5px 5px;
+  color: #fff;
+  margin-bottom:5px;
+  margin-right:5px;
+  display: inline-block;
+  border-radius: 5px 0 5px 0;
+}
+.span-tags label{
+  font-weight: normal!important;
 }
 .footer1{
   background: #181b2e;
@@ -2067,6 +2082,9 @@ td.w-75per{
 .mg-r-10{
   margin-right:10px;
 }
+.mg-l-10{
+  margin-left: 10px;
+}
 
 .mg-b-10{
   margin-bottom: 10px!important;
@@ -2123,6 +2141,445 @@ margin: 10px;
   color:#3b5a9b;
 }*/
 
+
+/*=====================================================*/
+/*======================SPRITES=======================*/
+/*=====================================================*/
+
+.socialMedia {
+    background-image: url(/img/icons/social-media.png);
+    background-repeat: no-repeat;
+    display: inline;
+    margin-top: 0!important;
+    margin-bottom: 0!important
+}
+
+.socialMedia-behance {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -5px;
+    display: inline-block;
+}
+
+.socialMedia-blogger {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -5px;display: inline-block;
+
+}
+
+.socialMedia-devianArt {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -5px;display: inline-block;
+}
+
+.socialMedia-digg {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -5px;display: inline-block;
+}
+
+.socialMedia-dribble {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -5px;display: inline-block;
+}
+
+.socialMedia-evernote {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -53px;display: inline-block;
+}
+
+.socialMedia-facebook {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -53px;display: inline-block;
+}
+
+.socialMedia-flickr {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -53px;display: inline-block;
+}
+
+.socialMedia-forrst_ {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -53px;display: inline-block;
+}
+
+.socialMedia-googlePlus {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -53px;display: inline-block;
+}
+
+.socialMedia-instagram {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -101px;display: inline-block;
+}
+
+.socialMedia-lastFM {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -101px;display: inline-block;
+}
+
+.socialMedia-linkedIn {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -101px;display: inline-block;
+}
+
+.socialMedia-paypal {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -101px;display: inline-block;
+}
+
+.socialMedia-picasa {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -101px;display: inline-block;
+}
+
+.socialMedia-pinterest {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -149px;display: inline-block;
+}
+
+.socialMedia-rss {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -149px;display: inline-block;
+}
+
+.socialMedia-site {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -149px;display: inline-block;
+}
+
+.socialMedia-skype {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -149px;display: inline-block;
+}
+
+.socialMedia-soundcloud {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -149px;display: inline-block;
+}
+
+.socialMedia-stumble {
+    width: 35px;
+    height: 38px;
+    background-position: -5px -197px;display: inline-block;
+}
+
+.socialMedia-tumblr {
+    width: 35px;
+    height: 38px;
+    background-position: -50px -197px;display: inline-block;
+}
+
+.socialMedia-twitter {
+    width: 35px;
+    height: 38px;
+    background-position: -95px -197px;display: inline-block;
+}
+
+.socialMedia-viddler {
+    width: 35px;
+    height: 38px;
+    background-position: -140px -197px;display: inline-block;
+}
+
+.socialMedia-vimeo {
+    width: 35px;
+    height: 38px;
+    background-position: -185px -197px;display: inline-block;
+}
+
+.socialMedia-wordPress {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -5px;display: inline-block;
+}
+
+.socialMedia-yahoo {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -53px;display: inline-block;
+}
+
+.socialMedia-youtube {
+    width: 35px;
+    height: 38px;
+    background-position: -230px -101px;display: inline-block;
+}
+
+/*====================PLAYER==================*/
+
+.player {
+    background-image:url('/img/icons/player.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+  
+}
+
+.fullscreen {
+    width: 15px;
+    height: 15px;
+    background-position: -5px -5px;
+}
+
+.pause {
+    width: 15px;
+    height: 15px;
+    background-position: -30px -5px;
+    cursor: pointer;
+}
+
+.play {
+    width: 15px;
+    height: 15px;
+    background-position: -55px -5px;
+    cursor: pointer;
+}
+
+.setting {
+    width: 15px;
+    height: 15px;
+    background-position: -80px -5px;
+}
+
+.share {
+    width: 15px;
+    height: 15px;
+    background-position: -105px -5px;
+}
+
+.sound-on {
+    width: 15px;
+    height: 15px;
+    background-position: -130px -5px;
+}
+
+.sound-off {
+    width: 15px;
+    height: 15px;
+    background-position: -155px -5px;
+}
+
+/*add playlist*/
+.icon{
+    background-image: url(/img/icons/addPlaylist.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.icon-playlist-add {
+    width: 12px;
+    height: 12px;
+    background-position: -5px -5px;
+    padding: none;
+}
+
+.btn-ico{
+    padding: none!important;
+     display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid #c3c3c3;
+  border-radius: 2px;
+}
+
+/*======================END of SPRITES=================*/
+
+
+
+/*=====================================================*/
+/*==========VIDEO GALLERY or Watch VIDEO STYLE=========*/
+/*=====================================================*/
+
+#featured{ 
+  width:100%;  
+  position:relative; 
+  min-height:650px;
+  height: auto;
+  background:transparent;
+}
+#featured ul.ui-tabs-nav{ 
+  background: #fff;
+  top:0;
+  list-style:none; 
+  padding:0;
+  margin:0; 
+  width:100%;
+  height:650px;
+  overflow:auto;
+  overflow-x:hidden;
+  border-bottom:5px solid #e3e3e3;
+  border-left:5px solid #e3e3e3;
+  border-right:5px solid #e3e3e3;
+  border-top:5px solid #e3e3e3;
+}
+#featured ul.ui-tabs-nav li{ 
+  font-size:12px; 
+  color:#777; 
+  border-bottom:2px solid #e3e3e3;
+  height: 78px;
+}
+#featured ul.ui-tabs-nav li img{ 
+  float:left;
+  margin:2px 5px; 
+  background:#fff; 
+  border: 1px solid #fff;
+}
+#featured ul.ui-tabs-nav li span{ 
+  font-size:11px;
+  font-family:Verdana; 
+  line-height:18px; 
+}
+#featured li.ui-tabs-nav-item a{ 
+  display:block; 
+  height:60px; text-decoration:none;
+  color:#777777;
+  line-height:20px; outline:none;
+  padding: 3px 5px 5px 5px;
+}
+#featured li.ui-tabs-nav-item a:hover{ 
+  background:#bcbfd7; 
+  height: 80px;
+  color:#fff;
+}
+#featured li.ui-tabs-nav-item a > span{
+  font-size: 12px;
+}
+#featured li.ui-tabs-nav-item .active{ 
+  background:#eef2fa; 
+  border:1px #8fa7ca solid;
+  border-left: 5px solid #8fa7ca;
+  height: 80px;
+}
+#featured .ui-tabs-panel{ 
+  width:100%;
+  min-height:350px; 
+  height: auto;
+}
+
+#featured .ui-tabs-panel .info{ 
+  min-height:70px; 
+  color: #fff;
+}
+#featured .ui-tabs-panel .info a.hideshow{
+
+  font-size:11px;
+  font-family:Verdana;
+  color:#f0f0f0;
+  right:10px; top:-20px;
+  line-height:20px;
+  margin:0;
+  outline:none;
+}
+#featured .info h2{ 
+  color:#1f3359;
+  padding:5px;
+  margin:0;
+  font-weight:normal;
+  font-family: Teko;
+}
+#featured .info p{ 
+  margin:0 5px; 
+  line-height:15px;
+  color:inherit;
+}
+#featured .info a > span{ 
+  text-decoration:none; 
+  color:#2c436c; 
+  font-weight: bold;
+}
+#featured .info a:hover{ 
+  text-decoration:underline; 
+}
+#featured .ui-tabs-hide{ 
+  display:none; 
+}
+
+
+.well2 {
+  min-height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-top: #e3e3e3 solid 1px; 
+  border-right: 1px solid #ededed;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.seeMore{
+  padding: 3px 3px;
+  border-radius: 0 0 5px 5px;
+  background: #fff;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 150px;
+  border-bottom: 1px #b6b6b6 solid;
+  border-right: 1px #b6b6b6 solid;
+  border-left: 1px solid #e0e7ea;
+   color: #222222!important;
+   font-size:0.8em;
+   margin-top: -20px;
+}
+
+.wv-title{
+  font-size: 2.0em;
+  margin-top: 7px;
+}
+.wv-views{
+  font-size: 1.4em;
+  margin-top: 7px;
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+
+  #featured{ 
+  width:100%;  
+  position:relative; 
+  height:230px!important;
+  overflow:hidden;
+  }
+  .sliderDiv{
+    width: 100%;
+    height: 230px;
+}
+.wv-title{
+  font-size: 1.2em!Important;
+  margin-top: 7px;
+}
+.wv-views{
+  font-size: 1.0em!Important;
+  margin-top: 7px;
+}
+
+}
+/*==========END of VIDEO GALLERY or Watch VIDEO STYLE=========*/
 
 /*
 TEFL TV @ GRAPHIC STUDIO CENTRAL

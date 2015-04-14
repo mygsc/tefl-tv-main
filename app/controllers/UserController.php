@@ -694,13 +694,176 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		$userFeedbacks = DB::table('users')->join('feedbacks', 'users.id', '=', 'feedbacks.user_id')->get();
+		$userFeedbacks = DB::table('users')->join('feedbacks', 'users.id', '=', 'feedbacks.user_id')->where('feedbacks.channel_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		return View::make('users.feedbacks2', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id'));
+	}
+
+	public function postViewUsersFeedbacks() {
+		
+		$feedback = trim(Input::get('feedback'));
+		$user_id = Input::get('user_id');
+		$channel_id = Input::get('channel_id');
+		if(empty($feedback)){
+			return Response::json(array('status'=>'error','label' => 'The feedback field is required.'));
+		}
+		if(!empty($feedback)){
+				$feedbacks = new Feedback;
+				$feedbacks->user_id = $user_id;
+				$feedbacks->channel_id = $channel_id;
+				$feedbacks->feedback = $feedback;
+				$feedbacks->save();
+
+				$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $feedbacks->id, 'status' => 'liked'))->count();
+				$dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $feedbacks->id, 'status' => 'disliked'))->count();
+
+				$ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
+					'feedback_id' => $feedbacks->id, 'user_id' => $user_id,'status' => 'liked'))->first();
+				$ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
+					'feedback_id' => $feedbacks->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
+
+				$userInfo = User::find($user_id);
+
+				if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
+					$temp = 'img/user/'.$userInfo->id . '.jpg';
+				} else{
+					$temp = 'img/user/0.jpg';
+				}
+				$newFeedback =  
+				'<div class="feedbacksarea row">
+				<div class="feedbackProfilePic col-md-1">'. 
+					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+				</div>
+				<div class="col-md-11">
+					<div class="row">'.
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+						| &nbsp;<small> just now. </small> 
+						<br/>
+						<p class="text-justify">
+							'. $feedbacks->feedback . '
+						</p>
+						<div class="fa fa-thumbs-up likedup">
+							<input type="hidden" value="'.$feedbacks->id.'" name="likeFeedbackId">
+							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+							<input type="hidden" value="liked" name="status">
+							<span class="likescount" id="likescount">'.$likesCount.'</span>
+						</div>
+						|&nbsp;
+						<div class="fa fa-thumbs-down dislikedup">
+							<input type="hidden" value="'.$feedbacks->id.'" name="dislikeFeedbackId">
+							<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+							<input type="hidden" value="disliked" name="status">
+							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+						</div>
+						|&nbsp;
+						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+						<div id="replysection" class="panelReply"> '.
+							Form::open(array("route"=>"post.viewusers.addreply-feedback", "class" => "inline")).'
+							<input type="hidden" name="feedback_id" value="'.$feedbacks->id.'">
+							<input type="hidden" name="user_id" value="'.$userInfo->id.'">>
+							<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+							<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr/>
+		';
+		return Response::json(array(
+			'status' => 'success',
+			'feedback' => $feedback,
+			'user_id' => $user_id,
+			'feedback' => $newFeedback
+			));
+		}
+	}
+
+
+	public function postAddReplyFeedback(){
+	$reply = trim(Input::get('txtreply'));
+	$feedback_id = Input::get('feedback_id');
+	$user_id = Input::get('user_id');
+
+	if(empty($reply)){
+		return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+	}
+	if(!empty($reply)){
+		$replies = new FeedbackReply;
+		$replies->feedback_id = $feedback_id;
+		$replies->user_id = $user_id;
+		$replies->reply = $reply;
+		$replies->save();
+
+		$userInfo = User::find($user_id);
+		if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
+			$temp = 'img/user/'. $user_id . '.jpg';
+		} else{
+			$temp = 'img/user/0.jpg';
+		}
+
+		$newReply = 
+		'<div class="commentProfilePic col-md-1">' .
+		HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", "width" => "48px")) . 
+		'</div>
+		<div class="col-md-11">
+			<div class="row">' .
+				link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
+				'<small>just now.</small><br/>
+				<p style="text-align:justify;">' . $reply . '<br/>' . '</p></hr>
+			</div>
+		</div>	
+		';
+			}
+		return Response::json(array('status' => 'success', 'reply' => $newReply));
+	}
+
+	public function postAddLiked(){
+		$likeFeedbackId = Input::get('likeFeedbackId');
+		$likeUserId = Input::get('likeUserId');
+		$statuss = Input::get('status');
+
+		if($statuss == 'liked'){
+			DB::table('feedbacks_likesdislikes')->insert(
+				array('feedback_id' => $likeFeedbackId,
+					'user_id'    => $likeUserId,
+					'status' 	   => 'liked'
+					)
+				);
+			$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
+
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+
+		} elseif($statuss == 'unliked'){
+			DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
+		}
+	}
+
+	public function postAddDisLiked(){
+		$dislikeFeedbackId = Input::get('dislikeFeedbackId');
+		$dislikeUserId = Input::get('dislikeUserId');
+		$statuss = Input::get('status');
+
+		if($statuss == 'disliked'){
+			DB::table('feedbacks_likesdislikes')->insert(
+				array('feedback_id' => $dislikeFeedbackId,
+					'user_id'    => $dislikeUserId,
+					'status' 	   => 'disliked'
+					)
+				);
+			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+		} elseif($statuss == 'undisliked'){
+			DB::table('feedbacks_likesdislikes')->where(array('comment_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
+		}
 	}
 
 	public function getViewUsersVideos($channel_name) {
@@ -798,7 +961,6 @@ class UserController extends BaseController {
 		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 				AS numberOfSubscribers FROM subscribes AS s 
 				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$userChannel->id.'"');
-		
 		$subscriptionProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
 			AS numberOfSubscribers from subscribes AS s 
 			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"');
@@ -806,20 +968,6 @@ class UserController extends BaseController {
 		return View::make('users.subscribers2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
 	}
 
-	public function postViewUsersComments($channel_name) {
-		if(!Auth::check()){
-			return Redirect::route('homes.signin')->withFlashMessage('You must be signed in to leave a comment');
-		}
-		$feedback = Input::get('feedback');
-		$userFeedback = Input::get('user_id');
-		$channelFeedback = Input::get('channel_id');
-		if(empty($feedback)){
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_bad', 'Error!');
-		} else{
-			DB::table('feedbacks')->insert(array('channel_id' => $channelFeedback, 'user_id' => $userFeedback, 'feedback' => $feedback));
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_good','Successfully post your Feedback!');
-		}
-	}
 
 	public function addSubscriber() {
 		$user_id = Input::get('user_id');
@@ -829,9 +977,8 @@ class UserController extends BaseController {
 			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-
 				//Notification
-					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+					// $this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}

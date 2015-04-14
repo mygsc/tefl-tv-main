@@ -152,9 +152,9 @@ function seekTimeUpdate(){
 	}else{
 		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
 	}
-	if(curSec == adsTime){
-		$('.advertisement').fadeIn(2000);
-	}
+	// if(curSec == adsTime){
+	// 	$('.advertisement').fadeIn(2000);
+	// }
 	
 }
 

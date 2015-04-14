@@ -24,34 +24,32 @@
 
 				<div class="feedbackSection">
 					<h3>Comments</h3>
-				@if($userFeedbacks->isEmpty())
+				@if(empty($userFeedbacks))
 					No feedbacks yet..
 					<br/>
-					{{Form::open(array('route' => ['post.view.users.comments', $userChannel->channel_name], 'id' => 'postFeedback'))}}
-							@if(Auth::check())
-							{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
-							{{Form::hidden('channel_id', $userChannel->id, array('id' => 'channel_id'))}}
-							@endif
-							{{Form::textarea('feedback', null, array('placeholder' => 'Leave a feedback..', 'id' => 'textAreaFeedback'))}}
-							{{Form::submit('Leave a feedback', array('id' => 'feedback'))}}
-						{{Form::close()}}
 				@else
 					       
-	<div class="comments row">
-		@if(isset(Auth::User()->id))
+	<div class="feedbacks row">
+		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
-		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
+		<br/>
 		<div class="text-right">
-			<button id='btncomment' class="btn btn-info">Post</button>
+		
+	
+		@if(!Auth::check())
+			{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
+		@else
+			<button id='btnfeedback' class="btn btn-info">Post</button>
+			{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
+			{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
+		
+		@endif
 		</div>
 
-		{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
-		@endif
-
-	<div class="col-md-12 commentsarea">
-		<div id="appendNewCommentHere"></div>
+	<div class="col-md-12 feedbacksarea">
+		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
-			<div class="commentsarea row">
+			<div class="feedbacksarea row">
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
 						$temp = 'img/user/'.$userFeedback->user_id . '.jpg';
@@ -60,7 +58,7 @@
 					}
 				?>
 
-				<div class="commentProfilePic col-md-1">
+				<div class="feedbackProfilePic col-md-1">
 					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
 				</div>
 				<div class="col-md-11">
@@ -69,22 +67,22 @@
 					| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($userFeedback->created_at)); ?></small> 
 					<br/>
 					<p class="text-justify">
-						{{$userFeedback->comment}}
+						{{$userFeedback->feedback}}
 					</p>
 		
 					
 					@if(isset(Auth::User()->id))
 						<?php
-							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $userFeedback->id, 'status' => 'liked'))->count();
-							$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $userFeedback->id, 'status' => 'disliked'))->count();
+							$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
+							$dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
 
-							$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
-								'comment_id' => $userFeedback->id, 
+							$ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
+								'feedback_id' => $userFeedback->id, 
 								'user_id' => Auth::User()->id,
 								'status' => 'liked'
 							))->first();
-							$ifAlreadyDisliked = DB::table('comments_likesdislikes')->where(array(
-								'comment_id' => $userFeedback->id, 
+							$ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
+								'feedback_id' => $userFeedback->id, 
 								'user_id' => Auth::User()->id,
 								'status' => 'disliked'
 							))->first();
@@ -97,14 +95,14 @@
 								<span class='fa-thumbs-up blueC'></span>
 								<input type="hidden" value="unliked" name="status">
 							@endif
-							<input type="hidden" value="{{$userFeedback->id}}" name="likeCommentId">
+							<input type="hidden" value="{{$userFeedback->id}}" name="likeFeedbackId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 
 							<span class="likescount" id="likescount">{{$likesCount}}</span>
 						</div>
 						&nbsp;
 						<div class='fa dislikedup'>
-							<input type="hidden" value="{{$userFeedback->id}}" name="dislikeCommentId">
+							<input type="hidden" value="{{$userFeedback->id}}" name="dislikeFeedbackId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
 
 							@if(!$ifAlreadyDisliked)
@@ -118,72 +116,74 @@
 						</div>
 						&nbsp;
 						<?php 
-							$getCommentReplies = DB::table('comments_reply')
-							->join('users', 'users.id', '=', 'comments_reply.user_id')
-							->where('comment_id', $userFeedback->id)->count(); 
+							$getFeedbackReplies = DB::table('feedbacks_replies')
+							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
-						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
+						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 					@else
 						<?php
-							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $userFeedback->id, 'status' => 'liked'))->count();
-							$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $userFeedback->id, 'status' => 'disliked'))->count();
+							$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
+							$dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
 						?>
 						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 						<?php 
-							$getCommentReplies = DB::table('comments_reply')
-							->join('users', 'users.id', '=', 'comments_reply.user_id')
-							->where('comment_id', $userFeedback->id)->count(); 
+							$getFeedbackReplies = DB::table('feedbacks_replies')
+							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
-						<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
+						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
-						$getCommentReplies = DB::table('comments_reply')
-							->join('users', 'users.id', '=', 'comments_reply.user_id')
-							->orderBy('comments_reply.created_at', 'asc')
-							->where('comment_id', $userFeedback->id)->get(); 
+						$getFeedbackReplies = DB::table('feedbacks_replies')
+							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							->orderBy('feedbacks_replies.created_at', 'asc')
+							->where('feedback_id', $userFeedback->id)->get(); 
 					?>
 					<div id="replysection" class="panelReply">
 						
 							<?php
-							foreach($getCommentReplies as $getCommentReply):
-								if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
-									$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
+							foreach($getFeedbackReplies as $getFeedbackReply):
+								if(file_exists(public_path('img/user/'.$getFeedbackReply->user_id . '.jpg'))){
+									$temp = 'img/user/'.$getFeedbackReply->user_id . '.jpg';
 								} else{
 									$temp = 'img/user/0.jpg';
 								}
 								?>
 
-								<div class="commentProfilePic col-md-1">
+								<div class="feedbackProfilePic col-md-1">
 									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
 								</div>
 								<div class="col-md-11">
 									<div class="row">
 										<?php
-										echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
-										echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
-										echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
+										echo link_to_route('view.users.channel', $getFeedbackReply->channel_name, $parameters = array($getFeedbackReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+										echo "<small>" . date('M m, Y h:i A',strtotime($getFeedbackReply->created_at)) . "</small><br/>" ;
+										echo "<p class='text-justify'>" . $getFeedbackReply->reply . "<br/>" . "</p></hr>";?>
 									</div>
 								</div>	
 							<?php endforeach;?>
 						
-									
-						@if(isset(Auth::User()->id))
-							{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
-								{{Form::hidden('comment_id', $userFeedback->id)}}
+							@if(!Auth::check())
+								{{link_to_route('homes.signin', 'Sign-in to reply to a feedback')}}
+							@else
+							{{Form::open(array('route'=>'post.viewusers.addreply-feedback','id' => 'addReplyFeedback', 'class' => 'inline'))}}
+								@if(Auth::check())
+								{{Form::hidden('feedback_id', $userFeedback->id)}}
 								{{Form::hidden('user_id', Auth::User()->id)}}
-								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
+								@endif
+								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply', 'placeholder' => 'Leave a reply...'))}}
 								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
 
 								<span class='replyError inputError'></span>
-							{{Form::close()}} 
-						@endif
-
+							{{Form::close()}}
+							@endif
 					</div><!--/.reply section-->
 				</div><!--/.col-md-10-->
 				</div><!--/.row-->
-			</div><!--/.commentsrowarea-->
+			</div><!--/.feedbacksrowarea-->
 			<hr/>
 
 		@endforeach
@@ -192,7 +192,7 @@
 
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/showHideToggle.js')}}
-
+{{HTML::script('js/user/reply.js')}}
 				@endif
 				</div>
 			</div><!--!/.shadow div-channel-border-->

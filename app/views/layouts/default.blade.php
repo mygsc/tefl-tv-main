@@ -9,15 +9,11 @@
 	@yield('meta')
 
 	<!-- CSS -->
-	{{ HTML::style('css/bootstrap.css') }}
+	{{ HTML::style('css/bootstrap.min.css') }}
 	{{ HTML::style('css/myStyle.css') }}
-	{{ HTML::style('css/sprites.css') }}
-	{{ HTML::style('css/videoGallery.css') }}
-	{{ HTML::style('css/dropdown.enhancement.css') }}
+	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
-	{{ HTML::style('css/vid.player.css') }}
-	
-	
+	{{ HTML::style('css/vid.player.min.css') }}
 	@yield('css')
 </head>
 <body>
@@ -35,8 +31,6 @@
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/reply.js')}}
-
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 
