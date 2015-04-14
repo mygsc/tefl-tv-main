@@ -196,7 +196,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="col-md-11 col-sm-10">
                                         <h2 class="black">
 <<<<<<< HEAD
-                                            <span><a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                            <span><a href="//channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                             @if(Auth::User()->id)
 =======
                                             <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
