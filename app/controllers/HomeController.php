@@ -370,9 +370,12 @@ class HomeController extends BaseController {
 			LEFT JOIN users u ON v.user_id = u.id
 			WHERE v.id = '".$id."';");
 		
+		//r3mmel
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
+		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id, 'subscriber_id' => Auth::User()->id))->first();
+		//r3mmel
 
 		$datas = $this->User->getTopChannels(4);
   		//Insert additional data to $datas
@@ -393,7 +396,7 @@ class HomeController extends BaseController {
 
 		}
 
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas'));
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){

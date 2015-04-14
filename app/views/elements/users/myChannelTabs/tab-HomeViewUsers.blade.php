@@ -46,19 +46,17 @@
 				<span class=""><!--/counts and share link-->
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
-
-
-				<span class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
-				</a>
-				<span class="dropdown-menu drop pull-right White snBg span-share">
-					<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-					<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-					<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-                </span><!--/.dropdown-menu pull-right White-->
-            </span><!--/.dropdown share-->
-			</span><!--/counts and share link-->
+					<span class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+						</a>
+						<span class="dropdown-menu drop pull-right White snBg span-share">
+							<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+							<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+							<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+		                </span><!--/.dropdown-menu pull-right White-->
+		            </span><!--/.dropdown share-->
+				</span><!--/counts and share link-->
 
 			@endif
 		</div><!--/.col-md-6-->
