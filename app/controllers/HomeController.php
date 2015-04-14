@@ -91,6 +91,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle=null){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
+		if(!isset($token_id)) return Redirect::route('homes.index');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
@@ -112,7 +113,7 @@ class HomeController extends BaseController {
 									->where('report_count','<','5')
 									->where('id','!=',$videos->id)
 									->orderBy('id','desc')
-									->paginate(3);
+									->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
@@ -395,7 +396,6 @@ class HomeController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-
 		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe'));
 
 	}
