@@ -208,6 +208,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class="col-md-11 col-sm-10">
                                             <h2 class="black">
                                                 <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                                <!-- IDs-->
+                                                Owner ID:{{$owner->id}}
+                                                Logged In ID:{{Auth::User()->id}}
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 

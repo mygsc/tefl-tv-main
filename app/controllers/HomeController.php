@@ -107,6 +107,16 @@ class HomeController extends BaseController {
 			AND v.report_count < 5
 			OR v.report_count IS NULL;");
 		$counter = count($relations);
+		$ownerVideos = Video::where('user_id',$videos->user_id)
+									->where('publish','1')
+									->where('report_count','<','5')
+									->where('id','!=',$videos->id)
+									->orderBy('id','desc')
+									->paginate(3);
+		$likeownerVideosCounter = 0;
+		foreach($ownerVideos as $ownerVideo){
+			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
+		}
 		if($counter == 0){
 			$randoms = $this->Video->getVideoByCategory('random', '15');
 			$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at AS created_at,v.deleted_at as deletes,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
@@ -364,7 +374,26 @@ class HomeController extends BaseController {
 		->where('comments.video_id', $videoId)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers'));
+		$datas = $this->User->getTopChannels(4);
+  		//Insert additional data to $datas
+  		foreach($datas as $key => $channel){
+		   	$img = 'img/user/'. $channel->id. '.jpg';
+		   	if(Auth::check()){
+			    $ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+			    $datas[$key]->ifsubscribe = 'No';
+			    if(!$ifsubscribe->isEmpty()){
+			     	$datas[$key]->ifsubscribe = 'Yes';
+			    }
+		   	}
+		   	if(!file_exists(public_path($img))){
+		    	$img = '/img/user/0.jpg';
+		   	}
+			$datas[$key]->image_src = $img;
+			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+
+		}
+
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -383,10 +412,11 @@ class HomeController extends BaseController {
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
+			and v.id != '".$video->id."'
+			and v.publish = '1'
 			AND i.id > '".$itemId->id."'
 			and v.deleted_at IS NULL
 			or v.report_count > 5
-			and v.publish = 1
 			ORDER BY i.id asc
 			LIMIT 1;");
 		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id AS playlist_id FROM playlists p
@@ -394,6 +424,7 @@ class HomeController extends BaseController {
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			AND i.playlist_id = '".$playlistId."'
+			and v.id != '".$video->id."'
 			AND i.id < '".$itemId->id."'
 			and v.deleted_at IS NULL
 			or v.report_count > 5
@@ -409,6 +440,7 @@ class HomeController extends BaseController {
 			or v.report_count > 5
 			and v.publish = 1
 			");
+		//return $nextA;
 		if(isset(Auth::User()->id)){
 			$like = Like::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
