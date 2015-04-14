@@ -29,20 +29,20 @@ class UserController extends BaseController {
 			if($attempt){
 				$verified = Auth::User()->verified; $status = Auth::User()->status; $role = Auth::User()->role; //VARIABLES		
 				if($role == '1' && $verified == '1' && $status != '2'){
-					return Redirect::intended('/')->with('flash_message', 'Welcome '.$input['channel_name1']);
+					return Redirect::intended('/')->withFlashGood('Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
 				}elseif($status == '2'){
 					Auth::logout();
-					return Redirect::route('homes.signin')->with('flash_message','Your account was banned! Please contact the TEFLTV Administrator');
+					return Redirect::route('homes.signin')->with('flash_bad','Your account was banned! Please contact the TEFLTV Administrator');
 				}else{
 					Auth::logout();
-					return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withFlashType('error')->withInput();
+					return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
 				}
 			}
 		}
-		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withFlashType('error')->withInput();
+		return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
 	}
 
 	public function postResendUserVerify(){
@@ -87,7 +87,7 @@ class UserController extends BaseController {
 		$findUser = User::where('email', Input::get('email'))->get();
 
 		if($validator->fails() || $findUser->isEmpty()){
-			return Redirect::route('homes.signin')->with('flash_message', 'Please enter a valid E-mail address');
+			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
@@ -99,7 +99,7 @@ class UserController extends BaseController {
 		$user->token = $generateToken;
 		$user->save();
 
-		return Redirect::route('homes.signin')->with('flash_message', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
+		return Redirect::route('homes.signin')->with('flash_good', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
 	}
 
 	public function getResetPassword($token = null){
@@ -118,7 +118,7 @@ class UserController extends BaseController {
 			array('password' => 'required|min:6', 'password_confirmation' => 'same:password'));
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
-				return Redirect::route('homes.signin')->with('flash_message', 'Password has been renewed');
+				return Redirect::route('homes.signin')->with('flash_good', 'Password has been renewed');
 			}
 		}
 		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
@@ -129,10 +129,10 @@ class UserController extends BaseController {
 			$findUser = User::where('token', $token)->get();
 			if(!$findUser->isEmpty()){
 				$this->User->setVerifyStatus(1, $findUser->first()->id);
-				return Redirect::route('homes.signin')->with('flash_message', 'Your account has been verfied. You may now sign in your account');
+				return Redirect::route('homes.signin')->with('flash_good', 'Your account has been verfied. You may now sign in your account');
 			}
 		}
-		return Redirect::route('homes.index')->with('flash_message', 'Invalid request');
+		return Redirect::route('homes.index')->with('flash_warning', 'Invalid request');
 	}
 
 	public function getUsersIndex() {
@@ -189,7 +189,7 @@ class UserController extends BaseController {
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
 		if(!Auth::check()){
-			return Redirect::route('homes.post.signin')->with('flash_message','Please Sign-in to view your channel');
+			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		} else{
 			$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 			
@@ -808,10 +808,10 @@ class UserController extends BaseController {
 		$userFeedback = Input::get('user_id');
 		$channelFeedback = Input::get('channel_id');
 		if(empty($feedback)){
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message', 'Error!');
+			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_bad', 'Error!');
 		} else{
 			DB::table('feedbacks')->insert(array('channel_id' => $channelFeedback, 'user_id' => $userFeedback, 'feedback' => $feedback));
-			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_message','Successfully post your Feedback!');
+			return Redirect::route('view.users.feedbacks2', $channel_name)->with('flash_good','Successfully post your Feedback!');
 		}
 	}
 
@@ -939,12 +939,15 @@ class UserController extends BaseController {
 	}
 
 	public function getNotification(){
-		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-		if($this->Notification->getTimePosted($notifications) === false){
-			app::abort(404, 'Error');
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
+			if($this->Notification->getTimePosted($notifications) === false){
+				app::abort(404, 'Error');
+			}
+			$notifications = $this->Notification->getTimePosted($notifications);
+			return View::make('users.notifications', compact('notifications'));
 		}
-		$notifications = $this->Notification->getTimePosted($notifications);
-		return View::make('users.notifications', compact('notifications'));
+		app::abort(404, 'Internal Server Error please contact Kevin');	
 	}
 
 	public function postLoadNotification(){

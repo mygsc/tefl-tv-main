@@ -59,4 +59,7 @@
 
 @yield('modal')
 
+<br/>
+<center>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render</center>
+<br/>
 </html>

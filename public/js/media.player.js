@@ -30,7 +30,8 @@ function GSCMediaPlayer(){
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
 	progWidth = document.getElementById('progressbar').offsetWidth;
-	progress = document.getElementById('current-progress').offsetWidth
+	progress = document.getElementById('current-progress').offsetWidth;
+	play = document.getElementById('play-icon');
 	mediaPlayer.controls = false;
 	playPauseBtn.addEventListener('click',togglePlayPause, false);
 	muteBtn.addEventListener('click',toggleMute, false);
@@ -105,16 +106,9 @@ function loadBuffer(){
 			var buffPercent = mediaPlayer.buffered.end(0);
 			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
 			//$('#buffered').css({'width': percentLoaded + '%'});
-			if(seekSlider.value >= percentLoaded){
-				//$('#replay-icon').fadeIn();
-				// replay.src="/img/icons/uploading.gif";
-				// replay.width = 80;
-				// replay.height = 80;
-			}else{
-				// replay.src="/img/icons/play-btn.png";
-				// replay.width = 80;
-				// replay.height = 80;
-			}
+		// if(mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING){
+		// 	$('#play-icon').css({'background':'rgba(0,0,0,0.6) url(/img/icons/uploading.gif)', 'width':'100%', 'height':'100%'});
+		// }
 		}else{
 			console.log('no buffer recieved...');
 		}
@@ -189,9 +183,10 @@ function checkVid(){
 	if(isNaN(durSec)){
 		error = true;
 		mediaPlayer.poster = '/img/error.jpg'; 
+		
 		$('.ctime').fadeOut('fast');
 		if(error){
-			$('video').append('<div id="error-handler">Error while playing a video please try again later.</div>');
+			$('#vid-error').html('Error: Sorry source not found.').css({'color':'#fff'});
 			error = false;
 		}
 		
@@ -540,6 +535,10 @@ $('#share-video').bind('click', function(){
   $('.hd-setting').fadeOut();
 });
 
+$('#cc').bind('click', function(){
+
+});
+
 $('.play-icon').bind('click', function(){
 	togglePlayPause();
 	if(playIcon==false){
@@ -560,8 +559,9 @@ $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
 
-// $('#media-video').bind('mouseleave', function(){
-// 	$('#controls').fadeOut();
+// $('#media-video').bind('mouseover', function(){
+// 	$('#controls').fadeIn('fast');
+// 	$('#controls').fadeIn();
 // });
 // $('#media-video,#controls').bind('mouseover', function(){
 // 	$('#controls').fadeIn();

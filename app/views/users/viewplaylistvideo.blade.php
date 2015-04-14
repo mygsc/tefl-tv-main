@@ -104,37 +104,40 @@
 								<p class="text-justify"><span id="playlistDesc">{{$playlist->description}}</span></p>
 							</div>
 						</div>
-
+					<div class="content-padding">	
 						<hr/>
 						@if(empty($videos))
 							No videos available in {{$playlist->name}} playlist.
 						@else
-
+					
 							@foreach($videos as $video)
-							<div class="row">						
-								<div class="col-md-2">
-									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-										<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
-									@else
-										<img src="/img/thumbnails/video.png">
-									@endif
-									</a>
-								</div>
-								<div class="col-md-10">
-									<span class="pull-right" style="margin-right:20px;">
-										<!--<button class="btn btn-default" title="set as playlist thumbnail"><i class="fa fa-file-image-o"></i></button> &nbsp;-->
-										<button class="btn btn-default" title="remove from playlist" id="removeToplaylist{{$playlistCounter++}}" data-encrypt="{{Crypt::encrypt($video->playlist_id)}}" data-encrypt2 ="{{Crypt::encrypt($video->id)}}"><i class="fa fa-trash"></i></button>
-									
-									</span>
-									<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><p>{{$video->title}}</p></a>
-									<small>{{$video->channel_name}}</small>
-								</div>
+							<div class="row">	
+									<div class="col-md-2">
+										<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
+										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
+										@else
+											<img src="/img/thumbnails/video.png">
+										@endif
+										</a>
+									</div>
+									<div class="col-md-10">
+										<span class="pull-right" style="margin-right:20px;">
+											<!--<button class="btn btn-default" title="set as playlist thumbnail"><i class="fa fa-file-image-o"></i></button> &nbsp;-->
+											<button class="btn btn-default" title="remove from playlist" id="removeToplaylist{{$playlistCounter++}}" data-encrypt="{{Crypt::encrypt($video->playlist_id)}}" data-encrypt2 ="{{Crypt::encrypt($video->id)}}"><i class="fa fa-trash"></i></button>
+										
+										</span>
+										<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><p>{{$video->title}}</p></a>
+										<small>{{$video->channel_name}}</small>
+									</div>
 							</div>
+							<br/>
 							@endforeach
+
 						@endif
-						<hr/>
+						
 					</div><!--videoContainer-->
+					</div> 
 				</div>
 			
 			</div><!--!/.shadow div-channel-border-->

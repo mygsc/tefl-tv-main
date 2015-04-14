@@ -3,6 +3,10 @@
 @section('css')
 		{{HTML::style('css/vid.player.css')}}
 @stop
+@section('some_script')
+{{HTML::script('js/user/upload-add-description.js')}}
+{{HTML::script('js/media.player.upload.js')}}
+@stop
 @section('content')
 
 <div class="row White">
@@ -36,15 +40,14 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail: <small id="recreate-thumb" style="cursor:pointer">Refresh thumbnail</small></h3>	
+								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								<center>
 									<div id="screenshot">				
-											<canvas class="thumb-1" id="img-thumb-1"></canvas>
-																
-											<canvas class="thumb-2" id="img-thumb-2"></canvas>
-																													
-											<canvas class="thumb-3" id="img-thumb-3"></canvas>
-																															
+										
+										<canvas class="thumb-1" id="img-thumb-1">
+										</canvas>					
+										<canvas class="thumb-2" id="img-thumb-2"></canvas>																	
+										<canvas class="thumb-3" id="img-thumb-3"></canvas>																					
 									</div>
 									<br/>
 									
@@ -168,7 +171,4 @@
 @stop
 
 
-@section('some_script')
-{{HTML::script('js/user/upload-add-description.js')}}
-{{HTML::script('js/media.player.upload.js')}}
-@stop
+
