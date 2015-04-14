@@ -82,6 +82,7 @@
 @section('some_script')
 	{{HTML::script('js/user/upload_image.js')}}
 	{{HTML::script('js/user/modalclearing.js')}}
+	{{HTML::script('js/user/upload_cover_photo.js')}}
 @stop
 
 @section('modal')
@@ -93,14 +94,14 @@
 		        {{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
 		      		<label class="fileContainer">
 		      			<h3><u>Upload new channel cover</u></h3>
-		      			{{Form::file('coverPhoto')}}
+		      			{{Form::file('coverPhoto', array('id' => 'upload_cover_photo'))}}
 		      		</label>
 		      </div>
 		      <div class="modal-body text-center">
-		      		@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
-						{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+		      @if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
+						{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('id' => 'preview_cover_photo', 'style' => 'z-index:70;', 'width' => '100%'))}}
 					@else
-						{{HTML::image('img/user/cover'. '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+						{{HTML::image('img/user/cover.jpg', 'alt', array('id' => 'preview_cover_photo', 'style' => 'z-index:70;', 'width' => '100%'))}}
 					@endif
 		      </div>
 		      <div class="modal-footer">
