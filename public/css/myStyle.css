@@ -304,6 +304,9 @@ span .ad{
 
 }
 /*===========LAYOUT FORMATTING===========*/
+.v-latestUp{
+  height: 300px!important;
+}
 .center{
   margin-left: auto!important;
   margin-right: auto!important;
@@ -748,7 +751,7 @@ img.user{
   color: #1870dc!important;
 }
 .redC{
-  color: red!important;
+  color: #ca2027!important;
 }
 .darkBlueC{
   color: #3b5a9b!important;
@@ -2079,6 +2082,9 @@ td.w-75per{
 .mg-r-10{
   margin-right:10px;
 }
+.mg-l-10{
+  margin-left: 10px;
+}
 
 .mg-b-10{
   margin-bottom: 10px!important;
@@ -2573,6 +2579,8 @@ margin: 10px;
 }
 
 }
+/*==========END of VIDEO GALLERY or Watch VIDEO STYLE=========*/
+
 /*
 TEFL TV @ GRAPHIC STUDIO CENTRAL
 

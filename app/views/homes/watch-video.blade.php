@@ -182,11 +182,15 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="row">
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/{{$owner->id}}.jpg" class="user">
+                                            </div>
                                         </div>
                                     @else
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/0.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/0.jpg" class="user  ">
+                                            </div>
                                         </div>
                                     @endif
                                     <div class="col-md-11 col-sm-10">
