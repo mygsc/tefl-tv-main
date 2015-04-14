@@ -88,26 +88,24 @@
 		<div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
-		      <div class="modal-header">
+		      <div class="modal-header text-center">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Update Cover Photo</h4>
-		      </div>
-		      <div class="modal-body text-center">
-
-		      	<div class="center">
-		      		{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
-		      		<label class="fileContainer btn btn-info">
-		      			Browse Image
+		        {{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
+		      		<label class="fileContainer">
+		      			<h3><u>Upload new channel cover</u></h3>
 		      			{{Form::file('coverPhoto')}}
 		      		</label>
-		      	</div>
-		         
-        		
-		     
+		      </div>
+		      <div class="modal-body text-center">
+		      		@if(file_exists(public_path('img/user/cover_photo/') . Auth::User()->id . '.jpg'))
+						{{HTML::image('img/user/cover_photo/' . Auth::User()->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+					@else
+						{{HTML::image('img/user/cover'. '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+					@endif
 		      </div>
 		      <div class="modal-footer">
 		        
-		           	{{Form::submit('Save',array('class' => 'btn btn-primary'))}}
+		           	{{Form::submit('Save',array('class' => 'btn btn-info'))}}
 
 		        {{Form::close()}}
 		         	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -119,23 +117,20 @@
 
 		<!-- Modal -->
 		<div class="modal fade overlay" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog black">
-		    <div class="modal-content">
+		  <div class="modal-dialog black ">
+		    <div class="modal-content mod-change-dp text-center center-block">
 		      <div class="modal-header">
 		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		          		
-		      	<h4 class="modal-title" id="myModalLabel">Update Display Photo</h4>
+		       	{{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true', 'class'=> 'inline') )}}
+			          	<label class="fileContainer">
+			      			<h3 class="inline "><u>Upload new photo </u></h3>
+			            {{ Form::file('image', array('id' => 'uploaded_img'))}}
+			            </label>
 		      </div>
 		      <div class="modal-body">
 		            <div class="text-center">
-		            	{{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true'))}}
-			          	<label class="fileContainer btn btn-info">
-			      			Browse Image
-			            {{ Form::file('image', array('id' => 'uploaded_img'))}}
-			            </label>
-			         
-			           <br/> <br/>
-		                {{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Image preview', array('id' => 'preview', 'class' => 'center-block'))}}
+			
+		                {{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
 		            </div>            
 		      </div>
 		      <div class="modal-footer">
