@@ -1,2 +1,2 @@
 
-  <img src="/img/ads/half-large-recatangle-2.jpg">
+  <img src="/img/ads/half-large-rectangle-2.jpg">
