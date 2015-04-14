@@ -108,21 +108,20 @@ class VideoController extends BaseController {
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpg');
-			}
+				$this->imageResize($input['poster'], 1280, 720, $destinationPath.$fileName.'.jpeg');
 			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
 				$getImage = $input['thumbnail'];
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
-				$saveImage = $destinationPath.$fileName.'.jpg';
+				$saveImage = $destinationPath.$fileName.'.jpeg';
 				$success = file_put_contents($saveImage, $decodeImage);
-				$this->imageResize($saveImage, 1280, 720, $destinationPath.$fileName.'.jpg');	
+				$this->imageResize($saveImage, 1280, 720, $destinationPath.$fileName.'.jpeg');	
+
 			}		
 			$tags = explode(',',Input::get('tags'));
 			foreach($tags as $tag){

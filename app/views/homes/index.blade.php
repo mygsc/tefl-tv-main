@@ -14,6 +14,10 @@
 	@section('css')
 		{{HTML::style('css/vid.player.css')}}
 	@stop
+	@section('some_script')
+	{{HTML::script('js/video-player/media.player.js')}}
+	{{HTML::script('js/video-player/fullscreen.js')}}
+@stop
 @section('content')
 <div class="row">
 	<div class="container page2">
@@ -200,9 +204,6 @@
 	</div><!--/.container page-->
 </div>
 @stop
-@section('some_script')
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/fullscreen.js')}}
-@stop
+
 
 

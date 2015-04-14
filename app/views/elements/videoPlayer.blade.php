@@ -77,7 +77,7 @@
 				</div><!--/.share-video-->
 				<i id='hd-setting' title='HD setting' class='player setting'></i>
 				<i id='share-video' title='Share video' class='player share'></i>
-				<i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i>
+				{{-- <i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i> --}}
 				<img src="/img/logos/teflTv.png" class="playerLogo">
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->

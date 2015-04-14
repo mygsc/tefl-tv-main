@@ -15,8 +15,6 @@
 	{{ HTML::style('css/videoGallery.css') }}
 	{{ HTML::style('css/dropdown.enhancement.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
-	{{ HTML::style('css/vid.player.css') }}
-	
 	
 	@yield('css')
 </head>

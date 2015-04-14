@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {GSCMediaPlayer();}, fa
 var mediaPlayer, hrs=0, mins=0, secs=0, tmpSecs=0, adsTime = 2, ads=0, vidMinLenght=0, vidSecLenght=0, videoCurrentTime=0,
 	playPauseBtn, timeDuration=0,
  	muteBtn, playIcon = false, replay, _time, curHrs, curMin, curSec, durHrs, durMin, durSec,
- 	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false, error = false,
+ 	progressBar, soundHover = false, volumeHover = false, currentTime=0, videoPlaying = false, start = false,
  	videoTimeLenght,  
  	volumes=0, volumeClick = false, mouseX = 0, mouseY = 0, volumeY=0, volumeDrag = false, progressbarClick = false,
  	updProgWidth = 0, videoControls, volumeStatus, bufferedAmount, currentBuffered, currentProgress, playBtn, play, seekSlider,
@@ -30,8 +30,7 @@ function GSCMediaPlayer(){
 	_time = document.getElementById('time');
 	fullscreenVid =  document.getElementById('fullscreen');
 	progWidth = document.getElementById('progressbar').offsetWidth;
-	progress = document.getElementById('current-progress').offsetWidth;
-	play = document.getElementById('play-icon');
+	progress = document.getElementById('current-progress').offsetWidth
 	mediaPlayer.controls = false;
 	playPauseBtn.addEventListener('click',togglePlayPause, false);
 	muteBtn.addEventListener('click',toggleMute, false);
@@ -62,59 +61,41 @@ function GSCMediaPlayer(){
 	}, false);
 
 	mediaPlayer.addEventListener('loadedmetadata', function(){
-		try{
-			timeDuration = Math.round(mediaPlayer.duration);
-			timeSettings();
-			adsOn();	
-			loadBuffer();	
-		}catch(e){
-			alert(e.message);
-		}
+		timeDuration = Math.round(mediaPlayer.duration);
+		timeSettings();
+		adsOn();
+		mediaPlayer.addEventListener('progress', loadBuffer, false);
+		
 	});
-	mediaPlayer.addEventListener('progress', loadBuffer, false);
-	fullscreenVid.addEventListener('click', fullscreen, false); //fullscreen toggleFullScreen
+	fullscreenVid.addEventListener('click', toggleFullScreen, false);//fullscreen toggleFullScreen
 	volumeStatus.addEventListener('change', setVolume, false);
 	mediaPlayer.addEventListener('error', hasError, false);
 	mediaPlayer.addEventListener('canplay', canPlayVideo, false);
 	//mediaPlayer.addEventListener('waiting', onWaitingBuffer, false);
 	//seekSlider.addEventListener('seeking', seekingNewPosition, false);
 }
-function onprogress(){
-	var progress = document.body.appendChild(document.createElement('div'));
-	progress.id = 'loadbar';
-			//get the buffered ranges data
-			var ranges = [];
-			for(var i = 0; i < mediaPlayer.buffered.length; i ++){
-				ranges.push([mediaPlayer.buffered.start(i),mediaPlayer.buffered.end(i)]);
-			}
-			//get the current collection of spans inside the container
-			var spans = progress.getElementsByTagName('span');
-			//then add or remove spans so we have the same number as time ranges
-			while(spans.length < mediaPlayer.buffered.length){
-				progress.appendChild(document.createElement('span'));
-			}
-			while(spans.length > mediaPlayer.buffered.length){
-				progress.removeChild(progress.lastChild);
-			}
-			for(var i = 0; i < mediaPlayer.buffered.length; i ++){
-				spans[i].style.left = Math.round((100 / mediaPlayer.duration) * ranges[i][0]) + '%';
-				spans[i].style.width = Math.round((100 / mediaPlayer.duration) * (ranges[i][1] - ranges[i][0])) + '%';
-			}
-		}
+
 function loadBuffer(){
 	if(mediaPlayer.buffered.length > 0){
 			var buffPercent = mediaPlayer.buffered.end(0);
 			var percentLoaded = Math.floor((buffPercent / timeDuration) * 100);
 			//$('#buffered').css({'width': percentLoaded + '%'});
-		// if(mediaPlayer.networkState === mediaPlayer.NETWORK_LOADING){
-		// 	$('#play-icon').css({'background':'rgba(0,0,0,0.6) url(/img/icons/uploading.gif)', 'width':'100%', 'height':'100%'});
-		// }
+			if(seekSlider.value >= percentLoaded){
+				//$('#replay-icon').fadeIn();
+				// replay.src="/img/icons/uploading.gif";
+				// replay.width = 80;
+				// replay.height = 80;
+			}else{
+				// replay.src="/img/icons/play-btn.png";
+				// replay.width = 80;
+				// replay.height = 80;
+			}
 		}else{
 			console.log('no buffer recieved...');
 		}
 }
 function canPlayVideo() { //buffering done...
-	//alert('Video canplay');
+	alert('Video canplay');
 }
 function onWaitingBuffer() { //buffering occur...
 	$('.play-icon').fadeIn();
@@ -128,7 +109,7 @@ function seekingNewPosition() { //find new position
 }
 
 function hasError(){
- 	return alert('cannot play video.Please try again later.');
+ 	return alert('cannot play video');
  }
 
 //list of bind more realiable codes....
@@ -171,26 +152,10 @@ function seekTimeUpdate(){
 	}else{
 		_time.innerHTML = curMin + ':' + curSec + '/' + durMin + ':' +durSec;
 	}
-	if(curSec == adsTime){
-		$('.advertisement').fadeIn(2000);
-	}
+	// if(curSec == adsTime){
+	// 	$('.advertisement').fadeIn(2000);
+	// }
 	
-	checkVid();
-}
-
-function checkVid(){
-
-	if(isNaN(durSec)){
-		error = true;
-		mediaPlayer.poster = '/img/error.jpg'; 
-		
-		$('.ctime').fadeOut('fast');
-		if(error){
-			$('#vid-error').html('Error: Sorry source not found.').css({'color':'#fff'});
-			error = false;
-		}
-		
-	}
 }
 
 function toggleFullScreen() {
@@ -223,12 +188,10 @@ function toggleFullScreen() {
 }
 
 function adsOn(){
-	//ads = Math.floor(timeDuration * adsTime / 100);
-	ads = (adsTime / timeDuration) * 100;
-	//ads = Math.round(100 / ads);
-	var adsbar = Math.floor(progWidth/adsTime);
-	$('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
-	$('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
+	// ads = (adsTime / timeDuration) * 100;
+	// var adsbar = Math.floor(progWidth/adsTime);
+	// $('<div class="ads"> <div style="border-radius:2px;background:yellow;position:absolute;right:0;height:100%;width:5px;"></div></div>').prependTo('#progress-ads-line');
+	// $('.ads').css({'border-radius':'2px', 'background':'transparent','width': ads + '%', 'height':'100%', 'position':'absolute'});
 	
 }
 function timeSettings(){
@@ -533,10 +496,6 @@ $('#hd-setting').bind('click', function(){
 $('#share-video').bind('click', function(){
   $('.share-video').toggle('show');
   $('.hd-setting').fadeOut();
-});
-
-$('#cc').bind('click', function(){
-
 });
 
 $('.play-icon').bind('click', function(){

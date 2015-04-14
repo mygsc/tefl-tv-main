@@ -12,8 +12,8 @@ $(document).ready(function(){
   var videoHeight, videoWidth, drawTimer = null;
   var ssContainer = document.getElementById("screenShots");
   var  playing=false; 
-  // var canvas = document.getElementById("canvas");
-  // var ctx = canvas.getContext("2d");
+   var canvas = document.getElementById("canvas");
+   var ctx = canvas.getContext("2d");
   context1.font="20px Georgia";
   context1.fillText("Please wait...",90,75);
   context2.font="20px Georgia";
@@ -31,7 +31,6 @@ $(document).ready(function(){
     h =  Math.floor(videoPlayer.videoHeight/videoPlayer.videoHeight * 150);//parseInt(w / ratio, 10);
     // canvas1.width = 180;
     // canvas1.height = 150;
-
     setTimeout(function(){
       snap(1);
     },1000);
@@ -64,7 +63,7 @@ $(document).ready(function(){
       context1.drawImage(videoPlayer, 0, 0, w, h);
     }
     if(num==2){
-       var duration = Math.floor(videoPlayer.duration);
+      var duration = Math.floor(videoPlayer.duration);
       var rdm = Math.floor((Math.random() * duration) + 1); 
       videoPlayer.currentTime = rdm;
       context2.fillRect(0, 0, w, h);
