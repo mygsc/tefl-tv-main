@@ -46,11 +46,16 @@
 								@foreach($subscriberProfile as $key => $profile)
 								<div class="subscribers">
 									<div class="col-md-6">
-										<img src="/img/user/u1.png" class="userRep2">&nbsp;
+										@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
+			             		{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			              @else
+			            	  {{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			              @endif
+										&nbsp;
 
-										<a href="{{route('view.users.channel')}}"><span><b>{{$profile->first_name}} {{$profile->last_name}}</b></span></a>&nbsp;
+										<a href="{{route('view.users.channel')}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 										<br/>&nbsp;
-										<span>w/ <b>{{count($subscriberCount)}}</b> Subscribers</span>&nbsp;
+										<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 										<button class="btn btn-primary btn-xs pull-right">Subscribe</button>
 									</div>
 								</div><!--subscibersDiv-->
@@ -102,9 +107,13 @@
 									<tr>
 										<td>{{ Form::checkbox(false)}}</td>
 										<td>
-											<img src="/img/user/u1.png" class="userRep2">&nbsp;
-
-											<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->first_name}} {{$profile1->last_name}}</b></span></a>&nbsp;
+											@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
+			                	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			                @else
+			                	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			                @endif
+											&nbsp;
+											<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 										</td>
 										<td class="text-center">{{ Form::checkbox(false)}}</td>
 										<td class="text-center">

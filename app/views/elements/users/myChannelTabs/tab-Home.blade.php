@@ -204,8 +204,11 @@
 						<div class="row user-padding" id="subscriberLists">
 
 							<a href="{{route('view.users.channel', $profile->channel_name)}}">
-
-							<img src="/img/user/u1.png" class="userRep2"/>&nbsp;
+									@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
+			             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            @else
+			             	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            @endif
 								<span><b>{{$profile->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;
@@ -255,7 +258,12 @@
 							<div class="row user-padding">
 							
 								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
-								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+									@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
+			             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			          	@else
+			            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            @endif
+								&nbsp;
 								<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
