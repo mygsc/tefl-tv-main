@@ -39,7 +39,7 @@
 				 	</a>
 					
 				</div>
-				@include('elements/videoPlayer')
+				{{-- @include('elements/videoPlayer') --}}
 			</div>
 		</div>
 
