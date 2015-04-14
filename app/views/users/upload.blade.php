@@ -5,7 +5,7 @@ Upload
 @stop
 @section('some_script')
 {{HTML::script('js/user/upload.js')}}
-{{HTML::script('js/jquery.form.min.js')}}
+{{HTML::script('js/video-player/jquery.form.min.js')}}
 @stop
 @section('content')
 <style type="text/css">

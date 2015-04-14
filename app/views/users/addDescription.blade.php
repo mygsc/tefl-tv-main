@@ -1,14 +1,12 @@
 @extends('layouts.default')
-
 @section('css')
 		{{HTML::style('css/vid.player.css')}}
 @stop
 @section('some_script')
 {{HTML::script('js/user/upload-add-description.js')}}
-{{HTML::script('js/media.player.upload.js')}}
+{{HTML::script('js/video-player/media.player.upload.js')}}
 @stop
 @section('content')
-
 <div class="row White">
 	<div class="container page">	
 		<div class="content-padding">
@@ -25,11 +23,11 @@
 						<div class="col-md-6">
 						<h3 style="text-align:center">Video Preview</h3>
 							<div class="embed-responsive embed-responsive-16by9 h-video">
-
-								<video preload="auto" width="400" id="media-video" poster="/img/thumbnails/video.png">
+								<video preload="auto" width="400" id="media-video" poster="">
+								   <source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm">
 									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg">
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4">
+									
 								</video>
 								
 							</div>

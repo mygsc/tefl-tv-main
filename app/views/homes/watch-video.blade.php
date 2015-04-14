@@ -14,7 +14,7 @@
 
 @stop
 @section('css')
-{{--HTML::style('css/vid.player.css')--}}
+{{HTML::style('css/vid.player.css')}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -23,7 +23,7 @@
 @section('some_script')
 {{HTML::script('js/jquery.js')}}
 {{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/video-player/media.player.js')}}
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
