@@ -176,8 +176,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
                             <br/>
-                                            <div class="row" id="alert-playlist">
-                                            </div>
+                            <div class="row" id="alert-playlist"></div>
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">

@@ -830,9 +830,8 @@ class UserController extends BaseController {
 			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-
 				//Notification
-					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+					// $this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
