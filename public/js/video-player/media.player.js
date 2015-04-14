@@ -179,17 +179,10 @@ function seekTimeUpdate(){
 }
 
 function checkVid(){
-
 	if(isNaN(durSec)){
-		error = true;
 		mediaPlayer.poster = '/img/error.jpg'; 
-		
 		$('.ctime').fadeOut('fast');
-		if(error){
-			$('#vid-error').html('Error: Sorry source not found.').css({'color':'#fff'});
-			error = false;
-		}
-		
+		$('#vid-error').html('Error: Sorry source not found.').css({'color':'#fff'});		
 	}
 }
 

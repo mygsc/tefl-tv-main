@@ -1,5 +1,3 @@
-
-
 @extends('layouts.default')
 @section('meta')
     <meta property="og:title" content="{{$videos->title}}">
@@ -14,7 +12,7 @@
 
 @stop
 @section('css')
-{{--HTML::style('css/vid.player.css')--}}
+{{HTML::style('css/vid.player.css')}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -22,8 +20,9 @@
 {{-- */$playlistCounter2 = 1;/* --}}
 @section('some_script')
 {{HTML::script('js/jquery.js')}}
+{{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/video-player/media.player.js')}}
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
@@ -145,15 +144,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v= {{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v= {{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                   {{-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
-                                                    <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>-->
-                                                    <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>--}}
-
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             
@@ -176,12 +166,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         @endif
                                                     @else
                                                       <i class="fa fa-thumbs-up hand" title="like this" ></i>
-                                                    @endif
-                                                    <!--&nbsp; &nbsp; &nbsp;
-                                                     <span id = "like-span">
-                                                       0 <i class="fa fa-thumbs-down hand" id="unlike"></i>
-                                                    </span>-->
-                                                    
+                                                    @endif                                                    
                                                 </span><!--/links-->
                                             </div>
                                             
@@ -191,34 +176,52 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
                             <br/>
-                                            <div class="row" id="alert-playlist">
-                                            </div>
+                            <div class="row" id="alert-playlist"></div>
                             <div class="info" >
                                 <div class="well2">
                                     <div class="row">
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/{{$owner->id}}.jpg" class="user">
+                                            </div>
                                         </div>
                                     @else
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/0.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/0.jpg" class="user  ">
+                                            </div>
                                         </div>
                                     @endif
-                                        <div class="col-md-11 col-sm-10">
-                                            <h2 class="black">
-                                                <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
-                                                    <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
-                                                </span>
-                                            </h2> 
-                                            <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
-                                            <div class="seeVideoContent">
-                                                <p>
-                                                   {{$videos->description}}
+                                    <div class="col-md-11 col-sm-10">
+                                        <h2 class="black">
+                                            <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                            @if(isset(Auth::User()->id))
+                                                {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                                                    {{Form::hidden('user_id',$owner->id)}}
+                                                    {{Form::hidden('subscriber_id', Auth::User()->id)}}
+                                                    @if(!$ifAlreadySubscribe)
+                                                        {{Form::hidden('status','subscribeOn')}}
+                                                        {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                    @else
+                                                        {{Form::hidden('status','subscribeOff')}}
+                                                        {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                    @endif
+                                                {{Form::close()}}
+                                            @else
+                                                {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
+                                            @endif
 
-                                               </p>
-                                           </div>
-                                       </div><!--./col-md-11-->
+                                            </span>
+                                        </h2> 
+                                        <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
+                                        <div class="seeVideoContent">
+                                            <p>
+                                               {{$videos->description}}
+
+                                           </p>
+                                       </div>
+                                    </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
                                <div class="seeMore">
@@ -271,7 +274,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 </a>
                             </li>
                         @endif
-                        @endforeach
+                    @endforeach
                 </ul><!--video list-->
 
                     

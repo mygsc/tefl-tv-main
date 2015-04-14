@@ -16,8 +16,8 @@
 	{{HTML::style('css/vid.player.css')}}
 	{{HTML::style('css/sprites.css')}}
 	{{HTML::script('js/jquery.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/fullscreen.js')}}
+	{{HTML::script('js/video-player/media.player.js')}}
+	{{HTML::script('js/video-player/fullscreen.js')}}
 </head>
 <body>
 <div class="col-md-12">

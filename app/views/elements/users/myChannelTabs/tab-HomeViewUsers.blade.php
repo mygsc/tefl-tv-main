@@ -46,8 +46,6 @@
 				<span class=""><!--/counts and share link-->
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
-
-
 				<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -59,7 +57,6 @@
                 </span><!--/.dropdown-menu pull-right White-->
             </span><!--/.dropdown share-->
 			</span><!--/counts and share link-->
-
 			@endif
 		</div><!--/.col-md-6-->
 	</div>

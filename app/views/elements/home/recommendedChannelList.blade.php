@@ -1,44 +1,41 @@
 <div class="h-title">Recommended Channels</div>
 <div class="sideLinksDiv VSthumbnails">     
+@foreach($datas as $channel)
     <li>   
-        <a href="">
-            <img src="/img/user/u5.png" class="">
+        <a href="channels/{{$channel->channel_name}}">
+            @if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
+                {{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user mg-l-10'))}}
+            @else
+                {{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user mg-l-10'))}}
+            @endif
             <br>
-            <span>Leah Smith<br>
-            <small>32k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
+            <span>{{$channel->channel_name}}<br>
+            <small>{{count($channel->subscribers)}} Subscriber(s)</small>
+            <!-- <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button> -->
+            @if(isset(Auth::User()->id))
+                @if(isset($channel->id))
+                    @if((Auth::User()->id) AND (Auth::User()->id != $channel->id))
+                        <?php
+                            $ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $channel->id, 'subscriber_id' => Auth::User()->id))->first();
+                        ?>
+                        {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                            {{Form::hidden('user_id', $channel->id)}}
+                            {{Form::hidden('subscriber_id', Auth::User()->id)}}
+                            @if(!$ifAlreadySubscribe)
+                                {{Form::hidden('status','subscribeOn')}}
+                                {{Form::submit('Subscribe', array('class'=> 'bbtn btn-primary btn-xs pull-right mg-r-10', 'id'=>'subscribebutton'))}}
+                            @else
+                                {{Form::hidden('status','subscribeOff')}}
+                                {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right mg-r-10', 'id'=>'subscribebutton'))}}
+                            @endif
+                        {{Form::close()}}
+                    @endif
+                @endif
+            @endif
             </span>
         </a>
     </li><!--/first recommended channel-->
-    <li>   
-        <a href="">
-           <img src="/img/user/u6.png">
-            <br>
-            <span>Marc Scott<br>
-            <small>2k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
-            </span>
-        </a>
-    </li>
-    <li>   
-        <a href="">
-            <img src="/img/user/u8.png">
-            <br>
-            <span>Janet Watson<br>
-            <small>13k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
-            </span>
-        </a>
-    </li>
-    <li>   
-        <a href="">
-            <img src="/img/user/u14.png">
-            <br>
-            <span>Jayson Meyer<br>
-            <small>8 500 Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
-        </a>
-    </li>
+@endforeach
     <div class="text-center">
        {{ link_to_route('homes.top-channels', 'see more..', null) }}
     </div> 

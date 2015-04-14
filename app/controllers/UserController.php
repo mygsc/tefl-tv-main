@@ -224,6 +224,8 @@ class UserController extends BaseController {
 			$increment = 0;
 			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = 1 ORDER BY created_at DESC LIMIT 1');
 
+
+
 			return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
 	}
@@ -976,9 +978,8 @@ class UserController extends BaseController {
 			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
-
 				//Notification
-					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+					// $this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
