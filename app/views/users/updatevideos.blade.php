@@ -167,12 +167,7 @@ margin: 10px;
 										No tags available.
 									@else
 										@foreach($tags as $key=>$tag)
-											<div style="	
-												background-color:#1f3359;
-												padding: 10px 5px;
-												color: #fff;
-												margin-bottom:5px;
-												display: inline-block;" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
+											<div class="span-tags" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
 											</div>
 										@endforeach
 									@endif
