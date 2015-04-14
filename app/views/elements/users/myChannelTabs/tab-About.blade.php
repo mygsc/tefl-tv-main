@@ -21,9 +21,9 @@
 			<div class="well2">
 				<table class="tableLayout">
 					<tr class="">
-						<td class="w-20per"><small><label>Name</label></small> </td>
-						<td class="w-5er"><b>:</b></td>
-						<td class="w-75per">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+						<td width="20%"><small><label>Name</label></small> </td>
+						<td width="5%"><b>:</b></td>
+						<td width="75%">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
 					</tr>
 					<tr>
 						@if(empty($usersChannel->birthdate))
@@ -64,9 +64,9 @@
 						@if(empty(Auth::User()->email))
 
 						@else
-							<td class="w-20per"><small><label>Email</label></small> </td>
-							<td class="w-5per"><b>:</b></td>
-							<td class="w-75per">{{Auth::User()->email}}</td>
+							<td width="20%"><small><label>Email</label></small> </td>
+							<td width="5%"><b>:</b></td>
+							<td width="75%">{{Auth::User()->email}}</td>
 						@endif
 					</tr>
 					<tr>
@@ -107,9 +107,9 @@
 						@if(empty($usersChannel->address))
 
 						@else
-							<td class="w-20per"><small><label>Address</label></small></td>
-							<td class="w-5per"><b>:</b></td>
-							<td class="w-75per">{{$usersChannel->address}}</td>
+							<td width="20%"><small><label>Address</label></small></td>
+							<td width="5%"><b>:</b></td>
+							<td width="75%">{{$usersChannel->address}}</td>
 						@endif
 					</tr>
 					<tr>

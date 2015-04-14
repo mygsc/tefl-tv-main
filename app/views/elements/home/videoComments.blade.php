@@ -158,4 +158,5 @@
 </div>
 
 {{HTML::script('js/jquery.js')}}
+{{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/showHideToggle.js')}}

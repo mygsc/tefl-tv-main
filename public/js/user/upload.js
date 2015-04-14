@@ -10,10 +10,10 @@ $(document).ready(function(){
                 $('#progress').fadeOut('fast');
                 return $('#percentage').html('Error: File size is too big.').css({'color':'#cc3510'});
             }
-            if(file == ''){
-                $('#progress').fadeOut('fast');
-                return $('#percentage').html('Error: No selected file.').css({'color':'#cc3510'}); 
-            }
+            // if(file == ''){
+            //     $('#progress').fadeOut('fast');
+            //     return $('#percentage').html('Error: No selected file.').css({'color':'#cc3510'}); 
+            // }
             if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv") {
                 $(this).closest("#vidSubmit").submit();
                 $('.file-upload').fadeOut();

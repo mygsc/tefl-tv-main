@@ -1,8 +1,5 @@
 $(document).ready(function() {
 	$('.watch').click(function() {
-
-		//alert($(this).find('#user_id').val());
-		//alert($($(this).find('#video_id')).val());
 		$(this).find('.caption').slideDown(250);
 
 		$.ajax({

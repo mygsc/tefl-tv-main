@@ -1,5 +1,6 @@
-$(document).ready(function() {
-	$('#userReply').click(function() {
-		$('#replyBox').toggle();
-	});
+$(document).ready(function(){
+	var id = this.id;
+    $(".userReply").click(function(){
+      	$('.replybox').slideToggle('slow');
+    });    
 });

@@ -570,23 +570,32 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
-		$subscribers = User::find(Auth::User()->id)->subscribe;
+		
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$subscribers = Subscribe::where('user_id', Auth::User()->id)->get();
 
-		foreach ($subscribers as $subscriber) {
-			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
-		}
 
-		$subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
+		// foreach ($subscribers as $subscriber) {
+		// 	$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
+		// 	$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
+		// }
 
-		foreach($subscriptions as $subscription) {
-			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-		}
+		// $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
+
+		// foreach($subscriptions as $subscription) {
+		// 	$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
+		// }
+
+		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
+				AS numberOfSubscribers FROM subscribes AS s 
+				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.Auth::User()->id.'"');
+
+		$subscriptionProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
+			AS numberOfSubscribers from subscribes AS s 
+			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.Auth::User()->id.'"');
+
 		return View::make('users.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture'));
 	}
 
@@ -684,7 +693,7 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
+		$userFeedbacks = DB::table('users')->join('feedbacks', 'users.id', '=', 'feedbacks.user_id')->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
@@ -780,23 +789,19 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
 		$usersVideos = User::find($userChannel->id)->video;
-		$subscribers = User::find($userChannel->id)->subscribe;
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id',$userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$subscribers = Subscribe::where('user_id', $userChannel->id)->get();
 
-		foreach ($subscribers as $subscriber) {
-			$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-			$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
-		}
-
-		$subscriptions = Subscribe::where('subscriber_id', $userChannel->id)->get();
-
-		foreach($subscriptions as $subscription) {
-			$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-		}
+		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
+				AS numberOfSubscribers FROM subscribes AS s 
+				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$userChannel->id.'"');
+		
+		$subscriptionProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
+			AS numberOfSubscribers from subscribes AS s 
+			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"');
+		
 		return View::make('users.subscribers2', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
 	}
 
@@ -939,12 +944,15 @@ class UserController extends BaseController {
 	}
 
 	public function getNotification(){
-		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-		if($this->Notification->getTimePosted($notifications) === false){
-			app::abort(404, 'Error');
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
+			if($this->Notification->getTimePosted($notifications) === false){
+				app::abort(404, 'Error');
+			}
+			$notifications = $this->Notification->getTimePosted($notifications);
+			return View::make('users.notifications', compact('notifications'));
 		}
-		$notifications = $this->Notification->getTimePosted($notifications);
-		return View::make('users.notifications', compact('notifications'));
+		app::abort(404, 'Internal Server Error please contact Kevin');	
 	}
 
 	public function postLoadNotification(){

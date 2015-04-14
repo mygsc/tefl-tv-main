@@ -6,7 +6,7 @@
             <br>
             <span>Leah Smith<br>
             <small>32k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
             </span>
         </a>
     </li><!--/first recommended channel-->
@@ -16,7 +16,7 @@
             <br>
             <span>Marc Scott<br>
             <small>2k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
             </span>
         </a>
     </li>
@@ -26,7 +26,7 @@
             <br>
             <span>Janet Watson<br>
             <small>13k Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
             </span>
         </a>
     </li>
@@ -36,7 +36,7 @@
             <br>
             <span>Jayson Meyer<br>
             <small>8 500 Subscribers</small>
-            <button class="btn btn-primary btn-xs pull-right">Subscribe</button>
+            <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button>
         </a>
     </li>
     <div class="text-center">

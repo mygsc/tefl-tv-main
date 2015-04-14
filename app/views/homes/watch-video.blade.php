@@ -145,14 +145,14 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v= {{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v= {{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                   <!-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
+                                                   {{-- <a href="#"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> 
                                                     <a href="#"><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a href="#"><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>-->
                                                     <!--<a href=""><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-flickr" title="Share on Google+"></i></a>
                                                     <a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>
-                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>-->
+                                                    <a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>--}}
 
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
@@ -239,10 +239,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 </div>
                 <!-- COMMENTS AREA -->
 
-                
-               
-
                 <!-- latest -->
+                @include('elements/home/uploaderLatestVideo')
             </div><!--column 8-->
 
 
@@ -278,6 +276,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                     
                     @include('elements/home/carouselAds')
+                    @include('elements/home/recommendedChannelList')
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
