@@ -559,8 +559,9 @@ $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
 
-// $('#media-video').bind('mouseleave', function(){
-// 	$('#controls').fadeOut();
+// $('#media-video').bind('mouseover', function(){
+// 	$('#controls').fadeIn('fast');
+// 	$('#controls').fadeIn();
 // });
 // $('#media-video,#controls').bind('mouseover', function(){
 // 	$('#controls').fadeIn();
