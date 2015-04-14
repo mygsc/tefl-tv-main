@@ -175,7 +175,7 @@
 				</div>
 					
 				<div class="count">
-					{{$playlist->updated_at}}
+					{{date('M m, Y h:i A',strtotime($playlist->updated_at))}}
 				</div>
 			</div>
 			@endforeach
