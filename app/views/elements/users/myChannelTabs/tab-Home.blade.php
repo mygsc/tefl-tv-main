@@ -113,7 +113,7 @@
 						</div>
 					</a>
 					<div class="count">
-	
+							{{$usersVideo->views}} Views | {{$usersVideo->numberOfLikes}} Likes
 					</div>
 				</div>
 				@endforeach
