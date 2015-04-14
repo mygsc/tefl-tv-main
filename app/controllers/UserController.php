@@ -392,16 +392,16 @@ class UserController extends BaseController {
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg'); 
 				}
-				$resizeImage = Image::make($poster->getRealPath())->fit(1280,720)->save($destinationPath.$fileName.'.jpg');
+				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
 			$id = Crypt::decrypt($id);
 			$video = Video::find($id);
 			$video->title = $input['title'];
-			$video->description = Input::get('description');
-			$video->publish = Input::get('publish');
-			if(Input::get('new_tags') != null){
+			$video->description = $input['description'];
+			$video->publish = $input['publish'];
+			if($input['new_tags'] != null){
 				$video_tag = Video::where('id',$id)->first()->toArray();
-				$new_tags = explode(',',Input::get('new_tags'));
+				$new_tags = explode(',',$input['new_tags']);
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
 						$tag_result[] = strtolower($new_tag);

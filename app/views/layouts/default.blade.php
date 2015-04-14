@@ -27,7 +27,7 @@
 </body>
 
 <!-- scripts -->
-{{HTML::script('js/jquery.js')}}
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
