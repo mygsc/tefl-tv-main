@@ -161,7 +161,6 @@ class UserController extends BaseController {
 		   	}
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
-
 		}
 		return View::make('homes.topchannels', compact(array('datas')));
 	}
@@ -964,10 +963,10 @@ class UserController extends BaseController {
 		return $notifications;
 	}
 
-	public function postCountNotification(){
+	public function countNotifcation(){
 		$user_id = Crypt::decrypt(Input::get('uid'));
 		$notifications =  $this->Notification->getNotifications($user_id, 0);
-		return $notifications;
+		return Response::json($notifications);
 	}
 
 	public function postFeedbacks() {
