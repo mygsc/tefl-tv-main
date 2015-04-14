@@ -70,7 +70,7 @@
 								
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true))}}
+									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true, 'placeholder' => 'Title'))}}
 									@if ($errors->has('title'))
 										<small style="color:red">{{$errors->first('title')}}</small>
 									@endif
@@ -94,39 +94,67 @@
 									@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
 									@endif
-								{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
-								<label for='instruct'>Instructional</label>
-								{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
-								<label for='vid-blog'>Video Blog</label>
-								{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
-								<label for='vid-cv'>Video CV</label>
-								{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
-								<label for='job-ad'>Job AD</label>
-								{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
-								<label for='music'>Music</label>
-								{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
-								<label for='music-vid'>Music Video</label>
-								{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
-								<label for='anim-vid'>Animated Video</label>
-								{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
-								<label for='anim-music-vid'>Animated Music Video</label>
-								{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
-								<label for='qa'>Question and Answer</label>
-								{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
-								<label for='advice'>Advice</label>
-								{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
-								<label for='podcast'>Podcast</label>
-								{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
-								<label for='interviews'>Interviews</label>
-								{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
-								<label for='documentaries'>Documentaries</label>
-								{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
-								<label for='miscellaneous'>Miscellaneous</label>
-								{{Form::hidden('encrypt',$video->file_name,array('id'=>'encrypt'))}}
-								{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
-								{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
-								{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
-								{{--Form::hidden('tokenId')--}}
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
+									<label for='instruct'>Instructional</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+									<label for='vid-blog'>Video Blog</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+									<label for='vid-cv'>Video CV</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+									<label for='job-ad'>Job AD</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+									<label for='music'>Music</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
+									<label for='music-vid'>Music Video</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+									<label for='anim-vid'>Animated Video</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+									<label for='anim-music-vid'>Animated Music Video</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+									<label for='qa'>Question and Answer</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+									<label for='advice'>Advice</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+									<label for='podcast'>Podcast</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+									<label for='interviews'>Interviews</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+									<label for='documentaries'>Documentaries</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+									<label for='miscellaneous'>Miscellaneous</label>
+								</span>
+									{{Form::hidden('encrypt',$video->file_name,array('id'=>'encrypt'))}}
+									{{Form::hidden('encrypt2',Crypt::encrypt($video->user_id),array('id'=>'encrypt2'))}}
+									{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
+									{{Form::hidden('totalTime', 0, array('id'=>'total-time'))}}
+									{{--Form::hidden('tokenId')--}}
 							</div>
 							<div class="text-right">
 							<br>
