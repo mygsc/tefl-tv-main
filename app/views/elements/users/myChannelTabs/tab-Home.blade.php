@@ -97,14 +97,14 @@
 				<div class="col-md-4 col-sm-6">
 					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 						@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-									<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
-									</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif
+							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
+							</video>
+						@else
+							{{HTML::image('img/thumbnails/video.png')}}
+						@endif
 					</a>
 					
 					<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
@@ -256,15 +256,14 @@
 					@foreach($subscriptionProfile as $profile1)
 						<div class="col-md-6">
 							<div class="row user-padding">
-							
 								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
 									@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-			             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			          	@else
-			            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			            @endif
-								&nbsp;
-								<span><b>{{$profile1->channel_name}}</b></span>
+						             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						          	@else
+						            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						            @endif
+									&nbsp;
+									<span><b>{{$profile1->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;
 								<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
