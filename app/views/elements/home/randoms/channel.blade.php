@@ -28,7 +28,7 @@
 								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 								@else
 								{{Form::hidden('status','subscribeOff')}}
-								{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+								{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
 								@endif
 							{{Form::close()}}
 							@endif

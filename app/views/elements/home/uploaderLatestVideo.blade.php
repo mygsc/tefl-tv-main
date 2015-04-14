@@ -13,7 +13,9 @@
 
                         <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small>
+                        <div class="count">
+                         <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
+                        </div>
     
                     </a>
                 </a>
@@ -27,7 +29,9 @@
 
                         <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small>
+                        <div class="count">
+                            <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
+                        </div>
     
                     </a>
                 </a>
@@ -41,7 +45,9 @@
 
                         <h4>title</h4>
                         <small>Learn a language Online & On the Go with Mark Scott. Free Demo! </small><br/>
-                        <small class=""><b>121 Views | 50 Likes</b></small>
+                        <div class="count">
+                            <i class="fa fa-eye"></i> 12 | <i class="fa fa-thumbs-up"></i> 12 | <i class="fa fa-calendar"></i> date
+                        </div>
     
                     </a>
                 </a>

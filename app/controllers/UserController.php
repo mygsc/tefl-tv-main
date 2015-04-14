@@ -944,12 +944,15 @@ class UserController extends BaseController {
 	}
 
 	public function getNotification(){
-		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-		if($this->Notification->getTimePosted($notifications) === false){
-			app::abort(404, 'Error');
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
+			if($this->Notification->getTimePosted($notifications) === false){
+				app::abort(404, 'Error');
+			}
+			$notifications = $this->Notification->getTimePosted($notifications);
+			return View::make('users.notifications', compact('notifications'));
 		}
-		$notifications = $this->Notification->getTimePosted($notifications);
-		return View::make('users.notifications', compact('notifications'));
+		app::abort(404, 'Internal Server Error please contact Kevin');	
 	}
 
 	public function postLoadNotification(){
