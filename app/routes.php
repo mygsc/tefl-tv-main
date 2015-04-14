@@ -92,7 +92,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
-	Route::post('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@postCountNotification'));
+	Route::get('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@countNotifcation'));
 	Route::get('videoplaylist/{id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
 	Route::get('edit/{id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
 	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
@@ -109,13 +109,16 @@ Route::group(array('prefix' => 'mychannels'), function() {
 
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 Route::get('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'view.users.feedbacks2', 'uses' => 'UserController@getViewUsersFeedbacks'));
-Route::post('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersComments'));
+Route::post('channels/post/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersFeedbacks'));
 Route::get('channels/{channel_name}/videos', array('before' => 'auth.channels', 'as' => 'view.users.videos2', 'uses' => 'UserController@getViewUsersVideos'));
 Route::get('channels/{channel_name}/favorites', array('before' => 'auth.channels', 'as' => 'view.users.favorites2', 'uses' => 'UserController@getViewUsersFavorites'));
 Route::get('channels/{channel_name}/watchlater', array('before' => 'auth.channels', 'as' => 'view.users.watchLater2', 'uses' => 'UserController@getViewUsersWatchLater'));
 Route::get('channels/{channel_name}/about', array('before' => 'auth.channels', 'as' => 'view.users.about2', 'uses' => 'UserController@getViewUsersAbout'));
 Route::get('channels/{channel_name}/playlists', array('before' => 'auth.channels', 'as' => 'view.users.playlists2', 'uses' => 'UserController@getViewUsersPlaylists'));
 Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channels', 'as' => 'view.users.subscribers2', 'uses' => 'UserController@getViewUsersSubscribers'));
+Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
+Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
+Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));

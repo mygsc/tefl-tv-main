@@ -375,7 +375,10 @@ class HomeController extends BaseController {
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
-		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id, 'subscriber_id' => Auth::User()->id))->first();
+		$ifAlreadySubscribe = 0;
+		if(isset(Auth::User()->id)) {
+			$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id,'subscriber_id' => Auth::User()->id))->first();
+		}
 		//r3mmel
 
 		$datas = $this->User->getTopChannels(4);

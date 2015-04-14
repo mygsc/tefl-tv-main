@@ -118,7 +118,7 @@ class Notification extends Eloquent {
 			}elseif(isset($limit)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
-				->OrderBy('created_at', 'DESC')
+				->OrderBy('created_at', 'ASC')
 				->take($limit)
 				->get();
 			}else{
@@ -131,7 +131,7 @@ class Notification extends Eloquent {
 				$fileName = $user->user_id. '.jpg';
 				$path = 'img/user/'.$fileName; 
 				if(!file_exists(public_path($path))){
-					$path = '/img/user/0.png';
+					$path = '/img/user/0.jpg';
 				}
 
 				$result[$key]->profile_picture = $path;

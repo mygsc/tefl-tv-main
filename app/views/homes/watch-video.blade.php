@@ -182,17 +182,26 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="row">
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/{{$owner->id}}.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/{{$owner->id}}.jpg" class="user">
+                                            </div>
                                         </div>
                                     @else
                                         <div class="col-md-1 col-sm-2">
-                                            <img src="/img/user/0.jpg" class="">
+                                            <div class="row text-right">
+                                                <img src="/img/user/0.jpg" class="user  ">
+                                            </div>
                                         </div>
                                     @endif
                                     <div class="col-md-11 col-sm-10">
                                         <h2 class="black">
+<<<<<<< HEAD
                                             <span><a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                             @if(Auth::User()->id)
+=======
+                                            <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                            @if(isset(Auth::User()->id))
+>>>>>>> 0f8650b3aeba8f99da7857e2fd7f01e309e1d651
                                                 {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
                                                     {{Form::hidden('user_id',$owner->id)}}
                                                     {{Form::hidden('subscriber_id', Auth::User()->id)}}
@@ -270,7 +279,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 </a>
                             </li>
                         @endif
-                        @endforeach
+                    @endforeach
                 </ul><!--video list-->
 
                     
