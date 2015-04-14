@@ -28,7 +28,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('form#video-addReply').on('submit', function(e){
+	$('form#addReplyFeedback').on('submit', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
 		$.ajax({

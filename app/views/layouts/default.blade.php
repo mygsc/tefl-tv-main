@@ -35,8 +35,6 @@
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/reply.js')}}
-
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 

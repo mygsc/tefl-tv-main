@@ -45,7 +45,7 @@
 				<br/>
 				<span class=""><!--/counts and share link-->
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
 
 
 				<span class="dropdown">
@@ -160,7 +160,12 @@
 				<div class="col-md-6">
 					<div class="row user-padding">
 						<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
-						<img src="/img/user/u1.png" class="userRep2">&nbsp;
+							@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
+			        	{{HTML::image('img/user/'.$subscriber->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			        @else
+			        	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			        @endif
+						&nbsp;
 						<span><b>{{$subscriber->channel_name}}</b></span>
 						</a>&nbsp;
 						<br/>&nbsp;
@@ -209,7 +214,12 @@
 						<div class="col-md-6">
 							<div class="row user-padding">
 								<a href="{{route('view.users.channel', $subscription->channel_name)}}">
-								<img src="/img/user/u1.png" class="userRep2">&nbsp;
+									@if(file_exists(public_path('img/user/'.$subscription->user_id.'.jpg')))
+			             	{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			          	@else
+			            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            @endif
+								&nbsp;
 								<span><b>{{$subscription->channel_name}}</b></span>
 								</a>&nbsp;
 								<br/>&nbsp;

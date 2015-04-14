@@ -3,15 +3,12 @@
 				<div class="row">
 					<div class="div-coverDp">
 						<div class="uploaded_img pic-Dp">
-
-
-						 				@if(file_exists($picture))
-		                {{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-		                @else
-		                {{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
-		                @endif
-		                <button data-target="#display_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
-		               </div>
+			 				@if(file_exists($picture))
+	         			{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('class' => 'pic-Dp'))}}
+	            @else
+	          	  {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'pic-Dp'))}}
+	            @endif
+		        </div>
 
 						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
 							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
