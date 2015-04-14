@@ -41,11 +41,11 @@
                 <div class="row">
                 	<div class="col-md-7">
 	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
-	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-recatangle.jpg" class="adDiv"></a>
+	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
 	                    </div><!--/.ad1-->
                     
 	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-recatangle.jpg" class="adDiv"></a>
+	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
 	                   </div><!--/.ad2-->
 
                    </div>

@@ -476,7 +476,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     }
     public static function getBootstrapFile()
     {
-        return 'C:\\xampp\\htdocs\\tefl-tv-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
+        return 'D:\\xampp\\htdocs\\tefl-tv-main\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
