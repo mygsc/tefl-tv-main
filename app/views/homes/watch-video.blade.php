@@ -196,7 +196,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="col-md-11 col-sm-10">
                                         <h2 class="black">
                                             <span>{{ucfirst($owner->channel_name)}} <small>{{count($countSubscribers)}} Subscriber(s)</small>
-                                            @if(Auth::User()->id)
+                                            @if(isset(Auth::User()->id))
                                                 {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
                                                     {{Form::hidden('user_id',$owner->id)}}
                                                     {{Form::hidden('subscriber_id', Auth::User()->id)}}
