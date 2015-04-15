@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row White">
+<div class="row">
 	<div class="container page">
 		<br/>
 		<div class="row">
