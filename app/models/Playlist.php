@@ -3,7 +3,7 @@
 class Playlist extends Eloquent {
 	use SoftDeletingTrait;
 	protected $table = 'playlists';
-	protected $fillable = ['user_id','name','description','privacy'];
+	protected $fillable = ['user_id','name','description','privacy','randID'];
 	protected $softDelete = true;
 
 	public function getRandomPlaylist(){

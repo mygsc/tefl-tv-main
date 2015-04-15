@@ -120,7 +120,7 @@
                                     @endif
                                         <div class="col-md-11">
                                             <h2 class="black">
-                                                <span>{{$owner->channel_name}}<small> {{count($countSubscribers)}} Subscriber(s)</small>
+                                                <span>{{$owner->channel_name}}<small> {{count($countSubscribers)}} Subscriber(s)    </small>
                                                     <a class="btn btn-primary btn-sm pull-right"><span style="color:#fff!Important;font-family:Arial;">Subscribe</span></a>
                                                 </span>
                                             </h2> 
@@ -154,7 +154,7 @@
                     <a href="#"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
                 @else
                     @foreach($previousA as $prev)
-                            <a href="/watchplaylist={{$prev->file_name}}/{{Crypt::encrypt($prev->playlist_id)}}"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
+                            <a href="/watchplaylist={{$prev->file_name}}/{{$prev->randID}}"><span class="pull-left" style="font-size:1.4em;"><i class="fa fa-chevron-circle-left"></i></span></a>
                     @endforeach
                 @endif
 
@@ -162,7 +162,7 @@
                      <a href="#"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
                 @else
                     @foreach($nextA as $next)
-                       <a href="/watchplaylist={{$next->file_name}}/{{Crypt::encrypt($next->playlist_id)}}"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
+                       <a href="/watchplaylist={{$next->file_name}}/{{$next->randID}}"><span class="pull-right" style="font-size:1.4em;"><i class="fa fa-chevron-circle-right"></i></span></a>
                     @endforeach
                 @endif
                     </div>

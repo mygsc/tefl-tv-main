@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	function create(){
 		$('#create-playlist-button').click(function(e){
-			var text1 = $('#text1').val()
+			var text1 = $('#text1').val();
 			var name = $('#create-playlist-text').val();
 			var description = "Untitled";
 			var privacy = "0";
@@ -11,7 +11,7 @@ $(document).ready(function(){
 				$('#create-playlist-text').focus();
 			}else{
 			$.post('/mychannels/createPlaylist/'+text1, {name:name,description:description,privacy:privacy},function(data){
-				 $('#create-playlist-text').val("")
+				 $('#create-playlist-text').val("");
 					loader();
 				});
 			}
@@ -119,7 +119,6 @@ $(document).ready(function(){
 					$('#playlist-div-create').remove();
 				}
 			}, 2000)
-				create();
 				removeToplaylist();
 				editTitle();
 				editDesc();
