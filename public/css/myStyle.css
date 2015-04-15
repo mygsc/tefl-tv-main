@@ -780,7 +780,11 @@ img.user{
   color:#fff!important;
 }
 .orangeC{
-  color:#FFC600!important;
+  color:#ff8a00!important;
+}
+.italic{
+  font-style: italic!important;
+
 }
 .btn-upload{
   color:#fff!important;
@@ -1098,6 +1102,7 @@ span.commentLink{
   margin-top:0;
   overflow-y:auto;
   overflow-x:hidden;
+  color: #fff;
 }
 
 .btn-sq{

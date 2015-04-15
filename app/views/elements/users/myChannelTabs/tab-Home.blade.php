@@ -113,7 +113,7 @@
 						</div>
 					</a>
 					<div class="count">
-	
+							{{$usersVideo->views}} Views | {{$usersVideo->numberOfLikes}} Likes
 					</div>
 				</div>
 				@endforeach
@@ -195,12 +195,12 @@
 
 			</div>
 			<br/><br/>
-			<div class="row">
+			<div class="row-same-height">
 			@if(empty($subscriberProfile))
 				<p class="text-center">No subscribers yet.</p>
 			@else
 				@foreach($subscriberProfile as $profile)
-					<div class="col-md-6" >
+					<div class="col-md-6 col-lg-height col-md-height" >
 						<div class="row user-padding" id="subscriberLists">
 
 							<a href="{{route('view.users.channel', $profile->channel_name)}}">
@@ -209,11 +209,11 @@
 						            @else
 						             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 						            @endif
-						            	&nbsp;
-									<span><b>{{$profile->channel_name}}</b></span>
-							</a>&nbsp;
-							<br/>&nbsp;
-							<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+						            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
+							</a>
+							<br/>
+							&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
+							Subscribers</span>&nbsp;
 
 							@if(isset(Auth::User()->id))
 								<?php
@@ -244,7 +244,7 @@
 	</div><!--/.3rd column 6 Subscribers-->
 
 	<!--Subscriptions-->
-	<div class="col-md-6">
+	<div class="col-md-6 col-lg-height col-md-height">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;

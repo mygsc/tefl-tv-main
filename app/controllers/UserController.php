@@ -391,16 +391,16 @@ class UserController extends BaseController {
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg'); 
 				}
-				$resizeImage = Image::make($poster->getRealPath())->fit(1280,720)->save($destinationPath.$fileName.'.jpg');
+				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
 			$id = Crypt::decrypt($id);
 			$video = Video::find($id);
 			$video->title = $input['title'];
-			$video->description = Input::get('description');
-			$video->publish = Input::get('publish');
-			if(Input::get('new_tags') != null){
+			$video->description = $input['description'];
+			$video->publish = $input['publish'];
+			if($input['new_tags'] != null){
 				$video_tag = Video::where('id',$id)->first()->toArray();
-				$new_tags = explode(',',Input::get('new_tags'));
+				$new_tags = explode(',',$input['new_tags']);
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
 						$tag_result[] = strtolower($new_tag);
@@ -576,18 +576,6 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-
-
-		// foreach ($subscribers as $subscriber) {
-		// 	$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-		// 	$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
-		// }
-
-		// $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
-
-		// foreach($subscriptions as $subscription) {
-		// 	$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-		// }
 
 		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 				AS numberOfSubscribers FROM subscribes AS s 
@@ -860,7 +848,7 @@ class UserController extends BaseController {
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
 		} elseif($statuss == 'undisliked'){
-			DB::table('feedbacks_likesdislikes')->where(array('comment_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}

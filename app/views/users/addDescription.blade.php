@@ -1,10 +1,10 @@
 @extends('layouts.default')
 @section('css')
-		{{HTML::style('css/vid.player.css')}}
+	{{HTML::style('css/vid.player.min.css')}}
 @stop
 @section('some_script')
-{{HTML::script('js/user/upload-add-description.js')}}
-{{HTML::script('js/video-player/media.player.upload.js')}}
+	{{HTML::script('js/user/upload-add-description.js')}}
+	{{HTML::script('js/video-player/media.player.upload.min.js')}}
 @stop
 @section('content')
 <div class="row White">

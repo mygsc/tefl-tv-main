@@ -1,6 +1,6 @@
 
 
-		<div class="White Div-channel-border">
+		<div class="Blue Div-channel-border">
 
 			<div class="col-md-12">
 				<div class="row">
@@ -71,9 +71,9 @@
 				@else
 					<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 					<br/><br/>
-					<p class="text-justify notes center-block">
+					<p class="orangeC center-block italic text-center">
 					
-					"{{ Str::limit($usersChannel->interests, 200) }}" 
+					{{ Str::limit($usersChannel->interests, 200) }}
 					@endif
 					</p>
 			</div>

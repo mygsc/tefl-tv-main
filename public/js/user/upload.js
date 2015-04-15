@@ -14,7 +14,7 @@ $(document).ready(function(){
             //     $('#progress').fadeOut('fast');
             //     return $('#percentage').html('Error: No selected file.').css({'color':'#cc3510'}); 
             // }
-            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv") {
+            if(ext == "mp4" || ext == "webm" || ext == "ogg") {
                 $(this).closest("#vidSubmit").submit();
                 $('.file-upload').fadeOut();
                 $('#progress').fadeIn(500); 
