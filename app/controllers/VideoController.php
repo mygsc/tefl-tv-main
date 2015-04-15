@@ -29,12 +29,24 @@ class VideoController extends BaseController {
 		}
 		if($validator->passes()){
 			//insert into table
+			$ffmpeg = FFMpeg\FFMpeg::create();
+				$video = $ffmpeg->open($file);
+				$video
+				    ->filters()
+				    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+				    ->synchronize();
+				$video
+				    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+				    ->save($destinationPath.'frame.jpg');
+				$video
+				    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.'export-x264.mp4')
+				    ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.'export-wmv.wmv')
+				    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.'export-webm.webm');
+
 			$input['user_id'] = $this->Auth->id;
-			//$input['extension'] = $file->getClientOriginalExtension();
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
-			//$encrypt_name = $fileName;
 			Session::put('fileName', $fileName);
 			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 			$destinationPath = public_path('videos'.DS. $userFolderName);
@@ -112,7 +124,8 @@ class VideoController extends BaseController {
 		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->imageResize($input['poster'], 600, 339, $destinationPath.$fileName.'.jpg');
+				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'.jpg');
+				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'_sm.jpg');
 			}
 			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
 				$getImage = $input['thumbnail'];
@@ -121,7 +134,8 @@ class VideoController extends BaseController {
 				$decodeImage = base64_decode($getImage);
 				$saveImage = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($saveImage, $decodeImage);
-				$this->imageResize($saveImage, 600, 339, $destinationPath.$fileName.'.jpg');	
+				$this->imageResize($saveImage, 600, 338, $destinationPath.$fileName.'.jpg');
+				$this->imageResize($saveImage, 240, 141, $destinationPath.$fileName.'_sm.jpg');	
 
 			}		
 			$tags = explode(',',Input::get('tags'));

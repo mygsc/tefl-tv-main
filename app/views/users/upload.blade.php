@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('title')
-Upload
+	Upload
 @stop
 @section('some_script')
-{{HTML::script('js/user/upload.js')}}
-{{HTML::script('js/video-player/jquery.form.min.js')}}
+	{{HTML::script('js/user/upload.js')}}
+	{{HTML::script('js/video-player/jquery.form.min.js')}}
 @stop
 @section('content')
 <style type="text/css">
@@ -70,13 +70,7 @@ div canvas{
 							<div id="progressbar-loaded"></div> 
 					</div><br/>
 					 <label id="percentage"></label> 
-
-
-    
-
-
 					{{Form::close()}}
-
 				</div>
 			</div>
 		</div>
