@@ -113,7 +113,7 @@
 						</div>
 					</a>
 					<div class="count">
-	
+							{{$usersVideo->views}} Views | {{$usersVideo->numberOfLikes}} Likes
 					</div>
 				</div>
 				@endforeach
@@ -175,7 +175,7 @@
 				</div>
 					
 				<div class="count">
-					{{$playlist->updated_at}}
+					{{date('M m, Y h:i A',strtotime($playlist->updated_at))}}
 				</div>
 			</div>
 			@endforeach
@@ -195,24 +195,25 @@
 
 			</div>
 			<br/><br/>
-			<div class="row">
+			<div class="row-same-height">
 			@if(empty($subscriberProfile))
 				<p class="text-center">No subscribers yet.</p>
 			@else
 				@foreach($subscriberProfile as $profile)
-					<div class="col-md-6" >
+					<div class="col-md-6 col-lg-height col-md-height" >
 						<div class="row user-padding" id="subscriberLists">
 
 							<a href="{{route('view.users.channel', $profile->channel_name)}}">
 									@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-			             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			            @else
-			             	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
-			            @endif
-								<span><b>{{$profile->channel_name}}</b></span>
-							</a>&nbsp;
-							<br/>&nbsp;
-							<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+						             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
+						            @else
+						             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
+						            @endif
+						            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
+							</a>
+							<br/>
+							&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
+							Subscribers</span>&nbsp;
 
 							@if(isset(Auth::User()->id))
 								<?php
@@ -243,7 +244,7 @@
 	</div><!--/.3rd column 6 Subscribers-->
 
 	<!--Subscriptions-->
-	<div class="col-md-6">
+	<div class="col-md-6 col-lg-height col-md-height">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;
@@ -258,9 +259,9 @@
 							<div class="row user-padding">
 								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
 									@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-						             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 						          	@else
-						            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+						            	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 						            @endif
 									&nbsp;
 									<span><b>{{$profile1->channel_name}}</b></span>

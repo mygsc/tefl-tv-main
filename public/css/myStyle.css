@@ -304,6 +304,9 @@ span .ad{
 
 }
 /*===========LAYOUT FORMATTING===========*/
+.v-latestUp{
+  height: 300px!important;
+}
 .center{
   margin-left: auto!important;
   margin-right: auto!important;
@@ -748,7 +751,7 @@ img.user{
   color: #1870dc!important;
 }
 .redC{
-  color: red!important;
+  color: #ca2027!important;
 }
 .darkBlueC{
   color: #3b5a9b!important;
@@ -777,7 +780,11 @@ img.user{
   color:#fff!important;
 }
 .orangeC{
-  color:#FFC600!important;
+  color:#ff8a00!important;
+}
+.italic{
+  font-style: italic!important;
+
 }
 .btn-upload{
   color:#fff!important;
@@ -1095,6 +1102,7 @@ span.commentLink{
   margin-top:0;
   overflow-y:auto;
   overflow-x:hidden;
+  color: #fff;
 }
 
 .btn-sq{
@@ -1430,6 +1438,11 @@ Main components
   margin: auto;
   border-radius:7px 7px;
 }
+.change-Dp{
+  width: 246px;
+  height: 246px;
+  border:3px solid #ededed;
+}
 .tabs-left > .nav-tabs > li,
 .tabs-right > .nav-tabs > li {
   float: none;
@@ -1516,7 +1529,9 @@ Main components
 .w-a-well{
    min-height: 300px;
 }
-
+.mod-change-dp{
+  max-width:300px!important;
+}
 .inputError{
   color: #d40505;
   font-size: 0.9em;
@@ -2079,9 +2094,14 @@ td.w-75per{
 .mg-r-10{
   margin-right:10px;
 }
-
+.mg-l-10{
+  margin-left: 10px;
+}
 .mg-b-10{
   margin-bottom: 10px!important;
+}
+.mg-l--2{
+  margin-left: -2px!important;
 }
 .ch-link{
   font-size:1.0em!important;
@@ -2573,6 +2593,8 @@ margin: 10px;
 }
 
 }
+/*==========END of VIDEO GALLERY or Watch VIDEO STYLE=========*/
+
 /*
 TEFL TV @ GRAPHIC STUDIO CENTRAL
 

@@ -8,8 +8,9 @@
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
 		<div class="col-md-3 col-xs-6 hidden-xs">
 			<span class="v-time inline">{{$popularVideo->total_time}}</span>
-			<img class="thumbnail" src="{{$popularVideo->thumbnail}}">
-
+			<div class="thumbnail"> 
+				<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}">
+			</div>
 			<div class="v-Info">
 				<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">{{$popularVideo->title}}</a>
 			</div>

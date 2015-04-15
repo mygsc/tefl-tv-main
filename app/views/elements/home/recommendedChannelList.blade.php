@@ -4,9 +4,9 @@
     <li>   
         <a href="channels/{{$channel->channel_name}}">
             @if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
-                {{HTML::image('img/user/'. $channel->id . '.jpg', 'alt')}}
+                {{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user mg-l-10'))}}
             @else
-                {{HTML::image('/img/user/0.jpg', 'alt')}}
+                {{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user mg-l-10'))}}
             @endif
             <br>
             <span>{{$channel->channel_name}}<br>
