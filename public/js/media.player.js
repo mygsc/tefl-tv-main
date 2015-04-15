@@ -182,7 +182,7 @@ function checkVid(){
 	if(isNaN(durSec)){
 		mediaPlayer.poster = '/img/error.jpg'; 
 		$('.ctime').fadeOut('fast');
-		$('#vid-error').html('Error: Sorry source not found.').css({'color':'#fff'});		
+		$('#vid-error').html(' Error: Sorry source not found.').css({'color':'#fff'});		
 	}
 }
 
@@ -552,9 +552,8 @@ $('.close').bind('click', function(){
 	$('.advertisement').fadeOut(1000);
 });
 
-// $('#media-video').bind('mouseover', function(){
-// 	$('#controls').fadeIn('fast');
-// 	$('#controls').fadeIn();
+// $('#media-video').bind('mouseleave', function(){
+// 	$('#controls').fadeOut();
 // });
 // $('#media-video,#controls').bind('mouseover', function(){
 // 	$('#controls').fadeIn();

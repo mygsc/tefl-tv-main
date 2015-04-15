@@ -1,23 +1,22 @@
 	<!--advertisement-->
 	<div class="advertisement" style="display:none">
-			<div class="span12" style="background:rgba(0,0,0, 0.15)">
-				<div class="col-md-10 col-md-offset-1">
-					<span class="close">x</span> 
-					<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
-				</div>
+		<div class="span12" style="background:rgba(0,0,0, 0.15)">
+			<div class="col-md-10 col-md-offset-1">
+				<span class="close">x</span> 
+				<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
 			</div>
+		</div>
 	</div>
 	<!--advertisement-->
-
-	{{--<div class="video-ads">
-	<span class="close mg-r-30">x</span> 
-		<h1>Video ads</h1>
-	</div> --}}
-
-	<div class="play-icon" id ="play-icon">
+	{{-- <div class="video-ads" id="vid-annotation">
+		
+	</div> --}} 
+	{{-- <div id="vid-wrap"> --}}
+	<div class="play-icon" id="play-icon">
 		 
 	</div>
-
+	{{-- </div> --}}
+	
 	<div class="vd" style="margin-top:-7px;">
 		<div class="wrapper" id="controls">
 			<div id="progressbar">

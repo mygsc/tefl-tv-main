@@ -28,12 +28,16 @@
 </body>
 
 <!-- scripts -->
-{{HTML::script('js/jquery.js')}}
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
+@if(Auth::check())
+{{HTML::script('js/jquery.js')}}
+{{HTML::script('js/user/realtime-notification.js')}}
+@endif
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 
