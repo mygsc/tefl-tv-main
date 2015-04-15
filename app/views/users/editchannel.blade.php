@@ -7,8 +7,8 @@
       <br/>
 
       <div class="same-H row">
-         <div class="Div-channel-border">
-              <div class="well White" style="margin-bottom:0;min-height:350px;">
+         <div class="Div-channel-border ">
+              <div class="well White div-change">
                 <div class="row">
                   <div class="text-center">
                     <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
