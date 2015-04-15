@@ -3,9 +3,9 @@
 
  @section('content')
 
-<div class="row White">
-    <div class="container page">
-        <br/> <br/>
+<div class="row">
+    <div class="container pageH">
+        <br/>
         <div class="same-H">
            <div class="Div-channel-border">
                 <div class="well White div-change">
@@ -56,6 +56,7 @@
                 </div><!--/.well-->
             </div><!--/.wrapperAccount-->
         </div><!--/.col-md-12-->
+        <br/>
     </div><!--/.container row-->
 </div>
 @stop

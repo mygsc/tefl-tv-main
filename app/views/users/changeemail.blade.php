@@ -3,9 +3,9 @@
 
 @section('content')
 
-<div class="row White">
-  <div class="container page">
-      <br/> <br/>
+<div class="row">
+  <div class="container pageH">
+      <br/>
 
     <div class="col-md-row">
       <div class="same-H">
