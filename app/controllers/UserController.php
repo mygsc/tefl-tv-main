@@ -505,7 +505,8 @@ class UserController extends BaseController {
 		return View::make('users.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture'));
 	}
 	public function getViewPlaylistVideo($id){
-		$id = Crypt::decrypt($id);
+		$randID = Playlist::where('randID',$id)->first();
+		$id = $randID->id;
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
@@ -854,6 +855,20 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postDeleteFeedback() {
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$feedback_id = Input::get('feedback_id');
+
+		$deleteFeedback = DB::table('feedbacks')->delete(
+				array('channel_id' => $channelId,
+					'user_id'    => $userId,
+					'id' => $feedback_id
+					));
+
+		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
+	}
+
 	public function getViewUsersVideos($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
@@ -976,8 +991,10 @@ class UserController extends BaseController {
 			return Response::json(array('status' => 'subscribeOn','label' => 'Subscribe'));
 		}
 	}
-	public function createPlaylist($id){
+	public function createPlaylist($id,$randomNo = 11){
 		$id = Crypt::decrypt($id);
+		$playlistNo = str_random($randomNo);
+		$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
 		$name = Input::get('name');
 		$description = Input::get('description');
 		$privacy = Input::get('privacy');
@@ -985,8 +1002,13 @@ class UserController extends BaseController {
 		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
 	}
 
-	public function addPlaylist($id){
+	public function addPlaylist($id,$randomNo = 11){
 		$id = Crypt::decrypt($id);
+		$playlistNo = str_random($randomNo);
+		$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
+		if($checkPlaylistExist->count()){
+			$playlistNo = str_random($randomNo+1);
+		}
 		$name = Input::get('name');
 		$description = Input::get('description');
 		$privacy = Input::get('privacy');
@@ -1002,7 +1024,7 @@ class UserController extends BaseController {
 				PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
 			}
 		} else{
-			$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+			$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'randID'=>$playlistNo,'privacy'=>$privacy));
 			$playlistID = $createPlaylist->id;
 			PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
 		}

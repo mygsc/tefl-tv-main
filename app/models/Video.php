@@ -251,4 +251,8 @@ class Video extends Eloquent{
 		return false;
 		
 	}
+
+/*	public function randomRelation($title,$description,$tags){
+		
+	}*/
 }
