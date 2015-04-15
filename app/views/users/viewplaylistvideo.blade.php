@@ -113,7 +113,7 @@
 							@foreach($videos as $video)
 							<div class="row">	
 									<div class="col-md-2">
-										<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank">
+										<a href="/watchplaylist={{$video->file_name}}/{{$playlist->randID}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$video->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 											<img src="/videos/{{$video->user_id}}-{{$video->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg">
 										@else
