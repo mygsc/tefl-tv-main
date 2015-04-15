@@ -93,8 +93,9 @@
 					@endforeach
 				</div>
 			</div><!--/.col-md-12-->
-		<br/>
+		
 		</div><!--/.row for recommended videos-->
+		<br/>
 		<div class="row same-H">
 			<div class="categoryHead" style="width:99%!Important">
 				<h3>Popular</h3>
