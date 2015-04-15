@@ -110,9 +110,3 @@
     </div>
     <!-- /.container -->
 </nav>
-
-
-@if(Auth::check())
-{{HTML::script('js/jquery.js')}}
-{{HTML::script('js/user/realtime-notification.js')}}
-@endif
