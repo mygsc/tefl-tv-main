@@ -1,15 +1,13 @@
 @extends('layouts.default')
+@section('css')
+	{{HTML::style('css/vid.player.min.css')}}
+@stop
 @section('some_script')
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
-{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
 <script type="text/javascript">
 	$(document).ready(function() {
-		// var success = $('#uploaded').val();
-		// if(success == 1){
-		// 	$('<div id="success" style="border:1px solid green; width:400px;height:40px;display:block;color:green">New video has been uploaded successfully.</div>').appendTo('body');
-		// 	$('#success').fadeOut(20000);
-		// }
 		$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
@@ -49,7 +47,39 @@
 		              }
 		          }
 		    });
-	} );
+		$('#annotation-note').on('click',function(e){
+			e.preventDefault();
+			createAnnotation('Note:','note');    
+		});
+		$('#annotation-title').on('click',function(e){
+			e.preventDefault();
+			createAnnotation('Title:','title');     
+		});
+		$('#annotation-spotlight').on('click',function(e){
+			e.preventDefault();
+			createAnnotation('Spotlight:','spotlight');     
+		});
+		$('#annotation-label').on('click',function(e){
+			e.preventDefault();
+			createAnnotation('Label:','label');     
+		});
+
+		function createAnnotation(title,id){
+			var annotation = document.getElementById('annotation');
+			var createDiv = document.createElement('div');
+			var createSpan = document.createElement('span');
+			var createTextarea = document.createElement('textarea');        
+			var elem = document.createTextNode(title);
+			var spanContent = document.createTextNode('Delete');       
+			createDiv.appendChild(elem);
+			createSpan.appendChild(spanContent);  
+			createDiv.setAttribute('id', 'annotation-'+id);    
+			createDiv.setAttribute('style', 'width:100%;height:50px;color:#000;');
+			annotation.appendChild(createDiv); 
+			annotation.appendChild(createTextarea); 
+		}
+
+	});
 </script>
 @stop
 @section('content')
@@ -57,6 +87,29 @@
 	{{-- */$explodeID = 0;/* --}}
 	{{-- */$tagDelete = 1;/* --}}
 	{{-- */$explodeRemove = 0;/* --}}
+
+<style type="text/css" media="screen">
+	.file-upload {
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+}
+.file-upload input#poster {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}#speech-bubble{
+	position: relative;
+	top:0;
+	left:0;
+}
+</style>
 
 <div class="row">
 	<div class="container page">
@@ -125,10 +178,37 @@
 								@endif
 									<?php $publish = array('0' => 'Unpublish', '1' => 'Publish');?>
 									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+									
+
+									<div class="dropdown">
+								        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
+								        <span class="caret"></span></button>
+								        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								          <li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
+								          <li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-1" href="#">Title</a></li>
+								          <li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
+								          <li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
+								        </ul>
+								     </div>
 								@else
 									<?php $publish = array('1' => 'Publish' , '0' => 'Unpublish');?>
 									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+				
+									<div class="dropdown">
+								        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
+								        <span class="caret"></span></button>
+								        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								          <li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
+								          <li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-1" href="#">Title</a></li>
+								          <li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
+								          <li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
+								        </ul>
+								     </div>
 								@endif
+								<br>
+								<div id="annotation">
+									
+								</div>
 								<br/>
 								{{ Form::label('Title:')}}
 								@if($errors->has('title'))

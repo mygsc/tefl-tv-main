@@ -111,28 +111,27 @@
 							->where('comment_id', $getVideoComment->id)->get(); 
 					?>
 					<div id="replysection" class="panelReply">
-						
-							<?php
-							foreach($getCommentReplies as $getCommentReply):
-								if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
-									$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
-								} else{
-									$temp = 'img/user/0.jpg';
-								}
-								?>
+						<?php
+						foreach($getCommentReplies as $getCommentReply):
+							if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
+								$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
+							} else{
+								$temp = 'img/user/0.jpg';
+							}
+							?>
 
-								<div class="commentProfilePic col-md-1">
-									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+							<div class="commentProfilePic col-md-1">
+								{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+							</div>
+							<div class="col-md-11">
+								<div class="row">
+									<?php
+									echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
+									echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
+									echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
 								</div>
-								<div class="col-md-11">
-									<div class="row">
-										<?php
-										echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
-										echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
-										echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
-									</div>
-								</div>	
-							<?php endforeach;?>
+							</div>	
+						<?php endforeach;?>
 						
 									
 						@if(isset(Auth::User()->id))
