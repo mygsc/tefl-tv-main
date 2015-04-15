@@ -21,7 +21,7 @@
 @section('some_script')
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/video-player/media.player.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
@@ -194,6 +194,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     @endif
                                     <div class="col-md-11 col-sm-10">
                                         <h2 class="black">
+
                                             <span>
                                                 <a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                 @if(isset(Auth::User()->id))

@@ -108,4 +108,27 @@ $(document).ready(function(){
             }
         });
 	});
+	$('.feedbacksarea').mouseover(function(e) {
+		e.preventDefault();
+		$('.delete').show();		
+	});
+	$('.feedbacksarea').mouseout(function() {
+		$('.delete').hide();
+	});
+
+	$('form#delete_feedback').on('submit', function(e) {
+		e.preventDefault();
+				var url = $(this).prop('action');
+
+				$.ajax({
+					type: 'POST',
+					url: url,
+					cache: false,
+					context: this,
+					data: $(this).serialize(),
+					success: function(data){
+						alert(data.status);
+					}
+				});
+			});
 }); 

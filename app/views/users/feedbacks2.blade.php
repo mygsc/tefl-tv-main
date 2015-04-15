@@ -50,6 +50,16 @@
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacksarea row">
+
+				<div class="delete" style="display: none;">
+					{{Form::open(array('route' => 'post.viewusers.delete-feedback', 'id' => 'delete_feedback'))}}
+						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
+						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
+						{{Form::submit('X', array('id' => 'delete_feedback', 'class' => 'pull-right'))}}
+					{{Form::close()}}
+				</div>
+
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
 						$temp = 'img/user/'.$userFeedback->user_id . '.jpg';
@@ -189,7 +199,7 @@
 		@endforeach
 	</div>
 </div>
-
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/showHideToggle.js')}}
 {{HTML::script('js/user/reply.js')}}
 				@endif
@@ -202,11 +212,7 @@
 
 
 @section('some_script')
-	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/user/channel_comments.js')}}
 	{{HTML::script('js/mention.js')}}
-<!-- 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
-
 @stop

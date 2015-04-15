@@ -18,7 +18,7 @@
 			<div class="count">
 				by: <a href="{{route('view.users.channel', array($randomResult->channel_name))}}">{{$randomResult->channel_name}}</a>
 				<br />
-				<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($randomResult->created_at))}}
+				<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}} | {{date('F d, Y',strtotime($randomResult->created_at))}}
 			</div>
 		</a>
 	</div>
@@ -38,7 +38,7 @@
 					<div class="count">
 						by: <a href="{{route('view.users.channel', array($randomResult->channel_name))}}">{{$randomResult->channel_name}}</a>
 						<br />
-						<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}}| <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($randomResult->created_at))}}
+						<i class="fa fa-eye"></i> {{$randomResult->views}} | <i class="fa fa-thumbs-up"></i> {{$randomResult->likes}}| {{date('F d, Y',strtotime($randomResult->created_at))}}
 					</div>
 				</div>
 			</div>

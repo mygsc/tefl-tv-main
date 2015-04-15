@@ -1732,15 +1732,8 @@ div.crop-square img {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 2px;
-  -webkit-transition: border .2s ease-in-out;
-       -o-transition: border .2s ease-in-out;
-          transition: border .2s ease-in-out;
+
   overflow: hidden;
-}
-.thumbnail-2 > img,
-.thumbnail-2 a > img {
-  margin-right: auto;
-  margin-left: auto;
 }
 
 
@@ -1841,7 +1834,7 @@ a.thumbnail-h:hover{
   }
   .thumbnail-2{
   width:180!important;
-  height:101px!important;
+  height:101px;
   }
   .v-time{
       left:15px;
@@ -2562,6 +2555,21 @@ margin: 10px;
    font-size:0.8em;
    margin-top: -20px;
 }
+
+.see-m-v{
+  margin-top: -5px;
+  border-bottom: 1px #b6b6b6 solid;
+  border-right: 1px #b6b6b6 solid;
+  border-left: 1px solid #e0e7ea;
+  border-radius: 0 0 5px 5px;
+  padding: 3px 5px;
+  border-top: 1px #b6b6b9 solid;
+  background: #fff;
+
+}
+.see-m-v-a{
+  font-size: 0.8em!important;
+  }
 
 .wv-title{
   font-size: 2.0em;
