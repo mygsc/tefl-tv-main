@@ -564,7 +564,8 @@ class HomeController extends BaseController {
 						</div>
 						|&nbsp;
 						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
-						<div id="replysection" class="panelReply" style="display:block;"> '.
+
+						<div id="replysection" class="panelReply"> '.
 							Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
 								<input type="hidden" name="comment_id" value="'.$comments->id.'">
 								<input type="hidden" name="user_id" value="'.$userInfo->id.'">
