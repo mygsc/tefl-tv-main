@@ -4,6 +4,7 @@
 	Upload
 @stop
 @section('some_script')
+	{{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/user/upload.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
 @stop

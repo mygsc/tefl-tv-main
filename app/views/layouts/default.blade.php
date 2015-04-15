@@ -17,6 +17,7 @@
 	@yield('css')
 </head>
 <body>
+		
 		@include('elements/header')
 		@include('elements/home/headerNav')
 		@include('elements/flash_message')
@@ -33,6 +34,9 @@
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
+@if(Auth::check())
+{{HTML::script('js/user/realtime-notification.js')}}
+@endif
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 

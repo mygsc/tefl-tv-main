@@ -1,4 +1,4 @@
-<div class="h-title">Recommended Channels</div>
+<!-- <div class="h-title">Recommended Channels</div>
 <div class="sideLinksDiv VSthumbnails">     
 @foreach($datas as $channel)
     <li>   
@@ -40,3 +40,4 @@
        {{ link_to_route('homes.top-channels', 'see more..', null) }}
     </div> 
 </div><!--/.sideLinksDiv VSthumbnails-->
+ -->

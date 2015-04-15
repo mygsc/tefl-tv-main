@@ -29,20 +29,20 @@ class VideoController extends BaseController {
 		}
 		if($validator->passes()){
 			//insert into table
-			$ffmpeg = FFMpeg\FFMpeg::create();
-				$video = $ffmpeg->open($file);
-				$video
-				    ->filters()
-				    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-				    ->synchronize();
-				$video
-				    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-				    ->save($destinationPath.'frame.jpg');
-				$video
-				    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.'export-x264.mp4')
-				    ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.'export-wmv.wmv')
-				    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.'export-webm.webm');
-
+			// $ffmpeg = FFMpeg\FFMpeg::create();
+			// 	$video = $ffmpeg->open($input['video']);
+			// 	$video
+			// 	    ->filters()
+			// 	    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+			// 	    ->synchronize();
+			// 	$video
+			// 	    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+			// 	    ->save($destinationPath.DS.'test.jpg');
+			// 	$video
+			// 	    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.'export-x264.mp4')
+			// 	    ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
+			// 	    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
+			// 	    return 'success';
 			$input['user_id'] = $this->Auth->id;
 			$create = Video::create($input);
 			//Find / Updated
