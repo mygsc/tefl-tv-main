@@ -855,6 +855,20 @@ class UserController extends BaseController {
 		}
 	}
 
+	public function postDeleteFeedback() {
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$feedback_id = Input::get('feedback_id');
+
+		$deleteFeedback = DB::table('feedbacks')->delete(
+				array('channel_id' => $channelId,
+					'user_id'    => $userId,
+					'id' => $feedback_id
+					));
+
+		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
+	}
+
 	public function getViewUsersVideos($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
