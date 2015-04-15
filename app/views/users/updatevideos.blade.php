@@ -104,7 +104,7 @@
 	cursor: pointer;
 	opacity: 0;
 	filter: alpha(opacity=0);
-}#speech-bubble{
+}#title{
 	position: relative;
 	top:0;
 	left:0;
