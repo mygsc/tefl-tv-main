@@ -577,18 +577,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
-
-		// foreach ($subscribers as $subscriber) {
-		// 	$subscriberProfile[] = UserProfile::where('user_id',$subscriber->subscriber_id)->first();
-		// 	$subscriberCount = DB::table('subscribes')->where('user_id', $subscriber->subscriber_id)->get();			
-		// }
-
-		// $subscriptions = Subscribe::where('subscriber_id', Auth::User()->id)->get();
-
-		// foreach($subscriptions as $subscription) {
-		// 	$subscriptionProfile[] = UserProfile::where('user_id', $subscription->user_id)->first();
-		// }
-
 		$subscriberProfile = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
 				AS numberOfSubscribers FROM subscribes AS s 
 				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.Auth::User()->id.'"');
@@ -860,7 +848,7 @@ class UserController extends BaseController {
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
 		} elseif($statuss == 'undisliked'){
-			DB::table('feedbacks_likesdislikes')->where(array('comment_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
 		}
