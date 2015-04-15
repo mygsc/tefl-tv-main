@@ -19,7 +19,6 @@
 {{-- */$playlistCounter = 1;/* --}}
 {{-- */$playlistCounter2 = 1;/* --}}
 @section('some_script')
-{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.js')}}
@@ -195,23 +194,23 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     @endif
                                     <div class="col-md-11 col-sm-10">
                                         <h2 class="black">
-                                            <span><a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
-                                            @if(isset(Auth::User()->id))
-                                                {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-                                                    {{Form::hidden('user_id',$owner->id)}}
-                                                    {{Form::hidden('subscriber_id', Auth::User()->id)}}
-                                                    @if(!$ifAlreadySubscribe)
-                                                        {{Form::hidden('status','subscribeOn')}}
-                                                        {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                    @else
-                                                        {{Form::hidden('status','subscribeOff')}}
-                                                        {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                    @endif
-                                                {{Form::close()}}
-                                            @else
-                                                {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
-                                            @endif
-
+                                            <span>
+                                                <a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                                @if(isset(Auth::User()->id))
+                                                    {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                                                        {{Form::hidden('user_id',$owner->id)}}
+                                                        {{Form::hidden('subscriber_id', Auth::User()->id)}}
+                                                        @if(!$ifAlreadySubscribe)
+                                                            {{Form::hidden('status','subscribeOn')}}
+                                                            {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                        @else
+                                                            {{Form::hidden('status','subscribeOff')}}
+                                                            {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                        @endif
+                                                    {{Form::close()}}
+                                                @else
+                                                    {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
+                                                @endif
                                             </span>
                                         </h2> 
                                         <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>

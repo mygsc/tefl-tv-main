@@ -156,5 +156,4 @@
 	</div>
 </div>
 
-{{HTML::script('js/jquery.js')}}
 {{HTML::script('js/showHideToggle.js')}}

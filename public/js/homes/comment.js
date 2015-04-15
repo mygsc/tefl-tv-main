@@ -21,7 +21,7 @@ $(document).ready(function(){
 		        	}else if(data['status'] == 'success'){
 		        		$('textarea#comment').val('');
 		        		$('#appendNewCommentHere').prepend(data['comment']);
-		        		$('#appendNewCommentHere').find(".panelReply").hide('slow');
+		        		// $('#appendNewCommentHere').find(".panelReply").hide('slow');
 		        		// alert(data['status']);
 		        	}
 	           	}
