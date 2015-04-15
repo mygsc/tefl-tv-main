@@ -8,6 +8,7 @@
 	<div class="container page">
 		<div class="col-md-8">
 			<div class="row">
+				<small>search containing "{{$search}}"</small>
 				@if($searchResults->isEmpty())
 					<br/><br/><br/>
 					<div class="text-center">
