@@ -1,13 +1,13 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row White">
+<div class="row">
 	<div class="container page">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop2')
 
-			<div class="Div-channel-border">
+			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">

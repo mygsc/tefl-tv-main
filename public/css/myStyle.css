@@ -887,6 +887,9 @@ img.user{
 .pageH{
   min-height: 100vh!important;
 }
+.channel-content{
+  min-height: 900px;
+}
 .span-tags{
   background-color:#1f3359;
   padding: 5px 5px;
@@ -1403,7 +1406,6 @@ Main components
 }
 .Div-channel-border{
   border:10px solid #282c44;
-  min-height: 300px;
 }
 
 .Div-channelSubSection{
@@ -1839,7 +1841,7 @@ a.thumbnail-h:hover{
   }
   .thumbnail-2{
   width:180!important;
-  height:101px;
+  height:101px!important;
   }
   .v-time{
       left:15px;
@@ -2109,7 +2111,7 @@ td.w-75per{
 
 .div-change{
   margin-bottom:0;
-  min-height:350px;
+  min-height:900px;
 }
 /*style for video upload add description*/
 canvas.thumb-1, canvas.thumb-2, canvas.thumb-3{

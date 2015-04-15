@@ -8,7 +8,7 @@
 		<div class="row same-H">
 			@include('elements/users/profileTop2')
 
-			<div class="Div-channel-border White">
+			<div class="Div-channel-border White channel-content">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->

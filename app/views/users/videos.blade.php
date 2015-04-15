@@ -38,13 +38,13 @@
 @stop
 
 @section('content')
-<div class="row White">
-	<div class="container page">
+<div class="row">
+	<div class="container pageH">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
 			
-			<div class="Div-channel-border">
+			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
