@@ -101,7 +101,7 @@
 				<h3>Popular</h3>
 			</div>
 			@foreach($populars as $popular)
-			<div class="col-md-2 col-sm-3">
+			<div class="col-lg-2 col-md-4 col-sm-6">
 				<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<span class="v-time inline">{{$popular->total_time}}</span>
 					<div class="thumbnail-2">
@@ -131,7 +131,7 @@
 				<h3>Recent Uploads</h3>
 			</div>
 			@foreach($latests as $latest)
-			<div class="col-md-2 col-sm-3">
+			<div class="col-lg-2 col-md-4 col-sm-6">
 				<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 
 					<span class="v-time inline">{{$latest->total_time}}</span>
@@ -163,7 +163,7 @@
 				<h3>Random</h3>
 			</div>
 			@foreach($randoms as $random)
-			<div class="col-md-2 col-sm-3">
+			<div class="col-lg-2 col-md-4 col-sm-6">
 				<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 					<span class="v-time inline">{{$popular->total_time}}</span>
 					<div class="thumbnail-2">
