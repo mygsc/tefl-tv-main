@@ -21,36 +21,18 @@ class VideoController extends BaseController {
 		$input = Input::all();
 		$file = Input::file('video');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		$destinationPath = public_path('videos'.DS. $userFolderName);
 		$validator = Validator::make($input,Video::$video_rules);
 		$checkFilenameExist = Video::where('file_name', '=', $fileName);
 		if($checkFilenameExist->count()){
 			$fileName = str_random($randomNo+1);
 		}
 		if($validator->passes()){
-			//insert into table
-			// $ffmpeg = FFMpeg\FFMpeg::create();
-			// 	$video = $ffmpeg->open($input['video']);
-			// 	$video
-			// 	    ->filters()
-			// 	    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-			// 	    ->synchronize();
-			// 	$video
-			// 	    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-			// 	    ->save($destinationPath.DS.'test.jpg');
-			// 	$video
-			// 	    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.'export-x264.mp4')
-			// 	    ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.'export-wmv.wmv')
-			// 	    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.'export-webm.webm');
-			// 	    return 'success';
+			//insert into table    
 			$input['user_id'] = $this->Auth->id;
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
 			Session::put('fileName', $fileName);
-			$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-			$destinationPath = public_path('videos'.DS. $userFolderName);
-			$videoFolderPath = $destinationPath. DS. $fileName;
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
@@ -59,14 +41,18 @@ class VideoController extends BaseController {
 
 			if($db_filename->save()){
 				//Start upload
+				$destinationPath = public_path('videos'.DS. $userFolderName);
+				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){
 					mkdir($destinationPath);
 				}
 				if(!file_exists($videoFolderPath)){
 					mkdir($videoFolderPath);
 				}
-				$ext = $file->getClientOriginalExtension();
-				$file->move($videoFolderPath, $fileName.'.'.$ext);  
+				$this->convertVideo($input['video'],$destinationPath,$fileName);
+				//$ext = $file->getClientOriginalExtension();
+				//$file->move($videoFolderPath, $fileName.'.'.$ext);  
+				//$getRandom = mt_rand(1,15);
 				return Response::json(['file'=>$fileName]);
 				//return Redirect::route('get.addDescription', $encrypt_name)->with('tokenId', $fileName);
 			}
@@ -75,6 +61,41 @@ class VideoController extends BaseController {
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
+	}
+
+	public function convertVideo($videoFile, $destinationPath, $fileName){
+		$ffmpeg = FFMpeg\FFMpeg::create();
+		$video = $ffmpeg->open($videoFile);
+		$format =  new FFMpeg\Format\Video\CustomVideo();
+		$format->setKiloBitrate(1000)
+		       ->setAudioChannels(2)
+		       ->setAudioKiloBitrate(256);
+		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'.mp4'); 
+
+		// $ffmpeg = FFMpeg\FFMpeg::create();
+		// 		 $video = $ffmpeg->open($videoFile);
+		// 		$video
+		// 		    ->filters()
+		// 		    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+		// 		    ->synchronize();
+		// 		$video
+		// 		    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+		// 		    ->save($destinationPath.DS.$fileName.DS.$fileName.'.jpg');
+		// 		$video
+		// 		    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
+		// 		    ->save(new FFMpeg\Format\Video\Ogg(), $destinationPath.DS.$fileName.DS.$fileName.'.ogg')
+		// 		    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.$fileName.DS.$fileName.'.webm');
+
+				// $format = new FFMpeg\Format\Video\X264();
+				// $format->on('progress', function ($video, $format, $percentage) {
+				//     echo "$percentage % transcoded";
+				// });
+
+				// $format 
+				//     -> setKiloBitrate(1000)
+				//     -> setAudioChannels(2)
+				//     -> setAudioKiloBitrate(256);
+				// $video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'video.avi');
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
