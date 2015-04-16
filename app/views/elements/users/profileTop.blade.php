@@ -130,8 +130,11 @@
 		      </div>
 		      <div class="modal-body">
 		            <div class="text-center">
-			
+		            	@if(file_exists($picture))
 		                {{HTML::image('img/user/' . Auth::User()->id . '.jpg', 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
+		              @else
+		              	{{HTML::image('img/user/0.jpg', 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
+		              @endif
 		            </div>            
 		      </div>
 		      <div class="modal-footer">

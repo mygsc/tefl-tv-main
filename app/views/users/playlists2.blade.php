@@ -69,7 +69,7 @@
 						@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">
-								<a href="videoplaylist/{{Crypt::encrypt($playlist->id)}}"  class="thumbnail">
+								<a href="/mychannels/videoplaylist={{$playlist->randID}}"  class="thumbnail">
 								@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists('public/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg'))
 									<div class="" style="position:relative;">
