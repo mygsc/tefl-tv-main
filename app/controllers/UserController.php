@@ -32,7 +32,7 @@ class UserController extends BaseController {
 					return Redirect::intended('/')->withFlashGood('Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
 					Auth::logout();
-					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name']));
+					return Redirect::route('homes.signin')->with('flash_verify', array('message' => 'Your account is not yet verified. Check your email address for verification', 'channel_name' => $input['channel_name1']));
 				}elseif($status == '2'){
 					Auth::logout();
 					return Redirect::route('homes.signin')->with('flash_bad','Your account was banned! Please contact the TEFLTV Administrator');
@@ -75,7 +75,7 @@ class UserController extends BaseController {
 			});
 			//--------------Email Done----------------------//
 			$this->User->signup($generateToken); //save
-			return Redirect::route('homes.signin')->withFlashMessage("Successfully Registered, Please check your email!");
+			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email!");
 		}else{
 			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 		}
@@ -221,9 +221,8 @@ class UserController extends BaseController {
 				and v.publish = 1");
 			}
 			$increment = 0;
-			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = 1 ORDER BY created_at DESC LIMIT 1');
-
-
+			
+			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = '.$this->Auth->id.' ORDER BY created_at DESC LIMIT 1');
 
 			return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
@@ -240,13 +239,13 @@ class UserController extends BaseController {
 				if(file_exists($picture)){
 					File::delete($picture);
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.channel')->withFlashMessage('Successfully Updated!');
+					return Redirect::route('users.channel')->withFlashGood('Successfully Updated!');
 				} else{
 					$file = Input::file('image')->move($path, $newName);
-					return Redirect::route('users.channel')->withFlashMessage('Successfully Created New Picture!');
+					return Redirect::route('users.channel')->withFlashGood('Successfully Created New Picture!');
 				}
 			} else{
-				return Redirect::route('users.channel')->withFlashMessage('Error Uploading image must be .jpeg, .jpg, .png');
+				return Redirect::route('users.channel')->withFlashBad('Error Uploading image must be .jpeg, .jpg, .png');
 			}
 		}
 	}
@@ -680,7 +679,8 @@ class UserController extends BaseController {
 		INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$userChannel->id.'"LIMIT 5');
 		$recentUpload = DB::select(
 			'SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes 
-			FROM videos AS v INNER JOIN users AS u ON v.user_id = u.id WHERE v.user_id = 1 ORDER BY v.created_at DESC LIMIT 1');
+			FROM videos AS v INNER JOIN users AS u ON v.user_id = u.id WHERE v.user_id = "'.$userChannel->id.'"ORDER BY v.created_at DESC LIMIT 1');
+
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
 		//r3mmel

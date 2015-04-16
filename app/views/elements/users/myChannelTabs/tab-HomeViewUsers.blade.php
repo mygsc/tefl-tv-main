@@ -73,14 +73,16 @@
 			</div>
 			<br/>
 					<div class="col-md-4">
-						@if($findVideos->isEmpty())
+						@if(empty($findVideos))
 							No videos yet..
 						@else
-							@foreach($findVideos as $findVideo)
-								@if(isset($findVideo[0]->id))
+							@foreach($findVideos as $key => $findVideo)
+							@if(empty($findVideo))
+								No videos yet..
+							@else
 								<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
 								<div id="findVid">
-										@if(file_exists(public_path('/videos/'.$findVideo[0]->id.'-'.$findVideo[0]->channel_name.'/'.$findVideo[0]->file_name.'/'.$findVideo[0]->file_name.'.jpg')) )
+										@if(file_exists(public_path('/videos/'.$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name.'.jpg')) )
 											<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
 											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
 											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
@@ -98,7 +100,7 @@
 								<div class="count">
 									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 								</div>
-								@endif
+							@endif
 							@endforeach
 						@endif
 					</div>
