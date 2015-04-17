@@ -252,7 +252,25 @@ class Video extends Eloquent{
 		
 	}
 
-/*	public function randomRelation($title,$description,$tags){
+	public function randomRelation($limit = null,$id = null){
+		if(!empty($limit)){
+			$limit = 'LIMIT '. $limit;
+		}
+		else{
+			$limit = "";
+		}
+			$returndata = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
+				LEFT JOIN users u ON v.user_id = u.id
+				HAVING v.id!='".$id."'
+				AND v.publish = '1'
+				AND u.verified = '1'
+				AND u.status = '1'
+				and v.deleted_at IS NULL
+				AND v.report_count < 5
+				OR v.report_count IS NULL
+				ORDER BY RAND()
+				".$limit.";");
+		return $returndata;
+	}
 		
-	}*/
 }

@@ -183,6 +183,7 @@
 	<br/>
 	<!--Subscribers-->
 
+
 		<div class="col-md-6 col-lg-height col-md-height">
 			<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 				<div class="subLabelThis">
@@ -195,6 +196,7 @@
 					@foreach($subscriberProfile as $profile)
 						<div class="col-md-6" >
 							<div class="user-padding row" id="subscriberLists">
+
 
 								<a href="{{route('view.users.channel', $profile->channel_name)}}">
 										@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
@@ -252,8 +254,8 @@
 				@foreach($subscriptionProfile as $profile1)
 					<div class="col-md-6" >
 						<div class="user-padding row" id="subscriberLists">
+							<a href="{{route('view.users.channel', $profile1->channel_name)}}">
 
-							<a href="{{route('view.users.channel', $profile->channel_name)}}">
 								@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
 						            {{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 						        @else
@@ -289,7 +291,9 @@
 				@endforeach						
 			@endif			
 			</div>
+
 		</div><!--/.3rd column 6 Subscription-->
+
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
 </div>

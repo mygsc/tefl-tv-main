@@ -96,16 +96,21 @@ class HomeController extends BaseController {
 		$videoId = $id;
 		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
+		if($owner->verified == '0') return Redirect::route('homes.index');
+		if($owner->status != '1') return Redirect::route('homes.index');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
+		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
 			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
 			HAVING v.id!='".$id."'
 			AND v.publish = '1'
-			and v.deleted_at IS NULL
-			AND v.report_count < 5;");
+			AND u.verified = '1'
+			AND u.status = '1'
+			AND v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL;");
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
 									->where('publish','1')
@@ -117,103 +122,112 @@ class HomeController extends BaseController {
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
 		}
+		
 		if($counter == 0){
-			$randoms = $this->Video->getVideoByCategory('random', '15');
+			$randoms = $this->Video->randomRelation('15',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 1){
-			$randoms = $this->Video->getVideoByCategory('random', '14');
+			$randoms = $this->Video->randomRelation('14',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 2){
-			$randoms = $this->Video->getVideoByCategory('random', '13');
+			$randoms = $this->Video->randomRelation('13',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 3){
-			$randoms = $this->Video->getVideoByCategory('random', '12');
+			$randoms = $this->Video->randomRelation('12',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 4){
-			$randoms = $this->Video->getVideoByCategory('random', '11');
+			$randoms = $this->Video->randomRelation('11',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 5){
-			$randoms = $this->Video->getVideoByCategory('random', '10');
+			$randoms = $this->Video->randomRelation('10',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 6){
-			$randoms = $this->Video->getVideoByCategory('random', '9');
+			$randoms = $this->Video->randomRelation('9',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 7){
-			$randoms = $this->Video->getVideoByCategory('random', '8');
+			$randoms = $this->Video->randomRelation('8',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 
 		}
 		if($counter == 8){
-			$randoms = $this->Video->getVideoByCategory('random', '7');
+			$randoms = $this->Video->randomRelation('7',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 
 		}
 		if($counter == 9){
-			$randoms = $this->Video->getVideoByCategory('random', '6');
+			$randoms = $this->Video->randomRelation('6',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 10){
-			$randoms = $this->Video->getVideoByCategory('random', '5');
+			$randoms = $this->Video->randomRelation('5',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 11){
-			$randoms = $this->Video->getVideoByCategory('random', '4');
+			$randoms = $this->Video->randomRelation('4',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 12){
-			$randoms = $this->Video->getVideoByCategory('random', '3');
+			$randoms = $this->Video->randomRelation('3',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 13){
-			$randoms = $this->Video->getVideoByCategory('random', '2');
+			$randoms = $this->Video->randomRelation('2',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter == 14){
-			$randoms = $this->Video->getVideoByCategory('random', '1');
+			$randoms = $this->Video->randomRelation('1',$videos->id);
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
 		}
 		if($counter >= 15){
-			$newRelation = $relations;
+			$newRelation =  DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+			HAVING v.id!='".$id."'
+			AND v.publish = '1'
+			AND u.verified = '1'
+			AND u.status = '1'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			LIMIT 15;");
 		}
-		//return $newRelation;
-		//return $newRelation;
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
@@ -349,7 +363,7 @@ class HomeController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_login_rules);
 		if($validate->fails()) {
-			return Redirect::route('homes.signin')->withFlashMessage("Wrong Channel name or password")->withInput();
+			return Redirect::route('homes.signin')->with('flash_bad',"Wrong Channel name or password")->withInput();
 		} else{
 			$attempt = User::getUserLogin($input['channel_name'], $input['password']);
 			if($attempt){
@@ -358,7 +372,7 @@ class HomeController extends BaseController {
 				return Redirect::intended('/');
 			}
 		}
-		return Redirect::route('homes.signin')->withFlashMessage('Invalid Credentials!')->withInput();
+		return Redirect::route('homes.signin')->withFlashMessage('flash_warning','Invalid Credentials!')->withInput();
 	}
 
 	public function postSignUp() {

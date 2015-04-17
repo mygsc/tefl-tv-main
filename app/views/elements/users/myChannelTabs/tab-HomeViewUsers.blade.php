@@ -211,9 +211,9 @@
 							<div class="row user-padding">
 								<a href="{{route('view.users.channel', $subscription->channel_name)}}">
 									@if(file_exists(public_path('img/user/'.$subscription->user_id.'.jpg')))
-			             	{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			             	{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 			          	@else
-			            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 			            @endif
 								&nbsp;
 								<span><b>{{$subscription->channel_name}}</b></span>

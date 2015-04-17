@@ -28,7 +28,6 @@ $(document).ready(function(){
 
     $('form#vidSubmit').on('submit',function(e){
         e.preventDefault();
-
         $(this).ajaxSubmit({ 
                 url:   'upload', 
                 beforeSubmit: function() {
