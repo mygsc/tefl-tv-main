@@ -92,7 +92,7 @@
 
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12 mg-l--20">
-						@if($usersVideos->isEmpty())
+						@if(empty($usersVideos))
 							<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
 						@else
 						@foreach($usersVideos as $usersVideo)
@@ -114,27 +114,26 @@
 									{{Form::close()}}
 								</span>
 								
-								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-							
 										@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-										@endif								
-								</a>
+										@endif
 							</div>
 
 							<div class="inlineInfo ">
 								<div class="v-Info">
 									{{$usersVideo->title}}
 								</div>
+								</a>
+								
 								<div class="text-justify desc hide">
 									<p>{{$usersVideo->description}}</p>
 									<br/>
 								</div>
 								<div class="count">
-									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{$usersVideo->created_at}}
+									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
 								</div>
 							</div>
 						</div>

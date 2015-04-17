@@ -69,29 +69,26 @@
 		<div class="well2 Div-channelSubSection">
 			
 			<div class="subLabelThis">
-				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Videos" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Videos</span>&nbsp;|&nbsp; <small class="ch-link"><a href="{{route('view.users.videos2', 'Videos')}}" class="text-center" aria-controls="Videos" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
-					<div class="col-md-4">
+					<div class="row">
 						@if(empty($findVideos))
 							No videos yet..
 						@else
 							@foreach($findVideos as $key => $findVideo)
-							@if(empty($findVideo))
-								No videos yet..
-							@else
+							<div class="col-md-4">
 								<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
 								<div id="findVid">
-										@if(file_exists(public_path('/videos/'.$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name.'.jpg')) )
-											<video poster="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}"  width="100%" >
-											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-											<source src="/videos/{{$findVideo->id.'-'.$findVideo->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-											</video>
-										@else
-											{{HTML::image('img/thumbnails/video.png')}}
-										@endif
-	
+									@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name.'.jpg')) )
+										<video poster="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}" width="100%" />
+											<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
+										</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif
 								</div>
 								<div class="v-Info">
 									{{$findVideo->title}}
@@ -100,7 +97,7 @@
 								<div class="count">
 									{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
 								</div>
-							@endif
+							</div>
 							@endforeach
 						@endif
 					</div>
@@ -111,7 +108,7 @@
 	<div class="col-md-6">
 		<div class="well2 Div-channelSubSection">
 			<div class="subLabelThis">
-				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Playlists" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
+				<span>Playlists</span>&nbsp;|&nbsp; <small class="ch-link"><a href="{{route('view.users.playlists2', 'Playlists')}}" class="text-center" aria-controls="Playlists" role="tab" data-toggle="tab">Show All</a></small>
 			</div>
 			<br/>
 
@@ -160,9 +157,9 @@
 					<div class="row user-padding">
 						<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
 							@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
-			        	{{HTML::image('img/user/'.$subscriber->subscriber_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			        	{{HTML::image('img/user/'.$subscriber->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 			        @else
-			        	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			        	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 			        @endif
 						&nbsp;
 						<span><b>{{$subscriber->channel_name}}</b></span>
@@ -214,9 +211,9 @@
 							<div class="row user-padding">
 								<a href="{{route('view.users.channel', $subscription->channel_name)}}">
 									@if(file_exists(public_path('img/user/'.$subscription->user_id.'.jpg')))
-			             	{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			             	{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 			          	@else
-			            	{{HTML::image('img/user/0.jpg', 'alt', array('width' => 60, 'height' => 46))}}
+			            	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 			            @endif
 								&nbsp;
 								<span><b>{{$subscription->channel_name}}</b></span>

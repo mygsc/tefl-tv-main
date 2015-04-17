@@ -325,11 +325,12 @@ class UserController extends BaseController {
 	public function getMyVideos() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = User::find(Auth::User()->id)->video()->get();
+		$usersVideos = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes FROM videos v WHERE v.user_id='.$this->Auth->id.' ORDER BY v.created_at DESC');
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$countAllViews = $this->Video->countViews($allViews);
+		
 		return View::make('users.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	}
 
@@ -666,8 +667,11 @@ class UserController extends BaseController {
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$videosChannelName = User::where('channel_name', $channel_name)->first();
-		$findVideos = Video::where('user_id', $videosChannelName->id)->paginate(6);
+
+		$findVideos = DB::select(
+			'SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes FROM users u
+			INNER JOIN videos AS v ON u.id = v.user_id WHERE v.user_id = "'.$userChannel->id.'" 
+			ORDER BY v.created_at LIMIT 6');
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
@@ -888,7 +892,7 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
+		$usersVideos = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes FROM videos v WHERE v.user_id='.$userChannel->id.'');
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
@@ -1161,16 +1165,14 @@ class UserController extends BaseController {
 		$order = Input::get('ch');
 		$auth = Auth::User()->id;
 		if($order == 'Likes'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY likes DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
 		} else{
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, likes,created_at, updated_at FROM videos WHERE user_id ='" .$auth. "'ORDER BY created_at DESC");
+			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY created_at DESC");
 		}
 		$var = '';
 		foreach ($results as $result){
 			if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-				$thumbnail ="<video poster='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.jpg'  width='100%'/>
-									<source src='/videos/'".Auth::User()->id."'-'".Auth::User()->channel_name."'/'".$result->file_name."'/'".$result->file_name."'.mp4' type='video/mp4'/>
-							</video>";
+				$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
 			} else{
 				$thumbnail = HTML::image('img/thumbnails/video.png');
 			}
@@ -1186,11 +1188,12 @@ class UserController extends BaseController {
 	                             </span>
 	                            </span>
 	                    
-	               	<a href='#'>
+	               	<a href=edit/".Crypt::encrypt($result->id).">
 						<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
 					</a>
 			
-					 </span>		
+					 </span>
+					 	<a href=".route('homes.watch-video', array($result->file_name))." target=_blank'>		
 						".$thumbnail."
 					</div>
 
@@ -1198,6 +1201,7 @@ class UserController extends BaseController {
 						<div class='v-Info'>
 							".$result->title."
 						</div>
+					</a>
 						<div class='text-justify desc hide'>
 							<p>".$result->description."</p>
 								<br/>

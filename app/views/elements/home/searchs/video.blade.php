@@ -13,7 +13,7 @@
 		<br/>
 		<small><b>Tags:</b></small>
 		@foreach($result->tags as $tag)
-			<a href="/search-result?search={{$tag}}">{{ $tag }}</a> 
+			<a href="/search-result?search={{$tag}}">{{ $tag }}</a> |
 		@endforeach
 
 	<br /><br />
