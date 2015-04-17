@@ -484,7 +484,7 @@ class UserController extends BaseController {
 
 	public function getPlaylists() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$usersChannel = UserProfile::find(Auth::User()->id);
+		$userChannel = UserProfile::find(Auth::User()->id);
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -507,22 +507,37 @@ class UserController extends BaseController {
 	public function getViewPlaylistVideo($id){
 		$randID = Playlist::where('randID',$id)->first();
 		$id = $randID->id;
-		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$usersChannel = UserProfile::find(Auth::User()->id);
-		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
-		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
-		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+		$owner = User::find($randID->user_id);
+		if(Auth::check()){
+			$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+			$usersChannel = UserProfile::find(Auth::User()->id);
+			$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+			$countAllViews = $this->Video->countViews($allViews);
+			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+			$user_id = Auth::User()->id;
+		}else{
+			$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
+			$usersChannel = UserProfile::find($owner->id);
+			$countVideos = DB::table('videos')->where('user_id', $owner->id)->get();
+			$allViews = DB::table('videos')->where('user_id', $owner->id)->sum('views');
+			$countAllViews = $this->Video->countViews($allViews);
+			$picture = public_path('img/user/') . $owner->id . '.jpg';
+			$user_id = 0;
+		}
+		$userChannel = User::find($owner->id);
+		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$id."'
+			and v.publish = '1'
 			and v.deleted_at IS NULL
 			or v.report_count > 5
-			and v.publish = 1");
+			");
 		$playlist = Playlist::where('id',$id)->first();
-		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture'));
+		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
 
 	}
 	public function deleteplaylist($id){
@@ -999,11 +1014,14 @@ class UserController extends BaseController {
 		$id = Crypt::decrypt($id);
 		$playlistNo = str_random($randomNo);
 		$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
+		if($checkPlaylistExist->count()){
+			$playlistNo = str_random($randomNo+1);
+		}
 		$name = Input::get('name');
 		$description = Input::get('description');
 		$privacy = Input::get('privacy');
 		$user_id = Auth::User()->id;
-		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'privacy'=>$privacy));
+		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'randID'=>$playlistNo,'privacy'=>$privacy));
 	}
 
 	public function addPlaylist($id,$randomNo = 11){

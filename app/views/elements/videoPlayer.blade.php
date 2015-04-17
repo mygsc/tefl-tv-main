@@ -51,7 +51,7 @@
 					</div>
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
-				<div class="hd-setting hide">
+				<div class="hd-setting" style='display:none'>
 					<small class="vp-text">HD Quality</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
