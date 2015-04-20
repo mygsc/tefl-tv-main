@@ -4,7 +4,7 @@
 @stop
 @section('some_script')
 	{{HTML::script('js/user/upload-add-description.js')}}
-	{{HTML::script('js/video-player/media.player.upload.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
 @stop
 @section('content')
 <div class="row White">
@@ -25,8 +25,8 @@
 							<div class="embed-responsive embed-responsive-16by9 h-video">
 								<video preload="auto" width="400" id="media-video" poster="">
 								   <source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4">
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm">
-									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg">
+									{{-- <source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm">
+									<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg" type="video/ogg"> --}}
 									
 								</video>
 								
@@ -41,11 +41,12 @@
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								<center>
 									<div id="screenshot">				
-										
-										<canvas class="thumb-1" id="img-thumb-1">
-										</canvas>					
-										<canvas class="thumb-2" id="img-thumb-2"></canvas>																	
-										<canvas class="thumb-3" id="img-thumb-3"></canvas>																					
+										<canvas class="thumb-1" id="img-thumb-1"></canvas>					
+										<canvas class="thumb-2" id="img-thumb-2"></canvas>				
+										<canvas class="thumb-3" id="img-thumb-3"></canvas>	 
+										<img class="thumb-1" id="img-thumb-1" src="{{Session::get('thumbnail_1')}}" alt="" width="150" height="250">	
+										<img class="thumb-2" id="img-thumb-2" src="{{Session::get('thumbnail_2')}}" alt="" width="150" height="250">	
+										<img class="thumb-3" id="img-thumb-3" src="{{Session::get('thumbnail_3')}}" alt="" width="150" height="250">																				
 									</div>
 									<br/>
 									

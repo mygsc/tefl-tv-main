@@ -5,7 +5,7 @@
 						<div class="uploaded_img pic-Dp">
 			 				@if(file_exists($picture))
 	         			{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('class' => 'pic-Dp'))}}
-	            @else
+	           	@else
 	          	  {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'pic-Dp'))}}
 	            @endif
 		        </div>
@@ -19,7 +19,7 @@
 
 							
 
-							<div class="overlay-cover">user
+							<div class="overlay-cover">
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{count($countVideos)}} Videos</label> &nbsp;

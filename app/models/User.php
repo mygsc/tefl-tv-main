@@ -51,9 +51,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasOne('Website');
 	}
 
-	public static function getUserLogin($channel_name, $password) {
+	public static function getUserLogin($channel_name1, $password) {
 		$remember_me = Input::has('remember_me') ? true : false;
-		$attempt = Auth::attempt(array('channel_name' => $channel_name, 'password' => $password), $remember_me);
+		$attempt = Auth::attempt(array('channel_name' => $channel_name1, 'password' => $password), $remember_me);
 		return $attempt;
 	}
 

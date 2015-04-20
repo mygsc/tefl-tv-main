@@ -85,18 +85,14 @@
 			<br/><br/>
 
 			<div class="row">
-			@if($usersVideos->isEmpty())
+			@if(empty($usersVideos))
 				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-md-4 col-sm-6">
 					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 						@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
-								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
-								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
-								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
+							<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" />
 						@else
 							{{HTML::image('img/thumbnails/video.png')}}
 						@endif
@@ -183,7 +179,7 @@
 	<br/>
 	<!--Subscribers-->
 	
-	<div class="col-md-6">
+	<div class="col-md-6 col-lg-height col-md-height">
 		<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 			<div class="subLabelThis">
 				<span>Subscribers</span>&nbsp;
@@ -195,7 +191,7 @@
 				<p class="text-center">No subscribers yet.</p>
 			@else
 				@foreach($subscriberProfile as $profile)
-					<div class="col-md-6 col-lg-height col-md-height" >
+					<div class="col-md-6" >
 						<div class="row user-padding" id="subscriberLists">
 
 							<a href="{{route('view.users.channel', $profile->channel_name)}}">
@@ -240,30 +236,34 @@
 
 	<!--Subscriptions-->
 	<div class="col-md-6 col-lg-height col-md-height">
-		<div class="well2 Div-channelSubSection">
+		<div class="well2 Div-channelSubSection" id="subscriberWrapper">
 			<div class="subLabelThis">
 				<span>Subscriptions</span>&nbsp;
+
 			</div>
 			<br/><br/>
-			<div class="row">
+			<div class="row-same-height">
 			@if(empty($subscriptionProfile))
-					<p class="text-center">No Subscriptions yet</p>
-				@else
-					@foreach($subscriptionProfile as $profile1)
-						<div class="col-md-6">
-							<div class="row user-padding">
-								<a href="{{route('view.users.channel',$profile1->channel_name)}}">
-									@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-						             	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-						          	@else
-						            	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-						            @endif
-									&nbsp;
-									<span><b>{{$profile1->channel_name}}</b></span>
-								</a>&nbsp;
-								<br/>&nbsp;
-								<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
-								@if(isset($profile1->id))
+				<p class="text-center">No Subscriptions yet</p>
+			@else
+				@foreach($subscriptionProfile as $profile1)
+					<div class="col-md-6" >
+						<div class="user-padding" id="subscriberLists">
+
+							<a href="{{route('view.users.channel', $profile1->channel_name)}}">
+								@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
+						            {{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
+						        @else
+						            {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
+						        @endif
+								&nbsp;
+								<span><b>{{$profile1->channel_name}}</b></span>
+							</a>
+							<br/>
+							&nbsp;<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;
+							Subscribers</span>&nbsp;
+
+							@if(isset($profile1->id))
 									@if(isset(Auth::User()->id))
 										<?php
 											$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -281,11 +281,13 @@
 										{{Form::close()}}
 									@endif
 								@endif
-							</div>
 						</div>
-						@endforeach					
-					@endif
-			</div><!--subscription /.row-->
+					</div>
+				@endforeach						
+			@endif			
+			</div>
+		</div>
+	</div><!--/.3rd column 6 Subscription-->
 		</div><!--/.well2 Div-channelSubSection-->
 	</div><!--/.4th column 6 Subscription-->
 </div>

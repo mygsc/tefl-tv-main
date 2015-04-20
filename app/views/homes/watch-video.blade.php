@@ -5,14 +5,15 @@
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$videos->file_name}}">
         <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
-        <meta property="og:type" content="video">
+
+       <!--  <meta property="og:type" content="video">
         <meta property="og:video:width" content="500"> 
         <meta property="og:video:height" content="300"> 
-        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4"> 
+        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  -->
 
 @stop
 @section('css')
-{{HTML::style('css/vid.player.css')}}
+{{HTML::style('css/vid.player.min.css')}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -22,6 +23,7 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/video-player/fullscreen.min.js')}}
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
@@ -65,12 +67,12 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div>
                                     <br/>
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <p class="black wv-title">
                                                     {{$videos->title}}
                                                 </p>
                                             </div>
-                                            <div class="col-md-4 text-right">
+                                            <div class="col-md-3 text-right">
                                                 <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
                                             </div>
 
@@ -140,8 +142,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v= {{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v= {{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
@@ -193,10 +195,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         </div>
                                     @endif
                                     <div class="col-md-11 col-sm-10">
-                                        <h2 class="black">
+                                        <p class="black">
 
                                             <span>
-                                                <a href="http://localhost:8000/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
+                                                <a href="/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                 @if(isset(Auth::User()->id))
                                                     {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
                                                         {{Form::hidden('user_id',$owner->id)}}
@@ -213,7 +215,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
                                                 @endif
                                             </span>
-                                        </h2> 
+                                        </p> 
                                         <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
                                         <div class="seeVideoContent">
                                             <p>
@@ -258,17 +260,17 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <li class="ui-tabs-nav-item" id="">
                                 <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
                                 <div class="row">
-                                    <div class="col-md-4 col-xs-4">
+                                    <div class="col-md-6 col-xs-4">
                                     @if(file_exists(public_path("/videos/".$relation->uid."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
                                     <img src="/videos/{{$relation->uid}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
                                     @else
                                     <img src="/img/thumbnails/video.png" alt="" width="100%" />
                                     @endif
                                     </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-4">
-                                        <div class="v-list"><span>{{$relation->title}}</span></div>
+                                    <div class="col-md-6 col-sm-8 col-xs-4">
+                                        <div ><span class="v-list">{{ Str::limit($relation->title,50) }}</span></div>
                                         <span>by: {{$relation->channel_name}}</span><br/>
-                                        <small>{{date('m-d-Y',strtotime($relation->created_at))}}</small>
+                                        <span>{{date('m-d-Y',strtotime($relation->created_at))}}</span>
                                     </div>
                                 </div>
                                 </a>

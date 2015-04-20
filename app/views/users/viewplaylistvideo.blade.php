@@ -6,7 +6,7 @@
 		<br/>
 		<div class="row same-H">
 		{{-- */$playlistCounter = 1;/* --}}
-			@include('elements/users/profileTop')
+			@include('elements/users/profileTop2')
 
 			<div class=" Div-channel-border">
 				<div role="tabpanel">

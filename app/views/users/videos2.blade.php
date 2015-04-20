@@ -1,5 +1,42 @@
 @extends('layouts.default')
 
+@section('some_script')
+	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/sort.js')}}
+
+	<script type="text/javascript">
+		$(document).ready( function( $ ) {
+			var success = $('#uploaded').val();
+			if(success == 1){
+				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
+					$('#success').fadeOut(20000);
+			}
+			$('#form-add-setting').on('submit', function() {
+		        //.....
+		        //show some spinner etc to indicate operation in progress
+		        //.....
+		        $.post(
+		        	$(this).prop( 'action' ),{
+		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
+		        		"setting_name": $( '#setting_name' ).val(),
+		        		"setting_value": $( '#setting_value' ).val()
+		        	},
+		        	function( data ) {
+		                //do something with data/response returned by server
+		            },'json'
+		        );
+		        //.....
+		        //do anything else you might want to do
+		        //.....
+
+		        //prevent the form from actually submitting in browser
+		        return false;
+		    } );
+		} );
+	</script>
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container page">
@@ -38,11 +75,16 @@
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+						
 						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
 							<option>Likes</option>
 							<option>Recent</option>
 						</select>
+						@if(!Auth::check())
+							{{Form::hidden('userChannel', $userChannel->id, array('id' => 'userChannel_Id'))}}
+						@endif
+						
 						&nbsp;&nbsp;
 					
 
@@ -57,7 +99,7 @@
 
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12" style="margin-left:-10px;">
-						@if($usersVideos->isEmpty())
+						@if(empty($usersVideos))
 							No Videos yet.
 						@else
 						@foreach($usersVideos as $usersVideo)
@@ -116,42 +158,3 @@
 		</div>
 	</div>
 @stop
-
-@section('some_script')
-	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/sort.js')}}
-
-	<script type="text/javascript">
-		$(document).ready( function( $ ) {
-			var success = $('#uploaded').val();
-			if(success == 1){
-				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
-					$('#success').fadeOut(20000);
-			}
-			$('#form-add-setting').on('submit', function() {
-		        //.....
-		        //show some spinner etc to indicate operation in progress
-		        //.....
-		        $.post(
-		        	$(this).prop( 'action' ),{
-		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
-		        		"setting_name": $( '#setting_name' ).val(),
-		        		"setting_value": $( '#setting_value' ).val()
-		        	},
-		        	function( data ) {
-		                //do something with data/response returned by server
-		            },'json'
-		        );
-		        //.....
-		        //do anything else you might want to do
-		        //.....
-
-		        //prevent the form from actually submitting in browser
-		        return false;
-		    } );
-		} );
-	</script>
-@stop
-
-

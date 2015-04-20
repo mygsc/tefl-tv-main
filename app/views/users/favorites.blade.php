@@ -67,8 +67,8 @@
 								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
 							
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-								@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
-									<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
+								@if(file_exists(public_path('/videos/'.$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
+									<img src="/videos/{{$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
 									@else
 										{{HTML::image('img/thumbnails/video.png')}}
 									@endif
@@ -84,7 +84,7 @@
 									<br/>
 								</div>
 								<div class="count">
-									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
+									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->uploaders_channel_name))}}">{{$showFavoriteVideo->uploaders_channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->numberOfLikes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
 									<br/>
