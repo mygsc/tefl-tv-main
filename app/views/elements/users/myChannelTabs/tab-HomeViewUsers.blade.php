@@ -114,6 +114,8 @@
 
 			<div class="col-md-4">
 			@if(empty($usersPlaylists))
+				<p class="mg-l-20">No Playlists yet..</p>
+			@else
 				@foreach($usersPlaylists as $playlists)
 				<div class="p-relative">
 					<div class="playlist-info" >
@@ -133,9 +135,7 @@
 				<div class="count">
 					{{$playlists->updated_at}}
 				</div>
-				@endforeach
-			@else
-					<p class="mg-l-20">No Playlists yet</p>
+				@endforeach				
 			@endif
 			</div>
 		</div>

@@ -1,8 +1,9 @@
 @extends('layouts.default')
 @section('some_script')
+	{{HTML::style('css/vid.player.css')}}
 	{{HTML::script('js/jquery.js')}}
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/media.player.min.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
 
 	<script type="text/javascript">
@@ -64,7 +65,7 @@
 				    <div class="tab-content">
 					  	<div role="tabpanel" class="tab-pane active" id="home">
 							@include('elements/users/myChannelTabs/tab-Home')
-							{{ (microtime(true) - LARAVEL_START) }}
+					
 					  	</div>				    
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
