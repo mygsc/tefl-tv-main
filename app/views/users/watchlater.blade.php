@@ -83,15 +83,16 @@
 									<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
 									<div>
 										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-											@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-												<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}"  width="100%" >
-													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
-													<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-												</video>
-											@else
-												{{HTML::image('img/thumbnails/video.png')}}
-											@endif
+									@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
+										<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
+											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+										</video>
+									@else
+										{{HTML::image('img/thumbnails/video.png')}}
+									@endif
+								</div>
 										</a>
 									</div>
 									<br/>		
@@ -105,7 +106,7 @@
 										{{$watchLater->title}}
 										<!-- </a> -->
 									</div>
-									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+									by: <a href="{{route('view.users.channel', array($watchLater->uploaders_channel_name))}}">{{$watchLater->uploaders_channel_name}}</a><br/>
 									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
 									<br/>
 								</div>

@@ -208,7 +208,8 @@ class UserController extends BaseController {
 			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.Auth::User()->id.'"LIMIT 5');
 
 
-			$usersVideos = Video::where('user_id', Auth::User()->id)->paginate(6);
+			$usersVideos = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos v WHERE v.user_id="'.$this->Auth->id.'"ORDER BY v.created_at LIMIT 6');
+
 			$usersPlaylists = Playlist::where('user_id', Auth::User()->id)->paginate(6);
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
@@ -221,8 +222,8 @@ class UserController extends BaseController {
 				and v.publish = 1");
 			}
 			$increment = 0;
-			
-			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id = '.$this->Auth->id.' ORDER BY created_at DESC LIMIT 1');
+			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id ="'.$this->Auth->id.'"ORDER BY v.created_at DESC LIMIT 1');
+
 
 			return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
@@ -1162,58 +1163,116 @@ class UserController extends BaseController {
 	}
 
 	public function getSortVideos() {
+
 		$order = Input::get('ch');
-		$auth = Auth::User()->id;
-		if($order == 'Likes'){
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
-		} else{
-			$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY created_at DESC");
-		}
-		$var = '';
-		foreach ($results as $result){
-			if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-				$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
-			} else{
-				$thumbnail = HTML::image('img/thumbnails/video.png');
+		$user_id = Input::get('userid');
+		if(Auth::check()){
+				if($order == 'Likes'){
+					$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
+				} else{
+					$results = DB::select("SELECT id, user_id, title, description, publish, file_name, views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,created_at, updated_at FROM videos v WHERE user_id ='" .$this->Auth->id. "'ORDER BY created_at DESC");
+				}
+				$var = '';
+				foreach ($results as $result){
+					if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+						$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+					} else{
+						$thumbnail = HTML::image('img/thumbnails/video.png');
+					}
+		
+					$var = $var . 
+						"<div id='list' class='col-md-3'>
+							<div class='inlineVid'>		
+								<span class='btn-sq'>
+									<span class='dropdown'>
+			                   		  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+			                   		   		<li>gge</li>
+			                          		<li>gfrhgte</li>
+			                             </span>
+			                            </span>
+			                    
+			               	<a href=edit/".Crypt::encrypt($result->id).">
+								<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+							</a>
+					
+							 </span>
+							 	<a href=".route('homes.watch-video', array($result->file_name))." target=_blank'>		
+								".$thumbnail."
+							</div>
+		
+							<div class='inlineInfo'>
+								<div class='v-Info'>
+									".$result->title."
+								</div>
+							</a>
+								<div class='text-justify desc hide'>
+									<p>".$result->description."</p>
+										<br/>
+								</div>
+							<div class='count'>
+								<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+							</div>
+							</div>
+						</div>
+					";
+					}
+					return $var;
 			}
-
-			$var = $var . 
-				"<div id='list' class='col-md-3'>
-					<div class='inlineVid'>		
-						<span class='btn-sq'>
-							<span class='dropdown'>
-	                   		  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
-	                   		   		<li>gge</li>
-	                          		<li>gfrhgte</li>
-	                             </span>
-	                            </span>
-	                    
-	               	<a href=edit/".Crypt::encrypt($result->id).">
-						<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
-					</a>
 			
-					 </span>
-					 	<a href=".route('homes.watch-video', array($result->file_name))." target=_blank'>		
-						".$thumbnail."
-					</div>
-
-					<div class='inlineInfo'>
-						<div class='v-Info'>
-							".$result->title."
+				if($order == 'Likes'){
+					 $results = DB::select("SELECT v.id, user_id, title, description, publish, file_name, views,
+					(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,
+						v.created_at, v.updated_at, channel_name FROM videos v
+						INNER JOIN users u ON u.id = v.user_id WHERE user_id ='" .$user_id. "'ORDER BY likes DESC");
+				} else{
+					 $results = DB::select("SELECT v.id, user_id, title, description, publish, file_name, views,
+						(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,
+						v.created_at, v.updated_at, channel_name FROM videos v
+						INNER JOIN users u ON u.id = v.user_id WHERE user_id ='".$user_id. "'ORDER BY created_at DESC");
+				}
+				$var = '';
+				foreach ($results as $result){
+					if(file_exists(public_path('/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+						$thumbnail ='<img src=/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+					}else{
+						$thumbnail = HTML::image('img/thumbnails/video.png');
+					}
+		
+					$var = $var . 
+						"<div id='list' class='col-md-3'>
+							<div class='inlineVid'>		
+								<span class='btn-sq'>
+									<span class='dropdown'>
+			                   		  	<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+			                   		   		<li>gge</li>
+			                          		<li>gfrhgte</li>
+			                             </span>
+			                            </span>
+			                    
+			               	<a href='#'>
+								<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+							</a>
+					
+							 </span>		
+								".$thumbnail."
+							</div>
+		
+							<div class='inlineInfo'>
+								<div class='v-Info'>
+									".$result->title."
+								</div>
+								<div class='text-justify desc hide'>
+									<p>".$result->description."</p>
+										<br/>
+								</div>
+							<div class='count'>
+								<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+							</div>
+							</div>
 						</div>
-					</a>
-						<div class='text-justify desc hide'>
-							<p>".$result->description."</p>
-								<br/>
-						</div>
-					<div class='count'>
-						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
-					</div>
-					</div>
-				</div>
-			";
-			}
-			return $var;
+					";
+					}
+					return $var;
 		}
 
 	public function getAbout() {

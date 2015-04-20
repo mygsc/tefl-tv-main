@@ -2,6 +2,7 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
+	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">
@@ -10,7 +11,6 @@
 			if(success == 1){
 				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
-					success=0;
 			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
@@ -150,7 +150,3 @@
 		</div>
 	</div>
 @stop
-
-
-
-

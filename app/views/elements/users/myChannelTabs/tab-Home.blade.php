@@ -85,7 +85,7 @@
 			<br/><br/>
 
 			<div class="row">
-			@if($usersVideos->isEmpty())
+			@if(empty($usersVideos))
 				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
