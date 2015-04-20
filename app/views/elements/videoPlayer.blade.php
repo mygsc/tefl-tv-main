@@ -55,6 +55,7 @@
 					<small class="vp-text">HD Quality</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
+						<li> <a id="normal-quality" href="#">Normal</a></li>
 						<li> <a id="low-quality" href="#">Low</a></li>
 						{{-- <li> <a href="#">480p</a></li>
 						<li> <a href="#">360p</a></li>

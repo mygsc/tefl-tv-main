@@ -14,11 +14,11 @@
         <img src="/img/logos/te.jpg" alt="..." class="center-block">
       </div>  
       <div class="item">
-        <img src="/img/logos/aua.jpg" alt="...">
+        <img src="/img/logos/aua.jpg" alt="..."  class="center-block">
         
       </div>
       <div class="item">
-        <img src="/img/logos/at.png" alt="...">
+        <img src="/img/logos/at.png" alt="..."  class="center-block">
       </div>
     </div>
     

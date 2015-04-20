@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container page">
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<div class="row">
 				@if($searchResults->isEmpty())
 					<br/><br/><br/>
@@ -24,10 +24,13 @@
 				@endif
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="sideLinksDiv2">
-				@include('elements/home/adverstisementSmall')
-				@include('elements/home/carouselAds')	
+		<div class="col-md-3">
+			<br/>
+			<div class="same-H">
+				<div class="">
+					@include('elements/home/adverstisementSmall')
+					@include('elements/home/carouselAds')	
+				</div>
 			</div>
 		</div>
 	</div>
