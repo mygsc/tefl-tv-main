@@ -221,6 +221,7 @@ class UserController extends BaseController {
 				or v.report_count > 5
 				and v.publish = 1");
 			}
+			// return $usersPlaylists;
 			$increment = 0;
 			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id ="'.$this->Auth->id.'"ORDER BY v.created_at DESC LIMIT 1');
 
@@ -687,7 +688,6 @@ class UserController extends BaseController {
 			FROM videos AS v INNER JOIN users AS u ON v.user_id = u.id WHERE v.user_id = "'.$userChannel->id.'"ORDER BY v.created_at DESC LIMIT 1');
 
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
-
 		//r3mmel
 			$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 			$countAllViews = $this->Video->countViews($allViews);
