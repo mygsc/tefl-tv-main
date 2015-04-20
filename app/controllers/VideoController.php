@@ -33,13 +33,11 @@ class VideoController extends BaseController {
 			//Find / Updated
 			$latest_id = $create->id;
 			//Session::put('fileName', $fileName);
-			
-			$getDuration = $this->getTimeDuration($input['video']);
-			return Response::json(['durations'=>$getDuration]);
-			$this->getTimeDuration($input['video']);
+			$getVidDuration = $this->getTimeDuration($input['video']);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
+			$db_filename->total_time = $getVidDuration;
 			$db_filename->tags = null;
 			$db_filename->publish = 0;
 
@@ -54,11 +52,11 @@ class VideoController extends BaseController {
 					mkdir($videoFolderPath);
 				}
 		 
-				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				// $this->getThumbnail($input['video'],$destinationPath,$fileName);
-				
+				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				$this->getThumbnail($input['video'],$destinationPath,$fileName);
+				return Response::json(['file'=>$fileName]);
 				//$ext = $file->getClientOriginalExtension();
 				//$file->move($videoFolderPath, $fileName.'.'.$ext);  
 				//$getRandom = mt_rand(1,15);
@@ -72,21 +70,32 @@ class VideoController extends BaseController {
 		->with('message', 'There were validation errors.');
 	}
 	public function getThumbnail($videoFile,$destinationPath,$fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();
-		$video = $ffmpeg->open($videoFile);
-		$duration = $ffprobe->format($videoFile)->get('duration');
+		$duration = $this->getTimeDuration($videoFile);
 		if(floor($duration)<=10){
 			return Response::json(['error'=>'Video time duration must be 10 seconds above.']);
 		}
 		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.jpg';
 		$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.jpg';
 		$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.jpg';
-		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))
-		  	  ->save($getImage1);
-		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
-  	  		  ->save($getImage2);
-  	  	$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-  	  		  ->save($getImage3);
+
+		$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);
+		$saveImage_1 = file_get_contents($getImage1);
+		$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);
+		Session::put('thumbnail_1',$convertedImage_1);
+
+		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);
+		$saveImage_2 = file_get_contents($getImage2);
+		$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);
+		Session::put('thumbnail_2',$convertedImage_2);
+
+		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);
+		$saveImage_3 = file_get_contents($getImage3);
+		$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);
+		Session::put('thumbnail_3',$convertedImage_3);
+
+		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($getImage1);
+		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))->save($getImage2);
+  	  	$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))->save($getImage3);
 	}
 	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
@@ -113,7 +122,7 @@ class VideoController extends BaseController {
 		$format->setKiloBitrate(400)
 		       ->setAudioChannels(2)
 		       ->setAudioKiloBitrate(256);
-		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'_normal.mp4');	
+		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'.mp4');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();

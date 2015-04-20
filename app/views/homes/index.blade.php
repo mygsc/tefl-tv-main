@@ -12,11 +12,11 @@
 		
 	@stop
 	@section('css')
-		{{HTML::style('css/vid.player.css')}}
+		{{HTML::style('css/vid.player.min.css')}}
 	@stop
 	@section('some_script')
-	{{HTML::script('js/video-player/media.player.js')}}
-	{{HTML::script('js/video-player/fullscreen.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
 <div class="row">

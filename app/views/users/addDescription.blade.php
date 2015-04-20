@@ -42,8 +42,11 @@
 								<center>
 									<div id="screenshot">				
 										<canvas class="thumb-1" id="img-thumb-1"></canvas>					
-										<canvas class="thumb-2" id="img-thumb-2"></canvas>										
-										<canvas class="thumb-3" id="img-thumb-3"></canvas>																					
+										<canvas class="thumb-2" id="img-thumb-2"></canvas>				
+										<canvas class="thumb-3" id="img-thumb-3"></canvas>	 
+										<img class="thumb-1" id="img-thumb-1" src="{{Session::get('thumbnail_1')}}" alt="" width="150" height="250">	
+										<img class="thumb-2" id="img-thumb-2" src="{{Session::get('thumbnail_2')}}" alt="" width="150" height="250">	
+										<img class="thumb-3" id="img-thumb-3" src="{{Session::get('thumbnail_3')}}" alt="" width="150" height="250">																				
 									</div>
 									<br/>
 									
