@@ -238,7 +238,7 @@ class VideoController extends BaseController {
 				$video->tags =  $implodeTag;
 				$video->publish =  $input['publish'];
 				$video->save();
-				for($n=1;n<=3;$n++){
+				for($n=1;$n<=3;$n++){
 					File:delete($destinationPath.$fileName.'_thumb'.$n++.'.png');
 				}
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
