@@ -26,13 +26,17 @@ class VideoController extends BaseController {
 		if($checkFilenameExist->count()){
 			$fileName = str_random($randomNo+1);
 		}
+		$duration = $this->duration($input['video']);
+		if($duration <= 10){
+			return alert('Video time range must not less 10 seconds.');
+		}
 		if($validator->passes()){
 			//insert into table    
 			$input['user_id'] = $this->Auth->id;
 			$create = Video::create($input);
 			//Find / Updated
 			$latest_id = $create->id;
-			//Session::put('fileName', $fileName);
+			Session::put('fileName', $fileName);
 			$getVidDuration = $this->getTimeDuration($input['video']);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
@@ -56,7 +60,7 @@ class VideoController extends BaseController {
 				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->getThumbnail($input['video'],$destinationPath,$fileName);
-				
+				return Response::json(['file'=>$fileName]);
 				//$ext = $file->getClientOriginalExtension();
 				//$file->move($videoFolderPath, $fileName.'.'.$ext);  
 				//$getRandom = mt_rand(1,15);
@@ -72,16 +76,27 @@ class VideoController extends BaseController {
 	public function getThumbnail($videoFile,$destinationPath,$fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
 		$video = $ffmpeg->open($videoFile);
-		$duration = $ffprobe->format($videoFile)->get('duration');
-		if(floor($duration)<=10){
-			return Response::json(['error'=>'Video time duration must be 10 seconds above.']);
-		}
-		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.jpg';
-		$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.jpg';
-		$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.jpg';
+		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';
+		$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';
+		$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
 		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($getImage1);
 		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))->save($getImage2);
   	  	$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))->save($getImage3);
+
+  	  	$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);
+		$saveImage_1 = file_get_contents($getImage1);
+		$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);
+		Session::put('thumbnail_1',$convertedImage_1);
+
+		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);
+		$saveImage_2 = file_get_contents($getImage2);
+		$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);
+		Session::put('thumbnail_2',$convertedImage_2);
+
+		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);
+		$saveImage_3 = file_get_contents($getImage3);
+		$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);
+		Session::put('thumbnail_3',$convertedImage_3);
 	}
 	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
@@ -122,7 +137,6 @@ class VideoController extends BaseController {
 		       ->setAudioKiloBitrate(256);
 		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4');	
 	}
-
 	public function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();
 		$duration = $ffprobe->format($path)->get('duration');
@@ -131,7 +145,13 @@ class VideoController extends BaseController {
 		if($duration <= 3600){return $result=$vidMinLenght.':'.$vidSecLenght;}
 		else{return $result = $hrs.':'.$mins.':'.$secs;}
 	}
-
+	public function duration($path){
+		$ffprobe = FFMpeg\FFProbe::create();
+		$duration = $ffprobe
+		    ->format($path) 
+		    ->get('duration');
+		    return floor($duration);
+	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){
@@ -180,8 +200,8 @@ class VideoController extends BaseController {
 		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'.jpg');
-				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'_sm.jpg');
+				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
 			}
 			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
 				$getImage = $input['thumbnail'];
@@ -190,8 +210,8 @@ class VideoController extends BaseController {
 				$decodeImage = base64_decode($getImage);
 				$saveImage = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($saveImage, $decodeImage);
-				$this->imageResize($saveImage, 600, 338, $destinationPath.$fileName.'.jpg');
-				$this->imageResize($saveImage, 240, 141, $destinationPath.$fileName.'_sm.jpg');	
+				$this->imageResize($saveImage, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->imageResize($saveImage, 240, 141, $destinationPath.$fileName.'.jpg');	
 
 			}		
 			$tags = explode(',',Input::get('tags'));
@@ -215,6 +235,9 @@ class VideoController extends BaseController {
 				$video->tags =  $implodeTag;
 				$video->publish =  $input['publish'];
 				$video->save();
+				for($n=1;$n<=3;$n++){
+					File:delete($destinationPath.$fileName.'_thumb'.$n++.'.png');
+				}
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
 			}
 			return Redirect::route('get.upload');					
