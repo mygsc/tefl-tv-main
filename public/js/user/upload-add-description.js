@@ -3,8 +3,8 @@ $(document).ready(function(){
 	var videoPlayer = document.getElementById('media-video');
 	var totalTime = document.getElementById('total-time');
   var thumbnail = document.getElementById('selected-thumbnail');
-  var canvas1 = document.getElementById('img-thumb-1'), canvas2 = document.getElementById('img-thumb-2'), canvas3 = document.getElementById('img-thumb-3');
-  var context1 = canvas1.getContext('2d'), context2 = canvas2.getContext('2d'), context3 = canvas3.getContext('2d');
+  // var canvas1 = document.getElementById('img-thumb-1'), canvas2 = document.getElementById('img-thumb-2'), canvas3 = document.getElementById('img-thumb-3');
+  // var context1 = canvas1.getContext('2d'), context2 = canvas2.getContext('2d'), context3 = canvas3.getContext('2d');
   var w, h, ratio;
 	var channel = $('input[name=channel]').val();
 	var selected = 1, timeLenght=0;
@@ -14,12 +14,12 @@ $(document).ready(function(){
   var  playing=false; 
    // var canvas = document.getElementById("canvas");
    // var ctx = canvas.getContext("2d");
-  context1.font="20px Georgia";
-  context1.fillText("Please wait...",90,75);
-  context2.font="20px Georgia";
-  context2.fillText("Please wait...",90,75);
-  context3.font="20px Georgia";
-  context3.fillText("Please wait...",90,75);
+  // context1.font="20px Georgia";
+  // context1.fillText("Please wait...",90,75);
+  // context2.font="20px Georgia";
+  // context2.fillText("Please wait...",90,75);
+  // context3.font="20px Georgia";
+  // context3.fillText("Please wait...",90,75);
 
  	videoPlayer.addEventListener('loadedmetadata', function() {
 		timeDuration = Math.round(videoPlayer.duration);
@@ -29,17 +29,16 @@ $(document).ready(function(){
     ratio = videoPlayer.videoWidth / videoPlayer.videoHeight;
     w = Math.floor(videoPlayer.videoWidth/videoPlayer.videoWidth * 300);
     h =  Math.floor(videoPlayer.videoHeight/videoPlayer.videoHeight * 150);//parseInt(w / ratio, 10);
-    // canvas1.width = 180;
-    // canvas1.height = 150;
-    setTimeout(function(){
-      snap(1);
-    },1000);
-    setTimeout(function(){
-      snap(2);
-    },4000);
-    setTimeout(function(){
-      snap(3);
-    },7000);
+    
+    // setTimeout(function(){
+    //   snap(1);
+    // },1000);
+    // setTimeout(function(){
+    //   snap(2);
+    // },4000);
+    // setTimeout(function(){
+    //   snap(3);
+    // },7000);
     
 	});
  
@@ -176,48 +175,31 @@ $("#poster").on("change", function(){
 
 
 
-$('canvas.thumb-1').on('click', function(){
+$('img.thumb-1').on('click', function(){
   $(this).css({'outline':'3px solid #00FF00'});
-  $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
-  $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
+  $('img.thumb-2').css({'outline':'1px solid #ccc'});
+  $('img.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-1');
-  var image  = getImg.toDataURL("image/png");
+  var image  = this.src;//getImg.toDataURL("image/png");
   thumbnail.value = image;
   //$('#poster').reset();
 });
-$('canvas.thumb-2').on('click', function(){
+$('img.thumb-2').on('click', function(){
  $(this).css({'outline':'3px solid #00FF00'});
- $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
-  $('canvas.thumb-3').css({'outline':'1px solid #ccc'});
+ $('img.thumb-1').css({'outline':'1px solid #ccc'});
+  $('img.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-2');
-  var image  = getImg.toDataURL("image/png");
+  var image  = this.src;//getImg.toDataURL("image/png");
   thumbnail.value = image;
 });
-$('canvas.thumb-3').on('click', function(){
+$('img.thumb-3').on('click', function(){
   $(this).css({'outline':'3px solid #00FF00'});
-  $('canvas.thumb-1').css({'outline':'1px solid #ccc'});
-  $('canvas.thumb-2').css({'outline':'1px solid #ccc'});
+  $('img.thumb-1').css({'outline':'1px solid #ccc'});
+  $('img.thumb-2').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-3');
-  var image  = getImg.toDataURL("image/png");
+  var image  = this.src;//getImg.toDataURL("image/png");
   thumbnail.value = image;
 });
-
-
-function getBase64FromImageUrl(URL) {
-    var img = new Image();
-    img.src = URL;
-    img.onload = function () {
-    var canvas = document.createElement("canvas");
-    canvas.width =this.width;
-    canvas.height =this.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(this, 0, 0);
-    var dataURL = canvas.toDataURL("image/png");
-
-    alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-
-    }
-}
 
 function initScreenshot() {
   videoHeight = videoPlayer.videoHeight;
