@@ -37,6 +37,21 @@
 	</script>
 @stop
 
+@section('css')
+	<style type="text/css">
+	#image_text {
+		position: relative;
+		width: 100%;
+	}
+
+	h2 {
+		position: absolute;
+		text-align: center;
+		width: 100%;
+	}
+	</style>
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container pageH">
@@ -75,8 +90,10 @@
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
 						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
 							<option>Recent</option>
+							<option>Likes</option>
+							<option>Views</option>
+							<option>Unpublished</option>
 						</select>
 						&nbsp;&nbsp;
 					
@@ -116,6 +133,12 @@
 								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+										@if($usersVideo->publish == 1)
+											<div id="image_text">
+												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+												<h2>UNPUBLISHED!</h2>
+											</div>
+										@endif
 										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
 										@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}

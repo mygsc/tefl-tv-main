@@ -89,6 +89,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
 	Route::post('likeVideo/{id}', array('as'=>'like.video','uses'=>'UserController@likeVideo'));
 	Route::post('unlikeVideo/{id}', array('as'=>'unlike.video','uses'=>'UserController@unlikeVideo'));
+	Route::post('dislikeVideo/{id}', array('as'=>'dislike.video','uses'=>'UserController@dislikeVideo'));
+	Route::post('removeDislikeVideo/{id}', array('as'=>'removeDislikeVideo.video','uses'=>'UserController@removeDislikeVideo'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
@@ -104,6 +106,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
+	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@getAuthSocial'));
 });
 //*********End of Channels************//
 

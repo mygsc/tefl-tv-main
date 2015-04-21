@@ -117,7 +117,7 @@
 			<br/>
 
 			<div class="col-md-4">
-			@if(empty($usersPlaylists))
+			@if(!empty($usersPlaylists))
 				@foreach($usersPlaylists as $playlists)
 				<div class="p-relative">
 					<div class="playlist-info" >

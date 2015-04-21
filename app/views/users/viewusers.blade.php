@@ -1,5 +1,11 @@
 @extends('layouts.default')
 
+@section('script')
+	{{HTML::script('js/jquery.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::style('css/vid.player.min.css')}}
+	{{HTML::script('js/subscribe.js')}}
+@stop
 @section('content')
 <div class="row">
 	<div class="container pageH">
@@ -40,8 +46,4 @@
 	</div><!--/.container page-->
 </div>
 
-@stop
-@section('script')
-	{{HTML::script('js/jquery.js')}}
-	{{HTML::script('js/subscribe.js')}}
 @stop
