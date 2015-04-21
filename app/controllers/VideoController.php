@@ -137,7 +137,6 @@ class VideoController extends BaseController {
 		       ->setAudioKiloBitrate(256);
 		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4');	
 	}
-
 	public function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();
 		$duration = $ffprobe->format($path)->get('duration');
@@ -146,7 +145,6 @@ class VideoController extends BaseController {
 		if($duration <= 3600){return $result=$vidMinLenght.':'.$vidSecLenght;}
 		else{return $result = $hrs.':'.$mins.':'.$secs;}
 	}
-
 	public function duration($path){
 		$ffprobe = FFMpeg\FFProbe::create();
 		$duration = $ffprobe
@@ -154,7 +152,6 @@ class VideoController extends BaseController {
 		    ->get('duration');
 		    return floor($duration);
 	}
-
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){
@@ -238,7 +235,7 @@ class VideoController extends BaseController {
 				$video->tags =  $implodeTag;
 				$video->publish =  $input['publish'];
 				$video->save();
-				for($n=1;n<=3;$n++){
+				for($n=1;$n<=3;$n++){
 					File:delete($destinationPath.$fileName.'_thumb'.$n++.'.png');
 				}
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
