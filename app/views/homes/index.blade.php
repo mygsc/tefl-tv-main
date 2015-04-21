@@ -31,7 +31,7 @@
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
-									<source src='/videos/tefltv.ogg' type='video/ogg'>
+									<source src='/videos/tefltv.ogg' type='video/ogg'> 
 								</video>	
 							</div><!--/embed-responsive-->
 							@include('elements/videoPlayer')
