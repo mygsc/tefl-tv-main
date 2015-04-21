@@ -110,25 +110,42 @@ $(document).ready(function(){
 	});
 	$('.feedbacksarea').mouseover(function(e) {
 		e.preventDefault();
-		$('.delete').show();		
+		$('.nav_div').show();		
 	});
 	$('.feedbacksarea').mouseout(function() {
-		$('.delete').hide();
+		$('.nav_div').hide();
 	});
 
-	$('form#delete_feedback').on('submit', function(e) {
-		e.preventDefault();
-				var url = $(this).prop('action');
+	$('button.delete').click(function() {
+		var channel_id = $(this).find('#channel_id').val();
+		var user_id = $(this).find('#user_id').val(); 
+		var feedback_id = $(this).find('#feedback_id').val();
+		var deleteID = this.id;
+		$.ajax({
+			type: 'POST',
+			url: '/channels/delete-feedback',
+			cache: false,
+			context: this,
+			data: {channel_id: channel_id, user_id: user_id, feedback_id: feedback_id, id: deleteID},
+			success: function(data){
+				$('div#'+deleteID).fadeOut(500);
+			}
+		});
+	});
 
-				$.ajax({
-					type: 'POST',
-					url: url,
-					cache: false,
-					context: this,
-					data: $(this).serialize(),
-					success: function(data){
-						alert(data.status);
-					}
-				});
+	$('button.spam').click(function() {
+		var spamID = this.id;
+		var feedbackId = $('#spam_feedback_id').val();
+			$.ajax({
+				type: 'POST',
+				url: '/channels/spam-feedback',
+				cache: false,
+				context: this,
+				data: {spamID: spamID, feedbackId: feedbackId},
+				success: function(data){
+					alert(data['id'])
+				}
 			});
+	});
+
 }); 

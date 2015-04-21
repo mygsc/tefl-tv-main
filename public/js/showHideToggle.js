@@ -5,8 +5,8 @@
 		$(".repLink").click(function(){
 			
 			$(this).next().show();
-			// $(".panelReply").hide();
-			// $(this).parent().children(".panelReply").slideToggle(500); 
+			$(".panelReply").hide();
+			$(this).parent().children(".panelReply").slideToggle(500); 
 		});
 		// $("input[name=my-checkbox]").bootstrapSwitch();
 	});
