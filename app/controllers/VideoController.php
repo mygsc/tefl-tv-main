@@ -33,13 +33,11 @@ class VideoController extends BaseController {
 			//Find / Updated
 			$latest_id = $create->id;
 			//Session::put('fileName', $fileName);
-			
-			$getDuration = $this->getTimeDuration($input['video']);
-			return Response::json(['durations'=>$getDuration]);
-			$this->getTimeDuration($input['video']);
+			$getVidDuration = $this->getTimeDuration($input['video']);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
+			$db_filename->total_time = $getVidDuration;
 			$db_filename->tags = null;
 			$db_filename->publish = 0;
 
@@ -54,10 +52,10 @@ class VideoController extends BaseController {
 					mkdir($videoFolderPath);
 				}
 		 
-				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				// $this->getThumbnail($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				$this->getThumbnail($input['video'],$destinationPath,$fileName);
 				
 				//$ext = $file->getClientOriginalExtension();
 				//$file->move($videoFolderPath, $fileName.'.'.$ext);  
@@ -81,12 +79,9 @@ class VideoController extends BaseController {
 		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.jpg';
 		$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.jpg';
 		$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.jpg';
-		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))
-		  	  ->save($getImage1);
-		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
-  	  		  ->save($getImage2);
-  	  	$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
-  	  		  ->save($getImage3);
+		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($getImage1);
+		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))->save($getImage2);
+  	  	$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))->save($getImage3);
 	}
 	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
@@ -113,7 +108,7 @@ class VideoController extends BaseController {
 		$format->setKiloBitrate(400)
 		       ->setAudioChannels(2)
 		       ->setAudioKiloBitrate(256);
-		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'_normal.mp4');	
+		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'.mp4');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
