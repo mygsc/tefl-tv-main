@@ -134,6 +134,9 @@ $(document).ready(function(){
 	});
 
 	$('button.spam').click(function() {
+		var channel_id = $(this).find('#channel_id').val();
+		var user_id = $(this).find('#user_id').val(); 
+		var feedback_id = $(this).find('#feedback_id').val();
 		var spamID = this.id;
 		var feedbackId = $('#spam_feedback_id').val();
 			$.ajax({
@@ -141,9 +144,9 @@ $(document).ready(function(){
 				url: '/channels/spam-feedback',
 				cache: false,
 				context: this,
-				data: {spamID: spamID, feedbackId: feedbackId},
+				data: {spamID: spamID, channel_id: channel_id, user_id: user_id, feedbackId: feedbackId},
 				success: function(data){
-					alert(data['id'])
+					console.log(data);
 				}
 			});
 	});
