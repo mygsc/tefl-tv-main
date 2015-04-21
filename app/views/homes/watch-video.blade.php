@@ -154,20 +154,38 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <div class="col-md-6 text-right">
                                                  <span class="">
             
-                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;
+                                                   
                                                     @if(isset(Auth::User()->id))
                                                         @if(!empty($like))
                                                         <span id = "like-span">
-                                                            <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                            <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
                                                         </span>
                                                         @else
                                                         <span id = "like-span">
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
                                                         </span>
                                                         @endif
+
                                                     @else
-                                                      <i class="fa fa-thumbs-up hand" title="like this" ></i>
-                                                    @endif                                                    
+                                                      <i class="fa fa-thumbs-up hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                    @if(isset(Auth::User()->id))
+                                                        @if(!empty($dislike))
+                                                        <span id = "dislike-span">
+                                                            <i id="remove-dislike"><img src="/img/icons/unlike_active.png" style="cursor:pointer"></i>
+                                                        </span>
+                                                        @else
+                                                        <span id = "dislike-span">
+                                                            <i class="fa fa-thumbs-down hand" id="dislike"></i>
+                                                        </span>
+                                                        @endif
+                                                        
+                                                    @else
+                                                      <i class="fa fa-thumbs-down hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
                                                 </span><!--/links-->
                                             </div>
                                             
@@ -200,16 +218,20 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <span>
                                                 <a href="/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                 @if(isset(Auth::User()->id))
-                                                    {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-                                                        {{Form::hidden('user_id',$owner->id)}}
-                                                        {{Form::hidden('subscriber_id', Auth::User()->id)}}
-                                                        @if(!$ifAlreadySubscribe)
-                                                            {{Form::hidden('status','subscribeOn')}}
-                                                            {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                        @else
-                                                            {{Form::hidden('status','subscribeOff')}}
-                                                            {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                        @endif
+                                                    @if(Auth::User()->id == $owner->id)
+
+                                                    @else
+                                                        {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                                                            {{Form::hidden('user_id',$owner->id)}}
+                                                            {{Form::hidden('subscriber_id', Auth::User()->id)}}
+                                                            @if(!$ifAlreadySubscribe)
+                                                                {{Form::hidden('status','subscribeOn')}}
+                                                                {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                            @else
+                                                                {{Form::hidden('status','subscribeOff')}}
+                                                                {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                            @endif
+                                                    @endif
                                                     {{Form::close()}}
                                                 @else
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
