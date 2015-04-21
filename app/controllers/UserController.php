@@ -471,7 +471,7 @@ class UserController extends BaseController {
 	public function postDeleteWatchLater($id) {
 		$deleteWatchLater = WatchLater::find($id);
 		$deleteWatchLater->delete();
-		return Redirect::route('users.watchlater')->withFlashMessage('Successfully deleted');
+		return Redirect::route('users.watchlater')->withFlashGood('Successfully deleted');
 	}
 
 	public function postWatchLater() {
@@ -876,17 +876,26 @@ class UserController extends BaseController {
 	}
 
 	public function postDeleteFeedback() {
+
 		$channelId = Input::get('channel_id');
 		$userId = Input::get('user_id');
 		$feedback_id = Input::get('feedback_id');
 
-		$deleteFeedback = DB::table('feedbacks')->delete(
+
+		$deleteFeedback = DB::table('feedbacks')->where(
 				array('channel_id' => $channelId,
 					'user_id'    => $userId,
 					'id' => $feedback_id
-					));
+					))->delete();
 
 		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
+	}
+
+	public function postSpamFeedback() {
+		$feedbackId = Input::get('feedbackId');
+		$a = Feedback::where('id',$feedbackId)->first();
+
+		return Response::json($a);
 	}
 
 	public function getViewUsersVideos($channel_name) {
