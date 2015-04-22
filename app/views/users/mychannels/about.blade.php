@@ -12,7 +12,7 @@
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>

@@ -2,7 +2,6 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">
@@ -11,6 +10,7 @@
 			if(success == 1){
 				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
+					success=0;
 			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
@@ -35,30 +35,6 @@
 		    } );
 		} );
 	</script>
-@stop
-
-@section('css')
-	<style type="text/css">
-	#image_text {
-		position: relative;
-		height: 400px;
-		width: 400px;
-	}
-	img {
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
-	h2 {
-		 z-index:100;
-    position:absolute;    
-    color:white;
-    font-size:24px;
-    font-weight:bold;
-    left:150px;
-    top:350px;
-	}
-	</style>
 @stop
 
 @section('content')
@@ -139,26 +115,12 @@
 									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 									{{Form::close()}}
 								</span>
-
+								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-											@if($usersVideo->publish == 0)
-												<div id="image_text">
-													<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-													<h2>UNPUBLISHED!</h2>
-												</div>
-												@else
-											<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-											@endif
+										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
 										@else
-											@if($usersVideo->publish == 0)
-												<div id="image_text">
-													{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-													<h2>UNPUBLISHED!</h2>
-												</div>
-											@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-											@endif
 										@endif
 							</div>
 
@@ -190,3 +152,7 @@
 		</div>
 	</div>
 @stop
+
+
+
+
