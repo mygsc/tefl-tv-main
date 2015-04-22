@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="container page">
-	<h1>Popular Videos</h1>
+<div class="container White h-minH">
+	<h1 class="orangeC">Popular Videos</h1>
 	@foreach($popularVideos as $key => $popularVideo)
 	<!-- 12 column / 3 column = 4 -->
 	<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">

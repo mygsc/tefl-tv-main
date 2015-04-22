@@ -3,8 +3,8 @@
 Category: {{$category}} - TEFL-tv
 @stop
 @section('content')
-<div class="container page">
-	<h1>{{$category}}</h1>
+<div class="container White h-minH">
+	<h1 class="orangeC">{{$category}}</h1>
 		<div class="col-md-12">
 			@foreach($videos as $video)
 			<div class="col-lg-3 col-md-3 col-sm-6 hidden-xs ">

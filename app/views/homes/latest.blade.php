@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container page">
-	<h1>Latest Videos</h1>
+<div class="container White h-minH">
+	<h1 class="orangeC">Latest Videos</h1>
 	@foreach($latestVideos as $latestVideo)
 	
 	<div class="col-lg-3 col-md-3 col-sm-6 hidden-xs ">
