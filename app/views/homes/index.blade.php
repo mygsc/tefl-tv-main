@@ -119,7 +119,7 @@
 							<div class="v-Info">
 								<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
 							</div>
-							<div class="count">
+							<div class="count whiteC">
 								by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
 								<br />
 								<i class="fa fa-eye"></i> {{number_format($recommended->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$recommended->likes}} | {{date('F d, Y',strtotime($recommended->created_at))}}
@@ -172,7 +172,7 @@
 						<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
 					</div>
 
-					<div class="count">
+					<div class="count whiteC">
 						by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
 						<br />
 						<i class="fa fa-eye"></i> {{number_format($latest->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$latest->likes}} | {{date('F d, Y',strtotime($latest->created_at))}}
