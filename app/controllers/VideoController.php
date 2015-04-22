@@ -56,10 +56,35 @@ class VideoController extends BaseController {
 					mkdir($videoFolderPath);
 				}
 		 
-				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				$this->getThumbnail($input['video'],$destinationPath,$fileName);
+		 		$ffmpeg = FFMpeg\FFMpeg::create();
+				$video = $ffmpeg->open($input['video']);
+				$video
+				    ->filters()
+				    ->resize(new FFMpeg\Coordinate\Dimension(1280, 720))
+				    ->synchronize();
+				// $video
+				//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+				//     ->save($destinationPath.DS.$fileName.DS.$fileName.'.jpg');
+				// $video
+				//     //->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
+				//     ->save(new FFMpeg\Format\Video\WMV(), $destinationPath.DS.$fileName.DS.$fileName.'export-wmv.wmv')
+				//     ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.$fileName.DS.$fileName.'export-webm.webm');
+				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				// $this->getThumbnail($input['video'],$destinationPath,$fileName);
+				 
+				$format = new FFMpeg\Format\Video\WebM();
+				// $format->on('progress', function ($video, $format, $percentage) {
+				//     echo "$percentage % transcoded";
+				// });
+
+				$format
+				    -> setKiloBitrate(1000)
+				    -> setAudioChannels(2)
+				    -> setAudioKiloBitrate(256);
+
+				$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.'video.webm');
 				return Response::json(['file'=>$fileName]);
 				//$ext = $file->getClientOriginalExtension();
 				//$file->move($videoFolderPath, $fileName.'.'.$ext);  
@@ -220,15 +245,10 @@ class VideoController extends BaseController {
 					$newTags[] = strtolower($tag);
 				}
 			}
-			$uniqueTag = array_unique($newTags);
-			$implodeTag = implode(',',$uniqueTag);
-			$video = Video::find($id);
-			$publish = $video->publish;
-			if(Input::has('cat')){
-				$selectedCategory = implode(',',Input::get('cat'));
-			}
+			$uniqueTag = array_unique($newTags);$implodeTag = implode(',',$uniqueTag);$video = Video::find($id);$publish = $video->publish;
+			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			if($publish == 0){
-				$video->total_time = $input['totalTime'];
+				//$video->total_time = $input['totalTime'];
 				$video->title = $input['title'];
 				$video->description = $input['description'];
 				$video->category = $selectedCategory;
@@ -236,7 +256,7 @@ class VideoController extends BaseController {
 				$video->publish =  $input['publish'];
 				$video->save();
 				for($n=1;$n<=3;$n++){
-					File:delete($destinationPath.$fileName.'_thumb'.$n++.'.png');
+					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
 			}

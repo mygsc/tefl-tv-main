@@ -1133,6 +1133,23 @@ class UserController extends BaseController {
 		->where('video_id','=',$id);
 		if(!$counter->count()){
 			$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$likeResult = Like::where('video_id',$id)->count();
+			$dislikeResult = Dislike::where('video_id',$id)->count();
+			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
+
+		}
+	}
+
+	public function dislikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = Dislike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
+			$dislike = Dislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$dislikeResult = Dislike::where('video_id',$id)->count();
+			$likeResult = Like::where('video_id',$id)->count();
+			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
+
 		}
 	}
 
@@ -1144,6 +1161,27 @@ class UserController extends BaseController {
 			$unlike = Like::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
 			$unlike->delete();
+			$likeResult = Like::where('video_id',$id)->count();
+			if(empty($likeResult)){
+				$likeResult = 0;
+			}
+			return Response::json(array('likeResult'=>$likeResult));
+		}
+	}
+
+	public function removeDislikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = Dislike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if($counter->count()){
+			$dislike = Dislike::where('user_id','=',Auth::User()->id)
+			->where('video_id','=',$id)->first();
+			$dislike->delete();
+			$dislikeResult = Dislike::where('video_id',$id)->count();
+			if(empty($dislikeResult)){
+				$dislikeResult = 0;
+			}
+			return Response::json(array('dislikeResult'=>$dislikeResult));
 		}
 	}
 
