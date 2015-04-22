@@ -40,5 +40,27 @@ class Subscribe extends Eloquent {
 		}
 		return $convertNumber;
 	}
+
+	public function Subscribers($auth = null, $limit = null) {
+		if(!empty($limit)){
+
+			$limit = 'LIMIT '.$limit;
+		}
+		$subscribers = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
+				AS numberOfSubscribers FROM subscribes AS s 
+				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$auth.'"'.$limit);
+		return $subscribers;
+	}
+
+	public function Subscriptions($auth = null, $limit = null) {
+		if(!empty($limit))
+			$limit = 'LIMIT '.$limit;
+
+		$subscriptions = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
+			AS numberOfSubscribers from subscribes AS s 
+			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$auth.'"'. $limit);
+
+		return $subscriptions;
+	}
 	
 }

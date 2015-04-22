@@ -112,7 +112,7 @@
                                         <br/>
                                         {{Form::label('gmail', 'Gmail: ')}}
                                         {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
-                                        <button>Connect with Gmail</button>
+                                        {{link_to_route('hybridauth','Gmail', Auth::User()->id)}}
                                         <br/>
                                         {{Form::label('others', 'Other Websites: ')}}
                                         {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}

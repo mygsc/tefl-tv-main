@@ -21,11 +21,12 @@
 @endif
 
 @if(Session::has('flash_warning'))
+
 	<div class="p-relative text-center">
 		<div class="animated flipInX p-absolute flash center-block alert">
 			<div class="warn alert-dismissible" role="alert">
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong><p class="text-center">! {{ Session::get('flash_bad') }}</p></strong>
+			  <strong><p class="text-center">! {{ Session::get('flash_warning') }}</p></strong>
 		</div>
 	</div>
 @endif

@@ -17,6 +17,7 @@
 	@yield('css')
 </head>
 <body>
+
 		
 		@include('elements/header')
 		@include('elements/home/headerNav')
@@ -29,6 +30,7 @@
 		<div class="footer">
 			@include('elements/footer')
 		</div>
+
 </body>
 
 <!-- scripts -->
@@ -38,29 +40,30 @@
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/main.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
-@yield('script') 
-@yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
-
-
 <!--list and gri display for my channel-->
 <script type="text/javascript">
-		$('.grid').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
-		    $('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
-		    $('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
-		    $('.desc').addClass('hide');
-		});
-		$('.list').click(function() {
-		    $('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
-		    $('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
-		    $('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
-		    $('.desc').removeClass('hide');
-		});
+	setCorrectTimezone();
+
+	$('.grid').click(function() {
+		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
+		$('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
+		$('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
+		$('.desc').addClass('hide');
+	});
+	$('.list').click(function() {
+		$('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
+		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
+		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
+		$('.desc').removeClass('hide');
+	});
 </script>
 
+@yield('script') 
+@yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 @yield('modal')
 
 </html>

@@ -238,7 +238,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 @endif
                                             </span>
                                         </p> 
-                                        <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
+                                        <p>Posted on <b><span class="set_timezone">{{$videos->created_at}}</span></b> &nbsp; </p>
+                                        
                                         <div class="seeVideoContent">
                                             <p>
                                                {{$videos->description}}
@@ -321,7 +322,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 </div><!--/.row-->
 
 </div>
-
 
 <!--MODAL FOR EMBED VIDEO-->
 <div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
