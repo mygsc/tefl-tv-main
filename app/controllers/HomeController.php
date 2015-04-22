@@ -12,10 +12,10 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
-		$populars = $this->Video->getVideoByCategory('popular', '6');
-		$latests = $this->Video->getVideoByCategory('latest', '6');
-		$randoms = $this->Video->getVideoByCategory('random', '6');
+		$recommendeds = $this->Video->getVideoByCategory('recommended', '8');
+		$populars = $this->Video->getVideoByCategory('popular', '8');
+		$latests = $this->Video->getVideoByCategory('latest', '8');
+		$randoms = $this->Video->getVideoByCategory('random', '8');
 		$categories = $this->Video->getCategory();
 
 		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<div class="container page">
+	<div class="container White">
 		<div class="col-md-9">
 			<div class="row">
 				@if($searchResults->isEmpty())

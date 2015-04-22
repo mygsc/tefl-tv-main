@@ -2,10 +2,10 @@
 	<div class="row">
 	@foreach($datas as $channel)
 
-	<div class="col-md-6" >
-		<div class="well ch" style="overflow:hidden;">
+	<div class="col-md-12" >
+		<div class="grey mg-b-10">
 			<div class="row">
-				<div class="col-md-4 col-xs-4">
+				<div class="col-lg-2 col-md-3 col-xs-4">
 					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
 						{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
 					@else
@@ -13,10 +13,9 @@
 					@endif
 
 				</div>
-				<div class="col-md-8 col-xs-8">
-					<a href="channels/{{$channel->channel_name}}"><h3>{{$channel->channel_name}}</h3></a>
-					<p><b>Org:</b>TEFL Educators</p>
-						<p class="text-justify">{{ Str::limit($channel->interests, 120) }}</p>
+				<div class="col-lg-10 col-md-9 col-xs-8">
+					<a href="channels/{{$channel->channel_name}}"><h2>{{$channel->channel_name}}</h2></a>
+						<p class="text-justify">{{ Str::limit($channel->interests, 100) }}</p>
 					
 						@if(Auth::check())
 							@if(Auth::user()->id != $channel->id)
@@ -37,10 +36,9 @@
 						@endif
 				</div>	
 			</div><!--/.row-->
-			<hr/>
-			<div class="Subscribers">
+			<div class="Subscribers greyDark">
 				<div class="row">
-					<h3 class="inline">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$channel->total}} Views</h3>
+					<h4 class="inline orangeC">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$channel->total}} Views</h4>
 					<br/>
 					@foreach($channel->subscribers as $subscriber)
 						@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
@@ -56,4 +54,3 @@
 	</div><!--/.col-md-6-->
 	@endforeach
 	</div>
-	<br/>
