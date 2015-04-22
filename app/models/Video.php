@@ -272,5 +272,29 @@ class Video extends Eloquent{
 				".$limit.";");
 		return $returndata;
 	}
-		
+	
+	public function getUserVideosOrderByRecent($auth = null, $limit = null) {
+		if(!empty($limit)) {
+			$limit = 'LIMIT '.$limit;
+		}
+
+		$userVideos = DB::select('SELECT *,
+			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes FROM videos v
+			 WHERE v.user_id="'.$auth.'"ORDER BY v.created_at DESC '.$limit);
+
+		return $userVideos;
+	}
+	
+	public function getVideos($auth = null, $limit = null) {
+		if(!empty($limit)) {
+			$limit = 'LIMIT '.$limit;
+		}
+
+		$newUpload = DB::select('SELECT *,
+			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,
+			(SELECT u.channel_name FROM users u WHERE u.id = v.user_id) AS channel_name
+			FROM videos AS v WHERE v.user_id ="'.$auth.'"ORDER BY v.created_at DESC '.$limit);
+
+		return $newUpload;
+	}
 }

@@ -55,7 +55,7 @@
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 
-			{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -108,7 +108,7 @@
 						</div>
 					</a>
 					<div class="count">
-							{{$usersVideo->views}} Views | {{$usersVideo->numberOfLikes}} Likes
+							{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes
 					</div>
 				</div>
 				@endforeach
