@@ -2,7 +2,6 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">
@@ -11,6 +10,7 @@
 			if(success == 1){
 				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
+					success=0;
 			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
@@ -35,21 +35,6 @@
 		    } );
 		} );
 	</script>
-@stop
-
-@section('css')
-	<style type="text/css">
-	#image_text {
-		position: relative;
-		width: 100%;
-	}
-
-	h2 {
-		position: absolute;
-		text-align: center;
-		width: 100%;
-	}
-	</style>
 @stop
 
 @section('content')
@@ -133,12 +118,6 @@
 								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										@if($usersVideo->publish == 1)
-											<div id="image_text">
-												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-												<h2>UNPUBLISHED!</h2>
-											</div>
-										@endif
 										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
 										@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
@@ -173,3 +152,7 @@
 		</div>
 	</div>
 @stop
+
+
+
+
