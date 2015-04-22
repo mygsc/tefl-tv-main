@@ -113,11 +113,11 @@ class HomeController extends BaseController {
 			OR v.report_count IS NULL;");
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-									->where('publish','1')
-									->where('report_count','<','5')
-									->where('id','!=',$videos->id)
-									->orderBy('id','desc')
-									->take(3)->get();
+		->where('publish','1')
+		->where('report_count','<','5')
+		->where('id','!=',$videos->id)
+		->orderBy('id','desc')
+		->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
@@ -217,16 +217,16 @@ class HomeController extends BaseController {
 		}
 		if($counter >= 15){
 			$newRelation =  DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-			HAVING v.id!='".$id."'
-			AND v.publish = '1'
-			AND u.verified = '1'
-			AND u.status = '1'
-			and v.deleted_at IS NULL
-			AND v.report_count < 5
-			OR v.report_count IS NULL
-			LIMIT 15;");
+				LEFT JOIN users u ON v.user_id = u.id
+				WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
+				HAVING v.id!='".$id."'
+				AND v.publish = '1'
+				AND u.verified = '1'
+				AND u.status = '1'
+				and v.deleted_at IS NULL
+				AND v.report_count < 5
+				OR v.report_count IS NULL
+				LIMIT 15;");
 		}
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
@@ -276,18 +276,18 @@ class HomeController extends BaseController {
 
 		$datas = $this->User->getTopChannels(4);
   		//Insert additional data to $datas
-  		foreach($datas as $key => $channel){
-		   	$img = 'img/user/'. $channel->id. '.jpg';
-		   	if(Auth::check()){
-			    $ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-			    $datas[$key]->ifsubscribe = 'No';
-			    if(!$ifsubscribe->isEmpty()){
-			     	$datas[$key]->ifsubscribe = 'Yes';
-			    }
-		   	}
-		   	if(!file_exists(public_path($img))){
-		    	$img = '/img/user/0.jpg';
-		   	}
+		foreach($datas as $key => $channel){
+			$img = 'img/user/'. $channel->id. '.jpg';
+			if(Auth::check()){
+				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+				$datas[$key]->ifsubscribe = 'No';
+				if(!$ifsubscribe->isEmpty()){
+					$datas[$key]->ifsubscribe = 'Yes';
+				}
+			}
+			if(!file_exists(public_path($img))){
+				$img = '/img/user/0.jpg';
+			}
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
@@ -430,51 +430,51 @@ class HomeController extends BaseController {
 			}
 			$newComment =  
 			'<div class="commentsarea row">
-				<div class="commentProfilePic col-md-1">'. 
-					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-				</div>
-				<div class="col-md-11">
-					<div class="row">'.
-						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
-						| &nbsp;<small> just now. </small> 
-						<br/>
-						<p class="text-justify">
-							'. $comments->comment . '
-						</p>
-						<div class="fa fa-thumbs-up likedup">
-							<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-							<input type="hidden" value="'.$video_id.'" name="video_id">
-							<input type="hidden" value="liked" name="status">
-							<span class="likescount" id="likescount">'.$likesCount.'</span>
-						</div>
-						|&nbsp;
-						<div class="fa fa-thumbs-down dislikedup">
-							<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
-							<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
-							<input type="hidden" value="'.$video_id.'" name="video_id">
-							<input type="hidden" value="disliked" name="status">
-							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-						</div>
-						|&nbsp;
-						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
-
-						<div id="replysection" class="panelReply"> '.
-							Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-								<input type="hidden" name="comment_id" value="'.$comments->id.'">
-								<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-								<input type="hidden" name="video_id" value="'.$video_id.'">
-								<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-								<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
-
-								<span class="replyError inputError"></span>
-							</form>
-						</div>
+			<div class="commentProfilePic col-md-1">'. 
+				HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+			</div>
+			<div class="col-md-11">
+				<div class="row">'.
+					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+					| &nbsp;<small> just now. </small> 
+					<br/>
+					<p class="text-justify">
+						'. $comments->comment . '
+					</p>
+					<div class="fa fa-thumbs-up likedup">
+						<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+						<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">
+						<input type="hidden" value="liked" name="status">
+						<span class="likescount" id="likescount">'.$likesCount.'</span>
 					</div>
+					|&nbsp;
+					<div class="fa fa-thumbs-down dislikedup">
+						<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+						<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">
+						<input type="hidden" value="disliked" name="status">
+						<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+					</div>
+					|&nbsp;
+					<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+
+					<div id="replysection" class="panelReply"> '.
+						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+						<input type="hidden" name="comment_id" value="'.$comments->id.'">
+						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+						<input type="hidden" name="video_id" value="'.$video_id.'">
+						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+
+						<span class="replyError inputError"></span>
+					</form>
 				</div>
 			</div>
-			<hr/>
-			';
+		</div>
+	</div>
+	<hr/>
+	';
 
 	return Response::json(array(
 		'status' => 'success',
@@ -483,7 +483,7 @@ class HomeController extends BaseController {
 		'user_id' => $user_id,
 		'comment' => $newComment
 		));
-	}
+}
 }
 
 public function addReply(){
@@ -630,13 +630,18 @@ public function addReply(){
 		return Redirect::route('homes.index');
 	}
 
-	public function testingpage(){ 
-		dd(file_exists(public_path('/videos/7-mygsc/ZsBuaZgQdg9/ZsBuaZgQdg9.jpg')));
-
+	public function getChangeLogs() {
+		return View::make('homes.changelogs');
 	}
 
-	public function getChangeLogs() {
+	public function getTimezone(){
+		$inputs = Input::all();
+		$convert_time = date("d-m-Y H:i:s", strtotime($inputs['current_time']));
+		$time = date('F d, Y', strtotime($convert_time. '+'. $inputs['users_GMT'].' hours'));
+		return $time;
+	}
 
-		return View::make('homes.changelogs');
+	public function testingpage(){ 
+		return date("M-d-Y");
 	}
 }

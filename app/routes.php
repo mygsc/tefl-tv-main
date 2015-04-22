@@ -46,10 +46,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
-	
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
-	
-
+	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
 });
 
 
@@ -58,7 +56,6 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	// Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('/', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	
 	Route::get('edit-channel', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
