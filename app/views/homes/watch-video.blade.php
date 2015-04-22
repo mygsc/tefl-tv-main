@@ -51,16 +51,16 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 @section('content')
 
-<div class="row White">
-<div class="container page">
-    <div class="content-padding">
-        <div class="row">
+<div class="row">
+<div class="container ">
+    <div class="">
+        <div class="row mg-t-10">
             <div id="featured" > 
                 <div class="col-md-8">
-                    <br/>
-                    <div id="" class="ui-tabs-panel" style="">
-                        <div class="well">
+                    <div class="row">
+                        <div id="" class="ui-tabs-panel White pad-s-10" tyle="">
                             <!--video paler-->
+                            <br/>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
@@ -154,20 +154,38 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <div class="col-md-6 text-right">
                                                  <span class="">
             
-                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;
+                                                   
                                                     @if(isset(Auth::User()->id))
                                                         @if(!empty($like))
                                                         <span id = "like-span">
-                                                            <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                            <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
                                                         </span>
                                                         @else
                                                         <span id = "like-span">
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
                                                         </span>
                                                         @endif
+
                                                     @else
-                                                      <i class="fa fa-thumbs-up hand" title="like this" ></i>
-                                                    @endif                                                    
+                                                      <i class="fa fa-thumbs-up hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                    @if(isset(Auth::User()->id))
+                                                        @if(!empty($dislike))
+                                                        <span id = "dislike-span">
+                                                            <i id="remove-dislike"><img src="/img/icons/unlike_active.png" style="cursor:pointer"></i>
+                                                        </span>
+                                                        @else
+                                                        <span id = "dislike-span">
+                                                            <i class="fa fa-thumbs-down hand" id="dislike"></i>
+                                                        </span>
+                                                        @endif
+                                                        
+                                                    @else
+                                                      <i class="fa fa-thumbs-down hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
                                                 </span><!--/links-->
                                             </div>
                                             
@@ -200,23 +218,28 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <span>
                                                 <a href="/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                 @if(isset(Auth::User()->id))
-                                                    {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-                                                        {{Form::hidden('user_id',$owner->id)}}
-                                                        {{Form::hidden('subscriber_id', Auth::User()->id)}}
-                                                        @if(!$ifAlreadySubscribe)
-                                                            {{Form::hidden('status','subscribeOn')}}
-                                                            {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                        @else
-                                                            {{Form::hidden('status','subscribeOff')}}
-                                                            {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
-                                                        @endif
+                                                    @if(Auth::User()->id == $owner->id)
+
+                                                    @else
+                                                        {{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+                                                            {{Form::hidden('user_id',$owner->id)}}
+                                                            {{Form::hidden('subscriber_id', Auth::User()->id)}}
+                                                            @if(!$ifAlreadySubscribe)
+                                                                {{Form::hidden('status','subscribeOn')}}
+                                                                {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                            @else
+                                                                {{Form::hidden('status','subscribeOff')}}
+                                                                {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
+                                                            @endif
+                                                    @endif
                                                     {{Form::close()}}
                                                 @else
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
                                                 @endif
                                             </span>
                                         </p> 
-                                        <p>Posted on <b>{{$videos->created_at->toFormattedDateString()}}</b> &nbsp; </p>
+                                        <p>Posted on <b><span class="set_timezone">{{$videos->created_at}}</span></b> &nbsp; </p>
+                                        
                                         <div class="seeVideoContent">
                                             <p>
                                                {{$videos->description}}
@@ -226,34 +249,38 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
-                               <div class="seeMore">
-                                <a class="linkReadMore text-center"><span>SHOW VIDEO STORY</span></a>
+                               <div class="h-seeMore">
+                                <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
                             </div>
                         </div><!--/.info-->
                     </div><!--well-->
-                    <br/>
                 </div> <!--/.ui-tabs-panel-->
-
+        
                 <!-- COMMENTS AREA -->
-                <div class="well">
-                    <div class="row">
-                        <div class="content-padding">
-                         @include('elements/home/videoComments')
-                         </div>
+                <div class="row mg-t-10">
+                    <div class="White">
+                        <div class="row">
+                            <div class="content-padding">
+                             @include('elements/home/videoComments')
+                             </div>
+                        </div>
                     </div>
                 </div>
                 <!-- COMMENTS AREA -->
 
                 <!-- latest -->
-                @include('elements/home/uploaderLatestVideo')
+                <div class="mg-b-10">
+                    @include('elements/home/uploaderLatestVideo')
+                </div>
             </div><!--column 8-->
 
 
             <div class="col-md-4 visible-md visible-lg">
+                <div class="">
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-               <br/>
+         
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
                         @if($relation->id != $videos->id)
@@ -279,20 +306,22 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                     @endforeach
                 </ul><!--video list-->
 
-                    
-                    @include('elements/home/carouselAds')
-                    @include('elements/home/recommendedChannelList')
+                    <div class="mg-t-10">
+                        @include('elements/home/carouselAds')
+                    </div>
+                    <div class="mg-t-10 mg-b-10">
+                        @include('elements/home/recommendedChannelList')
+                    </div>
+                </div>
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
 
     </div><!--/.row-->
 </div><!--/padding-->
- <br/><br/><br/> 
 </div><!--/.row-->
 
 </div>
-
 
 <!--MODAL FOR EMBED VIDEO-->
 <div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

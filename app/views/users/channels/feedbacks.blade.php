@@ -24,41 +24,57 @@
 
 				<div class="feedbackSection">
 					<h3>Comments</h3>
-				@if(empty($userFeedbacks))
-					No feedbacks yet..
-					<br/>
-				@else
+	@if(empty($userFeedbacks))
+		No feedbacks yet..
+		<br/>
+		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
+		<span id='errorlabel' class='input-error'></span>
+		<br/>
+		<div class="text-right">
+			@if(!Auth::check())
+				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
+			@else
+				<button id='btnfeedback' class="btn btn-info">Post</button>
+				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
+				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
+			
+			@endif
+		</div>
+
+	@else
 					       
 	<div class="feedbacks row">
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/>
 		<div class="text-right">
-		
-	
-		@if(!Auth::check())
-			{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-		@else
-			<button id='btnfeedback' class="btn btn-info">Post</button>
-			{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-			{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
-		
-		@endif
+			@if(!Auth::check())
+				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
+			@else
+				<button id='btnfeedback' class="btn btn-info">Post</button>
+				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
+				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
+			
+			@endif
 		</div>
 
 	<div class="col-md-12 feedbacksarea">
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
-			<div class="feedbacksarea row">
+			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				<div class="delete" style="display: none;">
-					{{Form::open(array('route' => 'post.viewusers.delete-feedback', 'id' => 'delete_feedback'))}}
+				@if(Auth::check())
+				<div class="nav_div" style="display: none;">
+					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
+						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
+					</button>
+					<button class="delete pull-right" id="feedback{{$userFeedback->id}}">x	
 						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
 						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
 						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
-						{{Form::submit('X', array('id' => 'delete_feedback', 'class' => 'pull-right'))}}
-					{{Form::close()}}
+					</button>
 				</div>
+				@endif
 
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){

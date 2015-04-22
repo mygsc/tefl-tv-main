@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
+	<div class="container White">
 		<br/>
 		<div class="row same-H content">
 			<div class="content-padding text-justify">

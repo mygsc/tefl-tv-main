@@ -46,10 +46,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
-	
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
-	
-
+	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
 });
 
 
@@ -58,7 +56,6 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	// Route::get('/', array('as' => 'users.index', 'uses' => 'UserController@getUsersIndex'));
 	Route::get('/', array('as' => 'users.channel', 'uses' => 'UserController@getUsersChannel'));
 	Route::get('signout', array('as' => 'users.signout', 'uses' => 'UserController@getSignOut'));
-	
 	Route::get('edit-channel', array('as' => 'users.edit.channel', 'uses' => 'UserController@getEditUsersChannel'));
 	Route::post('post-edit-channel/{channel_name}', array('as' => 'users.post.edit.channel', 'uses' => 'UserController@postEditUsersChannel'));
 	Route::post('change-cover-photo', array('as' => 'users.upload.cover.photo', 'uses' => 'UserController@postUsersUploadCoverPhoto'));
@@ -89,6 +86,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('removeToWatchLater/{id}', array('as'=>'remove.watchLater','uses'=>'UserController@removeToWatchLater'));
 	Route::post('likeVideo/{id}', array('as'=>'like.video','uses'=>'UserController@likeVideo'));
 	Route::post('unlikeVideo/{id}', array('as'=>'unlike.video','uses'=>'UserController@unlikeVideo'));
+	Route::post('dislikeVideo/{id}', array('as'=>'dislike.video','uses'=>'UserController@dislikeVideo'));
+	Route::post('removeDislikeVideo/{id}', array('as'=>'removeDislikeVideo.video','uses'=>'UserController@removeDislikeVideo'));
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
@@ -104,6 +103,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
+	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@getAuthSocial'));
 });
 //*********End of Channels************//
 
@@ -120,6 +120,7 @@ Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addlike
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
 Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@postDeleteFeedback'));
+Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));

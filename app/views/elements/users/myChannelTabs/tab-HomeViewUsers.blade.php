@@ -3,7 +3,11 @@
 	<div class="content-padding">
 		<br/>
 			@if(empty($recentUpload))
-				<p class="mg-l--30">No recent Activity</p>
+				<div class="row">
+					<div class="text-center alert alert-info noA">
+						<h3>No Video</h3>
+					</div>
+				</div>
 			@else
 			@if(isset($recentUpload[0]->id))
 				<div class="col-md-6">
@@ -45,7 +49,7 @@
 				<br/>
 				<span class=""><!--/counts and share link-->
 					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-					{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
+					{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
 				<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -114,7 +118,7 @@
 
 			<div class="col-md-4">
 			@if(empty($usersPlaylists))
-				<p class="mg-l-20">No Playlists yet..</p>
+				<p class="mg-l-20">No Playlists yet</p>
 			@else
 				@foreach($usersPlaylists as $playlists)
 				<div class="p-relative">
@@ -135,7 +139,8 @@
 				<div class="count">
 					{{$playlists->updated_at}}
 				</div>
-				@endforeach				
+				@endforeach
+
 			@endif
 			</div>
 		</div>

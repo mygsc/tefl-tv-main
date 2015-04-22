@@ -55,7 +55,7 @@
 		<span class=""><!--/counts and share link-->
 			{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
 
-			{{$recentUpload[0]->numberOfLikes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+			{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
 			<span class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -92,7 +92,11 @@
 				<div class="col-md-4 col-sm-6">
 					<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 						@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-							<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" />
+							<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
+							</video>
 						@else
 							{{HTML::image('img/thumbnails/video.png')}}
 						@endif
@@ -104,7 +108,7 @@
 						</div>
 					</a>
 					<div class="count">
-							{{$usersVideo->views}} Views | {{$usersVideo->numberOfLikes}} Likes
+							{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes
 					</div>
 				</div>
 				@endforeach
