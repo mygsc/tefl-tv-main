@@ -3,7 +3,7 @@
 	<div class="col-md-12">
 		<div class="" id="about">
 			<div class="col-md-12 LighterBlue">
-			<h3 class="tBlue text-center">-Interests-</h3>
+			<h3 class="text-center">-Interests-</h3>
 			<div class="well2">
 				@if(empty($usersChannel->interests))
 
@@ -17,13 +17,13 @@
 		</div>
 	
 		<div class="col-md-12 LightestBlue">
-			<h3 class="tBlue text-center">-Personal Information-</h3>
+			<h3 class="text-center">-Personal Information-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr class="">
-						<td class="w-20per"><small><label>Name</label></small> </td>
-						<td class="w-5per"><b>:</b></td>
-						<td class="w-75per">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+						<td  width="20%"><small><label>Name</label></small> </td>
+						<td  width="5%"><b>:</b></td>
+						<td  width="75%">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
 					</tr>
 					<tr>
 						@if(empty($usersChannel->birthdate))
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 		<div class="col-md-12 LighterBlue">
-			<h3 class="tBlue text-center">-Contact Information-</h3>
+			<h3 class="text-center">-Contact Information-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					
@@ -64,9 +64,9 @@
 						@if(empty($usersChannel->email))
 
 						@else
-							<td class="w-20per"><small><label>Email</label></small> </td>
-							<td class="w-5per"><b>:</b></td>
-							<td class="w-75per">{{$userChannel->email}}</td>
+							<td  width="20%"><small><label>Email</label></small> </td>
+							<td  width="5%"><b>:</b></td>
+							<td  width="75%">{{$userChannel->email}}</td>
 						@endif
 					</tr>
 					<tr>
@@ -100,16 +100,16 @@
 			</div>
 		</div>
 		<div class="col-md-12 LightestBlue">
-			<h3 class="tBlue text-center">-Address-</h3>
+			<h3 class="text-center">-Address-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr>
 						@if(empty($usersChannel->address))
 
 						@else
-							<td class="w-20per"><small><label>Address</label></small></td>
-							<td class="w-5per"><b>:</b></td>
-							<td class="w-75per">{{$usersChannel->address}}</td>
+							<td  width="20%"><small><label>Address</label></small></td>
+							<td  width="5%"><b>:</b></td>
+							<td  width="75%">{{$usersChannel->address}}</td>
 						@endif
 					</tr>
 					<tr>

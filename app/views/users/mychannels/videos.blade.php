@@ -2,7 +2,6 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{--HTML::script('js/media.player.js')--}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">
@@ -11,6 +10,7 @@
 			if(success == 1){
 				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
 					$('#success').fadeOut(20000);
+					success=0;
 			}
 			$('#form-add-setting').on('submit', function() {
 		        //.....
@@ -75,8 +75,10 @@
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
 						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
 							<option>Recent</option>
+							<option>Likes</option>
+							<option>Views</option>
+							<option>Unpublished</option>
 						</select>
 						&nbsp;&nbsp;
 					
@@ -150,3 +152,7 @@
 		</div>
 	</div>
 @stop
+
+
+
+

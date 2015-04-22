@@ -249,6 +249,8 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$like = Like::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
+			$dislike = Dislike::where('video_id','=',$id)
+			->where('user_id','=',Auth::User()->id)->first();
 		//return $playlists;
 
 		}
@@ -258,8 +260,10 @@ class HomeController extends BaseController {
 			$favorites = null;
 			$watchLater = null;
 			$like = null;
+			$dislike = null;
 		}
 		$likeCounter = Like::where('video_id','=',$id)->count();
+		$dislikeCounter = Dislike::where('video_id','=',$id)->count();
 		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
 			LEFT JOIN users u ON v.user_id = u.id
 			WHERE v.id = '".$id."';");
@@ -292,7 +296,7 @@ class HomeController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe'));
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -331,7 +335,7 @@ class HomeController extends BaseController {
 			and v.publish = 1
 			ORDER BY i.id desc
 			LIMIT 1;");
-		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
+		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
@@ -348,15 +352,19 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
+			$dislike = Dislike::where('video_id','=',$video->id)
+			->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$like = null;
 			$favorites = null;
 			$watchLater = null;
+			$dislike = null;
 		}
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$likeCounter = Like::where('video_id','=',$video->id)->count();
-		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers'));
+		$dislikeCounter = Dislike::where('video_id','=',$video->id)->count();
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers','dislikeCounter','dislike'));
 	}
 
 	public function postSignIn() {

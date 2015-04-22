@@ -38,10 +38,10 @@ $(document).ready(function(){
                     $('#percentage').html('Processing... '+percentComplete+"%").css({'color':'#000'});
                 },
                 success: function(response){
-                    $('#progress').fadeOut();
-                    $('#wrapper').fadeOut();
                     $('#percentage').html('Done please wait a moment...');
                     window.location.href = "add-description!v="+response.file;
+                    $('#progress').fadeOut();
+                    $('#wrapper').fadeOut();
                 },
                 error: function(response, status, e){
                     alert(e);

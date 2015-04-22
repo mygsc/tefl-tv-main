@@ -2,23 +2,23 @@
 
 @section('content')
 <div class="row">
-	<div class="container page">
+	<div class="container pageH">
 		<br/>
 		<div class="row same-H">
-			@include('elements/users/profileTop2')
+			@include('elements/users/profileTop')
 
 			<div class=" Div-channel-border channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<!-- <li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li> -->
-				    	<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
-				  		<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
+						<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
+						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
+						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+						<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+						<li role="presentation" class="active">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+						<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 					</ul><!--tabNav-->
 				</div>
 
@@ -40,17 +40,17 @@
 						
 					</div>-->
 
-		<!-- 			<div class="col-md-3">
+					<div class="col-md-3">
 						{{Form::open()}}
 						<div class="input-group" style="">
-							{{Form::hidden('text1',Crypt::encrypt($userChannel->id),array('id'=>'text1'))}}
+							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
 							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
 							<span class="input-group-btn">
 								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
 							</span>
 						</div>
 						{{Form::close()}}
-					</div> -->
+					</div>
 
 					<!--<div class="col-md-1 text-right">
 						<div class="buttons">
@@ -65,13 +65,13 @@
 						<br/><br/><br/>
 						<div class="row">
 						@if($playlists->isEmpty())
-							No playlists yet
+							<p class="text-center">You don't have playlist yet.</p>
 						@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">
-								<a href="/mychannels/videoplaylist={{$playlist->randID}}"  class="thumbnail">
+								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail">
 								@if(isset($thumbnail_playlists[$key][0]))
-									@if(file_exists('public/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg'))
+									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 									<div class="" style="position:relative;">
 									<div class="playlist-info" >
 										{{count($thumbnail_playlists[$key])}}

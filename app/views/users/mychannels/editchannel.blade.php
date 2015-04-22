@@ -84,8 +84,9 @@
                                         {{Form::label('gmail', 'Gmail: ')}}
                                         {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
 
-                                        {{Form::label('facebook', 'Facebook: ')}}            
+                                        {{Form::label('facebook', 'Facebook: ')}}       
                                         {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
+
 
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', null, array('placeholder' => 'Twitter Account'))}}
@@ -93,33 +94,39 @@
                                         {{Form::label('instagram', 'Instagram: ')}}
                                         {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}      
                                     @else
+                                         {{ Form::label('contact_number', '*Contact Number: ')}}
+                                        <span class="inputError"> {{$errors->first('contact_number')}}</span> 
+                                        {{ Form::text('contact_number', $userChannel->contact_number, array('placeholder' => 'Contact Number'))}}
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
-                                        {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account'))}}
-
-
+                                        {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
+                                        <button>Connect with Facebook</button>
+                                        <br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
-                                        {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account'))}}
-
+                                        {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
+                                        <button>Connect with Twitter</button>
+                                        <br/>
                                         {{Form::label('instagram', 'Instagram: ')}}
-                                        {{Form::text('instagram', $userWebsite->instagram, array('placeholder' => 'Instagram Account'))}}
-
+                                        {{Form::text('instagram', $userWebsite->instagram, array('placeholder' => 'Instagram Account', 'disabled'))}}
+                                        <button>Connect with Instagram</button>
+                                        <br/>
                                         {{Form::label('gmail', 'Gmail: ')}}
-                                        {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account'))}}
-
+                                        {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                        {{link_to_route('hybridauth','Gmail', Auth::User()->id)}}
+                                        <br/>
                                         {{Form::label('others', 'Other Websites: ')}}
                                         {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
 
                                     @endif
 
-
-                                    {{Form::label('zip_code', 'Zip Code: ')}}
-                                    {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
                                 </div>
                             </div>
                             <div class="col-md-12 LightestBlue">
                                 <h3 class="tBlue text-center">-Address-</h3>
                                 <div class="well2">
+                                    {{Form::label('zip_code', 'Zip Code: ')}}
+                                    {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
+                                    <br/>
                                     {{Form::label('country', 'Country: ')}}
                                     {{Form::text('country', $userChannel->country_id, array('placeholder' => 'Country'))}}
                                 </div>
