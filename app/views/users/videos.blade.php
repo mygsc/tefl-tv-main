@@ -41,13 +41,22 @@
 	<style type="text/css">
 	#image_text {
 		position: relative;
-		width: 100%;
+		height: 400px;
+		width: 400px;
 	}
-
-	h2 {
+	img {
 		position: absolute;
-		text-align: center;
-		width: 100%;
+		left: 0;
+		top: 0;
+	}
+	h2 {
+		 z-index:100;
+    position:absolute;    
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    left:150px;
+    top:350px;
 	}
 	</style>
 @stop
@@ -130,18 +139,26 @@
 									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 									{{Form::close()}}
 								</span>
-								
+
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										@if($usersVideo->publish == 1)
-											<div id="image_text">
-												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-												<h2>UNPUBLISHED!</h2>
-											</div>
-										@endif
-										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+											@if($usersVideo->publish == 0)
+												<div id="image_text">
+													<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+													<h2>UNPUBLISHED!</h2>
+												</div>
+												@else
+											<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+											@endif
 										@else
+											@if($usersVideo->publish == 0)
+												<div id="image_text">
+													{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
+													<h2>UNPUBLISHED!</h2>
+												</div>
+											@else
 											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
+											@endif
 										@endif
 							</div>
 

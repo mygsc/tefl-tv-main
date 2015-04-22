@@ -2,7 +2,7 @@
 
 class UserController extends BaseController {
 
-	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, WatchLater $watchLater){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, WatchLater $watchLater, Hybrid_Auth $hybridAuth){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -10,6 +10,7 @@ class UserController extends BaseController {
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
 		$this->WatchLater = $watchLater;
+		$this->hybridAuth = $hybridAuth;
 	}
 
 	public function getSignIn() { 
@@ -221,9 +222,9 @@ class UserController extends BaseController {
 				or v.report_count > 5
 				and v.publish = 1");
 			}
-			// return $usersPlaylists;
 			$increment = 0;
-			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes, (SELECT u.channel_name FROM users u WHERE u.id = v.user_id) AS channel_name FROM videos AS v WHERE v.user_id ="'.$this->Auth->id.'"ORDER BY v.created_at DESC LIMIT 1');
+			$recentUpload = DB::select('SELECT *,(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS numberOfLikes FROM videos AS v WHERE v.user_id ="'.$this->Auth->id.'"ORDER BY v.created_at DESC LIMIT 1');
+
 
 			return View::make('users.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
@@ -1313,5 +1314,51 @@ class UserController extends BaseController {
 	}
 	public function addFeedback() {
 		$var = 'l';
+	}
+
+	public function getAuthSocial($action='') {
+		if ($action == "auth") {
+		// process authentication
+		try {
+			Hybrid_Endpoint::process();
+		}
+		catch (Exception $e) {
+			// redirect back to http://URL/social/
+			return Redirect::route('hybridauth');
+		}
+		return;
+	}
+	try {
+		// create a HybridAuth object
+		$socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
+		// authenticate with Google
+		$provider = $socialAuth->authenticate("google");
+		// fetch user profile
+		$userProfile = $provider->getUserProfile();
+	}
+	catch(Exception $e) {
+		// exception codes can be found on HybBridAuth's web site
+		return $e->getMessage();
+	}
+	// access user profile data
+	echo "Connected with: <b>{$provider->id}</b><br />";
+	echo "As: <b>{$userProfile->displayName}</b><br />";
+	echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
+
+		// if($action == 'auth') {
+		// 	try {
+		// 		Hybrid_Endpoint::process();
+		// 	}
+		// 	catch(Exception $e) {
+		// 		echo 'Error at Hybrid_Endpoint process (UserController@getAuthSocial): $e';
+		// 	}
+		// 	return;
+		// }
+
+		// $hybridAuthProvider = $this->hybridAuth->authenticate("Steam");
+		// $hybridAuthUserProfile = $hybrithAuthProvider->getUserProfile();
+		// $steamCommunityId = str_replace( "http://steamcommunity.com/openid/id/", "", $hybridAuthUserProfile->identifier );
+ 
+		// echo "Hello {$hybridAuthUserProfile->displayName}, your Steam Community ID is $steamCommunityId";
 	}
 }
