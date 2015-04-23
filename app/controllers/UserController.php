@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
 	public function __construct(User $user, Subscribe $subscribes, Notification $notification, 
-		Video $video, WatchLater $watchLater, Hybrid_Auth $hybridAuth, Favorite $favorite, Feedback $feedback){
+		Video $video, WatchLater $watchLater, Favorite $favorite, Feedback $feedback){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -11,7 +11,6 @@ class UserController extends BaseController {
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
 		$this->WatchLater = $watchLater;
-		$this->Hybrid_Auth = $hybridAuth;
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 	}	

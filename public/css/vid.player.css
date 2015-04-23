@@ -341,7 +341,22 @@ button#play{
 }.play-icon span{
   	background: rgba(27,27,27,0.6);
 	padding: 15px;
-}div#error-handler{
+}
+.load-video{
+ 	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 13%;
+  	height: 16%;
+  	/*background: rgba(27,27,27,0.6);*/
+  	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+div#error-handler{
 	margin: auto;  
   	position: absolute;
  	left:0;
