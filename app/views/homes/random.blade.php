@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<div class="container page">
+	<div class="container White h-minH">
 		<div class="col-md-12">
 			<div class="row">
 				<br/>

@@ -12,11 +12,10 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', '6');
-		$populars = $this->Video->getFeaturedVideo('popular', '6');
-		$latests = $this->Video->getFeaturedVideo('latest', '6');
-		$randoms = $this->Video->getFeaturedVideo('random', '6');
-		$categories = $this->Video->getCategory();
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '8');
+		$populars = $this->Video->getFeaturedVideo('popular', '8');
+		$latests = $this->Video->getFeaturedVideo('latest', '8');
+		$randoms = $this->Video->getFeaturedVideo('random', '8');
 
 		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
@@ -87,13 +86,13 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle=null){
 		$token_id = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($token_id)) return Redirect::route('homes.index');
+		if(!isset($token_id)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
 		$id = $token_id->id;
 		$videoId = $id;
 		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
-		if($owner->verified == '0') return Redirect::route('homes.index');
-		if($owner->status != '1') return Redirect::route('homes.index');
+		if($owner->verified == '0') return Redirect::route('homes.index')->with('flash_bad','This video is not published.');
+		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
@@ -118,6 +117,7 @@ class HomeController extends BaseController {
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
 		}
+<<<<<<< HEAD
 
 		if($counter == 0){
 			$randoms = $this->Video->randomRelation('15',$videos->id);
@@ -173,57 +173,10 @@ class HomeController extends BaseController {
 			$merging = array_merge($randoms,$relations);
 			$newRelation = array_unique($merging, SORT_REGULAR);
 			sort($newRelation);
+=======
+>>>>>>> 04fe14bf9079c7ffda68f19568dcf1dc1dd742d7
 
-		}
-		if($counter == 9){
-			$randoms = $this->Video->randomRelation('6',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 10){
-			$randoms = $this->Video->randomRelation('5',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 11){
-			$randoms = $this->Video->randomRelation('4',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 12){
-			$randoms = $this->Video->randomRelation('3',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 13){
-			$randoms = $this->Video->randomRelation('2',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 14){
-			$randoms = $this->Video->randomRelation('1',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter >= 15){
-			$newRelation =  DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				LIMIT 15;");
-		}
+		$newRelation = $this->Video->relations($videos->id,$counter,$title,$description,$tags,$relations);		
 		$relationCounter = count($relations);
 		if(isset(Auth::User()->id)){
 			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
