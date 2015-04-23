@@ -684,7 +684,6 @@ class UserController extends BaseController {
 	}
 
 	public function postViewUsersFeedbacks() {
-		
 		$feedback = trim(Input::get('feedback'));
 		$user_id = Input::get('user_id');
 		$channel_id = Input::get('channel_id');
