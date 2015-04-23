@@ -117,64 +117,6 @@ class HomeController extends BaseController {
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
 		}
-<<<<<<< HEAD
-
-		if($counter == 0){
-			$randoms = $this->Video->randomRelation('15',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 1){
-			$randoms = $this->Video->randomRelation('14',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 2){
-			$randoms = $this->Video->randomRelation('13',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 3){
-			$randoms = $this->Video->randomRelation('12',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 4){
-			$randoms = $this->Video->randomRelation('11',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 5){
-			$randoms = $this->Video->randomRelation('10',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 6){
-			$randoms = $this->Video->randomRelation('9',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 7){
-			$randoms = $this->Video->randomRelation('8',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-
-		}
-		if($counter == 8){
-			$randoms = $this->Video->randomRelation('7',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-=======
->>>>>>> 04fe14bf9079c7ffda68f19568dcf1dc1dd742d7
 
 		$newRelation = $this->Video->relations($videos->id,$counter,$title,$description,$tags,$relations);		
 		$relationCounter = count($relations);
