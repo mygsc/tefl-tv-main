@@ -12,17 +12,13 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
-		$populars = $this->Video->getVideoByCategory('popular', '6');
-		$latests = $this->Video->getVideoByCategory('latest', '6');
-		$randoms = $this->Video->getVideoByCategory('random', '6');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '6');
+		$populars = $this->Video->getFeaturedVideo('popular', '6');
+		$latests = $this->Video->getFeaturedVideo('latest', '6');
+		$randoms = $this->Video->getFeaturedVideo('random', '6');
 		$categories = $this->Video->getCategory();
 
-		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
-		if($recommendeds === false || $populars === false || $latests === false){
-			app::abort(404, 'Unauthorized Action'); 
-		}
-		//return $recommendeds;
+		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -122,7 +118,7 @@ class HomeController extends BaseController {
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
 		}
-		
+
 		if($counter == 0){
 			$randoms = $this->Video->randomRelation('15',$videos->id);
 			$merging = array_merge($randoms,$relations);

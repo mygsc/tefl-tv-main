@@ -47,64 +47,51 @@ class Video extends Eloquent{
 
 		return $this->hasMany('WatchLater');
 	}
-	public function getVideoByCategory($type = null, $limit = null){
-		if(empty($type)){
-			return false;
-		}
+	public function getFeaturedVideo($type = null, $limit = null){
+		if(!empty($type)){
 
-		if(!empty($limit)){
-			$limit = 'LIMIT '. $limit;
-		}
-
-		if($type == 'recommended'){
-			$additionaQuery = 
-			'AND recommended = "1"
-			ORDER BY (v.views + likes) DESC';
-		}elseif($type == 'popular'){
-			$additionaQuery = 
-			'ORDER BY (v.views) DESC';
-		}elseif($type == 'latest'){
-			$additionaQuery = 
-			'ORDER BY v.created_at DESC';
-		}elseif($type == 'random'){
-			$additionaQuery =
-			'ORDER BY RAND()';
-		}else{
-			return false;
-		}
-
-		$returnData = DB::select(
-			'SELECT v.id,v.user_id as uid, v.title, v.description, v.publish, v.file_name,
-			v.views,(SELECT count(ul.id) from users_likes ul where video_id = v.id) as likes,v.total_time, v.tags, v.report_count,v.recommended, v.created_at,
-			v.deleted_at,v.total_time,u.channel_name,u.status FROM videos v
-			INNER JOIN users u ON
-			v.user_id = u.id
-			WHERE
-			v.deleted_at IS NULL
-			AND
-			v.report_count < 5
-			AND
-			NOT(u.status = "0")
-			AND
-			publish = "1"'.
-			$additionaQuery.
-			' '.
-			$limit. '');
-
-		foreach($returnData as $key => $item){
-			$folderName = $item->uid.'-'.$item->channel_name;
-			$fileName = $item->file_name;
-			$posterName = $fileName. '.jpg';
-			$filePath = 'videos' .DIRECTORY_SEPARATOR. $folderName .DIRECTORY_SEPARATOR. $fileName; 
-			$thumbnail= $filePath .DIRECTORY_SEPARATOR. $posterName;
-			$returnData[$key]->thumbnail = '/img/thumbnails/video.png';
-			if(file_exists(public_path($thumbnail))){
-				$returnData[$key]->thumbnail = $thumbnail;
+			switch ($type) {
+				case 'recommended':
+				$orderBy = '(views + likes)';
+				$sort = 'ASC';
+				break;
+				case 'latest':
+				$orderBy = 'created_at';
+				$sort = 'DESC';
+				break;
+				case 'popular':
+				$orderBy = 'views';
+				$sort = 'DESC';
+				break;
+				case 'random':
+				$orderBy = 'RAND()';
+				$sort = '';
+				break;
+				default:
+				return false;
+				break;
 			}
-			
+
+			$videoData = Video::select('videos.id','user_id','title',
+				'description','users.channel_name',
+				'tags','file_name','views','videos.created_at',
+				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes')
+				)
+			->where('deleted_at', null)
+			->where('report_count', '<', 5)
+			->where('uploaded', '1')
+			->where('publish', '1')
+			->where('users.status', '!=', '0')
+			->join('users', 'user_id', '=', 'users.id')
+			->take($limit)
+			->orderBy(DB::raw($orderBy), $sort)
+			->get();
+
+			return $this->addThumbnail($videoData);	
 		}
-		return $returnData;
+		return false;		
 	}
+	
 
 	public function countViews($countAllViews = null){
 		$a = $countAllViews;
@@ -143,7 +130,7 @@ class Video extends Eloquent{
 	}
 
 	public function countLikes(){
-		
+
 	}
 
 	public function searchVideos($search = null){
@@ -197,34 +184,32 @@ class Video extends Eloquent{
 				->paginate(5);
 			}
 
-			return $this->addOtherVideoData($videoData);
+			$videoData = $this->addThumbnail($videoData);
+			return $this->addVideoTags($videoData);
 		}
 		return false;
 	}
 
-	public function addOtherVideoData($videoData = null){
-		foreach($videoData as $key => $video){
+	public function addThumbnail($data = null){
+		foreach($data as $key => $video){
 			//Thumbnails
 			$folderName = $video->user_id. '-'. $video->channel_name;
 			$fileName = $video->file_name;
-			$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-			$videoData[$key]->thumbnail = 'img\thumbnails\video.png';
-			if(file_exists(public_path($thumbnail))){
-				$videoData[$key]->thumbnail = $thumbnail;
-			}
-
-			//truncate text
-			$videoData[$key]->description = Str::limit($video->description, 150, '...');
-
-			//Tags
-			$getTags = explode(',',$video->tags);
-			foreach($getTags as $key2 => $tags){
-				$arraysOfTags[] = $tags;
-				$videoData[$key]->tags = $arraysOfTags;
+			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$data[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnailPath))){
+				$data[$key]->thumbnail = $thumbnail;
 			}
 		}
+		return $data;
+	}
+
+	public function addVideoTags($videoData){
+		foreach($videoData as $key => $video){
+			$getTags = explode(',',$video->tags);
+			$videoData[$key]->tags = $getTags;;
+		}
 		return $videoData;
-		
 	}
 
 	public function truncate($text, $chars = 50) {
@@ -240,8 +225,8 @@ class Video extends Eloquent{
 	public function getCategory(){
 		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		foreach ($categoryList as $key => $category) {
-			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->get();
-			if(!$findCategory->isEmpty()){
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->take(1)->first();
+			if(isset($findCategory)){
 				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
 			}
 		}
@@ -249,7 +234,7 @@ class Video extends Eloquent{
 			return $categories;
 		}
 		return false;
-		
+
 	}
 
 	public function randomRelation($limit = null,$id = null){
@@ -259,18 +244,18 @@ class Video extends Eloquent{
 		else{
 			$limit = "";
 		}
-			$returndata = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				".$limit.";");
+		$returndata = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
+			LEFT JOIN users u ON v.user_id = u.id
+			HAVING v.id!='".$id."'
+			AND v.publish = '1'
+			AND u.verified = '1'
+			AND u.status = '1'
+			and v.deleted_at IS NULL
+			AND v.report_count < 5
+			OR v.report_count IS NULL
+			ORDER BY RAND()
+			".$limit.";");
 		return $returndata;
 	}
-		
+
 }
