@@ -498,4 +498,21 @@ class Video extends Eloquent{
 		}
 	}
 
+	public function getVideos($auth = null, $orderBy = null, $limit = null) {
+		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
+			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
+			->where('videos.user_id', $auth);
+
+		if(!empty($orderBy)) {
+			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
+		}
+
+		if(!empty($limit)) {
+			$getVideos = $getVideos->take($limit);
+		}
+
+		return $getVideos->take($limit)->get();
+	}
 }

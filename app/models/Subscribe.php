@@ -43,12 +43,16 @@ class Subscribe extends Eloquent {
 
 	public function Subscribers($auth = null, $limit = null) {
 		if(!empty($limit)){
-
 			$limit = 'LIMIT '.$limit;
 		}
-		$subscribers = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.subscriber_id) 
-				AS numberOfSubscribers FROM subscribes AS s 
-				INNER JOIN users AS u ON s.subscriber_id = u.id WHERE s.user_id = "'.$auth.'"'.$limit);
+		$subscribers = Subscribe::select('subscribes.id','user_id', 'subscriber_id', 
+			'notifs', 'subscribes.created_at', 'subscribes.updated_at',
+			DB::raw('(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = subscribes.subscriber_id) AS likes'),
+			DB::raw('(SELECT u.channel_name FROM users u WHERE u.id = subscribes.subscriber_id) AS channel_name'))
+		->join('users', 'user_id','=','users.id')
+		->where('user_id',$auth)
+		->take($limit)
+		->get();
 		return $subscribers;
 	}
 
@@ -56,11 +60,15 @@ class Subscribe extends Eloquent {
 		if(!empty($limit))
 			$limit = 'LIMIT '.$limit;
 
-		$subscriptions = DB::select('SELECT *,(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = s.user_id) 
-			AS numberOfSubscribers from subscribes AS s 
-			INNER JOIN users AS u ON s.user_id = u.id WHERE s.subscriber_id = "'.$auth.'"'. $limit);
-
+		$subscriptions = Subscribe::select('subscribes.id','user_id', 'subscriber_id', 
+			'notifs', 'subscribes.created_at', 'subscribes.updated_at',
+			DB::raw('(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = subscribes.subscriber_id) AS likes'),
+			DB::raw('(SELECT u.channel_name FROM users u WHERE u.id = subscribes.user_id) AS channel_name'))
+		->join('users', 'user_id','=','users.id')
+		->where('subscriber_id',$auth)
+		->take($limit)
+		->get();
 		return $subscriptions;
 	}
-	
+  	
 }
