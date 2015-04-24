@@ -46,11 +46,10 @@ class VideoController extends BaseController {
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
 				/*..start video conversion to low, normal and high as well as capture 3 thumbnail..*/
-				$this
-				->convertVideoToHigh($input['video'],$destinationPath,$fileName)
-				->convertVideoToNormal($input['video'],$destinationPath,$fileName)
-				->convertVideoToLow($input['video'],$destinationPath,$fileName)
-				->captureImage($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				$this->captureImage($input['video'],$destinationPath,$fileName);
 				/*..Return success to json type..*/
 				return Response::json(['file'=>$fileName]);
 			}
