@@ -71,9 +71,10 @@
 				@else
 					<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 					<br/><br/>
-					<p class="orangeC center-block italic text-center">
-					
-					{{ Str::limit($usersChannel->interests, 200) }}
+					<p class="black center-block italic text-center fs-12">
+						<i class="fa fa-quote-left"></i>
+						{{ Str::limit($usersChannel->interests,300) }}
+						<i class="fa fa-quote-right"></i>
 					</p>
 					<br/>
 					@endif

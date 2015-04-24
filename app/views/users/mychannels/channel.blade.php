@@ -42,11 +42,10 @@
 @section('content')
 <div class="row">
 	<br/>
-	<div class="container same-H">
-		<div class="row">
+	<div class="container White same-H">
+		<div class="row ">
 			@include('elements/users/profileTop')		
-			<div class="White channel-content ">
-
+			<div class="channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -70,10 +69,9 @@
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
 			</div><!--/.div-channel-border-->
-			
 		</div><!--/.contentpadding-->
-		<br/>
 	</div><!--/.container page-->
+	<br/>
 </div>
 
 

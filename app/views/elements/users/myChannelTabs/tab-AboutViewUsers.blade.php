@@ -2,8 +2,8 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="" id="about">
-			<div class="col-md-12 LighterBlue">
-			<h3 class="text-center">-Interests-</h3>
+			<div class="col-md-12 grey">
+			<h3 class="text-center orangeC">-Interests-</h3>
 			<div class="well2">
 				@if(empty($usersChannel->interests))
 
@@ -16,8 +16,8 @@
 			</div>
 		</div>
 	
-		<div class="col-md-12 LightestBlue">
-			<h3 class="text-center">-Personal Information-</h3>
+		<div class="col-md-12 White">
+			<h3 class="text-center orangeC">-Personal Information-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr class="">
@@ -55,9 +55,9 @@
 				</table>
 			</div>
 		</div>
-		<div class="col-md-12 LighterBlue">
-			<h3 class="text-center">-Contact Information-</h3>
-			<div class="well2">
+		<div class="col-md-12 grey">
+			<h3 class="text-center orangeC">-Contact Information-</h3>
+			<div class="well2 ">
 				<table class="tableLayout">
 					
 					<tr>
@@ -99,8 +99,8 @@
 				</table>
 			</div>
 		</div>
-		<div class="col-md-12 LightestBlue">
-			<h3 class="text-center">-Address-</h3>
+		<div class="col-md-12 White">
+			<h3 class="text-center orangeC">-Address-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr>

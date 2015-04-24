@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
-		<br/>
-		<div class="row same-H">
+	<br/>
+	<div class="container pageH White same-H">
+		<div class="row ">
 			@include('elements/users/profileTop')
 
 			<div class=" Div-channel-border channel-content">
@@ -69,7 +69,7 @@
 						@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">
-								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail">
+								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 								@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 									<div class="" style="position:relative;">
@@ -119,7 +119,9 @@
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
+		
 	</div><!--/.container page-->
+	<br/>
 </div>
 
 

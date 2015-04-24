@@ -9,35 +9,12 @@
 		width: 100%
 	}
 </style>
-<div class="container page">
+<div class="container White h-minH">
 
 	<div class="col-md-8 col-md-offset-2">
 		<br/><br/><br/><br/><br/><br/>
 		<div class="well text-center">
 			<h1>Page under construction.</h1>
-		</div>
-	</div>
-
-	<div class="col-md-4">
-		<div class="row">
-			<img src="/img/thumbnails/video.png">
-		</div>
-	</div>
-	<div class="col-md-2">
-		<div class="row">
-			<img src="/img/thumbnails/video.png">
-			<img src="/img/thumbnails/video.png">
-		</div>
-	</div>
-	<div class="col-md-2">
-		<div class="row">
-			<img src="/img/thumbnails/video.png">
-			<img src="/img/thumbnails/video.png">
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="row">
-			<img src="/img/thumbnails/video.png">
 		</div>
 	</div>
 
