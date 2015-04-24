@@ -202,7 +202,7 @@ class VideoController extends BaseController {
 		$auth = Auth::user();
 		$options = array('video' => 'video','playlist' => 'playlist', 'channel' => 'channel');
 
-		$datas = $this->Video->getVideoByCategory('random', 16);	//Default Value of randomResults
+		$datas = $this->Video->getFeaturedVideo('random', 16);	//Default Value of randomResults
 		$type = 'video';
 
 		if(!empty($category)){	//Check if there is a specified category
