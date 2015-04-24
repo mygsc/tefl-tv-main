@@ -12,17 +12,12 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getVideoByCategory('recommended', '8');
-		$populars = $this->Video->getVideoByCategory('popular', '8');
-		$latests = $this->Video->getVideoByCategory('latest', '8');
-		$randoms = $this->Video->getVideoByCategory('random', '8');
-		$categories = $this->Video->getCategory();
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '8');
+		$populars = $this->Video->getFeaturedVideo('popular', '8');
+		$latests = $this->Video->getFeaturedVideo('latest', '8');
+		$randoms = $this->Video->getFeaturedVideo('random', '8');
 
-		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
-		if($recommendeds === false || $populars === false || $latests === false){
-			app::abort(404, 'Unauthorized Action'); 
-		}
-		//return $recommendeds;
+		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
