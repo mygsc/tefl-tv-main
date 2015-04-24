@@ -3,7 +3,7 @@
 Category: {{$category}} - TEFL-tv
 @stop
 @section('content')
-<div class="container White h-minH">
+<div class="container White h-minH same-H">
 	<h1 class="orangeC">{{$category}}</h1>
 		<div class="col-md-12">
 			@foreach($videos as $video)
