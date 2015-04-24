@@ -103,7 +103,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
-	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@getAuthSocial'));
+	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
 });
 //*********End of Channels************//
 

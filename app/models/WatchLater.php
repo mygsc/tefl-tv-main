@@ -17,19 +17,19 @@ class WatchLater extends Eloquent {
 		return $this->hasMany('Video');
 	}
 
-	public function getWatchLater($auth = null, $authVideo = null ,$limit = null) {
+	public function getWatchLater($auth = null, $limit = null) {
 		if(!empty($limit)){
 			$limit = 'LIMIT '. $limit;
 		}
-		$userVideoWatchLater = DB::select(
-			"SELECT wl.id, wl.user_id, wl.video_id, wl.status, wl.created_at, wl.updated_at, u.channel_name, v.title, v.file_name, v.description, v.views, v.tags,
-			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = u.id) AS numberOfLikes,
-			(SELECT v2.user_id FROM videos v2 WHERE v2.id = wl.video_id) AS uploader,
-			(SELECT u2.channel_name FROM users u2 WHERE u2.id = uploader) AS uploaders_channel_name
-			FROM users_watch_later AS wl
-			INNER JOIN videos AS v ON wl.video_id = v.id
-			INNER JOIN users AS u ON wl.user_id = u.id
-			WHERE wl.user_id = '".$auth."'". $limit);
-		return $userVideoWatchLater;
+		$userVideoWatchLater = WatchLater::select('users_watch_later.id', 'users_watch_later.user_id', 
+			'users_watch_later.video_id', 'status', 'users_watch_later.created_at', 'users_watch_later.updated_at',
+			'videos.file_name', 'videos.title', 'videos.description', 'videos.views',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = users_watch_later.user_id) AS likes'),
+			DB::raw('(SELECT v2.user_id FROM videos v2 WHERE v2.id = users_watch_later.video_id) AS uploader,
+			(SELECT u2.channel_name FROM users u2 WHERE u2.id = uploader) AS uploaders_channel_name'))
+			->join('videos', 'videos.id', '=', 'users_watch_later.video_id')
+			->where('users_watch_later.user_id', $auth)
+			->take($limit)
+			->get();
 	}
 }
