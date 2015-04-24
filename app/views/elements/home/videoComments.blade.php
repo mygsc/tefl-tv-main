@@ -2,19 +2,19 @@
 <h3>Comments</h3>
 
 	
-	<div class="comments row">
+	<div class="comments row mg-lr-5">
 		@if(isset(Auth::User()->id))
 		<span id='errorlabel' class='input-error'></span>
 		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
 		<div class="text-right">
-			<button id='btncomment' class="btn btn-info">Post</button>
+			<button id='btncomment' class="btn btn-warning">Post</button>
 		</div>
 
 		{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
 		{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
 		@endif
 
-	<div class="col-md-12 commentsarea">
+	<div class="row commentsarea mg-lr-5">
 		<div id="appendNewCommentHere"></div>
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row">
@@ -57,7 +57,7 @@
 						?>
 						<div class='fa likedup'>
 							@if(!$ifAlreadyLiked)
-								<span class='fa-thumbs-up'></span>
+								<span class='fa-thumbs-up hand'></span>
 								<input type="hidden" value="liked" name="status">
 							@else
 								<span class='fa-thumbs-up blueC hand'></span>
@@ -75,7 +75,7 @@
 							<input type="hidden" value="{{$videoId}}" name="video_id">
 							@if(!$ifAlreadyDisliked)
 								<input type="hidden" value="disliked" name="status">
-								<span class='fa-thumbs-down'></span>
+								<span class='fa-thumbs-down hand'></span>
 							@else
 								<input type="hidden" value="undisliked" name="status">
 								<span class='fa-thumbs-down redC hand'></span>
@@ -140,7 +140,7 @@
 								{{Form::hidden('user_id', Auth::User()->id)}}
 								{{Form::hidden('video_id', $videoId)}}
 								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply'))}}
-								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right mg-t-10', 'id'=>'replybutton'))}}
 
 								<span class='replyError inputError'></span>
 							{{Form::close()}} 

@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
 	public function __construct(User $user, Subscribe $subscribes, Notification $notification, 
-		Video $video, WatchLater $watchLater, Hybrid_Auth $hybridAuth, Favorite $favorite, Feedback $feedback){
+		Video $video, WatchLater $watchLater, Favorite $favorite, Feedback $feedback){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -11,7 +11,6 @@ class UserController extends BaseController {
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
 		$this->WatchLater = $watchLater;
-		$this->Hybrid_Auth = $hybridAuth;
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 	}	
@@ -205,6 +204,7 @@ class UserController extends BaseController {
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,6);
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(6);
+
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -686,7 +686,6 @@ class UserController extends BaseController {
 	}
 
 	public function postViewUsersFeedbacks() {
-		
 		$feedback = trim(Input::get('feedback'));
 		$user_id = Input::get('user_id');
 		$channel_id = Input::get('channel_id');

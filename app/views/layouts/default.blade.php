@@ -10,7 +10,7 @@
 	@yield('meta')
 
 	<!-- CSS -->
-	{{ HTML::style('css/bootstrap.min.css') }}
+	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
@@ -99,18 +99,24 @@
   }
 </script>
 
-	@include('elements/header')
-	@include('elements/home/headerNav')
-	@include('elements/flash_message')
+		
+		@include('elements/header')
+		@include('elements/home/headerNav')
+		<div class="container">
+		@include('elements/flash_message')
+		</div>
+		<div id="content">
+			@yield('content')
+		</div>
+		<div class="footer">
+			@include('elements/footer')
+		</div>
 
-	@yield('content')
-
-	@include('elements/footer')
 </body>
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-{{HTML::script('js/bootstrap.min.js')}}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
@@ -159,7 +165,4 @@
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 @yield('modal')
 
-<br/>
-<center>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render</center>
-<br/>
 </html>

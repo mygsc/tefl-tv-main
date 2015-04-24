@@ -51,16 +51,16 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 @section('content')
 
-<div class="row White">
-<div class="container page">
-    <div class="content-padding">
-        <div class="row">
+<div class="row">
+<div class="container ">
+    <div class="">
+        <div class="row mg-t-10">
             <div id="featured" > 
                 <div class="col-md-8">
-                    <br/>
-                    <div id="" class="ui-tabs-panel" style="">
-                        <div class="well">
+                    <div class="row">
+                        <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
                             <!--video paler-->
+                            <br/>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
@@ -197,7 +197,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <br/>
                             <div class="row" id="alert-playlist"></div>
                             <div class="info" >
-                                <div class="well2">
+                                <div class="well2 ">
                                     <div class="row">
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
@@ -249,35 +249,40 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
-                               <div class="seeMore">
-                                <a class="linkReadMore text-center"><span>SHOW VIDEO STORY</span></a>
+                               <div class="h-seeMore">
+                                <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
                             </div>
+                            <br/>
                         </div><!--/.info-->
                     </div><!--well-->
-                    <br/>
                 </div> <!--/.ui-tabs-panel-->
-
+        
                 <!-- COMMENTS AREA -->
-                <div class="well">
-                    <div class="row">
-                        <div class="content-padding">
-                         @include('elements/home/videoComments')
-                         </div>
+                <div class="row mg-t-10">
+                    <div class="White same-H pad-v-10">
+                        <div class="row">
+                            <div class="content-padding">
+                             @include('elements/home/videoComments')
+                             </div>
+                        </div>
                     </div>
                 </div>
                 <!-- COMMENTS AREA -->
 
                 <!-- latest -->
-                @include('elements/home/uploaderLatestVideo')
+                <div class="mg-b-10">
+                    @include('elements/home/uploaderLatestVideo')
+                </div>
             </div><!--column 8-->
 
 
             <div class="col-md-4 visible-md visible-lg">
+                <div class="">
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-               <br/>
-                <ul class="ui-tabs-nav"> <!--video navigation or video list-->
+         
+                <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
                         @if($relation->id != $videos->id)
                             <li class="ui-tabs-nav-item" id="">
@@ -302,16 +307,19 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                     @endforeach
                 </ul><!--video list-->
 
-                    
-                    @include('elements/home/carouselAds')
-                    @include('elements/home/recommendedChannelList')
+                    <div class="mg-t-10 same-H">
+                        @include('elements/home/carouselAds')
+                    </div>
+                    <div class="mg-t-10 mg-b-10 same-H">
+                        @include('elements/home/recommendedChannelList')
+                    </div>
+                </div>
             </div><!--col-md-4-->
 
         </div><!--/.featured-->
 
     </div><!--/.row-->
 </div><!--/padding-->
- <br/><br/><br/> 
 </div><!--/.row-->
 
 </div>

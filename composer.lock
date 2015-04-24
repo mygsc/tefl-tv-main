@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e0079069fabf1e50840cd3015dd22d7",
+    "hash": "7dc54663392ee31a6ae3c55f20964cbd",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -165,25 +165,23 @@
         },
         {
             "name": "d11wtq/boris",
-            "version": "v1.0.8",
+            "version": "v1.0.10",
             "source": {
                 "type": "git",
-                "url": "https://github.com/d11wtq/boris.git",
-                "reference": "125dd4e5752639af7678a22ea597115646d89c6e"
+                "url": "https://github.com/borisrepl/boris.git",
+                "reference": "31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/d11wtq/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
-                "reference": "125dd4e5752639af7678a22ea597115646d89c6e",
+                "url": "https://api.github.com/repos/borisrepl/boris/zipball/31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483",
+                "reference": "31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
-            },
-            "suggest": {
                 "ext-pcntl": "*",
                 "ext-posix": "*",
-                "ext-readline": "*"
+                "ext-readline": "*",
+                "php": ">=5.3.0"
             },
             "bin": [
                 "bin/boris"
@@ -195,7 +193,11 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2014-01-17 12:21:18"
+            "license": [
+                "MIT"
+            ],
+            "description": "A tiny, but robust REPL (Read-Evaluate-Print-Loop) for PHP.",
+            "time": "2015-03-01 08:05:19"
         },
         {
             "name": "doctrine/cache",
@@ -366,69 +368,17 @@
             "time": "2015-03-30 15:26:59"
         },
         {
-            "name": "hybridauth/hybridauth",
-            "version": "v2.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca",
-                "reference": "89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Hybrid": "hybridauth/"
-                },
-                "classmap": [
-                    "hybridauth/Hybrid"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(MIT or GPL-3.0+)"
-            ],
-            "authors": [
-                {
-                    "name": "Miled",
-                    "email": "hybridauth@gmail.com"
-                }
-            ],
-            "description": "Open source social sign on PHP library.",
-            "homepage": "http://hybridauth.sourceforge.net",
-            "keywords": [
-                "OpenId",
-                "facebook",
-                "google",
-                "hybridauth",
-                "login",
-                "oauth",
-                "social",
-                "twitter",
-                "yahoo"
-            ],
-            "time": "2015-04-12 01:39:53"
-        },
-        {
             "name": "intervention/image",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "8f3761154b4c1f5128365dfc32cbf757f27d97b6"
+                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/8f3761154b4c1f5128365dfc32cbf757f27d97b6",
-                "reference": "8f3761154b4c1f5128365dfc32cbf757f27d97b6",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/9c26a834ff7d1c2bb4e88f98228030eed26960d4",
+                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +421,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-03-18 17:41:04"
+            "time": "2015-04-22 16:05:20"
         },
         {
             "name": "ircmaxell/password-compat",
