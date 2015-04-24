@@ -19,7 +19,7 @@ class HomeController extends BaseController {
 		$categories = $this->Video->getCategory();
 
 
-		return (microtime(true) - LARAVEL_START);
+		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
