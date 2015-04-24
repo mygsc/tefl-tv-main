@@ -39,4 +39,27 @@ class Playlist extends Eloquent {
 				->where('deleted_at',NULL)->get();
 		return $returndata;
 	}
+
+	public function playlistControl($control = null, $playlistId = null,$id = null,$itemId = null){
+		$returvalue = Playlist::select('videos.*','users.channel_name','playlists.randID',
+						'playlists.id as playlist_id')
+						->join('playlists_items','playlists.id','=','playlists_items.playlist_id')
+						->join('videos','playlists_items.video_id','=','videos.id')
+						->join('users','videos.user_id','=','users.id')
+						->where('playlist_id','=',$playlistId)
+						->where('publish','=','1')
+						->where('videos.deleted_at',NULL)
+						->where('videos.report_count','<=','5');
+		if($control == '>'){
+			$returvalue->where('videos.id','!=',$id)->where('playlists_items.id','>',$itemId)->orderBy('playlists_items.id','ASC')->take(1);			
+		}
+		else if($control == '<'){
+			$returvalue->where('videos.id','!=',$id)->where('playlists_items.id','<',$itemId)->orderBy('playlists_items.id','DESC')->take(1);
+		}
+		return $returvalue->get();
+	}
+
+	public function playlistvideos(){
+
+	}
 }

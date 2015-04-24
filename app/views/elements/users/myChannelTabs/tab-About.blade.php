@@ -2,22 +2,22 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="" id="about">
-			<div class="col-md-12 LighterBlue">
-			<h3 class="tBlue text-center">-Interests-</h3>
-			<div class="well2">
-				<p class="text-justify">
-					@if(empty($usersChannel->interests))
+			<div class="col-md-12 grey">
+				<h3 class="orangeC text-center">-Interests-</h3>
+				<div class="well2">
+					<p class="text-justify">
+						@if(empty($usersChannel->interests))
 
-					@else
-						{{$usersChannel->interests}}
-					@endif
-				</p>
+						@else
+							{{$usersChannel->interests}}
+						@endif
+					</p>
 				</div>
 			</div>
 		</div>
 	
-		<div class="col-md-12 LightestBlue">
-			<h3 class="tBlue text-center">-Personal Information-</h3>
+		<div class="col-md-12 ">
+			<h3 class="orangeC text-center">-Personal Information-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr class="">
@@ -55,8 +55,8 @@
 				</table>
 			</div>
 		</div>
-		<div class="col-md-12 LighterBlue">
-			<h3 class="tBlue text-center">-Contact Information-</h3>
+		<div class="col-md-12 grey">
+			<h3 class="orangeC text-center">-Contact Information-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					
@@ -99,8 +99,8 @@
 				</table>
 			</div>
 		</div>
-		<div class="col-md-12 LightestBlue">
-			<h3 class="tBlue text-center">-Address-</h3>
+		<div class="col-md-12">
+			<h3 class="orangeC text-center">-Address-</h3>
 			<div class="well2">
 				<table class="tableLayout">
 					<tr>

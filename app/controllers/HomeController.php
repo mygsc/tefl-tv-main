@@ -93,7 +93,7 @@ class HomeController extends BaseController {
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-		if($videos->publish == '0') return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
@@ -125,6 +125,7 @@ class HomeController extends BaseController {
 
 			}
 		}
+		//return $newRelation;
 		if(isset(Auth::User()->id)){
 			$playlists = $this->Playlist->playlistchoose($id);
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
@@ -149,11 +150,7 @@ class HomeController extends BaseController {
 			$dislike = null;
 		}
 		$likeCounter = Like::where('video_id','=',$id)->count();
-		$dislikeCounter = Dislike::where('video_id','=',$id)->count();
-		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE v.id = '".$id."';");
-		
+		$dislikeCounter = Dislike::where('video_id','=',$id)->count();		
 //return (microtime(true) - LARAVEL_START);
 
 		//r3mmel
@@ -185,7 +182,7 @@ class HomeController extends BaseController {
 
 		}
 		
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -200,40 +197,17 @@ class HomeController extends BaseController {
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
 		->where('playlist_id',$playlistId)->first();
-		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			and v.publish = '1'
-			AND i.id > '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			ORDER BY i.id asc
-			LIMIT 1;");
-		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			AND i.id < '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1
-			ORDER BY i.id desc
-			LIMIT 1;");
+		$nextA = $this->Playlist->playlistControl('>',$playlistId,$video->id,$itemId->id);
+		$previousA = $this->Playlist->playlistControl('<',$playlistId,$video->id,$itemId->id);
 		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$playlistId."'
 			and v.deleted_at IS NULL
-			or v.report_count > 5
+			or v.report_count <= 5
 			and v.publish = 1
 			");
-		//return $nextA;
 		if(isset(Auth::User()->id)){
 			$like = Like::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
