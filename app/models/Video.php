@@ -512,28 +512,23 @@ class Video extends Eloquent{
 		return $newRelation;
 	}
 	
-	public function getUserVideosOrderByRecent($auth = null, $limit = null) {
-		if(!empty($limit)) {
-			$limit = 'LIMIT '.$limit;
-		}
 
-		$userVideos = DB::select('SELECT *,
-			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes FROM videos v
-			 WHERE v.user_id="'.$auth.'"ORDER BY v.created_at DESC '.$limit);
-
-		return $userVideos;
-	}
 	
-	public function getVideos($auth = null, $limit = null) {
-		if(!empty($limit)) {
-			$limit = 'LIMIT '.$limit;
+	public function getVideos($auth = null, $orderBy = null, $limit = null) {
+		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
+			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
+			->where('videos.user_id', $auth);
+
+		if(!empty($orderBy)) {
+			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
 		}
 
-		$newUpload = DB::select('SELECT *,
-			(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes,
-			(SELECT u.channel_name FROM users u WHERE u.id = v.user_id) AS channel_name
-			FROM videos AS v WHERE v.user_id ="'.$auth.'"ORDER BY v.created_at DESC '.$limit);
+		if(!empty($limit)) {
+			$getVideos = $getVideos->take($limit);
+		}
 
-		return $newUpload;
+		return $getVideos->take($limit)->get();
 	}
 }

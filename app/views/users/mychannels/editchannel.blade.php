@@ -2,6 +2,7 @@
 
 
 @section('content')
+
 <div class="row">
   <div class="container pageH">
       <br/>
@@ -100,7 +101,11 @@
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
                                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
-                                        <button>Connect with Facebook</button>
+                                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+																				</fb:login-button>
+
+																				<div id="status">
+																				</div>
                                         <br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
@@ -112,7 +117,6 @@
                                         <br/>
                                         {{Form::label('gmail', 'Gmail: ')}}
                                         {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
-                                        {{link_to_route('hybridauth','Gmail', Auth::User()->id)}}
                                         <br/>
                                         {{Form::label('others', 'Other Websites: ')}}
                                         {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
