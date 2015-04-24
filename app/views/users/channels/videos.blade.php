@@ -114,8 +114,7 @@
 					                   </span>
 					                </span>
 
-									<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
-									<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
+									
 									{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
 									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 									{{Form::close()}}
