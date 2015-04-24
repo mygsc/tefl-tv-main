@@ -8,13 +8,11 @@
 		</div>
 	</div>
 	<!--advertisement-->
-	{{-- <div class="video-ads" id="vid-annotation">
-		
-	</div> --}} 
+	{{-- <div class="video-ads" id="vid-annotation"></div> --}} 
 	{{-- <div id="vid-wrap"> --}}
-	<div class="play-icon" id="play-icon">
-		 
-	</div>
+	<div class="play-icon" id="play-icon"></div>
+	<div class="load-video" id="loader"></div>
+	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#">Retry.</a></small></div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
@@ -55,6 +53,7 @@
 					<small class="vp-text">HD Quality</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
+						<li> <a id="normal-quality" href="#">Normal</a></li>
 						<li> <a id="low-quality" href="#">Low</a></li>
 						{{-- <li> <a href="#">480p</a></li>
 						<li> <a href="#">360p</a></li>

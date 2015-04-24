@@ -2,7 +2,7 @@
 
 
 @section('content')
-	<div class='container page'>
+	<div class='container White'>
 		<!-- tabs left -->
         <div class="tabbable">
 			<div class="col-md-3">

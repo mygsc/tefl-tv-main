@@ -338,7 +338,39 @@ button#play{
   	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
 	padding-top: 10px;
 	padding-bottom: 10px;
-}.play-icon span{
+}.load-video{
+ 	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 13%;
+  	height: 16%;
+  	/*background: rgba(27,27,27,0.6);*/
+  	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: none;
+}
+div.error-video{
+ 	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 35%;
+  	height: 10%;
+  	/*background: rgba(27,27,27,0.6);*/
+  	background: rgba(0,0,0,0.6);
+	padding: 10px;
+	display: none;
+}
+div.error-video small{
+ 	color:#fff;
+}
+.play-icon span{
   	background: rgba(27,27,27,0.6);
 	padding: 15px;
 }div#error-handler{
@@ -376,8 +408,6 @@ img#play{
   	cursor: pointer;
   	text-align:center;
   	 padding: 20px;
-
-
 }.play-icon:hover{
 	-moz-box-shadow:inset 0px 2px 13px #ffffff;
 	-webkit-box-shadow:inset 0px 2px 13px #ffffff;

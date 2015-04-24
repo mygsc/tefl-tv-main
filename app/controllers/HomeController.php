@@ -13,17 +13,14 @@ class HomeController extends BaseController {
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
-		$populars = $this->Video->getVideoByCategory('popular', '6');
-		$latests = $this->Video->getVideoByCategory('latest', '6');
-		$randoms = $this->Video->getVideoByCategory('random', '6');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '8');
+		$populars = $this->Video->getFeaturedVideo('popular', '8');
+		$latests = $this->Video->getFeaturedVideo('latest', '8');
+		$randoms = $this->Video->getFeaturedVideo('random', '8');
 		$categories = $this->Video->getCategory();
 
-		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
-		if($recommendeds === false || $populars === false || $latests === false){
-			app::abort(404, 'Unauthorized Action'); 
-		}
-		//return $recommendeds;
+
+		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -53,7 +50,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->Video->getVideoByCategory('popular', 16);
+		$popularVideos = $this->Video->getFeaturedVideo('popular', 16);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -63,7 +60,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->Video->getVideoByCategory('latest', 16);
+		$latestVideos =  $this->Video->getFeaturedVideo('latest', 16);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 

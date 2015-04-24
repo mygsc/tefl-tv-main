@@ -1,6 +1,10 @@
-  
+  <div class="h-title">
+        <div class="row">
+          Advertisements
+        </div>
+    </div>
 <div class="di">
-  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <div id="carousel-example-generic" class="carousel slide greyDark" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>

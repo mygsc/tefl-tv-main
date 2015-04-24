@@ -40,5 +40,35 @@ class Subscribe extends Eloquent {
 		}
 		return $convertNumber;
 	}
-	
+
+	public function Subscribers($auth = null, $limit = null) {
+		if(!empty($limit)){
+			$limit = 'LIMIT '.$limit;
+		}
+		$subscribers = Subscribe::select('subscribes.id','user_id', 'subscriber_id', 
+			'notifs', 'subscribes.created_at', 'subscribes.updated_at',
+			DB::raw('(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = subscribes.subscriber_id) AS likes'),
+			DB::raw('(SELECT u.channel_name FROM users u WHERE u.id = subscribes.subscriber_id) AS channel_name'))
+		->join('users', 'user_id','=','users.id')
+		->where('user_id',$auth)
+		->take($limit)
+		->get();
+		return $subscribers;
+	}
+
+	public function Subscriptions($auth = null, $limit = null) {
+		if(!empty($limit))
+			$limit = 'LIMIT '.$limit;
+
+		$subscriptions = Subscribe::select('subscribes.id','user_id', 'subscriber_id', 
+			'notifs', 'subscribes.created_at', 'subscribes.updated_at',
+			DB::raw('(SELECT COUNT(s2.id) FROM subscribes s2 WHERE s2.user_id = subscribes.subscriber_id) AS likes'),
+			DB::raw('(SELECT u.channel_name FROM users u WHERE u.id = subscribes.user_id) AS channel_name'))
+		->join('users', 'user_id','=','users.id')
+		->where('subscriber_id',$auth)
+		->take($limit)
+		->get();
+		return $subscriptions;
+	}
+  	
 }
