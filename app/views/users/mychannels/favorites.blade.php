@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
+	<div class="container pa White">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
@@ -22,7 +22,7 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
+				<div class="White">
 					<br/>
 					<!--<div class="col-md-6">
 						<div class="input-group">
@@ -85,7 +85,7 @@
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->uploaders_channel_name))}}">{{$showFavoriteVideo->uploaders_channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->numberOfLikes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
+									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
 									<br/>
 								</div>

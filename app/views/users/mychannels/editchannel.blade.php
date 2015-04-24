@@ -2,13 +2,13 @@
 
 
 @section('content')
-<div class="row">
-  <div class="container pageH">
-      <br/>
 
-      <div class="same-H row">
-         <div class="Div-channel-border ">
-              <div class="well White div-change">
+<div class="row">
+  <div class="container">
+      <br/>
+      <div class="row">
+         <div class="">
+              <div class="well White div-change same-H">
                 <div class="row">
                   <div class="text-center">
                     <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
@@ -16,11 +16,17 @@
                     <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                    <br/>
+                    <div id="status">
+											 Click on Below Image to start the demo: <br/>
+											<button onclick="Login()"/>Connect with Facebook
+											</div>
+											<br/><br/><br/><br/><br/>
+											<div id="message">
+											Logs:<br/>
+											</div>
+										<br/>
                   </div>
-
-
-
-
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -33,15 +39,15 @@
                                 </select>
                             <!--show this when deactivate is selected-->
                             <br/><br/>
-                            <div class="col-md-12 LighterBlue">
-                                <h3 class="tBlue text-center">-Interests-</h3>
+                            <div class="col-md-12 grey">
+                                <h3 class="orangeC text-center">-Interests-</h3>
                                 <div class="well2">
 
                                     {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:150px;'))}}
                                 </div>
                             </div>
-                            <div class="col-md-12 LightestBlue">
-                                <h3 class="tBlue text-center">-Personal Information-</h3>
+                            <div class="col-md-12 ">
+                                <h3 class="orangeC text-center">-Personal Information-</h3>
                                 <div class="well2">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -69,8 +75,8 @@
                                     {{Form::text('work', $userChannel->work, array('placeholder' => 'Work'))}}
                                 </div>
                              </div>
-                            <div class="col-md-12 LighterBlue">
-                                <h3 class="tBlue text-center">-Contact Information-</h3>
+                            <div class="col-md-12 grey">
+                                <h3 class="orangeC text-center">-Contact Information-</h3>
                                 <div class="well2">
                                     @if(empty($userWebsite)) 
 
@@ -100,8 +106,7 @@
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
                                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
-                                        <button>Connect with Facebook</button>
-                                        <br/>
+                                       	<br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
                                         <button>Connect with Twitter</button>
@@ -112,7 +117,6 @@
                                         <br/>
                                         {{Form::label('gmail', 'Gmail: ')}}
                                         {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
-                                        {{link_to_route('hybridauth','Gmail', Auth::User()->id)}}
                                         <br/>
                                         {{Form::label('others', 'Other Websites: ')}}
                                         {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
@@ -121,8 +125,8 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-12 LightestBlue">
-                                <h3 class="tBlue text-center">-Address-</h3>
+                            <div class="col-md-12 ">
+                                <h3 class="orangeC text-center">-Address-</h3>
                                 <div class="well2">
                                     {{Form::label('zip_code', 'Zip Code: ')}}
                                     {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}

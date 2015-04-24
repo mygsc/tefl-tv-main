@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
-		<br/>
+			<br/>
+	<div class="container pageH White">
+
 		<div class="row same-H">
 			@include('elements/users/profileTop')
 
@@ -23,14 +24,15 @@
 					</ul><!--tabNav-->
 				</div>
 				<br/>
-				<div class="row">
-					<div class="row-same-height">
-						<div class="col-md-6 col-lg-height col-md-height">
-							<div class="well2 Div-channelSubSection">
-								<div class="s">
-									<div class="subLabelThis">
-										<span>Subscribers</span>&nbsp;
-									</div>
+				<div class="col-md-12 ">
+					<div class="row">
+						<div class="row-same-height">
+						<div class="col-md-6 greyDark col-md-height col-top">
+							<div class="row">
+								<div class="h-title grey lightBlueC">
+									<span><b>SUBSCRIBERS</span>&nbsp;
+								</div>
+								<div class="Div-channelSubSection" id="subscriberWrapper">
 									<br/>
 									<div class="searchPanel">
 										<!--<div class="input-group">
@@ -85,12 +87,12 @@
 							</div>
 						</div>
 				
-						<div class="col-md-6 col-lg-height col-md-height">
-							<div class="well2 Div-channelSubSection">
-								<div class="">
-									<div class="subLabelThis">
-										<span>Subscriptions</span>&nbsp;
-									</div>
+						<div class="col-md-6 col-md-height col-top">
+							<div class="row grey">
+								<div class="h-title greyDark lightBlueC">
+									<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+								</div>
+								<div class="Div-channelSubSection" id="subscriberWrapper">
 									<br/>
 									<div class="searchPanel">
 										<!--<div class="input-group">
@@ -169,6 +171,7 @@
 							</div><!--subscriptions-->
 						</div>
 					</div><!--/.row-same-height-->
+					</div>
 				</div><!--/.row-->
 			</div>
 		</div><!--/.shadow Div-channel-border-->

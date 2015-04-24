@@ -8,13 +8,11 @@
 @stop
 @section('content')
 <div class="row">
-	<div class="container pageH">
-		<br/>
+	<br/>
+	<div class="container">
 
-		<div class="row same-H">
+		<div class="row same-H White">
 			@include('elements/users/profileTop2')
-		
-			<div class="Div-channel-border White">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -38,12 +36,9 @@
 
 				  </div><!--/.tab-content-->
 
-				</div><!--/.tabpanel-->
-					
+				</div><!--/.tabpanel-->		
 			</div>
 		</div><!--/.contentpadding-->
-		<br/>
-	</div><!--/.container page-->
 </div>
-
+<br/>
 @stop
