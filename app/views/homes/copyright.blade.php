@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="container White">
+	<div class="container White same-H">
 		<div class="col-md-3">
 			<div class="row">
 			<br/>
-				<div class="same-H">
+				<div class="">
 					<div class="">
 						@include('elements/home/sideNav')
 						@include('elements/home/adverstisementSmall')

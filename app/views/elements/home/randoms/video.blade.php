@@ -3,10 +3,10 @@
 @foreach($datas as $randomResult)
 
 
-	<div class="col-md-3 col-sm-6 hidden-xs">
+	<div class="col-md-4 col-sm-6 hidden-xs">
 		<span class="v-time inline">{{$randomResult->total_time}}</span>
 		<a href="{{route('homes.watch-video', array($randomResult->file_name))}}">	
-			<div class="thumbnail"> 
+			<div class="thumbnail-2"> 
 
 					<img class="hvr-grow-rotate" src="{{$randomResult->thumbnail}}">
 				
