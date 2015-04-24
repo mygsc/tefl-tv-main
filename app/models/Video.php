@@ -243,7 +243,7 @@ class Video extends Eloquent{
 									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
 						->whereRaw($query)
 						->where('deleted_at', NULL)
-						->where('publish', '1')
+						->where('publish','=', '1')
 						->where('report_count', '<', 5)
 						->where('videos.id','!=',$id)
 						->join('users', 'user_id', '=', 'users.id');
@@ -262,7 +262,7 @@ class Video extends Eloquent{
 	  $returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
 									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
 							->where('deleted_at', NULL)
-							->where('publish', '1')
+							->where('publish','=', '1')
 							->where('report_count', '<', 5)
 							->where('videos.id','!=',$id)
 							->join('users', 'user_id', '=', 'users.id')

@@ -17,6 +17,7 @@
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong><p class="text-center"><i class="fa fa-close"></i> {{ Session::get('flash_bad') }}</p></strong>
 			</div>
+		</div>
 	</div>
 @endif
 
@@ -27,6 +28,7 @@
 			<div class="warn alert-dismissible" role="alert">
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong><p class="text-center">! {{ Session::get('flash_warning') }}</p></strong>
+			</div>
 		</div>
 	</div>
 @endif

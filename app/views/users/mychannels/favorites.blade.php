@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
+	<div class="container pa White">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
@@ -22,7 +22,7 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="">
+				<div class="White">
 					<br/>
 					<!--<div class="col-md-6">
 						<div class="input-group">

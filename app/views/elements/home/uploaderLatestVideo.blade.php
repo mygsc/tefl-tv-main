@@ -1,6 +1,6 @@
-  <div class="row grey mg-t-10">
+  <div class="row grey mg-t-10 same-H">
         
-            <div class="h-title"><!--From highest number of folloers-->
+            <div class="h-title Orange-bg"><!--From highest number of folloers-->
 
                Latest Uploads     
            </div>
