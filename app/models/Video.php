@@ -225,7 +225,7 @@ class Video extends Eloquent{
 	public function getCategory(){
 		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		foreach ($categoryList as $key => $category) {
-			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->take(1)->first();
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
 			if(isset($findCategory)){
 				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
 			}

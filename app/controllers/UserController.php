@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
 	public function __construct(User $user, Subscribe $subscribes, Notification $notification, 
-		Video $video, WatchLater $watchLater, Hybrid_Auth $hybridAuth, Favorite $favorite, Feedback $feedback){
+		Video $video, WatchLater $watchLater, Favorite $favorite, Feedback $feedback){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -11,7 +11,6 @@ class UserController extends BaseController {
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->Auth = Auth::User();
 		$this->WatchLater = $watchLater;
-		$this->Hybrid_Auth = $hybridAuth;
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 	}	
@@ -150,22 +149,7 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
-  		//Insert additional data to $datas
-  		foreach($datas as $key => $channel){
-		   	$img = 'img/user/'. $channel->id. '.jpg';
-		   	if(Auth::check()){
-			    $ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-			    $datas[$key]->ifsubscribe = 'No';
-			    if(!$ifsubscribe->isEmpty()){
-			     	$datas[$key]->ifsubscribe = 'Yes';
-			    }
-		   	}
-		   	if(!file_exists(public_path($img))){
-		    	$img = '/img/user/0.jpg';
-		   	}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
-		}
+		
 		return View::make('homes.topchannels', compact(array('datas')));
 	}
 
