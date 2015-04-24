@@ -279,26 +279,24 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                <br/>
                 <ul class="ui-tabs-nav"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
-                        @if($relation->id != $videos->id)
                             <li class="ui-tabs-nav-item" id="">
-                                <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
+                                <a href="watch!v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-4">
-                                    @if(file_exists(public_path("/videos/".$relation->uid."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
-                                    <img src="/videos/{{$relation->uid}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
+                                    @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                    <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
                                     @else
                                     <img src="/img/thumbnails/video.png" alt="" width="100%" />
                                     @endif
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div ><span class="v-list">{{ Str::limit($relation->title,50) }}</span></div>
-                                        <span>by: {{$relation->channel_name}}</span><br/>
-                                        <span>{{date('m-d-Y',strtotime($relation->created_at))}}</span>
+                                        <div ><span class="v-list">{{ Str::limit($relation['title'],50) }}</span></div>
+                                        <span>by: {{$relation['channel_name']}}</span><br/>
+                                        <span>{{date('m-d-Y',strtotime($relation['created_at']))}}</span>
                                     </div>
                                 </div>
                                 </a>
                             </li>
-                        @endif
                     @endforeach
                 </ul><!--video list-->
 

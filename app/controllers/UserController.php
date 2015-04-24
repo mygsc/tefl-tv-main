@@ -360,7 +360,8 @@ class UserController extends BaseController {
 	}
 
 	public function getedit($id){
-		$id = Crypt::decrypt($id);
+		$file_name = Video::where('file_name',$id)->first();
+		$id = $file_name->id;
 		$video = Video::find($id);
 		$owner = User::find($video->user_id);
 		if($video->user_id != Auth::User()->id){

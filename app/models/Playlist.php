@@ -18,4 +18,25 @@ class Playlist extends Eloquent {
 			->orderByRaw("RAND()")
 			->get();
 	}
+
+	public function playlistchoose($id = null){
+		$returndata = Playlist::select('playlists.id','playlists.name','playlists.description','playlists.user_id','playlists.privacy','playlists.deleted_at',
+									'playlists_items.video_id')
+							->where('video_id',$id)
+							->where('user_id',Auth::User()->id)
+							->where('playlists.deleted_at',NULL)
+							->join('playlists_items', 'playlist_id', '=', 'playlists.id')
+							->get();
+		return $returndata;
+	}
+	public function playlistnotchosen($id = null){
+		$returndata = Playlist::whereRaw("NOT EXISTS
+				(SELECT * FROM playlists_items AS i
+					WHERE i.playlist_id = playlists.id
+					AND
+					i.video_id = '".$id."')")
+				->where('user_id',Auth::User()->id)
+				->where('deleted_at',NULL)->get();
+		return $returndata;
+	}
 }
