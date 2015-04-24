@@ -134,7 +134,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$userData[$key]->profile_picture = $this->addProfilePicture($user->id);
 
 			if(Auth::check()){
-				$userData[$key]->ifsubscribe = $this->checkSubscription($user->id, Auth::user()->id);
+				$userData[$key]->ifsubscribe = $this->checkSubscription(Auth::user()->id, $user->id);
 			}
 
 			$subscribe = new Subscribe();
@@ -152,9 +152,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function checkSubscription($subscriber_id, $subscription_id){
-		$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->first();
+		$ifsubscribe = Subscribe::where('user_id', $subscription_id)->where('subscriber_id', $subscriber_id)->first();
 		$data = 'No';
-		if(!$ifsubscribe->isEmpty()){
+		if(isset($ifsubscribe)){
 			$data = 'Yes';
 		}
 		return $data;
