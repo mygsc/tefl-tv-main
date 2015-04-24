@@ -4,11 +4,11 @@
 		<meta property="og:site_name" content="test.tefltv.com">
 		<meta property="og:description" content="dynamic">
 		<meta property="og:url" content="dynamic">
-		<!-- <meta property="og:image" content="/videos/"> -->
+		<meta property="og:image" content="/img/thumbnails/video.png"> 
 		<meta property="og:type" content="video">
 		<meta property="og:video:width" content="500"> 
 		<meta property="og:video:height" content="300"> 
-		<meta property="og:video" content="test.tefltv.com/watch=vWpcBEBlSre"> 
+		<meta property="og:video" content="test.tefltv.com"> 
 		
 	@stop
 	@section('css')
@@ -31,7 +31,7 @@
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 									<source src='/videos/tefltv.mp4' type='video/mp4'>
 									<source src='/videos/tefltv.webm' type='video/webm'>
-									<source src='/videos/tefltv.ogv' type='video/ogg'> 
+									<source src='/videos/tefltv.ogvq' type='video/ogg'> 
 								</video>	
 							</div><!--/embed-responsive-->
 							@include('elements/videoPlayer')
