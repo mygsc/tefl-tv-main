@@ -17,6 +17,16 @@
                     <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
                     &nbsp;&nbsp;|&nbsp;&nbsp;
                     <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                    <br/>
+                    <div id="status">
+											 Click on Below Image to start the demo: <br/>
+											<button onclick="Login()"/>Connect with Facebook
+											</div>
+											<br/><br/><br/><br/><br/>
+											<div id="message">
+											Logs:<br/>
+											</div>
+										<br/>
                   </div>
 
 
@@ -101,10 +111,7 @@
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
                                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
-                                        <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
-
-																				<div id="fb-root"></div>
-                                        <br/>
+                                       	<br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
                                         <button>Connect with Twitter</button>
