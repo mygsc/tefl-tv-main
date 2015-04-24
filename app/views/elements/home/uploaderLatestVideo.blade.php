@@ -1,4 +1,4 @@
-  <div class="row greyDark mg-t-10">
+  <div class="row grey mg-t-10">
         
             <div class="h-title"><!--From highest number of folloers-->
 

@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="row">
-	<div class="container White">
+	<div class="container White same-H">
 		<br/>
-		<div class="row same-H content">
+		<div class="row content">
 			<div class="content-padding text-justify">
 				<h1 class="">Change Logs</h1>
 				

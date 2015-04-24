@@ -1,6 +1,6 @@
 
 
-		<div class="Blue Div-channel-border">
+		<div class="White">
 
 			<div class="col-md-12">
 				<div class="row">
@@ -74,8 +74,10 @@
 					<p class="orangeC center-block italic text-center">
 					
 					{{ Str::limit($usersChannel->interests, 200) }}
-					@endif
 					</p>
+					<br/>
+					@endif
+					
 			</div>
 		</div>
 

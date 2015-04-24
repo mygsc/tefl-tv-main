@@ -4287,7 +4287,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 }
 .panel-warning>.panel-heading {
     color: #8a6d3b;
-    background-color: #da5b1f;
+    background-color: #f18200;
     border-color: #faebcc;
 }
 .panel-warning>.panel-heading+.panel-collapse>.panel-body {

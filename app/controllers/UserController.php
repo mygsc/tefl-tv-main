@@ -187,8 +187,8 @@ class UserController extends BaseController {
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
-			$usersVideos = $this->Video->getUserVideosOrderByRecent($this->Auth->id, 6);
-			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(6);
+			$usersVideos = $this->Video->getUserVideosOrderByRecent($this->Auth->id, 8);
+			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id

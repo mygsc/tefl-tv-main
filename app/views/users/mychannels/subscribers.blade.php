@@ -23,14 +23,14 @@
 					</ul><!--tabNav-->
 				</div>
 				<br/>
-				<div class="row">
-					<div class="row-same-height">
-						<div class="col-md-6 col-lg-height col-md-height">
-							<div class="well2 Div-channelSubSection">
-								<div class="s">
-									<div class="subLabelThis">
-										<span>Subscribers</span>&nbsp;
-									</div>
+				<div class="col-md-12 ">
+					<div class="row">
+						<div class="col-md-6 greyDark">
+							<div class="row">
+								<div class="h-title">
+									<span><b>SUBSCRIBERS</span>&nbsp;
+								</div>
+								<div class="Div-channelSubSection" id="subscriberWrapper">
 									<br/>
 									<div class="searchPanel">
 										<!--<div class="input-group">
@@ -85,12 +85,12 @@
 							</div>
 						</div>
 				
-						<div class="col-md-6 col-lg-height col-md-height">
-							<div class="well2 Div-channelSubSection">
-								<div class="">
-									<div class="subLabelThis">
-										<span>Subscriptions</span>&nbsp;
-									</div>
+						<div class="col-md-6 ">
+							<div class="row White">
+								<div class="h-title Orange-bg">
+									<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+								</div>
+								<div class="Div-channelSubSection" id="subscriberWrapper">
 									<br/>
 									<div class="searchPanel">
 										<!--<div class="input-group">
@@ -172,7 +172,6 @@
 				</div><!--/.row-->
 			</div>
 		</div><!--/.shadow Div-channel-border-->
-		<br/>
 	</div><!--container-->
 </div><!--/.row-->
 @stop

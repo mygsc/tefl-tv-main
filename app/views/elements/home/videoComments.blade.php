@@ -7,7 +7,7 @@
 		<span id='errorlabel' class='input-error'></span>
 		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
 		<div class="text-right">
-			<button id='btncomment' class="btn btn-info">Post</button>
+			<button id='btncomment' class="btn btn-warning">Post</button>
 		</div>
 
 		{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
