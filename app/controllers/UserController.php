@@ -628,14 +628,11 @@ class UserController extends BaseController {
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$findVideos = $this->Video->getVideos($userChannel->id, 6);
-
+		$findVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at',6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
-		$recentUpload = $this->Video->getVideos($userChannel->id, 1);
+		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1);
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p

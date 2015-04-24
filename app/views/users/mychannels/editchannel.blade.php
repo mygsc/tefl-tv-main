@@ -101,11 +101,9 @@
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
                                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
-                                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-																				</fb:login-button>
+                                        <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
 
-																				<div id="status">
-																				</div>
+																				<div id="fb-root"></div>
                                         <br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
