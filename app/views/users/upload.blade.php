@@ -37,7 +37,7 @@ div canvas{
 </style>
 
 
-<div class="row White">
+<div class="row White h-minH">
 	<div class="container page" id="select-upload">
 		<div class="col-md-8 col-md-offset-2">	
 			<div class="well text-center" style="margin-top:50px">

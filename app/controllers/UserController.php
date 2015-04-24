@@ -149,22 +149,7 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
-  		//Insert additional data to $datas
-  		foreach($datas as $key => $channel){
-		   	$img = 'img/user/'. $channel->id. '.jpg';
-		   	if(Auth::check()){
-			    $ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-			    $datas[$key]->ifsubscribe = 'No';
-			    if(!$ifsubscribe->isEmpty()){
-			     	$datas[$key]->ifsubscribe = 'Yes';
-			    }
-		   	}
-		   	if(!file_exists(public_path($img))){
-		    	$img = '/img/user/0.jpg';
-		   	}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
-		}
+		
 		return View::make('homes.topchannels', compact(array('datas')));
 	}
 
@@ -202,8 +187,9 @@ class UserController extends BaseController {
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
-			$usersVideos = $this->Video->getUserVideosOrderByRecent($this->Auth->id, 6);
-			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(6);
+			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
+			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
+
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
 				LEFT JOIN playlists_items i ON p.id = i.playlist_id
@@ -215,7 +201,8 @@ class UserController extends BaseController {
 				and v.publish = 1");
 			}
 			$increment = 0;
-			$recentUpload = $this->Video->getVideos($this->Auth->id, 1);
+			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
+
 			return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture')); 
 		}
 	}
@@ -317,7 +304,7 @@ class UserController extends BaseController {
 	public function getMyVideos() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = $this->Video->getVideos($this->Auth->id);
+		$usersVideos = $this->Video->getVideos($this->Auth->id,'videos.created_at');
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
@@ -346,7 +333,8 @@ class UserController extends BaseController {
 	}
 
 	public function getedit($id){
-		$id = Crypt::decrypt($id);
+		$file_name = Video::where('file_name',$id)->first();
+		$id = $file_name->id;
 		$video = Video::find($id);
 		$owner = User::find($video->user_id);
 		if($video->user_id != Auth::User()->id){
@@ -641,14 +629,11 @@ class UserController extends BaseController {
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$findVideos = $this->Video->getUserVideosOrderByRecent($userChannel->id, 6);
-
+		$findVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at',6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
-
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
-		$recentUpload = $this->Video->getVideos($userChannel->id, 1);
+		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1);
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 			foreach($usersPlaylists as $playlist){
 					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
@@ -1304,49 +1289,6 @@ class UserController extends BaseController {
 		$var = 'l';
 	}
 
-	public function getAuthSocial($action='') {
-		if ($action == "auth") {
-		// process authentication
-		try {
-			Hybrid_Endpoint::process();
-		}
-		catch (Exception $e) {
-			// redirect back to http://URL/social/
-			return Redirect::route('hybridauth');
-		}
-		return;
-	}
-	try {
-		// create a HybridAuth object
-		$socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
-		// authenticate with Google
-		$provider = $socialAuth->authenticate("google");
-		// fetch user profile
-		$userProfile = $provider->getUserProfile();
-	}
-	catch(Exception $e) {
-		// exception codes can be found on HybBridAuth's web site
-		return $e->getMessage();
-	}
-	// access user profile data
-	echo "Connected with: <b>{$provider->id}</b><br />";
-	echo "As: <b>{$userProfile->displayName}</b><br />";
-	echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
-
-		// if($action == 'auth') {
-		// 	try {
-		// 		Hybrid_Endpoint::process();
-		// 	}
-		// 	catch(Exception $e) {
-		// 		echo 'Error at Hybrid_Endpoint process (UserController@getAuthSocial): $e';
-		// 	}
-		// 	return;
-		// }
-
-		// $hybridAuthProvider = $this->hybridAuth->authenticate("Steam");
-		// $hybridAuthUserProfile = $hybrithAuthProvider->getUserProfile();
-		// $steamCommunityId = str_replace( "http://steamcommunity.com/openid/id/", "", $hybridAuthUserProfile->identifier );
- 
-		// echo "Hello {$hybridAuthUserProfile->displayName}, your Steam Community ID is $steamCommunityId";
+	public function getAuthSocial() {
 	}
 }

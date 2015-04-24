@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color:#383f49;  ;
+    background-color: #ecf3fb;  ;
     overflow-x: hidden!important;
 }
 
@@ -66,6 +66,8 @@ pre {
 
 .linkReadMore {
     cursor: pointer;
+    font-size:0.8em!important;
+    font-weight: bold;
 }
 
 .hand {
@@ -285,7 +287,7 @@ textarea {
 }
 
 p {
-    color: #171717!important;
+    color: #474747!important;
 }
 
 label.myLabel input[type="file"] {
@@ -391,7 +393,7 @@ span .ad {
 .brandingHeader {
     width: 100%;
     height: auto;
-    background: #222222;
+    background: #494848;
     margin-top: 0;
 }
 
@@ -442,15 +444,15 @@ img.logo-sm {
 }
 
 .mainNav a {
-    color: #fff;
+    color: #da5b1f;
 }
 
 .categoryNav {
     width: 100%;
     height: auto;
-    background:#535B72;
+    background: #3ea9cb;
     font-size: .75em;
-    padding: 10px 0 0 0;
+    padding: 8px 0 0 0;
     display: block;
 
 }
@@ -458,8 +460,8 @@ img.logo-sm {
 ul .ctgryNav {
     list-style: none;
     display: inline-block!important;
-    padding-top: 10px!important;
-    padding-bottom: 10px;
+    padding-top: 8px!important;
+    padding-bottom: 8px;
 }
 
 .ctgryNav li {
@@ -469,14 +471,15 @@ ul .ctgryNav {
 .ctgryNav li a {
     font-size: 1.2em;
     margin-right: 20px;
-    color: #46b8da ;
+    color: #fff;
     text-shadow: none!important;
     display: block;
     text-align: left;
+    font-weight: bold;
 }
 
 .ctgryNav li > a:hover {
-    color: #fff!important;
+    color: #004e67!important;
     text-decoration: none!important;
 }
 
@@ -588,11 +591,9 @@ div.archiveLinks {
 
 .same-H {
  
-    background: #fff;
-    padding: 10px 10px 10px 10px!important;
-   /* border: 1px solid #e2e2e2    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+   border: 1px solid #e2e2e2    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);*/
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
 }
 
 .archiveLinks li {
@@ -648,7 +649,7 @@ img.user {
     width: 100%!important;
     font-size: 16px;
     color: #fff;
-    background: #da5b1f;
+    background: #65c4d4;
     padding: 10px 10px;
     text-align: center;
     margin-top: 0;
@@ -746,12 +747,13 @@ img.user {
     margin-bottom: 0;
     font-size: 14px!important;
     padding: 0!important;
+    font-weight: bold;
 }
 
 .count {
     width: 100%;
     padding: 0 3px 3px 3px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: left;
     color: #323232;
     height: auto;
@@ -799,7 +801,7 @@ center;     margin: 0 auto; }
     padding-left: 80px;
 }
 .grey{
-    background: #353535;
+    background: #E0E0E0;
 }
 .greyDark{
     background: #d5d5d5;
@@ -842,7 +844,9 @@ center;     margin: 0 auto; }
 .redC {
     color: #ca2027!important;
 }
-
+.greyC{
+    color: #E0E0E0!important;
+}
 .darkBlueC {
     color: #3b5a9b!important;
 }
@@ -875,12 +879,14 @@ center;     margin: 0 auto; }
 .whiteC {
     color: #fff!important;
 }
-
+.lightBlueC{
+    color: #3ea9cb!important;
+}
 .orangeC {
-    color: #da5b1f!important;
+    color: #f18200!important;
 }
 .Orange-bg{
-    background:#da5b1f;
+    background:#f18200;
 }
 .italic {
     font-style: italic!important;
@@ -889,7 +895,8 @@ center;     margin: 0 auto; }
 .btn-upload {
     color: #fff!important;
     margin-top: 20px;
-    background: #337ab7!important;
+    background: #3ea9cb!important;
+    font-weight: normal!important;
 }
 
 .u-content {
@@ -1005,7 +1012,7 @@ center;     margin: 0 auto; }
 }
 
 .channel-content {
-    min-height: 900px;
+    min-height: 250px;
 }
 
 .span-tags {
@@ -1023,7 +1030,7 @@ center;     margin: 0 auto; }
 }
 
 .footer1 {
-    background: #31384b;
+    background: #454545;
     width: 100%;
     text-align: left;
     height: auto;
@@ -1040,7 +1047,7 @@ center;     margin: 0 auto; }
 }
 
 .footer2 {
-    background: #1c2035;
+    background: #383838;
     width: 100%;
     min-height: 30px;
     height: auto;
@@ -1135,8 +1142,11 @@ img.userRep2 {
 
 .seeVideoContent {
     display: none;
+
+}
+.seeVideoContent p{
     text-align: justify;
-    line-height: 3.0em!important;
+    line-height: 1.70em!important;
 }
 
 span.commentLink {
@@ -1194,9 +1204,7 @@ span.commentLink {
     padding: 20px 20px;
     min-height: 520px;
     max-height: auto;
-    border-right: 1px solid #c1c1c1;
-    border-left: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
+
 }
 
 .loginDivA {
@@ -1212,11 +1220,9 @@ span.commentLink {
 }
 
 .signDivH {
-    background: #f4f4f4;
+    background: #4D7CA1;
     padding: 20px 20px;
-    border-left: 1px solid #c1c1c1;
-    border-right: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
+
     padding: 15px;
     min-height: 520px;
     max-height: auto;
@@ -1276,7 +1282,6 @@ span.commentLink {
   text-align: left;
    color: #1870dc;
   margin-bottom: 0;
-  height: 25px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1496,19 +1501,12 @@ html * {
 }
 
 .labelThis {
-    border-radius: 0 0 85px 0;
     padding: 0 5px 0 10px;
-    background: #282c44;
-    border-bottom: solid 1px #d6d8d9;
-    border-right: solid 1px #d6d8d9;
     margin-left: -13px;
-    width: 230px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,  0,  0,  .09);
-    box-shadow: inset 0 1px 1px rgba(0,  0,  0,  .05);
-    font-size: 1.8em;
+    font-size: 2.0em;
     font-family: Teko;
     text-align: left;
-    color: #fff;
+    color: #f18200;
     display: inline-block;
 }
 
@@ -1548,9 +1546,24 @@ html * {
     z-index: 99999;
     font-size: 1.2em;
 }
+.video-info {
+    text-align: center;
+    color: #dfdfdf;
+    background: rgba(255,  255,  255,  0.125);
+    position: absolute;
+    height:60px ;
+    padding: 2px 5px;
+    z-index: 99999;
+    font-size: 1.0em;
+    bottom: 0;
+    width: 100%;
+}
+div .video-info:hover{
+    background: rgba(255,  255,  255,  0.75);
+}
 
 .Div-channel-border {
-    border: 10px solid #282c44;
+
 }
 
 .Div-channelSubSection {
@@ -1566,15 +1579,15 @@ html * {
     padding: 5px 5px 5px 5px;
     bottom: 0;
     margin-right: 5px;
-    position: absolute;
     width: 100%;
     color: #fff;
+    position: absolute;
 }
 
 .pic-Dp {
     margin: 7px;
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
     background: #ededed;
     position: absolute;
     left: 0;
@@ -1584,8 +1597,8 @@ html * {
 }
 
 .pic-Dp img {
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
     margin: auto;
     border-radius: 7px 7px;
 }
@@ -1887,8 +1900,7 @@ div.crop-square img {
 
 .thumbnail-2 {
     display: block;
-    padding: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #fff;
     border-radius: 2px;
@@ -1945,9 +1957,7 @@ body {
 /*================================================SM===================================*/
 
 @media (max-width:992px) {
-.v-Info{
-  width: 345px;
-}
+
 .thumbnail {
     width: 345px;
     height: 194px;
@@ -1971,9 +1981,7 @@ body {
 
 @media (min-width:993px) {
 
-.v-Info{
-  width: 198px;
-}
+
 .thumbnail {
     width: 198px;
     height: 111px;
@@ -1998,18 +2006,13 @@ body {
 /*=================LG==================*/
 
 @media (min-width:1200) {
-.v-Info{
-  width: 266px;
-}
+
 .thumbnail {
     width: 266px;
     height: 150px;
 }
 
-.thumbnail-2 {
-    width: 180!important;
-    height: 101px;
-}
+
 
 .v-time {
     left: 15px;
@@ -2049,16 +2052,15 @@ body {
     padding: 5px 10px;
     width: 100%;
     background: transparent;
-    color: #1e1e1e;
+
 }
 
 .notification-item:hover {
-    background: #1f3359;
-    color: #fff;
-}
+    background: #bcbfd7;
 
-.notification-item:hover > a {
-    color: #46b8da!important;
+}
+.notification-item > a {
+   color:#1870dc!important;
 }
 
 .drop {
@@ -2209,9 +2211,11 @@ body {
 }
 
 .fs-24 {
-    font-size: 24px;
+    font-size: 2.4em;
 }
-
+.fs-12{
+    font-size: 1.2em;
+}
 .noti {
     width: 300px;
     padding: 0!Important;
@@ -2221,7 +2225,10 @@ body {
     padding: 0!important;
 }
 .pad-s-10 {
-    padding: 10px!important;
+    padding: 0 10px!important;
+}
+.pad-v-10{
+    padding: 10px 0!important;
 }
 
 .div-search {
@@ -2305,7 +2312,9 @@ td.w-75per {
 .mg-b-10 {
     margin-bottom: 10px!important;
 }
-
+.mg-t-60 {
+    margin-top: 40px!important;
+}
 .mg-l--2 {
     margin-left: -2px!important;
 }
@@ -2324,7 +2333,8 @@ td.w-75per {
 
 .div-change {
     margin-bottom: 0;
-    min-height: 900px;
+    min-height: 570px;
+    padding:10px 15px;
 }
 /*==============VIDEO UPLOAD==============*/
 canvas.thumb-1,  canvas.thumb-2,  canvas.thumb-3 {

@@ -58,7 +58,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
             <div id="featured" > 
                 <div class="col-md-8">
                     <div class="row">
-                        <div id="" class="ui-tabs-panel White pad-s-10" tyle="">
+                        <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
                             <!--video paler-->
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
@@ -142,7 +142,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
@@ -197,7 +197,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <br/>
                             <div class="row" id="alert-playlist"></div>
                             <div class="info" >
-                                <div class="well2">
+                                <div class="well2 ">
                                     <div class="row">
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
@@ -252,13 +252,14 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                <div class="h-seeMore">
                                 <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
                             </div>
+                            <br/>
                         </div><!--/.info-->
                     </div><!--well-->
                 </div> <!--/.ui-tabs-panel-->
         
                 <!-- COMMENTS AREA -->
                 <div class="row mg-t-10">
-                    <div class="White">
+                    <div class="White same-H pad-v-10">
                         <div class="row">
                             <div class="content-padding">
                              @include('elements/home/videoComments')
@@ -281,35 +282,33 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!-- advertisment small -->
                 <!--/advertisement-->
          
-                <ul class="ui-tabs-nav"> <!--video navigation or video list-->
+                <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
-                        @if($relation->id != $videos->id)
                             <li class="ui-tabs-nav-item" id="">
-                                <a href="watch!v={{$relation->file_name}}" id="videourl{{$videourl++}}">
+                                <a href="watch!v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-4">
-                                    @if(file_exists(public_path("/videos/".$relation->uid."-".$relation->channel_name."/".$relation->file_name."/".$relation->file_name.".jpg")))
-                                    <img src="/videos/{{$relation->uid}}-{{$relation->channel_name}}/{{$relation->file_name}}/{{$relation->file_name}}.jpg" alt="" width="100%" />
+                                    @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                    <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
                                     @else
                                     <img src="/img/thumbnails/video.png" alt="" width="100%" />
                                     @endif
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div ><span class="v-list">{{ Str::limit($relation->title,50) }}</span></div>
-                                        <span>by: {{$relation->channel_name}}</span><br/>
-                                        <span>{{date('m-d-Y',strtotime($relation->created_at))}}</span>
+                                        <div ><span class="v-list">{{ Str::limit($relation['title'],50) }}</span></div>
+                                        <span>by: {{$relation['channel_name']}}</span><br/>
+                                        <span>{{date('m-d-Y',strtotime($relation['created_at']))}}</span>
                                     </div>
                                 </div>
                                 </a>
                             </li>
-                        @endif
                     @endforeach
                 </ul><!--video list-->
 
-                    <div class="mg-t-10">
+                    <div class="mg-t-10 same-H">
                         @include('elements/home/carouselAds')
                     </div>
-                    <div class="mg-t-10 mg-b-10">
+                    <div class="mg-t-10 mg-b-10 same-H">
                         @include('elements/home/recommendedChannelList')
                     </div>
                 </div>
