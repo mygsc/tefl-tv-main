@@ -142,7 +142,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
