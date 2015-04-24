@@ -4,24 +4,21 @@
 @section('content')
 
 <div class="row">
-  <div class="container pageH">
+  <div class="container">
       <br/>
-
-      <div class="same-H row">
-         <div class="Div-channel-border ">
-              <div class="well White div-change">
+      <div class="row">
+         <div class="">
+              <div class="well White div-change same-H">
                 <div class="row">
-                  <div class="text-center">
-                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
-                  </div>
-
-
-
-
+                    <div class="text-center">
+                        <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                    </div>
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -34,15 +31,15 @@
                                 </select>
                             <!--show this when deactivate is selected-->
                             <br/><br/>
-                            <div class="col-md-12 LighterBlue">
-                                <h3 class="tBlue text-center">-Interests-</h3>
+                            <div class="col-md-12 grey">
+                                <h3 class="orangeC text-center">-Interests-</h3>
                                 <div class="well2">
 
                                     {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:150px;'))}}
                                 </div>
                             </div>
-                            <div class="col-md-12 LightestBlue">
-                                <h3 class="tBlue text-center">-Personal Information-</h3>
+                            <div class="col-md-12 ">
+                                <h3 class="orangeC text-center">-Personal Information-</h3>
                                 <div class="well2">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -70,8 +67,8 @@
                                     {{Form::text('work', $userChannel->work, array('placeholder' => 'Work'))}}
                                 </div>
                              </div>
-                            <div class="col-md-12 LighterBlue">
-                                <h3 class="tBlue text-center">-Contact Information-</h3>
+                            <div class="col-md-12 grey">
+                                <h3 class="orangeC text-center">-Contact Information-</h3>
                                 <div class="well2">
                                     @if(empty($userWebsite)) 
 
@@ -123,8 +120,8 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-12 LightestBlue">
-                                <h3 class="tBlue text-center">-Address-</h3>
+                            <div class="col-md-12 ">
+                                <h3 class="orangeC text-center">-Address-</h3>
                                 <div class="well2">
                                     {{Form::label('zip_code', 'Zip Code: ')}}
                                     {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}

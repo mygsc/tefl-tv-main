@@ -12,13 +12,13 @@
 		</div>
 		<div class="col-lg-3 col-md-4">
 			<div class="same-H grey pad-s-10">
-			<div>
-				@include('elements/home/carouselAds')
-			</div>
-			<div class="mg-t-10">
-				@include('elements/home/adverstisementSmall')
-				
-			</div>
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
 			</div>
 		</div>
 	</div>

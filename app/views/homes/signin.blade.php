@@ -6,30 +6,9 @@
 <div class='container'>
 	<br/><br/>
 	<div class="row">
-		<div class="col-md-4 col-sm-5">
-			<div class="loginDivH textbox-layout">
-				<img src="/img/logos/teflTv.png" class="center-block">
-				<br/>
-				<!-- Sign In -->
-				<a href="#" id="forgotpw" data-toggle="modal" data-target="#forgot-password">forgot password?</a>
-				{{Form::open(array('route' => 'homes.post.signin'))}}
-				
-				{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
-				
-				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
-				<div class="text-right">
-					<br/>
-					{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}
-					&nbsp;&nbsp;
-					{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
-					{{Form::close()}}
-				</div>
-
-			</div>
-		</div>
 		<div class="col-md-8 col-sm-7">
-			<div class="signDivH textbox-layout2">
-				<h4><i class="fa fa-play"></i>&nbsp;Free Sign-up</h4>
+			<div class="signDivH textbox-layout2 same-H">
+				<h2 class="greyC"><i class="fa fa-play"></i>&nbsp;Sign-up for free</h2>
 				
 				<!-- Sign Up -->
 				{{ Form::open(array('route' => 'homes.post.signup'))}}
@@ -82,12 +61,34 @@
 				</span>
 				@endif
 				<br/>
-				<div class="text-right mg-t-10"> 
-					{{Form::submit('Sign Up', array('class' => 'btn btn-primary'))}}
+				<div class="text-right mg-t-20"> 
+					{{Form::submit('Sign Up', array('class' => 'btn btn-warning'))}}
 				</div>
 				{{ Form::close()}}
 			</div>
 		</div>
+		<div class="col-md-4 col-sm-5">
+			<div class="loginDivH textbox-layout same-H">
+				<img src="/img/logos/teflTv.png" class="center-block">
+				<br/>
+				<!-- Sign In -->
+				<a href="#" id="forgotpw" data-toggle="modal" data-target="#forgot-password">forgot password?</a>
+				{{Form::open(array('route' => 'homes.post.signin'))}}
+				
+				{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
+				
+				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
+				<div class="text-right">
+					<br/>
+					{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}
+					&nbsp;&nbsp;
+					{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
+					{{Form::close()}}
+				</div>
+
+			</div>
+		</div>
+		
 	</div>
 	<br/><br/>
 </div><!--/.container page-->

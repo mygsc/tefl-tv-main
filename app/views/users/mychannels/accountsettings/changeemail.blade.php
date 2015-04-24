@@ -9,11 +9,13 @@
 
     <div class="col-md-row">
       <div class="same-H">
-        <div class="Div-channel-border">
-              <div class="well White div-change">
+        <div class="">
+              <div class="well White div-change ">
                     <div class="row">
                         <br/>
                         <div class="text-center">
+                            <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
                             <span class="active">{{link_to_route('users.edit.channel', 'Account Setting', null)}}</span>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
@@ -21,9 +23,9 @@
                             <span class=""><b>{{ link_to_route('users.change-email', 'Change Email', null) }}</b></span>
                         </div>
                         <br/>
-                        <div class="col-md-12 LightestBlue">
+                        <div class="col-md-12 white">
                           <div class=""> 
-                                <h3 class="tBlue text-center">-Your new email will be your primary contact-</h3>
+                                <h3 class="orangeC text-center">-Your new email will be your primary contact-</h3>
                                 <div class="well2">
   	                                {{Form::open(array('route' => 'users.post.change-email'))}}
                 										{{Form::label('email', '*Email: ')}}

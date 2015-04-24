@@ -38,7 +38,7 @@
                                         <small>Looking for new Notification</small>
                                     </div>
                                     
-                                    <div class="text-center"><a href="{{route('users.notifications')}}" class="inline"><small>see all</small></a></div>
+                                    <div class="text-center"><a href="{{route('users.notifications')}}" class="inline tBlue"><small>see all</small></a></div>
                                 </span>
                             </div>
                         </li>

@@ -66,6 +66,8 @@ pre {
 
 .linkReadMore {
     cursor: pointer;
+    font-size:0.8em!important;
+    font-weight: bold;
 }
 
 .hand {
@@ -285,7 +287,7 @@ textarea {
 }
 
 p {
-    color: #171717!important;
+    color: #474747!important;
 }
 
 label.myLabel input[type="file"] {
@@ -745,12 +747,13 @@ img.user {
     margin-bottom: 0;
     font-size: 14px!important;
     padding: 0!important;
+    font-weight: bold;
 }
 
 .count {
     width: 100%;
     padding: 0 3px 3px 3px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: left;
     color: #323232;
     height: auto;
@@ -841,7 +844,9 @@ center;     margin: 0 auto; }
 .redC {
     color: #ca2027!important;
 }
-
+.greyC{
+    color: #E0E0E0!important;
+}
 .darkBlueC {
     color: #3b5a9b!important;
 }
@@ -874,9 +879,11 @@ center;     margin: 0 auto; }
 .whiteC {
     color: #fff!important;
 }
-
+.lightBlueC{
+    color: #3ea9cb!important;
+}
 .orangeC {
-    color: #f18200;
+    color: #f18200!important;
 }
 .Orange-bg{
     background:#f18200;
@@ -1135,8 +1142,11 @@ img.userRep2 {
 
 .seeVideoContent {
     display: none;
+
+}
+.seeVideoContent p{
     text-align: justify;
-    line-height: 3.0em!important;
+    line-height: 1.70em!important;
 }
 
 span.commentLink {
@@ -1194,9 +1204,7 @@ span.commentLink {
     padding: 20px 20px;
     min-height: 520px;
     max-height: auto;
-    border-right: 1px solid #c1c1c1;
-    border-left: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
+
 }
 
 .loginDivA {
@@ -1212,11 +1220,9 @@ span.commentLink {
 }
 
 .signDivH {
-    background: #f4f4f4;
+    background: #4D7CA1;
     padding: 20px 20px;
-    border-left: 1px solid #c1c1c1;
-    border-right: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
+
     padding: 15px;
     min-height: 520px;
     max-height: auto;
@@ -1276,7 +1282,6 @@ span.commentLink {
   text-align: left;
    color: #1870dc;
   margin-bottom: 0;
-  height: 25px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1540,6 +1545,21 @@ html * {
     padding: 5px 10px;
     z-index: 99999;
     font-size: 1.2em;
+}
+.video-info {
+    text-align: center;
+    color: #dfdfdf;
+    background: rgba(255,  255,  255,  0.125);
+    position: absolute;
+    height:60px ;
+    padding: 2px 5px;
+    z-index: 99999;
+    font-size: 1.0em;
+    bottom: 0;
+    width: 100%;
+}
+div .video-info:hover{
+    background: rgba(255,  255,  255,  0.75);
 }
 
 .Div-channel-border {
@@ -1880,8 +1900,7 @@ div.crop-square img {
 
 .thumbnail-2 {
     display: block;
-    padding: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #fff;
     border-radius: 2px;
@@ -1938,9 +1957,7 @@ body {
 /*================================================SM===================================*/
 
 @media (max-width:992px) {
-.v-Info{
-  width: 345px;
-}
+
 .thumbnail {
     width: 345px;
     height: 194px;
@@ -1964,9 +1981,7 @@ body {
 
 @media (min-width:993px) {
 
-.v-Info{
-  width: 198px;
-}
+
 .thumbnail {
     width: 198px;
     height: 111px;
@@ -1991,9 +2006,7 @@ body {
 /*=================LG==================*/
 
 @media (min-width:1200) {
-.v-Info{
-  width: 266px;
-}
+
 .thumbnail {
     width: 266px;
     height: 150px;
@@ -2039,18 +2052,15 @@ body {
     padding: 5px 10px;
     width: 100%;
     background: transparent;
-    color: #1e1e1e;
+
 }
 
 .notification-item:hover {
-    background: #1f3359;
-    color: #fff;
+    background: #bcbfd7;
+
 }
 .notification-item > a {
-   color: #004e67!important;
-}
-.notification-item:hover > a {
-    color: #46b8da!important;
+   color:#1870dc!important;
 }
 
 .drop {
@@ -2201,9 +2211,11 @@ body {
 }
 
 .fs-24 {
-    font-size: 24px;
+    font-size: 2.4em;
 }
-
+.fs-12{
+    font-size: 1.2em;
+}
 .noti {
     width: 300px;
     padding: 0!Important;
@@ -2321,7 +2333,8 @@ td.w-75per {
 
 .div-change {
     margin-bottom: 0;
-    min-height: 900px;
+    min-height: 570px;
+    padding:10px 15px;
 }
 /*==============VIDEO UPLOAD==============*/
 canvas.thumb-1,  canvas.thumb-2,  canvas.thumb-3 {
