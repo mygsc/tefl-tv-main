@@ -61,8 +61,19 @@
 				  	<!-- Tab panes -->
 				    <div class="tab-content">
 					  	<div role="tabpanel" class="tab-pane active" id="home">
-							@include('elements/users/myChannelTabs/tab-Home')
-					
+							@include('elements/users/myChannelTabs/myHomeSections/myHome_recentUpload')
+							@include('elements/users/myChannelTabs/myHomeSections/myHome_videos')
+							@include('elements/users/myChannelTabs/myHomeSections/myHome_playlists')
+							<div class="col-md-12">
+								<div class="row">
+									<div class="row-same-height">
+										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscribers')
+										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscriptions')
+									</div>
+									
+								</div>
+								
+							</div>
 					  	</div>				    
 				  	</div><!--/.tab-content-->
 				</div><!--/.tabpanel-->		
@@ -74,4 +85,3 @@
 
 
 @stop
-

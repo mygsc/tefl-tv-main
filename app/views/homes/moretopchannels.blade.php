@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-lg-9 col-md-8 White same-H">
 			<h1 class="orangeC"> TOP 50 Channels</h1>
-			@include('elements.home.randoms.channel')
+			@include('elements.home.channel')
 		</div>
 	
 		<div class="col-lg-3 col-md-4">

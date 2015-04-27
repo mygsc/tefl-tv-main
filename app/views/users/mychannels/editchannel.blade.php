@@ -18,7 +18,6 @@
                     <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
                     <br/>
                     <div id="status">
-											 Click on Below Image to start the demo: <br/>
 											<button onclick="Login()"/>Connect with Facebook
 											</div>
 											<br/><br/><br/><br/><br/>
@@ -26,6 +25,12 @@
 											Logs:<br/>
 											</div>
 										<br/>
+										<br/>
+										<a href='#' onClick='gmailLogin();' id="loginText"> Click here to login </a>
+								    <a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
+								    <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
+								    <div id='uName'></div>
+								    <img src='' id='imgHolder'/>
                   </div>
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
