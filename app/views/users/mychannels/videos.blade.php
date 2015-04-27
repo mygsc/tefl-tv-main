@@ -90,7 +90,7 @@
 					<br/><br/><hr class="" />
 
 					<div id="videosContainer" class='container'>
-						<div class="col-md-12 mg-l--20">
+						<div class="col-md-12 ">
 							@if(empty($usersVideos))
 								<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
 							@else

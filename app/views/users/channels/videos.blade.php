@@ -103,7 +103,7 @@
 							No Videos yet.
 						@else
 						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3">
+						<div id='list' class="col-md-3 mg-b-10">
 							<div class="inlineVid">
 								
 								<span class="btn-sq">
