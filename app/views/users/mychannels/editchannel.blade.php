@@ -10,15 +10,28 @@
          <div class="">
               <div class="well White div-change same-H">
                 <div class="row">
-                    <div class="text-center">
-                        <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
-                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
-                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
-                        &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
-                    </div>
+                  <div class="text-center">
+                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                    <br/>
+                    <div id="status">
+											<button onclick="Login()"/>Connect with Facebook
+											</div>
+											<br/><br/><br/><br/><br/>
+											<div id="message">
+											Logs:<br/>
+											</div>
+										<br/>
+										<br/>
+										<a href='#' onClick='gmailLogin();' id="loginText"> Click here to login </a>
+								    <a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
+								    <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
+								    <div id='uName'></div>
+								    <img src='' id='imgHolder'/>
+                  </div>
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -98,10 +111,7 @@
 
                                         {{Form::label('facebook', 'Facebook: ')}}            
                                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
-                                        <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
-
-																				<div id="fb-root"></div>
-                                        <br/>
+                                       	<br/>
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
                                         <button>Connect with Twitter</button>

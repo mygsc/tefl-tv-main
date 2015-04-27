@@ -26,8 +26,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('advertisements', array('as' => 'homes.advertisements', 'uses' => 'HomeController@getAdvertisements'));
 	Route::get('popular', array('as' => 'homes.popular', 'uses' => 'HomeController@getPopular'));
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
-	Route::get('random/{category?}', array('as' => 'homes.random', 'uses' => 'VideoController@getRandom'));
-	Route::post('random', array('as' => 'homes.post.random', 'uses' => 'VideoController@postRandom'));
+	Route::get('playlist', array('as' => 'homes.playlist', 'uses' => 'HomeController@getPlaylist'));
+	Route::post('playlist', array('as' => 'homes.post.playlist', 'uses' => 'HomeController@postPlaylist'));
 	Route::get('top-channels',array('as' => 'homes.top-channels', 'uses' => 'UserController@getTopChannels'));
 	Route::get('more-top-channels',array('as' => 'homes.more-top-channels', 'uses' => 'UserController@getMoreTopChannels'));
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));

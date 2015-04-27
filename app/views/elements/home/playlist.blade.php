@@ -1,10 +1,10 @@
 <h1>Playlists</h1>
-@foreach($datas as $randomResult)
+@foreach($playlists as $playlist)
 
 <div class="col-md-4">
 	<div class="p-relative">
 		<div class="playlist-info" >
-			{{$randomResult->video_count}}
+			
 			<br/>
 			Videos
 			<br/>
@@ -15,10 +15,11 @@
 		</a>
 	</div>
 	<div class="v-Info">
-		<a href="#">{{$randomResult->name}}</a>
+		<a href="#">{{$playlist->name}}</a>
 	</div>
 	<div class="count">
-		by:<a href="/channels/{{$randomResult->channel_name}}">{{$randomResult->channel_name}}</a>
+		by:Kevin
+		<!-- <a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a> -->
 	</div>
 </div>
 

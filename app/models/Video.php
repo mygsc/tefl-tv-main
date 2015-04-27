@@ -9,7 +9,7 @@ class Video extends Eloquent{
 	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
 
 	public static $video_rules = array(
-		'video' => 'mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
+		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
 		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
@@ -73,7 +73,7 @@ class Video extends Eloquent{
 			}
 
 			$videoData = Video::select('videos.id','user_id','title',
-				'description','users.channel_name',
+				'description','users.channel_name','total_time',
 				'tags','file_name','views','videos.created_at',
 				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes')
 				)
@@ -224,17 +224,17 @@ class Video extends Eloquent{
 
 	public function getCategory(){
 		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		$categories = array();
 		foreach ($categoryList as $key => $category) {
 			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
 			if(isset($findCategory)){
-				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
+				array_push($categories,'<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>');
 			}
 		}
 		if(!empty($categories)){
 			return $categories;
 		}
 		return false;
-
 	}
 
 	public function relations($query = null,$id = null,$limit = null){

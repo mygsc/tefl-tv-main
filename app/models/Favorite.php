@@ -16,7 +16,7 @@ class Favorite extends Eloquent {
 			$limit = 'LIMIT '.$limit;
 		}
 
-		$userFavorite = Favorite::select('users_favorite.id','users_favorite.user_id', 'video_id', 'videos.views', 'videos.user_id', 'users_favorite.created_at',
+		$userFavorite = Favorite::select('users_favorite.id','users_favorite.user_id', 'video_id', 'videos.views', 'videos.title', 'videos.user_id', 'users_favorite.created_at',
 			'users_favorite.updated_at',
 			DB::raw('(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
 			DB::raw('(SELECT v2.user_id FROM videos v2 WHERE v2.id = users_favorite.video_id) AS uploader_id'),
