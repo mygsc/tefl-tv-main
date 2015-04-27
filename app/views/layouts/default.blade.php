@@ -12,6 +12,7 @@
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{-- HTML::style('css/vid.player.min.css') --}}
@@ -74,6 +75,17 @@
 		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
 		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
 		$('.desc').removeClass('hide');
+	});
+</script>
+<script type="text/javascript">
+	$('.cancelBtn').click(function() {
+		$('.signDivH').addClass('hidden');
+		$('.loginDivH').removeClass('hidden').addClass('animated zoomIn');
+
+	});
+	$('.signBtn').click(function() {
+		$('.signDivH').removeClass('hidden').addClass('animated zoomIn');
+		$('.loginDivH').addClass('hidden');
 	});
 </script>
 <!-- Facebook Login -->

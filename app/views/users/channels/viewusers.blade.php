@@ -10,9 +10,8 @@
 <div class="row">
 	<br/>
 	<div class="container">
-
 		<div class="row same-H White">
-			@include('elements/users/profileTop2')
+			@include('elements/users/viewUser/viewUser_profileTop')
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -31,9 +30,18 @@
 				  	<!-- Tab panes -->
 				    <div class="tab-content">
 					  	<div role="tabpanel" class="tab-pane active" id="home">
-							@include('elements/users/myChannelTabs/tab-HomeViewUsers')
+							@include('elements/users/viewUser/homeSections/viewUser_homeSec_recentUpload')
+							@include('elements/users/viewUser/homeSections/viewUser_homeSec_videos')
+							@include('elements/users/viewUser/homeSections/viewUser_homeSec_playlists')
+							<div class="col-md-12">
+								<div class="row">
+									<div class="row-same-height">
+										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscribers')
+										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscriptions')
+						  			</div>
+						  		</div>
+						  	</div>
 					  	</div>					    
-
 				  </div><!--/.tab-content-->
 
 				</div><!--/.tabpanel-->		

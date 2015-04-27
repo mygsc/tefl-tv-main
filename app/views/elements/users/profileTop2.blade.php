@@ -61,8 +61,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="c-about" >
-				<div class="labelThis mg-t--20">
+			<div class="user-info" >
+				<div class="labelThis">
 					{{$userChannel->channel_name}}
 				</div>
 				@if(empty($userChannel->interests))
