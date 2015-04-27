@@ -23,7 +23,14 @@ window.fbAsyncInit = function() {
 function Login() {
 	FB.login(function(response) {
 		if(response.authResponse){
-			FB.api('/me', function(response) {
+			userProfile();
+		}else{
+			console.log('User cancelled login or did not fully authorize.');
+		}},{scope: 'email,user_photos,user_videos'});
+		}
+
+function userProfile() {
+	FB.api('/me', function(response) {
 				console.log(response);
 				 var str="<b>Name</b> : "+response.name+"<br>";
   	  str +="<b>Link: </b>"+response.link+"<br>";
@@ -34,10 +41,7 @@ function Login() {
   	  str +="<input type='button' value='Logout' onclick='Logout();'/>";
   	  document.getElementById("status").innerHTML=str;
 			});
-		}else{
-			console.log('User cancelled login or did not fully authorize.');
-		}},{scope: 'email,user_photos,user_videos'});
-		}
+}
 
 function Logout()
 {
@@ -45,3 +49,4 @@ function Logout()
 		window.location.reload();
 	});
 }
+
