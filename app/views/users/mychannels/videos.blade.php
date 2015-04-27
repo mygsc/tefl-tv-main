@@ -39,12 +39,11 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
-		<br/>
+	<br/>
+	<div class="container White">
 		<div class="row same-H">
 			@include('elements/users/profileTop')
-			
-			<div class="Div-channel-border channel-content">
+			<div class="channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -58,9 +57,7 @@
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
-
-				<div class="">
-					<br/>
+				<br/>
 					<!--<div class="col-md-5 col-sm-6">
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
@@ -92,64 +89,58 @@
 					
 					<br/><br/><hr class="" />
 
-				<div id="videosContainer" class='container'>
-					<div class="col-md-12 mg-l--20">
-						@if(empty($usersVideos))
-							<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
-						@else
-						@foreach($usersVideos as $usersVideo)
-						<div id='list' class="col-md-3 mg-b-10">
-							<div class="inlineVid">
+					<div id="videosContainer" class='container'>
+						<div class="col-md-12 mg-l--20">
+							@if(empty($usersVideos))
+								<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
+							@else
+								@foreach($usersVideos as $usersVideo)
+								<div id='list' class="col-md-3 mg-b-10">
+									<div class="inlineVid">
+										<span class="btn-sq">	
+											<a href="edit={{$usersVideo->file_name}}" >
+												<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span>
+											</a>
+											{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
+											<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+											{{Form::close()}}
+										</span>
 								
-								<span class="btn-sq">
-									<span class="dropdown">
-					                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
-					                   		<li>gge</li>
-					                   		<li>gfrhgte</li>
-					                   </span>
-					                </span>
+										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+											@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+											<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+											@else
+												{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
+											@endif
+										</a>
+									</div>
 
-									<a href="edit/{{Crypt::encrypt($usersVideo->id)}}" >
-									<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span></a>
-									{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
-									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-									{{Form::close()}}
-								</span>
+								<div class="inlineInfo ">
+									<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">	
+										<div class="v-Info">
+											{{$usersVideo->title}}
+										</div>
+									</a>
 								
-								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-										@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-										@else
-											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-										@endif
-							</div>
-
-							<div class="inlineInfo ">
-								<div class="v-Info">
-									{{$usersVideo->title}}
-								</div>
-								</a>
-								
-								<div class="text-justify desc hide">
-									<p>{{$usersVideo->description}}</p>
-									<br/>
-								</div>
-								<div class="count">
-									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
+									<div class="text-justify desc hide">
+										<p>{{$usersVideo->description}}</p>
+										<br/>
+									</div>
+									<div class="count">
+										<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
+									</div>
 								</div>
 							</div>
+							@endforeach	
 						</div>
-					@endforeach	
-
-				</div>
-					@endif
-				</div>
+						@endif
 					</div>
+				</div>
 
 				</div>
 			</div>
-			<br/>
 		</div>
+		<br/>
 	</div>
 @stop
 

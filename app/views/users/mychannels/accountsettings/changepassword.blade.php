@@ -12,6 +12,8 @@
                     <div class="row">
                         <br/>
                         <div class="text-center">
+                            <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
                             <span class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</span>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <span><b>{{ link_to_route('users.change-password', 'Change Password', null) }}</b></span>
@@ -19,9 +21,9 @@
                             <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
                         </div>
                         <br/>
-                        <div class="col-md-12 LighterBlue">
+                        <div class="col-md-12">
                             <div class=""> 
-                                <h3 class="tBlue text-center">-For a stronger password mix characters and numbers-</h3>
+                                <h3 class="orangeC text-center">-For a stronger password mix characters and numbers-</h3>
                                 <div class="well2">
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
                                     

@@ -10,3 +10,5 @@
 		});
 		// $("input[name=my-checkbox]").bootstrapSwitch();
 	});
+
+	

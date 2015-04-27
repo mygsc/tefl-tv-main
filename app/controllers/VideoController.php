@@ -49,7 +49,7 @@ class VideoController extends BaseController {
 				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				$this->getThumbnail($input['video'],$destinationPath,$fileName);
+				$this->captureImage($input['video'],$destinationPath,$fileName);
 				/*..Return success to json type..*/
 				return Response::json(['file'=>$fileName]);
 			}
@@ -60,7 +60,7 @@ class VideoController extends BaseController {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 	}
-	private function getThumbnail($videoFile,$destinationPath,$fileName){
+	private function captureImage($videoFile,$destinationPath,$fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
 		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($getImage1);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))->save($getImage2);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))->save($getImage3);
   	  	$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);$saveImage_1 = file_get_contents($getImage1);$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);Session::put('thumbnail_1',$convertedImage_1);
@@ -68,28 +68,48 @@ class VideoController extends BaseController {
 		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
 	}
 	private function convertVideoToHigh($videoFile, $destinationPath, $fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);
+		$ffmpeg = FFMpeg\FFMpeg::create();
+		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg')->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$ogg = new FFMpeg\Format\Video\Ogg();
+		$webm = new FFMpeg\Format\Video\WebM();
+		$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+	    $webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
+			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg')
+			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);
+		$ffmpeg = FFMpeg\FFMpeg::create();
+		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(500)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(500)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(500)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'.ogg')->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg = new FFMpeg\Format\Video\Ogg();
+		$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+	    $webm = new FFMpeg\Format\Video\WebM();
+	    $webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$video
+		->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
+		->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'.ogg')
+		->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg = new FFMpeg\Format\Video\Ogg();
+		$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+	    $webm = new FFMpeg\Format\Video\WebM();
+	    $webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$video
+		->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
+		->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')
+		->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');

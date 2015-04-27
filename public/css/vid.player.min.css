@@ -352,20 +352,22 @@ button#play{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	display: none;
+	border-radius: 5px;
 }
 div.error-video{
  	margin: auto;  
   	position: absolute;
- 	left:0;
-  	right: 0;
+ 	/*left:0;
+  	right: 0;*/
   	top: 0;
-  	bottom: 0;
+  	/*bottom: 0;*/
   	width: 35%;
-  	height: 10%;
+  	height: 8%;
   	/*background: rgba(27,27,27,0.6);*/
   	background: rgba(0,0,0,0.6);
 	padding: 10px;
 	display: none;
+	text-align: center;
 }
 div.error-video small{
  	color:#fff;

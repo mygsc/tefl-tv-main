@@ -76,9 +76,13 @@
 
 	<!--videos-->
 	<div class="col-md-12 grey">
-		<h3>Videos &nbsp;|&nbsp;
-			<small class="">{{link_to_route('users.myvideos', 'Show All')}}</small>
-		</h3>
+		<br/>
+		<div class="orangeC text-center">
+			<h2>VIDEOS 
+				<small class="">({{link_to_route('users.myvideos', 'Show All')}})</small>
+			</h2>
+		</div>
+		<br/>
 		<div class="">
 			@if(empty($usersVideos))
 				<p class="text-center">No Videos Uploaded yet..</p>
@@ -113,13 +117,16 @@
 	</div><!--1st 6 column Videos-->
 
 	<!--Playlists-->
-	<div class="col-md-12">
+	<div class="col-md-12 White">
 		<div class="">
-
-				<h3>Playlists&nbsp;|&nbsp; 
-				<small class="ch-link">{{link_to_route('users.playlists', 'Show All')}}</small></h3>
-			<br/>
-			<br/>
+			<div class="orangeC text-center">
+				<br/>
+				<h2>PLAYLISTS 
+					<small class="">({{link_to_route('users.playlists', 'Show All')}})</small>
+				</h2>
+				<br/>
+			</div>
+			
 			<div class="row">
 			
 			@if($usersPlaylists->isEmpty())
@@ -179,65 +186,66 @@
 
 	<div class="col-md-12 ">
 		<div class="row">
-		<div class="col-md-6 greyDark">
-			<div class="row">
-				<div class="h-title">
-					<span><b>SUBSCRIBERS</span>&nbsp;
-				</div>
-				<div class="Div-channelSubSection" id="subscriberWrapper">
-					<br/><br/>
-					<div class="row-same-height">
-						@if(empty($subscriberProfile))
-							<p class="text-center">No subscribers yet.</p>
-						@else
-							@foreach($subscriberProfile as $profile)
-							<div class="col-md-6" >
-								<div class="row user-padding" id="subscriberLists">
-									<a href="{{route('view.users.channel', $profile->channel_name)}}">
-											@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-								             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-								            @else
-								             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-								            @endif
-								            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
-									</a>
-									<br/>
-									&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
-									Subscribers</span>&nbsp;
+			<div class="row-same-height">
+				<div class="col-md-6 greyDark col-md-height col-top">
+					<div class="row">
+						<div class="h-title grey orangeC">
+							<span><b>SUBSCRIBERS</span>&nbsp;
+						</div>
+						<div class="Div-channelSubSection" id="subscriberWrapper">
+							<br/><br/>
+							<div class="row-same-height">
+								@if(empty($subscriberProfile))
+									<p class="text-center">No subscribers yet.</p>
+								@else
+									@foreach($subscriberProfile as $profile)
+									<div class="col-md-6" >
+										<div class="row user-padding" id="subscriberLists">
+											<a href="{{route('view.users.channel', $profile->channel_name)}}">
+													@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
+										             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
+										            @else
+										             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
+										            @endif
+										            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
+											</a>
+											<br/>
+											&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
+											Subscribers</span>&nbsp;
 
-									@if(isset(Auth::User()->id))
-										<?php
-											$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
-										?>
-										@if(isset($profile->id))
-											@if(Auth::User()->id != $profile->id)
-												{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-									    			{{Form::hidden('user_id', $profile->id)}}
-									    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-									    			@if(!$ifAlreadySubscribe)
-									    				{{Form::hidden('status','subscribeOn')}}
-												    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-												    @else
-												    	{{Form::hidden('status','subscribeOff')}}
-												    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-												    @endif
-												{{Form::close()}}
+											@if(isset(Auth::User()->id))
+												<?php
+													$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
+												?>
+												@if(isset($profile->id))
+													@if(Auth::User()->id != $profile->id)
+														{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+											    			{{Form::hidden('user_id', $profile->id)}}
+											    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+											    			@if(!$ifAlreadySubscribe)
+											    				{{Form::hidden('status','subscribeOn')}}
+														    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+														    @else
+														    	{{Form::hidden('status','subscribeOff')}}
+														    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+														    @endif
+														{{Form::close()}}
+													@endif
+												@endif
 											@endif
-										@endif
-									@endif
-								</div>
+										</div>
+									</div>
+								@endforeach						
+							@endif			
 							</div>
-						@endforeach						
-					@endif			
+						</div>
 					</div>
-				</div>
-			</div>
-		</div><!--/.3rd column 6 Subscribers-->
+				</div><!--/.3rd column 6 Subscribers-->
 
-	<!--Subscriptions-->
-		<div class="col-md-6 ">
-			<div class="row White">
-				<div class="h-title Orange-bg">
+			<!--Subscriptions-->
+			<div class="col-md-6 col-md-height col-top">
+				<div class="row grey">
+					<div class="h-title greyDark orangeC">
 					<span><b>SUBSCRIPTIONS</b></span>&nbsp;
 				</div>
 				<div class="Div-channelSubSection" id="subscriberWrapper">

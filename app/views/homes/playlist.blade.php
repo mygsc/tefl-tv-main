@@ -15,21 +15,20 @@
 					{{Form::close()}}
 
 				<hr/>
-
 						@include('elements.home.playlist')
 			</div>
 
 			<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
-				<div>
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-					
+				<div class="same-H grey pad-s-10">
+					<div>
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
+						
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</div>
 @stop

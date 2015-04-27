@@ -1,7 +1,7 @@
 <h1>Playlists</h1>
 @foreach($playlists as $playlist)
 
-<div class="col-md-3">
+<div class="col-md-4">
 	<div class="p-relative">
 		<div class="playlist-info" >
 			

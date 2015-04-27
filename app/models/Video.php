@@ -9,7 +9,7 @@ class Video extends Eloquent{
 	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
 
 	public static $video_rules = array(
-		'video' => 'mimes:mp4,webm,wmv,mov,ogg,asf,wav|required', //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
+		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
 		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
@@ -237,266 +237,39 @@ class Video extends Eloquent{
 		return false;
 	}
 
-	public function relations($id = null,$counter = null,$title = null,$description = null,$tags = null,$relations = null){
-		if($counter == 0){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 15;");		
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 1){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 14;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 2){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 13;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 3){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 12;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 4){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 11;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 5){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 10;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 6){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 9;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 7){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 8;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
+	public function relations($query = null,$id = null,$limit = null){
 
-		}
-		if($counter == 8){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 7;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
+	  $returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
+									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+						->whereRaw($query)
+						->where('deleted_at', NULL)
+						->where('publish','=', '1')
+						->where('report_count', '<', 5)
+						->where('videos.id','!=',$id)
+						->join('users', 'user_id', '=', 'users.id');
 
+		if(!empty($limit)){
+			$returndata = $returndata->take($limit);
 		}
+		return  $returndata->get();
 
-		if($counter == 9){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 6;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 10){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 5;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 11){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 4;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 12){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 3;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 13){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 2;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 14){
-			$randoms = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-				LEFT JOIN users u ON v.user_id = u.id
-				HAVING v.id!='".$id."'
-				AND v.publish = '1'
-				AND u.verified = '1'
-				AND u.status = '1'
-				and v.deleted_at IS NULL
-				AND v.report_count < 5
-				OR v.report_count IS NULL
-				ORDER BY RAND()
-				LIMIT 1;");
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter >= 15){
-			$newRelation =  DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-			HAVING v.id!='".$id."'
-			AND v.publish = '1'
-			AND u.verified = '1'
-			AND u.status = '1'
-			and v.deleted_at IS NULL
-			AND v.report_count < 5
-			OR v.report_count IS NULL
-			ORDER BY RAND()
-			".$limit.";");
-		return $returndata;
-		}
 	}
+
+	public function randomRelation($limit = null,$id = null){
+	  if(empty($limit)){
+	   $limit = "";
+	  }
+	  $returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
+									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+							->where('deleted_at', NULL)
+							->where('publish','=', '1')
+							->where('report_count', '<', 5)
+							->where('videos.id','!=',$id)
+							->join('users', 'user_id', '=', 'users.id')
+							->take($limit)->get();
+	  return $returndata;
+	 }
+
 
 	public function getVideos($auth = null, $orderBy = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 

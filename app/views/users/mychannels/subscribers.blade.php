@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH">
-		<br/>
+			<br/>
+	<div class="container pageH White">
+
 		<div class="row same-H">
 			@include('elements/users/profileTop')
 
@@ -25,9 +26,10 @@
 				<br/>
 				<div class="col-md-12 ">
 					<div class="row">
-						<div class="col-md-6 greyDark">
+						<div class="row-same-height">
+						<div class="col-md-6 greyDark col-md-height col-top">
 							<div class="row">
-								<div class="h-title">
+								<div class="h-title grey lightBlueC">
 									<span><b>SUBSCRIBERS</span>&nbsp;
 								</div>
 								<div class="Div-channelSubSection" id="subscriberWrapper">
@@ -85,9 +87,9 @@
 							</div>
 						</div>
 				
-						<div class="col-md-6 ">
-							<div class="row White">
-								<div class="h-title Orange-bg">
+						<div class="col-md-6 col-md-height col-top">
+							<div class="row grey">
+								<div class="h-title greyDark lightBlueC">
 									<span><b>SUBSCRIPTIONS</b></span>&nbsp;
 								</div>
 								<div class="Div-channelSubSection" id="subscriberWrapper">
@@ -169,9 +171,11 @@
 							</div><!--subscriptions-->
 						</div>
 					</div><!--/.row-same-height-->
+					</div>
 				</div><!--/.row-->
 			</div>
 		</div><!--/.shadow Div-channel-border-->
+		<br/>
 	</div><!--container-->
 </div><!--/.row-->
 @stop

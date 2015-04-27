@@ -93,7 +93,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::get('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@countNotifcation'));
 	Route::get('videoplaylist={id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
-	Route::get('edit/{id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
+	Route::get('edit={id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
 	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));

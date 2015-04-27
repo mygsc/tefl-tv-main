@@ -3,7 +3,7 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video,Notification $notification,Playlist $playlists, Subscribe $subscribes) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -91,55 +91,48 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle=null){
-		$token_id = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($token_id)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
-		$id = $token_id->id;
+		$videos = Video::where('file_name','=',$idtitle)->first();
+		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
+		$id = $videos->id;
 		$videoId = $id;
-		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
-		if($owner->verified == '0') return Redirect::route('homes.index')->with('flash_bad','This video is not published.');
+		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-			HAVING v.id!='".$id."'
-			AND v.publish = '1'
-			AND u.verified = '1'
-			AND u.status = '1'
-			AND v.deleted_at IS NULL
-			AND v.report_count < 5
-			OR v.report_count IS NULL;");
+		$query = "MATCH(videos.title,videos.description,videos.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)";
+		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-		->where('publish','1')
-		->where('report_count','<','5')
-		->where('id','!=',$videos->id)
-		->orderBy('id','desc')
-		->take(3)->get();
+										->where('publish','1')
+										->where('report_count','<','5')
+										->where('id','!=',$videos->id)
+										->orderBy('id','desc')
+										->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
 		}
+		if($counter >= 15){
+			$newRelation = $this->Video->relations($query,$videos->id,'15');
+		}else{
+			$randomCounter = 14;
+			for($i = 0;$i <= $randomCounter; $i++){
+				if($counter == $i){
+			  		$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
+			   		$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
+					$newRelation =array_unique($merging,SORT_REGULAR);
+			   	}		
+			   	$randomCounter--;
 
-		$newRelation = $this->Video->relations($videos->id,$counter,$title,$description,$tags,$relations);		
-		$relationCounter = count($relations);
+			}
+		}
+		//return $newRelation;
 		if(isset(Auth::User()->id)){
-			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				WHERE i.video_id = '".$id."'
-				HAVING p.user_id = '".Auth::User()->id."'
-				AND p.deleted_at IS NULL;");
-			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
-				WHERE NOT EXISTS
-				(SELECT * FROM playlists_items AS i
-					WHERE i.playlist_id = p.id
-					AND
-					i.video_id = '".$id."')
-			AND p.user_id = '".Auth::User()->id."'
-			AND p.deleted_at IS NULL");
+			$playlists = $this->Playlist->playlistchoose($id);
+			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
+
 			$favorites = Favorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = WatchLater::where('video_id','=',$id)
@@ -160,11 +153,9 @@ class HomeController extends BaseController {
 			$dislike = null;
 		}
 		$likeCounter = Like::where('video_id','=',$id)->count();
-		$dislikeCounter = Dislike::where('video_id','=',$id)->count();
-		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE v.id = '".$id."';");
-		
+		$dislikeCounter = Dislike::where('video_id','=',$id)->count();		
+//return (microtime(true) - LARAVEL_START);
+
 		//r3mmel
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
@@ -193,7 +184,8 @@ class HomeController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
+		
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -208,40 +200,17 @@ class HomeController extends BaseController {
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
 		->where('playlist_id',$playlistId)->first();
-		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			and v.publish = '1'
-			AND i.id > '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			ORDER BY i.id asc
-			LIMIT 1;");
-		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			AND i.id < '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1
-			ORDER BY i.id desc
-			LIMIT 1;");
+		$nextA = $this->Playlist->playlistControl('>',$playlistId,$video->id,$itemId->id);
+		$previousA = $this->Playlist->playlistControl('<',$playlistId,$video->id,$itemId->id);
 		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id as playlist_id FROM playlists p
 			LEFT JOIN playlists_items i ON p.id = i.playlist_id
 			INNER JOIN videos v ON i.video_id = v.id
 			INNER JOIN users u ON v.user_id = u.id
 			WHERE i.playlist_id = '".$playlistId."'
 			and v.deleted_at IS NULL
-			or v.report_count > 5
+			or v.report_count <= 5
 			and v.publish = 1
 			");
-		//return $nextA;
 		if(isset(Auth::User()->id)){
 			$like = Like::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
