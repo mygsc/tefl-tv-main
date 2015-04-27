@@ -7,7 +7,7 @@
 @section('content')
 <div class="container White h-minH same-H">
 	<h1> TOP 50 Channels</h1>
-	@include('elements.home.randoms.channel')
+	@include('elements.home.channel')
 	<br>
 	<br>
 </div>

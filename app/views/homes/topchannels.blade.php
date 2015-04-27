@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-lg-9 col-md-8 White same-H">
 
-			@include('elements.home.randoms.channel')
+			@include('elements.home.channel')
 			<div class="text-center row mg-b-10" style="">
 				<a href="{{route('homes.more-top-channels')}}"><b>Click here to view top 50 channels</b></a>
 			</div>

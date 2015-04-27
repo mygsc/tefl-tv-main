@@ -12,7 +12,7 @@
                                 {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
                             </li>
                             <li>
-                                {{ link_to_route('homes.random', 'Playlists', null, array('class' => '')) }}
+                                {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
                             </li>
                             <li>
                                 {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
@@ -85,7 +85,7 @@
                 </li>
                 <li>{{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}</li>
-                <li>{{ link_to_route('homes.random', 'Random', null, array('class' => '')) }}</li>
+                <li>{{ link_to_route('homes.playlist', 'Random', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())

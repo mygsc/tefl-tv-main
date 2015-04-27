@@ -73,7 +73,7 @@ class Video extends Eloquent{
 			}
 
 			$videoData = Video::select('videos.id','user_id','title',
-				'description','users.channel_name',
+				'description','users.channel_name','total_time',
 				'tags','file_name','views','videos.created_at',
 				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes')
 				)
@@ -224,17 +224,17 @@ class Video extends Eloquent{
 
 	public function getCategory(){
 		$categoryList = array('Instructional','Video Blog', 'Music', 'Music Video', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		$categories = array();
 		foreach ($categoryList as $key => $category) {
 			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
 			if(isset($findCategory)){
-				$categories[] = '<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>';
+				array_push($categories,'<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>');
 			}
 		}
 		if(!empty($categories)){
 			return $categories;
 		}
 		return false;
-
 	}
 
 	public function relations($id = null,$counter = null,$title = null,$description = null,$tags = null,$relations = null){

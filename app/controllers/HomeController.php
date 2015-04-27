@@ -3,22 +3,21 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes) {
+	public function __construct(User $user, Video $video,Notification $notification,Playlist $playlists, Subscribe $subscribes) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
 		$this->Subscribe = $subscribes;
+		$this->Playlist = $playlists;
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', '8');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', 8);
 		$populars = $this->Video->getFeaturedVideo('popular', '8');
 		$latests = $this->Video->getFeaturedVideo('latest', '8');
 		$randoms = $this->Video->getFeaturedVideo('random', '8');
 		$categories = $this->Video->getCategory();
-
-
 		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
@@ -68,9 +67,14 @@ class HomeController extends BaseController {
 		return View::make('homes.latest', compact('latestVideos'));
 	}
 
-	public function getRandom() {
+	public function getPlaylist() {
+		$playlists = $this->Playlist->getPlaylist();
+		$options = array('Likes', 'View', 'Recent');
+		return View::make('homes.playlist', compact(array('options', 'playlists')));
+	}
 
-		return View::make('homes.random');
+	public function postPlaylist() {
+		return View::make('homes.playlist');
 	}
 
 	public function getChannels() {

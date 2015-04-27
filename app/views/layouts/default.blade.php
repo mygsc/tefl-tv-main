@@ -166,7 +166,7 @@
 @yield('modal')
 
 <br />
-	<center><font color="white">This page took {{(microtime(true) - LARAVEL_START)}} ms to render </span></center>
+	<center>This page took {{(microtime(true) - LARAVEL_START)}} ms to render</center>
 <br />
 
 </html>
