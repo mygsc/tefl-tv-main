@@ -6,8 +6,33 @@ class Playlist extends Eloquent {
 	protected $fillable = ['user_id','name','description','privacy','randID'];
 	protected $softDelete = true;
 
-	public function getPlaylist(){
-		return Playlist::where('privacy', '1')->get();
+	public function getPlaylist($limit = null, $orderBy = null){
+		$playlists = Playlist::select('playlists.id',
+			'user_id',
+			'name',
+			'channel_name',
+			'randID')->where('privacy', '1')
+		->join('users', 'users.id','=','playlists.user_id');
+
+		if(!empty($limit)){
+			$playlists->take($limit);
+		}
+
+		if(!empty($orderBy)){
+			$playlists->orderBy($orderBy, 'DESC');
+		}
+
+		$playlists = $playlists->get();
+
+		foreach($playlists as $key => $playlist){
+			$playlist_item =PlaylistItem::select('file_name')
+			->where('playlist_id', $playlist->id)
+			->join('videos', 'videos.id', '=', 'playlists_items.id')
+			->first();
+			$playlists[$key]->video_id = $playlist_item->file_name;
+		}
+
+		return $playlists;
 	}
 
 	public function playlistchoose($id = null){

@@ -3,23 +3,21 @@
 
 <div class="col-md-4">
 	<div class="p-relative">
-		<div class="playlist-info" >
-			
+		<div class="playlist-info" >		
 			<br/>
 			Videos
 			<br/>
 			<span class="glyphicon glyphicon-list fs-24"></span>
 		</div>
-		<a href="#">
+		<a href="{{route('users.watchplaylist', array($playlist->video_id, $playlist->randID))}}">
 		<img src="/img/thumbnails/v1.png" class="h-video">
 		</a>
 	</div>
 	<div class="v-Info">
-		<a href="#">{{$playlist->name}}</a>
+		<a href="{{route('users.watchplaylist', array($playlist->video_id, $playlist->randID))}}">{{$playlist->name}}</a>
 	</div>
 	<div class="count">
-		by:Kevin
-		<!-- <a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a> -->
+		<a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a>
 	</div>
 </div>
 

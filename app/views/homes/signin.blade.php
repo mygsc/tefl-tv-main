@@ -77,7 +77,7 @@
 				
 				{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
 				
-				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
+				{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password'))}}
 				<div class="text-right">
 					<br/>
 					{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}

@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 		$latests = $this->Video->getFeaturedVideo('latest', '8');
 		$randoms = $this->Video->getFeaturedVideo('random', '8');
 		$categories = $this->Video->getCategory();
-		//return (microtime(true) - LARAVEL_START);
+		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -48,7 +48,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->Video->getFeaturedVideo('popular', 16);
+		$popularVideos = $this->Video->getFeaturedVideo('popular', 12);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -58,7 +58,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->Video->getFeaturedVideo('latest', 16);
+		$latestVideos =  $this->Video->getFeaturedVideo('latest', 12);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -68,8 +68,10 @@ class HomeController extends BaseController {
 	}
 
 	public function getPlaylist() {
-		$playlists = $this->Playlist->getPlaylist();
-		$options = array('Likes', 'View', 'Recent');
+		$input = Input::all();
+		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
+		//return (microtime(true) - LARAVEL_START);;
+		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
 		return View::make('homes.playlist', compact(array('options', 'playlists')));
 	}
 
