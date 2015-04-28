@@ -14,9 +14,9 @@ $(document).ready(function(){
                 $('#progress').fadeOut('fast');
                 return $('#percentage').html('Error: No selected file.').css({'color':'#cc3510'}); 
             }
-            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv") {
+            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov") {
                 $(this).closest("#vidSubmit").submit();
-                $('.file-upload').fadeOut();$('#progress').fadeIn(500);$('#wrapper').fadeIn(500); 
+                $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 
             }else{
                 $('#progress').fadeOut('fast');
                 return $('#percentage').html('Error: File type is not valid.').css({'color':'#cc3510'});
@@ -32,7 +32,8 @@ $(document).ready(function(){
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    $('#percentage').html('Processing... '+percentComplete+"%").css({'color':'#000'});
+                    //$('#percentage').html('Processing... '+percentComplete+"%").css({'color':'#000'});
+                    $('#percentage').html('Uploading... ').css({'color':'#000'});
                 },
                 success: function(response){
                     $('#percentage').html('Done please wait a moment...');

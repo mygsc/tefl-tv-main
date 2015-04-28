@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
 	public function __construct(User $user, Subscribe $subscribes, Notification $notification, 
-		Video $video, WatchLater $watchLater, Favorite $favorite, Feedback $feedback){
+		Video $video, UserWatchLater $watchLater, UserFavorite $favorite, Feedback $feedback,Playlist $playlist){
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -13,6 +13,7 @@ class UserController extends BaseController {
 		$this->WatchLater = $watchLater;
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
+		$this->Playlist = $playlist;
 	}	
 
 	public function getSignIn() { 
@@ -191,14 +192,7 @@ class UserController extends BaseController {
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
-					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				INNER JOIN videos v ON i.video_id = v.id
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE i.playlist_id = '".$playlist->id."'
-				and v.deleted_at IS NULL
-				or v.report_count > 5
-				and v.publish = 1");
+					$thumbnail_playlists[] = $this->Playlwist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
@@ -327,7 +321,7 @@ class UserController extends BaseController {
 	}
 
 	public function postRemoveFavorites($id) {
-		$deleteFavorite = Favorite::find($id);
+		$deleteFavorite = UserFavorite::find($id);
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
@@ -351,7 +345,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
+		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
@@ -443,7 +437,7 @@ class UserController extends BaseController {
 	}
 
 	public function postDeleteWatchLater($id) {
-		$deleteWatchLater = WatchLater::find($id);
+		$deleteWatchLater = UserWatchLater::find($id);
 		$deleteWatchLater->delete();
 		return Redirect::route('users.watchlater')->withFlashGood('Successfully deleted');
 	}
@@ -451,10 +445,10 @@ class UserController extends BaseController {
 	public function postWatchLater() {
 		$user_id = Input::get('user_id');
 		$video_id = Input::get('video_id');
-		$database_userid = WatchLater::where('user_id', $user_id)->first();
-		$database_videoid = WatchLater::where('video_id', $video_id)->first();
+		$database_userid = UserWatchLater::where('user_id', $user_id)->first();
+		$database_videoid = UserWatchLater::where('video_id', $video_id)->first();
 		if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
-			$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+			$watchlater = UserWatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
 		}
 	}
 
@@ -469,14 +463,7 @@ class UserController extends BaseController {
 								->where('deleted_at','=',NULL)->get();
 
 		foreach($playlists as $playlist){
-			$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$playlist->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1");
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 		}
 		return View::make('users.mychannels.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture'));
 	}
@@ -503,15 +490,7 @@ class UserController extends BaseController {
 		}
 		$userChannel = User::find($owner->id);
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
-		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$id."'
-			and v.publish = '1'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			");
+		$videos =$this->Playlist->playlistControl(NULL,$id,NULL,NULL);
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
 
@@ -636,14 +615,7 @@ class UserController extends BaseController {
 		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1);
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 			foreach($usersPlaylists as $playlist){
-					$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				INNER JOIN videos v ON i.video_id = v.id
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE i.playlist_id = '".$playlist->id."'
-				and v.deleted_at IS NULL
-				or v.report_count > 5
-				and v.publish = 1");
+					$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 		//r3mmel
 			$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1028,48 +1000,48 @@ class UserController extends BaseController {
 	}
 	public function addToFavorites($id){
 		$id = Crypt::decrypt($id);
-		$counter = Favorite::where('user_id','=',Auth::User()->id)
+		$counter = UserFavorite::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if(!$counter->count()){
-			Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			UserFavorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
 		}
 	}
 	public function removeToFavorites($id){
 		$id = Crypt::decrypt($id);
-		$counter = Favorite::where('user_id','=',Auth::User()->id)
+		$counter = UserFavorite::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if($counter->count()){
-			$favorite = Favorite::where('user_id','=',Auth::User()->id)
+			$favorite = UserFavorite::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
 			$favorite->delete();
 		}					
 	}
 	public function addToWatchLater($id){
 		$id = Crypt::decrypt($id);
-		$counter = WatchLater::where('user_id','=',Auth::User()->id)
+		$counter = UserWatchLater::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if(!$counter->count()){
-			$watchLater = WatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
+			$watchLater = UserWatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
 		}
 	}
 	public function removeToWatchLater($id){
 		$id = Crypt::decrypt($id);
-		$counter = WatchLater::where('user_id','=',Auth::User()->id)
+		$counter = UserWatchLater::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if($counter->count()){					
-			$favorite = WatchLater::where('user_id','=',Auth::User()->id)
+			$favorite = UserWatchLater::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
 			$favorite->delete();
 		}			
 	}
 	public function likeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = Like::where('user_id','=',Auth::User()->id)
+		$counter = UserLike::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if(!$counter->count()){
-			$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$likeResult = Like::where('video_id',$id)->count();
-			$dislikeResult = Dislike::where('video_id',$id)->count();
+			$like = UserLike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$likeResult = UserLike::where('video_id',$id)->count();
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
 			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
 
 		}
@@ -1077,12 +1049,12 @@ class UserController extends BaseController {
 
 	public function dislikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = Dislike::where('user_id','=',Auth::User()->id)
+		$counter = UserDislike::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if(!$counter->count()){
-			$dislike = Dislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$dislikeResult = Dislike::where('video_id',$id)->count();
-			$likeResult = Like::where('video_id',$id)->count();
+			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
+			$likeResult = UserLike::where('video_id',$id)->count();
 			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
 
 		}
@@ -1090,13 +1062,13 @@ class UserController extends BaseController {
 
 	public function unlikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = Like::where('user_id','=',Auth::User()->id)
+		$counter = UserLike::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if($counter->count()){
-			$unlike = Like::where('user_id','=',Auth::User()->id)
+			$unlike = UserLike::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
 			$unlike->delete();
-			$likeResult = Like::where('video_id',$id)->count();
+			$likeResult = UserLike::where('video_id',$id)->count();
 			if(empty($likeResult)){
 				$likeResult = 0;
 			}
@@ -1106,13 +1078,13 @@ class UserController extends BaseController {
 
 	public function removeDislikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = Dislike::where('user_id','=',Auth::User()->id)
+		$counter = UserDislike::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 		if($counter->count()){
-			$dislike = Dislike::where('user_id','=',Auth::User()->id)
+			$dislike = UserDislike::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
 			$dislike->delete();
-			$dislikeResult = Dislike::where('video_id',$id)->count();
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
 			if(empty($dislikeResult)){
 				$dislikeResult = 0;
 			}
@@ -1164,14 +1136,14 @@ class UserController extends BaseController {
 		$user_id = Input::get('userid');
 		if(Auth::check()){
 			if($order == 'Likes'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
 			}elseif($order == 'Views') {
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.views DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.views DESC");
 			}elseif($order == 'Recent'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.created_at DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.created_at DESC");
 
 			}else{
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v. publish = 0 ORDER BY v.publish DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v. publish = 0 ORDER BY v.publish DESC");
 			}
 			$var = '';
 			foreach ($results as $result){
@@ -1220,14 +1192,14 @@ class UserController extends BaseController {
 				return $var;
 			}
 			if($order == 'Likes'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY likes DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY likes DESC");
 			}elseif($order == 'Views') {
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.views DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.views DESC");
 			}elseif($order == 'Recent'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.created_at DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.created_at DESC");
 
 			}else{
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND v. publish = 0 ORDER BY v.publish DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND v. publish = 0 ORDER BY v.publish DESC");
 			}
 			
 			$var = '';

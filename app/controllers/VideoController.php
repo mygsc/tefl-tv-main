@@ -16,14 +16,14 @@ class VideoController extends BaseController {
 		if(Auth::check()){return View::make('users.upload');}
 		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to upload video.');
 	}
-	public function postUpload($randomNo = 11){
-		$fileName = str_random($randomNo);$input = Input::all();
+	public function postUpload($filenameLenght = 11){
+		$fileName = str_random($filenameLenght);$input = Input::all();
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		/*..Validate video..*/
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName);
 		/*..Check if filename exist if yes then add 1 lenght in a filename..*/  
-		if($checkFilenameExist->count()){$fileName = str_random($randomNo++);}
+		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght++);}
 		
 		/*..Get the duration of video if less 10s return false..*/
 		//if($duration <= 10){return Response::json(['error'=>'Video time range must not less 10 seconds.']);}
@@ -49,8 +49,11 @@ class VideoController extends BaseController {
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
 				/*..start video conversion to low, normal and high as well as capture 3 thumbnail..*/
-				//$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				//$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				// $ffmpeg = '/usr/bin/ffmpeg';
+				// $success = shell_exec($ffmpeg '-i' $input['video'] '-vcodec libx264' '-vpre hq -crf 22 -threads 0' $destinationPath.DS.$fileName.DS.$fileName.'.mp4');
+				// // ffmpeg -i movie.mp4 -i subtitles.srt -map 0 -map 1 -c copy -c:v libx264 -crf 23 -preset veryfast output.mkv
+				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'],$destinationPath,$fileName);
 				/*..Return success to json type..*/
@@ -77,23 +80,21 @@ class VideoController extends BaseController {
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg')
-			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
+			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
+			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
+			
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();
-		$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();
-		$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();
-	    $webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'.ogg')
@@ -197,7 +198,7 @@ class VideoController extends BaseController {
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->with('success',1);
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('New video has been uploaded successfully.');
 			}
 			return Redirect::route('get.upload');					
 		}
