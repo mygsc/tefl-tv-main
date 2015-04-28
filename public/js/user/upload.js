@@ -38,7 +38,7 @@ $(document).ready(function(){
                     $('#percentage').html('Done please wait a moment...');
                     window.location.href = "add-description!v="+response.file;
                     $('#progress').fadeOut();
-                    $('#wrapper').fadeOut();
+                    $('#wrapper').fadeOut();  
                 },
                 error: function(response, status, e){
                     alert(e);

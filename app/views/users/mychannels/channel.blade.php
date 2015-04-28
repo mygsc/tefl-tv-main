@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('some_script')
-	{{HTML::style('css/vid.player.css')}}
-	{{HTML::script('js/jquery.js')}}
+	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.min.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
@@ -57,7 +56,6 @@
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  		
 				  	</ul><!--tabNav-->
 				  	
 				  	<!-- Tab panes -->
