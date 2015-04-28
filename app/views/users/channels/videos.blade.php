@@ -41,7 +41,7 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H">
+		<div class="row same-H White">
 			@include('elements/users/profileTop2')
 			
 			<div class="Div-channel-border">

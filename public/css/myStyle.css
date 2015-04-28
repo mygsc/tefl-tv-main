@@ -1278,7 +1278,28 @@ span.commentLink {
     text-align: center;
     margin-top: 20px;
 }
-
+.btn-connect{
+    border: none;
+    padding:5px 5px;
+    display: inline;
+    background: transparent;
+}
+.connectTo{
+    color: #fff;
+    padding: 0;
+}
+.c-fb{
+    background: #526ebb;
+}
+.c-tr{
+    background: #0c9aca;
+}
+.c-gp{
+    background: #f3592b;
+}
+.c-ig{
+    background: #7d665c;
+}
 .user-info{
  padding: 20px 20px 20px 20px;
 
