@@ -12,7 +12,7 @@
 	{{-- <div id="vid-wrap"> --}}
 	<div class="play-icon" id="play-icon"></div>
 	<div class="load-video" id="loader"></div>
-	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#">Retry.</a></small></div>
+	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#" id="retry-error">Retry.</a></small></div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
@@ -50,7 +50,7 @@
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
 				<div class="hd-setting" style='display:none'>
-					<small class="vp-text">HD Quality</small>
+					<small class="vp-text">Mode</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
 						<li> <a id="normal-quality" href="#">Normal</a></li>
