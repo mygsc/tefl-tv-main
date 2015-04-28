@@ -11,7 +11,7 @@
 					    </div>
 
 						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
-							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg'.'?'.rand(10,100), 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
 							{{HTML::image('img/user/cover.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@endif

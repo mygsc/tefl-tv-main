@@ -7,7 +7,7 @@
 		<div class="row">
 			@include('elements/users/profileTop2')
 			<br/>
-			<div class=" Div-channel-border">
+			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -22,10 +22,10 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="feedbackSection">
-					<h3>Comments</h3>
+				<div class="feedbackSection content-padding">
+					
 	@if(empty($userFeedbacks))
-		No feedbacks yet..
+		
 		<br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
@@ -34,12 +34,13 @@
 			@if(!Auth::check())
 				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
 			@else
-				<button id='btnfeedback' class="btn btn-info">Post</button>
+				<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
 				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
 				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
 			
 			@endif
 		</div>
+		<h3>No feedbacks yet..</h3>
 
 	@else
 					       
