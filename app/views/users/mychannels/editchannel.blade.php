@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 <div class="row">
   <div class="container">
       <br/>
@@ -124,7 +123,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-tr">
-                                                    <img src="/img/icons/c-tr.jpg"> <button onclick="Login()" class="btn-connect">Connect with Twitter</button>
+                                                    <img src="/img/icons/c-tr.jpg"> <button onclick="getConnectionWithAccessToken()" class="btn-connect">Connect with Twitter</button>
                                                 </div>  
                                             </div>
                                             <div class="col-md-10">

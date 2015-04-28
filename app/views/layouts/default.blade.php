@@ -20,6 +20,12 @@
 	{{-- HTML::style('css/vid.player.min.css') --}}
 	@yield('css')
 </head>
+
+<?php
+	include('C:\xampp\htdocs\tefl-tv-main\public\twitteroauth-master/twitteroauth/twitteroauth.php');
+?>
+
+
 <body>
 	<div id="fb-root"></div>
 	{{HTML::script('js/facebook.js')}}
