@@ -1261,6 +1261,28 @@ class UserController extends BaseController {
 		$var = 'l';
 	}
 
-	public function getAuthSocial() {
+	public function viewSocial() {
+		return View::make('testing');
+	}
+
+	public function social($action) {
+
+		if($action == 'auth') {
+			try{
+				Hybrid_Endpoint::process();
+			}
+			catch(Exception $e) {
+				return Redirect::route('hybridauth');
+			}
+		}
+		try{
+			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
+			$provider = $socialAuth->authenticate($action);
+			$userProfile = $provider->getUserProfile();
+		}
+		catch (Exception $e) {
+			return $e->getMessage();
+		}
+
 	}
 }
