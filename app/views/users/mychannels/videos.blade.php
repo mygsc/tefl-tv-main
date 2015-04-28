@@ -40,8 +40,8 @@
 @section('content')
 <div class="row">
 	<br/>
-	<div class="container White">
-		<div class="row same-H">
+	<div class="container">
+		<div class="row same-H White">
 			@include('elements/users/profileTop')
 			<div class="channel-content">
 				<div role="tabpanel">
