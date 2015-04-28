@@ -7,11 +7,14 @@
 	<title>@yield('title', 'TEFL-TV')</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
+	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
+	
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
 	{{-- HTML::style('css/vid.player.min.css') --}}
@@ -19,58 +22,8 @@
 </head>
 <body>
 	<div id="fb-root"></div>
-
-<script>
-	window.fbAsyncInit = function() {
-	    FB.init({
-	      appId      : '834644693287300', // App ID
-	      channelUrl : 'https://localhost:8000/mychannels/edit-channe/connect.facebook.net/en_US/all.js"', // Channel File
-	      status     : true, // check login status
-	      cookie     : true, // enable cookies to allow the server to access the session
-	      xfbml      : true  // parse XFBML
-	    });
-
-	    FB.Event.subscribe('auth.authResponseChange', function(response) 
-			{
-		 	 if (response.status === 'connected') 
-		  	{
-		  		document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
-		  	}else if (response.status === 'not_authorized') {
-		    	document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
-	    }else{
-		    	document.getElementById("message").innerHTML +=  "<br>Logged Out";
-		    }
-			});	
-	};
-
-	function Login() {
-		FB.login(function(response) {
-			if(response.authResponse){
-				FB.api('/me', function(response) {
-					console.log(response);
-					 var str="<b>Name</b> : "+response.name+"<br>";
-	  	  str +="<b>Link: </b>"+response.link+"<br>";
-	  	  str +="<b>Username:</b> "+response.username+"<br>";
-	  	  str +="<b>id: </b>"+response.id+"<br>";
-	  	  str +="<b>Email:</b> "+response.email+"<br>";
-	  	  str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";
-	  	  str +="<input type='button' value='Logout' onclick='Logout();'/>";
-	  	  document.getElementById("status").innerHTML=str;
-				});
-			}else{
-				console.log('User cancelled login or did not fully authorize.');
-   		}},{scope: 'email,user_photos,user_videos'});
-			}
-
-	function Logout()
-	{
-		FB.logout(function(){
-			window.location.reload();
-		});
-	}
-
-</script>
-		
+	{{HTML::script('js/facebook.js')}}
+	{{HTML::script('js/google.js')}}		
 		@include('elements/header')
 		@include('elements/home/headerNav')
 		<div class="container">
@@ -111,6 +64,17 @@
 		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
 		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
 		$('.desc').removeClass('hide');
+	});
+</script>
+<script type="text/javascript">
+	$('.cancelBtn').click(function() {
+		$('.signDivH').addClass('hidden');
+		$('.loginDivH').removeClass('hidden').addClass('animated zoomIn');
+
+	});
+	$('.signBtn').click(function() {
+		$('.signDivH').removeClass('hidden').addClass('animated zoomIn');
+		$('.loginDivH').addClass('hidden');
 	});
 </script>
 <!-- Facebook Login -->
@@ -239,8 +203,8 @@
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 @yield('modal')
 
-<!--<br />
-	<center><font color="white">This page took {{(microtime(true) - LARAVEL_START)}} ms to render </span></center>
-<br />-->
+<br />
+	<center>This page took {{(microtime(true) - LARAVEL_START)}} ms to render</center>
+<br />
 
 </html>

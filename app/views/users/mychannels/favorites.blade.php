@@ -76,9 +76,11 @@
 							</div>
 
 							<div class="inlineInfo ">
-								<div class="v-Info">
-									{{$showFavoriteVideo->title}}
-								</div>
+								<a href="{{route('homes.watch-video', array($showFavoriteVideo->file_name))}}" target="_blank">	
+									<div class="v-Info">
+										{{$showFavoriteVideo->title}}
+									</div>
+								</a>
 								<div class="text-justify desc hide">
 									<p>{{$showFavoriteVideo->description}}</p>
 									<br/>

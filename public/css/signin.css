@@ -1,0 +1,34 @@
+
+@keyframes animatedBackground {
+	0% { background-position: 0 0; }
+	100% { background-position: -300px 0; }
+}
+@-moz-keyframes animatedBackground {
+	0% { background-position: 0 0; }
+	100% { background-position: -300px 0; }
+}
+@-webkit-keyframes animatedBackground {
+	0% { background-position: 0 0; }
+	100% { background-position: -300px 0; }
+}
+@-ms-keyframes animatedBackground {
+	0% { background-position: 0 0; }
+	100% { background-position: -300px 0; }
+}
+@-o-keyframes animatedBackground {
+	0% { background-position: 0 0; }
+	100% { background-position: -300px 0; }
+}
+ 
+html { 
+	width: 100%; 
+	height: 100%; 
+	background-image: url(background.png);
+	background-position: 0px 0px;
+ 
+	animation: animatedBackground 10s linear infinite;
+	-moz-animation: animatedBackground 10s linear infinite;
+	-webkit-animation: animatedBackground 10s linear infinite;
+	-ms-animation: animatedBackground 10s linear infinite;
+	-o-animation: animatedBackground 10s linear infinite;
+}

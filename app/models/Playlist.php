@@ -6,17 +6,33 @@ class Playlist extends Eloquent {
 	protected $fillable = ['user_id','name','description','privacy','randID'];
 	protected $softDelete = true;
 
-	public function getRandomPlaylist(){
-		return Playlist::select('playlists.id',
-			'playlists.user_id',
-			'users.channel_name',
-			'playlists.name',
-			'playlists.description',
-			DB::raw('(SELECT count(playlists_items.playlist_id) from playlists_items where playlists_items.playlist_id = playlists.id) as video_count'))
-			->where('privacy', '0')
-			->join('users', 'playlists.user_id', '=', 'users.id')
-			->orderByRaw("RAND()")
-			->get();
+	public function getPlaylist($limit = null, $orderBy = null){
+		$playlists = Playlist::select('playlists.id',
+			'user_id',
+			'name',
+			'channel_name',
+			'randID')->where('privacy', '1')
+		->join('users', 'users.id','=','playlists.user_id');
+
+		if(!empty($limit)){
+			$playlists->take($limit);
+		}
+
+		if(!empty($orderBy)){
+			$playlists->orderBy($orderBy, 'DESC');
+		}
+
+		$playlists = $playlists->get();
+
+		foreach($playlists as $key => $playlist){
+			$playlist_item =PlaylistItem::select('file_name')
+			->where('playlist_id', $playlist->id)
+			->join('videos', 'videos.id', '=', 'playlists_items.id')
+			->first();
+			$playlists[$key]->video_id = $playlist_item->file_name;
+		}
+
+		return $playlists;
 	}
 
 	public function playlistchoose($id = null){

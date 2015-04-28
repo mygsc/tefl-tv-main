@@ -41,9 +41,9 @@
 								<h3 style="text-align:center;padding-top:5px;">Available video thumbnail:</h3>	
 								<center>
 									<div id="screenshot">				
-										<img class="thumb-1" id="img-thumb-1" src="{{Session::get('thumbnail_1')}}" alt="" width="240" height="141">	
-										<img class="thumb-2" id="img-thumb-2" src="{{Session::get('thumbnail_2')}}" alt="" width="240" height="141">	
-										<img class="thumb-3" id="img-thumb-3" src="{{Session::get('thumbnail_3')}}" alt="" width="240" height="141">																
+										<img class="thumb-1" id="img-thumb-1" src="{{Session::get('thumbnail_1')}}" alt="" width="150" height="141">	
+										<img class="thumb-2" id="img-thumb-2" src="{{Session::get('thumbnail_2')}}" alt="" width="150" height="141">	
+										<img class="thumb-3" id="img-thumb-3" src="{{Session::get('thumbnail_3')}}" alt="" width="150" height="141">																
 									</div>
 									<br/>
 									

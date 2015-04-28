@@ -11,13 +11,13 @@
 |
 */
 Route::group(array('prefix' => '/'), function() {
-	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
+	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
-	Route::get('search-result/{type?}/{search?}', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
+	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
 	Route::get('aboutus', array('as' => 'homes.aboutus', 'uses' => 'HomeController@getAboutUs'));
 	Route::get('privacy', array('as' => 'homes.privacy', 'uses' => 'HomeController@getPrivacy'));
@@ -26,8 +26,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('advertisements', array('as' => 'homes.advertisements', 'uses' => 'HomeController@getAdvertisements'));
 	Route::get('popular', array('as' => 'homes.popular', 'uses' => 'HomeController@getPopular'));
 	Route::get('latest', array('as' => 'homes.latest', 'uses' => 'HomeController@getLatest'));
-	Route::get('random/{category?}', array('as' => 'homes.random', 'uses' => 'VideoController@getRandom'));
-	Route::post('random', array('as' => 'homes.post.random', 'uses' => 'VideoController@postRandom'));
+	Route::get('playlist', array('as' => 'homes.playlist', 'uses' => 'HomeController@getPlaylist'));
 	Route::get('top-channels',array('as' => 'homes.top-channels', 'uses' => 'UserController@getTopChannels'));
 	Route::get('more-top-channels',array('as' => 'homes.more-top-channels', 'uses' => 'UserController@getMoreTopChannels'));
 	Route::get('signin', array('as' => 'homes.signin', 'uses' => 'UserController@getSignIn'));
