@@ -40,12 +40,12 @@ class Video extends Eloquent{
 
 	public function favorite() {
 
-		return $this->hasMany('Favorite');
+		return $this->hasMany('UserFavorite');
 	}
 
 	public function watchlater() {
 
-		return $this->hasMany('WatchLater');
+		return $this->hasMany('UserWatchLater');
 	}
 	public function getFeaturedVideo($type = null, $limit = null){
 		if(!empty($type)){
@@ -75,7 +75,7 @@ class Video extends Eloquent{
 			$videoData = Video::select('videos.id','user_id','title',
 				'description','users.channel_name','total_time',
 				'tags','file_name','views','videos.created_at',
-				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes')
+				DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes')
 				)
 			->where('deleted_at', null)
 			->where('report_count', '<', 5)
@@ -147,7 +147,7 @@ class Video extends Eloquent{
 					'videos.file_name',
 					'videos.views',
 					'videos.created_at',
-					DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'),
+					DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'),
 					DB::raw("MATCH (videos.title) AGAINST ('$search') as title_relevance"),
 					DB::raw("MATCH (videos.description) AGAINST ('$search') as desc_relevance"),
 					DB::raw("MATCH (videos.tags) AGAINST ('$search') as tags_relevance"))
@@ -168,7 +168,7 @@ class Video extends Eloquent{
 					'videos.file_name',
 					'videos.views',
 					'videos.created_at',
-					DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'))
+					DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
 				->where('title', 'LIKE', '%'.$search.'%')
 				->where('description', 'LIKE', '%'.$search.'%')
 				->where('tags', 'LIKE', '%'.$search.'%')
@@ -276,7 +276,7 @@ class Video extends Eloquent{
 	public function getVideos($auth = null, $orderBy = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
-			DB::raw('(SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
 			->where('videos.user_id', $auth);
 

@@ -1,6 +1,6 @@
 <?php
-class Like extends Eloquent{
-	protected $table = 'users_likes';
+class UserLike extends Eloquent{
+	protected $table = 'user_likes';
 	protected $fillable = ['video_id','user_id'];
 
 	public function countLikes($video_id){

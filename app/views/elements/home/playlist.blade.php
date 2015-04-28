@@ -1,5 +1,5 @@
 <h1>Playlists</h1>
-@foreach($playlists as $playlist)
+@foreach($playlists as $key=>$playlist)
 
 <div class="col-md-4">
 	<div class="p-relative">
