@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
+	
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
