@@ -163,7 +163,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         @else
                                                         <span id = "like-span">
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
-
+                                                        </span>
                                                         @endif
 
                                                     @else
