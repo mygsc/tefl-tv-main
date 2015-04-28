@@ -163,7 +163,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         @else
                                                         <span id = "like-span">
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
-                                                        </span>
+
                                                         @endif
 
                                                     @else
@@ -297,7 +297,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="col-md-6 col-sm-8 col-xs-4">
                                         <div ><span class="v-list">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('m-d-Y',strtotime($relation['created_at']))}}</span>
+                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span>
                                     </div>
                                 </div>
                                 </a>

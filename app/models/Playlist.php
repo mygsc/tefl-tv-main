@@ -59,7 +59,4 @@ class Playlist extends Eloquent {
 		return $returvalue->get();
 	}
 
-	public function playlistvideos(){
-
-	}
 }
