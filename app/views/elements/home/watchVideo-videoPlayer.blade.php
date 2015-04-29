@@ -15,6 +15,7 @@
 							<source id='mp4' src='/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4' type='video/mp4'>
 							<source id='webm' src='/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm' type='video/webm'>
 							<source id='ogg' src='/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.ogg' type='video/ogg'>	
+
 							</video>
 							@endif
 						</div>
