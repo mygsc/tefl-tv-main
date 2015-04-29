@@ -4,7 +4,8 @@ return array(
 	"providers"  => array (
 		"Google"     => array (
 			"enabled"    => true,
-			"keys"       => array ( "id" => "860041923825-g26te56kqb475cjn6nsos2n8e54it3sc.apps.googleusercontent.com", "secret" => "rFFz4b55dClMryWsiHjPN1MW" ),
+			 "keys"    => array ( "id" => "434751596783-gnklt9ebvmo1dv8ekpkk4boq63af5thr.apps.googleusercontent.com", "secret" => "yIg9k_mUPVN5iXoSmAfjzHk4" ),
+	          // "scope"           => "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
 			),
 		"Facebook"   => array (
 			"enabled"    => true,
@@ -19,4 +20,6 @@ return array(
 			"keys" 		 => array ( "id" => "xxxxxxxxxx", "secret" => "xxxxxxxxxxx" )
 			),
 	),
+	"debug_mode" => false,
+	// "debug_file" => "debug.log",
 );
