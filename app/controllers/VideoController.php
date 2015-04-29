@@ -52,8 +52,8 @@ class VideoController extends BaseController {
 				// $ffmpeg = '/usr/bin/ffmpeg';
 				// $success = shell_exec($ffmpeg '-i' $input['video'] '-vcodec libx264' '-vpre hq -crf 22 -threads 0' $destinationPath.DS.$fileName.DS.$fileName.'.mp4');
 				// // ffmpeg -i movie.mp4 -i subtitles.srt -map 0 -map 1 -c copy -c:v libx264 -crf 23 -preset veryfast output.mkv
-				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'],$destinationPath,$fileName);
 				/*..Return success to json type..*/
@@ -101,7 +101,7 @@ class VideoController extends BaseController {
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);
+		$ffmpeg = $this->ffmpegPath();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -110,6 +110,12 @@ class VideoController extends BaseController {
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
+	}
+	private function ffmpegPath(){
+		FFMpeg\FFMpeg::create([
+			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
+			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe'
+			]);
 	}
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
