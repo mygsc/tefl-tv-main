@@ -113,9 +113,10 @@
                                             <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
                                                     <img src="/img/icons/c-fb.jpg"> <button onclick="Login()" class="btn-connect">Connect with Facebook</button>
-                                                </div>  
+                                                </div>
+                                                    <a href="social/facebook">Connect with Facebook</a>
                                             </div>
-                                             <div class="col-md-10">
+                                            <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
                                         </div>
@@ -124,7 +125,9 @@
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-tr">
                                                     <img src="/img/icons/c-tr.jpg"> <button onclick="getConnectionWithAccessToken()" class="btn-connect">Connect with Twitter</button>
-                                                </div>  
+                                                </div> 
+                                                    <a href="social/twitter">Login with Twitter</a>
+                                                 
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
@@ -136,7 +139,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-ig">
-                                                    <img src="/img/icons/c-ig.jpg"> <button onclick="Login()" class="btn-connect">Connect with Twitter</button>
+                                                    <img src="/img/icons/c-ig.jpg"> <button onclick="Login()" class="btn-connect">Connect with Instagram</button>
                                                 </div>  
                                             </div>
                                             <div class="col-md-10">
@@ -149,10 +152,11 @@
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-gp">
                                                     <img src="/img/icons/c-gp.jpg"> <button onclick="gmailLogin()" class="btn-connect">Connect with Google</button>
-                                                </div>  
+                                                </div>
+                                                    <a href="social/google">Login with Google</a> 
                                             </div>
                                             <div class="col-md-10">
-                                                 {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                                 {{Form::text('gmail', $userWebsite->google, array('placeholder' => 'Gmail Account', 'disabled'))}}
                                             </div>
                                         </div>
                                        
