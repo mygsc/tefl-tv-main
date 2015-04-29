@@ -1284,7 +1284,7 @@ class UserController extends BaseController {
 			return $e->getMessage();
 		}
 
-		dd($provider);
+		dd($userProfile);
 
 	}
 }
