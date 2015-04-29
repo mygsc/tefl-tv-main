@@ -4,7 +4,7 @@ return array(
 	"providers"  => array (
 		"Google"     => array (
 			"enabled"    => true,
-			"keys"       => array ( "id" => "860041923825-f66rdqk644flcq4rhrlrg52sbpv9ccdi.apps.googleusercontent.com", "secret" => "TfXqUqysHipk22yj8ckH9-NI " ),
+			"keys"       => array ( "id" => "860041923825-g26te56kqb475cjn6nsos2n8e54it3sc.apps.googleusercontent.com", "secret" => "rFFz4b55dClMryWsiHjPN1MW" ),
 			),
 		"Facebook"   => array (
 			"enabled"    => true,
@@ -16,7 +16,7 @@ return array(
 			),
 		"Instagram"  => array (
 			"enabled"	 => true,
-			"keys" 		 => array ( "id" => "", "secret" => "" )
+			"keys" 		 => array ( "id" => "xxxxxxxxxx", "secret" => "xxxxxxxxxxx" )
 			),
 	),
 );

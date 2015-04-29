@@ -192,7 +192,7 @@ class UserController extends BaseController {
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
-					$thumbnail_playlists[] = $this->Playlwist->playlistControl(NULL,$playlist->id,NULL,NULL);
+					$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
@@ -1283,6 +1283,8 @@ class UserController extends BaseController {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
+
+		dd($provider);
 
 	}
 }
