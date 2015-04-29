@@ -8,13 +8,11 @@
 		</div>
 	</div>
 	<!--advertisement-->
-	{{-- <div class="video-ads" id="vid-annotation">
-		
-	</div> --}} 
+	{{-- <div class="video-ads" id="vid-annotation"></div> --}} 
 	{{-- <div id="vid-wrap"> --}}
-	<div class="play-icon" id="play-icon">
-		 
-	</div>
+	<div class="play-icon" id="play-icon"></div>
+	<div class="load-video" id="loader"></div>
+	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#" id="retry-error">Retry.</a></small></div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
@@ -52,7 +50,7 @@
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
 				<div class="hd-setting" style='display:none'>
-					<small class="vp-text">HD Quality</small>
+					<small class="vp-text">Mode</small>
 					<ul>
 						<li> <a id="high-quality" href="#">High</a></li>
 						<li> <a id="low-quality" href="#">Low</a></li>
@@ -64,7 +62,7 @@
 				<div class="share-video" style="display:none">
 					<small class="vp-text">Share to:</small>
 					<ul>
-						<a target="_blank" href="http://www.facebook.com/share.php?u=www.test.tefltv.com/watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+						<a target="_blank" href="http://www.facebook.com/share.php?u={{URL::asset('/')}}watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 						<a target="_blank" href="http://twitter.com/home?status=static+www.test.tefltv.com/watch!v=7gfUxVixcrz"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 						<a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v=7gfUxVixcrz"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
 						<a target="_blank" href="http://www.tumblr.com/share?v=3&u=www.test.tefltv.com/watch!v=7gfUxVixcrz&t=static"><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
