@@ -112,7 +112,7 @@ class VideoController extends BaseController {
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	private function ffmpeg(){
-		FFMpeg\FFMpeg::create();
+		$ffmpeg = FFMpeg\FFMpeg::create();
 	}
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
