@@ -7,7 +7,7 @@
 	
 	<a href="social/facebook">Login with Facebook</a> <br><br>
 	<a href="social/twitter">Login with Twitter</a> <br><br>
-	<a href="social/google">Login with Google</img></a><br><br>
+	<a href="social/google">Login with Google</a><br><br>
 	</div>
 
 </body>

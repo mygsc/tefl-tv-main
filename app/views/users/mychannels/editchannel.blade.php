@@ -19,21 +19,21 @@
                         <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
                         <br/>
                     </div>
-                    <!--<div id="status">
+                    <div id="status">
                      <button onclick="Login()"/>Connect with Facebook
                  </div>
-                 <br/><br/> br/><br/><br/>
+                 <br/><br/><br/><br/><br/>
                  <div id="message">
                      Logs:<br/>
                  </div>
                  <br/>
                  <br/>
-                 <a href='#' onClick='gmailLogin();' id="loginText"> Click here to login </a>
-                 <a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
+                 <button onClick='gmailLogin();' id="loginText"> Click here to login</button>
+                 <button style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout</button>
                  <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
                  <div id='uName'></div>
                  <img src='' id='imgHolder'/>
-                  </div>-->
+                  </div>
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -148,7 +148,7 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-gp">
-                                                    <img src="/img/icons/c-gp.jpg"> <button onclick="Login()" class="btn-connect">Connect with Twitter</button>
+                                                    <img src="/img/icons/c-gp.jpg"> <button onclick="gmailLogin()" class="btn-connect">Connect with Google</button>
                                                 </div>  
                                             </div>
                                             <div class="col-md-10">
