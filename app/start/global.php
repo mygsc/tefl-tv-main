@@ -78,4 +78,28 @@ App::down(function()
 |
 */
 
+App::bind('Hybrid_Auth', function() {
+	return new Hybrid_Auth(array(
+		"base_url"   => "http://localhost:8000/testingpage",
+	"providers"  => array (
+		"Google"     => array (
+			"enabled"    => true,
+			"keys"       => array ( "id" => "", "secret" => "" ),
+			),
+		"Facebook"   => array (
+			"enabled"    => true,
+			"keys"       => array ( "id" => "", "secret" => "" ),
+			),
+		"Twitter"    => array (
+			"enabled"    => true,
+			"keys"       => array ( "key" => "", "secret" => "" )
+			),
+		"Instagram"  => array (
+			"enabled"	 => true,
+			"keys" 		 => array ( "id" => "", "secret" => "" )
+			),
+		),
+	));
+});
+
 require app_path().'/filters.php';

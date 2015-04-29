@@ -3,26 +3,22 @@
 class HomeController extends BaseController {
 
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
 		$this->Subscribe = $subscribes;
+		$this->Playlist = $playlists;
 	}
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getVideoByCategory('recommended', '6');
-		$populars = $this->Video->getVideoByCategory('popular', '6');
-		$latests = $this->Video->getVideoByCategory('latest', '6');
-		$randoms = $this->Video->getVideoByCategory('random', '6');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', 8);
+		$populars = $this->Video->getFeaturedVideo('popular', '8');
+		$latests = $this->Video->getFeaturedVideo('latest', '8');
+		$randoms = $this->Video->getFeaturedVideo('random', '8');
 		$categories = $this->Video->getCategory();
-
-		//dd(file_exists('public\videos\4-Cess\Js0zCnwX7XY\Js0zCnwX7XY.jpg'));
-		if($recommendeds === false || $populars === false || $latests === false){
-			app::abort(404, 'Unauthorized Action'); 
-		}
-		//return $recommendeds;
+		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}
 
@@ -52,7 +48,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getPopular() {
-		$popularVideos = $this->Video->getVideoByCategory('popular', 16);
+		$popularVideos = $this->Video->getFeaturedVideo('popular', 12);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -62,7 +58,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getLatest() {
-		$latestVideos =  $this->Video->getVideoByCategory('latest', 16);
+		$latestVideos =  $this->Video->getFeaturedVideo('latest', 12);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
@@ -71,9 +67,16 @@ class HomeController extends BaseController {
 		return View::make('homes.latest', compact('latestVideos'));
 	}
 
-	public function getRandom() {
+	public function getPlaylist() {
+		$input = Input::all();
+		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
+		//return (microtime(true) - LARAVEL_START);;
+		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
+		return View::make('homes.playlist', compact(array('options', 'playlists')));
+	}
 
-		return View::make('homes.random');
+	public function postPlaylist() {
+		return View::make('homes.playlist');
 	}
 
 	public function getChannels() {
@@ -90,164 +93,55 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle=null){
-		$token_id = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($token_id)) return Redirect::route('homes.index');
-		$id = $token_id->id;
+		$videos = Video::where('file_name','=',$idtitle)->first();
+		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
+		$id = $videos->id;
 		$videoId = $id;
-		$videos = Video::find($videoId);
 		$owner = User::find($videos->user_id);
-		if($owner->verified == '0') return Redirect::route('homes.index');
-		if($owner->status != '1') return Redirect::route('homes.index');
+		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
-		$relations = DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-			HAVING v.id!='".$id."'
-			AND v.publish = '1'
-			AND u.verified = '1'
-			AND u.status = '1'
-			AND v.deleted_at IS NULL
-			AND v.report_count < 5
-			OR v.report_count IS NULL;");
+		$query = "MATCH(videos.title,videos.description,videos.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)";
+		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-									->where('publish','1')
-									->where('report_count','<','5')
-									->where('id','!=',$videos->id)
-									->orderBy('id','desc')
-									->take(3)->get();
+										->where('publish','1')
+										->where('report_count','<','5')
+										->where('id','!=',$videos->id)
+										->orderBy('id','desc')
+										->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
-			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
-		}
-		
-		if($counter == 0){
-			$randoms = $this->Video->randomRelation('15',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 1){
-			$randoms = $this->Video->randomRelation('14',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 2){
-			$randoms = $this->Video->randomRelation('13',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 3){
-			$randoms = $this->Video->randomRelation('12',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 4){
-			$randoms = $this->Video->randomRelation('11',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 5){
-			$randoms = $this->Video->randomRelation('10',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 6){
-			$randoms = $this->Video->randomRelation('9',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 7){
-			$randoms = $this->Video->randomRelation('8',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-
-		}
-		if($counter == 8){
-			$randoms = $this->Video->randomRelation('7',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-
-		}
-		if($counter == 9){
-			$randoms = $this->Video->randomRelation('6',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 10){
-			$randoms = $this->Video->randomRelation('5',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 11){
-			$randoms = $this->Video->randomRelation('4',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 12){
-			$randoms = $this->Video->randomRelation('3',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 13){
-			$randoms = $this->Video->randomRelation('2',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
-		}
-		if($counter == 14){
-			$randoms = $this->Video->randomRelation('1',$videos->id);
-			$merging = array_merge($randoms,$relations);
-			$newRelation = array_unique($merging, SORT_REGULAR);
-			sort($newRelation);
+			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
 		if($counter >= 15){
-			$newRelation =  DB::select("SELECT DISTINCT  v.id, v.user_id as uid, v.title,v.description,v.tags,v.created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name,u.verified,u.status FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE MATCH(v.title,v.description,v.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)
-			HAVING v.id!='".$id."'
-			AND v.publish = '1'
-			AND u.verified = '1'
-			AND u.status = '1'
-			and v.deleted_at IS NULL
-			AND v.report_count < 5
-			OR v.report_count IS NULL
-			LIMIT 15;");
+			$newRelation = $this->Video->relations($query,$videos->id,'15');
+		}else{
+			$randomCounter = 14;
+			for($i = 0;$i <= $randomCounter; $i++){
+				if($counter == $i){
+			  		$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
+			   		$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
+					$newRelation =array_unique($merging,SORT_REGULAR);
+			   	}		
+			   	$randomCounter--;
+
+			}
 		}
-		$relationCounter = count($relations);
+		//return $newRelation;
 		if(isset(Auth::User()->id)){
-			$playlists = DB::select("SELECT DISTINCT  p.id,p.name,p.description,p.user_id,p.privacy,i.video_id,p.deleted_at FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				WHERE i.video_id = '".$id."'
-				HAVING p.user_id = '".Auth::User()->id."'
-				AND p.deleted_at IS NULL;");
-			$playlistNotChosens = DB::select("SELECT * FROM playlists AS p
-				WHERE NOT EXISTS
-				(SELECT * FROM playlists_items AS i
-					WHERE i.playlist_id = p.id
-					AND
-					i.video_id = '".$id."')
-			AND p.user_id = '".Auth::User()->id."'
-			AND p.deleted_at IS NULL");
-			$favorites = Favorite::where('video_id','=',$id)
+			$playlists = $this->Playlist->playlistchoose($id);
+			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
+
+			$favorites = UserFavorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = WatchLater::where('video_id','=',$id)
+			$watchLater = UserWatchLater::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$like = Like::where('video_id','=',$id)
+			$like = UserLike::where('video_id','=',$id)
+			->where('user_id','=',Auth::User()->id)->first();
+			$dislike = UserDislike::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 		//return $playlists;
 
@@ -258,12 +152,12 @@ class HomeController extends BaseController {
 			$favorites = null;
 			$watchLater = null;
 			$like = null;
+			$dislike = null;
 		}
-		$likeCounter = Like::where('video_id','=',$id)->count();
-		$video_path =  DB::Select("SELECT DISTINCT  v.id, v.user_id, v.title,v.description,v.tags,UNIX_TIMESTAMP(v.created_at) AS created_at,v.deleted_at,v.publish,v.report_count,v.file_name,u.channel_name FROM videos v 
-			LEFT JOIN users u ON v.user_id = u.id
-			WHERE v.id = '".$id."';");
-		
+		$likeCounter = UserLike::where('video_id','=',$id)->count();
+		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
+//return (microtime(true) - LARAVEL_START);
+
 		//r3mmel
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
@@ -276,87 +170,60 @@ class HomeController extends BaseController {
 
 		$datas = $this->User->getTopChannels(4);
   		//Insert additional data to $datas
-  		foreach($datas as $key => $channel){
-		   	$img = 'img/user/'. $channel->id. '.jpg';
-		   	if(Auth::check()){
-			    $ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-			    $datas[$key]->ifsubscribe = 'No';
-			    if(!$ifsubscribe->isEmpty()){
-			     	$datas[$key]->ifsubscribe = 'Yes';
-			    }
-		   	}
-		   	if(!file_exists(public_path($img))){
-		    	$img = '/img/user/0.jpg';
-		   	}
+		foreach($datas as $key => $channel){
+			$img = 'img/user/'. $channel->id. '.jpg';
+			if(Auth::check()){
+				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+				$datas[$key]->ifsubscribe = 'No';
+				if(!$ifsubscribe->isEmpty()){
+					$datas[$key]->ifsubscribe = 'Yes';
+				}
+			}
+			if(!file_exists(public_path($img))){
+				$img = '/img/user/0.jpg';
+			}
 			$datas[$key]->image_src = $img;
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','video_path','relationCounter','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe'));
+		
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
-		$playlist = Playlist::find($playlistId);
 		if(!isset(Auth::User()->id)){
-			if($playlist->privacy == '0') return Redirect::route('homes.index');
+			if($randID->privacy == '0') return Redirect::route('homes.index');
 		}
 		$video = Video::where('file_name','=',$videoId)->first();
-		//return $video;
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
 		->where('playlist_id',$playlistId)->first();
-		$nextA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			and v.publish = '1'
-			AND i.id > '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			ORDER BY i.id asc
-			LIMIT 1;");
-		$previousA = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id AS playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			AND i.playlist_id = '".$playlistId."'
-			and v.id != '".$video->id."'
-			AND i.id < '".$itemId->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1
-			ORDER BY i.id desc
-			LIMIT 1;");
-		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.id as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$playlistId."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1
-			");
-		//return $nextA;
+		$nextA = $this->Playlist->playlistControl('>',$playlistId,$video->id,$itemId->id);
+		$previousA = $this->Playlist->playlistControl('<',$playlistId,$video->id,$itemId->id);
+		$playlistVideos = $this->Playlist->playlistControl(NULL,$playlistId,$video->id,$itemId->id);
 		if(isset(Auth::User()->id)){
-			$like = Like::where('video_id','=',$video->id)
+			$like = UserLike::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$favorites = Favorite::where('video_id','=',$video->id)
+			$favorites = UserFavorite::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = WatchLater::where('video_id','=',$video->id)
+			$watchLater = UserWatchLater::where('video_id','=',$video->id)
+			->where('user_id','=',Auth::User()->id)->first();
+			$dislike = UserDislike::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$like = null;
 			$favorites = null;
 			$watchLater = null;
+			$dislike = null;
 		}
+		//return (microtime(true) - LARAVEL_START);
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
-		$likeCounter = Like::where('video_id','=',$video->id)->count();
-		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers'));
+		$likeCounter = UserLike::where('video_id','=',$video->id)->count();
+		$dislikeCounter = UserDislike::where('video_id','=',$video->id)->count();
+		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers','dislikeCounter','dislike'));
 	}
 
 	public function postSignIn() {
@@ -430,51 +297,51 @@ class HomeController extends BaseController {
 			}
 			$newComment =  
 			'<div class="commentsarea row">
-				<div class="commentProfilePic col-md-1">'. 
-					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-				</div>
-				<div class="col-md-11">
-					<div class="row">'.
-						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
-						| &nbsp;<small> just now. </small> 
-						<br/>
-						<p class="text-justify">
-							'. $comments->comment . '
-						</p>
-						<div class="fa fa-thumbs-up likedup">
-							<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-							<input type="hidden" value="'.$video_id.'" name="video_id">
-							<input type="hidden" value="liked" name="status">
-							<span class="likescount" id="likescount">'.$likesCount.'</span>
-						</div>
-						|&nbsp;
-						<div class="fa fa-thumbs-down dislikedup">
-							<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
-							<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
-							<input type="hidden" value="'.$video_id.'" name="video_id">
-							<input type="hidden" value="disliked" name="status">
-							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-						</div>
-						|&nbsp;
-						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
-
-						<div id="replysection" class="panelReply"> '.
-							Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-								<input type="hidden" name="comment_id" value="'.$comments->id.'">
-								<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-								<input type="hidden" name="video_id" value="'.$video_id.'">
-								<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-								<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
-
-								<span class="replyError inputError"></span>
-							</form>
-						</div>
+			<div class="commentProfilePic col-md-1">'. 
+				HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+			</div>
+			<div class="col-md-11">
+				<div class="row">'.
+					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+					| &nbsp;<small> just now. </small> 
+					<br/>
+					<p class="text-justify">
+						'. $comments->comment . '
+					</p>
+					<div class="fa fa-thumbs-up likedup">
+						<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+						<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">
+						<input type="hidden" value="liked" name="status">
+						<span class="likescount" id="likescount">'.$likesCount.'</span>
 					</div>
+					|&nbsp;
+					<div class="fa fa-thumbs-down dislikedup">
+						<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+						<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">
+						<input type="hidden" value="disliked" name="status">
+						<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+					</div>
+					|&nbsp;
+					<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+
+					<div id="replysection" class="panelReply"> '.
+						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+						<input type="hidden" name="comment_id" value="'.$comments->id.'">
+						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+						<input type="hidden" name="video_id" value="'.$video_id.'">
+						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+
+						<span class="replyError inputError"></span>
+					</form>
 				</div>
 			</div>
-			<hr/>
-			';
+		</div>
+	</div>
+	<hr/>
+	';
 
 	return Response::json(array(
 		'status' => 'success',
@@ -483,7 +350,7 @@ class HomeController extends BaseController {
 		'user_id' => $user_id,
 		'comment' => $newComment
 		));
-	}
+}
 }
 
 public function addReply(){
@@ -602,7 +469,7 @@ public function addReply(){
 				'videos.file_name',
 				'videos.views',
 				'videos.created_at',
-				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'))
+				DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
 			->where('category', 'LIKE', '%'.$category.'%')
 			->where('deleted_at', NULL)
 			->where('publish', 1)
@@ -630,13 +497,18 @@ public function addReply(){
 		return Redirect::route('homes.index');
 	}
 
-	public function testingpage(){ 
-		dd(file_exists(public_path('/videos/7-mygsc/ZsBuaZgQdg9/ZsBuaZgQdg9.jpg')));
-
+	public function getChangeLogs() {
+		return View::make('homes.changelogs');
 	}
 
-	public function getChangeLogs() {
+	public function getTimezone(){
+		$inputs = Input::all();
+		$convert_time = date("d-m-Y H:i:s", strtotime($inputs['current_time']));
+		$time = date('F d, Y', strtotime($convert_time. '+'. $inputs['users_GMT'].' hours'));
+		return $time;
+	}
 
-		return View::make('homes.changelogs');
+	public function testingpage(){ 
+		return date("M-d-Y");
 	}
 }

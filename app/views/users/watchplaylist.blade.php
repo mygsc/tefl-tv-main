@@ -36,20 +36,38 @@
 
                                             </div>
                                             <div class="col-md-6 text-right">
-                                                <span id="like-counter">{{$likeCounter}}</span>&nbsp;
                                            
                                                     @if(isset(Auth::User()->id))
                                                         @if(!empty($like))
                                                         <span id = "like-span">
-                                                            <i class="fa fa-thumbs-down hand" id="unlike"></i>
+                                                            <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
+                                                        </span>
                                                         @else
                                                         <span id = "like-span">
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
                                                         </span>
                                                         @endif
+
                                                     @else
-                                                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                                                    @endif
+                                                      <i class="fa fa-thumbs-up hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                    @if(isset(Auth::User()->id))
+                                                        @if(!empty($dislike))
+                                                        <span id = "dislike-span">
+                                                            <i id="remove-dislike"><img src="/img/icons/unlike_active.png" style="cursor:pointer"></i>
+                                                        </span>
+                                                        @else
+                                                        <span id = "dislike-span">
+                                                            <i class="fa fa-thumbs-down hand" id="dislike"></i>
+                                                        </span>
+                                                        @endif
+                                                        
+                                                    @else
+                                                      <i class="fa fa-thumbs-down hand"></i>
+                                                    @endif 
+                                                    &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </div>
                                         </div>
 
@@ -184,7 +202,7 @@
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
                                     <span>by: {{$playlistVideo->channel_name}}</span><br/>
-                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                    <small>{{date('M d, Y',strtotime($playlistVideo->created_at))}}</small>
                                     
                                 </div>
                             </div>
@@ -193,7 +211,7 @@
 
                     @else
                      <li class="ui-tabs-nav-item" id="">
-                        <a href="/watchplaylist={{$playlistVideo->file_name}}/{{Crypt::encrypt($playlistVideo->playlist_id)}}" id="">
+                        <a href="/watchplaylist={{$playlistVideo->file_name}}/{{$playlistVideo->randID}}" id="">
                             <div class="row">
                                 <div class="col-md-4">
                                 @if(file_exists(public_path('/videos/'.$playlistVideo->user_id.'-'.$playlistVideo->channel_name.'/'.$playlistVideo->file_name.'/'.$playlistVideo->file_name.'.jpg')))
@@ -205,7 +223,7 @@
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
                                     <span>by: {{$playlistVideo->channel_name}}</span><br/>
-                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                    <small>{{date('M d, Y',strtotime($playlistVideo->created_at))}}</small>
                                 </div>
                             </div>
                         </a>

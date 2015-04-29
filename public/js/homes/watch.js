@@ -12,39 +12,63 @@ $(document).ready(function(){
 		});
 	}
 	function addToFavorites(){
+		var count = 0;
 		$('#addToFavorites').click(function(e){
-			var text1 = $('#text1').val();
-			e.preventDefault();
-			$.post('/mychannels/addToFavorites/'+text1,function(data){
-					favoriteLoader();
+			count++;
+			if(count<2){
+				var text1 = $('#text1').val();
+				e.preventDefault();
+				$.post('/mychannels/addToFavorites/'+text1,function(data){
+					$('#addToFavorites').remove();
+					$('#favotite-list').append('<p id="removeToFavorites" style="cursor: pointer"><img src="/img/icons/starActive.png"/>&nbsp;&nbsp;Favorites</p>');
+					removeToFavorites();
 				});
+			}
 		});
 	}
 	function removeToFavorites(){
+		var count = 0;
 		$('#removeToFavorites').click(function(e){
+			count++;
 			e.preventDefault();
-			var text1 = $('#text1').val();
-			$.post('/mychannels/removeToFavorites/'+text1,function(data){
-					favoriteLoader();
+			if(count<2){
+				var text1 = $('#text1').val();
+				$.post('/mychannels/removeToFavorites/'+text1,function(data){
+					$('#removeToFavorites').remove();
+					$('#favotite-list').append('<p id="addToFavorites" style="cursor: pointer"><img src="/img/icons/star.png"/>&nbsp;&nbsp;Favorites</p>');
+						addToFavorites();
 				});
+			}
 		});
 	}
 	function addToWatchLater(){
+		var count = 0;
 		$('#addToWatchLater').click(function(e){
+			count++;
 			var text1 = $('#text1').val();
 			e.preventDefault();
-			$.post('/mychannels/addToWatchLater/'+text1,function(data){
-					watchLaterLoader();
-				});
+			if(count<2){
+				$.post('/mychannels/addToWatchLater/'+text1,function(data){
+						$('#addToWatchLater').remove();
+						$('#watchlater-list').append('<p id="removeToWatchLater" style="cursor: pointer"><img src="/img/icons/clockActive.png"/>&nbsp;&nbsp;Watch Later</p>');
+						removeToWatchLater();
+					});
+			}
 		});
 	}
 	function removeToWatchLater(){
+		var count = 0;
 		$('#removeToWatchLater').click(function(e){
+			count++;
 			var text1 = $('#text1').val();
 			e.preventDefault();
-			$.post('/mychannels/removeToWatchLater/'+text1,function(data){
-					watchLaterLoader ();
-				});
+			if(count<2){
+				$.post('/mychannels/removeToWatchLater/'+text1,function(data){
+						$('#removeToWatchLater').remove();
+						$('#watchlater-list').append('<p id="addToWatchLater" style="cursor: pointer"><img src="/img/icons/clock.png"/>&nbsp;&nbsp;Watch Later</p>');
+						addToWatchLater();
+					});
+			}
 		});
 	}
 	function deletelist(){
@@ -157,23 +181,102 @@ $(document).ready(function(){
 		});
 	}
 	function like(){
+		var count = 0;
 		$('#like').click(function(e){
+			count++;
+			if(count<2){
+				var text1 = $('#text1').val();
+				e.preventDefault();
+					$.post('/mychannels/likeVideo/'+text1,function(data){
+						if(data['dislikeResult'] !== 0){
+							$.post('/mychannels/removeDislikeVideo/'+text1,function(data){
+								$('body').find('span#dislike-counter').text(data['dislikeResult']);
+								$('#remove-dislike').remove();
+								$('#dislike-span').append('<i class="fa fa-thumbs-down hand" title="like this" id="dislike"></i>');
+								dislike();
+							});
+							$('body').find('span#like-counter').text(data['likeResult']);
+							$('#like').remove();
+							$('#like-span').append('<i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>');
+							
+						}else{
+							$('body').find('span#like-counter').text(data['likeResult']);
+							$('#like').remove();
+							$('#like-span').append('<i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>');
+							
+						}
+						
+						removeLike();
+
+					});
+			}			
+		});
+	}
+
+	function dislike(){
+		var count = 0;
+		$('#dislike').click(function(e){
+			count++;
+			if(count<2){
 			var text1 = $('#text1').val();
 			e.preventDefault();
-				$.post('/mychannels/likeVideo/'+text1,function(data){
-					likeLoader();
+				$.post('/mychannels/dislikeVideo/'+text1,function(data){
+				if(data['likeResult'] !== 0){
+						$.post('/mychannels/unlikeVideo/'+text1,function(data){
+							$('body').find('span#like-counter').text(data['likeResult']);
+							$('#remove-like').remove();
+							$('#like-span').append('<i class="fa fa-thumbs-up hand" title="like this" id="like" style="cursor:pointer"></i>');
+							like();
+						});
+						$('body').find('span#dislike-counter').text(data['dislikeResult']);
+						$('#dislike').remove();
+						$('#dislike-span').append('<i id="remove-dislike"><img src="/img/icons/unlike_active.png"></i>');
+						
+
+					}else{
+						$('body').find('span#dislike-counter').text(data['dislikeResult']);
+						$('#dislike').remove();
+						$('#dislike-span').append('<i id="remove-dislike"><img src="/img/icons/unlike_active.png" style="cursor:pointer"></i>');
+					}
+					removeDislike();	
 				});
-			});
-		}
-	function unlike(){
-		$('#unlike').click(function(e){
+			}
+		});
+	}
+
+	function removeLike(){
+		var count = 0;
+		$('#remove-like').click(function(e){
+			count++;
+			if(count<2){
 			var text1 = $('#text1').val();
 			e.preventDefault();
 				$.post('/mychannels/unlikeVideo/'+text1,function(data){
-					likeLoader();
+					$('body').find('span#like-counter').text(data['likeResult']);
+					$('#remove-like').remove();
+					$('#like-span').append('<i class="fa fa-thumbs-up hand" title="like this" id="like"></i>');
+					like();
 				});
-			});
-		}
+			}
+		});	
+	}
+
+	function removeDislike(){
+		var count = 0;
+		$('#remove-dislike').click(function(e){
+			count++;
+			if(count<2){
+			var text1 = $('#text1').val();
+			e.preventDefault();
+				$.post('/mychannels/removeDislikeVideo/'+text1,function(data){
+					$('body').find('span#dislike-counter').text(data['dislikeResult']);
+					$('#remove-dislike').remove();
+					$('#dislike-span').append('<i class="fa fa-thumbs-down hand" title="like this" id="dislike"></i>');
+					dislike();
+				});
+			}
+		});	
+	}
 	function loader(){
 		$("#dropdown").load(window.location.href+' #dropdown',function(){
 		$('#alert-playlist').append('<div id="playlist-div-create"></div>');
@@ -193,7 +296,6 @@ $(document).ready(function(){
 				removeToWatchLater();
 				counter();
 				like();
-				unlike();
 		});
 	}
 	function deleteLoader(){
@@ -214,8 +316,6 @@ $(document).ready(function(){
 				addToWatchLater();	
 				removeToWatchLater();
 				counter();
-				like();
-				unlike();
 		});
 	}
 
@@ -237,50 +337,6 @@ $(document).ready(function(){
 				addToWatchLater();
 				removeToWatchLater();	
 				counter();
-				like();
-				unlike();
-		});
-	}
-
-	function favoriteLoader(){
-		$("#favotite-list").load(window.location.href+' #favotite-list',function(){
-			addToPlaylist();
-			deletelist();
-			addToFavorites();
-			removeToFavorites();
-			addToWatchLater();	
-			removeToWatchLater();
-			counter();
-			like();
-			unlike();
-		});
-	}	
-	function watchLaterLoader(){
-		$("#watchlater-list").load(window.location.href+' #watchlater-list',function(){
-			addToPlaylist();
-			deletelist();
-			addToFavorites();
-			removeToFavorites();
-			addToWatchLater();
-			removeToWatchLater();
-			counter();
-			like();
-			unlike();
-		});	
-	}
-	function likeLoader(){
-		$("#like-span").load(window.location.href+' #like-span',function(){
-			$("#like-counter").load(window.location.href+' #like-counter',function(){
-				addToPlaylist();
-				deletelist();
-				addToFavorites();
-				removeToFavorites();
-				addToWatchLater();
-				removeToWatchLater();
-				counter();
-				like();
-				unlike();
-			});
 		});
 	}
 	addToPlaylist();
@@ -292,5 +348,7 @@ $(document).ready(function(){
 	removeToWatchLater();
 	counter();
 	like();
-	unlike();
+	removeLike();
+	dislike();
+	removeDislike();
 });

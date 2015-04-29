@@ -1,13 +1,13 @@
 
 
-		<div class="Blue Div-channel-border">
+		<div class="White">
 
 			<div class="col-md-12">
 				<div class="row">
 					<div class="div-coverDp">
 						<div class="uploaded_img pic-Dp">
 							@if(file_exists($picture))
-			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg'.'?'.rand(10,100), 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @else
 			                	{{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @endif
@@ -60,8 +60,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="c-about" >
-				<div class="labelThis mg-t--20">
+			<div class="user-info" >
+				<div class="labelThis">
 					{{Auth::User()->channel_name}}
 				</div>
 				@if(empty($usersChannel->interests))
@@ -71,11 +71,14 @@
 				@else
 					<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
 					<br/><br/>
-					<p class="orangeC center-block italic text-center">
-					
-					{{ Str::limit($usersChannel->interests, 200) }}
-					@endif
+					<p class="black center-block italic text-center fs-12">
+						<i class="fa fa-quote-left"></i>
+						{{ Str::limit($usersChannel->interests,300) }}
+						<i class="fa fa-quote-right"></i>
 					</p>
+					<br/>
+					@endif
+					
 			</div>
 		</div>
 

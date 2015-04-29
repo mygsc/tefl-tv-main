@@ -4,21 +4,18 @@
 					<div class="div-coverDp">
 						<div class="uploaded_img pic-Dp">
 			 				@if(file_exists($picture))
-	         			{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('class' => 'pic-Dp'))}}
-	           	@else
-	          	  {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'pic-Dp'))}}
-	            @endif
-		        </div>
+		         			{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('class' => 'pic-Dp'))}}
+				           	@else
+				          	  {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'pic-Dp'))}}
+				            @endif
+					    </div>
 
 						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
-							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg'.'?'.rand(10,100), 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@else
 							{{HTML::image('img/user/cover.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
 						@endif
 						<div class="div-coverP">
-
-							
-
 							<div class="overlay-cover">
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
@@ -64,17 +61,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="c-about" >
-				<div class="labelThis mg-t--20">
+			<div class="user-info" >
+				<div class="labelThis">
 					{{$userChannel->channel_name}}
 				</div>
 				@if(empty($userChannel->interests))
 					<br/><br/>
 					<p class="text-justify notes center-block"></p>
 				@else
-					<p class="text-justify notes center-block">
-					<br/>
-					"{{ Str::limit($userChannel->userprofile->interests, 200) }}"
+					<p class="black center-block italic text-center fs-12">
+						<i class="fa fa-quote-left"></i>
+							{{ Str::limit($userChannel->interests, 200) }}
+						<i class="fa fa-quote-right"></i>
 					</p>
 				@endif
 			</div>

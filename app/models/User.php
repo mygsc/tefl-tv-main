@@ -36,14 +36,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Subscribe');
 	}
 
-	public function favorite() {
+	public function UserFavorite() {
 
-		return $this->hasMany('Favorite');
+		return $this->hasMany('UserFavorite');
 	}
 
 	public function watchlater() {
 
-		return $this->hasMany('WatchLater');
+		return $this->hasMany('UserWatchLater');
 	}
 
 	public function website() {
@@ -92,7 +92,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->password = Hash::make(Input::get('password'));
 		$user->token = $token;
 		$user->save();
-	
+
 
 		$userProfile = new UserProfile;
 		$userProfile->first_name = Input::get('first_name');
@@ -110,7 +110,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	
 	public function getRandomChannels(){
 		return db::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
-	videos.user_id, SUM(videos.views) AS total
+			videos.user_id, SUM(videos.views) AS total
 			FROM videos INNER JOIN users ON 
 			videos.user_id = users.id
 			INNER JOIN users_profile ON
@@ -122,16 +122,42 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function getTopChannels($limit = null){
-		return DB::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
-			videos.user_id, SUM(videos.views) AS total, (Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers
-			FROM videos INNER JOIN users ON 
-			videos.user_id = users.id
-			INNER JOIN users_profile ON
-			videos.user_id = users_profile.user_id 
-			GROUP BY videos.user_id 
-			ORDER BY subscribers DESC
-			LIMIT '.$limit.'
-			');
+		$userData = User::select('users.id','channel_name','organization','interests',
+			DB::raw('(SELECT sum(videos.views) from videos where videos.user_id = users.id) as views'),
+			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
+		->take($limit)
+		->join('users_profile', 'users_profile.user_id', '=', 'users.id')
+		->orderBy('views')
+		->get();
+
+		foreach($userData as $key => $user){
+			$userData[$key]->profile_picture = $this->addProfilePicture($user->id);
+
+			if(Auth::check()){
+				$userData[$key]->ifsubscribe = $this->checkSubscription(Auth::user()->id, $user->id);
+			}
+
+			$subscribe = new Subscribe();
+			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 5);
+		}
+		return $userData;
+	}
+
+	public function addProfilePicture($user_id){
+		$img = '/img/user/'. $user_id. '.jpg';
+		if(!file_exists(public_path($img))){
+			$img = '/img/user/0.jpg';
+		}
+		return $img;
+	}
+
+	public function checkSubscription($subscriber_id, $subscription_id){
+		$ifsubscribe = Subscribe::where('user_id', $subscription_id)->where('subscriber_id', $subscriber_id)->first();
+		$data = 'No';
+		if(isset($ifsubscribe)){
+			$data = 'Yes';
+		}
+		return $data;
 	}
 
 	public function setVerifyStatus($verify_status, $user_id){
