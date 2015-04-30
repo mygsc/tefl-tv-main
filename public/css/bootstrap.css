@@ -4283,15 +4283,15 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     border-bottom-color: #bce8f1;
 }
 .panel-warning {
-    border-color: #faebcc;
+    border-color: #8aa1b4;
 }
 .panel-warning>.panel-heading {
     color: #8a6d3b;
-    background-color: #f18200;
-    border-color: #faebcc;
+    background-color: #374754;
+    border-color: #374754;
 }
 .panel-warning>.panel-heading+.panel-collapse>.panel-body {
-    border-top-color: #faebcc;
+    border-top-color: #374754;
 }
 .panel-warning>.panel-heading .badge {
     color: #fcf8e3;

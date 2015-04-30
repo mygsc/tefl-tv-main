@@ -9,7 +9,7 @@
          <div class="">
               <div class="well White div-change same-H">
                 <div class="row">
-                  <div class="text-center">
+                    <div class="text-center">
                         <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
@@ -19,7 +19,7 @@
                         <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
                         <br/>
                     </div>
-                    <div id="status">
+                   <!-- <div id="status">
                      <button onclick="Login()"/>Connect with Facebook
                  </div>
                  <br/><br/><br/><br/><br/>
@@ -33,7 +33,7 @@
                  <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
                  <div id='uName'></div>
                  <img src='' id='imgHolder'/>
-                  </div>
+                
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -112,10 +112,11 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
-                                                    <img src="/img/icons/c-fb.jpg"> <button onclick="Login()" class="btn-connect">Connect with Facebook</button>
-                                                </div>  
+                                                    <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
+                                                </div>
+                                                 
                                             </div>
-                                             <div class="col-md-10">
+                                            <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
                                         </div>
@@ -123,8 +124,8 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-tr">
-                                                    <img src="/img/icons/c-tr.jpg"> <button onclick="getConnectionWithAccessToken()" class="btn-connect">Connect with Twitter</button>
-                                                </div>  
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
+                                                </div>
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
@@ -132,27 +133,16 @@
                                         </div>
         
                                         <br/>
-          
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="text-left connectTo c-ig">
-                                                    <img src="/img/icons/c-ig.jpg"> <button onclick="Login()" class="btn-connect">Connect with Twitter</button>
-                                                </div>  
-                                            </div>
-                                            <div class="col-md-10">
-                                                {{Form::text('instagram', $userWebsite->instagram, array('placeholder' => 'Instagram Account', 'disabled'))}}
-                                            </div>
-                                        </div>
-                                        <br/>
            
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="text-left connectTo c-gp">
-                                                    <img src="/img/icons/c-gp.jpg"> <button onclick="gmailLogin()" class="btn-connect">Connect with Google</button>
-                                                </div>  
+                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
+                                                </div>
+                                
                                             </div>
                                             <div class="col-md-10">
-                                                 {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                                 {{Form::text('gmail', $userWebsite->google, array('placeholder' => 'Gmail Account', 'disabled'))}}
                                             </div>
                                         </div>
                                        

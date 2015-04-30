@@ -54,7 +54,7 @@
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if(empty($usersWatchLater))
-							No watch later yet.
+							<p class="text-center">No watch later yet.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
 						<div id='list' class="col-md-3">

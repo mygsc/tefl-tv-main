@@ -13,7 +13,7 @@
 			@else
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-lg-3 col-md-3 col-sm-6">
-					<div class="p-relative">
+					
 						<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 							@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 								<video poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" >
@@ -25,17 +25,18 @@
 								{{HTML::image('img/thumbnails/video.png')}}
 							@endif
 						</a>
-						<div class="video-info">
+						
 							<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
 								<div class="v-Info">
 									{{$usersVideo->title}}
 								</div>
 							</a>
 							<div class="count">
-									{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes
+								<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i>  {{$usersVideo->likes}} | {{date('F d, Y',strtotime($usersVideo->created_at))}}
 							</div>
-						</div>
-					</div>
+
+					
+				
 					<BR/>
 				</div>
 				@endforeach

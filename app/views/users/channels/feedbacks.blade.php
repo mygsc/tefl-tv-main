@@ -26,7 +26,7 @@
 					
 	@if(empty($userFeedbacks))
 		
-		<br/>
+		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/>
@@ -40,7 +40,7 @@
 			
 			@endif
 		</div>
-		<h3>No feedbacks yet..</h3>
+		<h3 class="text-center">No feedbacks yet..</h3>
 
 	@else
 					       
@@ -64,8 +64,8 @@
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::check())
-				<div class="nav_div" style="display: none;">
+				@if(Auth::User()->id == $userFeedback->user_id)
+				<div class="nav_div">
 					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
 						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
 					</button>

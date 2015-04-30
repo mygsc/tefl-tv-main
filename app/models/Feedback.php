@@ -10,10 +10,10 @@ class Feedback extends Eloquent {
 			$limit = 'LIMIT '.$limit;
 		}
 
-		$feedbacks = DB::select("SELECT f.id, f.channel_id, f.user_id, f.feedback, f.likes, f.dislikes, 
-			f.spam_count, f.created_at, f.updated_at, u.channel_name FROM feedbacks AS f 
-			INNER JOIN users as u ON u.id = f.user_id 
-			WHERE f.user_id = '" .$auth."'");
+		$feedbacks = Feedback::select('feedbacks.id','channel_id','user_id','report', 'feedback','feedbacks.created_at','feedbacks.updated_at','users.channel_name')
+		->join('users', 'users.id', '=', 'user_id')
+		->where('channel_id',$auth)
+		->get();
 
 		return $feedbacks;
 	}

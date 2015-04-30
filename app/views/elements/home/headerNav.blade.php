@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-left col-sm-6"> 
-                    <div class="row">
-                        <ul class="ctgryNav mg-l--30">
+                    
+                        <ul class="ctgryNav">
                             <li>
                                 {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                             </li>
@@ -19,7 +19,7 @@
                             </li>
                         </ul>
 
-                    </div>
+                   
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
                     <ul class="ctgryNav pull-right">
