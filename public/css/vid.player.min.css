@@ -343,6 +343,12 @@ button#play{
 	border-top: 20px solid transparent;
 	border-bottom: 20px solid transparent;
 	border-left: 30px solid #fff;
+	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
 }
 .load-video{
  	margin: auto;  
