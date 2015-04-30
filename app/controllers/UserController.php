@@ -896,14 +896,7 @@ class UserController extends BaseController {
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
 		foreach($playlists as $playlist){
-			$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-		LEFT JOIN playlists_items i ON p.id = i.playlist_id
-		INNER JOIN videos v ON i.video_id = v.id
-		INNER JOIN users u ON v.user_id = u.id
-		WHERE i.playlist_id = '".$playlist->id."'
-		and v.deleted_at IS NULL
-		or v.report_count > 5
-		and v.publish = 1");
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
 		}
 		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id'));
 	}
@@ -988,7 +981,11 @@ class UserController extends BaseController {
 	public function addChkBoxPlaylist($id){
 		$id = Crypt::decrypt($id);
 		$playlistId = Crypt::decrypt(Input::get('value'));
-		PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
+		$counter = PlaylistItem::where('video_id','=',$id)
+		->where('playlist_id','=',$playlistId);
+		if(!$counter->count()){
+			PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
+		}
 	}
 	public function removePlaylist($id){
 		$id = Crypt::decrypt($id);
