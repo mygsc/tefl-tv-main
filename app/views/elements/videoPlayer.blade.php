@@ -50,11 +50,11 @@
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
 				<div class="hd-setting" style='display:none'>
-					<small class="vp-text">Video Quality Mode</small>
+					<small class="vp-text">Video Quality</small>
 					<ul>
-						<li> <a id="high-quality" href="#">High</a></li>
-						<li> <a id="normal-quality" href="#">Normal</a></li>
-						<li> <a id="low-quality" href="#">Low</a></li>
+						<li> <a title='HD mode' id="high-quality" href="#">High</a></li>
+						<li> <a title='Normal mode' id="normal-quality" href="#">Normal</a></li>
+						<li> <a title='Low mode' id="low-quality" href="#">Low</a></li>
 						{{-- <li> <a href="#">480p</a></li>
 						<li> <a href="#">360p</a></li>
 						<li> <a href="#">240p</a></li> --}}
