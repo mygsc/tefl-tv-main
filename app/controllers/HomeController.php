@@ -18,8 +18,8 @@ class HomeController extends BaseController {
 		$latests = $this->Video->getFeaturedVideo('latest', '8');
 		$randoms = $this->Video->getFeaturedVideo('random', '8');
 		$categories = $this->Video->getCategory();
-
-
+		// User::create(['channel_name'=>'gerald','password'=>'123']);
+		//  return Hash::make(123);
 		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
 	}

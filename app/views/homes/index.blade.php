@@ -29,9 +29,9 @@
 						<div id="vid-controls">
 							<div class="embed-responsive embed-responsive-16by9 n-mg-b">
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-									<source src='/videos/tefltv.mp4' type='video/mp4'>
-									<source src='/videos/tefltv.webm' type='video/webm'>
-									<source src='/videos/tefltv.ogvq' type='video/ogg'> 
+									<source id='mp4' src='/videos/tefltv.mp4' type='video/mp4'>
+									<source id='webm' src='/videos/tefltv.webm' type='video/webm'>
+									<source id='ogg' src='/videos/tefltv.ogv' type='video/ogg'> 
 								</video>	
 							</div><!--/embed-responsive-->
 							@include('elements/videoPlayer')

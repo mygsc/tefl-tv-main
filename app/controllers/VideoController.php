@@ -46,14 +46,29 @@ class VideoController extends BaseController {
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
 				/*..start video conversion to low, normal and high as well as capture 3 thumbnail..*/
-				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				$this->captureImage($input['video'],$destinationPath,$fileName);
-				/*..Return success to json type..*/
-				return Response::json(['file'=>$fileName]);
-			}
-		}
+				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				// $this->captureImage($input['video'],$destinationPath,$fileName);
+				$ffmpeg = FFMpeg\FFMpeg::create();
+				$video = $ffmpeg->open($input['video']);
+				$video
+				    ->filters()
+				    ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+				    ->synchronize();
+				$video
+				    ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+				    ->save($destinationPath.DS.$fileName.DS.$fileName.'frame.jpg');
+				$video
+				    ->save(new FFMpeg\Format\Video\X264(), $destinationPath.DS.$fileName.DS.$fileName.'export-x264.mp4')
+				    ->save(new FFMpeg\Format\Video\Ogg(), $destinationPath.DS.$fileName.DS.$fileName.'export-wmv.ogg')
+				    ->save(new FFMpeg\Format\Video\WebM(), $destinationPath.DS.$fileName.DS.$fileName.'export-webm.webm');
+
+
+								/*..Return success to json type..*/
+								return Response::json(['file'=>$fileName]);
+							}
+						}
 		/*..Return with errors it doesn't pass the validation..*/
 		return Redirect::route('get.upload')
 		->withInput()
@@ -71,7 +86,7 @@ class VideoController extends BaseController {
 		$ffmpeg = FFMpeg\FFMpeg::create();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$mp4 = new FFMpeg\Format\Video\X264();
 		$ogg = new FFMpeg\Format\Video\Ogg();
 		$webm = new FFMpeg\Format\Video\WebM();
 		$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -86,7 +101,7 @@ class VideoController extends BaseController {
 		$ffmpeg = FFMpeg\FFMpeg::create();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$mp4 = new FFMpeg\Format\Video\X264();
 		$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
 		$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -100,7 +115,7 @@ class VideoController extends BaseController {
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();
+		$mp4 = new FFMpeg\Format\Video\X264();
 		$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
 		$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
