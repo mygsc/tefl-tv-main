@@ -26,7 +26,7 @@
 					
 	@if(empty($userFeedbacks))
 		
-		<br/>
+		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/>
@@ -40,7 +40,7 @@
 			
 			@endif
 		</div>
-		<h3>No feedbacks yet..</h3>
+		<h3 class="text-center">No feedbacks yet..</h3>
 
 	@else
 					       

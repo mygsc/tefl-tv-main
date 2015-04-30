@@ -306,6 +306,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 </ul><!--video list-->
 
                     <div class="mg-t-10 same-H">
+                      <div class="h-title">
+                        <div class="row">
+                          Advertisements
+                      </div>
+                  </div>
                         @include('elements/home/carouselAds')
                     </div>
                     <div class="mg-t-10 mg-b-10 same-H">

@@ -1,7 +1,8 @@
-  <div class="panel panel-warning">
+  <br/>
+  <div class="panel panel-info">
   	<div class="panel-heading" role="tab" id="headingOne">
   		<p class="panel-title">
-  			<a class="whiteC" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+  			<a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
   				<i class="fa fa-video-camera"></i> Categories
   			</a>
   		</p>

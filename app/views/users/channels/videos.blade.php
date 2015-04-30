@@ -100,7 +100,7 @@
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12" style="margin-left:-10px;">
 						@if(empty($usersVideos))
-							No Videos yet.
+							<p class="text-center">No Videos yet.</p>
 						@else
 						@foreach($usersVideos as $usersVideo)
 						<div id='list' class="col-md-3 mg-b-10">

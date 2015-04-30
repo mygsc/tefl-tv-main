@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: #ecf3fb;
+    background-color: #F1F1F1;
     overflow-x: hidden!important;
 }
 
@@ -319,47 +319,45 @@ span .ad {
     z-index: 9999999999;
     margin-left: auto!important;
     margin-right: auto!important;
-    width: 80%;
+    width: 60%;
     margin-top: 30px;
     height: 100px;
     left: 0;
     right: 0;
 
 
+
 }
 .good{
-   border-top:20px solid #44b378;
-   border-left:1px solid #44b378;
-   border-right:1px solid #44b378;
-   border-bottom:1px solid #44b378;
-   background: #fff;  
+   border-top:1px solid #376d2e;
+   border-left:1px solid #376d2e;
+   border-right:1px solid #376d2e;
+   border-bottom:1px solid #376d2e;
+   background: #daeacf;  
    padding: 20px 20px 20px 20px;
 }
 .good p{
-    color: #44b378!important;
-    font-size: 18px;
+    color: #376d2e!important;
+    font-size: 16px;
 }
 .bad{
-    border-top:20px solid #b34444;
-    border-left:1px solid #b34444;
-    border-right:1px solid #b34444;
-    border-bottom:1px solid #b34444;
-    background: #fff;  
+    border:1px solid #8d313d;
+    background: #f1dddd;  
     padding: 20px 20px 20px 20px;
+
 }
 .bad p{
-    color: #b34444!important;
+    color: #8d313d!important;
+       font-size: 16px;
 }
 .warn{
-    border-top:20px solid #b39544;
-    border-left:1px solid #b39544;
-    border-right:1px solid #b39544;
-    border-bottom:1px solid #b39544;
-    background: #fff;  
+    border:1px solid #715c19;
+    background: #fef0c1;  
     padding: 20px 20px 20px 20px;
 }
 .warn p{
-    color: #b34444!important;
+    color: #715c19!important;
+       font-size: 16px;
 }
 .center {
     margin-left: auto!important;
@@ -450,7 +448,7 @@ img.logo-sm {
 .categoryNav {
     width: 100%;
     height: auto;
-    background: #3ea9cb;
+    background: #60B7D3;
     font-size: .75em;
     padding: 8px 0 0 0;
     display: block;
@@ -649,7 +647,7 @@ img.user {
     width: 100%!important;
     font-size: 16px;
     color: #fff;
-    background: #65c4d4;
+    background: #60B7D3;
     padding: 10px 10px;
     text-align: center;
     margin-top: 0;
@@ -885,6 +883,7 @@ center;     margin: 0 auto; }
 .orangeC {
     color: #f18200!important;
 }
+
 .Orange-bg{
     background:#f18200;
 }
@@ -2103,7 +2102,7 @@ body {
 }
 
 .notification-item:hover {
-    background: #bcbfd7;
+    background: #b8cae0;
 
 }
 .notification-item > a {
@@ -2632,6 +2631,52 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     display: inline-block;
 }
 
+.icon {
+    background-image: url(/img/icons/ico-social.png);
+    background-repeat: no-repeat;
+    display: inline;
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+
+.icon-fb {
+    width: 30px;
+    height: 30px;
+    background-position: -2px -2px;
+}
+
+.icon-gp {
+    width: 30px;
+    height: 30px;
+    background-position: -36px -2px;
+}
+
+.icon-ig {
+    width: 30px;
+    height: 30px;
+    background-position: -70px -2px;
+}
+
+.icon-ow {
+    width: 30px;
+    height: 30px;
+    background-position: -104px -2px;
+}
+
+.icon-sp {
+    width: 30px;
+    height: 30px;
+    background-position: -138px -2px;
+}
+
+.icon-tw {
+    width: 30px;
+    height: 30px;
+    background-position: -172px -2px;
+}
+
+
+
 .player {
     background-image: url('/img/icons/player.png');
     background-repeat: no-repeat;
@@ -2754,7 +2799,6 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 
 #featured ul.ui-tabs-nav li span {
     font-size: 12px;
-    font-family: Verdana;
     line-height: 18px;
 }
 
@@ -2769,7 +2813,7 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 }
 
 #featured li.ui-tabs-nav-item a:hover {
-    background: #bcbfd7;
+    background: #b8cae0;
     height:  110px;
     color: #fff;
 }

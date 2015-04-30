@@ -47,7 +47,7 @@
 						<img src="/img/user/0.jpg" class="userRep">
 						@endif
 					@endforeach
-					<a href="/channels/{{$channel->channel_name}}"><img src="/img/user/more.png" class="userRep hvr-glow hand"></a>
+					
 				</div>
 			</div><!--/.subscribers-->
 		</div><!--/.well-->
