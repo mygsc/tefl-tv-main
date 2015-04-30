@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-left col-sm-6"> 
-                    <div class="row">
-                        <ul class="ctgryNav mg-l--30">
+                    
+                        <ul class="ctgryNav">
                             <li>
                                 {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                             </li>
@@ -12,14 +12,14 @@
                                 {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
                             </li>
                             <li>
-                                {{ link_to_route('homes.random', 'Playlists', null, array('class' => '')) }}
+                                {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
                             </li>
                             <li>
                                 {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
                             </li>
                         </ul>
 
-                    </div>
+                   
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
                     <ul class="ctgryNav pull-right">
@@ -85,7 +85,7 @@
                 </li>
                 <li>{{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}</li>
-                <li>{{ link_to_route('homes.random', 'Random', null, array('class' => '')) }}</li>
+                <li>{{ link_to_route('homes.playlist', 'Random', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())

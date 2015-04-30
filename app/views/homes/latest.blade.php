@@ -5,7 +5,7 @@
 <div class="container h-minH ">
 	<div class="row">
 		<div class="col-lg-9 col-md-8 same-H White ">
-			<h1 class="orangeC">Latest Videos</h1>
+			<h1 class="tblue mg-b-20 mg-t-20">Latest Videos</h1>
 			@foreach($latestVideos as $latestVideo)
 			<div class="col-lg-4 col-md-4 col-sm-6 hidden-xs ">
 				<div class="p-relative">

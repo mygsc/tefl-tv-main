@@ -108,13 +108,13 @@ $(document).ready(function(){
             }
         });
 	});
-	$('.feedbacksarea').mouseover(function(e) {
-		e.preventDefault();
-		$('.nav_div').show();		
-	});
-	$('.feedbacksarea').mouseout(function() {
-		$('.nav_div').hide();
-	});
+	// $('.feedbacksarea').mouseover(function(e) {
+	// 	e.preventDefault();
+	// 	$('.nav_div').show();		
+	// });
+	// $('.feedbacksarea').mouseout(function() {
+	// 	$('.nav_div').hide();
+	// });
 
 	$('button.delete').click(function() {
 		var channel_id = $(this).find('#channel_id').val();
@@ -122,7 +122,7 @@ $(document).ready(function(){
 		var feedback_id = $(this).find('#feedback_id').val();
 		var deleteID = this.id;
 		$.ajax({
-			type: 'POST',
+			type: 'GET',
 			url: '/channels/delete-feedback',
 			cache: false,
 			context: this,

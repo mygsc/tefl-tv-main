@@ -7,7 +7,7 @@
 					<div class="div-coverDp">
 						<div class="uploaded_img pic-Dp">
 							@if(file_exists($picture))
-			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
+			                	{{HTML::image('img/user/'.Auth::User()->id.'.jpg'.'?'.rand(10,100), 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @else
 			                	{{HTML::image('img/user/0.jpg', 'alt', array('data-toggle' => 'modal', 'data-target' => '#display_picture', 'class' => 'pic-Dp'))}}
 			                @endif
@@ -60,8 +60,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="c-about" >
-				<div class="labelThis mg-t--20">
+			<div class="user-info" >
+				<div class="labelThis">
 					{{Auth::User()->channel_name}}
 				</div>
 				@if(empty($usersChannel->interests))

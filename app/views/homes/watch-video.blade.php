@@ -297,7 +297,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="col-md-6 col-sm-8 col-xs-4">
                                         <div ><span class="v-list">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('m-d-Y',strtotime($relation['created_at']))}}</span>
+                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span>
                                     </div>
                                 </div>
                                 </a>
@@ -306,6 +306,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 </ul><!--video list-->
 
                     <div class="mg-t-10 same-H">
+                      <div class="h-title">
+                        <div class="row">
+                          Advertisements
+                      </div>
+                  </div>
                         @include('elements/home/carouselAds')
                     </div>
                     <div class="mg-t-10 mg-b-10 same-H">

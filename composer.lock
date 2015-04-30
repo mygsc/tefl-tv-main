@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7dc54663392ee31a6ae3c55f20964cbd",
+    "hash": "3484b176d05cecca04e0162cb6db1750",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -165,23 +165,25 @@
         },
         {
             "name": "d11wtq/boris",
-            "version": "v1.0.10",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/borisrepl/boris.git",
+                "url": "https://github.com/d11wtq/boris.git",
                 "reference": "125dd4e5752639af7678a22ea597115646d89c6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/borisrepl/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
+                "url": "https://api.github.com/repos/d11wtq/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
                 "reference": "125dd4e5752639af7678a22ea597115646d89c6e",
                 "shasum": ""
             },
             "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
                 "ext-pcntl": "*",
                 "ext-posix": "*",
-                "ext-readline": "*",
-                "php": ">=5.3.0"
+                "ext-readline": "*"
             },
             "bin": [
                 "bin/boris"
@@ -193,11 +195,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A tiny, but robust REPL (Read-Evaluate-Print-Loop) for PHP.",
-            "time": "2015-03-01 08:05:19"
+            "time": "2014-01-17 12:21:18"
         },
         {
             "name": "doctrine/cache",
@@ -368,17 +366,69 @@
             "time": "2015-03-30 15:26:59"
         },
         {
-            "name": "intervention/image",
-            "version": "2.1.4",
+            "name": "hybridauth/hybridauth",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Intervention/image.git",
-                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4"
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/9c26a834ff7d1c2bb4e88f98228030eed26960d4",
-                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca",
+                "reference": "89e4dc3da3a55cf3ffb00a428c247ff2166dc7ca",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Hybrid": "hybridauth/"
+                },
+                "classmap": [
+                    "hybridauth/Hybrid"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(MIT or GPL-3.0+)"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "Open source social sign on PHP library.",
+            "homepage": "http://hybridauth.sourceforge.net",
+            "keywords": [
+                "OpenId",
+                "facebook",
+                "google",
+                "hybridauth",
+                "login",
+                "oauth",
+                "social",
+                "twitter",
+                "yahoo"
+            ],
+            "time": "2015-04-12 01:39:53"
+        },
+        {
+            "name": "intervention/image",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "6626d7624ac0895137a38c123943afedd0827efc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/6626d7624ac0895137a38c123943afedd0827efc",
+                "reference": "6626d7624ac0895137a38c123943afedd0827efc",
                 "shasum": ""
             },
             "require": {
@@ -421,7 +471,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-04-22 16:05:20"
+            "time": "2015-04-24 14:50:48"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -834,16 +884,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tchwork/utf8.git",
-                "reference": "01f0ed1628db7794e2d4e336f55a09daef4248a5"
+                "reference": "7287a6fb2c46a66ac6bfbaf0e4975229b27efcba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/utf8/zipball/01f0ed1628db7794e2d4e336f55a09daef4248a5",
-                "reference": "01f0ed1628db7794e2d4e336f55a09daef4248a5",
+                "url": "https://api.github.com/repos/tchwork/utf8/zipball/7287a6fb2c46a66ac6bfbaf0e4975229b27efcba",
+                "reference": "7287a6fb2c46a66ac6bfbaf0e4975229b27efcba",
                 "shasum": ""
             },
             "require": {
@@ -887,7 +937,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2015-01-29 08:36:50"
+            "time": "2015-04-26 09:51:43"
         },
         {
             "name": "php-ffmpeg/php-ffmpeg",

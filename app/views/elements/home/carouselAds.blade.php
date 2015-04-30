@@ -1,8 +1,4 @@
-  <div class="h-title">
-        <div class="row">
-          Advertisements
-        </div>
-    </div>
+
 <div class="di">
   <div id="carousel-example-generic" class="carousel slide greyDark" data-ride="carousel">
     <!-- Indicators -->

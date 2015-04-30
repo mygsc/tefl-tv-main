@@ -1,6 +1,6 @@
   <div class="row grey mg-t-10 same-H">
         
-            <div class="h-title Orange-bg"><!--From highest number of folloers-->
+            <div class="h-title dark"><!--From highest number of folloers-->
 
                Latest Uploads     
            </div>
@@ -20,7 +20,7 @@
                     @else
                     <img src="/img/thumbnails/video.png" alt="" />
                     @endif
-                    <h4>{{$ownerVideo->title}}</h4>
+                   <b>{{$ownerVideo->title}}</b>
                     <small><p class="text-justify">{{ Str::limit($ownerVideo->description, 60) }}</p></small><br/>
                     <div class="count">
                        <i class="fa fa-eye"></i> {{$ownerVideo->views}}  | <i class="fa fa-thumbs-up"></i> {{$likeownerVideos[$likeownerVideosCounter++]}} | <i class="fa fa-calendar"></i> {{$ownerVideo->created_at->toFormattedDateString()}}
