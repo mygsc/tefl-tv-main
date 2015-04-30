@@ -189,6 +189,7 @@ class UserController extends BaseController {
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
+			// return $usersVideos;
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
@@ -517,7 +518,8 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
-		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture'));
+		// return $userFeedbacks;
+		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
 
 	public function editplaylistTitle($id){
@@ -631,13 +633,14 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		$userFeedbacks = DB::table('users')->join('feedbacks', 'users.id', '=', 'feedbacks.user_id')->where('feedbacks.channel_id', $userChannel->id)->get();
+		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		return View::make('users.channels.feedbacks', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id'));
+
+		return View::make('users.channels.feedbacks', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id','var'));
 	}
 
 	public function postViewUsersFeedbacks() {
@@ -1282,11 +1285,12 @@ class UserController extends BaseController {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
+
 		$user = Website::where('user_id',$this->Auth->id)->first();
 		$user->$action = $userProfile->profileURL;
 		$user->save();
 
-		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected with'.$social.'!');
 		// echo 'ID: '.$userProfile->identifier.'<br/>';
 		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
 		// echo 'Email: '.$userProfile->email.'<br/>';

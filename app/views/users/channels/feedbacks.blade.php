@@ -64,8 +64,8 @@
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::check())
-				<div class="nav_div" style="display: none;">
+				@if(Auth::User()->id == $userFeedback->user_id)
+				<div class="nav_div">
 					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
 						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
 					</button>
