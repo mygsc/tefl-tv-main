@@ -4,8 +4,10 @@
         <div class="container hidden-xs hidden-sm">
             <div class="row">
                 <div class="col-md-6 hidden-sm hidden-xs ">
-                    <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
-          
+                     <div class="brandName">
+                    <a href="/"><img src="/img/nav-effect-b.png" class="text-left tefltv-logo" title="redirect to homepage"></a>
+                    <h1 class="inline orangeC"> tefltv.com</h1>
+                    </div>
                 </div>
 
                 <div class="col-md-6 col-sm-10 text-right col-xs-10">
@@ -17,7 +19,7 @@
                                {{--      {{ Form::select('type',array('Video' => 'Video', 'Playlist' => 'Playlist', 'Channel' => 'Channel'),'Video', array('style' => 'height:20px;', 
                                     'class' => 'cBox'))}} --}}
                                
-                                {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5')) }}
+                                {{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control col-md-5 input-search')) }}
                           
                             {{Form::close()}}
                             </div>
