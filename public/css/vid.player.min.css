@@ -193,6 +193,7 @@ div#controls{
   z-index: 2147483647;
 }
 
+
 div#progress-amount {
   display: block;
   height: 100%;
@@ -322,7 +323,7 @@ button#play{
   	padding:20px 10px 0px 15px; 
   	z-index: 2;
 }
- .play-icon{
+ div.play-icon{
  	margin: auto;  
   	position: absolute;
  	left:0;
@@ -333,11 +334,17 @@ button#play{
   	height: 16%;
   	cursor: pointer;
   	border-radius: 5px;
-  	/*background: rgba(27,27,27,0.6);*/
-  	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
+  	background: rgba(0,0,0,0.6);
 	padding-top: 10px;
 	padding-bottom: 10px;
-}.load-video{
+}div.triangle-icon {
+	width: 0; 
+	height: 0; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 30px solid #fff;
+}
+.load-video{
  	margin: auto;  
   	position: absolute;
  	left:0;

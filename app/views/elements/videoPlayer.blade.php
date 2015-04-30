@@ -10,7 +10,10 @@
 	<!--advertisement-->
 	{{-- <div class="video-ads" id="vid-annotation"></div> --}} 
 	{{-- <div id="vid-wrap"> --}}
-	<div class="play-icon" id="play-icon"></div>
+	<div class="play-icon" id="play-icon">
+		<div class="triangle-icon"></div>
+	</div>
+
 	<div class="load-video" id="loader"></div>
 	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#" id="retry-error">Retry.</a></small></div>
 	{{-- </div> --}}
