@@ -1,6 +1,6 @@
 @extends('layouts.default')
 	@section('meta')
-		<meta property="og:title" content="dynamic">
+		{{-- <meta property="og:title" content="dynamic">
 		<meta property="og:site_name" content="test.tefltv.com">
 		<meta property="og:description" content="dynamic">
 		<meta property="og:url" content="dynamic">
@@ -8,7 +8,7 @@
 		<meta property="og:type" content="video">
 		<meta property="og:video:width" content="500"> 
 		<meta property="og:video:height" content="300"> 
-		<meta property="og:video" content="test.tefltv.com"> 
+		<meta property="og:video" content="test.tefltv.com">  --}}
 		
 	@stop
 	@section('css')
