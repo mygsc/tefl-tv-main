@@ -65,7 +65,7 @@
 						<br/><br/><br/>
 						<div class="row">
 						@if($playlists->isEmpty())
-							No playlists yet
+							<p class="text-center">No playlists yet</p>
 						@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">

@@ -4,11 +4,7 @@
 	{{HTML::style('css/vid.player.css')}}
 @stop
 @section('content')
-<style type="text/css">
-	img{
-		width: 100%
-	}
-</style>
+
 <div class="container White h-minH">
 
 	<div class="col-md-8 col-md-offset-2">

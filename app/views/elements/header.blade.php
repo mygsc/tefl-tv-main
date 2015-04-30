@@ -5,6 +5,7 @@
             <div class="row">
                 <div class="col-md-6 hidden-sm hidden-xs ">
                     <a href="/"><img src="/img/nav-effect-b.png" class="text-left" title="redirect to homepage"></a>
+          
                 </div>
 
                 <div class="col-md-6 col-sm-10 text-right col-xs-10">

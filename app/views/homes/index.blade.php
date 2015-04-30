@@ -1,6 +1,6 @@
 @extends('layouts.default')
 	@section('meta')
-		<meta property="og:title" content="dynamic">
+		{{-- <meta property="og:title" content="dynamic">
 		<meta property="og:site_name" content="test.tefltv.com">
 		<meta property="og:description" content="dynamic">
 		<meta property="og:url" content="dynamic">
@@ -8,7 +8,7 @@
 		<meta property="og:type" content="video">
 		<meta property="og:video:width" content="500"> 
 		<meta property="og:video:height" content="300"> 
-		<meta property="og:video" content="test.tefltv.com"> 
+		<meta property="og:video" content="test.tefltv.com">  --}}
 		
 	@stop
 	@section('css')
@@ -54,9 +54,9 @@
 					<div class="col-md-5 ctgryDiv hidden-sm">
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						   @if(Auth::check())
-						  <div class="panel panel-warning">
+						  <div class="panel panel-info">
 						    <div class="panel-heading" role="tab" id="headingTwo">
-						      <p class="panel-title whiteC">
+						      <p class="panel-title">
 						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 						        <i class="fa fa-user"></i> My Channel
 						        </a>
@@ -77,15 +77,15 @@
 						    </div>
 						 </div>
 						 @endif
-						  <div class="panel panel-warning">
+						  <div class="panel panel-info">
 						    <div class="panel-heading" role="tab" id="headingOne">
 						      <p class="panel-title">
-						        <a class="whiteC" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						          <i class="fa fa-video-camera"></i> Categories
 						        </a>
 						      </p>
 						    </div>
-						    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+						    <div id="collapseOne" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
 						      <div class="panel-body" style="max-height:300px; overflow:auto;">
 						      	<span class="">
 									@if(!empty($categories))
@@ -222,8 +222,6 @@
 			
 		</div>
 		<br/>
-
-
 	</div><!--/.container page-->
 </div><!--first row-->
 @stop

@@ -48,15 +48,10 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				/*..start video conversion to low, normal and high as well as capture 3 thumbnail..*/
-				// $ffmpeg = '/usr/bin/ffmpeg';
-				// $success = shell_exec($ffmpeg '-i' $input['video'] '-vcodec libx264' '-vpre hq -crf 22 -threads 0' $destinationPath.DS.$fileName.DS.$fileName.'.mp4');
-				// // ffmpeg -i movie.mp4 -i subtitles.srt -map 0 -map 1 -c copy -c:v libx264 -crf 23 -preset veryfast output.mkv
-				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'],$destinationPath,$fileName);
-				/*..Return success to json type..*/
 				return Response::json(['file'=>$fileName]);
 			}
 		}
@@ -76,7 +71,7 @@ class VideoController extends BaseController {
 		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
 	}
 	private function convertVideoToHigh($videoFile, $destinationPath, $fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();
+		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -89,7 +84,7 @@ class VideoController extends BaseController {
 			
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
-		$ffmpeg = FFMpeg\FFMpeg::create();
+		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -101,7 +96,7 @@ class VideoController extends BaseController {
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
-		$ffmpeg = $this->ffmpegPath();$video = $ffmpeg->open($videoFile);
+		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -111,11 +106,28 @@ class VideoController extends BaseController {
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
-	private function ffmpegPath(){
-		FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
-			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe'
+	private function ffmpeg(){
+		return $ffmpeg = FFMpeg\FFMpeg::create([
+			'ffmpeg.binaries'=>'/usr/bin/ffmpeg',
+			'ffprobe.binaries'=>'/usr/bin/ffprobe',
+			'timeout'=>0,
+			'ffmpeg.threads'=>12,
 			]);
+	}
+	private function convertToMP4($videoFile, $destinationPath,$fileName, $w=320, $h = 240, $kbrate=200){
+		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
+		for($n=1; $n<=3; $n++){
+			$w = $w * $n;$h = $h * $n;
+			$video->filters()->resize(new FFMpeg\Coordinate\Dimension($w,$h))->synchronize();
+			$format = new FFMpeg\Format\Video\CustomVideo();
+			$format
+			    -> setKiloBitrate($kbrate)
+			    -> setAudioChannels(2)
+			    -> setAudioKiloBitrate(256);
+			$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.$n.'.mp4');
+			$kbrate = $kbrate * $n;
+			if($kbrate==400){$kbrate * $n - 200;}
+		}
 	}
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
@@ -136,7 +148,7 @@ class VideoController extends BaseController {
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload', '=cancelled');
+			return Redirect::route('get.upload', '=cancelled')->withFlashGood('Video uploading has been cancelled.');
 		}
 	}
 	public function deleteDirectory($dirname) {
