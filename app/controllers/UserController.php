@@ -1259,6 +1259,8 @@ class UserController extends BaseController {
 	}
 
 	public function viewSocial() {
+		// $web = 'facebook';
+		// return DB::table('websites')->where('user_id', $this->Auth->id)->pluck($web);
 		return View::make('testing');
 	}
 
@@ -1280,8 +1282,14 @@ class UserController extends BaseController {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
+		$user = Website::where('user_id',$this->Auth->id)->first();
+		$user->$action = $userProfile->profileURL;
+		$user->save();
 
-		dd($provider);
-
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
+		// echo 'ID: '.$userProfile->identifier.'<br/>';
+		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
+		// echo 'Email: '.$userProfile->email.'<br/>';
+		// echo 'displayName: '.$userProfile->displayName.'<br/>';
 	}
 }
