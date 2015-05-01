@@ -1,5 +1,5 @@
 	<!--advertisement-->
-	<div class="advertisement" style="display:none">
+	<div class="advertisement" id='advertisement' style="display:none">
 		<div class="span12" style="background:rgba(0,0,0, 0.15)">
 			<div class="col-md-10 col-md-offset-1">
 				<span class="close">x</span> 
@@ -15,7 +15,15 @@
 	</div>
 
 	<div class="load-video" id="loader"></div>
-	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#" id="retry-error">Retry.</a></small></div>
+	<div class="error-video" id="error-video">
+		<small>
+			Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
+		</small>
+	</div>
+
+	<div id='ads-hide'>
+		<center>ads</center>
+	</div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">

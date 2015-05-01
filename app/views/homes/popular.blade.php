@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
+<div class="row animated slideInLeft White">
 <div class="container h-minH">
 	<div class="row">
 		<div class="col-lg-9 col-md-8 same-H White ">
@@ -34,6 +35,7 @@
 		</div>
 		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
 			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
 				<div>
 					@include('elements/home/carouselAds')
 				</div>
@@ -44,5 +46,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 @stop

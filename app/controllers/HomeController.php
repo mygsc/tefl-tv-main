@@ -11,40 +11,25 @@ class HomeController extends BaseController {
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
 	}
+	public function getAboutUs() { return View::make('homes.aboutus'); }
+	public function getPrivacy() { return View::make('homes.privacy'); }
+	public function getTermsAndConditions() { return View::make('homes.termsandconditions'); }
+	public function getAdvertisements() { return View::make('homes.advertisements'); }
+	public function getCopyright() { return View::make('homes.copyright'); }
+
+	public function postPlaylist() { return View::make('homes.playlist'); }
+	public function getChannels() { return View::make('homes.channels'); }
+	public function getSignIn() { return View::make('homes.signin'); }
+	public function getWatchVideo() { return View::make('homes.advertisements'); }
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', 8);
-		$populars = $this->Video->getFeaturedVideo('popular', '8');
-		$latests = $this->Video->getFeaturedVideo('latest', '8');
-		$randoms = $this->Video->getFeaturedVideo('random', '8');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
+		$populars = $this->Video->getFeaturedVideo('popular', '9');
+		$latests = $this->Video->getFeaturedVideo('latest', '9');
+		$randoms = $this->Video->getFeaturedVideo('random', '9');
 		$categories = $this->Video->getCategory();
 		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
-	}
-
-	public function getAboutUs() {
-
-		return View::make('homes.aboutus');
-	}
-
-	public function getPrivacy() {
-
-		return View::make('homes.privacy');
-	}
-
-	public function getTermsAndConditions() {
-
-		return View::make('homes.termsandconditions');
-	}
-
-	public function getAdvertisements() {
-
-		return View::make('homes.advertisements');
-	}
-
-	public function getCopyright() {
-
-		return View::make('homes.copyright');
 	}
 
 	public function getPopular() {
@@ -73,23 +58,6 @@ class HomeController extends BaseController {
 		//return (microtime(true) - LARAVEL_START);;
 		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
 		return View::make('homes.playlist', compact(array('options', 'playlists')));
-	}
-
-	public function postPlaylist() {
-		return View::make('homes.playlist');
-	}
-
-	public function getChannels() {
-
-		return View::make('homes.channels');
-	}
-	
-	public function getSignIn() {
-
-		return View::make('homes.signin');
-	}
-	public function getWatchVideo() {
-		return View::make('homes.advertisements');
 	}
 
 	public function watchVideo($idtitle=null){
@@ -132,7 +100,7 @@ class HomeController extends BaseController {
 
 			}
 		}
-		//return $newRelation;
+
 		if(isset(Auth::User()->id)){
 			$playlists = $this->Playlist->playlistchoose($id);
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
@@ -145,7 +113,6 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$dislike = UserDislike::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-		//return $playlists;
 
 		}
 		else{
@@ -158,9 +125,8 @@ class HomeController extends BaseController {
 		}
 		$likeCounter = UserLike::where('video_id','=',$id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
-//return (microtime(true) - LARAVEL_START);
 
-		//r3mmel
+		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 		->where('comments.video_id', $videoId)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
@@ -168,7 +134,7 @@ class HomeController extends BaseController {
 		if(isset(Auth::User()->id)) {
 			$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id,'subscriber_id' => Auth::User()->id))->first();
 		}
-		//r3mmel
+		//////////////////////r3mmel////////////////////////////
 
 		$datas = $this->User->getTopChannels(4);
   		//Insert additional data to $datas
@@ -221,7 +187,7 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$dislike = null;
 		}
-		//return (microtime(true) - LARAVEL_START);
+		
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$likeCounter = UserLike::where('video_id','=',$video->id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$video->id)->count();
@@ -330,30 +296,30 @@ class HomeController extends BaseController {
 
 					<div id="replysection" class="panelReply"> '.
 						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-						<input type="hidden" name="comment_id" value="'.$comments->id.'">
-						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-						<input type="hidden" name="video_id" value="'.$video_id.'">
-						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+							<input type="hidden" name="comment_id" value="'.$comments->id.'">
+							<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+							<input type="hidden" name="video_id" value="'.$video_id.'">
+							<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+							<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
 
-						<span class="replyError inputError"></span>
-					</form>
+							<span class="replyError inputError"></span>
+						</form>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<hr/>
-	';
+			<hr/>
+			';
 
-	return Response::json(array(
-		'status' => 'success',
-		'comment' => $comment,
-		'video_id' => $video_id,
-		'user_id' => $user_id,
-		'comment' => $newComment
-		));
-}
-}
+			return Response::json(array(
+				'status' => 'success',
+				'comment' => $comment,
+				'video_id' => $video_id,
+				'user_id' => $user_id,
+				'comment' => $newComment
+			));
+		}
+	}
 
 public function addReply(){
 	$reply = trim(Input::get('txtreply'));

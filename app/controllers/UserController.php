@@ -248,6 +248,10 @@ class UserController extends BaseController {
 			}
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1)->first();
+
+			// $ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => 6, 'subscriber_id' => 1))->first();
+			// return $ifAlreadySubscribe;
+
 			return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture'));
 		}
 	}
@@ -414,13 +418,15 @@ class UserController extends BaseController {
 				}
 				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
-			$id = Crypt::decrypt($id);
-			$video = Video::find($id);
+
+			//$id = Crypt::decrypt($id);
+			$video = Video::where('file_name',$id)->first();
+			$id = $video->file_name;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
 			if($input['new_tags'] != null){
-				$video_tag = Video::where('id',$id)->first()->toArray();
+				$video_tag = Video::where('file_name',$id)->first()->toArray();
 				$new_tags = explode(',',$input['new_tags']);
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
@@ -434,7 +440,7 @@ class UserController extends BaseController {
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashGood('Successfully updated');
+			return Redirect::route('video.edit.get',$id)->withFlashGood('Successfully updated');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
