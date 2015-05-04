@@ -100,7 +100,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
 	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
 	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
-
+	Route::get('delete-feedback/', array('as' => 'post.users.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
 
@@ -121,7 +121,7 @@ Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channe
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
-Route::get('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@postDeleteFeedback'));
+Route::get('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {

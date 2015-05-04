@@ -125,36 +125,15 @@
 
 						<span class="repLink hand">{{$userFeedback->getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 					@else
-
 						<span class="likescount" id="likescount">{{$userFeedback->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$userFeedback->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
-						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
-							->where('feedback_id', $userFeedback->id)->count(); 
-						?>
 						<span class="repLink hand">{{$userFeedback->getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
-					<?php
-						$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
-							->orderBy('feedbacks_replies.created_at', 'asc')
-							->where('feedback_id', $userFeedback->id)->get(); 
-					?>
 					<div id="replysection" class="panelReply">
-						
-							<?php
-							foreach($getFeedbackReplies as $getFeedbackReply):
-								if(file_exists(public_path('img/user/'.$getFeedbackReply->user_id . '.jpg'))){
-									$temp = 'img/user/'.$getFeedbackReply->user_id . '.jpg';
-								} else{
-									$temp = 'img/user/0.jpg';
-								}
-								?>
 
 								<div class="feedbackProfilePic col-md-1">
-									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+									{{HTML::image($userFeedback->$img, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
 								</div>
 								<div class="col-md-11">
 									<div class="row">

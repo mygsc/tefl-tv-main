@@ -123,7 +123,7 @@ $(document).ready(function(){
 		var deleteID = this.id;
 		$.ajax({
 			type: 'GET',
-			url: '/channels/delete-feedback',
+			url: '/mychannels/delete-feedback',
 			cache: false,
 			context: this,
 			data: {channel_id: channel_id, user_id: user_id, feedback_id: feedback_id, id: deleteID},

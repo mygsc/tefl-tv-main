@@ -834,20 +834,16 @@ public function postAddDisLiked(){
 	}
 }
 
-public function postDeleteFeedback() {
+public function getDeleteFeedback() {
 
 	$channelId = Input::get('channel_id');
 	$userId = Input::get('user_id');
 	$feedback_id = Input::get('feedback_id');
 
 
-	$deleteFeedback = DB::table('feedbacks')->where(
-		array('channel_id' => $channelId,
-			'user_id'    => $userId,
-			'id' => $feedback_id
-			))->delete();
+	$deleteFeedback = DB::table('feedbacks')->where('id',$feedback_id)->delete();
 
-	return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
+	return Response::json(array('status' => 'sucess', 'id' => $feedback_id));
 }
 
 public function postSpamFeedback() {
