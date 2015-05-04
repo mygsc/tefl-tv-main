@@ -77,16 +77,10 @@
 				</div>
 				@endif
 
-				<?php
-					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
-						$temp = 'img/user/'.$userFeedback->user_id . '.jpg';
-					} else{
-						$temp = 'img/user/0.jpg';
-					}
-				?>
+	
 
 				<div class="feedbackProfilePic col-md-1">
-					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+					{{HTML::image($userFeedback->img, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
 				</div>
 				<div class="col-md-11">
 					<div class="row">
@@ -99,23 +93,9 @@
 		
 					
 					@if(isset(Auth::User()->id))
-						<?php
-							$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
-							$dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
 
-							$ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
-								'feedback_id' => $userFeedback->id, 
-								'user_id' => Auth::User()->id,
-								'status' => 'liked'
-							))->first();
-							$ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
-								'feedback_id' => $userFeedback->id, 
-								'user_id' => Auth::User()->id,
-								'status' => 'disliked'
-							))->first();
-						?>
 						<div class='fa likedup'>
-							@if(!$ifAlreadyLiked)
+							@if(!$userFeedback->ifAlreadyLiked)
 								<span class='fa-thumbs-up'></span>
 								<input type="hidden" value="liked" name="status">
 							@else
@@ -125,42 +105,35 @@
 							<input type="hidden" value="{{$userFeedback->id}}" name="likeFeedbackId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 
-							<span class="likescount" id="likescount">{{$likesCount}}</span>
+							<span class="likescount" id="likescount">{{$userFeedback->likesCount}}</span>
 						</div>
 						&nbsp;
 						<div class='fa dislikedup'>
 							<input type="hidden" value="{{$userFeedback->id}}" name="dislikeFeedbackId">
 							<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
 
-							@if(!$ifAlreadyDisliked)
+							@if(!$userFeedback->ifAlreadyDisliked)
 								<input type="hidden" value="disliked" name="status">
 								<span class='fa-thumbs-down'></span>
 							@else
 								<input type="hidden" value="undisliked" name="status">
 								<span class='fa-thumbs-down redC'></span>
 							@endif
-							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
+							<span class="dislikescount" id="dislikescounts">{{$userFeedback->dislikeCount}}</span> &nbsp;
 						</div>
 						&nbsp;
-						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
-							->where('feedback_id', $userFeedback->id)->count(); 
-						?>
-						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
+
+						<span class="repLink hand">{{$userFeedback->getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 					@else
-						<?php
-							$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
-							$dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
-						?>
-						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
-						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+
+						<span class="likescount" id="likescount">{{$userFeedback->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+						<span class="dislikescount" id="dislikescounts">{{$userFeedback->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 						<?php 
 							$getFeedbackReplies = DB::table('feedbacks_replies')
 							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
 							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
-						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
+						<span class="repLink hand">{{$userFeedback->getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
