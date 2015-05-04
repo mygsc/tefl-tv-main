@@ -41,7 +41,7 @@ $(document).ready(function(){
 						$('#playlistName').off("mouseleave");
 						$('#playlistDesc').off("mouseenter");
 						$('#playlistDesc').off("mouseleave");
-						$('#playlistName').append('<div><input type="text" id="new_playlistName" style="width:150px"value="'+$('#playlistName').text().trim()+'"><input type="button" id="cancel" value="Cancel" class="btn btn-danger"><input type="button" id="submitEdit" value="Update" class="btn btn-info"></div>');
+						$('#playlistName').append('<div><input type="text" id="new_playlistName" style="width:300px"value="'+$('#playlistName').text().trim()+'"><input type="button" id="cancel" value="Cancel" class="btn btn-warning"><input type="button" id="submitEdit" value="Update" class="btn btn-info"></div>');
 						$('#submitEdit').click(function(e){
 							var name = $('#new_playlistName').val()
 							var encrypt = $('#encrypt').val();
@@ -80,7 +80,7 @@ $(document).ready(function(){
 					$('#playlistDesc').off("mouseleave");
 					$('#playlistName').off("mouseenter");
 					$('#playlistName').off("mouseleave");
-					$('#playlistDesc').append('<div ><textarea id="new_playlistDesc">'+$('#playlistDesc').text().trim()+'</textarea><input type="button" id="cancelDesc" value="Cancel" class="btn btn-danger"><input type="button" id="submitEditDesc" value="Update" class="btn btn-info"></div>');
+					$('#playlistDesc').append('<div ><textarea id="new_playlistDesc" class="plist-desc">'+$('#playlistDesc').text().trim()+'</textarea><div class="mg-t-10 text-right"><input type="button" id="cancelDesc" value="Cancel" class="btn btn-warning">&nbsp;<input type="button" id="submitEditDesc" value="Update" class="btn btn-info"></div></div>');
 					$('#submitEditDesc').click(function(e){
 						var description = $('#new_playlistDesc').val();
 						var encrypt = $('#encrypt').val();

@@ -1,4 +1,4 @@
-<div class="categoryNav hidden-sm hidden-xs">
+<div class="categoryNav hidden-sm hidden-xs animated slideInRight">
     <div class="row">
         <div class="container">
             <div class="row">

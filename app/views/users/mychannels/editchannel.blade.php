@@ -10,6 +10,7 @@
               <div class="well White div-change same-H">
                 <div class="row">
                     <div class="text-center">
+                        <br/>
                         <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
@@ -56,7 +57,7 @@
                             <div class="col-md-12 ">
                                 <h3 class="orangeC text-center">-Personal Information-</h3>
                                 <div class="well2">
-                                    <div class="row">
+                                    <div class="row textbox-layout">
                                         <div class="col-md-6">
                                             {{Form::label('first_name', '*Firstname: ')}}
                                             <span class="inputError">{{$errors->first('first_name')}}</span>

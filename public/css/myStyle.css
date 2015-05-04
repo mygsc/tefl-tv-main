@@ -217,7 +217,9 @@ p.description_content {
     margin-left: auto;
     margin-right: auto;
 }
-
+.plist-desc{
+    height: 95px!important;
+}
 textarea.textEditor {
     height: 700px!important;
 }
