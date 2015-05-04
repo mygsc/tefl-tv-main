@@ -10,7 +10,7 @@ class Feedback extends Eloquent {
 			$limit = 'LIMIT '.$limit;
 		}
 
-		$feedbacks = Feedback::select('feedbacks.id','channel_id','user_id','report', 'feedback','feedbacks.created_at','feedbacks.updated_at','users.channel_name')
+		$feedbacks = Feedback::select('feedbacks.id','channel_id','user_id', 'feedback','feedbacks.created_at','feedbacks.updated_at','users.channel_name')
 		->join('users', 'users.id', '=', 'user_id')
 		->where('channel_id',$auth)
 		->get();

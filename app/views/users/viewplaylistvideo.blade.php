@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H">
+		<div class="row same-H White">
 		{{-- */$playlistCounter = 1;/* --}}
 			@include('elements/users/profileTop2')
 
