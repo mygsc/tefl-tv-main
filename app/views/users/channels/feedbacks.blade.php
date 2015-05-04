@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="row">
-	<div class="container page">
+	<div class="container page White">
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop2')
 			<br/>
-			<div class="White channel-content">
+			<div class=" channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -25,64 +25,52 @@
 				<div class="feedbackSection content-padding">
 					
 	@if(empty($userFeedbacks))
-		
+		<div class="mg-t-10">
 		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/>
-		<div class="text-right">
-			@if(!Auth::check())
-				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-			@else
-				<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
-				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
-			
-			@endif
+			<div class="text-right">
+				@if(!Auth::check())
+					{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
+				@else
+
+					<button id='btnfeedback' class="btn btn-info mg-t-20">Post</button>
+					{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
+					{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
+				
+				@endif
+			</div>
 		</div>
 		<h3 class="text-center">No feedbacks yet..</h3>
 
 	@else
 					       
-	<div class="feedbacks row">
-		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-		<span id='errorlabel' class='input-error'></span>
-		<br/>
-		<div class="text-right">
-			@if(!Auth::check())
-				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-			@else
-				<button id='btnfeedback' class="btn btn-info">Post</button>
-				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
-			
-			@endif
+	<div class="feedbacks row mg-t-20">
+		<div class="col-md-12">
+			<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
+			<span id='errorlabel' class='input-error'></span>
+			<br/>
+			<div class="text-right">
+				@if(!Auth::check())
+					{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
+				@else
+					<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
+					{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
+					{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
+				
+				@endif
+			</div>
 		</div>
-
-	<div class="col-md-12 feedbacksarea">
+	<div class="col-md-12 feedbacksarea mg-t-20">
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::User()->id == $userFeedback->user_id)
-				<div class="nav_div">
-					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
-						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
-					</button>
-					<button class="delete pull-right" id="feedback{{$userFeedback->id}}">x	
-						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
-						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
-						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
-					</button>
-				</div>
-				@endif
-
-	
-
 				<div class="feedbackProfilePic col-md-1">
 					{{HTML::image($userFeedback->img, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
 				</div>
-				<div class="col-md-11">
+				<div class="col-md-9">
 					<div class="row">
 					{{ link_to_route('view.users.channel', $userFeedback->channel_name, $parameters = array($userFeedback->channel_name), $attributes = array('id' => 'channel_name')) }}
 					| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($userFeedback->created_at)); ?></small> 
@@ -175,7 +163,7 @@
 								{{Form::hidden('user_id', Auth::User()->id)}}
 								@endif
 								{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply', 'placeholder' => 'Leave a reply...'))}}
-								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+								{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right mg-t-10', 'id'=>'replybutton'))}}
 
 								<span class='replyError inputError'></span>
 							{{Form::close()}}
@@ -183,6 +171,21 @@
 					</div><!--/.reply section-->
 				</div><!--/.col-md-10-->
 				</div><!--/.row-->
+				<div class="col-md-2">
+						@if(Auth::User()->id == $userFeedback->user_id)
+				<div class="nav_div">
+					<button class="spam fa fa-flag pull-right btn btn-ico" id="spam{{$userFeedback->id}}">
+
+						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
+					</button>
+					<button class="delete pull-right btn btn-ico fa fa-trash" id="feedback{{$userFeedback->id}}">	
+						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
+						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
+					</button>
+				</div>
+				@endif
+				</div>
 			</div><!--/.feedbacksrowarea-->
 			<hr/>
 

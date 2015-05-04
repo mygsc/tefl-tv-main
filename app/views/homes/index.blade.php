@@ -25,7 +25,7 @@
 		<div class="row">	
 			<div class="col-md-6" style="">
 				<div class="mg-l-10">
-					<div class="row  vid-wrapper">
+					<div class="row  vid-wrapperb p-relative">
 						<div id="vid-controls">
 							<div class="embed-responsive embed-responsive-16by9 n-mg-b">
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
@@ -34,7 +34,10 @@
 									<source id='ogg' src='/videos/tefltv.ogvq' type='video/ogg'> 
 								</video>	
 							</div><!--/embed-responsive-->
-							@include('elements/videoPlayer')
+							<div class="n-mg-b">
+								@include('elements/videoPlayer')
+							</div>
+							
 						</div>
 		    		</div><!--/.row-->
     			</div>
