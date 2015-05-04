@@ -29,10 +29,10 @@
                         {{Form::hidden('subscriber_id', Auth::User()->id)}}
                         @if(!$ifAlreadySubscribe)
                         {{Form::hidden('status','subscribeOn')}}
-                        {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right mg-r-10', 'id'=>'subscribebutton'))}}
+                        {{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-sm pull-right mg-r-10', 'id'=>'subscribebutton'))}}
                         @else
                         {{Form::hidden('status','subscribeOff')}}
-                        {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right mg-r-10', 'id'=>'subscribebutton'))}}
+                        {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right mg-r-10', 'id'=>'subscribebutton'))}}
                         @endif
                         {{Form::close()}}
                         @endif

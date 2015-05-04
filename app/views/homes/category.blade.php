@@ -6,7 +6,7 @@ Category: {{$category}} - TEFL-tv
 <div class="container h-minH ">
 	<div class="row">
 		<div class="col-lg-9 col-md-8 same-H White ">
-			<h1 class="orangeC">{{$category}}</h1>
+			<h1 class="mg-t-20 mg-b-20">{{$category}}</h1>
 				<div class="col-md-12">
 					@foreach($videos as $video)
 					<div class="col-lg-4 col-md-4 col-sm-6 hidden-xs ">

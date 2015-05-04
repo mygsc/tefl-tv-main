@@ -4,7 +4,7 @@
 	<div class="row">
 		<br/>
 		<div class="orangeC text-center">
-			<h2 class="inline"><b>VIDEOS</b></h2>
+			<h2 class="inline">VIDEOS</h2>
 		</div>
 		<br/>
 	</div>
