@@ -1,8 +1,8 @@
 <div class="categoryNav hidden-sm hidden-xs animated slideInRight">
     <div class="row">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-left col-sm-6"> 
+            <div class="">
+                <div class="col-md-6 col-sm-6"> 
                     
                         <ul class="ctgryNav">
                             <li>
@@ -22,7 +22,8 @@
                    
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
-                    <ul class="ctgryNav pull-right">
+                    <div class="row text-right">
+                    <ul class="ctgryNav">
                         @if(Auth::check())
                         <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                         <li>
@@ -48,6 +49,7 @@
                         <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                         @endif
                     </ul>
+                    </div>
                 </div><!--col-md-6 col-sm-6-->
             </div>
         </div><!--/.row-->
