@@ -66,17 +66,7 @@
 		$('.desc').removeClass('hide');
 	});
 </script>
-<script type="text/javascript">
-	$('.cancelBtn').click(function() {
-		$('.signDivH').addClass('hidden');
-		$('.loginDivH').removeClass('hidden').addClass('animated zoomIn');
 
-	});
-	$('.signBtn').click(function() {
-		$('.signDivH').removeClass('hidden').addClass('animated zoomIn');
-		$('.loginDivH').addClass('hidden');
-	});
-</script>
 <!-- Facebook Login -->
 <div id="fb-root"></div>
         <script type="text/javascript">

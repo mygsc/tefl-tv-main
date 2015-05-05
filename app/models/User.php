@@ -67,7 +67,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'email' => 'required|email|unique:users,email',
 		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
 		'password' => 'required',
-		'confirm_password' =>'same:password',
+		'confirm_password' =>'same:password|required',
 		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
 		'contact_number' => 'regex:/(^[+0-9]+$)+/');
@@ -85,44 +85,95 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $userLoginRules = array('channel_name1' => 'required', 'password' => 'required');
 
-	public function signup($token) {
+	/**
+	*Save a users information to users database
+	*@param $input 				array of information to be save in database
+	*		$social_media_type	indicate whether your using facebook or gooole as sign up(null means you didnt use any)
+	*		$social_media_id	provide the social media id that is used to connect here
+	*@return bolean true
+	*@throws app::error('message')
+	*/
+	public function signup($input,$social_media_type = null, $social_media_id = null) {
+
+		if(!isset($input)){
+			App::abort('Something went wrong please try again later');
+		}
+
+		$contact_number = null;
+		if(!empty($input['contact_number'])){
+			$contact_number = $input['contact_number'];
+		}
+
+		$token = null;
+		if(isset($input['token'])){
+			$token = $input['token'];
+		}
+
+		$account_status = 0;
+		if(!empty($social_media_type)){
+			$account_status = 1;
+		}
+
+		$facebook_account = null;
+		$google_account = null;
+		if($social_media_type == 'facebook'){
+			$facebook_account = $social_media_id;
+		}
+
+		if($social_media_type == 'google'){
+			$google_account = $social_media_id;
+		}
+
 		$user = new User;
-		$user->email = Input::get('email');
-		$user->channel_name = Input::get('channel_name');
-		$user->password = Hash::make(Input::get('password'));
+		$user->email = $input['email'];
+		$user->channel_name = $input['channel_name'];
+		$user->password = Hash::make($input['password']);
 		$user->token = $token;
+		$user->verified = $account_status;
+		$user->status = $account_status;
+		$user->role = 1;
 		$user->save();
 
 
 		$userProfile = new UserProfile;
-		$userProfile->first_name = Input::get('first_name');
+		$userProfile->first_name = $input['first_name'];
 		$userProfile->user_id = $user->id;
-		$userProfile->last_name = Input::get('last_name');
-		$userProfile->contact_number = Input::get('contact_number');
+		$userProfile->last_name = $input['last_name'];
+		$userProfile->contact_number = $contact_number;
 		$userProfile->save();
 
 		$website = new Website;
 		$website->user_id = $user->id;
+		$website->gmail = $google_account;
+		$website->facebook = $facebook_account;
 		$website->save();
 
 		return true;
 	}
-	
-	public function getRandomChannels(){
-		return db::select('SELECT users.id, users.channel_name, users.organization, users_profile.interests, 
-			videos.user_id, SUM(videos.views) AS total
-			FROM videos INNER JOIN users ON 
-			videos.user_id = users.id
-			INNER JOIN users_profile ON
-			videos.user_id = users_profile.user_id 
-			GROUP BY videos.user_id 
-			ORDER BY RAND()
-			LIMIT 16
-			');
+
+	/**
+	*@param $social_media_id 		Contains the social media use by the user to sign in
+	*@return $user 					Contains informations of the user who signed in
+	*@throws boolean false
+	*/
+	public function signInWithSocialMedia($social_media_id){
+		$find_social_media_account = Website::where('gmail', $social_media_id)->orWhere('facebook', $social_media_id)->get();
+		if($find_social_media_account->isEmpty()){
+			return false;
+		}
+
+		$user = User::find($find_social_media_account->first()->user_id);
+		Auth::login($user);
+
+		return $user;
 	}
 
 	public function getTopChannels($limit = null){
-		$userData = User::select('users.id','channel_name','organization','interests',
+		$userData = User::select(
+			'users.id',
+			'channel_name',
+			'organization',
+			'interests',
 			DB::raw('(SELECT sum(videos.views) from videos where videos.user_id = users.id) as views'),
 			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
 		->take($limit)
@@ -170,21 +221,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return true;
 	}
 
+	/**
+	*@param $password    	contains new password
+	*       $user_id 		contains the id of the user you want to change the password
+	*@return boolean true
+	*@throws App::abort('message')
+	*/
 	public function renewPassword($password = null, $user_id = null){
-		if(!empty($password) && !empty($user_id)){
-			$user = User::find($user_id);
-			$user->password = Hash::make($password);
-
-			if($user->verified == '0'){
-				$generateToken = Crypt::encrypt($user->email + rand(10,100));
-				$user->token = $generateToken;
-			}else{
-				$user->token = null;
-			}
-
-			$user->save();
-			return true;
+		if(empty($password) || empty($user_id)){
+			App::abort('Something went wrong please try again later');
 		}
-		return false;
+
+		$generateToken = null;
+		if($user->verified == '0'){
+			$generateToken = Crypt::encrypt($password + rand(10,100));
+		}
+
+		$user = User::find($user_id);
+		$user->password = Hash::make($password);
+		$user->token = $generateToken;
+		$user->save();
+
+		return true;
 	}
 }
