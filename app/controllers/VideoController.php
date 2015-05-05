@@ -52,7 +52,7 @@ class VideoController extends BaseController {
 				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'],$destinationPath,$fileName);
-				return Response::json(['file'=>$fileName]);
+				return Response::json(['file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
 			}
 		}
 		/*..Return with errors it doesn't pass the validation..*/
@@ -79,8 +79,10 @@ class VideoController extends BaseController {
 		//     echo "$percentage % transcoded";
 		// });
 		$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();
+			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$ogg = new FFMpeg\Format\Video\Ogg();
+			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
@@ -111,6 +113,14 @@ class VideoController extends BaseController {
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	private function ffmpeg(){
+		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
+    		return $ffmpeg = FFMpeg\FFMpeg::create([
+			'ffmpeg.binaries'=>'C:\usr\bin\ffmpeg',
+			'ffprobe.binaries'=>'C:\usr\bin\ffprobe',
+			'timeout'=>0,
+			'ffmpeg.threads'=>12,
+			]);
+		} 
 		return $ffmpeg = FFMpeg\FFMpeg::create([
 			'ffmpeg.binaries'=>'/usr/bin/ffmpeg',
 			'ffprobe.binaries'=>'/usr/bin/ffprobe',

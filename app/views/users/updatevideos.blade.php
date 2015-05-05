@@ -140,7 +140,7 @@
 							<div class="col-md-5">
 								<br/>
 								
-								<div id="vid-controls">
+								<div id="vid-controls" class="p-relative">
 
 									<div class="embed-responsive embed-responsive-16by9">
 										

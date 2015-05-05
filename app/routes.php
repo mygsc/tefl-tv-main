@@ -16,6 +16,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
+	Route::post('add-description/{id}',array('before'=>'auth','as' => 'post.add.description', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
@@ -47,6 +48,11 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
 	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
+	Route::get('signin/facebookconnect', array('as' => 'homes.facebookconnect', 'uses' => 'FacebookController@getFacebookConnect'));
+	Route::get('signin/authorizefacebook', array('as' => 'homes.authorizefacebook', 'uses' => 'FacebookController@getAuthorizeFacebook'));
+	Route::get('signin/googleconnect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
+	Route::get('signupwithsocialmedia', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
+	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
 });
 
 

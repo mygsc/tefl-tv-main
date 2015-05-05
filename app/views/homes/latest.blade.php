@@ -11,8 +11,9 @@
 				<div class="p-relative">
 					<span class="v-time inline">{{$latestVideo->total_time}}</span>
 					<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}" class="thumbnail-h">
-						<div class="thumbnail-2"> 
+						<div class="thumbnail-2">	
 							<img class="hvr-grow-rotate" src="{{$latestVideo->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
