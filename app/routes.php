@@ -48,6 +48,11 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
 	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
+	Route::get('signin/facebookconnect', array('as' => 'homes.facebookconnect', 'uses' => 'FacebookController@getFacebookConnect'));
+	Route::get('signin/authorizefacebook', array('as' => 'homes.authorizefacebook', 'uses' => 'FacebookController@getAuthorizeFacebook'));
+	Route::get('signin/googleconnect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
+	Route::get('signupwithsocialmedia', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
+	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
 });
 
 
