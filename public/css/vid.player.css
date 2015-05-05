@@ -5,7 +5,7 @@
 		padding:0 10px 8px 10px;
 		width: 100%!Important;
 		margin-top: 0;
-
+		border-top: 1px solid #000;
 	}#media-video{
 		width: 100%;
 		background: #000000;
@@ -90,6 +90,7 @@ div#progressbar #current-progress{
 	width: 0%;
 	border-radius:5px;
 	top:0;
+	z-index: 22222;
 }#loadbar > span{
 		position:absolute;
 		left:0;
