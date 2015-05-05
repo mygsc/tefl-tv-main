@@ -45,15 +45,6 @@
 
 			<div class="col-md-6 col-lg-height col-top">
                 <div class="row">
-                	<div class="col-md-7">
-	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
-	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
-	                    </div><!--/.ad1-->
-                    
-	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
-	                   </div><!--/.ad2-->
-                    </div>
 					<div class="col-md-5 ctgryDiv hidden-sm">
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						   @if(Auth::check())
@@ -89,7 +80,7 @@
 						      </p>
 						    </div>
 						    <div id="collapseOne" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body" style="max-height:300px; overflow:auto;">
+						      <div class="panel-body cat-h">
 						      	<span class="">
 									@if(!empty($categories))
 									@foreach($categories as $category)
@@ -103,6 +94,15 @@
 						  
 						</div>
 					</div>
+					<div class="col-md-7">
+	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
+	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
+	                    </div><!--/.ad1-->
+                    
+	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
+	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
+	                   </div><!--/.ad2-->
+                    </div>
 				</div><!--/.row of col4-->
 			</div>
 		</div><!--/.same-H-->
@@ -120,6 +120,7 @@
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
 									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
 									<div class="v-Info">
@@ -149,6 +150,7 @@
 						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
@@ -179,6 +181,7 @@
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
@@ -207,6 +210,7 @@
 						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">

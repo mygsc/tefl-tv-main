@@ -3,7 +3,12 @@
 @foreach($searchResults as $result)
 <div class="row">
 	<div class="col-md-4">
-		<a href="{{route('homes.watch-video', array($result->file_name))}}"><img src="{{$result->thumbnail}}"></a>
+		<a href="{{route('homes.watch-video', array($result->file_name))}}">
+		<div class="thumbnail-2">
+		<img src="{{$result->thumbnail}}"  class="hvr-grow-rotate" >
+		<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+		</div>
+		</a>
 	</div>
 	<div class="col-md-8">
 		<a href="{{route('homes.watch-video', array($result->file_name))}}">{{$result->title}}</a><br />
