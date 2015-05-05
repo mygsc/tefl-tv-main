@@ -47,8 +47,8 @@ $(document).ready(function(){
                     // window.location.href = "add-description!v="+response.file;
                     // $('#progress').fadeOut();
                     // $('#wrapper').fadeOut();  
-                    document.getElementById('post-save').action = 'add-description/'+response.file;
-                    document.getElementById('upload-status').html('Video has been uploaded successfully.').css({'color':'green'});
+                    document.getElementById('post-save').action = 'add-description/'+response.vidid;
+                    $('#upload-status').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
                     firstThumbnail.src = response.thumb1;
                     secondThumbnail.src = response.thumb2;
                     thirdThumbnail.src = response.thumb3;

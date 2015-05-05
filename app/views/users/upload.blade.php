@@ -61,7 +61,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
-								<h3 style="text-align:center">
+								<h3 id='upload-status' style="text-align:center">
 								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))}}
 								Uploading and converting your video it takes several minutes please wait...</h3>
 								<div class="embed-responsive embed-responsive-16by9 h-video">
