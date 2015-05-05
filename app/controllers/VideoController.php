@@ -117,8 +117,6 @@ class VideoController extends BaseController {
     		return $ffmpeg = FFMpeg\FFMpeg::create([
 			'ffmpeg.binaries'=>'C:\usr\bin\ffmpeg',
 			'ffprobe.binaries'=>'C:\usr\bin\ffprobe',
-			'timeout'=>0,
-			'ffmpeg.threads'=>12,
 			]);
 		} 
 		return $ffmpeg = FFMpeg\FFMpeg::create([
