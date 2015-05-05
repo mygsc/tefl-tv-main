@@ -16,7 +16,7 @@
 
 			 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 			 <div id="vid-wrapper">
-				 <div id="vid-controls">
+				 <div id="vid-controls" class="p-relative">
 					 <div class="embed-responsive embed-responsive-16by9">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')))
 						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >

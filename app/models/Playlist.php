@@ -27,9 +27,14 @@ class Playlist extends Eloquent {
 		foreach($playlists as $key => $playlist){
 			$playlist_item =PlaylistItem::select('file_name')
 			->where('playlist_id', $playlist->id)
+			->where('publish', 1)
+			->where('uploaded', 1)
+			->where('videos.deleted_at', null)
 			->join('videos', 'videos.id', '=', 'playlists_items.id')
 			->first();
+			if(isset($playlists_item)){
 			$playlists[$key]->video_id = $playlist_item->file_name;
+			}
 		}
 
 		return $playlists;
@@ -75,7 +80,8 @@ class Playlist extends Eloquent {
 		return $returvalue->get();
 	}
 
-	public function playlistvideos(){
+	public function playlistget(){
 
 	}
+
 }

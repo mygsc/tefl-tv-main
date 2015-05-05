@@ -1,14 +1,16 @@
 <?php
 
 class UserController extends BaseController {
-	public function __construct(User $user,
+	public function __construct(
+		User $user,
 		Subscribe $subscribes,
 		Notification $notification,
 		Video $video,
-		WatchLater $watchLater,
-		Favorite $favorite,
-		Feedback $feedback){
-
+		UserWatchLater $watchLater,
+		UserFavorite $favorite,
+		Feedback $feedback,
+		Playlist $playlist)
+	{
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -17,7 +19,7 @@ class UserController extends BaseController {
 		$this->WatchLater = $watchLater;
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
-
+		$this->Playlist = $playlist;
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -234,17 +236,11 @@ class UserController extends BaseController {
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
+			// return $usersVideos;
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
-				$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-					LEFT JOIN playlists_items i ON p.id = i.playlist_id
-					INNER JOIN videos v ON i.video_id = v.id
-					INNER JOIN users u ON v.user_id = u.id
-					WHERE i.playlist_id = '".$playlist->id."'
-					and v.deleted_at IS NULL
-					or v.report_count > 5
-					and v.publish = 1");
+				$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
@@ -373,7 +369,7 @@ class UserController extends BaseController {
 	}
 
 	public function postRemoveFavorites($id) {
-		$deleteFavorite = Favorite::find($id);
+		$deleteFavorite = UserFavorite::find($id);
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
@@ -397,7 +393,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
-		$findUsersVideos = Favorite::where('user_id', Auth::User()->id)->get();
+		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
@@ -489,7 +485,7 @@ class UserController extends BaseController {
 	}
 
 	public function postDeleteWatchLater($id) {
-		$deleteWatchLater = WatchLater::find($id);
+		$deleteWatchLater = UserWatchLater::find($id);
 		$deleteWatchLater->delete();
 		return Redirect::route('users.watchlater')->withFlashGood('Successfully deleted');
 	}
@@ -497,10 +493,10 @@ class UserController extends BaseController {
 	public function postWatchLater() {
 		$user_id = Input::get('user_id');
 		$video_id = Input::get('video_id');
-		$database_userid = WatchLater::where('user_id', $user_id)->first();
-		$database_videoid = WatchLater::where('video_id', $video_id)->first();
+		$database_userid = UserWatchLater::where('user_id', $user_id)->first();
+		$database_videoid = UserWatchLater::where('video_id', $video_id)->first();
 		if($user_id == $database_userid->user_id && $video_id == $database_videoid->video_id){
-			$watchlater = WatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
+			$watchlater = UserWatchLater::where(array('user_id' => $database_userid->user_id, 'video_id' => $database_videoid->video_id))->update(['status' => 1]);
 		}
 	}
 
@@ -515,14 +511,8 @@ class UserController extends BaseController {
 		->where('deleted_at','=',NULL)->get();
 
 		foreach($playlists as $playlist){
-			$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				INNER JOIN videos v ON i.video_id = v.id
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE i.playlist_id = '".$playlist->id."'
-				and v.deleted_at IS NULL
-				or v.report_count > 5
-				and v.publish = 1");
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
+
 		}
 		return View::make('users.mychannels.playlists', compact('countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture'));
 	}
@@ -549,15 +539,7 @@ class UserController extends BaseController {
 		}
 		$userChannel = User::find($owner->id);
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
-		$videos = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$id."'
-			and v.publish = '1'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			");
+		$videos =$this->Playlist->playlistControl(NULL,$id,NULL,NULL);
 		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
 
@@ -584,7 +566,8 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
-		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture'));
+		// return $userFeedbacks;
+		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
 
 	public function editplaylistTitle($id){
@@ -682,14 +665,7 @@ class UserController extends BaseController {
 		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1);
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		foreach($usersPlaylists as $playlist){
-			$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-				LEFT JOIN playlists_items i ON p.id = i.playlist_id
-				INNER JOIN videos v ON i.video_id = v.id
-				INNER JOIN users u ON v.user_id = u.id
-				WHERE i.playlist_id = '".$playlist->id."'
-				and v.deleted_at IS NULL
-				or v.report_count > 5
-				and v.publish = 1");
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 		}
 		//r3mmel
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -705,13 +681,43 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		$userFeedbacks = DB::table('users')->join('feedbacks', 'users.id', '=', 'feedbacks.user_id')->where('feedbacks.channel_id', $userChannel->id)->get();
+
+
+		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
+
+		foreach ($userFeedbacks as $key => $userFeedback) {
+			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
+			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
+			$userFeedbacks[$key]->dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
+
+			$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
+				'feedback_id' => $userFeedback->id, 
+				'user_id' => Auth::User()->id,
+				'status' => 'liked'
+				))->first();
+			$userFeedbacks[$key]->ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
+				'feedback_id' => $userFeedback->id, 
+				'user_id' => Auth::User()->id,
+				'status' => 'disliked'
+				))->first();
+
+			$userFeedbacks[$key]->getFeedbackReplies = DB::table('feedbacks_replies')
+			->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+			->where('feedback_id', $userFeedback->id)->count();
+
+			// foreach($replies->get() as $key => $reply){
+			// 	$replies->get()[$key]->img = $this->User->addProfilePicture($reply->user_id);
+			// }
+
+		}
+
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		return View::make('users.channels.feedbacks', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id'));
+
+		return View::make('users.channels.feedbacks', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id','var'));
 	}
 
 	public function postViewUsersFeedbacks() {
@@ -743,507 +749,559 @@ class UserController extends BaseController {
 			} else{
 				$temp = 'img/user/0.jpg';
 			}
-			$newFeedback =
-			'<div class="feedbacksarea row">
-			<div class="feedbackProfilePic col-md-1">'.
-				HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-			</div>
-			<div class="col-md-11">
-				<div class="row">'.
-					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
-					| &nbsp;<small> just now. </small>
-					<br/>
-					<p class="text-justify">
-						'. $feedbacks->feedback . '
-					</p>
-					<div class="fa fa-thumbs-up likedup">
-						<input type="hidden" value="'.$feedbacks->id.'" name="likeFeedbackId">
-						<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-						<input type="hidden" value="liked" name="status">
-						<span class="likescount" id="likescount">'.$likesCount.'</span>
+			$newFeedback ='
+			<div class="feedbacksarea row">
+				<div class="feedbackProfilePic col-md-1">'.
+					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+				</div>
+				<div class="col-md-11">
+					<div class="row">'.
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+						| &nbsp;<small> just now. </small> 
+						<br/>
+						<p class="text-justify">
+							'. $feedbacks->feedback . '
+						</p>
+						<div class="fa fa-thumbs-up likedup">
+							<input type="hidden" value="'.$feedbacks->id.'" name="likeFeedbackId">
+							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+							<input type="hidden" value="liked" name="status">
+							<span class="likescount" id="likescount">'.$likesCount.'</span>
+						</div>
+						|&nbsp;
+						<div class="fa fa-thumbs-down dislikedup">
+							<input type="hidden" value="'.$feedbacks->id.'" name="dislikeFeedbackId">
+							<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
+							<input type="hidden" value="disliked" name="status">
+							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+						</div>
+						|&nbsp;
+						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+						<div id="replysection" class="panelReply"> '.
+							Form::open(array("route"=>"post.viewusers.addreply-feedback", "class" => "inline")).'
+							<input type="hidden" name="feedback_id" value="'.$feedbacks->id.'">
+							<input type="hidden" name="user_id" value="'.$userInfo->id.'">>
+							<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+							<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">'.
+							Form::close().'
+						</div>
 					</div>
-					|&nbsp;
-					<div class="fa fa-thumbs-down dislikedup">
-						<input type="hidden" value="'.$feedbacks->id.'" name="dislikeFeedbackId">
-						<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
-						<input type="hidden" value="disliked" name="status">
-						<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-					</div>
-					|&nbsp;
-					<span class="repLink hand">0<i class="fa fa-reply"></i></span>
-					<div id="replysection" class="panelReply"> '.
-						Form::open(array("route"=>"post.viewusers.addreply-feedback", "class" => "inline")).'
-						<input type="hidden" name="feedback_id" value="'.$feedbacks->id.'">
-						<input type="hidden" name="user_id" value="'.$userInfo->id.'">>
-						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
-					</form>
 				</div>
 			</div>
-		</div>
-	</div>
-	<hr/>
-	';
-	return Response::json(array(
-		'status' => 'success',
-		'feedback' => $feedback,
-		'user_id' => $user_id,
-		'feedback' => $newFeedback
-		));
-}
-}
-
-
-public function postAddReplyFeedback(){
-	$reply = trim(Input::get('txtreply'));
-	$feedback_id = Input::get('feedback_id');
-	$user_id = Input::get('user_id');
-
-	if(empty($reply)){
-		return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
-	}
-	if(!empty($reply)){
-		$replies = new FeedbackReply;
-		$replies->feedback_id = $feedback_id;
-		$replies->user_id = $user_id;
-		$replies->reply = $reply;
-		$replies->save();
-
-		$userInfo = User::find($user_id);
-		if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
-			$temp = 'img/user/'. $user_id . '.jpg';
-		} else{
-			$temp = 'img/user/0.jpg';
+			<hr/>
+			';
+			return Response::json(array(
+				'status' => 'success',
+				'feedback' => $feedback,
+				'user_id' => $user_id,
+				'feedback' => $newFeedback
+				));
 		}
+	}
 
-		$newReply =
-		'<div class="commentProfilePic col-md-1">' .
-		HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", "width" => "48px")) .
-		'</div>
-		<div class="col-md-11">
-			<div class="row">' .
-				link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
-				'<small>just now.</small><br/>
-				<p style="text-align:justify;">' . $reply . '<br/>' . '</p></hr>
+
+	public function postAddReplyFeedback(){
+		$reply = trim(Input::get('txtreply'));
+		$feedback_id = Input::get('feedback_id');
+		$user_id = Input::get('user_id');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty($reply)){
+			$replies = new FeedbackReply;
+			$replies->feedback_id = $feedback_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+
+			$userInfo = User::find($user_id);
+			if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
+				$temp = 'img/user/'. $user_id . '.jpg';
+			} else{
+				$temp = 'img/user/0.jpg';
+			}
+
+			$newReply =
+			'<div class="commentProfilePic col-md-1">' .
+			HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", "width" => "48px")) .
+			'</div>
+			<div class="col-md-11">
+				<div class="row">' .
+					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
+					'<small>just now.</small><br/>
+					<p style="text-align:justify;">' . $reply . '<br/>' . '</p></hr>
+				</div>
 			</div>
-		</div>
-		';
+			';
+		}
+		return Response::json(array('status' => 'success', 'reply' => $newReply));
 	}
-	return Response::json(array('status' => 'success', 'reply' => $newReply));
-}
 
-public function postAddLiked(){
-	$likeFeedbackId = Input::get('likeFeedbackId');
-	$likeUserId = Input::get('likeUserId');
-	$statuss = Input::get('status');
+	public function postAddLiked(){
+		$likeFeedbackId = Input::get('likeFeedbackId');
+		$likeUserId = Input::get('likeUserId');
+		$statuss = Input::get('status');
 
-	if($statuss == 'liked'){
-		DB::table('feedbacks_likesdislikes')->insert(
-			array('feedback_id' => $likeFeedbackId,
-				'user_id'    => $likeUserId,
-				'status' 	   => 'liked'
-				)
-			);
-		$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
+		if($statuss == 'liked'){
+			DB::table('feedbacks_likesdislikes')->insert(
+				array('feedback_id' => $likeFeedbackId,
+					'user_id'    => $likeUserId,
+					'status' 	   => 'liked'
+					)
+				);
+			$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
 
-		return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
 
-	} elseif($statuss == 'unliked'){
-		DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
-		$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
-		return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
+		} elseif($statuss == 'unliked'){
+			DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $likeFeedbackId, 'status' => 'liked'))->count();
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'liked'));
+		}
 	}
-}
 
-public function postAddDisLiked(){
-	$dislikeFeedbackId = Input::get('dislikeFeedbackId');
-	$dislikeUserId = Input::get('dislikeUserId');
-	$statuss = Input::get('status');
+	public function postAddDisLiked(){
+		$dislikeFeedbackId = Input::get('dislikeFeedbackId');
+		$dislikeUserId = Input::get('dislikeUserId');
+		$statuss = Input::get('status');
 
-	if($statuss == 'disliked'){
-		DB::table('feedbacks_likesdislikes')->insert(
-			array('feedback_id' => $dislikeFeedbackId,
-				'user_id'    => $dislikeUserId,
-				'status' 	   => 'disliked'
-				)
-			);
-		$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
-		return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
-	} elseif($statuss == 'undisliked'){
-		DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
-		$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
-		return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
+		if($statuss == 'disliked'){
+			DB::table('feedbacks_likesdislikes')->insert(
+				array('feedback_id' => $dislikeFeedbackId,
+					'user_id'    => $dislikeUserId,
+					'status' 	   => 'disliked'
+					)
+				);
+			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+		} elseif($statuss == 'undisliked'){
+			DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'disliked'));
+		}
 	}
-}
 
-public function postDeleteFeedback() {
+	public function postDeleteFeedback() {
 
-	$channelId = Input::get('channel_id');
-	$userId = Input::get('user_id');
-	$feedback_id = Input::get('feedback_id');
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$feedback_id = Input::get('feedback_id');
 
 
-	$deleteFeedback = DB::table('feedbacks')->where(
-		array('channel_id' => $channelId,
-			'user_id'    => $userId,
-			'id' => $feedback_id
-			))->delete();
+		$deleteFeedback = DB::table('feedbacks')->where(
+			array('channel_id' => $channelId,
+				'user_id'    => $userId,
+				'id' => $feedback_id
+				))->delete();
 
-	return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
-}
-
-public function postSpamFeedback() {
-	return Input::all();
-	$channelId = Input::get('channel_id');
-	$userId = Input::get('user_id');
-	$feedbackId = Input::get('feedbackId');
-	$a = Feedback::where('id',$feedbackId)->first();
-
-	return Response::json($a);
-}
-
-public function getViewUsersVideos($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-	$usersVideos = $this->Video->getUserVideosOrderByRecent($this->Auth->id);
-	$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-	$countAllViews = $this->Video->countViews($allViews);
-	$countVideos = Video::where('user_id', $userChannel->id)->count();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id'));
-}
-
-public function getViewUsersFavorites($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
-	$usersVideos = User::find($userChannel->id)->video;
-	$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-	$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-	$countAllViews = $this->Video->countViews($allViews);
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	$findUsersVideos = $this->Favorite->getUserFavoriteVideos($userChannel->id);
-	return View::make('users.channels.favorites', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id'));
-}
-
-public function getViewUsersWatchLater($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$usersChannel = UserProfile::where('user_id',$userChannel->id)->get();
-	$usersVideos = User::find($userChannel->id)->video;
-	$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-	$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-	$countAllViews = $this->Video->countViews($allViews);
-	$usersWatchLater = $this->WatchLater->getWatchLater($userChannel->id);
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	return View::make('users.channels.watchlater', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id'));
-}
-
-public function getViewUsersAbout($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
-	$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
-	$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-	$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	$countAllViews = $this->Video->countViews($allViews);
-	return View::make('users.channels.about', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id'));
-}
-
-public function getViewUsersPlaylists($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$usersChannel = UserProfile::find($userChannel->id);
-	$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-	$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-	$countAllViews = $this->Video->countViews($allViews);
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
-	foreach($playlists as $playlist){
-		$thumbnail_playlists[] = DB::select("SELECT DISTINCT v.*,u.channel_name,p.id,p.name as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$playlist->id."'
-			and v.deleted_at IS NULL
-			or v.report_count > 5
-			and v.publish = 1");
+		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
 	}
-	return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id'));
-}
 
-public function getViewUsersSubscribers($channel_name) {
-	$user_id = 0;
-	$userChannel = User::where('channel_name', $channel_name)->first();
-	$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-	$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
-	$usersVideos = User::find($userChannel->id)->video;
-	$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-	$allViews = DB::table('videos')->where('user_id',$userChannel->id)->sum('views');
-	$countAllViews = $this->Video->countViews($allViews);
-	$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-	$subscriberProfile = $this->Subscribe->Subscribers($userChannel->id);
-	$subscriptionProfile = $this->Subscribe->Subscriptions($userChannel->id);
+	public function postSpamFeedback() {
+		return Input::all();
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$feedbackId = Input::get('feedbackId');
+		$a = Feedback::where('id',$feedbackId)->first();
 
-	return View::make('users.channels.subscribers', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
-}
+		return Response::json($a);
+	}
+
+	public function getViewUsersVideos($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
+		$usersVideos = $this->Video->getVideos($this->Auth->id);
+
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id'));
+	}
+
+	public function getViewUsersFavorites($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$findUsersVideos = $this->Favorite->getUserFavoriteVideos($userChannel->id);
+		return View::make('users.channels.favorites', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id'));
+	}
+
+	public function getViewUsersWatchLater($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->get();
+		$usersVideos = User::find($userChannel->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$usersWatchLater = $this->WatchLater->getWatchLater($userChannel->id);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		return View::make('users.channels.watchlater', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id'));
+	}
+
+	public function getViewUsersAbout($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$countAllViews = $this->Video->countViews($allViews);
+		return View::make('users.channels.about', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id'));
+	}
+
+	public function getViewUsersPlaylists($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::find($userChannel->id);
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		foreach($playlists as $playlist){
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
+		}
+		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id'));
+	}
+
+	public function getViewUsersSubscribers($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersVideos = User::find($userChannel->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id',$userChannel->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$subscriberProfile = $this->Subscribe->Subscribers($userChannel->id);
+		$subscriptionProfile = $this->Subscribe->Subscriptions($userChannel->id);
+
+		return View::make('users.channels.subscribers', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));
+	}
 
 
-public function addSubscriber() {
-	$user_id = Input::get('user_id');
-	$subscriber_id = Input::get('subscriber_id');
-	$status = Input::get('status');
-	if($status == 'subscribeOn'){
-		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
-		if(!$ifAlreadySubscribe){
-			DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
+	public function addSubscriber() {
+		$user_id = Input::get('user_id');
+		$subscriber_id = Input::get('subscriber_id');
+		$status = Input::get('status');
+		if($status == 'subscribeOn'){
+			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->count();
+			if(!$ifAlreadySubscribe){
+				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 				//Notification
 					// $this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
 				//
-			return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
+				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
+			}
+		}
+		if($status == 'subscribeOff'){
+			$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
+			return Response::json(array('status' => 'subscribeOn','label' => 'Subscribe'));
 		}
 	}
-	if($status == 'subscribeOff'){
-		$deleteRows = Subscribe::where(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id))->delete();
-		return Response::json(array('status' => 'subscribeOn','label' => 'Subscribe'));
-	}
-}
-public function createPlaylist($id,$randomNo = 11){
-	$id = Crypt::decrypt($id);
-	$playlistNo = str_random($randomNo);
-	$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
-	if($checkPlaylistExist->count()){
-		$playlistNo = str_random($randomNo+1);
-	}
-	$name = Input::get('name');
-	$description = Input::get('description');
-	$privacy = Input::get('privacy');
-	$user_id = Auth::User()->id;
-	$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'randID'=>$playlistNo,'privacy'=>$privacy));
-}
-
-public function addPlaylist($id,$randomNo = 11){
-	$id = Crypt::decrypt($id);
-	$playlistNo = str_random($randomNo);
-	$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
-	if($checkPlaylistExist->count()){
-		$playlistNo = str_random($randomNo+1);
-	}
-	$name = Input::get('name');
-	$description = Input::get('description');
-	$privacy = Input::get('privacy');
-	$user_id = Auth::User()->id;
-	$duplicateValidator = Playlist::where('name','=',$name)
-	->where('user_id','=',Auth::User()->id);
-	$duplicate = Playlist::where('name','=',$name)
-	->where('user_id','=',Auth::User()->id)->first();
-	if($duplicateValidator->count()){
-		$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
-		->where('video_id','=',$id);
-		if(!$playlistDuplicate->count()){
-			PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
+	public function createPlaylist($id,$randomNo = 11){
+		$id = Crypt::decrypt($id);
+		$playlistNo = str_random($randomNo);
+		$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
+		if($checkPlaylistExist->count()){
+			$playlistNo = str_random($randomNo+1);
 		}
-	} else{
+		$name = Input::get('name');
+		$description = Input::get('description');
+		$privacy = Input::get('privacy');
+		$user_id = Auth::User()->id;
 		$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'randID'=>$playlistNo,'privacy'=>$privacy));
-		$playlistID = $createPlaylist->id;
-		PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
 	}
-}
-public function addChkBoxPlaylist($id){
-	$id = Crypt::decrypt($id);
-	$playlistId = Crypt::decrypt(Input::get('value'));
-	PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
-}
-public function removePlaylist($id){
-	$id = Crypt::decrypt($id);
-	$playlistId = Crypt::decrypt(Input::get('value'));
-	$counter = PlaylistItem::where('video_id','=',$id)
-	->where('playlist_id','=',$playlistId);
-	if($counter->count()){
-		$playlistItem = PlaylistItem::where('video_id','=',$id)
-		->where('playlist_id','=',$playlistId)->first();
-		$playlistItem->delete();
-	}
-}
-public function addToFavorites($id){
-	$id = Crypt::decrypt($id);
-	$counter = Favorite::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if(!$counter->count()){
-		Favorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-	}
-}
-public function removeToFavorites($id){
-	$id = Crypt::decrypt($id);
-	$counter = Favorite::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if($counter->count()){
-		$favorite = Favorite::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id)->first();
-		$favorite->delete();
-	}
-}
-public function addToWatchLater($id){
-	$id = Crypt::decrypt($id);
-	$counter = WatchLater::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if(!$counter->count()){
-		$watchLater = WatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
-	}
-}
-public function removeToWatchLater($id){
-	$id = Crypt::decrypt($id);
-	$counter = WatchLater::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if($counter->count()){
-		$favorite = WatchLater::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id)->first();
-		$favorite->delete();
-	}
-}
-public function likeVideo($id){
-	$id = Crypt::decrypt($id);
-	$counter = Like::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if(!$counter->count()){
-		$like = Like::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-		$likeResult = Like::where('video_id',$id)->count();
-		$dislikeResult = Dislike::where('video_id',$id)->count();
-		return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
 
-	}
-}
-
-public function dislikeVideo($id){
-	$id = Crypt::decrypt($id);
-	$counter = Dislike::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if(!$counter->count()){
-		$dislike = Dislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-		$dislikeResult = Dislike::where('video_id',$id)->count();
-		$likeResult = Like::where('video_id',$id)->count();
-		return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-
-	}
-}
-
-public function unlikeVideo($id){
-	$id = Crypt::decrypt($id);
-	$counter = Like::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if($counter->count()){
-		$unlike = Like::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id)->first();
-		$unlike->delete();
-		$likeResult = Like::where('video_id',$id)->count();
-		if(empty($likeResult)){
-			$likeResult = 0;
+	public function addPlaylist($id,$randomNo = 11){
+		$id = Crypt::decrypt($id);
+		$playlistNo = str_random($randomNo);
+		$checkPlaylistExist = Playlist::where('randID', '=', $playlistNo);
+		if($checkPlaylistExist->count()){
+			$playlistNo = str_random($randomNo+1);
 		}
-		return Response::json(array('likeResult'=>$likeResult));
-	}
-}
-
-public function removeDislikeVideo($id){
-	$id = Crypt::decrypt($id);
-	$counter = Dislike::where('user_id','=',Auth::User()->id)
-	->where('video_id','=',$id);
-	if($counter->count()){
-		$dislike = Dislike::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id)->first();
-		$dislike->delete();
-		$dislikeResult = Dislike::where('video_id',$id)->count();
-		if(empty($dislikeResult)){
-			$dislikeResult = 0;
+		$name = Input::get('name');
+		$description = Input::get('description');
+		$privacy = Input::get('privacy');
+		$user_id = Auth::User()->id;
+		$duplicateValidator = Playlist::where('name','=',$name)
+		->where('user_id','=',Auth::User()->id);
+		$duplicate = Playlist::where('name','=',$name)
+		->where('user_id','=',Auth::User()->id)->first();	
+		if($duplicateValidator->count()){
+			$playlistDuplicate = PlaylistItem::where('playlist_id','=',$duplicate->id)
+			->where('video_id','=',$id);
+			if(!$playlistDuplicate->count()){
+				PlaylistItem::create(array('playlist_id'=>$duplicate->id,'video_id'=>$id));
+			}
+		} else{
+			$createPlaylist = Playlist::create(array('user_id'=>$user_id,'name'=>$name,'description'=>$description,'randID'=>$playlistNo,'privacy'=>$privacy));
+			$playlistID = $createPlaylist->id;
+			PlaylistItem::create(array('playlist_id'=>$playlistID,'video_id'=>$id));
 		}
-		return Response::json(array('dislikeResult'=>$dislikeResult));
 	}
-}
-
-public function getNotification(){
-	if(Auth::check()){
-		$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-		if($this->Notification->getTimePosted($notifications) === false){
-			app::abort(404, 'Error');
+	public function addChkBoxPlaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlistId = Crypt::decrypt(Input::get('value'));
+		$counter = PlaylistItem::where('video_id','=',$id)
+		->where('playlist_id','=',$playlistId);
+		if(!$counter->count()){
+			PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
 		}
-		$notifications = $this->Notification->getTimePosted($notifications);
-		return View::make('users.notifications', compact('notifications'));
 	}
-	app::abort(404, 'Internal Server Error please contact Kevin');
-}
-
-public function postLoadNotification(){
-	$user_id = Crypt::decrypt(Input::get('uid'));
-	$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
-	$this->Notification->setStatus();
-	return $notifications;
-}
-
-public function countNotifcation(){
-	$user_id = Crypt::decrypt(Input::get('uid'));
-	$notifications =  $this->Notification->getNotifications($user_id, 0);
-	return Response::json($notifications);
-}
-
-public function postFeedbacks() {
-	$channelName = Input::get('term');
-	$name = str_replace('@', '', $channelName);
-	$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
-	foreach($query as $q) {
-		$channelNames[] = array(
-			'id' => $q->id,
-			'label' => $q->channel_name
-			);
+	public function removePlaylist($id){
+		$id = Crypt::decrypt($id);
+		$playlistId = Crypt::decrypt(Input::get('value'));
+		$counter = PlaylistItem::where('video_id','=',$id)
+		->where('playlist_id','=',$playlistId);
+		if($counter->count()){
+			$playlistItem = PlaylistItem::where('video_id','=',$id)
+			->where('playlist_id','=',$playlistId)->first();
+			$playlistItem->delete();
+		}
 	}
-	return Response::json($channelNames);
-}
+	public function addToFavorites($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserFavorite::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
+			UserFavorite::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+		}
+	}
+	public function removeToFavorites($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserFavorite::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if($counter->count()){
+			$favorite = UserFavorite::where('user_id','=',Auth::User()->id)
+			->where('video_id','=',$id)->first();
+			$favorite->delete();
+		}					
+	}
+	public function addToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserWatchLater::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
+			$watchLater = UserWatchLater::create(array('user_id'=>Auth::User()->id,'video_id'=>$id,'status'=>0));
+		}
+	}
+	public function removeToWatchLater($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserWatchLater::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if($counter->count()){					
+			$favorite = UserWatchLater::where('user_id','=',Auth::User()->id)
+			->where('video_id','=',$id)->first();
+			$favorite->delete();
+		}			
+	}
+	public function likeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserLike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
+			$like = UserLike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$likeResult = UserLike::where('video_id',$id)->count();
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
+			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
 
-public function getSortVideos() {
+		}
+	}
 
-	$order = Input::get('ch');
-	$user_id = Input::get('userid');
-	if(Auth::check()){
+	public function dislikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserDislike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if(!$counter->count()){
+			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
+			$likeResult = UserLike::where('video_id',$id)->count();
+			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
+
+		}
+	}
+
+	public function unlikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserLike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if($counter->count()){
+			$unlike = UserLike::where('user_id','=',Auth::User()->id)
+			->where('video_id','=',$id)->first();
+			$unlike->delete();
+			$likeResult = UserLike::where('video_id',$id)->count();
+			if(empty($likeResult)){
+				$likeResult = 0;
+			}
+			return Response::json(array('likeResult'=>$likeResult));
+		}
+	}
+
+	public function removeDislikeVideo($id){
+		$id = Crypt::decrypt($id);
+		$counter = UserDislike::where('user_id','=',Auth::User()->id)
+		->where('video_id','=',$id);
+		if($counter->count()){
+			$dislike = UserDislike::where('user_id','=',Auth::User()->id)
+			->where('video_id','=',$id)->first();
+			$dislike->delete();
+			$dislikeResult = UserDislike::where('video_id',$id)->count();
+			if(empty($dislikeResult)){
+				$dislikeResult = 0;
+			}
+			return Response::json(array('dislikeResult'=>$dislikeResult));
+		}
+	}
+
+	public function getNotification(){
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
+			if($this->Notification->getTimePosted($notifications) === false){
+				app::abort(404, 'Error');
+			}
+			$notifications = $this->Notification->getTimePosted($notifications);
+			return View::make('users.notifications', compact('notifications'));
+		}
+		app::abort(404, 'Internal Server Error please contact Administrator');	
+	}
+
+	public function postLoadNotification(){
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
+		$this->Notification->setStatus();
+		return $notifications;
+	}
+
+	public function countNotifcation(){
+		$user_id = Crypt::decrypt(Input::get('uid'));
+		$notifications =  $this->Notification->getNotifications($user_id, 0);
+		return Response::json($notifications);
+	}
+
+	public function postFeedbacks() {
+		$channelName = Input::get('term');
+		$name = str_replace('@', '', $channelName);
+		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
+		foreach($query as $q) {
+			$channelNames[] = array(
+				'id' => $q->id,
+				'label' => $q->channel_name
+				);
+		}
+		return Response::json($channelNames);
+	}
+
+	public function getSortVideos() {
+
+		$order = Input::get('ch');
+		$user_id = Input::get('userid');
+		if(Auth::check()){
+			if($order == 'Likes'){
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
+			}elseif($order == 'Views') {
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.views DESC");
+			}elseif($order == 'Recent'){
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.created_at DESC");	
+			}else{
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v. publish = 0 ORDER BY v.publish DESC");
+			}
+			$var = '';
+			foreach ($results as $result){
+				if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+					$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+				} else{
+					$thumbnail = HTML::image('img/thumbnails/video.png');
+				}
+				$var = $var . "
+				<div id='list' class='col-md-3'>
+					<div class='inlineVid'>	
+						<span class='btn-sq'>
+							<span class='dropdown'>
+								<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+									<li>gge</li>
+									<li>gfrhgte</li>
+								</span>
+							</span>
+
+							<a href=edit/".Crypt::encrypt($result->id).">
+								<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+							</a>
+
+						</span>
+						<a href=".route('homes.watch-video', array($result->file_name))." target=_blank'>		
+							".$thumbnail."
+						</div>
+
+						<div class='inlineInfo'>
+							<div class='v-Info'>
+								".$result->title."
+							</div>
+						</a>
+						<div class='text-justify desc hide'>
+							<p>".$result->description."</p>
+							<br/>
+						</div>
+						<div class='count'>
+							<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+						</div>
+					</div>
+				</div>
+				";
+			}
+			return $var;
+		}
 		if($order == 'Likes'){
-			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY likes DESC");
+			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY likes DESC");
 		}elseif($order == 'Views') {
-			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.views DESC");
+			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.views DESC");
 		}elseif($order == 'Recent'){
-			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'ORDER BY v.created_at DESC");
+			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.created_at DESC");
 
 		}else{
-			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v. publish = 0 ORDER BY v.publish DESC");
+			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND v. publish = 0 ORDER BY v.publish DESC");
 		}
+
 		$var = '';
 		foreach ($results as $result){
-			if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-				$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
-			} else{
+			if(file_exists(public_path('/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+				$thumbnail ='<img src=/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+			}else{
 				$thumbnail = HTML::image('img/thumbnails/video.png');
 			}
 
-			$var = $var .
-			"<div id='list' class='col-md-3'>
-			<div class='inlineVid'>
-				<span class='btn-sq'>
-					<span class='dropdown'>
-						<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
-							<li>gge</li>
-							<li>gfrhgte</li>
+			$var = $var . "
+			<div id='list' class='col-md-3'>
+				<div class='inlineVid'>		
+					<span class='btn-sq'>
+						<span class='dropdown'>
+							<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
+								<li>gge</li>
+								<li>gfrhgte</li>
+							</span>
 						</span>
-					</span>
 
-					<a href=edit/".Crypt::encrypt($result->id).">
-						<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
-					</a>
+						<a href='#'>
+							<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
+						</a>
 
-				</span>
-				<a href=".route('homes.watch-video', array($result->file_name))." target=_blank'>
+					</span>		
 					".$thumbnail."
 				</div>
 
@@ -1251,90 +1309,66 @@ public function getSortVideos() {
 					<div class='v-Info'>
 						".$result->title."
 					</div>
-				</a>
-				<div class='text-justify desc hide'>
-					<p>".$result->description."</p>
-					<br/>
+					<div class='text-justify desc hide'>
+						<p>".$result->description."</p>
+						<br/>
+					</div>
+					<div class='count'>
+						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+					</div>
 				</div>
-				<div class='count'>
-					<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
-				</div>
-			</div>
-		</div>
-		";
-	}
-	return $var;
-}
-if($order == 'Likes'){
-	$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY likes DESC");
-}elseif($order == 'Views') {
-	$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.views DESC");
-}elseif($order == 'Recent'){
-	$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'ORDER BY v.created_at DESC");
-
-}else{
-	$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM users_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND v. publish = 0 ORDER BY v.publish DESC");
-}
-
-$var = '';
-foreach ($results as $result){
-	if(file_exists(public_path('/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-		$thumbnail ='<img src=/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
-	}else{
-		$thumbnail = HTML::image('img/thumbnails/video.png');
+			</div>";
+		}
+		return $var;
 	}
 
-	$var = $var .
-	"<div id='list' class='col-md-3'>
-	<div class='inlineVid'>
-		<span class='btn-sq'>
-			<span class='dropdown'>
-				<span class='dropdown-menu drop pull-right White snBg text-left' style='padding:5px 5px;text-align:center;width:auto;'>
-					<li>gge</li>
-					<li>gfrhgte</li>
-				</span>
-			</span>
+	public function getAbout() {
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+		$countAllViews = $this->Video->countViews($allViews);
+		return View::make('users.mychannels.about', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
+	}
+	public function addFeedback() {
+		$var = 'l';
+	}
 
-			<a href='#'>
-				<span title='Update Video'><button class='btn-ico btn-default'><i class='fa fa-pencil'></i></button></span>
-			</a>
+	public function viewSocial() {
+		// $web = 'facebook';
+		// return DB::table('websites')->where('user_id', $this->Auth->id)->pluck($web);
+		return View::make('testing');
+	}
 
-		</span>
-		".$thumbnail."
-	</div>
+	public function social($action) {
 
-	<div class='inlineInfo'>
-		<div class='v-Info'>
-			".$result->title."
-		</div>
-		<div class='text-justify desc hide'>
-			<p>".$result->description."</p>
-			<br/>
-		</div>
-		<div class='count'>
-			<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
-		</div>
-	</div>
-</div>
-";
-}
-return $var;
-}
+		if($action == 'auth') {
+			try{
+				Hybrid_Endpoint::process();
+			}
+			catch(Exception $e) {
+				return Redirect::route('hybridauth');
+			}
+		}
+		try{
+			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
+			$provider = $socialAuth->authenticate($action);
+			$userProfile = $provider->getUserProfile();
+		}
+		catch (Exception $e) {
+			return $e->getMessage();
+		}
 
-public function getAbout() {
-	$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-	$usersChannel = UserProfile::find(Auth::User()->id);
-	$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
-	$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
-	$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-	$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-	$countAllViews = $this->Video->countViews($allViews);
-	return View::make('users.mychannels.about', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
-}
-public function addFeedback() {
-	$var = 'l';
-}
+		$user = Website::where('user_id',$this->Auth->id)->first();
+		$user->$action = $userProfile->profileURL;
+		$user->save();
 
-public function getAuthSocial() {
-}
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected with'.$social.'!');
+		// echo 'ID: '.$userProfile->identifier.'<br/>';
+		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
+		// echo 'Email: '.$userProfile->email.'<br/>';
+		// echo 'displayName: '.$userProfile->displayName.'<br/>';
+	}
 }

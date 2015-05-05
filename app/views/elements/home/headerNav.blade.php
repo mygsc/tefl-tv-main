@@ -1,28 +1,26 @@
 <div class="categoryNav hidden-sm hidden-xs">
     <div class="row">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-left col-sm-6"> 
-                    <div class="row">
-                        <ul class="ctgryNav mg-l--30">
-                            <li>
-                                {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
-                            </li>
-                        </ul>
-
-                    </div>
+            <div class="">
+                <div class="col-md-6 col-sm-6"> 
+                    <ul class="ctgryNav">
+                        <li>
+                            {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
+                        </li>
+                    </ul> 
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
-                    <ul class="ctgryNav pull-right">
+                    <div class="row text-right">
+                    <ul class="ctgryNav">
                         @if(Auth::check())
                         <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                         <li>
@@ -48,6 +46,7 @@
                         <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                         @endif
                     </ul>
+                    </div>
                 </div><!--col-md-6 col-sm-6-->
             </div>
         </div><!--/.row-->

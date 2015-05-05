@@ -108,6 +108,9 @@ Route::group(array('prefix' => 'mychannels'), function() {
 
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
+
+	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
+	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 });
 //*********End of Channels************//
 
@@ -123,7 +126,7 @@ Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channe
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
-Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@postDeleteFeedback'));
+Route::get('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@postDeleteFeedback'));
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {

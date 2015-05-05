@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H">
+		<div class="row same-H White">
 		{{-- */$playlistCounter = 1;/* --}}
 			@include('elements/users/profileTop2')
 
@@ -99,7 +99,7 @@
 							<div class="col-md-9">
 									<div class ="row" id="alert-edit-playlist">
 									</div>
-								<h4><i class="fa fa-globe"></i> &nbsp;<span id="playlistName">{{$playlist->name}}</span></h4>
+								<p><i class="fa fa-globe"></i> &nbsp;<span id="playlistName">{{$playlist->name}}</span></p>
 								<p>{{$playlist->created_at->toFormattedDateString()}}</p>
 								<p class="text-justify"><span id="playlistDesc">{{$playlist->description}}</span></p>
 							</div>

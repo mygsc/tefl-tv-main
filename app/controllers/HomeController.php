@@ -114,7 +114,7 @@ class HomeController extends BaseController {
 										->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
-			$likeownerVideos[] = Like::where('video_id',$ownerVideo->id)->count();
+			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
@@ -135,13 +135,13 @@ class HomeController extends BaseController {
 			$playlists = $this->Playlist->playlistchoose($id);
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
-			$favorites = Favorite::where('video_id','=',$id)
+			$favorites = UserFavorite::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = WatchLater::where('video_id','=',$id)
+			$watchLater = UserWatchLater::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$like = Like::where('video_id','=',$id)
+			$like = UserLike::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$dislike = Dislike::where('video_id','=',$id)
+			$dislike = UserDislike::where('video_id','=',$id)
 			->where('user_id','=',Auth::User()->id)->first();
 		//return $playlists;
 
@@ -154,8 +154,8 @@ class HomeController extends BaseController {
 			$like = null;
 			$dislike = null;
 		}
-		$likeCounter = Like::where('video_id','=',$id)->count();
-		$dislikeCounter = Dislike::where('video_id','=',$id)->count();		
+		$likeCounter = UserLike::where('video_id','=',$id)->count();
+		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 //return (microtime(true) - LARAVEL_START);
 
 		//r3mmel
@@ -193,34 +193,24 @@ class HomeController extends BaseController {
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
-		$playlist = Playlist::find($playlistId);
 		if(!isset(Auth::User()->id)){
-			if($playlist->privacy == '0') return Redirect::route('homes.index');
+			if($randID->privacy == '0') return Redirect::route('homes.index');
 		}
 		$video = Video::where('file_name','=',$videoId)->first();
-		//return $video;
 		$owner = User::find($video->user_id);
 		$itemId = PlaylistItem::where('video_id',$video->id)
 		->where('playlist_id',$playlistId)->first();
 		$nextA = $this->Playlist->playlistControl('>',$playlistId,$video->id,$itemId->id);
 		$previousA = $this->Playlist->playlistControl('<',$playlistId,$video->id,$itemId->id);
-		$playlistVideos = DB::select("SELECT DISTINCT v.*,UNIX_TIMESTAMP(v.created_at) AS created,u.channel_name,p.randID,p.id as playlist_id FROM playlists p
-			LEFT JOIN playlists_items i ON p.id = i.playlist_id
-			INNER JOIN videos v ON i.video_id = v.id
-			INNER JOIN users u ON v.user_id = u.id
-			WHERE i.playlist_id = '".$playlistId."'
-			and v.deleted_at IS NULL
-			or v.report_count <= 5
-			and v.publish = 1
-			");
+		$playlistVideos = $this->Playlist->playlistControl(NULL,$playlistId,$video->id,$itemId->id);
 		if(isset(Auth::User()->id)){
-			$like = Like::where('video_id','=',$video->id)
+			$like = UserLike::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$favorites = Favorite::where('video_id','=',$video->id)
+			$favorites = UserFavorite::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = WatchLater::where('video_id','=',$video->id)
+			$watchLater = UserWatchLater::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-			$dislike = Dislike::where('video_id','=',$video->id)
+			$dislike = UserDislike::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
@@ -229,9 +219,10 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$dislike = null;
 		}
+		//return (microtime(true) - LARAVEL_START);
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
-		$likeCounter = Like::where('video_id','=',$video->id)->count();
-		$dislikeCounter = Dislike::where('video_id','=',$video->id)->count();
+		$likeCounter = UserLike::where('video_id','=',$video->id)->count();
+		$dislikeCounter = UserDislike::where('video_id','=',$video->id)->count();
 		return View::make('users.watchplaylist',compact('video','playlistVideos','owner','nextA','previousA','like','likeCounter','favorites','watchLater','countSubscribers','dislikeCounter','dislike'));
 	}
 
@@ -478,7 +469,7 @@ public function addReply(){
 				'videos.file_name',
 				'videos.views',
 				'videos.created_at',
-				DB::raw('(SELECT count(ul.video_id) from users_likes ul where ul.video_id = videos.id) as likes'))
+				DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
 			->where('category', 'LIKE', '%'.$category.'%')
 			->where('deleted_at', NULL)
 			->where('publish', 1)

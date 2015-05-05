@@ -20,6 +20,7 @@
 	{{-- HTML::style('css/vid.player.min.css') --}}
 	@yield('css')
 </head>
+
 <body>
 	<div id="fb-root"></div>
 	{{HTML::script('js/facebook.js')}}

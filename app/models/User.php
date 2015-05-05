@@ -36,14 +36,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Subscribe');
 	}
 
-	public function favorite() {
+	public function UserFavorite() {
 
-		return $this->hasMany('Favorite');
+		return $this->hasMany('UserFavorite');
 	}
 
 	public function watchlater() {
 
-		return $this->hasMany('WatchLater');
+		return $this->hasMany('UserWatchLater');
 	}
 
 	public function website() {
@@ -144,7 +144,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$website = new Website;
 		$website->user_id = $user->id;
-		$website->gmail = $google_account;
+		$website->google = $google_account;
 		$website->facebook = $facebook_account;
 		$website->save();
 
@@ -157,7 +157,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	*@throws boolean false
 	*/
 	public function signInWithSocialMedia($social_media_id){
-		$find_social_media_account = Website::where('gmail', $social_media_id)->orWhere('facebook', $social_media_id)->get();
+		$find_social_media_account = Website::where('google', $social_media_id)->orWhere('facebook', $social_media_id)->get();
 		if($find_social_media_account->isEmpty()){
 			return false;
 		}

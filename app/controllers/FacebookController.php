@@ -46,7 +46,7 @@ class FacebookController extends Controller {
 			if(Session::get('facebook-action') == 'signin'){
 				$user = $this->User->signInWithSocialMedia($user->getId());
 				if($user === false){
-					return Redirect::route('homes.signin')->withFlashBad('Account was not found');
+					return Redirect::route('homes.signin')->withFlashBad('Your social media account was not associated to any TEFL TV account');
 				}
 				return Redirect::route('homes.index')->withFlashGood('Welcome '. $user->channel_name);
 			}

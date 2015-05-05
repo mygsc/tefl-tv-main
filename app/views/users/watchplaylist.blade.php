@@ -202,7 +202,7 @@
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
                                     <span>by: {{$playlistVideo->channel_name}}</span><br/>
-                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                    <small>{{date('M d, Y',strtotime($playlistVideo->created_at))}}</small>
                                     
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                                 <div class="col-md-8">
                                     <span>{{$playlistVideo->title}}</span><br/>
                                     <span>by: {{$playlistVideo->channel_name}}</span><br/>
-                                    <small>{{date('m/d/Y',$playlistVideo->created)}}</small>
+                                    <small>{{date('M d, Y',strtotime($playlistVideo->created_at))}}</small>
                                 </div>
                             </div>
                         </a>

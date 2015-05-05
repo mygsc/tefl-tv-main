@@ -1,6 +1,6 @@
 @extends('layouts.default')
 	@section('meta')
-		<meta property="og:title" content="dynamic">
+		{{-- <meta property="og:title" content="dynamic">
 		<meta property="og:site_name" content="test.tefltv.com">
 		<meta property="og:description" content="dynamic">
 		<meta property="og:url" content="dynamic">
@@ -8,7 +8,7 @@
 		<meta property="og:type" content="video">
 		<meta property="og:video:width" content="500"> 
 		<meta property="og:video:height" content="300"> 
-		<meta property="og:video" content="test.tefltv.com"> 
+		<meta property="og:video" content="test.tefltv.com">  --}}
 		
 	@stop
 	@section('css')
@@ -25,7 +25,7 @@
 		<div class="row">	
 			<div class="col-md-6" style="">
 				<div class="mg-l-10">
-					<div class="row  vid-wrapper">
+					<div class="row  vid-wrapperb p-relative">
 						<div id="vid-controls">
 							<div class="embed-responsive embed-responsive-16by9 n-mg-b">
 				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
@@ -34,7 +34,10 @@
 									<source id='ogg' src='/videos/tefltv.ogvq' type='video/ogg'> 
 								</video>	
 							</div><!--/embed-responsive-->
-							@include('elements/videoPlayer')
+							<div class="n-mg-b">
+								@include('elements/videoPlayer')
+							</div>
+							
 						</div>
 		    		</div><!--/.row-->
     			</div>
@@ -42,21 +45,12 @@
 
 			<div class="col-md-6 col-lg-height col-top">
                 <div class="row">
-                	<div class="col-md-7">
-	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
-	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
-	                    </div><!--/.ad1-->
-                    
-	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
-	                   </div><!--/.ad2-->
-                    </div>
 					<div class="col-md-5 ctgryDiv hidden-sm">
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						   @if(Auth::check())
-						  <div class="panel panel-warning">
+						  <div class="panel panel-info">
 						    <div class="panel-heading" role="tab" id="headingTwo">
-						      <p class="panel-title whiteC">
+						      <p class="panel-title">
 						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 						        <i class="fa fa-user"></i> My Channel
 						        </a>
@@ -77,16 +71,16 @@
 						    </div>
 						 </div>
 						 @endif
-						  <div class="panel panel-warning">
+						  <div class="panel panel-info">
 						    <div class="panel-heading" role="tab" id="headingOne">
 						      <p class="panel-title">
-						        <a class="whiteC" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						          <i class="fa fa-video-camera"></i> Categories
 						        </a>
 						      </p>
 						    </div>
-						    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body" style="max-height:300px; overflow:auto;">
+						    <div id="collapseOne" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
+						      <div class="panel-body cat-h">
 						      	<span class="">
 									@if(!empty($categories))
 									@foreach($categories as $category)
@@ -100,6 +94,15 @@
 						  
 						</div>
 					</div>
+					<div class="col-md-7">
+	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
+	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
+	                    </div><!--/.ad1-->
+                    
+	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
+	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
+	                   </div><!--/.ad2-->
+                    </div>
 				</div><!--/.row of col4-->
 			</div>
 		</div><!--/.same-H-->
@@ -117,6 +120,7 @@
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
 									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
 									<div class="v-Info">
@@ -146,6 +150,7 @@
 						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
@@ -176,6 +181,7 @@
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
@@ -204,6 +210,7 @@
 						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
@@ -222,8 +229,6 @@
 			
 		</div>
 		<br/>
-
-
 	</div><!--/.container page-->
 </div><!--first row-->
 @stop

@@ -37,7 +37,7 @@ class GoogleController extends Controller {
 				$user = false;
 			}
 			if($user === false){
-				return Redirect::route('homes.signin')->withFlashBad('Account was not found');	
+				return Redirect::route('homes.signin')->withFlashBad('Your social media account was not associated to any TEFL TV account');	
 			}
 
 			$this->signout($access_token);
@@ -73,7 +73,7 @@ class GoogleController extends Controller {
 
 		if(! $client->getAccessToken() && ! Session::has('token')){
 			Session::flush();
-			return Redirect::route('homes.signin')->flashBad('Google authorization was denied');
+			return Redirect::route('homes.signin')->withFlashBad('Google authorization was denied');
 		}
 
 	}
