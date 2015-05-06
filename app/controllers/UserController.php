@@ -1,6 +1,7 @@
 <?php
 
 class UserController extends BaseController {
+
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -9,7 +10,8 @@ class UserController extends BaseController {
 		UserWatchLater $watchLater,
 		UserFavorite $favorite,
 		Feedback $feedback,
-		Playlist $playlist)
+		Playlist $playlist,
+		ReportedFeedback $reportedFeedback)
 	{
 		$this->Notification = $notification;
 		$this->Video = $video;
@@ -20,6 +22,7 @@ class UserController extends BaseController {
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 		$this->Playlist = $playlist;
+		$this->ReportedFeedback = $reportedFeedback;	
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -681,15 +684,13 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-
-
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 
 		foreach ($userFeedbacks as $key => $userFeedback) {
 			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
 			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
 			$userFeedbacks[$key]->dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
-
+			if(Auth::check()){
 			$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
 				'feedback_id' => $userFeedback->id, 
 				'user_id' => Auth::User()->id,
@@ -700,16 +701,21 @@ class UserController extends BaseController {
 				'user_id' => Auth::User()->id,
 				'status' => 'disliked'
 				))->first();
-
-			$userFeedbacks[$key]->getFeedbackReplies = DB::table('feedbacks_replies')
-			->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+			}
+			$userFeedbacks[$key]->countFeedbackReplies = DB::table('feedback_replies')
+			->join('users', 'users.id', '=', 'feedback_replies.user_id')
 			->where('feedback_id', $userFeedback->id)->count();
 
-			// foreach($replies->get() as $key => $reply){
-			// 	$replies->get()[$key]->img = $this->User->addProfilePicture($reply->user_id);
-			// }
+			$userFeedbacks[$key]->getFeedbackReplies = FeedbackReply::select('feedback_replies.id', 'user_id', 'reply', 'feedback_id',
+			 'feedback_replies.created_at', 'feedback_replies.updated_at', 'channel_name')
+			->join('users', 'users.id', '=', 'feedback_replies.user_id')
+			->get();	
 
+			$userFeedbacks[$key]->spamCounts = DB::table('reported_feedbacks')->where('feedback_id', $userFeedback->id)->count();
 		}
+
+		// return $userFeedbacks;
+
 
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -882,30 +888,45 @@ class UserController extends BaseController {
 		}
 	}
 
-	public function postDeleteFeedback() {
 
-		$channelId = Input::get('channel_id');
-		$userId = Input::get('user_id');
-		$feedback_id = Input::get('feedback_id');
+public function getDeleteFeedback() {
 
+	$channelId = Input::get('channel_id');
+	$userId = Input::get('user_id');
+	$feedback_id = Input::get('feedback_id');
+	$id = Input::get('id');
+	$deleteFeedback = DB::table('feedbacks')->where(array('channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id))->delete();
+	return Response::json($deleteFeedback);
+}
 
-		$deleteFeedback = DB::table('feedbacks')->where(
-			array('channel_id' => $channelId,
-				'user_id'    => $userId,
-				'id' => $feedback_id
-				))->delete();
+public function postDeleteFeedbackReply() {
+	$feedbackId = Input::get('feedback_id');
+	$userId = Input::get('user_id');
+	$id = Input::get('id');
+	$a = FeedbackReply::find($id)->delete();
+	return Response::json($a);
 
-		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
-	}
+}
 
-	public function postSpamFeedback() {
-		return Input::all();
-		$channelId = Input::get('channel_id');
-		$userId = Input::get('user_id');
-		$feedbackId = Input::get('feedbackId');
-		$a = Feedback::where('id',$feedbackId)->first();
+public function postSpamFeedback() {
 
-		return Response::json($a);
+	$channelId = Input::get('channel_id');
+	$userId = Input::get('user_id');
+	$spamId = Input::get('spamID');
+	$a = $this->ReportedFeedback->getReportCount($spamId, $channelId, $userId);
+
+	
+	return Response::json($a);
+}
+
+public function postSpamFeedbackReply() {
+
+	$id = Input::get('reportID');
+	$user_id = Input::get('user_id');
+	$created_at = date('Y-m-d H:i:s');
+	$updated_at = date('Y-m-d H:i:s');
+	$a = DB::table('reported_replies')->insert(array('reply_id' => $id, 'user_id' => $user_id, 'created_at' => $created_at, 'updated_at' => $updated_at));
+	return Response::json($a);
 	}
 
 	public function getViewUsersVideos($channel_name) {
@@ -1064,6 +1085,28 @@ class UserController extends BaseController {
 		if(!$counter->count()){
 			PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
 		}
+		$playlists = $this->Playlist->playlistchoose($id);
+		$playlists =  $playlists->toArray();
+			if(empty($playlists)){
+				$new_playlist_choose = null;
+			}else{
+				foreach($playlists as $playlist){
+					$new_playlist_choose[] = array('id' => Crypt::encrypt($playlist['id']),
+									'name' => $playlist['name']);
+				}
+			}
+		$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
+		$playlistNotChosens =  $playlistNotChosens->toArray();
+			if(empty($playlistNotChosens)){
+				$new_playlistNotChosens = null;
+			}else{
+				foreach($playlistNotChosens as $playlistNotChosen){
+					$new_playlistNotChosens[] = array('id' => Crypt::encrypt($playlistNotChosen['id']),
+									'name' => $playlistNotChosen['name']);
+				}
+			}
+		return Response::json(array('playlists'=>$new_playlist_choose,'playlistNotChosens'=>$new_playlistNotChosens));
+
 	}
 	public function removePlaylist($id){
 		$id = Crypt::decrypt($id);

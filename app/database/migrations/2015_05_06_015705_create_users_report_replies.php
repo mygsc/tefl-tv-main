@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersReportFeedbacks extends Migration {
+class CreateUsersReportReplies extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,10 @@ class CreateUsersReportFeedbacks extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('feedback_report_counts', function(Blueprint $table)
+		Schema::create('reply_report_counts', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('feedback_id');
-			$table->integer('channel_id');
+			$table->integer('reply_id');
 			$table->integer('user_id');
 			$table->timestamps();
 		});
@@ -29,7 +28,7 @@ class CreateUsersReportFeedbacks extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_reports');
+		Schema::drop('reply_report_counts');
 	}
 
 }

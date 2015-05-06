@@ -19,20 +19,12 @@ class VideoController extends BaseController {
 	public function postUpload($filenameLenght = 11){
 		$fileName = str_random($filenameLenght);$input = Input::all();
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
-		/*..Validate video..*/
 		$validator = Validator::make($input,Video::$video_rules); 
-		$checkFilenameExist = Video::where('file_name', '=', $fileName);
-		/*..Check if filename exist if yes then add 1 lenght in a filename..*/  
+		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
 		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght++);}
-		
-		/*..Get the duration of video if less 10s return false..*/
-		//if($duration <= 10){return Response::json(['error'=>'Video time range must not less 10 seconds.']);}
-		/*..if video validate passes then execute..*/
 		if($validator->passes()){
-			/*..Get the user id to identify the user and add video row..*/   
 			$input['user_id'] = $this->Auth->id;
 			$create = Video::create($input);
-			/*..Get the latest row id and update some contents..*/
 			$latest_id = $create->id;
 			Session::put('fileName', $fileName);
 			$getVidDuration = $this->getTimeDuration($input['video']);
@@ -43,19 +35,19 @@ class VideoController extends BaseController {
 			$db_filename->tags = null;
 			$db_filename->publish = 0;
 			if($db_filename->save()){
-				/*..Check if folder exist if not then create new..*/
 				$destinationPath = public_path('videos'.DS. $userFolderName);
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'],$destinationPath,$fileName);
+				$ext = $input['video']->getClientOriginalExtension();
+				$input['video']->move($destinationPath.DS.$fileName.DS, $fileName.'.'.$ext);
 				return Response::json(['vidid'=>Crypt::encrypt($latest_id),'file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
 			}
 		}
-		/*..Return with errors it doesn't pass the validation..*/
 		return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
@@ -115,8 +107,8 @@ class VideoController extends BaseController {
 	private function ffmpeg(){
 		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
     		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\usr\bin\ffmpeg',
-			'ffprobe.binaries'=>'C:\usr\bin\ffprobe',
+			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg.exe',
+			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe.exe',
 			'timeout'=>0,
 			'ffmpeg.threads'=>12,
 			]);

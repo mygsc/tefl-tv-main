@@ -24,12 +24,12 @@
 	width:100%;
 	height: 20px;
 	background:transparent;
-	border:1px solid #000000;
+	border:1px solid #a09b9b;
 	display: none;
 }div#wrapper div#progressbar-loaded{
 	width:0;
 	height: 100%;
-	background:#0C78D6;
+	background:#1f3359;
 }div.img-t{
 	width: 150px;
 	height:100px;
