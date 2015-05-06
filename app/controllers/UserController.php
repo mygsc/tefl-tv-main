@@ -983,6 +983,28 @@ class UserController extends BaseController {
 		if(!$counter->count()){
 			PlaylistItem::create(array('playlist_id'=>$playlistId,'video_id'=>$id));
 		}
+		$playlists = $this->Playlist->playlistchoose($id);
+		$playlists =  $playlists->toArray();
+			if(empty($playlists)){
+				$new_playlist_choose = null;
+			}else{
+				foreach($playlists as $playlist){
+					$new_playlist_choose[] = array('id' => Crypt::encrypt($playlist['id']),
+									'name' => $playlist['name']);
+				}
+			}
+		$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
+		$playlistNotChosens =  $playlistNotChosens->toArray();
+			if(empty($playlistNotChosens)){
+				$new_playlistNotChosens = null;
+			}else{
+				foreach($playlistNotChosens as $playlistNotChosen){
+					$new_playlistNotChosens[] = array('id' => Crypt::encrypt($playlistNotChosen['id']),
+									'name' => $playlistNotChosen['name']);
+				}
+			}
+		return Response::json(array('playlists'=>$new_playlist_choose,'playlistNotChosens'=>$new_playlistNotChosens));
+
 	}
 	public function removePlaylist($id){
 		$id = Crypt::decrypt($id);
