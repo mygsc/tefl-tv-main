@@ -7,7 +7,7 @@
 		<div class="row">
 			@include('elements/users/profileTop2')
 			<br/>
-			<div class=" Div-channel-border">
+			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs" role="tablist">
@@ -22,11 +22,11 @@
 				  	</ul><!--tabNav-->
 				</div>
 
-				<div class="feedbackSection">
-					<h3>Comments</h3>
+				<div class="feedbackSection content-padding">
+					
 	@if(empty($userFeedbacks))
-		No feedbacks yet..
-		<br/>
+		
+		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/>
@@ -34,12 +34,13 @@
 			@if(!Auth::check())
 				{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
 			@else
-				<button id='btnfeedback' class="btn btn-info">Post</button>
+				<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
 				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
 				{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
 			
 			@endif
 		</div>
+		<h3 class="text-center">No feedbacks yet..</h3>
 
 	@else
 					       
@@ -63,8 +64,8 @@
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::check())
-				<div class="nav_div" style="display: none;">
+				@if(Auth::User()->id == $userFeedback->user_id)
+				<div class="nav_div">
 					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
 						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
 					</button>

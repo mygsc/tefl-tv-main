@@ -40,8 +40,8 @@
 @section('content')
 <div class="row">
 	<br/>
-	<div class="container White">
-		<div class="row same-H">
+	<div class="container">
+		<div class="row same-H White">
 			@include('elements/users/profileTop')
 			<div class="channel-content">
 				<div role="tabpanel">
@@ -90,7 +90,7 @@
 					<br/><br/><hr class="" />
 
 					<div id="videosContainer" class='container'>
-						<div class="col-md-12 mg-l--20">
+						<div class="col-md-12 ">
 							@if(empty($usersVideos))
 								<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
 							@else

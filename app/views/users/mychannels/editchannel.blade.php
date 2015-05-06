@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 <div class="row">
   <div class="container">
       <br/>
@@ -10,23 +9,31 @@
          <div class="">
               <div class="well White div-change same-H">
                 <div class="row">
-                  <div class="text-center">
-                    <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                    <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
-                    <br/>
-                    <div id="status">
-											 Click on Below Image to start the demo: <br/>
-											<button onclick="Login()"/>Connect with Facebook
-											</div>
-											<br/><br/><br/><br/><br/>
-											<div id="message">
-											Logs:<br/>
-											</div>
-										<br/>
-                  </div>
+                    <div class="text-center">
+                        <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
+                        <br/>
+                    </div>
+                   <!-- <div id="status">
+                     <button onclick="Login()"/>Connect with Facebook
+                 </div>
+                 <br/><br/><br/><br/><br/>
+                 <div id="message">
+                     Logs:<br/>
+                 </div>
+                 <br/>
+                 <br/>
+                 <button onClick='gmailLogin();' id="loginText"> Click here to login</button>
+                 <button style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout</button>
+                 <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
+                 <div id='uName'></div>
+                 <img src='' id='imgHolder'/>
+                
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
 
@@ -100,26 +107,51 @@
                                         {{Form::label('instagram', 'Instagram: ')}}
                                         {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}      
                                     @else
-                                         {{ Form::label('contact_number', '*Contact Number: ')}}
-                                        <span class="inputError"> {{$errors->first('contact_number')}}</span> 
-                                        {{ Form::text('contact_number', $userChannel->contact_number, array('placeholder' => 'Contact Number'))}}
-
-                                        {{Form::label('facebook', 'Facebook: ')}}            
-                                        {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
+                        
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
+                                                </div>
+                                                 
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
+                                            </div>
+                                        </div>
                                        	<br/>
-                                        {{Form::label('twitter', 'Twitter: ')}}
-                                        {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
-                                        <button>Connect with Twitter</button>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="text-left connectTo c-tr">
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
+                                            </div>
+                                        </div>
+        
                                         <br/>
-                                        {{Form::label('instagram', 'Instagram: ')}}
-                                        {{Form::text('instagram', $userWebsite->instagram, array('placeholder' => 'Instagram Account', 'disabled'))}}
-                                        <button>Connect with Instagram</button>
-                                        <br/>
-                                        {{Form::label('gmail', 'Gmail: ')}}
-                                        {{Form::text('gmail', $userWebsite->gmail, array('placeholder' => 'Gmail Account', 'disabled'))}}
+           
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="text-left connectTo c-gp">
+                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
+                                                </div>
+                                
+                                            </div>
+                                            <div class="col-md-10">
+                                                 {{Form::text('gmail', $userWebsite->google, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                            </div>
+                                        </div>
+                                       
                                         <br/>
                                         {{Form::label('others', 'Other Websites: ')}}
                                         {{Form::text('others', $userWebsite->others, array('placeholder' => 'Other Website Accounts'))}}
+                                          {{ Form::label('contact_number', '*Contact Number: ')}}
+                                        <span class="inputError"> {{$errors->first('contact_number')}}</span> 
+                                        {{ Form::text('contact_number', $userChannel->contact_number, array('placeholder' => 'Contact Number'))}}
 
                                     @endif
 
