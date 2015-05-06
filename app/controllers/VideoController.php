@@ -45,8 +45,9 @@ class VideoController extends BaseController {
 				$this->captureImage($input['video'],$destinationPath,$fileName);
 				$ext = $input['video']->getClientOriginalExtension();
 				$input['video']->move($destinationPath.DS.$fileName.DS, $fileName.'.'.$ext);
-				shell_exec('php artisan ConvertVideo');
-				return Response::json(['vidid'=>Crypt::encrypt($latest_id),'file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
+				$path = '/var/www/projects/tefl-tv-main';
+				$output = shell_exec("php artisan ConvertVideo $path"); 
+				return Response::json(['output'=>$output, 'vidid'=>Crypt::encrypt($latest_id),'file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
 			}
 		}
 		return Redirect::route('get.upload')
@@ -63,15 +64,12 @@ class VideoController extends BaseController {
 		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);$saveImage_2 = file_get_contents($getImage2);$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);Session::put('thumbnail_2',$convertedImage_2);
 		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
 	}
-	private function convertVideoToHigh($videoFile, $destinationPath, $fileName){
+	private function convertVideoToHigh($videoFile, $destinationPath, $fileName, $percentage1=0,$percentage2=0,$percentage3=0){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();
-		// $mp4->on('progress', function ($video, $mp4, $percentage) {
-		//     echo "$percentage % transcoded";
-		// });
-		$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
@@ -80,7 +78,10 @@ class VideoController extends BaseController {
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
-			
+		$mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
+		$webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
+		$ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
+		return $percentage1+$percentage2+$percentage3;	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
