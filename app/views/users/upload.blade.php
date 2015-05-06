@@ -8,6 +8,7 @@
 	{{HTML::script('js/user/upload.js')}}
 	{{HTML::script('js/user/upload-add-description.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
+	{{HTML::script('js/video-player/media.player.upload.min.js')}}
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::style('css/upload.min.css')}}
 @stop
@@ -41,10 +42,10 @@
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))}}
 						</div>
 					</label> 
-					<div id="wrapper">
+					{{-- <div id="wrapper">
 							<div id="progressbar-loaded"></div> 
 					</div><br/>
-					 <label id="percentage"></label> 
+					 <label id="percentage"></label> --}} 
 					{{Form::close()}}
 				</div>
 			</div>
@@ -62,8 +63,13 @@
 						<div class="col-md-6">
 							<div class="p-relative">
 								<h3 id='upload-status' style="text-align:center">
-								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))}}
-								Uploading and converting your video it takes several minutes please wait...</h3>
+								{{-- HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))--}}
+								{{-- Uploading and converting your video it takes several minutes please wait... --}}</h3>
+								<div id="wrapper">
+									<div id="progressbar-loaded"></div>
+								</div>
+								<span id="percentage"></span>
+								{{HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px')) }}
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
 									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" type="video/mp4">
@@ -79,7 +85,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video uploaded.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is uploaded.</h3>
 								<center>
 									<div id="screenshot">
 										

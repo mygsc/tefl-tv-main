@@ -38,9 +38,10 @@ $(document).ready(function(){
                     $("#progressbar-loaded").width('0%');
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
+                    $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    //$('#percentage').html('Processing... '+percentComplete+"%").css({'color':'#000'});
-                    $('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
+                    $('#percentage').html('Uploading...'+percentComplete+'%').css({'color':'#000'});
+                    //$('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
                 },
                 success: function(response){
                     // $('#percentage').html('Done please wait a moment...');
