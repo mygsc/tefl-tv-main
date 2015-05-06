@@ -2,7 +2,7 @@
 @section('some_script')
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
 
 	<script type="text/javascript">
@@ -54,7 +54,7 @@
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				  	

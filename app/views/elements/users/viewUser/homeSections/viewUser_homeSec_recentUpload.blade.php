@@ -11,25 +11,25 @@
 		@if(isset($recentUpload[0]->id))
 		<div class="col-md-6">
 			<div id="vid-wrapper">
-				<div id="vid-controls">
+				<div id="vid-controls" class="p-relative">
 					<div class="embed-responsive embed-responsive-16by9 h-video">
 						<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
 							@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
 							<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
 								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-									<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-										<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
-										@else
-										{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-										@endif
-									</a>
-									@endif			
-								</div>
-								@include('elements/videoPlayer')
-							</div>		
-						</div>					
-					</div>
+								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+							</video>
+							@else
+									{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+							@endif
+						</a>
+							@endif			
+						</div>
+							@include('elements/videoPlayer')
+				</div>		
+			</div>					
+		</div>
 
 					<div class="col-md-6">
 						

@@ -1,5 +1,5 @@
 	/* Moving on to the styling, we'll start with the main progress bar
-	 first and then the value part of it. After that, we'll do some experiments :D */
+	 first and then the value part of it. After that, we'll do some experiments :D oh really*/
 	.wrapper {
 		background: #2a2a2a;
 		padding:0 10px 8px 10px;
@@ -20,12 +20,10 @@
 	}
 	img#play-pause{
 		cursor:pointer;
-	}
-	.img-play{
+	}.img-play{
 		padding:0 5px;
 		margin-right: 10px;
-	}
-	.sound{
+	}.sound{
 		padding:0 5px;
 		cursor:pointer;
 		position: relative;
@@ -36,24 +34,17 @@
 		right: 0;
 		background:rgba(42,42,42,0.9);
 		border-radius: 10px;
-	}
-
-	.fullscreen{
+	}.fullscreen{
 		padding:0 5px;
 		cursor:pointer;
-	}
-	
-	.time{
+	}.time{
 		color: #fff;
 		font-size: 1.2em;
-	}
-
-	.title{
+	}.title{
 		color: #b5daf9;
 		font-size: 0.9em;
 		font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 		font-weight: normal!Important;
-
 	}
 	.playerLogo{
 		height:20px;
@@ -183,16 +174,16 @@ input#seek-slider::-moz-range-thumb {
 }
 
 div#controls{
-
-/*.controls{
+/*.controls{*/
   position: absolute;
-  bottom: 0;/*-10px !important;*/
+  bottom: -8px !important;
   left: 0;
   right: 0;
   width: 100%;
-  background: rgba(42,42,42,0.9);
-  /*z-index: 2147483647*/
+  background: rgba(42,42,42,0.8);
+  z-index: 2147483647;
 }
+
 
 div#progress-amount {
   display: block;
@@ -323,7 +314,7 @@ button#play{
   	padding:20px 10px 0px 15px; 
   	z-index: 2;
 }
- .play-icon{
+ div.play-icon{
  	margin: auto;  
   	position: absolute;
  	left:0;
@@ -334,11 +325,23 @@ button#play{
   	height: 16%;
   	cursor: pointer;
   	border-radius: 5px;
-  	/*background: rgba(27,27,27,0.6);*/
-  	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
+  	background: rgba(0,0,0,0.6);
 	padding-top: 10px;
 	padding-bottom: 10px;
-}.load-video{
+}div.triangle-icon {
+	width: 0; 
+	height: 0; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 36px solid #fff;
+	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+}
+.load-video{
  	margin: auto;  
   	position: absolute;
  	left:0;

@@ -17,7 +17,7 @@
 			<div class="col-md-10">
 				<div class="row">
 
-					<div class="" style="background-image:url(/img/user/cover.jpg); height:224px;">
+					<div class="" style="background-image:url('/img/user/cover.jpg'); height:224px;">
 						<div class="">
 							<div class="overlay-cover">
 								This channel does not exist.
