@@ -23,7 +23,6 @@
 				</div>
 
 				<div class="feedbackSection content-padding">
-<<<<<<< HEAD
 					@if(empty($userFeedbacks))
 					<br/><br/>
 					<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
@@ -50,71 +49,6 @@
 						<div class="text-right">
 							@if(!Auth::check())
 							{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-=======
-					
-	@if(empty($userFeedbacks))
-		<div class="mg-t-10">
-		<br/><br/>
-		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-		<span id='errorlabel' class='input-error'></span>
-		<br/>
-			<div class="text-right">
-				@if(!Auth::check())
-					{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-				@else
-
-					<button id='btnfeedback' class="btn btn-info mg-t-20">Post</button>
-					{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-					{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
-				
-				@endif
-			</div>
-		</div>
-		<h3 class="text-center">No feedbacks yet..</h3>
-
-	@else
-					       
-	<div class="feedbacks row mg-t-20">
-		<div class="col-md-12">
-			<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-			<span id='errorlabel' class='input-error'></span>
-			<br/>
-			<div class="text-right">
-				@if(!Auth::check())
-					{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
-				@else
-					<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
-					{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-					{{Form::hidden('feedbackOwner', $userChannel->id, array('id' => 'feedbackOwner'))}}
-				
-				@endif
-			</div>
-		</div>
-	<div class="col-md-12 feedbacksarea mg-t-20">
-		<div id="appendNewFeedbackHere"></div>
-		@foreach($userFeedbacks as $userFeedback)
-			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
-
-				<div class="feedbackProfilePic col-md-1">
-					{{HTML::image($userFeedback->img, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-					{{ link_to_route('view.users.channel', $userFeedback->channel_name, $parameters = array($userFeedback->channel_name), $attributes = array('id' => 'channel_name')) }}
-					| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($userFeedback->created_at)); ?></small> 
-					<br/>
-					<p class="text-justify">
-						{{$userFeedback->feedback}}
-					</p>
-		
-					
-					@if(isset(Auth::User()->id))
-
-						<div class='fa likedup'>
-							@if(!$userFeedback->ifAlreadyLiked)
-								<span class='fa-thumbs-up'></span>
-								<input type="hidden" value="liked" name="status">
->>>>>>> b3e20dfa354229b13299e6d46178b4738916089f
 							@else
 							<button id='btnfeedback' class="btn btn-info">Post</button>
 							{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
@@ -149,7 +83,6 @@
 								</div>
 								<div class="col-md-11">
 									<div class="row">
-<<<<<<< HEAD
 										{{ link_to_route('view.users.channel', $userFeedback->channel_name, $parameters = array($userFeedback->channel_name), $attributes = array('id' => 'channel_name')) }}
 										| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($userFeedback->created_at)); ?></small> 
 										<br/>
@@ -258,6 +191,7 @@
 					{{HTML::script('js/showHideToggle.js')}}
 					{{HTML::script('js/user/reply.js')}}
 					@endif
+
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
