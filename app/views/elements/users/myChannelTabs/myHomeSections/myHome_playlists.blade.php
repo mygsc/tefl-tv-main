@@ -18,6 +18,7 @@
 			@foreach($usersPlaylists as $key=>$playlist)
 			<div class="col-lg-3 col-md-3 col-sm-2">
 			<div class="p-relative">
+				<div class="thumbnail-2"> 
 				@if(isset($thumbnail_playlists[$key][0]))	
 					@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 					<div class="playlist-info" >
@@ -48,7 +49,10 @@
 					</div>
 					<img src="/img/thumbnails/video.png">
 				@endif
-					</div>
+					<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+				</div>
+			</div>
+
 				<div class="v-Info">
 					<span class="fa fa-globe"></span> | {{$playlist->name}}
 				</div>

@@ -264,10 +264,16 @@ a {
     margin-bottom: 10px;
 }
 
+.textbox-layouts input[type="text"], 
+.textbox-layouts input[type="password"], 
+.textbox-layouts textarea {
+    margin-top: -5px!important;
+    margin-bottom:10px;
+}
 .textbox-layout2 input[type="text"], 
 .textbox-layout2 input[type="password"], 
 .textbox-layout2 textarea {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 input[type="text"], 
@@ -1276,24 +1282,42 @@ span.commentLink {
     background: #686868;
 }
 .google:hover{
-    background: #e96454;
+    background: #f3592b;
 }
 .tefltv{
     background: #686868;
     
 }
 .tefltv:hover{
-    background: #304670;   
+    background: #fff;   
 }
 .sign-upLinks{
     margin-top: 100px;
-
 }
-
+.g-icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background: #f3592b;
+}
+.f-icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background: #4a69b3;
+}
+.fb-bg{
+    background: #4a69b3;
+    padding: 10px 10px;
+}
+.tv-bg{
+    background: #2f466f;
+}
 .social-roll {
     height: 60px;
     width: 60px;
     border-radius: 50%;
+    background: 
     -webkit-transition: all ease 0.3s;
     -moz-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;
@@ -2363,6 +2387,9 @@ td.w-75per {
 
 .mg-b-10 {
     margin-bottom: 10px!important;
+}
+.mg-b--10 {
+    margin-bottom: -10px!important;
 }
 .mg-t-60 {
     margin-top: 40px!important;

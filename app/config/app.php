@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Closca\Sonus\SonusServiceProvider',
+		
 	),
 
 	/*
@@ -190,7 +190,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image' => 'Intervention\Image\Facades\Image',
-		'Sonus'           => 'Closca\Sonus\Facade',
+		
 	),
 
 );
