@@ -2,7 +2,7 @@
 <div class="col-md-6 col-md-height grey">
 	<div class="row">
 		<div class="h-title greyDark orangeC">
-			<span><b>Subscriptions</b></span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+			<span><b>Subscribers</b></span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
 		</div>
 		<br/>
 		<div class="">

@@ -16,6 +16,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
+	Route::post('add-description/{id}',array('before'=>'auth','as' => 'post.add.description', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
@@ -47,6 +48,11 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
 	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
+	Route::get('signin/facebookconnect', array('as' => 'homes.facebookconnect', 'uses' => 'FacebookController@getFacebookConnect'));
+	Route::get('signin/authorizefacebook', array('as' => 'homes.authorizefacebook', 'uses' => 'FacebookController@getAuthorizeFacebook'));
+	Route::get('signin/googleconnect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
+	Route::get('signupwithsocialmedia', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
+	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
 });
 
 
@@ -100,7 +106,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('editTitle/{id}', array('as'=>'playlistTitle.post.edit', 'uses'=>'UserController@editplaylistTitle'));
 	Route::post('editDesc/{id}', array('as'=>'playlistDesc.post.edit', 'uses'=>'UserController@editplaylistDesc'));
 	Route::post('deleteplaylist/{id}', array('as'=>'playlistdelete.post', 'uses'=>'UserController@deleteplaylist'));
-
+	Route::get('delete-feedback/', array('as' => 'post.users.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
 
@@ -121,8 +127,10 @@ Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channe
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
-Route::get('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@postDeleteFeedback'));
+Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
+Route::post('channels/delete-reply-feedback', array('as' => 'post.view.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteFeedbackReply'));
+Route::post('channels/spam-reply-feedback', array('as' => 'post.view.users.spam-reply-feedback', 'uses' => 'UserController@postSpamFeedbackReply'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));

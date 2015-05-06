@@ -10,9 +10,10 @@
               <div class="well White div-change same-H">
                 <div class="row">
                     <div class="text-center">
+                        <br/>
                         <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Update Profile')}}</b></span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -56,7 +57,7 @@
                             <div class="col-md-12 ">
                                 <h3 class="orangeC text-center">-Personal Information-</h3>
                                 <div class="well2">
-                                    <div class="row">
+                                    <div class="row textbox-layout">
                                         <div class="col-md-6">
                                             {{Form::label('first_name', '*Firstname: ')}}
                                             <span class="inputError">{{$errors->first('first_name')}}</span>
@@ -110,6 +111,7 @@
                         
                                         <br/>
                                         <div class="row">
+                                            @if(empty($userWebsite->facebook))
                                             <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
                                                     <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
@@ -119,6 +121,9 @@
                                             <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
+                                            @else
+                                                Connected in Facebook
+                                            @endif
                                         </div>
                                        	<br/>
                                         <div class="row">

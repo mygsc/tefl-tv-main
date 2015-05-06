@@ -74,7 +74,7 @@
 			createDiv.appendChild(elem);
 			createSpan.appendChild(spanContent);  
 			createDiv.setAttribute('id', 'annotation-'+id);    
-			createDiv.setAttribute('style', 'width:100%;height:50px;color:#000;');
+			createDiv.setAttribute('style', 'width:100%;height:25px;color:#000;margin-top:10px;');
 			annotation.appendChild(createDiv); 
 			annotation.appendChild(createTextarea); 
 		}
@@ -114,7 +114,7 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H">
+		<div class="row same-H White">
 			@include('elements/users/profileTop')
 			<div class="Div-channel-border">
 				<div role="tabpanel">
@@ -135,26 +135,26 @@
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12">
 					<!--upload update Video modal-->
-						{{Form::model($video, array('route' => array('video.post.edit',Crypt::encrypt($video->id)), 'files'=>true))}}
+						{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
 							
 							<div class="col-md-5">
 								<br/>
 								
-								<div id="vid-controls">
+								<div id="vid-controls" class="p-relative">
 
 									<div class="embed-responsive embed-responsive-16by9">
 										
 										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 											<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.jpg" class="embed-responsive-item">
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source id='ogg' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
 											</video>
 										@else
 											<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-												<source src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
+												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source id='ogg' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.ogg' type='video/ogg'>
 											</video>
 										@endif
 										
@@ -180,7 +180,7 @@
 									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 									
 
-									<div class="dropdown">
+									<span class="dropdown">
 								        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
 								        <span class="caret"></span></button>
 								        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -189,12 +189,12 @@
 								          <li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
 								          <li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
 								        </ul>
-								     </div>
+								     </span>
 								@else
 									<?php $publish = array('1' => 'Publish' , '0' => 'Unpublish');?>
 									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 				
-									<div class="dropdown">
+									<span class="dropdown">
 								        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
 								        <span class="caret"></span></button>
 								        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -203,7 +203,7 @@
 								          <li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
 								          <li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
 								        </ul>
-								     </div>
+								     </span>
 								@endif
 								<br>
 								<div id="annotation">

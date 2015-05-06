@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="container page">
+	<div class="container page White">
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
@@ -207,7 +207,7 @@
 </div>
 {{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/showHideToggle.js')}}
-{{HTML::script('js/user/reply.js')}}
+{{HTML::script('js/user/feedback.js')}}
 	@endif
 				</div>
 			</div><!--!/.shadow div-channel-border-->

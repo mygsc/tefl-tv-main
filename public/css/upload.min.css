@@ -1,0 +1,45 @@
+.file-upload {
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+}.file-upload input#poster {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}.image-upload > input{
+    display: none;
+}div canvas{
+	padding: 3px;
+	cursor:pointer;
+	position: relative;
+ }div canvas:hover{
+    outline:2px solid green;
+ }div#wrapper{
+	width:100%;
+	height: 20px;
+	background:transparent;
+	border:1px solid #a09b9b;
+	display: none;
+}div#wrapper div#progressbar-loaded{
+	width:0;
+	height: 100%;
+	background:#1f3359;
+}div.img-t{
+	width: 150px;
+	height:100px;
+	background: gray;
+	outline: 1px solid #000;
+	display: inline-block;
+	background: url('/img/thumbnails/150x100.jpg') no-repeat 50% 50%;
+}img.thumb-1, .thumb-2, .thumb-3{
+	outline:1px solid #ccc;
+}
+img:hover{
+	cursor: pointer;
+}

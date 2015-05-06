@@ -53,7 +53,7 @@
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
@@ -107,11 +107,14 @@
 										</span>
 								
 										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-											@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-											<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
-											@else
-												{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-											@endif
+											<div class="thumbnail-2">
+												@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
+												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
+												@else
+													{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;','class' => 'hvr-grow-rotate'))}}
+												@endif
+												<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
+											</div>
 										</a>
 									</div>
 

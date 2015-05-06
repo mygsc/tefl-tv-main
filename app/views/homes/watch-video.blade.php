@@ -104,19 +104,19 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         @if(empty($playlists))
                                                         <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
                                                             @foreach($playlistNotChosens as $playlistNotChosen)
-                                                            <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                                            <li id="playlist-value">{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
                                                             @endforeach
                                                         </ul>    
                                                         @else
                                                         {{ Form::text('search', null, array('id' => 'search-playlist', 'placeholder' => 'Search Playlist', 'class' => 'form-control c-input ')) }}
                                                         <ul style="list-style:none;margin-left:-30px;" id="list-checkbox">
                                                             @foreach($playlists as $playlist)
-                                                            <li>{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
+                                                            <li id="playlist-value">{{ Form::checkbox($playlist->name,Crypt::encrypt($playlist->id),null,array('id'=>'playlist'.$playlistCounter++,'checked'=>'true'))}} &nbsp; {{$playlist->name}}</li>
                                                             @endforeach
 
                                                             @if(!empty($playlistNotChosens))
                                                             @foreach($playlistNotChosens as $playlistNotChosen)
-                                                            <li>{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                                            <li id="playlist-value">{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
                                                             @endforeach
                                                             @endif
                                                         </ul>

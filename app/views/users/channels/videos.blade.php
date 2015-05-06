@@ -105,29 +105,16 @@
 						@foreach($usersVideos as $usersVideo)
 						<div id='list' class="col-md-3 mg-b-10">
 							<div class="inlineVid">
-								
-								<span class="btn-sq">
-									<span class="dropdown">
-					                   <span class="dropdown-menu drop pull-right White snBg text-left" style="padding:5px 5px;text-align:center;width:auto;">
-					                   		<li>gge</li>
-					                   		<li>gfrhgte</li>
-					                   </span>
-					                </span>
-
-									
-									{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
-									<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-									{{Form::close()}}
-								</span>
-								
-								
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+									<div class="thumbnail-2">
 										@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%">
+										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 							
 										@else
-											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;'))}}
-										@endif								
+											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;','class' => 'hvr-grow-rotate'))}}
+										@endif
+										<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>						
+									</div>
 								</a>
 							</div>
 

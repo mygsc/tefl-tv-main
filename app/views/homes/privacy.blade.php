@@ -18,11 +18,9 @@
 		</div><!--/.col-3 right section navigations-->
 		<div class="col-md-9">
 			<div class="row">
-				<br/>
-				<div class="col-md-5">
-					<img src="/img/privacy.jpg">
-				</div>
-				<div class="col-md-7">
+		
+				<div class="col-md-12">
+					<h1>Privacy</h1>
 					<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

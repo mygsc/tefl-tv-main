@@ -17,7 +17,7 @@
 				    	<li role="presentation" class="active">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
@@ -65,14 +65,16 @@
 							
 							<div class="inlineVid ">
 								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
-							
+								<div class="thumbnail-2">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
-									<img src="/videos/{{$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
+									<img src="/videos/{{$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 									@else
-										{{HTML::image('img/thumbnails/video.png')}}
+										{{HTML::image('img/thumbnails/video.png', 'alt', array('class' => 'hvr-grow-rotate') )}}
 									@endif
+									<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 								</a>
+								</div>
 							</div>
 
 							<div class="inlineInfo ">

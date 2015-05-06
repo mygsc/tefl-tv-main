@@ -6,7 +6,6 @@
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
-			
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -17,7 +16,7 @@
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
@@ -81,19 +80,20 @@
 									</span>
 									@endif
 									<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
-									<div>
-										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-									@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-										<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
-											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
-											<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-										</video>
-									@else
-										{{HTML::image('img/thumbnails/video.png')}}
-									@endif
-								</div>
-										</a>
+										<div class="thumbnail-2">
+											<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
+										@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
+											<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
+												<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+												<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+												<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
+											</video>
+										@else
+											{{HTML::image('img/thumbnails/video.png')}}
+										@endif
+											<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
+											</a>
+										</div>
 									</div>
 									<br/>		
 								</div>

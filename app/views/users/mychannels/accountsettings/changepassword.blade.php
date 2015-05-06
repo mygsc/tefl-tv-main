@@ -14,7 +14,7 @@
                         <div class="text-center">
                             <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <span class="active">{{link_to_route('users.edit.channel', 'Account Setting', Auth::User()->channel_name)}}</span>
+                            <span class="active">{{link_to_route('users.edit.channel', 'Update Profile', Auth::User()->channel_name)}}</span>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <span><b>{{ link_to_route('users.change-password', 'Change Password', null) }}</b></span>
                             &nbsp;&nbsp;|&nbsp;&nbsp;

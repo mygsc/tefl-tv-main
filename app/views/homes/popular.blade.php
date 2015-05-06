@@ -13,6 +13,7 @@
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 
 							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 
 					<div class="video-info">
@@ -33,6 +34,7 @@
 		</div>
 		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
 			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
 				<div>
 					@include('elements/home/carouselAds')
 				</div>

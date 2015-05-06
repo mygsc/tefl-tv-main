@@ -93,10 +93,30 @@ $(document).ready(function(){
 			var value = list.val();
 			e.preventDefault();
 				$.post('/mychannels/addChkBoxPlaylist/'+text1, {value:value},function(data){
-					addLoader();
-				});
+					$('li#playlist-value').remove();
+					var playlistCounter = 0 ;
+					var playlistNotChosenCounter = 0;
+					var counter = 1;
+					var counter2 = 1;
+					$.each(data['playlists'],function(i,val){
+						$('ul#list-checkbox').html(function(){	
+							$(this).append('<li><input id="playlist'+counter+'" name="'+val['name']+'" type="checkbox"  checked="true" value="'+val['id']+'"> &nbsp; '+val['name']+'</li>');
+						});
+					counter++;
+					});
+
+					$.each(data['playlistNotChosens'],function(i,val){
+						$('ul#list-checkbox').html(function(){	
+							$(this).append('<li><input id="availablePlaylist'+counter2+'" name="'+val['name']+'" type="checkbox" value="'+val['id']+'"> &nbsp; '+val['name']+'</li>');
+						});
+					counter2++;
+					});
+					deletelist();
+
+				}); 
 			});
 		});
+
 	}
 	function createPlaylist(){
 		var count = 0;
