@@ -111,6 +111,7 @@
                         
                                         <br/>
                                         <div class="row">
+                                            @if(empty($userWebsite->facebook))
                                             <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
                                                     <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
@@ -120,6 +121,9 @@
                                             <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
+                                            @else
+                                                Connected in Facebook
+                                            @endif
                                         </div>
                                        	<br/>
                                         <div class="row">
