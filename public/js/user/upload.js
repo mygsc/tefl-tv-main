@@ -1,4 +1,9 @@
+document.getElementById("save").disabled = true;
+var firstThumbnail = document.getElementById('img-thumb-1');
+var secondThumbnail = document.getElementById('img-thumb-2');
+var thirdThumbnail = document.getElementById('img-thumb-3');
 $(document).ready(function(){
+
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
         $('#progress').fadeIn();
@@ -17,6 +22,8 @@ $(document).ready(function(){
             if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov") {
                 $(this).closest("#vidSubmit").submit();
                 $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 
+                $('.h-minH').fadeOut(500);
+                $('#add-description').fadeIn(1000);
             }else{
                 $('#progress').fadeOut('fast');
                 return $('#percentage').html('Error: File type is not valid.').css({'color':'#cc3510'});
@@ -31,15 +38,22 @@ $(document).ready(function(){
                     $("#progressbar-loaded").width('0%');
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
+                    $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    //$('#percentage').html('Processing... '+percentComplete+"%").css({'color':'#000'});
-                    $('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
+                    $('#percentage').html('Uploading...'+percentComplete+'%').css({'color':'#000'});
+                    //$('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
                 },
                 success: function(response){
-                    $('#percentage').html('Done please wait a moment...');
-                    window.location.href = "add-description!v="+response.file;
-                    $('#progress').fadeOut();
-                    $('#wrapper').fadeOut();  
+                    // $('#percentage').html('Done please wait a moment...');
+                    // window.location.href = "add-description!v="+response.file;
+                    // $('#progress').fadeOut();
+                    // $('#wrapper').fadeOut();  
+                    document.getElementById('post-save').action = 'add-description/'+response.vidid;
+                    $('#upload-status').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
+                    firstThumbnail.src = response.thumb1;
+                    secondThumbnail.src = response.thumb2;
+                    thirdThumbnail.src = response.thumb3;
+                    document.getElementById("save").disabled = false;
                 },
                 error: function(response, status, e){
                     alert(e);

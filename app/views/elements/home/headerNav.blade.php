@@ -1,25 +1,22 @@
-<div class="categoryNav hidden-sm hidden-xs animated slideInRight">
+<div class="categoryNav hidden-sm hidden-xs">
     <div class="row">
         <div class="container">
             <div class="">
                 <div class="col-md-6 col-sm-6"> 
-                    
-                        <ul class="ctgryNav">
-                            <li>
-                                {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
-                            </li>
-                            <li>
-                                {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
-                            </li>
-                        </ul>
-
-                   
+                    <ul class="ctgryNav">
+                        <li>
+                            {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
+                        </li>
+                        <li>
+                            {{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
+                        </li>
+                    </ul> 
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">

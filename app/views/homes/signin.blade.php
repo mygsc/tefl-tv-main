@@ -15,98 +15,20 @@
 						<br/>
 						<small>Choose where to sign up</small>
 					</h1>
-					<img src="/img/icons/google.png" class="social-roll google"> 
-					<img src="/img/icons/tefltv.png" class="social-roll tefltv signBtn">
-					<img src="/img/icons/fb.png" class="social-roll fb ">
-
+					<a href = "{{route('homes.googleconnect',array('action' => 'signup'))}}"><img src="/img/icons/google.png" class="social-roll google"></a>
+					<a href="{{route('homes.signin', array('signup' => 'signup'))}}"><img src="/img/icons/tefltv.png" class="social-roll tefltv signBtn"></a>
+					<a href="{{route('homes.facebookconnect',array('action' => 'signup'))}}"><img src="/img/icons/fb.png" class="social-roll fb "></a>
 				</div>
 
 			</div>
 			<div class="col-md-4 col-sm-5">
-				<div class="signDivH textbox-layout2 same-H hidden">
-					<h2 class="OrangeC"><i class="fa fa-play"></i>&nbsp;Tefl TV Sign Up</h2>
-
-					
-					<!-- Sign Up -->
-					{{ Form::open(array('route' => 'homes.post.signup'))}}
-					{{ Form::text('email', null, array('placeholder' => 'Email Address'))}}
-					@if($errors->has('email'))
-					<span class="inputError">
-						{{$errors->first('email')}}
-					</span>
-					@endif
-
-					{{Form::text('channel_name', null, array('placeholder' => 'Channel Name'))}}
-					@if($errors->has('channel_name'))
-					<span class="inputError">
-						{{$errors->first('channel_name')}}
-					</span>
-					@endif
-
-					{{Form::password('password', array('placeholder' => 'Password' , 'class' => 'txt_password'))}}
-					@if($errors->has('password'))
-					<span class="inputError">
-						{{$errors->first('password')}}
-					</span>
-					@endif
-
-					{{Form::password('confirm_password', array('placeholder' => 'Confirm Password', 'class' => 'txt_password'))}}
-					@if($errors->has('confirm_password'))
-					<span class="inputError">
-						{{$errors->first('confirm_password')}}
-					</span>
-					@endif
-					
-					{{Form::text('first_name', null, array('placeholder' => 'Firstname'))}}
-					@if($errors->has('first_name'))
-					<span class="inputError">
-						{{$errors->first('first_name')}}
-					</span>
-					@endif
-
-					{{Form::text('last_name', null, array('placeholder' => 'Lastname'))}}
-					@if($errors->has('last_name'))
-					<span class="inputError">
-						{{$errors->first('last_name')}}
-					</span>
-					@endif
-
-					{{Form::text('contact_number', null, array('placeholder' => 'Contact Number (optional)'))}}
-					@if($errors->has('contact_number'))
-					<span class="inputError">
-						{{$errors->first('contact_number')}}
-					</span>
-					@endif
-					<br/>
-					<div class="text-right mg-t-20"> 
-						<button class="btn btn-info cancelBtn">Cancel</button>
-						{{Form::submit('Sign Up', array('class' => 'btn btn-warning'))}}
-					</div>
-					{{ Form::close()}}
-				</div>
-				<div class="loginDivH textbox-layout">
-					<img src="/img/logos/teflTv.png" class="center-block">
-					<br/>
-					<!-- Sign In -->
-					<a href="#" id="forgotpw" data-toggle="modal" data-target="#forgot-password">forgot password?</a>
-					{{Form::open(array('route' => 'homes.post.signin'))}}
-					
-					{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
-					
-					{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
-					<div class="text-right">
-						<br/>
-						{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}
-						&nbsp;&nbsp;
-						{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
-						{{Form::close()}}
-					</div>
-					<hr>
-					<p class="text-center">Login with your <a href="">Facecook</a> or  <a href="">Google</a> Account</p>
-
-				</div>
+				@if(Input::has('signup'))
+					@include('elements.home.signin.signupform')
+				@else
+					@include('elements.home.signin.loginform')
+				@endif
 			</div>
-			
+
 		</div>
 		<br/><br/>
 	</div><!--/.container page-->
@@ -124,7 +46,7 @@
 				{{Form::open(array('route' => 'post.forgotpassword'))}}
 				{{Form::email('email', null, array('class' => 'form-control'))}}
 				<br/><br/>
-				<div class="text-right"> 
+				<div class="text-right">
 					{{Form::submit('retrieve', array('class' => 'btn btn-warning'))}}
 				</div>
 				<br/>
@@ -134,4 +56,3 @@
 </div>
 
 @stop
-

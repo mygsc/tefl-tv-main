@@ -96,6 +96,26 @@ title {
     padding: 5px 5px;
     width: 198px;
 }
+.thumbnail-2:hover .play-hover{display:block}
+.play-hover{
+  position : absolute;
+    display:none;
+    top:35%; 
+    width:65px;
+    height: 45px;
+    margin:0 auto;
+    left:0px;
+    right:0px;
+    z-index:100;
+    background:rgba(0,0,0,0.7);
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.play-hover > img{
+    width: 25px;
+    height: auto;
+} 
 
 div.wrapper {
     float: left;
@@ -951,7 +971,7 @@ center;     margin: 0 auto; }
     background: #3ea9cb!important;
     font-weight: normal!important;
     padding: 6px 8px!important;
-    margin-top: 12px;
+    margin-top: 17px;
 }
 .input-search{
      margin-top: -3px;
@@ -2019,7 +2039,10 @@ body {
 .ch {
     height: 380px;
 }
-
+.cat-h{
+    max-height:293px;
+    overflow:auto;
+}
 
 
 }
@@ -2027,7 +2050,10 @@ body {
 /*=================LG==================*/
 
 @media (min-width:1200) {
-
+.cat-h{
+    max-height:300px;
+    overflow:auto;
+}
 .thumbnail {
     width: 266px;
     height: 150px;

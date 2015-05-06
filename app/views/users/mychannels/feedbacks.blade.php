@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-	<div class="container page">
+	<div class="container page White">
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop')
