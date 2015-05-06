@@ -2,5 +2,5 @@
 
 class FeedbackReply extends Eloquent {
 
-	protected $table = 'feedbacks_replies';
+	protected $table = 'feedback_replies';
 }

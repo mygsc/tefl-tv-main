@@ -121,8 +121,10 @@ Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channe
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
-Route::get('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
+Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
+Route::post('channels/delete-reply-feedback', array('as' => 'post.view.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteFeedbackReply'));
+Route::post('channels/spam-reply-feedback', array('as' => 'post.view.users.spam-reply-feedback', 'uses' => 'UserController@postSpamFeedbackReply'));
 //**********ADMIN**********//
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
