@@ -2,11 +2,10 @@
 
 @section('content')
 <div class="row">
-	<br/>
 	<div class="container pageH White same-H">
+		<br/>
 		<div class="row ">
 			@include('elements/users/profileTop')
-
 			<div class="channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
@@ -65,14 +64,14 @@
 						<br/><br/><br/>
 						<div class="row">
 							@if($playlists->isEmpty())
-								<p class="text-center">You don't have playlist yet.</p>
+							<p class="text-center">You don't have playlist yet.</p>
 							@else
-								@foreach($playlists as $key=>$playlist)
-								<div id="playlists" class="col-xs-2 col-md-3">
-									<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
+							@foreach($playlists as $key=>$playlist)
+							<div id="playlists" class="col-xs-2 col-md-3">
+								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 									@if(isset($thumbnail_playlists[$key][0]))
-										@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
-										<div class="" style="position:relative;">
+									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
+									<div class="" style="position:relative;">
 										<div class="playlist-info" >
 											{{count($thumbnail_playlists[$key])}}
 											<br/>
@@ -81,9 +80,9 @@
 											<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 										</div>
 										<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
-										</div>
-										@else
-										<div class="" style="position:relative;">
+									</div>
+									@else
+									<div class="" style="position:relative;">
 										<div class="playlist-info" >
 											{{count($thumbnail_playlists[$key])}}
 											<br/>
@@ -91,12 +90,12 @@
 											<br/>
 											<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 										</div>
-											<img src="/img/thumbnails/video.png">
-										</div>
-										@endif
+										<img src="/img/thumbnails/video.png">
+									</div>
+									@endif
 									@else
 									<div class="" style="position:relative;">
-									<div class="playlist-info" >
+										<div class="playlist-info" >
 											0
 											<br/>
 											Video(s)
@@ -112,7 +111,7 @@
 								<br/><br/>
 							</div>
 							@endforeach
-						@endif
+							@endif
 						</div>
 					</div><!--videoContainer-->
 				</div>
@@ -154,15 +153,15 @@
 		        	},
 		        	function( data ) {
 		                //do something with data/response returned by server
-		            },'json'
-		            );
+		              },'json'
+		              );
 		        //.....
 		        //do anything else you might want to do
 		        //.....
 
 		        //prevent the form from actually submitting in browser
 		        return false;
-		    } );
+		      } );
 	} );
 </script>
 @stop

@@ -9,6 +9,7 @@
 	{{HTML::script('js/user/upload-add-description.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
 	{{HTML::script('js/video-player/media.player.upload.min.js')}}
+	{{HTML::script('js/bootstrap.min.js')}}
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::style('css/upload.min.css')}}
 @stop
@@ -69,7 +70,7 @@
 									<div id="progressbar-loaded"></div>
 								</div>
 								<span id="percentage"></span>
-								{{HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px')) }}
+								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
 									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" type="video/mp4">
@@ -218,7 +219,7 @@
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-							        <a href="{{route('user.upload.video.cancel',"v=")}}" class="btn btn-primary">Yes</a>
+							        <a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
 							      </div>
 							    </div>
 							  </div>
