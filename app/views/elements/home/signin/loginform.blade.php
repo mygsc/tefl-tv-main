@@ -1,4 +1,4 @@
-<div class="loginDivH textbox-layout">
+<div class="loginDivH textbox-layout  animated zoomIn">
 	<img src="/img/logos/teflTv.png" class="center-block">
 	<br/>
 	<!-- Sign In -->

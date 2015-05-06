@@ -15,9 +15,12 @@
 		@foreach($usersVideos as $usersVideo)
 		<div class="videos">
 			<div class="col-md-3">
-				<video height="auto" width="100%" class="h-video controls">
-					<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
-				</video>
+				<div class="thumbnail-2">
+					<video height="auto" width="100%" class="h-video controls">
+						<source src="/videos/{{$usersVideo->file_name}}.{{$usersVideo->extension}}" type="video/mp4" />		 
+					</video>
+					<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
+				</div>
 				<div class="v-Info">
 					{{$usersVideo->title}}
 				</div>
