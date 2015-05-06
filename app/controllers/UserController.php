@@ -237,6 +237,7 @@ class UserController extends BaseController {
 			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
+			return $subscriberProfile;
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
 			// return $usersVideos;
@@ -246,8 +247,7 @@ class UserController extends BaseController {
 				$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 			$increment = 0;
-			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
-
+			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1)->first();
 			return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture'));
 		}
 	}
@@ -414,13 +414,15 @@ class UserController extends BaseController {
 				}
 				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
-			$id = Crypt::decrypt($id);
-			$video = Video::find($id);
+
+			//$id = Crypt::decrypt($id);
+			$video = Video::where('file_name',$id)->first();
+			$id = $video->file_name;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
 			if($input['new_tags'] != null){
-				$video_tag = Video::where('id',$id)->first()->toArray();
+				$video_tag = Video::where('file_name',$id)->first()->toArray();
 				$new_tags = explode(',',$input['new_tags']);
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
@@ -434,7 +436,7 @@ class UserController extends BaseController {
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashGood('Successfully updated');
+			return Redirect::route('video.edit.get',$id)->withFlashGood('Successfully updated');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
@@ -476,7 +478,7 @@ class UserController extends BaseController {
 
 	public function getWatchLater() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
@@ -505,7 +507,7 @@ class UserController extends BaseController {
 
 	public function getPlaylists() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$userChannel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -1403,12 +1405,11 @@ public function postSpamFeedbackReply() {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
-
 		$user = Website::where('user_id',$this->Auth->id)->first();
 		$user->$action = $userProfile->profileURL;
 		$user->save();
 
-		return Redirect::route('users.edit.channel')->withFlashGood('Connected with'.$social.'!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
 		// echo 'ID: '.$userProfile->identifier.'<br/>';
 		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
 		// echo 'Email: '.$userProfile->email.'<br/>';

@@ -1,5 +1,8 @@
-<div class="signDivH textbox-layout2 same-H">
-	<h2 class="OrangeC"><i class="fa fa-play"></i>&nbsp;Tefl TV Sign Up</h2>
+<div class="signDivH textbox-layout2 same-H animated zoomIn">
+	<img src="/img/icons/tefltv.png" class="t-icon center-block">
+	<div id="status" class="text-center connectTo c-fb">
+	<h2 href="social/facebook" class="tv-bg whiteC">Signup with Tefl TV</h2>
+	</div>
 
 
 	<!-- Sign Up -->

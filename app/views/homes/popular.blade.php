@@ -13,6 +13,7 @@
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 
 							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}">
+							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 
 					<div class="video-info">

@@ -1,5 +1,5 @@
 	<br/>
-	<div class="row">
+	<div class="row ">
 	@foreach($datas as $channel)
 
 	<div class="col-md-12" >
@@ -14,26 +14,36 @@
 
 				</div>
 				<div class="col-lg-10 col-md-9 col-xs-8">
-					<a href="channels/{{$channel->channel_name}}"><h2>{{$channel->channel_name}}</h2></a>
-						<p class="text-justify">{{ Str::limit($channel->interests, 100) }}</p>
-					
-						@if(Auth::check())
-							@if(Auth::user()->id != $channel->id)
-							{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-							{{Form::hidden('user_id',$channel->id)}}
-							{{Form::hidden('subscriber_id', Auth::user()->id)}}
-								@if($channel->ifsubscribe == 'No')
-								{{Form::hidden('status','subscribeOn')}}
-								{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
-								@else
-								{{Form::hidden('status','subscribeOff')}}
-								{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
+					<div class="row">
+						<div class="col-md-8">
+							<a href="channels/{{$channel->channel_name}}"><h2>{{$channel->channel_name}}</h2></a>
+						</div>
+						<div class="col-md-4 text-right">
+							<div class="mg-r-10 mg-t-20">
+								@if(Auth::check())
+								@if(Auth::user()->id != $channel->id)
+								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+								{{Form::hidden('user_id',$channel->id)}}
+								{{Form::hidden('subscriber_id', Auth::user()->id)}}
+									@if($channel->ifsubscribe == 'No')
+									{{Form::hidden('status','subscribeOn')}}
+									{{Form::submit('Subscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
+									@else
+									{{Form::hidden('status','subscribeOff')}}
+									{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary', 'id'=>'subscribebutton'))}}
+									@endif
+								{{Form::close()}}
 								@endif
-							{{Form::close()}}
-							@endif
-						@else
-							{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
-						@endif
+								@else
+									{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary plull-right')); }}
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="mg-r-10">
+						<p class="text-justify">{{ Str::limit($channel->interests, 150) }}</p>
+					</div>
+						
 				</div>	
 			</div><!--/.row-->
 			<div class="Subscribers greyDark">
