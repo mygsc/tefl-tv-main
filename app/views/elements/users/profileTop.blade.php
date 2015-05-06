@@ -38,18 +38,27 @@
 								<span class="pull-right" >
 									<span class="pull-right" >
 										@if(empty($usersWebsite))
-											<a href=""><i class="socialMedia socialMedia-facebook"></i></a>
-											<a href=""><i class="socialMedia socialMedia-youtube"></i></a>
-											<a href=""><i class="socialMedia socialMedia-twitter"></i></a>
-											<a href=""><i class="socialMedia socialMedia-instagram"></i></a>
-											<a href=""><i class="socialMedia socialMedia-googlePlus"></i></a>
-											<a href=""><i class="socialMedia socialMedia-site"></i></a>
+											No social sites connected here..
 										@else
-											<a href="http://{{$usersWebsite->facebook}}"><i class="socialMedia socialMedia-facebook"></i></a>
-											<a href="http://{{$usersWebsite->twitter}}"><i class="socialMedia socialMedia-twitter"></i></a>
-											<a href="http://{{$usersWebsite->instagram}}"><i class="socialMedia socialMedia-instagram"></i></a>
-											<a href="http://{{$usersWebsite->gmail}}"><i class="socialMedia socialMedia-googlePlus"></i></a>
-											<a href="http://{{$usersWebsite->others}}"><i class="socialMedia socialMedia-site"></i></a>
+											@if(empty($usersWebsite->facebook))
+											@else
+											<a href="{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
+											@endif
+
+											@if(empty($usersWebsite->twitter))
+											@else
+											<a href="{{$usersWebsite->twitter}}" target="_blank"><i class="socialMedia socialMedia-twitter"></i></a>
+											@endif
+
+											@if(empty($usersWebsite->google))
+											@else
+											<a href="{{$usersWebsite->google}}" target="_blank"><i class="socialMedia socialMedia-googlePlus"></i></a>
+											@endif
+
+											@if(empty($usersWebsite->others))
+											@else
+											<a href="http://{{$usersWebsite->others}}" target="_blank"><i class="socialMedia socialMedia-site"></i></a>
+											@endif
 										@endif
 									</span> 
 								</span>	

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05c1ab4fee29e10953990941ea3edafc",
+    "hash": "e1588e1cc345409b7b442ee506ac7e65",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -109,59 +109,6 @@
                 "preload"
             ],
             "time": "2014-03-12 00:05:31"
-        },
-        {
-            "name": "closca/sonus",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/closca/sonus.git",
-                "reference": "0c10d50e114b019307ad59793b402cadd7c7d9f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/closca/sonus/zipball/0c10d50e114b019307ad59793b402cadd7c7d9f8",
-                "reference": "0c10d50e114b019307ad59793b402cadd7c7d9f8",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.2.*",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-0": {
-                    "Closca\\Sonus\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rafael Sampaio",
-                    "email": "rafaelsampaio@live.com"
-                },
-                {
-                    "name": "Closca Costel",
-                    "email": "closca.costel@gmail.com"
-                }
-            ],
-            "description": "A laravel audio and video conversion, thumbnail generator and metadata editor package powered by ffmpeg",
-            "keywords": [
-                "converter",
-                "ffmpeg",
-                "ffprobe",
-                "laravel"
-            ],
-            "time": "2015-01-09 20:32:06"
         },
         {
             "name": "d11wtq/boris",
@@ -415,7 +362,6 @@
             "time": "2015-03-30 15:26:59"
         },
         {
-<<<<<<< HEAD
             "name": "google/apiclient",
             "version": "1.0.6-beta",
             "source": {
@@ -459,7 +405,8 @@
                 "google"
             ],
             "time": "2014-09-30 19:33:59"
-=======
+        },
+        {
             "name": "hybridauth/hybridauth",
             "version": "v2.4.1",
             "source": {
@@ -510,7 +457,6 @@
                 "yahoo"
             ],
             "time": "2015-04-12 01:39:53"
->>>>>>> 6167f3a7a9f56cb24fcb08635d37de1d0458a888
         },
         {
             "name": "intervention/image",
@@ -2185,7 +2131,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "closca/sonus": 20,
         "google/apiclient": 10
     },
     "prefer-stable": false,
