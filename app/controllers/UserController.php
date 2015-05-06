@@ -1403,12 +1403,11 @@ public function postSpamFeedbackReply() {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
-
 		$user = Website::where('user_id',$this->Auth->id)->first();
 		$user->$action = $userProfile->profileURL;
 		$user->save();
 
-		return Redirect::route('users.edit.channel')->withFlashGood('Connected with'.$social.'!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
 		// echo 'ID: '.$userProfile->identifier.'<br/>';
 		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
 		// echo 'Email: '.$userProfile->email.'<br/>';
