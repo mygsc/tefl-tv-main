@@ -63,7 +63,14 @@ title {
     font-size: 1.2em;
     font-weight: bold;
 }
-
+.ad-bg{
+   background:url(/img/ads/ad-bg.jpg);
+   background-size: 100%;
+   background-repeat: no-repeat;
+   padding-top: 20px;
+   padding: 20px 20px 20px 20px!important;
+   width: 100%;
+}
 .linkReadMore {
     cursor: pointer;
     font-size:0.8em!important;
@@ -708,7 +715,7 @@ img.user {
     margin-right: auto;
 }
 .h-minH{
-    min-height: 600px;
+    min-height: 730px;
 }
 .h-title {
     width: 100%!important;
@@ -2300,6 +2307,9 @@ body {
 }
 .pad-v-10{
     padding: 10px 0!important;
+}
+.pad-10{
+    padding: 20px 20px!important;
 }
 
 .div-search {

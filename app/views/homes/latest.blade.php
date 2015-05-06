@@ -34,6 +34,7 @@
 		</div>
 		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
 			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
 				<div>
 					@include('elements/home/carouselAds')
 				</div>
