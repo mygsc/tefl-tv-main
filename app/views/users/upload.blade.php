@@ -143,7 +143,11 @@
 								{{Form::label('Category:')}}<br>
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
-									<label for='instruct'>Instructional</label>
+									<label for='instruct'>Teachers Instructional</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
+									<label for='music-vid'>Students Instructional</label>
 								</span>
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
@@ -161,10 +165,7 @@
 									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
 									<label for='music'>Music</label>
 								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
-									<label for='music-vid'>Music Video</label>
-								</span>
+								
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
 									<label for='anim-vid'>Animated Video</label>
