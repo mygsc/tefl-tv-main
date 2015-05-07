@@ -37,11 +37,11 @@ class convertvideo extends Command {
 	 */
 	public function fire()
 	{
-		$video_id = $this->argument('example');
+		$video_id = $this->argument('10');
 		$videos = Video::find($video_id);
 		$videos->uploaded = '1';
 		$videos->save();
-		print("\r \n Conversion Done \r \n");
+		print("\r \n Conversion Done... \r \n");
 	}
 
 	public function createLowQuality($video){
