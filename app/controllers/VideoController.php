@@ -42,18 +42,28 @@ class VideoController extends BaseController {
 				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				$this->captureImage($input['video'],$destinationPath,$fileName);
+				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$ext = $input['video']->getClientOriginalExtension();
 				$input['video']->move($destinationPath.DS.$fileName.DS, $fileName.'.'.$ext);
-				$path = '/var/www/projects/tefl-tv-main';
-				$output = shell_exec("php artisan ConvertVideo $path"); 
-				return Response::json(['output'=>$output, 'vidid'=>Crypt::encrypt($latest_id),'file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
+				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
+				return Response::json([
+					'vidid'=>Crypt::encrypt($latest_id),
+					'file'=>$fileName, 
+					'thumb1'=>Session::get('thumbnail_1'),
+					'thumb2'=>Session::get('thumbnail_2'),
+					'thumb3'=>Session::get('thumbnail_3'),
+					'videoPath'=>$videoPath,
+					'destinationPath'=>$destinationPath,
+					]);  
 			}
 		}
 		return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
+	}
+	public function getconvertVideo($videoPath,$destinationPath,$fileName){
+		shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
