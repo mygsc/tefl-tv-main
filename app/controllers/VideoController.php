@@ -62,8 +62,16 @@ class VideoController extends BaseController {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 	}
-	public function getconvertVideo($videoPath,$destinationPath,$fileName){
-		shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
+	public function getconvertVideo($fileName){
+		$filename = Video::where('file_name',$fileName)->where('publish',0)->first();
+		if($filename->count()){
+			$id = $filename->user_id;
+			$user = Video::find($id);
+			$user_id = $user->id;
+			$user_channel = $user->channel_name;
+			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
+		}
+		return 'Error converting video...';
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);

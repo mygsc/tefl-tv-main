@@ -78,9 +78,9 @@ $(document).ready(function(){
 
 });//end of function
 
-function convertVideo(videoPath, destinationPath, filename){
+function convertVideo(filename){
     $.ajax({
-        url:'convertVideo/'+videoPath+'/'+destinationPath+'/'+filename,
+        url:'convertVideo/'+filename,
         type:'get',
         data:{gerald:'burasca'},
         success:function(){
