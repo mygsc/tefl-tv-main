@@ -41,15 +41,18 @@ $(document).ready(function(){
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
                     $('#percentage').html('Uploading...'+percentComplete+'%').css({'color':'#000'});
+                    if(percentComplete==100){
+                        $('#percentage').html('Done please wait a moment...');
+                    }
                     //$('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
                 },
                 success: function(response){
                     // $('#percentage').html('Done please wait a moment...');
                     // window.location.href = "add-description!v="+response.file;
-                    // $('#progress').fadeOut();
                     // $('#wrapper').fadeOut();  
+                    $('#loader-progress').fadeOut();
                     document.getElementById('post-save').action = 'add-description/'+response.vidid;
-                    $('#upload-status').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
+                    $('#percentage').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
                     firstThumbnail.src = response.thumb1;
                     secondThumbnail.src = response.thumb2;
                     thirdThumbnail.src = response.thumb3;
@@ -60,6 +63,10 @@ $(document).ready(function(){
                 },
                 resetForm: true 
             });
+    });
+    
+    $('#upload-cancel').on('click',function(){
+        $('#cancel-upload-vid').modal('show');
     });
 
 });//end of function
