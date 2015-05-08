@@ -22,7 +22,10 @@
                     <div class="row text-right">
                       
                         <ul class="ctgryNav">
+                            
+
                             @if(Auth::check())
+                   
                             <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
                             <li>
                                 <div class="btn-group hand" id="notification">

@@ -54,12 +54,12 @@
 	</div>
 </div>
 
-<br><br>
-<div class="row White" style="display:none" id='add-description'>
-	<div class="container page">	
-		<div class="content-padding">
+
+<div class="row" style="display:none" id='add-description'>
+	<div class="container page White same-H">	
+		<div class="">
 		{{Form::open(array('files'=>'true', 'route' => 'post.addDescription', 'id'=>'post-save'))}}
-				<div class="well">
+				<div class="">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
@@ -86,7 +86,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is uploaded.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after uploading video.</h3>
 								<center>
 									<div id="screenshot">
 										
@@ -97,10 +97,10 @@
 									</div>
 									<br/>
 									
-										<small>Or select desire thumbnail:</small><br><br/>
+										<small>Or select desired thumbnail:</small><br><br/>
 										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 										<br><br/>
-										<div class="file-upload btn btn-primary">
+										<div class="file-upload2 btn btn-primary">
 											<span>Browse thumbnail</span>
 											<input type="file" name="poster" id="poster" accept="image/*"/>
 										</div>
@@ -108,8 +108,8 @@
 								</center>
 							</div>
 						</div>
-
-						<div class="col-md-12">
+					
+						<div class="col-md-12 grey mg-t-20">
 							<h3>Add Information to your video</h3>
 							
 							<div class="row">
@@ -207,7 +207,7 @@
 								
 							</div>	
 						</div>
-					
+				
 							<div class="modal fade" id="cancel-upload-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							  <div class="modal-dialog">
 							    <div class="modal-content">
