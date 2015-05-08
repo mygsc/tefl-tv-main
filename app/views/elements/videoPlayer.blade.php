@@ -15,7 +15,15 @@
 	</div>
 
 	<div class="load-video" id="loader"></div>
-	<div class="error-video" id="error-video"><small>Error: Please try again later. <a href="#" id="retry-error">Retry.</a></small></div>
+	<div class="error-video" id="error-video">
+		<small>
+			Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
+		</small>
+	</div>
+
+	<div id='ads-hide'>
+		<center>ads</center>
+	</div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
