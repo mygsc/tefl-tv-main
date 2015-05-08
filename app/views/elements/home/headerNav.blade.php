@@ -23,10 +23,10 @@
                         <ul class="ctgryNav">
                             @if(Auth::check())
                                 <!--@r3mmel-->
-                                <?php $watchVideoLink = strpos('watch', Request::path()) === false; ?>
-                                <?php $notifLink = strpos('mychannels/notifications', Request::path()) === false; ?>
-                                @if(($watchVideoLink) OR ($notifLink))
-                                    <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
+                                <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
+                                <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
+                                @if(($watchVideoLink !== false) OR ($notifLink !== false))
+                                    <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                                 @endif
                                 <!--@r3mmel-->
                                 <li>
@@ -93,12 +93,15 @@
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())
-                    <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
 
-                    <?php $link = stripos(Request::path() , 'watch'); ?>
-                    @if(($link) OR (Request::path() == 'mychannels/notifications'))
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
+                    <!--@r3mmel-->
+                    <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
+                    <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
+                    @if(($watchVideoLink !== false) OR ($notifLink !== false))
                         <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                     @endif
+                    <!--@r3mmel-->
 
                     <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
