@@ -112,8 +112,8 @@ $(document).ready(function(){
 					counter2++;
 					});
 					deletelist();
-				});
 
+				}); 
 			});
 		});
 

@@ -23,10 +23,10 @@ class HomeController extends BaseController {
 	public function getWatchVideo() { return View::make('homes.advertisements'); }
 
 	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', 8);
-		$populars = $this->Video->getFeaturedVideo('popular', '8');
-		$latests = $this->Video->getFeaturedVideo('latest', '8');
-		$randoms = $this->Video->getFeaturedVideo('random', '8');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
+		$populars = $this->Video->getFeaturedVideo('popular', '9');
+		$latests = $this->Video->getFeaturedVideo('latest', '9');
+		$randoms = $this->Video->getFeaturedVideo('random', '9');
 		$categories = $this->Video->getCategory();
 		
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));

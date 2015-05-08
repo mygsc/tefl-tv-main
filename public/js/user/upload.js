@@ -41,19 +41,29 @@ $(document).ready(function(){
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
                     $('#percentage').html('Uploading...'+percentComplete+'%').css({'color':'#000'});
+                    if(percentComplete==100){
+                        $('#percentage').html('Done please wait a moment...');
+                    }
                     //$('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
                 },
                 success: function(response){
                     // $('#percentage').html('Done please wait a moment...');
                     // window.location.href = "add-description!v="+response.file;
-                    // $('#progress').fadeOut();
                     // $('#wrapper').fadeOut();  
+                    $('#loader-progress').fadeOut();
                     document.getElementById('post-save').action = 'add-description/'+response.vidid;
-                    $('#upload-status').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
+                    $('#percentage').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
                     firstThumbnail.src = response.thumb1;
+                    firstThumbnail.width = 150;
+                    firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;
+                    secondThumbnail.width = 150;
+                    secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;
+                    thirdThumbnail.width = 150;
+                    thirdThumbnail.height = 100;
                     document.getElementById("save").disabled = false;
+                    convertVideo(response.videoPath, response.destinationPath, response.file);
                 },
                 error: function(response, status, e){
                     alert(e);
@@ -61,8 +71,26 @@ $(document).ready(function(){
                 resetForm: true 
             });
     });
+    
+    $('#upload-cancel').on('click',function(){
+        $('#cancel-upload-vid').modal('show');
+    });
 
 });//end of function
+
+function convertVideo(filename){
+    $.ajax({
+        url:'convertVideo/'+filename,
+        type:'get',
+        data:{gerald:'burasca'},
+        success:function(){
+            alert('Done converting...');
+        },
+        error: function(e){
+            alert(e);
+        }
+    });
+}
 
 
 
