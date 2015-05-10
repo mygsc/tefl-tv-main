@@ -1,3 +1,4 @@
+#!/var/www/projects/tefl-tv-main
 <?php
 
 use Illuminate\Console\Command;
