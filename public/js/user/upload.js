@@ -53,17 +53,11 @@ $(document).ready(function(){
                     $('#loader-progress').fadeOut();
                     document.getElementById('post-save').action = 'add-description/'+response.vidid;
                     $('#percentage').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
-                    firstThumbnail.src = response.thumb1;
-                    firstThumbnail.width = 150;
-                    firstThumbnail.height = 100;
-                    secondThumbnail.src = response.thumb2;
-                    secondThumbnail.width = 150;
-                    secondThumbnail.height = 100;
-                    thirdThumbnail.src = response.thumb3;
-                    thirdThumbnail.width = 150;
-                    thirdThumbnail.height = 100;
+                    firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
+                    secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
+                    thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
                     document.getElementById("save").disabled = false;
-                    convertVideo(response.videoPath, response.destinationPath, response.file);
+                    convertVideo(response.file, response.ext);
                 },
                 error: function(response, status, e){
                     alert(e);
@@ -78,13 +72,13 @@ $(document).ready(function(){
 
 });//end of function
 
-function convertVideo(filename){
+function convertVideo(filename,ext){
     $.ajax({
-        url:'convertVideo/'+filename,
-        type:'get',
+        url:'/convert-video/'+filename+'/'+ext,
+        type:'GET',
         data:{gerald:'burasca'},
-        success:function(){
-            alert('Done converting...');
+        success:function(e){
+            console.log(e.response);
         },
         error: function(e){
             alert(e);

@@ -17,7 +17,6 @@
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
-	{{-- HTML::style('css/vid.player.min.css') --}}
 	@yield('css')
 </head>
 

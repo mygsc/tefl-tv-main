@@ -44,7 +44,14 @@ class convertvideo extends Command {
 		 $this->convertVideoToHigh($videoPath,$destinationPath,$filename);
 		 $this->convertVideoToNormal($videoPath,$destinationPath,$filename);
 		 $this->convertVideoToLow($videoPath,$destinationPath,$filename);
-		 print("\r \n Conversion Done... \r \n");
+		 $publish = Video::where('file_name',$fileName)->where('publish',0);
+		if($publish->count()){
+			$publish = $publish->first();
+			$publish->publish = 1;
+			$publish->save();
+			//File::delete($videoPath);
+		 	print("\r \n Conversion Done... \r \n");
+		}
 	}
 
 	/**
