@@ -1110,13 +1110,14 @@ center;     margin: 0 auto; }
 }
 
 .span-tags {
-    background-color: #1f3359;
+    background-color: #DDE8FB;
     padding: 5px 5px;
-    color: #fff;
+    color: #3B3B3B;
     margin-bottom: 5px;
     margin-right: 5px;
     display: inline-block;
     border-radius: 5px 0 5px 0;
+    border: 1px solid #89B2FF;
 }
 
 .span-tags label {
@@ -1421,7 +1422,7 @@ span.commentLink {
     position: absolute;
     right: 15px;
     z-index: 99;
-    background: rgba(101, 196, 212, 0.65);
+    background: rgba(156, 175, 238,  0.65);
     padding: 10px 10px;
     border-radius: 0 0 0 10px;
 }

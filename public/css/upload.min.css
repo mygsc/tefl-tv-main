@@ -1,8 +1,8 @@
-.file-upload {
+.file-upload2 {
 	position: relative;
 	overflow: hidden;
 	margin: 10px;
-}.file-upload input#poster {
+}.file-upload2 input#poster {
 	position: absolute;
 	top: 0;
 	right: 0;

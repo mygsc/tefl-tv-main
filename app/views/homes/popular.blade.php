@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
+<div class="row animated slideInLeft White">
 <div class="container h-minH">
 	<div class="row">
 		<div class="col-lg-9 col-md-8 same-H White ">
@@ -45,5 +46,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 @stop

@@ -21,15 +21,16 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">
                         <ul class="ctgryNav">
+                            
+
                             @if(Auth::check())
+
                                 <!--@r3mmel-->
                                 <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
-                                <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
+                                <?php $notifLink = stripos(Request::path(),'upload'); ?>
                                 @if(($watchVideoLink !== false) OR ($notifLink !== false))
                                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
-                                @endif
-                                <!--@r3mmel-->
-                                <li>
+                                    <li>
                                     <div class="btn-group hand" id="notification">
                                         <a class="dropdown-toggle nl" data-toggle="dropdown">
                                             <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
@@ -45,6 +46,9 @@
                                         </span>
                                     </div>
                                 </li>
+
+                                @endif
+                                <!--@r3mmel-->
 
                                 <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                             @else
