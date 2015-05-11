@@ -42,8 +42,9 @@
 							<small>Please wait...</small><br>
 							{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))}}
 						</div>
-					</label> 
-					{{-- <div id="wrapper">
+					</label> <br>
+					<label id="upload-error"></label>
+					{{--<div id="wrapper">
 							<div id="progressbar-loaded"></div> 
 					</div><br/>
 					 <label id="percentage"></label> --}} 
@@ -74,7 +75,8 @@
 								
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
-									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" type="video/mp4">
+									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" 
+									   type="video/mp4">
 										<source id='webm' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm--}}" type="video/webm">
 										<source id='ogg' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg--}}" type="video/ogg">
 									</video>

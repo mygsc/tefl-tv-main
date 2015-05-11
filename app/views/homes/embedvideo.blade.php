@@ -14,7 +14,7 @@
 	<meta property="og:video" content="/videos/{{$vidOwner->id}}-{{$vidOwner->channel_name}}/{{$vidFilename->file_name}}/{{$vidFilename->file_name}}.mp4">  
 	<title>Embed Video</title>
 	{{HTML::style('css/vid.player.min.css')}}
-	{{HTML::style('css/sprites.css')}}
+	{{HTML::style('css/myStyle.css')}}
 	{{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
