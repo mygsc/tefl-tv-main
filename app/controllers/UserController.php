@@ -248,6 +248,10 @@ class UserController extends BaseController {
 			}
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1)->first();
+
+			// $ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => 6, 'subscriber_id' => 1))->first();
+			// return $ifAlreadySubscribe;
+
 			return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture'));
 		}
 	}

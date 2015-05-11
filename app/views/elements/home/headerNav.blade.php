@@ -20,34 +20,39 @@
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">
-                      
                         <ul class="ctgryNav">
                             
 
                             @if(Auth::check())
-                   
-                            <li><b>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</b></li>
-                            <li>
-                                <div class="btn-group hand" id="notification">
 
-                                    <a class="dropdown-toggle nl" data-toggle="dropdown">
-                                        <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
-                                    </a>
-                                    <span class="dropdown-menu scrollable-menu bullet noti" role="menu">
-                                        <div id="loading-notification">
-                                            {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
-                                            {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
-                                            <small>Looking for new Notification</small>
-                                        </div>
-                                        
-                                        <div class="text-center"><a href="{{route('users.notifications')}}" class="inline tBlue"><small>see all</small></a></div>
-                                    </span>
-                                </div>
-                            </li>
+                                <!--@r3mmel-->
+                                <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
+                                <?php $notifLink = stripos(Request::path(),'upload'); ?>
+                                @if(($watchVideoLink !== false) OR ($notifLink !== false))
+                                    <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
+                                    <li>
+                                    <div class="btn-group hand" id="notification">
+                                        <a class="dropdown-toggle nl" data-toggle="dropdown">
+                                            <span class="badge btn-danger " id="notification-counter"></span> &nbsp; Notifications
+                                        </a>
+                                        <span class="dropdown-menu scrollable-menu bullet noti" role="menu">
+                                            <div id="loading-notification">
+                                                {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
+                                                {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
+                                                <small>Looking for new Notification</small>
+                                            </div>
+                                            
+                                            <div class="text-center"><a href="{{route('users.notifications')}}" class="inline tBlue"><small>see all</small></a></div>
+                                        </span>
+                                    </div>
+                                </li>
 
-                            <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
+                                @endif
+                                <!--@r3mmel-->
+
+                                <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                             @else
-                            <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
+                                <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                             @endif
                         </ul>
                     </div>
@@ -92,14 +97,20 @@
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())
-                <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
 
-                <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
+                    <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
+                    <!--@r3mmel-->
+                    <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
+                    <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
+                    @if(($watchVideoLink !== false) OR ($notifLink !== false))
+                        <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
+                    @endif
+                    <!--@r3mmel-->
 
-                <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
-                <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
+                    <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
+                    <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                 @else
-                <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
+                    <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
                 @endif
                 <li><hr/></li>
                 <li class="visible-xs"><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
