@@ -43,17 +43,38 @@ class VideoController extends BaseController {
 				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
-				$this->captureImage($input['video'],$destinationPath,$fileName);
+				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$ext = $input['video']->getClientOriginalExtension();
-				$input['video']->move($destinationPath.DS.$fileName.DS, $fileName.'.'.$ext);
-				$output = shell_exec("php artisan ConvertVideo"); 
-				return Response::json(['output'=>$output, 'vidid'=>Crypt::encrypt($latest_id),'file'=>$fileName, 'thumb1'=>Session::get('thumbnail_1'), 'thumb2'=>Session::get('thumbnail_2'), 'thumb3'=>Session::get('thumbnail_3')]);
+				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
+				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
+				return Response::json([
+					'vidid'=>Crypt::encrypt($latest_id),
+					'file'=>$fileName, 
+					'thumb1' => Session::get('thumbnail_1'),
+					'thumb2' => Session::get('thumbnail_2'),
+					'thumb3' => Session::get('thumbnail_3'),
+					'videoPath' => $videoPath,
+					'destinationPath' => $destinationPath,
+					'ext' => $ext,
+					]);  
 			}
 		}
 		return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
+	}
+	public function getconvertVideo($fileName, $ext){
+		$filename = Video::where('file_name',$fileName)->where('publish',0)->first();
+		if($filename->count()){
+			$id = $filename->user_id;
+			$user = User::find($id);
+			$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
+			$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS);
+			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
+			return Response::json(['response'=>'Done converting...']);
+		}
+		return App::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -122,21 +143,21 @@ class VideoController extends BaseController {
 			'ffmpeg.threads'=>12,
 			]);
 	}
-	private function convertToMP4($videoFile, $destinationPath,$fileName, $w=320, $h = 240, $kbrate=200){
-		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
-		for($n=1; $n<=3; $n++){
-			$w = $w * $n;$h = $h * $n;
-			$video->filters()->resize(new FFMpeg\Coordinate\Dimension($w,$h))->synchronize();
-			$format = new FFMpeg\Format\Video\CustomVideo();
-			$format
-			    -> setKiloBitrate($kbrate)
-			    -> setAudioChannels(2)
-			    -> setAudioKiloBitrate(256);
-			$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.$n.'.mp4');
-			$kbrate = $kbrate * $n;
-			if($kbrate==400){$kbrate * $n - 200;}
-		}
-	}
+	// private function convertToMP4($videoFile, $destinationPath,$fileName, $w=320, $h = 240, $kbrate=200){
+	// 	$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
+	// 	for($n=1; $n<=3; $n++){
+	// 		$w = $w * $n;$h = $h * $n;
+	// 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension($w,$h))->synchronize();
+	// 		$format = new FFMpeg\Format\Video\CustomVideo();
+	// 		$format
+	// 		    -> setKiloBitrate($kbrate)
+	// 		    -> setAudioChannels(2)
+	// 		    -> setAudioKiloBitrate(256);
+	// 		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.$n.'.mp4');
+	// 		$kbrate = $kbrate * $n;
+	// 		if($kbrate==400){$kbrate * $n - 200;}
+	// 	}
+	// }
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
 		$vidMinLenght = floor($duration / 60);$vidSecLenght = floor($duration - ($vidMinLenght * 60));$hrs = floor($vidMinLenght / 60);$mins =  floor($vidMinLenght - ($hrs * 60));$secs =   floor($duration - ($vidMinLenght * 60));
@@ -214,12 +235,11 @@ class VideoController extends BaseController {
 			$uniqueTag = array_unique($newTags);$implodeTag = implode(',',$uniqueTag);$video = Video::find($id);$publish = $video->publish;
 			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			if($publish == 0){
-				//$video->total_time = $input['totalTime'];
 				$video->title = $input['title'];
 				$video->description = $input['description'];
 				$video->category = $selectedCategory;
 				$video->tags =  $implodeTag;
-				$video->publish =  $input['publish'];
+				$video->publish = $input['publish'];
 				$video->save();
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');

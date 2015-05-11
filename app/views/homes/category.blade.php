@@ -14,6 +14,7 @@ Category: {{$category}} - TEFL-tv
 							<a href="{{route('homes.watch-video', array($video->file_name))}}" class="thumbnail-h">
 								<div class="thumbnail-2"> 
 									<img class="hvr-grow-rotate" src="{{asset($video->thumbnail)}}">
+									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
 									<div class="v-Info">
@@ -25,6 +26,7 @@ Category: {{$category}} - TEFL-tv
 										<i class="fa fa-eye"></i> {{$video->views}} | <i class="fa fa-thumbs-up"></i>  {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
 									</div>
 								</div>
+								
 							</a>
 						</div>	
 					</div>
@@ -45,6 +47,7 @@ Category: {{$category}} - TEFL-tv
 										<i class="fa fa-eye"></i> {{$video->views}} | <i class="fa fa-thumbs-up"></i> {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
 									</div>
 								</div>
+
 							</a>	
 						</div>
 					</div>

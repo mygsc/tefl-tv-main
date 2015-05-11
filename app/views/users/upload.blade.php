@@ -63,14 +63,15 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
-								<h3 id='upload-status' style="text-align:center">
-								{{-- HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))--}}
-								{{-- Uploading and converting your video it takes several minutes please wait... --}}</h3>
+								{{-- <h3 id='upload-status' style="text-align:center">
+								 HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
+								 Uploading and converting your video it takes several minutes please wait... </h3> --}}
+								<span id="percentage"></span>
+								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
 								<div id="wrapper">
 									<div id="progressbar-loaded"></div>
 								</div>
-								<span id="percentage"></span>
-								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
+								
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
 									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" type="video/mp4">
@@ -143,7 +144,11 @@
 								{{Form::label('Category:')}}<br>
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
-									<label for='instruct'>Instructional</label>
+									<label for='instruct'>Teachers Instructional</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
+									<label for='music-vid'>Students Instructional</label>
 								</span>
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
@@ -161,10 +166,7 @@
 									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
 									<label for='music'>Music</label>
 								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
-									<label for='music-vid'>Music Video</label>
-								</span>
+								
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
 									<label for='anim-vid'>Animated Video</label>
