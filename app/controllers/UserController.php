@@ -239,7 +239,7 @@ class UserController extends BaseController {
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 
-			// return $subscriptionProfile;
+			// return $subscriberProfile;
 			
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
