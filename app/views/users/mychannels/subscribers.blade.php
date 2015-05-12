@@ -58,7 +58,7 @@
 
 													<a href="{{route('view.users.channel')}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 													<br/>&nbsp;
-													<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;</b> Subscribers</span>&nbsp;
 													@if(isset(Auth::User()->id))
 														<?php
 															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -109,7 +109,7 @@
 												&nbsp;
 												<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 												<br/>&nbsp;
-												<span>w/ <b>{{$profile->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+												<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 												@if(isset($profile1->id))
 													@if(isset(Auth::User()->id))
 														<?php
