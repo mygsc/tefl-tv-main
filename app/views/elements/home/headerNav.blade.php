@@ -1,3 +1,7 @@
+
+
+
+
 <div class="categoryNav hidden-sm hidden-xs">
     <div class="row">
         <div class="container">
@@ -21,8 +25,6 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">
                         <ul class="ctgryNav">
-                            
-
                             @if(Auth::check())
 
                                 <!--@r3mmel-->
@@ -64,8 +66,8 @@
 <!------Realtime notification script--->
 
 <!-- Navigation -->
-<nav class="navbar navbar-inverse visible-sm visible-xs categoryNav" role="navigation">
-    <div class="">
+<nav class="navbar navbar-inverse visible-sm visible-xs categoryNav" role="navigation" style="z-index:99999">
+    <div class="LightestBlue">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
            
@@ -93,20 +95,16 @@
                 </li>
                 <li>{{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}</li>
-                <li>{{ link_to_route('homes.playlist', 'Random', null, array('class' => '')) }}</li>
+                <li>{{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())
 
                     <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
-                    <!--@r3mmel-->
-                    <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
-                    <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
-                    @if(($watchVideoLink !== false) OR ($notifLink !== false))
-                        <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
-                    @endif
-                    <!--@r3mmel-->
-
+                
+                 
+                  
+                    <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                 @else
