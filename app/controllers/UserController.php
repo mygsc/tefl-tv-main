@@ -237,10 +237,11 @@ class UserController extends BaseController {
 			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
-			// return $subscriberProfile;
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
+
+			// return $subscriptionProfile;
+			
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
-			// return $usersVideos;
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
