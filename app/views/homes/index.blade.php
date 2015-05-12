@@ -13,108 +13,53 @@
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
+		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
-<div class="row">
-	<div class="container White same-H">
-		<BR/>
-		<div class="row">	
-			<div class="col-md-6" style="">
-				<div class="mg-l-10">
-					<div class="row  vid-wrapperb p-relative">
-						<div id="vid-controls">
-							<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-				              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-									<source id='mp4' src='/videos/tefltv.mp4' type='video/mp4'>
-									<source id='webm' src='/videos/tefltv.webm' type='video/webm'>
-									<source id='ogg' src='/videos/tefltv.ogvq' type='video/ogg'> 
-								</video>	
-							</div><!--/embed-responsive-->
-							<div class="n-mg-b">
-								@include('elements/videoPlayer')
-							</div>
-							
-						</div>
-		    		</div><!--/.row-->
-    			</div>
-			</div><!--/.col-md-8-->
 
-			<div class="col-md-6 col-lg-height col-top">
-                <div class="row">
-					<div class="col-md-5 ctgryDiv hidden-sm">
-						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						   @if(Auth::check())
-						  <div class="panel panel-info">
-						    <div class="panel-heading" role="tab" id="headingTwo">
-						      <p class="panel-title">
-						        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						        <i class="fa fa-user"></i> My Channel
-						        </a>
-						      </p>
-						    </div>
-						    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-						      <div class="panel-body">
-						      	<li role="presentation">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
-						    	<li role="presentation" class="active">{{link_to_route('users.about', 'About')}}</li>
-						    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
-						    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-						    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-						  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-						  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
-						  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-						  		
-						     </div>
-						    </div>
-						 </div>
-						 @endif
-						  <div class="panel panel-info">
-						    <div class="panel-heading" role="tab" id="headingOne">
-						      <p class="panel-title">
-						        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          <i class="fa fa-video-camera"></i> Categories
-						        </a>
-						      </p>
-						    </div>
-						    <div id="collapseOne" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body cat-h">
-						      	<span class="">
-									@if(!empty($categories))
-									@foreach($categories as $category)
-										{{$category}}
-									@endforeach
-									@endif
-								</span>
-						      </div>
-						    </div>
-						  </div>
-						  
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 White same-H">
+			<div class="row">	
+				<div class="ad-bg">
+					<div class="row">
+						<div class="col-md-6" style="">
+							<div class="mg-l-10  mg-b-10">
+								<div class="vid-wrapperb p-relative">
+									<div id="vid-controls">
+										<div class="embed-responsive embed-responsive-16by9 n-mg-b">
+							              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+												<source id='mp4' src='/videos/tefltv.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/tefltv.webm' type='video/webm'>
+												<source id='ogg' src='/videos/tefltv.ogvq' type='video/ogg'> 
+											</video>	
+										</div><!--/embed-responsive-->
+										<div class="n-mg-b">
+											@include('elements/videoPlayer')
+										</div>
+									</div>
+					    		</div><!--/.row-->
+			    			</div>
+						</div><!--/.col-md-6-->
+						<div class="col-md-6">
 						</div>
 					</div>
-					<div class="col-md-7">
-	                    <div class="ad1 col-md-12 col-sm-6 col-xs-6" style="margin-bottom:10px;">
-	                        <a href="http://tefleducators.com/"><img src="/img/ads/large-rectangle.jpg" class="adDiv"></a>
-	                    </div><!--/.ad1-->
-                    
-	                    <div class="ad2 col-md-12 col-sm-6 col-xs-6">
-	                        <a href="http://www.auathailand.org/"><img src="/img/ads/half-large-rectangle.jpg" class="adDiv"></a>
-	                   </div><!--/.ad2-->
-                    </div>
-				</div><!--/.row of col4-->
+				</div>
 			</div>
-		</div><!--/.same-H-->
+
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<br/>
-		<div class="row grey">
+
+		<div class="row grey mg-t--20">
 		
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
 				<div class="row ">
 					@foreach($recommendeds as $recommended)
-					<div class="col-lg-3 col-md-4 col-sm-6">
+					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
 							<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
@@ -144,7 +89,7 @@
 		<div class="row">
 			<h2 class="orangeC mg-l-10">Popular Videos</h2>
 			@foreach($populars as $popular)
-			<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 						<span class="v-time inline">{{$popular->total_time}}</span>
@@ -174,7 +119,7 @@
 			<h2 class="orangeC mg-l-10">Latest Videos</h2>
 
 			@foreach($latests as $latest)
-			<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
 
@@ -204,7 +149,7 @@
 		<div class="row">
 			<h2 class="orangeC mg-l-10">Random Videos</h2>
 			@foreach($randoms as $random)
-			<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
 						<span class="v-time inline">{{$popular->total_time}}</span>
@@ -230,7 +175,24 @@
 		</div>
 		<br/>
 	</div><!--/.container page-->
+	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/adverstisement_half_large_recatangle')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 </div><!--first row-->
+</div>
+</div>
 @stop
 
 

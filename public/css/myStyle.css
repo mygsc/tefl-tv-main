@@ -63,7 +63,14 @@ title {
     font-size: 1.2em;
     font-weight: bold;
 }
-
+.ad-bg{
+   background:url(/img/ads/ad-bg.jpg);
+   background-size: 100%;
+   background-repeat: no-repeat;
+   padding-top: 20px;
+   padding: 20px 20px 20px 20px!important;
+   width: 100%;
+}
 .linkReadMore {
     cursor: pointer;
     font-size:0.8em!important;
@@ -264,10 +271,16 @@ a {
     margin-bottom: 10px;
 }
 
+.textbox-layouts input[type="text"], 
+.textbox-layouts input[type="password"], 
+.textbox-layouts textarea {
+    margin-top: -5px!important;
+    margin-bottom:10px;
+}
 .textbox-layout2 input[type="text"], 
 .textbox-layout2 input[type="password"], 
 .textbox-layout2 textarea {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 input[type="text"], 
@@ -413,7 +426,7 @@ span .ad {
 .brandingHeader {
     width: 100%;
     height: 60px;
-    background: #494848;
+    background: #1f3359;
     margin-top: 0;
 }
 
@@ -474,7 +487,7 @@ img.logo-sm {
 
 .categoryNav {
     width: 100%;
-    background: #F0AD4E;
+    background: #d1dff9;
     display: block;
     height: 30px;
     z-index: 22; 
@@ -501,7 +514,7 @@ img.logo-sm {
 
 .ctgryNav li a {
     font-size: 1.0em;
-    color: #fff;
+    color: #3b5a9b;
     text-shadow: none!important;
 
 }
@@ -702,16 +715,19 @@ img.user {
     margin-right: auto;
 }
 .h-minH{
-    min-height: 600px;
+    min-height: 730px;
 }
 .h-title {
     width: 100%!important;
     font-size: 16px;
     color: #fff;
-    background: #F0AD4E;
+    background: #d9edf7;
     padding: 10px 10px;
     text-align: center;
     margin-top: 0;
+    border: 1px solid #bce8f1;
+    color: #474747;
+    font-weight: bold;
 }
 
 .a-title {
@@ -1094,13 +1110,14 @@ center;     margin: 0 auto; }
 }
 
 .span-tags {
-    background-color: #1f3359;
+    background-color: #DDE8FB;
     padding: 5px 5px;
-    color: #fff;
+    color: #3B3B3B;
     margin-bottom: 5px;
     margin-right: 5px;
     display: inline-block;
     border-radius: 5px 0 5px 0;
+    border: 1px solid #89B2FF;
 }
 
 .span-tags label {
@@ -1108,7 +1125,7 @@ center;     margin: 0 auto; }
 }
 
 .footer1 {
-    background: #454545;
+    background: #181B2E;
     width: 100%;
     text-align: left;
     height: auto;
@@ -1125,7 +1142,7 @@ center;     margin: 0 auto; }
 }
 
 .footer2 {
-    background: #383838;
+    background: #1C2035;
     width: 100%;
     min-height: 30px;
     height: auto;
@@ -1276,24 +1293,42 @@ span.commentLink {
     background: #686868;
 }
 .google:hover{
-    background: #e96454;
+    background: #f3592b;
 }
 .tefltv{
     background: #686868;
     
 }
 .tefltv:hover{
-    background: #304670;   
+    background: #fff;   
 }
 .sign-upLinks{
     margin-top: 100px;
-
 }
-
+.g-icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background: #f3592b;
+}
+.f-icon{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background: #4a69b3;
+}
+.fb-bg{
+    background: #4a69b3;
+    padding: 10px 10px;
+}
+.tv-bg{
+    background: #2f466f;
+}
 .social-roll {
     height: 60px;
     width: 60px;
     border-radius: 50%;
+    background: 
     -webkit-transition: all ease 0.3s;
     -moz-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;
@@ -1387,7 +1422,7 @@ span.commentLink {
     position: absolute;
     right: 15px;
     z-index: 99;
-    background: rgba(101, 196, 212, 0.65);
+    background: rgba(156, 175, 238,  0.65);
     padding: 10px 10px;
     border-radius: 0 0 0 10px;
 }
@@ -2277,6 +2312,9 @@ body {
 .pad-v-10{
     padding: 10px 0!important;
 }
+.pad-10{
+    padding: 20px 20px!important;
+}
 
 .div-search {
     background: #eee;
@@ -2363,6 +2401,9 @@ td.w-75per {
 
 .mg-b-10 {
     margin-bottom: 10px!important;
+}
+.mg-b--10 {
+    margin-bottom: -10px!important;
 }
 .mg-t-60 {
     margin-top: 40px!important;

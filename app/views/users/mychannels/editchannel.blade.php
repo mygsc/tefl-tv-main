@@ -13,7 +13,7 @@
                         <br/>
                         <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+                        <span class="active"><b>{{link_to_route('users.edit.channel', 'Update Profile')}}</b></span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
                         <span>{{ link_to_route('users.change-password', 'Change Password', null) }}</span>
                         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -111,6 +111,7 @@
                         
                                         <br/>
                                         <div class="row">
+                                            @if(empty($userWebsite->facebook))
                                             <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
                                                     <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
@@ -120,6 +121,9 @@
                                             <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
+                                            @else
+                                                Connected in Facebook
+                                            @endif
                                         </div>
                                        	<br/>
                                         <div class="row">

@@ -14,24 +14,27 @@
 	<meta property="og:video" content="/videos/{{$vidOwner->id}}-{{$vidOwner->channel_name}}/{{$vidFilename->file_name}}/{{$vidFilename->file_name}}.mp4">  
 	<title>Embed Video</title>
 	{{HTML::style('css/vid.player.min.css')}}
-	{{HTML::style('css/sprites.css')}}
+	{{HTML::style('css/myStyle.css')}}
+	{{ HTML::style('css/bootstrap.css') }}
 	{{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
 </head>
 <body>
-	<div class="col-md-12">
-		<div class="row  vid-wrapper">
-			<div id="vid-controls">
-				<div class="embed-responsive embed-responsive-16by9">
-	              	<video preload='auto' id="media-video" poster="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.jpg">
-						<source id="mp4" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.mp4" type="video/mp4">
-						<source id="webm" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.webm" type="video/webm">
-						<source id="ogg" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.ogg" type="video/ogg">
-					</video> 
-					 @include('elements/videoPlayer') 
+	<div class="row">
+		<div class="content-padding">
+			<div class="vid-wrapper p-relative">
+				<div id="vid-controls">
+					<div class="embed-responsive embed-responsive-16by9">
+						<video preload='auto' id="media-video" poster="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.jpg">
+							<source id="mp4" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.mp4" type="video/mp4">
+							<source id="webm" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.webm" type="video/webm">
+							<source id="ogg" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$vidFilename->file_name.'/'.$vidFilename->file_name}}.ogg" type="video/ogg">
+						</video> 
+
+					</div>
+					@include('elements/videoPlayer') 
 				</div>
-				
 			</div>
 		</div>
 	</div>

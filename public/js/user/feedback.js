@@ -122,8 +122,8 @@ $(document).ready(function(){
 		var feedback_id = $(this).find('#feedback_id').val();
 		var deleteID = this.id;
 		$.ajax({
-			type: 'POST',
-			url: '/channels/delete-feedback',
+			type: 'GET',
+			url: '/mychannels/delete-feedback',
 			cache: false,
 			context: this,
 			data: {channel_id: channel_id, user_id: user_id, feedback_id: feedback_id, id: deleteID},
@@ -133,7 +133,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('button.replyDelete').click(function() {
+	$('button.deleteReply').click(function() {
 		var user_id = $(this).find('#deleteReply_user_id').val(); 
 		var feedback_id = $(this).find('#deleteReply_feedback_id').val();
 		var deleteReplyId = this.id;
@@ -142,29 +142,30 @@ $(document).ready(function(){
 
 		$.ajax({
 			type: 'POST',
-			url: '/channels/delete-reply-feedback',
+			url: '/mychannels/delete-reply-feedback',
 			cache: false,
 			context: this,
 			data: {user_id: user_id, feedback_id: feedback_id, deleteReplyId: deleteReplyId, id: id},
 			success: function(data){
-				$('div#'+deleteReplyId).fadeOut(500);
+				$('div#'+ deleteReplyId).fadeOut(500);
 			}
 		});
 	});
 
 	$('button.spam').click(function() {
-		var channel_id = $(this).find('#spam_channel_id').val();
-		var user_id = $(this).find('#spam_user_id').val(); 
-		var feedback_id = $(this).find('#spam_feedback_id').val();
+		var channel_id = $(this).find('#channel_id').val();
+		var user_id = $(this).find('#user_id').val(); 
+		var feedback_id = $(this).find('#feedback_id').val();
 		var spamID = this.id;
+		var feedbackId = $('#spam_feedback_id').val();
 			$.ajax({
 				type: 'POST',
-				url: '/channels/spam-feedback',
+				url: '/mychannels/spam-feedback',
 				cache: false,
 				context: this,
-				data: {spamID: spamID, channel_id: channel_id, user_id: user_id},
+				data: {spamID: spamID, channel_id: channel_id, user_id: user_id, feedbackId: feedbackId},
 				success: function(data){
-					alert('Successfully reported this comment');
+					console.log(data);
 				}
 			});
 	});
@@ -175,7 +176,7 @@ $(document).ready(function(){
 		var reportID = this.id;
 			$.ajax({
 				type: 'POST',
-				url: '/channels/spam-reply-feedback',
+				url: '/mychannels/spam-reply-feedback',
 				cache: false,
 				context: this,
 				data: {reportID: reportID, feedback_id: feedback_id, user_id: user_id},

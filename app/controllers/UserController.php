@@ -1,6 +1,7 @@
 <?php
 
 class UserController extends BaseController {
+
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -9,7 +10,8 @@ class UserController extends BaseController {
 		UserWatchLater $watchLater,
 		UserFavorite $favorite,
 		Feedback $feedback,
-		Playlist $playlist)
+		Playlist $playlist,
+		ReportedFeedback $reportedFeedback)
 	{
 		$this->Notification = $notification;
 		$this->Video = $video;
@@ -20,6 +22,7 @@ class UserController extends BaseController {
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 		$this->Playlist = $playlist;
+		$this->ReportedFeedback = $reportedFeedback;	
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -234,6 +237,7 @@ class UserController extends BaseController {
 			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
+			// return $subscriberProfile;
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
 			// return $usersVideos;
@@ -243,7 +247,10 @@ class UserController extends BaseController {
 				$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
 			$increment = 0;
-			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1);
+			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at',1)->first();
+
+			// $ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => 6, 'subscriber_id' => 1))->first();
+			// return $ifAlreadySubscribe;
 
 			return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists','picture'));
 		}
@@ -411,13 +418,15 @@ class UserController extends BaseController {
 				}
 				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
-			$id = Crypt::decrypt($id);
-			$video = Video::find($id);
+
+			//$id = Crypt::decrypt($id);
+			$video = Video::where('file_name',$id)->first();
+			$id = $video->file_name;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
 			if($input['new_tags'] != null){
-				$video_tag = Video::where('id',$id)->first()->toArray();
+				$video_tag = Video::where('file_name',$id)->first()->toArray();
 				$new_tags = explode(',',$input['new_tags']);
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
@@ -431,7 +440,7 @@ class UserController extends BaseController {
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',Crypt::encrypt($id))->withFlashGood('Successfully updated');
+			return Redirect::route('video.edit.get',$id)->withFlashGood('Successfully updated');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
@@ -473,7 +482,7 @@ class UserController extends BaseController {
 
 	public function getWatchLater() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
@@ -502,7 +511,7 @@ class UserController extends BaseController {
 
 	public function getPlaylists() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$userChannel = UserProfile::find(Auth::User()->id);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -566,6 +575,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
+	
 		// return $userFeedbacks;
 		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
@@ -681,15 +691,13 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-
-
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 
 		foreach ($userFeedbacks as $key => $userFeedback) {
 			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
 			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
 			$userFeedbacks[$key]->dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
-
+			if(Auth::check()){
 			$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
 				'feedback_id' => $userFeedback->id, 
 				'user_id' => Auth::User()->id,
@@ -700,16 +708,21 @@ class UserController extends BaseController {
 				'user_id' => Auth::User()->id,
 				'status' => 'disliked'
 				))->first();
-
-			$userFeedbacks[$key]->getFeedbackReplies = DB::table('feedbacks_replies')
-			->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+			}
+			$userFeedbacks[$key]->countFeedbackReplies = DB::table('feedback_replies')
+			->join('users', 'users.id', '=', 'feedback_replies.user_id')
 			->where('feedback_id', $userFeedback->id)->count();
 
-			// foreach($replies->get() as $key => $reply){
-			// 	$replies->get()[$key]->img = $this->User->addProfilePicture($reply->user_id);
-			// }
+			$userFeedbacks[$key]->getFeedbackReplies = FeedbackReply::select('feedback_replies.id', 'user_id', 'reply', 'feedback_id',
+			 'feedback_replies.created_at', 'feedback_replies.updated_at', 'channel_name')
+			->join('users', 'users.id', '=', 'feedback_replies.user_id')
+			->get();	
 
+			$userFeedbacks[$key]->spamCounts = DB::table('reported_feedbacks')->where('feedback_id', $userFeedback->id)->count();
 		}
+
+		// return $userFeedbacks;
+
 
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->countViews($allViews);
@@ -882,30 +895,45 @@ class UserController extends BaseController {
 		}
 	}
 
-	public function postDeleteFeedback() {
 
-		$channelId = Input::get('channel_id');
-		$userId = Input::get('user_id');
-		$feedback_id = Input::get('feedback_id');
+public function getDeleteFeedback() {
 
+	$channelId = Input::get('channel_id');
+	$userId = Input::get('user_id');
+	$feedback_id = Input::get('feedback_id');
+	$id = Input::get('id');
+	$deleteFeedback = DB::table('feedbacks')->where(array('channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id))->delete();
+	return Response::json($deleteFeedback);
+}
 
-		$deleteFeedback = DB::table('feedbacks')->where(
-			array('channel_id' => $channelId,
-				'user_id'    => $userId,
-				'id' => $feedback_id
-				))->delete();
+public function postDeleteFeedbackReply() {
+	$feedbackId = Input::get('feedback_id');
+	$userId = Input::get('user_id');
+	$id = Input::get('id');
+	$a = FeedbackReply::find($id)->delete();
+	return Response::json($a);
 
-		return Response::json(array('status' => 'sucess', 'channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id));
-	}
+}
 
-	public function postSpamFeedback() {
-		return Input::all();
-		$channelId = Input::get('channel_id');
-		$userId = Input::get('user_id');
-		$feedbackId = Input::get('feedbackId');
-		$a = Feedback::where('id',$feedbackId)->first();
+public function postSpamFeedback() {
 
-		return Response::json($a);
+	$channelId = Input::get('channel_id');
+	$userId = Input::get('user_id');
+	$spamId = Input::get('spamID');
+	$a = $this->ReportedFeedback->getReportCount($spamId, $channelId, $userId);
+
+	
+	return Response::json($a);
+}
+
+public function postSpamFeedbackReply() {
+
+	$id = Input::get('reportID');
+	$user_id = Input::get('user_id');
+	$created_at = date('Y-m-d H:i:s');
+	$updated_at = date('Y-m-d H:i:s');
+	$a = DB::table('reported_replies')->insert(array('reply_id' => $id, 'user_id' => $user_id, 'created_at' => $created_at, 'updated_at' => $updated_at));
+	return Response::json($a);
 	}
 
 	public function getViewUsersVideos($channel_name) {
@@ -1382,15 +1410,22 @@ class UserController extends BaseController {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
-
 		$user = Website::where('user_id',$this->Auth->id)->first();
 		$user->$action = $userProfile->profileURL;
 		$user->save();
 
-		return Redirect::route('users.edit.channel')->withFlashGood('Connected with'.$social.'!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
 		// echo 'ID: '.$userProfile->identifier.'<br/>';
 		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
 		// echo 'Email: '.$userProfile->email.'<br/>';
 		// echo 'displayName: '.$userProfile->displayName.'<br/>';
+	}
+
+	public function postDeleteUserFeedbackReply() {
+		return Input::all();
+	}
+
+	public function postReportUserFeedbackReply() {
+		return Input::all();
 	}
 }

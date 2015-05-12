@@ -2,7 +2,7 @@
 	 first and then the value part of it. After that, we'll do some experiments :D oh really*/
 	.wrapper {
 		background: #2a2a2a;
-		padding:0 10px 8px 10px;
+		padding:0px 10px 8px 10px;
 		width: 100%!Important;
 		margin-top: 0;
 		border-top: 1px solid #000;
@@ -173,17 +173,24 @@ input#seek-slider::-moz-range-thumb {
 	z-index: 2;
 }
 
-div#controls{
-/*.controls{*/
+/*div#controls{
   position: absolute;
-  bottom: -8px !important;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background: rgba(42,42,42,0.8);
   z-index: 2147483647;
+  background: rgba(42,42,42,0.8);
+}*/
+#controls-fullscreen{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2147483647;
+  background: rgba(42,42,42,0.8);
 }
-
 
 div#progress-amount {
   display: block;
@@ -280,7 +287,7 @@ input#volume::-moz-range-thumb {
 }
 .advertisement{
 	position: absolute;
-	bottom: 40px;
+	bottom: 0px;
 	background:transparent;
 	width: 100%;
 	min-height:10px;
@@ -326,8 +333,8 @@ button#play{
   	cursor: pointer;
   	border-radius: 5px;
   	background: rgba(0,0,0,0.6);
-	padding-top: 10px;
-	padding-bottom: 10px;
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
 }div.triangle-icon {
 	width: 0; 
 	height: 0; 
@@ -340,6 +347,19 @@ button#play{
   	right: 0;
   	top: 0;
   	bottom: 0;
+}div#ads-hide{
+	margin: auto;  
+  	position: absolute;
+	left: 0;
+  	right: 0;
+  	bottom: 0;
+  	width: 5%;
+  	height: 5%;
+  	cursor: pointer;
+  	background: rgba(0,0,0,0.6);
+  	outline: 1px solid #fff;
+}div#ads-hide center{
+	color:#fff;
 }
 .load-video{
  	margin: auto;  
@@ -431,11 +451,11 @@ img#play{
 span.close{
 cursor:pointer;
 background:transparent;
-color:#000;
+color:#fff;
 position:absolute;
 right:5px;
 font-weight: bold;
-font-size: 12px;
+font-size: 15px;
 }
 span.close:hover{
 color:red;
