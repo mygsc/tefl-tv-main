@@ -70,7 +70,8 @@ class HomeController extends BaseController {
 	public function getPlaylist() {
 		$input = Input::all();
 		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
-		//return (microtime(true) - LARAVEL_START);;
+		//return $playlists;
+		// return (DB::getQueryLog());
 		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
 		return View::make('homes.playlist', compact(array('options', 'playlists')));
 	}
@@ -511,6 +512,16 @@ public function addReply(){
 	}
 
 	public function testingpage(){ 
-		return date("M-d-Y");
+		Pencepay_Context::setPublicKey("your-public-key");
+		Pencepay_Context::setSecretKey("your-secret-key");
+		Pencepay_Context::setEnvironment(Pencepay_Context::PRODUCTION);
+
+		$transactionReq = Pencepay_Request_Transaction::build()
+       ->creditCardUid('card_uid')
+       ->amount(10.99)
+       ->currencyCode('EUR');
+
+
+		return Pencepay_Transaction::create($transactionReq);
 	}
 }

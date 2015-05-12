@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	Playlist
+	Top Playlist - TEFL TV
 @stop
 
 @section('content')

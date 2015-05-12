@@ -1,6 +1,5 @@
 <h1 class="tblue mg-b-20 mg-t-20">Playlists</h1>
 @foreach($playlists as $key=>$playlist)
-
 <div class="col-md-4">
 	<div class="p-relative">
 		<div class="playlist-info" >		
@@ -20,8 +19,5 @@
 		<a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a>
 	</div>
 </div>
-
-
-
 
 @endforeach
