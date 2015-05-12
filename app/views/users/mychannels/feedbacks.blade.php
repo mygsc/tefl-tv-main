@@ -132,8 +132,8 @@
 						</div>
 						&nbsp;
 						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
 							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
 						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
@@ -145,17 +145,17 @@
 						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
 							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
 						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
-						$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
-							->orderBy('feedbacks_replies.created_at', 'asc')
+						$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
+							->orderBy('feedback_replies.created_at', 'asc')
 							->where('feedback_id', $userFeedback->id)->get(); 
 					?>
 					<div id="replysection" class="panelReply">
@@ -174,10 +174,11 @@
 								</div>
 								<div class="col-md-11">
 									<div class="row">
+										
 										<?php
 										echo link_to_route('view.users.channel', $getFeedbackReply->channel_name, $parameters = array($getFeedbackReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 										echo "<small>" . date('M m, Y h:i A',strtotime($getFeedbackReply->created_at)) . "</small><br/>" ;
-										echo "<p class='text-justify'>" . $getFeedbackReply->reply . "<br/>" . "</p></hr>";?>
+										echo "<p class='text-justify'>" . $getFeedbackReply->reply . "<br/>" . "</p></hr><br/>";?>
 									</div>
 								</div>	
 							<?php endforeach;?>

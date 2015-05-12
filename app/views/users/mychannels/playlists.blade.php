@@ -23,7 +23,7 @@
 
 				<div class="">
 					<br/>
-					<!--<div class="col-md-5">
+					<div class="col-md-6">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
@@ -31,15 +31,9 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>
-						
-						
-					</div>-->
+				
 
-					<div class="col-md-3">
+					<div class="col-md-6">
 						{{Form::open()}}
 						<div class="input-group" style="">
 							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}

@@ -88,28 +88,7 @@
 	{{-- */$tagDelete = 1;/* --}}
 	{{-- */$explodeRemove = 0;/* --}}
 
-<style type="text/css" media="screen">
-	.file-upload {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
-}
-.file-upload input#poster {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}#title{
-	position: relative;
-	top:0;
-	left:0;
-}
-</style>
+
 
 <div class="row">
 	<div class="container page">
@@ -195,7 +174,7 @@
 									{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 				
 									<span class="dropdown">
-								        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
+								        <button class="btn btn-default dropdown-toggle mg-l-10" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
 								        <span class="caret"></span></button>
 								        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 								          <li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
@@ -206,38 +185,45 @@
 								     </span>
 								@endif
 								<br>
-								<div id="annotation">
+								<div class="" id="annotation">
+						
 									
 								</div>
 								<br/>
-								{{ Form::label('Title:')}}
-								@if($errors->has('title'))
-									<span class="inputError">
-										{{$errors->first('title')}}
-									</span>
-								@endif
-								{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
-								{{ Form::label('Description:')}}
-								@if($errors->has('description'))
-									<span class="inputError">
-										{{$errors->first('description')}}
-									</span>
-								@endif
-								{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
-								{{ Form::label('Tags:')}}&nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
-								{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
-								{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
-								<p class="notes">*Double click the existing tag to edit.</p>
-									<div id="wrapper">
-									@if($tags == null)
-										No tags available.
-									@else
-										@foreach($tags as $key=>$tag)
-											<div class="span-tags" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
-											</div>
-										@endforeach
+								<div class="well">
+									{{ Form::label('Title:')}}
+									@if($errors->has('title'))
+										<span class="inputError">
+											{{$errors->first('title')}}
+										</span>
 									@endif
-									</div>
+									{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
+								</div>
+								<div class="well">
+									{{ Form::label('Description:')}}
+									@if($errors->has('description'))
+										<span class="inputError">
+											{{$errors->first('description')}}
+										</span>
+									@endif
+									{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
+								</div>
+								<div class="well">
+									{{ Form::label('Tags:')}}&nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
+									{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
+									{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
+									<p class="notes">*Double click the existing tag to edit.</p>
+										<div id="wrapper">
+										@if($tags == null)
+											No tags available.
+										@else
+											@foreach($tags as $key=>$tag)
+												<div class="span-tags" id="tagID{{$tagID++}}" data-encrypt="{{Crypt::encrypt($explodeID++)}}">{{$tag}} <span class="glyphicon glyphicon-remove-circle"  data-encrypt="{{Crypt::encrypt($explodeRemove++)}}" id="tagDelete{{$tagDelete++}}" style="cursor: pointer"></span>
+												</div>
+											@endforeach
+										@endif
+										</div>
+								</div>
 									<br/>
 									<div class="text-right mg-b-10"> 
 										{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}

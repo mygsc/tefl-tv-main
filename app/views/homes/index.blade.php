@@ -13,6 +13,7 @@
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
+		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}

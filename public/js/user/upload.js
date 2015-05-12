@@ -3,7 +3,7 @@ var firstThumbnail = document.getElementById('img-thumb-1');
 var secondThumbnail = document.getElementById('img-thumb-2');
 var thirdThumbnail = document.getElementById('img-thumb-3');
 $(document).ready(function(){
-
+    $('#loader').fadeIn(500);
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
         $('#progress').fadeIn();
@@ -13,11 +13,11 @@ $(document).ready(function(){
         var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
             if(fileSize.size > limitSize){
                 $('#progress').fadeOut('fast');
-                return $('#percentage').html('Error: File size is too big.').css({'color':'#cc3510'});
+                return $('#upload-error').html('Error: File size is too big.').css({'color':'#cc3510'});
             }
             if(file == ''){
                 $('#progress').fadeOut('fast');
-                return $('#percentage').html('Error: No selected file.').css({'color':'#cc3510'}); 
+                return $('#upload-error').html('Error: No selected file.').css({'color':'#cc3510'}); 
             }
             if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov") {
                 $(this).closest("#vidSubmit").submit();
@@ -26,7 +26,7 @@ $(document).ready(function(){
                 $('#add-description').fadeIn(1000);
             }else{
                 $('#progress').fadeOut('fast');
-                return $('#percentage').html('Error: File type is not valid.').css({'color':'#cc3510'});
+                return $('#upload-error').html('Error: File type is not valid.').css({'color':'#cc3510'});
             }       		
    	});
 

@@ -24,28 +24,17 @@
 
 				<div class="White">
 					<br/>
-					<!--<div class="col-md-6">
+					<div class="col-md-6">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>-->
-					<div class="col-md-5">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<!--<select class="form-control" style="width:auto!important;">
-							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
-							<option>Recent</option>
-						</select>
-						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Favorites</button>-->
 					</div>
+					
 			
-					<div class="col-md-12 text-right">
+					<div class="col-md-6 text-right">
 						<div class="buttons">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
