@@ -49,12 +49,12 @@
                 <div id="collapseOne" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body cat-h">
                       <span class="">
-                    @if(!empty($categories))
-                    @foreach($categories as $category)
-                      {{$category}}
-                    @endforeach
-                    @endif
-                  </span>
+                        @if(!empty($categories))
+                          @foreach($categories as $category)
+                            {{$category}}
+                          @endforeach
+                        @endif
+                      </span>
                   </div>
                 </div>
             </div> 

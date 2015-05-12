@@ -188,12 +188,9 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-<<<<<<< HEAD
-		'Image' => 'Intervention\Image\Facades\Image'
-=======
+
 		'Image' => 'Intervention\Image\Facades\Image',
 		
->>>>>>> ed8fbc382a52a78109b97f914c73c1f747dd4eba
 	),
 
 );

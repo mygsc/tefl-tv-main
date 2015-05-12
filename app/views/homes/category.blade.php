@@ -3,9 +3,9 @@
 Category: {{$category}} - TEFL-tv
 @stop
 @section('content')
-<div class="container h-minH ">
+<div class="container  ">
 	<div class="row">
-		<div class="col-lg-9 col-md-8 same-H White ">
+		<div class="col-lg-9 col-md-8 same-H White h-minH ">
 			<h1 class="mg-t-20 mg-b-20">{{$category}}</h1>
 				<div class="col-md-12">
 					@foreach($videos as $video)
@@ -47,7 +47,6 @@ Category: {{$category}} - TEFL-tv
 										<i class="fa fa-eye"></i> {{$video->views}} | <i class="fa fa-thumbs-up"></i> {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
 									</div>
 								</div>
-
 							</a>	
 						</div>
 					</div>
