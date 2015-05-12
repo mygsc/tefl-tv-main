@@ -58,15 +58,15 @@
 				  	</ul><!--tabNav-->
 				</div>
 				<br/>
-					<!--<div class="col-md-5 col-sm-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>-->
-					<div class="col-md-12 col-sm-12">
+					</div>
+					<div class="col-md-6 col-sm-6">
 						<!--<label>Sort by:</label>
 						<button id="sort" class="btn btn-default btn-sm">Likes</button>
 						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
