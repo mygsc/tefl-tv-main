@@ -27,14 +27,13 @@
 						&nbsp;<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;
 						Subscribers</span>&nbsp;
 
-						@if(isset($profile1->id))
-							
+						@if(isset($profile1->user_id))
 							@if(isset(Auth::User()->id))
 								<?php
-								$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
+									$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->user_id, 'subscriber_id' => Auth::User()->id))->first();
 								?>
 								{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-								{{Form::hidden('user_id', $profile1->id)}}
+								{{Form::hidden('user_id', $profile1->user_id)}}
 								{{Form::hidden('subscriber_id', Auth::User()->id)}}
 									@if(!$ifAlreadySubscribe)
 										{{Form::hidden('status','subscribeOn')}}

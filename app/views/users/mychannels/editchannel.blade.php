@@ -2,6 +2,8 @@
 
 
 @section('content')
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="row">
   <div class="container">
       <br/>
@@ -73,7 +75,7 @@
 
                                     {{Form::label('birthdate', '*Birthdate: ')}}
                                     <span class='inputError'>{{$errors->first('birthdate')}}</span>
-                                    {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate'))}}
+                                    {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate', 'id' => 'datepicker'))}}
 
                                     {{Form::label('organization', '*Organization: ')}}
                                     <span class="inputError">{{$errors->first('organization')}}</span>
@@ -213,4 +215,12 @@
 @section('script')
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/modalclearing.js')}}
+{{HTML::script('http://code.jquery.com/ui/1.11.4/jquery-ui.js')}}
+
+<script>
+    $("#datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+</script>
 @stop
