@@ -124,15 +124,29 @@
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
                                             @else
-                                                Connected in Facebook
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Facebook Account</a>
+                                                </div>
+                                                 
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{Form::text('facebook','', array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
+                                            </div>
                                             @endif
                                         </div>
                                        	<br/>
                                         <div class="row">
                                             <div class="col-md-2">
+                                                @if(empty($userWebsite->twitter))
                                                 <div class="text-left connectTo c-tr">
                                                     <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
                                                 </div>
+                                                @else
+                                                <div class="text-left connectTo c-tr">
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
+                                                </div>
+                                                @endif
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
@@ -143,9 +157,16 @@
            
                                         <div class="row">
                                             <div class="col-md-2">
+                                                @if(empty($userWebsite->google))
                                                 <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                                                 </div>
+                                                @else
+                                                <div class="text-left connectTo c-gp">
+                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Google Account</a>
+                                                </div>
+                                                @endif
+
                                 
                                             </div>
                                             <div class="col-md-10">

@@ -45,9 +45,9 @@
 		<div class="row ">
 			@include('elements/users/profileTop')		
 			<div class="channel-content">
-				<div role="tabpanel">
+				<div>
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs" role="tablist">
+				 	<ul class="nav nav-tabs hidden-sm hidden-xs" role="tablist">
 				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home')}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -57,6 +57,29 @@
 				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
+				  	<nav class="navbar navbar-default visible-sm visible-xs">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					      <h4 class="inline mg-t-20">Home</h4>	
+					        <span class="fa fa-bars"></span>
+					      </button>
+			
+					    </div>
+					    <div class="collapse navbar-collapse" id="myNavbar">
+					      <ul class="nav navbar-nav">
+					    	<li>{{link_to_route('users.about', 'About')}}</li>
+					    	<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
+					    	<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+					    	<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+					  		<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
+					  		<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+					  		<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
 				  	
 				  	<!-- Tab panes -->
 				    <div class="tab-content">

@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class='container White same-H'>
-		<div class="col-md-3">
+		<div class="col-md-3 hidden-sm hidden-xs">
 			<div class="row">
 			<br/>
 				<div class="same-H">

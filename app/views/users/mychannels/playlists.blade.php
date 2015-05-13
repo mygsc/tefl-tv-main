@@ -9,7 +9,7 @@
 			<div class="channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -20,10 +20,32 @@
 						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 					</ul><!--tabNav-->
 				</div>
+				<nav class="navbar navbar-default visible-sm visible-xs">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+					      
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					      <h4 class="inline mg-t-20">Favorites</h4>	
+					        <span class="fa fa-bars"></span>
+					      </button>
+			
+					    </div>
+					    <div class="collapse navbar-collapse" id="myNavbar">
+					      <ul class="nav navbar-nav">
+					        <li>{{link_to_route('users.channel', 'Home')}}</li>
+					    	<li>{{link_to_route('users.about', 'About')}}</li>
+					    	<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
+					    	<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+					  		<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+					  		<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
 
 				<div class="">
 					<br/>
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6 mg-t-10">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
@@ -33,7 +55,7 @@
 					</div>
 				
 
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6  mg-t-10">
 						{{Form::open()}}
 						<div class="input-group" style="">
 							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
@@ -61,7 +83,7 @@
 							<p class="text-center">You don't have playlist yet.</p>
 							@else
 							@foreach($playlists as $key=>$playlist)
-							<div id="playlists" class="col-xs-2 col-md-3">
+							<div id="playlists" class="col-md-3 col-sm-6">
 								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 									@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))

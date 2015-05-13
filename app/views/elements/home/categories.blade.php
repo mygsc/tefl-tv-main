@@ -1,4 +1,3 @@
-
 <div class="panel-group ctgryDiv" id="accordion" role="tablist" aria-multiselectable="true">
  @if(Auth::check())
  <div class="panel panel-info">
