@@ -11,16 +11,41 @@ class HomeController extends BaseController {
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
 	}
-	public function getAboutUs() { return View::make('homes.aboutus'); }
-	public function getPrivacy() { return View::make('homes.privacy'); }
-	public function getTermsAndConditions() { return View::make('homes.termsandconditions'); }
-	public function getAdvertisements() { return View::make('homes.advertisements'); }
-	public function getCopyright() { return View::make('homes.copyright'); }
+	public function getAboutUs() { 
+		return View::make('homes.aboutus');
+	}
 
-	public function postPlaylist() { return View::make('homes.playlist'); }
-	public function getChannels() { return View::make('homes.channels'); }
-	public function getSignIn() { return View::make('homes.signin'); }
-	public function getWatchVideo() { return View::make('homes.advertisements'); }
+	public function getPrivacy() {
+		return View::make('homes.privacy');
+	}
+
+	public function getTermsAndConditions() {
+		return View::make('homes.termsandconditions');
+	}
+
+	public function getAdvertisements() {
+		return View::make('homes.advertisements');
+	}
+
+	public function getCopyright() {
+		return View::make('homes.copyright');
+	}
+
+	public function postPlaylist() {
+		return View::make('homes.playlist');
+	}
+
+	public function getChannels() {
+		return View::make('homes.channels');
+	}
+
+	public function getSignIn() {
+		return View::make('homes.signin');
+	}
+
+	public function getWatchVideo() {
+		return View::make('homes.advertisements');
+	}
 
 	public function getIndex() {
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
@@ -28,37 +53,42 @@ class HomeController extends BaseController {
 		$latests = $this->Video->getFeaturedVideo('latest', '9');
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
 		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
 		
-		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories')));
+		//return $notifications;
+		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
 
 	public function getPopular() {
+		$categories = $this->Video->getCategory();
 		$popularVideos = $this->Video->getFeaturedVideo('popular', 12);
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
 
-		return View::make('homes.popular', compact('popularVideos'));
+		return View::make('homes.popular', compact('popularVideos','categories'));
 	}
 
 	public function getLatest() {
+		$categories = $this->Video->getCategory();
 		$latestVideos =  $this->Video->getFeaturedVideo('latest', 12);
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
 
-		return View::make('homes.latest', compact('latestVideos'));
+		return View::make('homes.latest', compact('latestVideos','categories'));
 	}
 
 	public function getPlaylist() {
+		$categories = $this->Video->getCategory();
 		$input = Input::all();
 		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
 		//return $playlists;
 		// return (DB::getQueryLog());
 		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
-		return View::make('homes.playlist', compact(array('options', 'playlists')));
+		return View::make('homes.playlist', compact(array('options', 'playlists','categories')));
 	}
 
 	public function watchVideo($idtitle=null){
@@ -78,11 +108,11 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-										->where('publish','1')
-										->where('report_count','<','5')
-										->where('id','!=',$videos->id)
-										->orderBy('id','desc')
-										->take(3)->get();
+		->where('publish','1')
+		->where('report_count','<','5')
+		->where('id','!=',$videos->id)
+		->orderBy('id','desc')
+		->take(3)->get();
 		$likeownerVideosCounter = 0;
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
@@ -93,11 +123,11 @@ class HomeController extends BaseController {
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
-			  		$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
-			   		$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
+					$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
+					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
-			   	}		
-			   	$randomCounter--;
+				}		
+				$randomCounter--;
 
 			}
 		}
@@ -297,30 +327,30 @@ class HomeController extends BaseController {
 
 					<div id="replysection" class="panelReply"> '.
 						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-							<input type="hidden" name="comment_id" value="'.$comments->id.'">
-							<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-							<input type="hidden" name="video_id" value="'.$video_id.'">
-							<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-							<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+						<input type="hidden" name="comment_id" value="'.$comments->id.'">
+						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+						<input type="hidden" name="video_id" value="'.$video_id.'">
+						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
 
-							<span class="replyError inputError"></span>
-						</form>
-							</div>
-						</div>
-					</div>
+						<span class="replyError inputError"></span>
+					</form>
 				</div>
-			<hr/>
-			';
+			</div>
+		</div>
+	</div>
+	<hr/>
+	';
 
-			return Response::json(array(
-				'status' => 'success',
-				'comment' => $comment,
-				'video_id' => $video_id,
-				'user_id' => $user_id,
-				'comment' => $newComment
-			));
-		}
-	}
+	return Response::json(array(
+		'status' => 'success',
+		'comment' => $comment,
+		'video_id' => $video_id,
+		'user_id' => $user_id,
+		'comment' => $newComment
+		));
+}
+}
 
 public function addReply(){
 	$reply = trim(Input::get('txtreply'));
@@ -478,16 +508,24 @@ public function addReply(){
 	}
 
 	public function testingpage(){ 
-		Pencepay_Context::setPublicKey("your-public-key");
-		Pencepay_Context::setSecretKey("your-secret-key");
+		Pencepay_Context::setPublicKey("pub_jgCebc4gqioxgC");
+		Pencepay_Context::setSecretKey("Dsm17Im1BLncat3If8YA7zYA9stJty8MM8l7EfqMkbI=");
 		Pencepay_Context::setEnvironment(Pencepay_Context::PRODUCTION);
 
-		$transactionReq = Pencepay_Request_Transaction::build()
-       ->creditCardUid('card_uid')
-       ->amount(10.99)
-       ->currencyCode('EUR');
+		$transaction = Pencepay_Transaction::create(
+			Pencepay_Request_Transaction::build()
+			->orderId('123456')
+			->amount(10.99)
+			->currencyCode('EUR')
+			->creditCard()
+			->cardholderName('John Hancock')
+			->number('4350100010001002')
+			->cvv('313')
+			->expiryMonth(12)
+			->expiryYear(2016)
+			->done()
+			);
 
-
-		return Pencepay_Transaction::create($transactionReq);
+		error_log($transaction);
 	}
 }
