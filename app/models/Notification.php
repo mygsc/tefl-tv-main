@@ -80,6 +80,17 @@ class Notification extends Eloquent {
 		return false;
 	}
 
+	public function getNotificationForSideBar(){
+		if(Auth::check()){
+			$notifications =  $this->getNotifications(Auth::user()->id, null, '10');
+			$notifications = $this->getTimePosted($notifications);
+			if($notifications === false){
+				app::abort(404, 'Error');
+			}
+			return $notifications;
+		}
+	}
+
 	public function insertNotifications($user_id, $notificationMessage,$notifier_id,$type){
 		if(!empty($user_id) || !empty($completeNotification)){
 			if($type == 'subscribe'){
@@ -122,10 +133,10 @@ class Notification extends Eloquent {
 				->take($limit)
 				->get();
 			}else{
-			$result = Notification::whereUserId($id)
-			->whereDeletedAt(null)
-			->OrderBy('created_at', 'DESC')
-			->get();
+				$result = Notification::whereUserId($id)
+				->whereDeletedAt(null)
+				->OrderBy('created_at', 'DESC')
+				->get();
 			}
 			foreach($result as $key => $user){
 				$fileName = $user->user_id. '.jpg';
