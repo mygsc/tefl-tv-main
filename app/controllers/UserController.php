@@ -200,8 +200,8 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
-
-		return View::make('homes.topchannels', compact(array('datas')));
+		$categories = $this->Video->getCategory();
+		return View::make('homes.topchannels', compact(array('datas','categories')));
 	}
 
 	public function getMoreTopChannels(){
@@ -237,10 +237,11 @@ class UserController extends BaseController {
 			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
-			// return $subscriberProfile;
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
+
+			// return $subscriberProfile;
+			
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
-			// return $usersVideos;
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
 			foreach($usersPlaylists as $playlist){
@@ -575,7 +576,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
-	
+
 		// return $userFeedbacks;
 		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
@@ -698,23 +699,23 @@ class UserController extends BaseController {
 			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
 			$userFeedbacks[$key]->dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
 			if(Auth::check()){
-			$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
-				'feedback_id' => $userFeedback->id, 
-				'user_id' => Auth::User()->id,
-				'status' => 'liked'
-				))->first();
-			$userFeedbacks[$key]->ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
-				'feedback_id' => $userFeedback->id, 
-				'user_id' => Auth::User()->id,
-				'status' => 'disliked'
-				))->first();
+				$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
+					'feedback_id' => $userFeedback->id, 
+					'user_id' => Auth::User()->id,
+					'status' => 'liked'
+					))->first();
+				$userFeedbacks[$key]->ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
+					'feedback_id' => $userFeedback->id, 
+					'user_id' => Auth::User()->id,
+					'status' => 'disliked'
+					))->first();
 			}
 			$userFeedbacks[$key]->countFeedbackReplies = DB::table('feedback_replies')
 			->join('users', 'users.id', '=', 'feedback_replies.user_id')
 			->where('feedback_id', $userFeedback->id)->count();
 
 			$userFeedbacks[$key]->getFeedbackReplies = FeedbackReply::select('feedback_replies.id', 'user_id', 'reply', 'feedback_id',
-			 'feedback_replies.created_at', 'feedback_replies.updated_at', 'channel_name')
+				'feedback_replies.created_at', 'feedback_replies.updated_at', 'channel_name')
 			->join('users', 'users.id', '=', 'feedback_replies.user_id')
 			->get();	
 
@@ -896,44 +897,44 @@ class UserController extends BaseController {
 	}
 
 
-public function getDeleteFeedback() {
+	public function getDeleteFeedback() {
 
-	$channelId = Input::get('channel_id');
-	$userId = Input::get('user_id');
-	$feedback_id = Input::get('feedback_id');
-	$id = Input::get('id');
-	$deleteFeedback = DB::table('feedbacks')->where(array('channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id))->delete();
-	return Response::json($deleteFeedback);
-}
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$feedback_id = Input::get('feedback_id');
+		$id = Input::get('id');
+		$deleteFeedback = DB::table('feedbacks')->where(array('channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id))->delete();
+		return Response::json($deleteFeedback);
+	}
 
-public function postDeleteFeedbackReply() {
-	$feedbackId = Input::get('feedback_id');
-	$userId = Input::get('user_id');
-	$id = Input::get('id');
-	$a = FeedbackReply::find($id)->delete();
-	return Response::json($a);
+	public function postDeleteFeedbackReply() {
+		$feedbackId = Input::get('feedback_id');
+		$userId = Input::get('user_id');
+		$id = Input::get('id');
+		$a = FeedbackReply::find($id)->delete();
+		return Response::json($a);
 
-}
+	}
 
-public function postSpamFeedback() {
+	public function postSpamFeedback() {
 
-	$channelId = Input::get('channel_id');
-	$userId = Input::get('user_id');
-	$spamId = Input::get('spamID');
-	$a = $this->ReportedFeedback->getReportCount($spamId, $channelId, $userId);
+		$channelId = Input::get('channel_id');
+		$userId = Input::get('user_id');
+		$spamId = Input::get('spamID');
+		$a = $this->ReportedFeedback->getReportCount($spamId, $channelId, $userId);
 
-	
-	return Response::json($a);
-}
 
-public function postSpamFeedbackReply() {
+		return Response::json($a);
+	}
 
-	$id = Input::get('reportID');
-	$user_id = Input::get('user_id');
-	$created_at = date('Y-m-d H:i:s');
-	$updated_at = date('Y-m-d H:i:s');
-	$a = DB::table('reported_replies')->insert(array('reply_id' => $id, 'user_id' => $user_id, 'created_at' => $created_at, 'updated_at' => $updated_at));
-	return Response::json($a);
+	public function postSpamFeedbackReply() {
+
+		$id = Input::get('reportID');
+		$user_id = Input::get('user_id');
+		$created_at = date('Y-m-d H:i:s');
+		$updated_at = date('Y-m-d H:i:s');
+		$a = DB::table('reported_replies')->insert(array('reply_id' => $id, 'user_id' => $user_id, 'created_at' => $created_at, 'updated_at' => $updated_at));
+		return Response::json($a);
 	}
 
 	public function getViewUsersVideos($channel_name) {
@@ -1033,7 +1034,7 @@ public function postSpamFeedbackReply() {
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 				//Notification
-					// $this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+					$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
@@ -1094,24 +1095,24 @@ public function postSpamFeedbackReply() {
 		}
 		$playlists = $this->Playlist->playlistchoose($id);
 		$playlists =  $playlists->toArray();
-			if(empty($playlists)){
-				$new_playlist_choose = null;
-			}else{
-				foreach($playlists as $playlist){
-					$new_playlist_choose[] = array('id' => Crypt::encrypt($playlist['id']),
-									'name' => $playlist['name']);
-				}
+		if(empty($playlists)){
+			$new_playlist_choose = null;
+		}else{
+			foreach($playlists as $playlist){
+				$new_playlist_choose[] = array('id' => Crypt::encrypt($playlist['id']),
+					'name' => $playlist['name']);
 			}
+		}
 		$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 		$playlistNotChosens =  $playlistNotChosens->toArray();
-			if(empty($playlistNotChosens)){
-				$new_playlistNotChosens = null;
-			}else{
-				foreach($playlistNotChosens as $playlistNotChosen){
-					$new_playlistNotChosens[] = array('id' => Crypt::encrypt($playlistNotChosen['id']),
-									'name' => $playlistNotChosen['name']);
-				}
+		if(empty($playlistNotChosens)){
+			$new_playlistNotChosens = null;
+		}else{
+			foreach($playlistNotChosens as $playlistNotChosen){
+				$new_playlistNotChosens[] = array('id' => Crypt::encrypt($playlistNotChosen['id']),
+					'name' => $playlistNotChosen['name']);
 			}
+		}
 		return Response::json(array('playlists'=>$new_playlist_choose,'playlistNotChosens'=>$new_playlistNotChosens));
 
 	}
@@ -1223,10 +1224,10 @@ public function postSpamFeedbackReply() {
 	public function getNotification(){
 		if(Auth::check()){
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-			if($this->Notification->getTimePosted($notifications) === false){
+			$notifications = $this->Notification->getTimePosted($notifications);
+			if($notifications === false){
 				app::abort(404, 'Error');
 			}
-			$notifications = $this->Notification->getTimePosted($notifications);
 			return View::make('users.notifications', compact('notifications'));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	
