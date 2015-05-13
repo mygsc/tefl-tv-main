@@ -81,7 +81,7 @@ div#progressbar #current-progress{
 	width: 0%;
 	border-radius:5px;
 	top:0;
-	z-index: 999999;
+
 }#loadbar > span{
 		position:absolute;
 		left:0;
