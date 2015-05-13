@@ -21,7 +21,7 @@
 								&nbsp;<span><b>{{$profile->channel_name}}</b></span>
 							</a>
 							<br/>
-							&nbsp;<span>w/ <b><?php if($profile->numberOfSubscribers)?$profile->numberOfSubscribers; ?></b>&nbsp;
+							&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
 							Subscribers</span>&nbsp;
 							@if(isset(Auth::User()->id))
 								<?php
