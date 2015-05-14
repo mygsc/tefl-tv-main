@@ -67,20 +67,25 @@ div#progressbar #current-progress{
 	left: -20px;
 	text-decoration: overline;
 	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
-	background: #fff;
+	background: red;
 	outline:none;
 	top: -6px;
 	margin-left: 10px;
 	display: none;
 	border-radius: 20px;
-
-}div#buffered{
+	border:5px solid #fff; 
+	cursor: pointer;
+}div#button-progress:hover{
+	background: #fff;border:5px solid red; 
+}
+div#buffered{
 	height: 100%;
 	position: absolute;
 	background: rgba(42,42,42,0.9);
 	width: 0%;
 	border-radius:5px;
 	top:0;
+
 }#loadbar > span{
 		position:absolute;
 		left:0;
@@ -133,6 +138,8 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline: none;
+	position: relative;
+	z-index: 333;
 }input#seek-slider::-moz-range-track {
 	-moz-appearance: none;
 	border-radius: 5px;
@@ -358,23 +365,22 @@ button#play{
   	cursor: pointer;
   	background: rgba(0,0,0,0.6);
   	outline: 1px solid #fff;
+  	display: none;
 }div#ads-hide center{
 	color:#fff;
 }
 .load-video{
  	margin: auto;  
   	position: absolute;
- 	left:0;
+ 	left: 0;
   	right: 0;
   	top: 0;
   	bottom: 0;
   	width: 13%;
   	height: 16%;
-  	/*background: rgba(27,27,27,0.6);*/
   	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	display: none;
 	border-radius: 5px;
 }
 div.error-video{
@@ -394,6 +400,9 @@ div.error-video{
 }
 div.error-video small{
  	color:#fff;
+}
+.play-icon{
+	display: none;
 }
 .play-icon span{
   	background: rgba(27,27,27,0.6);
