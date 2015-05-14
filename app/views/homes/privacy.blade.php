@@ -1,22 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="container White">
-		<div class="col-md-3 hidden-sm hidden-xs">
-			<div class="row">
-			<br/>
-				<div class="same-H">
-					<div class="">
-						@include('elements/home/sideNav')
-						@include('elements/home/adverstisementSmall')
-						<br/>
-						@include('elements/home/carouselAds')	
-
-					</div>
-				</div>
-			</div>
-		</div><!--/.col-3 right section navigations-->
-		<div class="col-md-9">
+	<div class="container">
+		<div class="col-md-9 White sameH-h">
 			<div class="row">
 		
 				<div class="col-md-12">
@@ -140,6 +126,18 @@
 			<br/>
 
 	</div><!--/.col-md-9 left section, writeUps-->
+	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 
 	
 </div><!--/.container page-->
