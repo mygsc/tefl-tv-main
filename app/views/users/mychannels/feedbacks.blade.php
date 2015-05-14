@@ -61,9 +61,10 @@
 	@else
 					       
 	<div class="feedbacks row">
+		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
-		<br/>
+		<br/><br/>
 		<div class="text-right">
 
 				<button id='btnfeedback' class="btn btn-info">Post</button>
@@ -76,18 +77,7 @@
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::check())
-				<div class="nav_div">
-					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
-						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
-					</button>
-					<button class="delete pull-right" id="feedback{{$userFeedback->id}}">x	
-						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
-						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
-						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
-					</button>
-				</div>
-				@endif
+				
 
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
@@ -98,7 +88,7 @@
 				?>
 
 				<div class="feedbackProfilePic col-md-1">
-					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+					{{HTML::image($temp, 'alt', array('class' => 'userRep'))}}
 				</div>
 				<div class="col-md-11">
 					<div class="row">
@@ -181,6 +171,18 @@
 							->orderBy('feedback_replies.created_at', 'asc')
 							->where('feedback_id', $userFeedback->id)->get(); 
 					?>
+					@if(Auth::check())
+					<div class="nav_div inline">
+						<button class="spam fa fa-flag btn-trans" title="report" id="spam{{$userFeedback->id}}">
+							{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
+						</button>
+						<!--<button class="delete btn-trans fa fa-trash" title="remove" id="feedback{{$userFeedback->id}}">	
+							{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
+							{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+							{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
+						</button>-->
+					</div>
+					@endif
 					<div id="replysection" class="panelReply">
 						
 							<?php
@@ -193,7 +195,7 @@
 								?>
 
 								<div class="feedbackProfilePic col-md-1">
-									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+									{{HTML::image($temp, 'alt', array('class' => 'userRep'))}}
 								</div>
 								<div class="col-md-11">
 									<div class="row">

@@ -311,4 +311,18 @@ class VideoController extends BaseController {
 		}
 		return app::abort(404, 'Page not available');
 	}
+
+	public function getSearch() {
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = $this->Video->getVideos($this->Auth->id,'videos.created_at');
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+		$countAllViews = $this->Video->countViews($allViews);
+		$usersVideos =$this->Video->getSearchVideos($search);
+		return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
+	}
+
 }

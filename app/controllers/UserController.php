@@ -242,7 +242,7 @@ class UserController extends BaseController {
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
 
 			// return $subscriberProfile;
-			
+
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
@@ -617,7 +617,7 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userPasswordRules);
 
 		if($validate->fails()){
-			return Redirect::route('users.change-password')->withErrors($validate)->withFlashBad('Error changes in your Password');
+			return Redirect::route('users.change-password')->withErrors($validate)->withFlashBad('Please check your inputs!');
 		} else{
 			$loggedUser = Auth::User()->password;
 			$currentPassword = Hash::check(Input::get('currentPassword'), $loggedUser);
@@ -1395,6 +1395,7 @@ class UserController extends BaseController {
 	public function viewSocial() {
 		// $web = 'facebook';
 		// return DB::table('websites')->where('user_id', $this->Auth->id)->pluck($web);
+
 		return View::make('testing');
 	}
 
@@ -1416,17 +1417,28 @@ class UserController extends BaseController {
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
-		$user = Website::where('user_id',$this->Auth->id)->first();
-		$user->$action = $userProfile->profileURL;
-		$user->save();
-
+		if($action == "facebook"){
+			$user = Website::where('user_id',$this->Auth->id)->first();
+			$user->$action = $userProfile->identifier;
+			$user->save();
+		}else{
+			$user = Website::where('user_id',$this->Auth->id)->first();
+			$user->$action = $userProfile->profileURL;
+			$user->save();
+		}
+		
 		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
-		// echo 'ID: '.$userProfile->identifier.'<br/>';
-		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
-		// echo 'Email: '.$userProfile->email.'<br/>';
-		// echo 'displayName: '.$userProfile->displayName.'<br/>';
+		
 	}
 
+	public function logoutSocial($action) {
+			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
+			return $socialAuth;
+		    $hybridAuth->logoutAllProviders();
+
+		return Redirect::route('users.edit.channel')->withFlashGood('Disconnected!'); 
+		
+	}
 	public function postDeleteUserFeedbackReply() {
 		return Input::all();
 	}

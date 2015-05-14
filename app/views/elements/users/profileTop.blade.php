@@ -38,11 +38,11 @@
 								<span class="pull-right" >
 									<span class="pull-right" >
 										@if(empty($usersWebsite))
-											No social sites connected here..
+											No social sites connected..
 										@else
 											@if(empty($usersWebsite->facebook))
 											@else
-											<a href="{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
+											<a href="https://www.facebook.com/{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
 											@endif
 
 											@if(empty($usersWebsite->twitter))

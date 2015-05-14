@@ -26,7 +26,8 @@
                                 <!--@r3mmel-->
                                 <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
                                 <?php $notifLink = stripos(Request::path(),'upload'); ?>
-                                @if(($watchVideoLink !== false) OR ($notifLink !== false))
+                                <?php $viewUser = stripos(Request::path(),'channels/'); ?>
+                                @if(($watchVideoLink !== false) OR ($notifLink !== false) OR ($viewUser !== false))
                                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                                     <li>
                                     <div class="btn-group hand" id="notification">

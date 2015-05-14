@@ -43,7 +43,7 @@
 
 				<div class="">
 					<br/>
-					<!--<div class="col-md-5">
+					<div class="col-md-6 col-sm-6 mg-t-10">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
@@ -51,32 +51,19 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>
-						
-						
-					</div>-->
+				
 
-		<!-- 			<div class="col-md-3">
+					<div class="col-md-6 col-sm-6  mg-t-10">
 						{{Form::open()}}
 						<div class="input-group" style="">
-							{{Form::hidden('text1',Crypt::encrypt($userChannel->id),array('id'=>'text1'))}}
+							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
 							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
 							<span class="input-group-btn">
 								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
 							</span>
 						</div>
 						{{Form::close()}}
-					</div> -->
-
-					<!--<div class="col-md-1 text-right">
-						<div class="buttons">
-							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
-						</div>
-					</div>-->
+					</div>
 
 
 

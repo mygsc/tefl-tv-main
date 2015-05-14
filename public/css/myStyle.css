@@ -752,6 +752,9 @@ img.user {
     margin-left: auto;
     margin-right: auto;
 }
+.textAreaContact{
+    height: 80px!important;
+}
 .h-minH{
     min-height: 730px;
 }
@@ -2823,7 +2826,11 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     background-position: -5px -5px;
     padding: none;
 }
-
+.btn-trans{
+    border: none;
+    background: transparent;
+    margin-left: 10px;
+}
 .btn-ico {
     padding: none!important;
     display: inline-block;

@@ -53,14 +53,14 @@
 							<div class="col-md-12">
 								<div class="" id="about">
 									<div class="col-md-12 grey">
+									@if(empty($usersChannel->interests))
+
+									@else
 										<h3 class="orangeC text-center">-Interests-</h3>
 										<div class="well2">
 											<p class="text-justify">
-												@if(empty($usersChannel->interests))
-
-												@else
-													{{$usersChannel->interests}}
-												@endif
+												{{$usersChannel->interests}}
+									@endif
 											</p>
 										</div>
 									</div>
@@ -150,13 +150,13 @@
 									</div>
 								</div>
 								<div class="col-md-12">
+								@if(empty($usersChannel->address))
+
+								@else
 									<h3 class="orangeC text-center">-Address-</h3>
 									<div class="well2">
 										<table class="tableLayout">
 											<tr>
-												@if(empty($usersChannel->address))
-
-												@else
 													<td width="20%"><small><label>Address</label></small></td>
 													<td width="5%"><b>:</b></td>
 													<td width="75%">{{$usersChannel->address}}</td>

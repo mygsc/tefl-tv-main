@@ -83,28 +83,22 @@
 
 				<div class="">
 					<br/>
-					<!--<div class="col-md-5 col-sm-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>-->
-					<div class="col-md-12 col-sm-12">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						
+					</div>
+					<div class="col-md-6 col-sm-6">
 						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
 							<option>Recent</option>
+							<option>Likes</option>
+							<option>Views</option>
+							<option>Unpublished</option>
 						</select>
-						@if(!Auth::check())
-							{{Form::hidden('userChannel', $userChannel->id, array('id' => 'userChannel_Id'))}}
-						@endif
-						
 						&nbsp;&nbsp;
 					
 
@@ -112,6 +106,8 @@
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
+						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+					</div>
 						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
 					
