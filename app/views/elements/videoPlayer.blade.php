@@ -1,5 +1,5 @@
 	<!--advertisement-->
-	<div class="advertisement" style="display:none">
+	<div class="advertisement" id='advertisement' style="display:none">
 		<div class="span12" style="background:rgba(0,0,0, 0.15)">
 			<div class="col-md-10 col-md-offset-1">
 				<span class="close">x</span> 

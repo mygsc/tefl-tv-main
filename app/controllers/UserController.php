@@ -575,6 +575,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
+	
 		// return $userFeedbacks;
 		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
@@ -1418,5 +1419,13 @@ public function postSpamFeedbackReply() {
 		// echo 'profileURL: '.$userProfile->profileURL.'<br/>';
 		// echo 'Email: '.$userProfile->email.'<br/>';
 		// echo 'displayName: '.$userProfile->displayName.'<br/>';
+	}
+
+	public function postDeleteUserFeedbackReply() {
+		return Input::all();
+	}
+
+	public function postReportUserFeedbackReply() {
+		return Input::all();
 	}
 }

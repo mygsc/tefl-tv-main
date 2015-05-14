@@ -109,6 +109,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('delete-feedback/', array('as' => 'post.users.delete-feedback', 'uses' => 'UserController@getDeleteFeedback'));
 	Route::post('addfeedback', array('as' => 'post.addfeedback', 'uses' => 'UserController@addFeedback'));
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
+	Route::post('delete-reply-feedback', array('as' => 'post.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteUserFeedbackReply'));
+	Route::post('spam-reply-feedback', array('as' => 'post.users.report-reply-feedback', 'uses' => 'UserController@postReportUserFeedbackReply'));
 
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
@@ -157,6 +159,6 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 //**********ADMIN**********//
 
 Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
-Route::get('embed/{id?}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
+Route::get('embed/{id}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
