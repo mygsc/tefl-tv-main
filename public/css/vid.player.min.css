@@ -67,15 +67,17 @@ div#progressbar #current-progress{
 	left: -20px;
 	text-decoration: overline;
 	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
-	background: #fff;
+	background: red;
 	outline:none;
 	top: -6px;
 	margin-left: 10px;
 	display: none;
 	border-radius: 20px;
-
-
-}div#buffered{
+	border:5px solid #fff; 
+}div#button-progress:hover{
+	background: #fff;border:5px solid red; 
+}
+div#buffered{
 	height: 100%;
 	position: absolute;
 	background: rgba(42,42,42,0.9);
