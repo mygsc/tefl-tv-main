@@ -74,6 +74,7 @@ div#progressbar #current-progress{
 	display: none;
 	border-radius: 20px;
 	border:5px solid #fff; 
+	cursor: pointer;
 }div#button-progress:hover{
 	background: #fff;border:5px solid red; 
 }

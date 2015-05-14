@@ -94,14 +94,17 @@ class VideoController extends BaseController {
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
 			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		// $mp4
+		// 	->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
+		// $webm
+		// 	->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
+		// $ogg
+		// 	->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
-		$mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
-		$webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
-		$ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
-		return $percentage1+$percentage2+$percentage3;	
+		//return Response::json(['percentloaded'=>$percentage1+$percentage2+$percentage3]);	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
@@ -311,18 +314,4 @@ class VideoController extends BaseController {
 		}
 		return app::abort(404, 'Page not available');
 	}
-
-	public function getSearch() {
-		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
-		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = $this->Video->getVideos($this->Auth->id,'videos.created_at');
-		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
-		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$countAllViews = $this->Video->countViews($allViews);
-		$usersVideos =$this->Video->getSearchVideos($search);
-		return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
-	}
-
 }
