@@ -92,8 +92,6 @@ class HomeController extends BaseController {
 	}
 
 	public function watchVideo($idtitle=null){
-		
-		
 		$videos = Video::where('file_name','=',$idtitle)->first();
 		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
 		$id = $videos->id;
@@ -269,7 +267,7 @@ class HomeController extends BaseController {
 
 			/*Notification Start*/
 			$videoData = Video::find($video_id);
-			if($this->Auth->id != $videoData->user_id){
+			if($user_id != $videoData->user_id){
 				$channel_id = $videoData->user_id;
 				$notifier_id = $user_id;
 				$routes = route('homes.watch-video', $videoData->file_name);
@@ -390,7 +388,7 @@ public function addReply(){
 
 		/*Notification Start*/
 		$videoData = Video::find($video_id);
-		if($this->Auth->id != $videoData->user_id){
+		if($user_id != $videoData->user_id){
 			$channel_id = Comment::find($comment_id)->user_id;
 			$notifier_id = $user_id;
 			$routes = route('homes.watch-video', $videoData->file_name);
@@ -406,25 +404,22 @@ public function addReply(){
 		$likeCommentId = Input::get('likeCommentId');
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
-		$video_id = Input::get('video_id');
+		$videoId = Input::get('video_id');
 
 		if($statuss == 'liked'){
 			DB::table('comments_likesdislikes')->insert(
-				array('comment_id' => $likeCommentId,
-					'user_id'    => $likeUserId,
-					'status' 	   => 'liked'
-					)
-				);
+				array('comment_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked')
+			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 
 			/*Notification Start*/
-			$videoData = Video::find($video_id);
-			if($this->Auth->id != $videoData->user_id){
-				$channel_id = Comment::find($comment_id)->user_id;
-				$notifier_id = $user_id;
+			$videoData = Video::find($videoId)->first();
+			if($likeUserId != $videoData->user_id){
+				$channel_id = Comment::find($likeCommentId)->first();
+				$notifier_id = $likeUserId;
 				$routes = route('homes.watch-video', $videoData->file_name);
 				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
