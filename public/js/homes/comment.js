@@ -29,7 +29,7 @@
 		}
 	});
 
-	$('form#video-addReply').on('submit', function(e){
+	$('#mainCommentBody').on('submit', 'form#video-addReply', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
 		$.ajax({

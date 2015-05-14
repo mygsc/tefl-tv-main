@@ -456,9 +456,9 @@ public function addReply(){
 			$notifier_id = $user_id;
 			$routes = route('homes.watch-video', $videoData->file_name);
 			$type = 'replied';
-				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-				/*Notification End*/
-			}
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+		}
 			return Response::json(array('status' => 'success', 'reply' => $newReply));
 		}
 	}
