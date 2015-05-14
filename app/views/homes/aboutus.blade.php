@@ -1,23 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class='container White same-H'>
-		<div class="col-md-3 hidden-sm hidden-xs">
-			<div class="row">
-			<br/>
-				<div class="same-H">
-					<div class="">
-						@include('elements/home/sideNav')
-						@include('elements/home/adverstisementSmall')
-						<br/>
-						@include('elements/home/carouselAds')	
-
-					</div>
-				</div>
-			</div>
-		</div><!--/.col-3 right section navigations-->
-
-		<div class="col-md-9">
+	<div class='container '>
+		<div class="col-md-9 White same-H">
 			<h1>About TEFL TV</h1>
 			<!--about us content-->
 			<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -62,9 +47,9 @@
 					<span class="textbox-layout">
 					{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
 					{{ Form::text('email', '', array('placeholder' => 'Email' , 'class' => 'form-control')); }}
-					{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact' , 'class' => 'form-control')); }}
+					{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact form-control', 'height' => '100px' )); }}
 					</span>
-					<button class="btn btn-primary pull-right">Submit</button>
+					<button class="btn btn-primary pull-right mg-b-20">Submit</button>
 					<br/>
 
 				</div><!--/.row-->
@@ -72,7 +57,18 @@
 			<!--/contact us-->
 
 		</div><!--/.col-md-9-->
-
+		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 		
 
 	</div><!--/.container page-->

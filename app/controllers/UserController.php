@@ -238,8 +238,9 @@ class UserController extends BaseController {
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
+
 			// return $subscriberProfile;
-			
+
 			$usersVideos = $this->Video->getVideos($this->Auth->id, null,8);
 			$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
