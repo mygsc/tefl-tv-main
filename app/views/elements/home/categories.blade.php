@@ -34,11 +34,12 @@
     <div class="panel-body">
       @if(!empty($notifications))
         @foreach($notifications as $notification)
-
+          {{$notification->notification}}
         @endforeach
       @else
         No new notifcation
       @endif
+      {{link_to_route('users.notifications', 'See all notifications')}}
     </div>
   </div>
 </div>

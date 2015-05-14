@@ -15,6 +15,25 @@ class HomeController extends BaseController {
 		return View::make('homes.aboutus');
 	}
 
+	public function postContactUs(){
+		$input = Input::all();
+		$validate = $validator = Validator::make(
+		    array(
+		    	'name' => $input['name'],
+		    	'email' => $input['email'],
+		    	'message' => $input{'message'}),
+		    array(
+		    	'name' => 'required',
+		    	'email' => 'required|email',
+		    	'message' => 'required')
+		    );
+
+		if($validate->fails()){
+			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+		}
+		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
+	}
+
 	public function getPrivacy() {
 		return View::make('homes.privacy');
 	}
@@ -62,33 +81,77 @@ class HomeController extends BaseController {
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
 		$popularVideos = $this->Video->getFeaturedVideo('popular', 12);
+		$notifications = $this->Notification->getNotificationForSideBar();
 
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
 
-		return View::make('homes.popular', compact('popularVideos','categories'));
+		return View::make('homes.popular', compact('popularVideos','categories','notifications'));
 	}
 
 	public function getLatest() {
 		$categories = $this->Video->getCategory();
 		$latestVideos =  $this->Video->getFeaturedVideo('latest', 12);
+		$notifications = $this->Notification->getNotificationForSideBar();
 
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
 
-		return View::make('homes.latest', compact('latestVideos','categories'));
+		return View::make('homes.latest', compact('latestVideos','categories', 'notifications'));
 	}
 
 	public function getPlaylist() {
 		$categories = $this->Video->getCategory();
 		$input = Input::all();
 		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
-		//return $playlists;
+		$notifications = $this->Notification->getNotificationForSideBar();
+
 		// return (DB::getQueryLog());
 		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
-		return View::make('homes.playlist', compact(array('options', 'playlists','categories')));
+		return View::make('homes.playlist', compact(array('options', 'playlists','categories', 'notifications')));
+	}
+
+		public function getCategory($category = null){
+		$notifications = $this->Notification->getNotificationForSideBar();
+		$categories = $this->Video->getCategory();
+		if(!empty($category)){
+			$videos = Video::select('videos.id',
+				'videos.user_id',
+				'videos.title',
+				'videos.description',
+				'users.channel_name',
+				'videos.tags',
+				'videos.file_name',
+				'videos.views',
+				'videos.created_at',
+				DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
+			->where('category', 'LIKE', '%'.$category.'%')
+			->where('deleted_at', NULL)
+			->where('publish', 1)
+			->where('report_count', '<', 5)
+			->orderBy(DB::raw('(views + likes)'))
+			->join('users', 'user_id', '=', 'users.id')
+			->paginate( 16);
+
+			foreach($videos as $key => $video){
+			//Thumbnails
+				$folderName = $video->user_id. '-'. $video->channel_name;
+				$fileName = $video->file_name;
+				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+				$videos[$key]->thumbnail = 'img\thumbnails\video.png';
+				if(file_exists(public_path($thumbnail))){
+					$videos[$key]->thumbnail = $thumbnail;
+				}
+			}
+
+			//return DB::getQueryLog();
+			if(!$videos->isEmpty()){
+				return View::make('homes.category', compact(array('videos','category','categories','notifications')));
+			}
+		}
+		return Redirect::route('homes.index');
 	}
 
 	public function watchVideo($idtitle=null){
@@ -452,44 +515,6 @@ public function addReply(){
 		}
 	}
 
-	public function getCategory($category = null){
-		if(!empty($category)){
-			$videos = Video::select('videos.id',
-				'videos.user_id',
-				'videos.title',
-				'videos.description',
-				'users.channel_name',
-				'videos.tags',
-				'videos.file_name',
-				'videos.views',
-				'videos.created_at',
-				DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
-			->where('category', 'LIKE', '%'.$category.'%')
-			->where('deleted_at', NULL)
-			->where('publish', 1)
-			->where('report_count', '<', 5)
-			->orderBy(DB::raw('(views + likes)'))
-			->join('users', 'user_id', '=', 'users.id')
-			->paginate( 16);
-
-			foreach($videos as $key => $video){
-			//Thumbnails
-				$folderName = $video->user_id. '-'. $video->channel_name;
-				$fileName = $video->file_name;
-				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-				$videos[$key]->thumbnail = 'img\thumbnails\video.png';
-				if(file_exists(public_path($thumbnail))){
-					$videos[$key]->thumbnail = $thumbnail;
-				}
-			}
-
-			//return DB::getQueryLog();
-			if(!$videos->isEmpty()){
-				return View::make('homes.category', compact(array('videos','category')));
-			}
-		}
-		return Redirect::route('homes.index');
-	}
 
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');

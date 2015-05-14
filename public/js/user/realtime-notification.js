@@ -1,11 +1,10 @@
-function countNotification(uid){
+function countNotification(){
 	var returnData = false;
 
 	$.ajax({
 		type: 'GET',
 		cache: false,
 		url: '/mychannels/countnotifications',
-		data: { 'uid': uid },
 		success: function (data){
 			var notifications = data;
 			if(notifications.length > 0){
@@ -17,12 +16,11 @@ function countNotification(uid){
 	return returnData;
 };
 
-function loadNotifcation(uid){
+function loadNotifcation(){
 	$.ajax({
 		type: 'POST',
 		cache: false,
 		url: '/mychannels/loadnotifications',
-		data: { 'uid': uid },
 		beforeSend: function(){
 			$('#loading-notification').show();
 			$('.no-notification').remove();
@@ -47,11 +45,11 @@ function loadNotifcation(uid){
 };
 
 function notificationTimer(){
-	countNotification(uid);
+	countNotification();
 	setInterval(function(){
-		if(countNotification(uid) === true){
+		if(countNotification() === true){
 			var timer = function(){setInterval(function(){
-				countNotification(uid);
+				countNotification();
 			}, 500);
 		};
 		}else{
@@ -61,12 +59,10 @@ function notificationTimer(){
 };
 
 $('#document').ready(function(){
-	uid = $('#notif_u_token').val();
-
 	notificationTimer();
 
 	$('#notification').click(function(){
-		loadNotifcation(uid);
+		loadNotifcation();
 	});
 });
 
