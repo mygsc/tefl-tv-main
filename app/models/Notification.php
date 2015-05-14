@@ -103,7 +103,7 @@ class Notification extends Eloquent {
 				}
 
 			}
-			$notification =  new Notification();
+			$notification = new Notification();
 			$notification->user_id = $user_id;
 			$notification->notification = $notificationMessage;
 			$notification->save();
@@ -138,9 +138,10 @@ class Notification extends Eloquent {
 				->OrderBy('created_at', 'DESC')
 				->get();
 			}
+
 			foreach($result as $key => $user){
 				$fileName = $user->user_id. '.jpg';
-				$path = 'img/user/'.$fileName; 
+				$path = '/img/user/'.$fileName; 
 				if(!file_exists(public_path($path))){
 					$path = '/img/user/0.jpg';
 				}

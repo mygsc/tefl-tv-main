@@ -201,7 +201,9 @@ class UserController extends BaseController {
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
 		$categories = $this->Video->getCategory();
-		return View::make('homes.topchannels', compact(array('datas','categories')));
+		$notifications = $this->Notification->getNotificationForSideBar();
+
+		return View::make('homes.topchannels', compact(array('datas','categories', 'notifications')));
 	}
 
 	public function getMoreTopChannels(){
@@ -576,7 +578,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->countViews($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
-
 		// return $userFeedbacks;
 		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
@@ -1234,16 +1235,19 @@ class UserController extends BaseController {
 	}
 
 	public function postLoadNotification(){
-		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id, null , null, 8);
-		$this->Notification->setStatus();
-		return $notifications;
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::User()->id, null , null, 8);
+			$this->Notification->setStatus();
+			return $notifications;
+		}
 	}
 
 	public function countNotifcation(){
-		$user_id = Crypt::decrypt(Input::get('uid'));
-		$notifications =  $this->Notification->getNotifications($user_id, 0);
-		return Response::json($notifications);
+		if(Auth::check()){
+			$notifications =  $this->Notification->getNotifications(Auth::User()->id, 0);
+			return Response::json($notifications);
+		}
+		return 'Error';
 	}
 
 	public function postFeedbacks() {
@@ -1434,6 +1438,14 @@ class UserController extends BaseController {
 		return Redirect::route('users.edit.channel')->withFlashGood('Disconnected!'); 
 		
 	}
+	public function postDeleteUserFeedbackReply() {
+		return Input::all();
+	}
+
+	public function postReportUserFeedbackReply() {
+		return Input::all();
+	}
+
 	public function postDeleteUserFeedbackReply() {
 		return Input::all();
 	}

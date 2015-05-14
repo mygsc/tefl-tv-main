@@ -21,6 +21,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
 	Route::get('aboutus', array('as' => 'homes.aboutus', 'uses' => 'HomeController@getAboutUs'));
+	Route::post('aboutus', array('as' => 'post.homes.aboutus', 'uses' => 'HomeController@postContactUs'));
 	Route::get('privacy', array('as' => 'homes.privacy', 'uses' => 'HomeController@getPrivacy'));
 	Route::get('terms-and-conditions', array('as' => 'homes.termsandconditions', 'uses' => 'HomeController@getTermsAndConditions'));
 	Route::get('copyright', array('as' => 'homes.copyright', 'uses' => 'HomeController@getCopyright'));
@@ -98,7 +99,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::get('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@countNotifcation'));
 	Route::get('videoplaylist={id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
-	Route::get('edit={id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
+	Route::get('editvideo={id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
 	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));

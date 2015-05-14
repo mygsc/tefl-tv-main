@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
+
 <div class="row White">
 <div class="container h-minH">
 	<div class="row">
