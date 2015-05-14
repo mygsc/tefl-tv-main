@@ -290,4 +290,15 @@ class Video extends Eloquent{
 
 		return $getVideos->take($limit)->get();
 	}
+
+	public function getSearchVideos($search = null){
+		if($search == ''){
+			return $search;
+		}
+
+		$search = DB::select("SELECT *,(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes FROM videos WHERE title LIKE '%".$search."%'");
+		return $search;
+
+
+	}
 }
