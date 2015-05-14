@@ -358,23 +358,22 @@ button#play{
   	cursor: pointer;
   	background: rgba(0,0,0,0.6);
   	outline: 1px solid #fff;
+  	display: none;
 }div#ads-hide center{
 	color:#fff;
 }
 .load-video{
  	margin: auto;  
   	position: absolute;
- 	left:0;
+ 	left: 0;
   	right: 0;
   	top: 0;
   	bottom: 0;
   	width: 13%;
   	height: 16%;
-  	/*background: rgba(27,27,27,0.6);*/
   	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	display: none;
 	border-radius: 5px;
 }
 div.error-video{
@@ -394,6 +393,9 @@ div.error-video{
 }
 div.error-video small{
  	color:#fff;
+}
+.play-icon{
+	display: none;
 }
 .play-icon span{
   	background: rgba(27,27,27,0.6);

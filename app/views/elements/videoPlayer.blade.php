@@ -30,10 +30,10 @@
 		<div class="wrapper" id="controls">
 			<div id="progressbar">
 				<div id="progress-ads-line"  class="prog-ads-line">		
-					<input  id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
+					<input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 					<div id="buffered"></div>
-					<div style="display:none" id="current-progress">	
-						<div style="display:none" id="button-progress" class="progress-button">		</div>	 
+					<div  id="current-progress">	
+						<div id="button-progress" class="progress-button">		</div>	 
 					</div> 
 				</div>
 			</div><!--/.progress-bar-->

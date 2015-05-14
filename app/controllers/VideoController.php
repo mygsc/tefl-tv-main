@@ -73,7 +73,7 @@ class VideoController extends BaseController {
 			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
 			return Response::json(['response'=>'Done converting...']);
 		}
-		return App::abort(404,'Page not found.');
+		return app::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -129,8 +129,8 @@ class VideoController extends BaseController {
 	private function ffmpeg(){
 		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
     		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg.exe',
-			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe.exe',
+			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
+			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe',
 			'timeout'=>0,
 			'ffmpeg.threads'=>12,
 			]);
@@ -170,7 +170,7 @@ class VideoController extends BaseController {
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return App::abort('404','Page not found.');}
+		if(empty($fileName)){return app::abort('404','Page not found.');}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
