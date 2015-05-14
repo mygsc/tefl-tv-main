@@ -1,7 +1,3 @@
-
-
-
-
 <div class="categoryNav hidden-sm hidden-xs">
     <div class="row">
         <div class="container">
@@ -39,7 +35,6 @@
                                         </a>
                                         <span class="dropdown-menu scrollable-menu bullet noti" role="menu">
                                             <div id="loading-notification">
-                                                {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                                 {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
                                                 <small>Looking for new Notification</small>
                                             </div>
