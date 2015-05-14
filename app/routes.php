@@ -111,9 +111,10 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
 	Route::post('delete-reply-feedback', array('as' => 'post.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteUserFeedbackReply'));
 	Route::post('spam-reply-feedback', array('as' => 'post.users.report-reply-feedback', 'uses' => 'UserController@postReportUserFeedbackReply'));
-
+	Route::get('search', array('as' =>'search', 'uses' => 'VideoController@getSearch'));
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
+	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
 });
 //*********End of Channels************//
 

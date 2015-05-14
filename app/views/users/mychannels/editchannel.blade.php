@@ -126,12 +126,12 @@
                                             @else
                                              <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
-                                                    <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Facebook Account</a>
+                                                    <a href="logout/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Facebook</a>
                                                 </div>
                                                  
                                             </div>
                                             <div class="col-md-10">
-                                                {{Form::text('facebook','', array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
+                                                {{Form::text('facebook','https://www.facebook.com/'.$userWebsite->facebook, array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
                                             </div>
                                             @endif
                                         </div>
@@ -144,7 +144,7 @@
                                                 </div>
                                                 @else
                                                 <div class="text-left connectTo c-tr">
-                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Sign-out with Twitter</a>
                                                 </div>
                                                 @endif
                                             </div>
@@ -163,7 +163,7 @@
                                                 </div>
                                                 @else
                                                 <div class="text-left connectTo c-gp">
-                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Google Account</a>
+                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
                                                 </div>
                                                 @endif
 
