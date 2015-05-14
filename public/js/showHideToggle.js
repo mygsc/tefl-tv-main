@@ -2,11 +2,14 @@
 
 	jQuery(document).ready(function($) {
 		$(".panelReply").hide('slow');
-		$(".repLink").click(function(){
-			
-			$(this).next().show();
-			$(".panelReply").hide();
-			$(this).parent().children(".panelReply").slideToggle(500); 
+		$("#mainCommentBody").on('click', '.repLink', function(){
+			if($(this).next().css('display') == 'none'){
+				// $(this).next().show();
+				$(this).parent().children(".panelReply").slideToggle(500);
+			}
+			else if($(this).next().css('display') == 'block'){
+				$(".panelReply").hide();
+			}
 		});
 		// $("input[name=my-checkbox]").bootstrapSwitch();
 	});
