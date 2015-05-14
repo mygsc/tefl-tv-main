@@ -54,10 +54,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '192.168.254.102',
+			'host'      => 'localhost',
+			'username'  => 'root',
+			'password'  => '',
+			// 'host'      => '192.168.254.102',
 			'database'  => 'tefl-tv',
-			'username'  => 'gil',
-			'password'  => 'gsc2014',
+			// 'username'  => 'gil',
+			// 'password'  => 'gsc2014',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
