@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row animated slideInLeft White">
+<div class="row White">
 <div class="container h-minH">
 	<div class="row">
 		<div class="col-lg-9 col-md-8 same-H White ">
@@ -9,7 +9,7 @@
 			@foreach($popularVideos as $key => $popularVideo)
 			<!-- 12 column / 3 column = 4 -->
 			<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
-				<div class="col-md-4 col-xs-6 hidden-xs">
+				<div class="col-md-4">
 					<div class="p-relative">
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 

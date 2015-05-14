@@ -10,17 +10,36 @@
 			<div class="White channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<!-- <li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li> -->
-				    	<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
-				  		<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 				  		<li role="presentation" class="active">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
-
 					</ul><!--tabNav-->
+					<nav class="navbar navbar-default visible-sm visible-xs">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					      <h4 class="inline mg-t-20">Subscribers/Subscriptions</h4>	
+					        <span class="fa fa-bars"></span>
+					      </button>
+			
+					    </div>
+					    <div class="collapse navbar-collapse" id="myNavbar">
+					      <ul class="nav navbar-nav">
+					    	<li>{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
+				
 				</div>
 				<br/>
 				<div class="col-md-12 ">
@@ -45,7 +64,7 @@
 									@else
 									@foreach($subscriberProfile as $key => $profile)
 									<div class="subscribers">
-										<div class="col-md-6">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
 							             		{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' =>'userRep2'))}}
 							              	@else
@@ -104,7 +123,7 @@
 									@else
 									@foreach($subscriptionProfile as $key => $profile1)
 									<div class="subscribers">
-										<div class="col-md-6">
+										<div class="col-md-6 col-sm-6 col-xs-12">
 											@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
 											{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
 											@else

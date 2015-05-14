@@ -81,6 +81,7 @@ div#progressbar #current-progress{
 	width: 0%;
 	border-radius:5px;
 	top:0;
+
 }#loadbar > span{
 		position:absolute;
 		left:0;
@@ -133,6 +134,8 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline: none;
+	position: relative;
+	z-index: 333;
 }input#seek-slider::-moz-range-track {
 	-moz-appearance: none;
 	border-radius: 5px;

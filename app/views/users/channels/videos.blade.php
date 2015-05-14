@@ -48,43 +48,57 @@
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<!-- <li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li> -->
-				    	<!-- <li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li> -->
-				  		<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  		
 				  	</ul><!--tabNav-->
+				  	<nav class="navbar navbar-default visible-sm visible-xs">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+									<h4 class="inline mg-t-20">Videos</h4>	
+									<span class="fa fa-bars"></span>
+								</button>
+								
+							</div>
+							<div class="collapse navbar-collapse" id="myNavbar">
+								<ul class="nav navbar-nav">
+									<li>{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+									<li>{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+									<li>{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+									<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
+									<li>{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+									<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
 				</div>
 
 				<div class="">
 					<br/>
-					<!--<div class="col-md-5 col-sm-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
-					</div>-->
-					<div class="col-md-12 col-sm-12">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						
+					</div>
+					<div class="col-md-6 col-sm-6">
 						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
 							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
 							<option>Recent</option>
+							<option>Likes</option>
+							<option>Views</option>
+							<option>Unpublished</option>
 						</select>
-						@if(!Auth::check())
-							{{Form::hidden('userChannel', $userChannel->id, array('id' => 'userChannel_Id'))}}
-						@endif
-						
 						&nbsp;&nbsp;
 					
 
@@ -92,6 +106,8 @@
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
+						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+					</div>
 						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
 					

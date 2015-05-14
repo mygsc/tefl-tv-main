@@ -10,7 +10,7 @@
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
@@ -20,6 +20,29 @@
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
 				</div>
+				<nav class="navbar navbar-default visible-sm visible-xs">
+					<div class="container-fluid">
+						<div class="navbar-header">
+
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+								<h4 class="inline mg-t-20">Feedbacks</h4>	
+								<span class="fa fa-bars"></span>
+							</button>
+
+						</div>
+						<div class="collapse navbar-collapse" id="myNavbar">
+							<ul class="nav navbar-nav">
+								<li>{{link_to_route('users.channel', 'Home')}}</li>
+								<li>{{link_to_route('users.about', 'About')}}</li>
+								<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
+								<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+								<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+								<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
+								<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
 
 				<div class="feedbackSection content-padding">
 					
@@ -38,9 +61,10 @@
 	@else
 					       
 	<div class="feedbacks row">
+		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
-		<br/>
+		<br/><br/>
 		<div class="text-right">
 
 				<button id='btnfeedback' class="btn btn-info">Post</button>
@@ -53,18 +77,7 @@
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
 
-				@if(Auth::check())
-				<div class="nav_div">
-					<button class="spam fa fa-flag pull-right" id="spam{{$userFeedback->id}}">
-						{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
-					</button>
-					<button class="delete pull-right" id="feedback{{$userFeedback->id}}">x	
-						{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
-						{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
-						{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
-					</button>
-				</div>
-				@endif
+				
 
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
@@ -75,7 +88,7 @@
 				?>
 
 				<div class="feedbackProfilePic col-md-1">
-					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+					{{HTML::image($temp, 'alt', array('class' => 'userRep'))}}
 				</div>
 				<div class="col-md-11">
 					<div class="row">
@@ -132,8 +145,8 @@
 						</div>
 						&nbsp;
 						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
 							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
 						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
@@ -145,19 +158,31 @@
 						<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 						<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 						<?php 
-							$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
+							$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
 							->where('feedback_id', $userFeedback->id)->count(); 
 						?>
 						<span class="repLink hand">{{$getFeedbackReplies}}<i class="fa fa-reply"></i></span>
 						<!--end updated by cess 3/26/15-->
 					@endif<!--auth user-->
 					<?php
-						$getFeedbackReplies = DB::table('feedbacks_replies')
-							->join('users', 'users.id', '=', 'feedbacks_replies.user_id')
-							->orderBy('feedbacks_replies.created_at', 'asc')
+						$getFeedbackReplies = DB::table('feedback_replies')
+							->join('users', 'users.id', '=', 'feedback_replies.user_id')
+							->orderBy('feedback_replies.created_at', 'asc')
 							->where('feedback_id', $userFeedback->id)->get(); 
 					?>
+					@if(Auth::check())
+					<div class="nav_div inline">
+						<button class="spam fa fa-flag btn-trans" title="report" id="spam{{$userFeedback->id}}">
+							{{Form::hidden('spam_feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
+						</button>
+						<!--<button class="delete btn-trans fa fa-trash" title="remove" id="feedback{{$userFeedback->id}}">	
+							{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
+							{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+							{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
+						</button>-->
+					</div>
+					@endif
 					<div id="replysection" class="panelReply">
 						
 							<?php
@@ -170,14 +195,15 @@
 								?>
 
 								<div class="feedbackProfilePic col-md-1">
-									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+									{{HTML::image($temp, 'alt', array('class' => 'userRep'))}}
 								</div>
 								<div class="col-md-11">
 									<div class="row">
+										
 										<?php
 										echo link_to_route('view.users.channel', $getFeedbackReply->channel_name, $parameters = array($getFeedbackReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 										echo "<small>" . date('M m, Y h:i A',strtotime($getFeedbackReply->created_at)) . "</small><br/>" ;
-										echo "<p class='text-justify'>" . $getFeedbackReply->reply . "<br/>" . "</p></hr>";?>
+										echo "<p class='text-justify'>" . $getFeedbackReply->reply . "<br/>" . "</p></hr><br/>";?>
 									</div>
 								</div>	
 							<?php endforeach;?>

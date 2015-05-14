@@ -9,7 +9,7 @@
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -19,19 +19,44 @@
 				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 				  	</ul><!--tabNav-->
+				  	<nav class="navbar navbar-default visible-sm visible-xs">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					      <h4 class="inline mg-t-20">Watch Later</h4>	
+					        <span class="fa fa-bars"></span>
+					      </button>
+			
+					    </div>
+					    <div class="collapse navbar-collapse" id="myNavbar">
+					      <ul class="nav navbar-nav">
+					      	 <li>{{link_to_route('users.channel', 'Home')}}</li>
+					    	<li>{{link_to_route('users.about', 'About')}}</li>
+					    	<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
+					    	<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+					  		<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
+					  		<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+					  		<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
+				  	
+
 				</div>
 
 				<div class="row mg-l--20">
 					<br/>
 					<div class="content-padding">
-					<!--<div class="col-md-6">
-						<div class="input-group">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-							</span>
+						<div class="col-md-6 col-sm-8 col-xs-8">
+							<div class="input-group">
+								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+								<span class="input-group-btn">
+									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+								</span>
+							</div>
 						</div>
-					</div>-->
 
 					<!--<div class="col-md-5">
 				
@@ -44,7 +69,7 @@
 						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
 					</div>-->
 
-					<div class="col-md-12 text-right">
+					<div class="col-md-6 col-sm-4 col-xs-4 text-right">
 						<div class="buttons pull-right">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>

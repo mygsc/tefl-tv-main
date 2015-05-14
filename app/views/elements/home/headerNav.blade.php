@@ -21,14 +21,13 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">
                         <ul class="ctgryNav">
-                            
-
                             @if(Auth::check())
 
                                 <!--@r3mmel-->
                                 <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
                                 <?php $notifLink = stripos(Request::path(),'upload'); ?>
-                                @if(($watchVideoLink !== false) OR ($notifLink !== false))
+                                <?php $viewUser = stripos(Request::path(),'channels/'); ?>
+                                @if(($watchVideoLink !== false) OR ($notifLink !== false) OR ($viewUser !== false))
                                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                                     <li>
                                     <div class="btn-group hand" id="notification">
@@ -37,7 +36,6 @@
                                         </a>
                                         <span class="dropdown-menu scrollable-menu bullet noti" role="menu">
                                             <div id="loading-notification">
-                                                {{ Form::hidden('notif_u_token', Crypt::encrypt(Auth::User()->id), array('id' => 'notif_u_token'))}}
                                                 {{ HTML::image('img/icons/uploading.gif',null,  array('height'=>'25px','width' => '25px')) }}
                                                 <small>Looking for new Notification</small>
                                             </div>
@@ -64,8 +62,8 @@
 <!------Realtime notification script--->
 
 <!-- Navigation -->
-<nav class="navbar navbar-inverse visible-sm visible-xs categoryNav" role="navigation">
-    <div class="">
+<nav class="navbar navbar-inverse visible-sm visible-xs categoryNav" role="navigation" style="z-index:99999">
+    <div class="LightestBlue">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
            
@@ -93,20 +91,16 @@
                 </li>
                 <li>{{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}</li>
-                <li>{{ link_to_route('homes.playlist', 'Random', null, array('class' => '')) }}</li>
+                <li>{{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}</li>
                 <li>{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}</li>
                 <li><hr/></li>
                 @if(Auth::check())
 
                     <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
-                    <!--@r3mmel-->
-                    <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
-                    <?php $notifLink = stripos(Request::path(),'mychannels/notifications'); ?>
-                    @if(($watchVideoLink !== false) OR ($notifLink !== false))
-                        <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
-                    @endif
-                    <!--@r3mmel-->
-
+                
+                 
+                  
+                    <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                 @else

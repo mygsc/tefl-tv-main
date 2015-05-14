@@ -2,28 +2,11 @@
 
 
 @section('content')
-	<div class='container White'>
+	<div class='container'>
 		<!-- tabs left -->
         <div class="tabbable">
-			<div class="col-md-3">
-				<br/>
-				<div class="row">
-					<div class="same-H">
-						<div class="">
-							<ul class="nav tc" role="tablist">
-								<li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users Terms and Conditions</a></li>
-								<li role="presentation"><a href="#partners" aria-controls="partners" role="tab" data-toggle="tab">Partner Program Terms and Conditions</a></li>
-								<li role="presentation"><a href="#publishers" aria-controls="publishers" role="tab" data-toggle="tab">Publisher Terms and Conditions</a></li>
-								<li role="presentation"><a href="#advertisers" aria-controls="advertisers" role="tab" data-toggle="tab">Terms and Conditions for Advertisers</a></li>
-							</ul><!--tabNav-->
-							@include('elements/home/carouselAds')
-							@include('elements/home/sideNav')
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<div class="col-md-9">
+			
+			<div class="col-md-9 White">
 				<div class="">
 					<div class="">
 				<div class="tab-content">
@@ -941,8 +924,22 @@
                     </div>
                 </div><!--/.tabContent-->
 			</div>
+
 		</div><!--/.tabbable tabs-left-->
+
 	</div><!--/.container page-->
 </div>
+<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 </div>
 @stop

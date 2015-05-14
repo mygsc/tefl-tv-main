@@ -67,7 +67,8 @@ $(document).ready(function(){
         	data: {
         		likeCommentId: $(this).find('input[name=likeCommentId]').val(),
         		likeUserId: $(this).find('input[name=likeUserId]').val(),
-        		status: $(this).find('input[name=status]').val()
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
         	},
         	success: function(data){
         		if(data['status'] == 'success'){
