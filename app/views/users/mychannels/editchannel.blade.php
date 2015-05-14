@@ -2,6 +2,8 @@
 
 
 @section('content')
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="row">
   <div class="container">
       <br/>
@@ -73,7 +75,7 @@
 
                                     {{Form::label('birthdate', '*Birthdate: ')}}
                                     <span class='inputError'>{{$errors->first('birthdate')}}</span>
-                                    {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate'))}}
+                                    {{Form::text('birthdate', $userChannel->birthdate, array('placeholder' => 'Birthdate', 'id' => 'datepicker'))}}
 
                                     {{Form::label('organization', '*Organization: ')}}
                                     <span class="inputError">{{$errors->first('organization')}}</span>
@@ -122,15 +124,29 @@
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
                                             </div>
                                             @else
-                                                Connected in Facebook
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="logout/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Facebook</a>
+                                                </div>
+                                                 
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{Form::text('facebook','https://www.facebook.com/'.$userWebsite->facebook, array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
+                                            </div>
                                             @endif
                                         </div>
                                        	<br/>
                                         <div class="row">
                                             <div class="col-md-2">
+                                                @if(empty($userWebsite->twitter))
                                                 <div class="text-left connectTo c-tr">
                                                     <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
                                                 </div>
+                                                @else
+                                                <div class="text-left connectTo c-tr">
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Sign-out with Twitter</a>
+                                                </div>
+                                                @endif
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
@@ -141,9 +157,16 @@
            
                                         <div class="row">
                                             <div class="col-md-2">
+                                                @if(empty($userWebsite->google))
                                                 <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                                                 </div>
+                                                @else
+                                                <div class="text-left connectTo c-gp">
+                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
+                                                </div>
+                                                @endif
+
                                 
                                             </div>
                                             <div class="col-md-10">
@@ -192,4 +215,12 @@
 @section('script')
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/modalclearing.js')}}
+{{HTML::script('http://code.jquery.com/ui/1.11.4/jquery-ui.js')}}
+
+<script>
+    $("#datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+</script>
 @stop

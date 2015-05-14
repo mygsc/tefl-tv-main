@@ -74,7 +74,7 @@ class VideoController extends BaseController {
 			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
 			return Response::json(['response'=>'Done converting...']);
 		}
-		return App::abort(404,'Page not found.');
+		return app::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -95,14 +95,17 @@ class VideoController extends BaseController {
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
 			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		// $mp4
+		// 	->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
+		// $webm
+		// 	->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
+		// $ogg
+		// 	->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
-		$mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
-		$webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
-		$ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
-		return $percentage1+$percentage2+$percentage3;	
+		//return Response::json(['percentloaded'=>$percentage1+$percentage2+$percentage3]);	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
@@ -130,8 +133,8 @@ class VideoController extends BaseController {
 	private function ffmpeg(){
 		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
     		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg.exe',
-			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe.exe',
+			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
+			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe',
 			'timeout'=>0,
 			'ffmpeg.threads'=>12,
 			]);
@@ -171,7 +174,7 @@ class VideoController extends BaseController {
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return App::abort('404','Page not found.');}
+		if(empty($fileName)){return app::abort('404','Page not found.');}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
@@ -303,16 +306,13 @@ class VideoController extends BaseController {
 		return $path;
 	}
 
-	public function getEmbedVideo($id=NULL){
-		$vidFilename = Video::where('file_name', $id)->first();
-		$vidOwner = User::find($vidFilename->user_id);
-		if($vidFilename->count() && $vidOwner->count()){
+	public function getEmbedVideo($filename){
+		$vidFilename = Video::where('file_name','=',$filename);
+		if($vidFilename->count()){
+			$vidFilename = $vidFilename->first();
+			$vidOwner = User::find($vidFilename->user_id);
 			return View::make('homes.embedvideo', compact('vidFilename','vidOwner'));
 		}
 		return app::abort(404, 'Page not available');
 	}
-
-
-
-
 }

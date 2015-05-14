@@ -10,24 +10,45 @@
 			<div class=" channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 						<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 						<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-						<!-- <li role="presentation">{{link_to_route('view.users.favorites2', 'My Favorites', $userChannel->channel_name)}}</li> -->
-						<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
 						<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
 						<li role="presentation" class="active">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 						<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 					</ul><!--tabNav-->
+					<nav class="navbar navbar-default visible-sm visible-xs">
+					  <div class="container-fluid">
+					    <div class="navbar-header">
+
+					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					      <h4 class="inline mg-t-20">Feedbacks</h4>	
+					        <span class="fa fa-bars"></span>
+					      </button>
+			
+					    </div>
+					    <div class="collapse navbar-collapse" id="myNavbar">
+					      <ul class="nav navbar-nav">
+					    	<li>{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+					    	<li>{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+					  		<li>{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
 				</div>
 
 				<div class="feedbackSection content-padding">
 					@if(empty($userFeedbacks))
 					<br/><br/>
-					<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-					<span id='errorlabel' class='input-error'></span>
-					<br/>
+					<div class="mg-t-20">
+						<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
+						<span id='errorlabel' class='input-error'></span>
+						<br/>
+					</div>
 					<div class="text-right">
 						@if(!Auth::check())
 						{{link_to_route('homes.signin', 'Sign-in to leave a feedback')}}
@@ -43,8 +64,11 @@
 					@else
 
 					<div class="feedbacks row">
-						<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-						<span id='errorlabel' class='input-error'></span>
+						<br/><br/>
+						<div class="mg-t-20">
+							<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
+							<span id='errorlabel' class='input-error'></span>
+						</div>
 						<br/>
 						<div class="text-right">
 							@if(!Auth::check())
@@ -62,24 +86,9 @@
 							@foreach($userFeedbacks as $userFeedback)
 							@if($userFeedback->spamCounts < 5)
 							<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
-								@if(Auth::check())
-								@if(Auth::User()->id == $userFeedback->user_id)
-								<div class="nav_div">
-									<button class="spam fa fa-flag pull-right" id="{{$userFeedback->id}}">
-										{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'spam_channel_id'))}}
-										{{Form::hidden('user_id', Auth::User()->id, array('id' => 'spam_user_id'))}}
-										{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'spam_feedback_id'))}}
-									</button>
-									<button class="delete pull-right" id="feedback{{$userFeedback->id}}">x	
-										{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
-										{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
-										{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
-									</button>
-								</div>
-								@endif
-								@endif
+								
 								<div class="feedbackProfilePic col-md-1">
-									{{HTML::image($userFeedback->img, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+									{{HTML::image($userFeedback->img, 'alt', array('class' => 'userRep'))}}
 								</div>
 								<div class="col-md-11">
 									<div class="row">
@@ -131,35 +140,45 @@
 										<span class="repLink hand">{{$userFeedback->countFeedbackReplies}}<i class="fa fa-reply"></i></span>
 										<!--end updated by cess 3/26/15-->
 										@endif<!--auth user-->
-										<div id="replysection" class="panelReply">
+										@if(Auth::check())
+										@if(Auth::User()->id == $userFeedback->user_id)
+											<span class="nav_div">
+			
+												<button class="delete fa fa-trash btn-trans" title="remove" id="feedback{{$userFeedback->id}}">
+													{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
+													{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}
+													{{Form::hidden('feedback_id', $userFeedback->id, array('id' => 'feedback_id'))}}
+												</button>
+											</span>
+											@endif
+										@endif
+											<div id="replysection" class="panelReply">
 
 											@foreach($userFeedback->getFeedbackReplies as $getFeedbackReply)
 											<div class="col-md-11">
 												<div class="row" id="reply{{$getFeedbackReply->id}}">
 													<div class="feedbackProfilePic col-md-1">
 														@if(file_exists(public_path('img/user/'.$getFeedbackReply->user_id . '.jpg')))
-														{{HTML::image('img/user/'.$getFeedbackReply->user_id . '.jpg', 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+														{{HTML::image('img/user/'.$getFeedbackReply->user_id . '.jpg', 'alt', array('class' => 'userRep'))}}
 														@else
-														{{HTML::image('img/user/0.jpg','alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
+														{{HTML::image('img/user/0.jpg','alt', array('class' => 'userRep'))}}
 														@endif
-												</div>
-													@if(Auth::check())
-													@if(Auth::User()->id == $getFeedbackReply->user_id)
-													<div class="nav_div" >
-														<button class="reportReply fa fa-flag pull-right" id="{{$getFeedbackReply->id}}">
-															{{Form::hidden('report_user_id', Auth::User()->id, array('id' => 'report_user_id'))}}
-															{{Form::hidden('report_feedback_id', $getFeedbackReply->feedback_id, array('id' => 'report_feedback_id'))}}
-														</button>
-														<button class="replyDelete pull-right" id="reply{{$getFeedbackReply->id}}" value="{{$getFeedbackReply->id}}">x	
-															{{Form::hidden('deleteReply_user_id', Auth::User()->id, array('id' => 'deleteReply_user_id'))}}
-															{{Form::hidden('deleteReply_feedback_id', $getFeedbackReply->feedback_id, array('id' => 'deleteReply_feedback_id'))}}
-														</button>
 													</div>
-													@endif
-													@endif
+													
 													{{link_to_route('view.users.channel', $getFeedbackReply->channel_name, $parameters = array($getFeedbackReply->channel_name), $attributes = array('id' => 'channel_name'))."&nbsp;|&nbsp;"}}
-													<small>{{date('M m, Y h:i A',strtotime($getFeedbackReply->created_at))}}</small><br/>
-													<p class='text-justify'>{{$getFeedbackReply->reply}}<br/></p></hr><br/>
+													<small>{{date('M m, Y h:i A',strtotime($getFeedbackReply->created_at))}}</small>
+													@if(Auth::check())
+														@if(Auth::User()->id == $getFeedbackReply->user_id)
+														<span class="nav_div" >	
+															<button class="replyDelete btn-trans fa fa-trash" title="remove" id="reply{{$getFeedbackReply->id}}" value="{{$getFeedbackReply->id}}">
+																{{Form::hidden('deleteReply_user_id', Auth::User()->id, array('id' => 'deleteReply_user_id'))}}
+																{{Form::hidden('deleteReply_feedback_id', $getFeedbackReply->feedback_id, array('id' => 'deleteReply_feedback_id'))}}
+															</button>
+														</span>
+														@endif
+													@endif
+													<br/>
+													<p class='text-justify'>{{$getFeedbackReply->reply}}<br/></p><hr/><br/>
 												</div>
 											</div>	
 											@endforeach
@@ -173,7 +192,8 @@
 											{{Form::hidden('user_id', Auth::User()->id)}}
 											@endif
 											{{Form::textarea('txtreply', '', array('class' =>'form-control txtreply', 'id'=>'txtreply', 'placeholder' => 'Leave a reply...'))}}
-											{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right', 'id'=>'replybutton'))}}
+					
+											{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right mg-t-10', 'id'=>'replybutton'))}}
 
 											<span class='replyError inputError'></span>
 											{{Form::close()}}

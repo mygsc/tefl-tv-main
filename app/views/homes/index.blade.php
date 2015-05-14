@@ -1,18 +1,9 @@
 @extends('layouts.default')
-	@section('meta')
-		{{-- <meta property="og:title" content="dynamic">
-		<meta property="og:site_name" content="test.tefltv.com">
-		<meta property="og:description" content="dynamic">
-		<meta property="og:url" content="dynamic">
-		<meta property="og:image" content="/img/thumbnails/video.png"> 
-		<meta property="og:type" content="video">
-		<meta property="og:video:width" content="500"> 
-		<meta property="og:video:height" content="300"> 
-		<meta property="og:video" content="test.tefltv.com">  --}}
-		
+	@section('meta')		
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
+		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
