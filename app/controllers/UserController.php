@@ -1444,13 +1444,5 @@ class UserController extends BaseController {
 
 	public function postReportUserFeedbackReply() {
 		return Input::all();
-	}
-
-	public function postDeleteUserFeedbackReply() {
-		return Input::all();
-	}
-
-	public function postReportUserFeedbackReply() {
-		return Input::all();
-	}
+	}	
 }
