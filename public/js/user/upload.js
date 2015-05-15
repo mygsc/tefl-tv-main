@@ -52,7 +52,7 @@ $(document).ready(function(){
                     // $('#wrapper').fadeOut();  
                     $('#loader-progress').fadeOut();
                     document.getElementById('post-save').action = 'add-description/'+response.vidid;
-                    $('#percentage').html('Your video is ready to proceed. Please click save to confirm.').css({'color':'green'});
+                    $('#percentage').html('<br/>Your video is being convert it takes several minutes. Please wait...').css({'color':'#000'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
