@@ -10,7 +10,6 @@
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
-
 <div class="container">
 	<div class="row">
 		<div class="col-md-9 White same-H">
@@ -42,7 +41,6 @@
 			</div>
 
 		<!--RECOMMENDED VIDEOS SECTION -->
-
 		<div class="row grey mg-t--20">
 		
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>

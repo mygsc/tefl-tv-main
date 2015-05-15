@@ -39,6 +39,7 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
+
 				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);

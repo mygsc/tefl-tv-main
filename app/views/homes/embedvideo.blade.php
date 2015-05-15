@@ -16,6 +16,9 @@
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::style('css/myStyle.css')}}
 	{{HTML::style('css/bootstrap.css') }}
+	{{HTML::script('js/jquery.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/video-player/fullscreen.min.js')}}
 </head>
 <body>
 	<div class="row">

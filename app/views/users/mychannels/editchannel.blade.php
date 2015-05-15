@@ -35,7 +35,7 @@
                  <button style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout</button>
                  <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
                  <div id='uName'></div>
-                 <img src='' id='imgHolder'/>
+                 <img src='' id='imgHolder'/> -->
                 
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
@@ -97,8 +97,8 @@
                                         {{Form::label('website', 'Website: ')}} 
                                         {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
 
-                                        {{Form::label('gmail', 'Gmail: ')}}
-                                        {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
+                                        {{Form::label('google', 'Gmail: ')}}
+                                        {{Form::text('google', null, array('placeholder' => 'Gmail Account'))}}
 
                                         {{Form::label('facebook', 'Facebook: ')}}       
                                         {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
@@ -122,16 +122,19 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
+                                                
                                             </div>
                                             @else
                                              <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
                                                     <a href="logout/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Facebook</a>
                                                 </div>
-                                                 
+                                                
                                             </div>
                                             <div class="col-md-10">
-                                                {{Form::text('facebook','https://www.facebook.com/'.$userWebsite->facebook, array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
+                                                @if(Session::has('sessionFacebook'))
+                                                 Signed in as <a href="https://www.facebook.com/{{$userWebsite->facebook}}" target="_blank">{{$sessionFacebook}}</a>
+                                                @endif
                                             </div>
                                             @endif
                                         </div>
@@ -149,7 +152,9 @@
                                                 @endif
                                             </div>
                                             <div class="col-md-10">
-                                                {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
+                                                 @if(Session::has('sessionTwitter'))
+                                                 Signed in as <a href="{{$userWebsite->twitter}}" target="_blank">{{$sessionTwitter}}</a>
+                                                @endif
                                             </div>
                                         </div>
         
@@ -164,13 +169,13 @@
                                                 @else
                                                 <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
-                                                </div>
+                                                </div>                                                
                                                 @endif
-
-                                
                                             </div>
                                             <div class="col-md-10">
-                                                 {{Form::text('gmail', $userWebsite->google, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                                 @if(Session::has('sessionGmail'))
+                                                 Signed in as <a href="{{$userWebsite->google}}" target="_blank">{{$sessionGmail}}</a>
+                                                @endif
                                             </div>
                                         </div>
                                        
