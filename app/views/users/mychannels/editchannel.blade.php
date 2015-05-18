@@ -140,43 +140,57 @@
                                         </div>
                                        	<br/>
                                         <div class="row">
+                                            @if(empty($userWebsite->twitter))
                                             <div class="col-md-2">
-                                                @if(empty($userWebsite->twitter))
                                                 <div class="text-left connectTo c-tr">
-                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
+                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
                                                 </div>
-                                                @else
-                                                <div class="text-left connectTo c-tr">
-                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Sign-out with Twitter</a>
-                                                </div>
-                                                @endif
+                                                 
                                             </div>
                                             <div class="col-md-10">
-                                                 @if(Session::has('sessionTwitter'))
+                                                {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
+                                                
+                                            </div>
+                                            @else
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="logout/twitter" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Twitter</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-10">
+                                                @if(Session::has('sessionTwitter'))
                                                  Signed in as <a href="{{$userWebsite->twitter}}" target="_blank">{{$sessionTwitter}}</a>
                                                 @endif
                                             </div>
+                                            @endif
                                         </div>
         
                                         <br/>
-           
-                                        <div class="row">
+                                         <div class="row">
+                                            @if(empty($userWebsite->google))
                                             <div class="col-md-2">
-                                                @if(empty($userWebsite->google))
                                                 <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                                                 </div>
-                                                @else
-                                                <div class="text-left connectTo c-gp">
-                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
-                                                </div>                                                
-                                                @endif
+                                                 
                                             </div>
                                             <div class="col-md-10">
-                                                 @if(Session::has('sessionGmail'))
-                                                 Signed in as <a href="{{$userWebsite->google}}" target="_blank">{{$sessionGmail}}</a>
+                                                {{Form::text('google', $userWebsite->google, array('placeholder' => 'Google Account', 'disabled'))}}
+                                            </div>
+                                            @else
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="logout/google" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Google</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-10">
+                                                @if(Session::has('sessionGoogle'))
+                                                 Signed in as <a href="{{$userWebsite->google}}" target="_blank">{{$sessionGoogle}}</a>
                                                 @endif
                                             </div>
+                                            @endif
                                         </div>
                                        
                                         <br/>

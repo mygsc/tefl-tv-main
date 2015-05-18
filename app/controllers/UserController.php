@@ -12,7 +12,8 @@ class UserController extends BaseController {
 		Feedback $feedback,
 		Playlist $playlist,
 		ReportedFeedback $reportedFeedback,
-		UserFavorite $userFavorite)
+		UserFavorite $userFavorite,
+		Hybrid_Auth $hybridauth)
 	{
 		$this->Notification = $notification;
 		$this->Video = $video;
@@ -24,7 +25,8 @@ class UserController extends BaseController {
 		$this->Feedback = $feedback;
 		$this->Playlist = $playlist;
 		$this->ReportedFeedback = $reportedFeedback;
-		$this->UserFavorite = $userFavorite;	
+		$this->UserFavorite = $userFavorite;
+		$this->Hybrid_Auth = $hybridauth;	
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -1401,9 +1403,6 @@ class UserController extends BaseController {
 	}
 
 	public function viewSocial() {
-		// $web = 'facebook';
-		// return DB::table('websites')->where('user_id', $this->Auth->id)->pluck($web);
-
 		return View::make('testing');
 	}
 
@@ -1447,15 +1446,27 @@ class UserController extends BaseController {
 			$sessionGmail = $userProfile->displayName;
 			$sessionGmail = Session::put('sessionGmail', $sessionGmail);
 		}
-
-		return Redirect::route('users.edit.channel', compact('sessionFacebook', 'sessionTwitter','sessionGmail'))->withFlashGood('Connected!');
+		// return Redirect::route('users.edit.channel', compact('sessionFacebook', 'sessionTwitter','sessionGmail'))->withFlashGood('Connected with '.$action.'!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected with '.$action.'!');
 		
 	}
 
 	public function logoutSocial($action) {
-			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
-			return $socialAuth;
-		    $hybridAuth->logoutAllProviders();
+		$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
+		$provider = $socialAuth->authenticate($action);
+		$provider->logout();
+
+		if($action == 'facebook'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['facebook' => '']);
+		}
+
+		if($action == 'twitter'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['twitter' => '']);
+		}
+
+		if($action == 'google'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['google' => '']);
+		}
 
 		return Redirect::route('users.edit.channel')->withFlashGood('Disconnected!'); 
 		
