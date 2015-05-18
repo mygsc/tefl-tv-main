@@ -10,7 +10,6 @@
 
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
-					<!-- Nav tabs -->
 					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
@@ -20,18 +19,15 @@
 						<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 						<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 						<li role="presentation" class="active">{{link_to_route('users.subscribers', 'Subscribers/Subscriptionss')}}</li>
-
-					</ul><!--tabNav-->
+					</ul>
 				</div>
 				<nav class="navbar navbar-default visible-sm visible-xs">
 					<div class="container-fluid">
 						<div class="navbar-header">
-							
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 								<h4 class="inline mg-t-20">Subscribers/Subscriptions</h4>	
 								<span class="fa fa-bars"></span>
 							</button>
-							
 						</div>
 						<div class="collapse navbar-collapse" id="myNavbar">
 							<ul class="nav navbar-nav">
@@ -80,7 +76,7 @@
 									                @endif
 													&nbsp;
 
-													<a href="{{route('view.users.channel')}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
+													<span><b><a href="{{route('view.users.channel', $profile->channel_name)}}">{{$profile->channel_name}}</a></b></span>&nbsp;
 													<br/>&nbsp;
 													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;</b> Subscribers</span>&nbsp;
 													@if(isset(Auth::User()->id))
