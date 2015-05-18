@@ -21,6 +21,8 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="row text-right">
                         <ul class="ctgryNav">
+                            
+
                             @if(Auth::check())
 
                                 <!--@r3mmel-->

@@ -73,7 +73,6 @@ class HomeController extends BaseController {
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-		
 		//return $notifications;
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
@@ -329,14 +328,14 @@ class HomeController extends BaseController {
 			$comments->save();
 
 			/*Notification Start*/
-			$videoData = Video::find($video_id);
-			if($this->Auth->id != $videoData->user_id){
-				$channel_id = $videoData->user_id;
-				$notifier_id = $user_id;
-				$routes = route('homes.watch-video', $videoData->file_name);
-				$type = 'comment';
-				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-			}
+			// $videoData = Video::find($video_id);
+			// if($user_id != $videoData->user_id){
+			// 	$channel_id = $videoData->user_id;
+			// 	$notifier_id = $user_id;
+			// 	$routes = route('homes.watch-video', $videoData->file_name);
+			// 	$type = 'comment';
+			// 	$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			// }
 			/*Notification End*/
 
 
@@ -357,51 +356,51 @@ class HomeController extends BaseController {
 			}
 			$newComment =  
 			'<div class="commentsarea row">
-			<div class="commentProfilePic col-md-1">'. 
-				HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-			</div>
-			<div class="col-md-11">
-				<div class="row">'.
-					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
-					| &nbsp;<small> just now. </small> 
-					<br/>
-					<p class="text-justify">
-						'. $comments->comment . '
-					</p>
-					<div class="fa fa-thumbs-up likedup">
-						<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-						<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-						<input type="hidden" value="'.$video_id.'" name="video_id">
-						<input type="hidden" value="liked" name="status">
-						<span class="likescount" id="likescount">'.$likesCount.'</span>
-					</div>
-					|&nbsp;
-					<div class="fa fa-thumbs-down dislikedup">
-						<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
-						<input type="hidden" value="'.$userInfo->user_id.'" name="dislikeUserId">
-						<input type="hidden" value="'.$video_id.'" name="video_id">
-						<input type="hidden" value="disliked" name="status">
-						<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-					</div>
-					|&nbsp;
-					<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+				<div class="commentProfilePic col-md-1">'. 
+					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+				</div>
+				<div class="col-md-11">
+					<div class="row">'.
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+						| &nbsp;<small> just now. </small> 
+						<br/>
+						<p class="text-justify">'. $comments->comment . '</p>
+						<div class="fa likedup">
+							<span class="fa-thumbs-up hand"></span>
+							<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
+							<input type="hidden" value="'.$video_id.'" name="video_id">
+							<input type="hidden" value="liked" name="status">
+							<span class="likescount" id="likescount">'.$likesCount.'</span>
+						</div>
+						&nbsp;
+						<div class="fa dislikedup">
+							<span class="fa-thumbs-down hand"></span>
+							<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+							<input type="hidden" value="'.Auth::User()->id.'" name="dislikeUserId">
+							<input type="hidden" value="'.$video_id.'" name="video_id">
+							<input type="hidden" value="disliked" name="status">
+							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
+						</div>
+						&nbsp;
+						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
 
-					<div id="replysection" class="panelReply"> '.
-						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-						<input type="hidden" name="comment_id" value="'.$comments->id.'">
-						<input type="hidden" name="user_id" value="'.$userInfo->id.'">
-						<input type="hidden" name="video_id" value="'.$video_id.'">
-						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+						<div id="replysection" class="panelReply" style="display: none;"> '.
+							Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+								<input type="hidden" name="comment_id" value="'.$comments->id.'">
+								<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+								<input type="hidden" name="video_id" value="'.$video_id.'">
+								<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+								<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
 
-						<span class="replyError inputError"></span>
-					</form>
+								<span class="replyError inputError"></span>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<hr/>
-	';
+			<hr/>
+			';
 
 	return Response::json(array(
 		'status' => 'success',
@@ -451,14 +450,14 @@ public function addReply(){
 
 		/*Notification Start*/
 		$videoData = Video::find($video_id);
-		if($this->Auth->id != $videoData->user_id){
+		if($user_id != $videoData->user_id){
 			$channel_id = Comment::find($comment_id)->user_id;
 			$notifier_id = $user_id;
 			$routes = route('homes.watch-video', $videoData->file_name);
 			$type = 'replied';
-				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
-				/*Notification End*/
-			}
+			$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+			/*Notification End*/
+		}
 			return Response::json(array('status' => 'success', 'reply' => $newReply));
 		}
 	}
@@ -467,25 +466,22 @@ public function addReply(){
 		$likeCommentId = Input::get('likeCommentId');
 		$likeUserId = Input::get('likeUserId');
 		$statuss = Input::get('status');
-		$video_id = Input::get('video_id');
+		$videoId = Input::get('video_id');
 
 		if($statuss == 'liked'){
 			DB::table('comments_likesdislikes')->insert(
-				array('comment_id' => $likeCommentId,
-					'user_id'    => $likeUserId,
-					'status' 	   => 'liked'
-					)
-				);
+				array('comment_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked')
+			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 
 			/*Notification Start*/
-			$videoData = Video::find($video_id);
-			if($this->Auth->id != $videoData->user_id){
-				$channel_id = Comment::find($comment_id)->user_id;
-				$notifier_id = $user_id;
+			$videoData = Video::find($videoId)->first();
+			if($likeUserId != $videoData->user_id){
+				$channel_id = Comment::find($likeCommentId)->first();
+				$notifier_id = $likeUserId;
 				$routes = route('homes.watch-video', $videoData->file_name);
 				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id, $notifier_id, $type, $routes); //Creates the notifcation
+				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
@@ -501,6 +497,7 @@ public function addReply(){
 		$dislikeCommentId = Input::get('dislikeCommentId');
 		$dislikeUserId = Input::get('dislikeUserId');
 		$statuss = Input::get('status');
+		$videoId = Input::get('video_id');
 
 		if($statuss == 'disliked'){
 			DB::table('comments_likesdislikes')->insert(

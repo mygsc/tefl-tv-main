@@ -308,7 +308,10 @@ class UserController extends BaseController {
 		$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture'));
+		$sessionFacebook = Session::get('sessionFacebook');
+		$sessionTwitter = Session::get('sessionTwitter');
+		$sessionGmail = Session::get('sessionGmail');
+		return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));
 	}
 
 	public function postEditUsersChannel($channel_name) {
@@ -336,13 +339,13 @@ class UserController extends BaseController {
 			$findUserWebsite = Website::where('user_id',9)->first();
 
 			if(isset($findUserWebsite)){
-				DB::table('websites')->insert(array('user_id' => Auth::User()->id, 'facebook' => Input::get('facebook'), 'twitter' => Input::get('twitter'), 'instagram' => Input::get('instagram'), 'gmail' => Input::get('gmail'), 'others' => Input::get('others')));
+				DB::table('websites')->insert(array('user_id' => Auth::User()->id, 'facebook' => Input::get('facebook'), 'twitter' => Input::get('twitter'), 'instagram' => Input::get('instagram'), 'google' => Input::get('google'), 'others' => Input::get('others')));
 			}else{
 				$userWebsite = Website::where('user_id',Auth::User()->id)->first();
 				$userWebsite->facebook = Input::get('facebook');
 				$userWebsite->twitter = Input::get('twitter');
 				$userWebsite->instagram = Input::get('instagram');
-				$userWebsite->gmail = Input::get('gmail');
+				$userWebsite->google = Input::get('google');
 				$userWebsite->others = Input::get('others');
 				$userWebsite->save();
 			}
@@ -578,7 +581,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
-
 		// return $userFeedbacks;
 		return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks'));
 	}
@@ -1412,11 +1414,12 @@ class UserController extends BaseController {
 		try{
 			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
 			$provider = $socialAuth->authenticate($action);
-			$userProfile = $provider->getUserProfile();
+			$userProfile = $provider->getUserProfile();	
 		}
 		catch (Exception $e) {
 			return $e->getMessage();
 		}
+		
 		if($action == "facebook"){
 			$user = Website::where('user_id',$this->Auth->id)->first();
 			$user->$action = $userProfile->identifier;
@@ -1426,8 +1429,20 @@ class UserController extends BaseController {
 			$user->$action = $userProfile->profileURL;
 			$user->save();
 		}
-		
-		return Redirect::route('users.edit.channel')->withFlashGood('Connected!');
+		if($action == 'facebook'){
+		$sessionFacebook = $userProfile->displayName;
+		$sessionFacebook = Session::put('sessionFacebook', $sessionFacebook);
+		}
+		if($action == 'twitter'){
+		$sessionTwitter = $userProfile->displayName;
+		$sessionTwitter = Session::put('sessionTwitter', $sessionTwitter);
+		}
+		if($action == 'google'){
+			$sessionGmail = $userProfile->displayName;
+			$sessionGmail = Session::put('sessionGmail', $sessionGmail);
+		}
+
+		return Redirect::route('users.edit.channel', compact('sessionFacebook', 'sessionTwitter','sessionGmail'))->withFlashGood('Connected!');
 		
 	}
 

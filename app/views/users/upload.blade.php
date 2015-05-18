@@ -89,7 +89,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after uploading video.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished upload.</h3>
 								<center>
 									<div id="screenshot">
 										
