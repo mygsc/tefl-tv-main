@@ -235,7 +235,7 @@ class UserController extends BaseController {
 			$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 			$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-			$countAllViews = $this->Video->countViews($allViews);
+			$countAllViews = $this->Video->convertToShortNumbers($allViews);
 			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
@@ -363,7 +363,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 
 		return View::make('users.mychannels.videos', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	}
@@ -374,7 +374,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$findUsersVideos = $this->Favorite->getUserFavoriteVideos($this->Auth->id);
 
@@ -405,7 +405,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
@@ -492,7 +492,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 		// return $usersWatchLater;
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
@@ -521,7 +521,7 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$playlists = Playlist::where('user_id', Auth::User()->id)
 		->where('deleted_at','=',NULL)->get();
@@ -541,7 +541,7 @@ class UserController extends BaseController {
 			$usersChannel = UserProfile::find(Auth::User()->id);
 			$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-			$countAllViews = $this->Video->countViews($allViews);
+			$countAllViews = $this->Video->convertToShortNumbers($allViews);
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$user_id = Auth::User()->id;
 		}else{
@@ -549,7 +549,7 @@ class UserController extends BaseController {
 			$usersChannel = UserProfile::find($owner->id);
 			$countVideos = DB::table('videos')->where('user_id', $owner->id)->get();
 			$allViews = DB::table('videos')->where('user_id', $owner->id)->sum('views');
-			$countAllViews = $this->Video->countViews($allViews);
+			$countAllViews = $this->Video->convertToShortNumbers($allViews);
 			$picture = public_path('img/user/') . $owner->id . '.jpg';
 			$user_id = 0;
 		}
@@ -579,7 +579,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
 		// return $userFeedbacks;
@@ -607,7 +607,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id);
 		$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id);
@@ -686,7 +686,7 @@ class UserController extends BaseController {
 		}
 		//r3mmel
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->get();
 
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
@@ -732,7 +732,7 @@ class UserController extends BaseController {
 
 
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
@@ -950,7 +950,7 @@ class UserController extends BaseController {
 		$usersVideos = $this->Video->getVideos($this->Auth->id);
 
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
@@ -965,7 +965,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$findUsersVideos = $this->Favorite->getUserFavoriteVideos($userChannel->id);
 		return View::make('users.channels.favorites', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id'));
@@ -979,7 +979,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWatchLater = $this->WatchLater->getWatchLater($userChannel->id);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		return View::make('users.channels.watchlater', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id'));
@@ -994,7 +994,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		return View::make('users.channels.about', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id'));
 	}
 
@@ -1005,7 +1005,7 @@ class UserController extends BaseController {
 		$usersChannel = UserProfile::find($userChannel->id);
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
 		foreach($playlists as $playlist){
@@ -1022,7 +1022,7 @@ class UserController extends BaseController {
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id',$userChannel->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscriberProfile = $this->Subscribe->Subscribers($userChannel->id);
 		// return $subscriberProfile;
@@ -1390,7 +1390,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$countAllViews = $this->Video->countViews($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		return View::make('users.mychannels.about', compact('countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	}
 	public function addFeedback() {
