@@ -1,9 +1,9 @@
 @extends('layouts.default')
 @section('meta')
     <meta property="og:title" content="{{$videos->title}}">
-        <meta property="og:site_name" content="test.tefltv.com">
+        <meta property="og:site_name" content="{{asset('/')}}">
         <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="http://www.test.tefltv.com/watch!v={{$videos->file_name}}">
+        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
         <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
 
        <!--  <meta property="og:type" content="video">
@@ -142,9 +142,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=www.test.tefltv.com/watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+www.test.tefltv.com/watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             
@@ -336,7 +336,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
         <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
       </div>
       <div class="modal-body">
-            <input type="text" class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}/embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+            <input type="text" class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
       </div>
      <!--  <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
