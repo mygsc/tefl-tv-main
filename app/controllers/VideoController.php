@@ -40,7 +40,6 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-
 				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
@@ -49,15 +48,15 @@ class VideoController extends BaseController {
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
 				return Response::json([
-					'vidid'=>Crypt::encrypt($latest_id),
-					'file'=>$fileName, 
+					'vidid' => Crypt::encrypt($latest_id),
+					'file' => $fileName, 
 					'thumb1' => Session::get('thumbnail_1'),
 					'thumb2' => Session::get('thumbnail_2'),
 					'thumb3' => Session::get('thumbnail_3'),
 					'videoPath' => $videoPath,
 					'destinationPath' => $destinationPath,
 					'ext' => $ext,
-					]);  
+					]);
 			}
 		}
 		return Redirect::route('get.upload')
@@ -66,16 +65,16 @@ class VideoController extends BaseController {
 		->with('message', 'There were validation errors.');
 	}
 	public function getconvertVideo($fileName, $ext){
-		$filename = Video::where('file_name',$fileName)->where('publish',0)->first();
-		if($filename->count()){
-			$id = $filename->user_id;
-			$user = User::find($id);
-			$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
-			$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS);
-			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
-			return Response::json(['response'=>'Done converting...']);
-		}
-		return app::abort(404,'Page not found.');
+		// $filename = Video::where('file_name',$fileName)->where('publish',0)->first();
+		// if($filename->count()){
+		// 	$id = $filename->user_id;
+		// 	$user = User::find($id);
+		// 	$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
+		// 	$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name);
+		// 	shell_exec("php artisan ConvertVideo $videoPath $destinationPath $fileName");
+		// 	return Response::json(array('response'=>'Done converting...'));
+		// }
+		// return app::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -86,7 +85,7 @@ class VideoController extends BaseController {
 		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);$saveImage_2 = file_get_contents($getImage2);$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);Session::put('thumbnail_2',$convertedImage_2);
 		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
 	}
-	private function convertVideoToHigh($videoFile, $destinationPath, $fileName, $percentage1=0,$percentage2=0,$percentage3=0){
+	private function convertVideoToHigh($videoFile, $destinationPath, $fileName, $P1=0,$P2=0){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
@@ -94,52 +93,35 @@ class VideoController extends BaseController {
 			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();
-			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		// $mp4
-		// 	->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
+		// 	->on('progress', function ($video, $mp4, $P1) {$P1;});
 		// $webm
-		// 	->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
-		// $ogg
-		// 	->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
+		// 	->on('progress', function ($video, $webm, $P2) {$P2;});
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
-			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
-		//return Response::json(['percentloaded'=>$percentage1+$percentage2+$percentage3]);	
+			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
+		//return Response::json(['percentloaded'=>$P1+$P2]);	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	private function ffmpeg(){
-		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
-    		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
-			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe',
-			'timeout'=>0,
-			'ffmpeg.threads'=>12,
-			]);
-		} 
 		return $ffmpeg = FFMpeg\FFMpeg::create([
 			'ffmpeg.binaries'=>'/usr/bin/ffmpeg',
 			'ffprobe.binaries'=>'/usr/bin/ffprobe',
@@ -147,21 +129,6 @@ class VideoController extends BaseController {
 			'ffmpeg.threads'=>12,
 			]);
 	}
-	// private function convertToMP4($videoFile, $destinationPath,$fileName, $w=320, $h = 240, $kbrate=200){
-	// 	$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
-	// 	for($n=1; $n<=3; $n++){
-	// 		$w = $w * $n;$h = $h * $n;
-	// 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension($w,$h))->synchronize();
-	// 		$format = new FFMpeg\Format\Video\CustomVideo();
-	// 		$format
-	// 		    -> setKiloBitrate($kbrate)
-	// 		    -> setAudioChannels(2)
-	// 		    -> setAudioKiloBitrate(256);
-	// 		$video->save($format, $destinationPath.DS.$fileName.DS.$fileName.$n.'.mp4');
-	// 		$kbrate = $kbrate * $n;
-	// 		if($kbrate==400){$kbrate * $n - 200;}
-	// 	}
-	// }
 	private function getTimeDuration($path){
 		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
 		$vidMinLenght = floor($duration / 60);$vidSecLenght = floor($duration - ($vidMinLenght * 60));$hrs = floor($vidMinLenght / 60);$mins =  floor($vidMinLenght - ($hrs * 60));$secs =   floor($duration - ($vidMinLenght * 60));
@@ -175,13 +142,13 @@ class VideoController extends BaseController {
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return app::abort('404','Page not found.');}
+		if(empty($fileName)){return app::abort(404,'Page not found.');}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload', '=cancelled')->withFlashGood('Video uploading has been cancelled.');
+			return Redirect::route('get.upload')->withFlashGood('Video uploading has been cancelled.');
 		}
 	}
 	public function deleteDirectory($dirname) {
@@ -205,15 +172,14 @@ class VideoController extends BaseController {
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
-	public function postAddDescription($id){
+	public function postAddDescription($id, $selectedCategory = null){
 		$id = Crypt::decrypt($id);  
-		$videos = Video::where('id','=',$id)->get();
-		$fileName = $videos[0]['file_name'];
+		$videos = Video::find($id);
+		$fileName = $videos->file_name;
 		$input = Input::all(); 
 		$validator = Validator::make($input,Video::$addDescription);
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
-		$selectedCategory = null;
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
 				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
@@ -228,7 +194,6 @@ class VideoController extends BaseController {
 				$success = file_put_contents($saveImage, $decodeImage);
 				$this->imageResize($saveImage, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->imageResize($saveImage, 240, 141, $destinationPath.$fileName.'.jpg');	
-
 			}		
 			$tags = explode(',',Input::get('tags'));
 			foreach($tags as $tag){

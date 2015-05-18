@@ -33,7 +33,7 @@
 					<input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 					<div id="buffered"></div>
 					<div  id="current-progress">	
-						<div id="button-progress" class="progress-button">		</div>	 
+						<div id="button-progress" class="progress-button"></div>	 
 					</div> 
 				</div>
 			</div><!--/.progress-bar-->
@@ -92,3 +92,6 @@
 			</span><!--/.pull-right-->
 		</div><!--/.wrapper-->
 	</div><!--/vd-->
+
+
+	
