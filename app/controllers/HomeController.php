@@ -18,15 +18,15 @@ class HomeController extends BaseController {
 	public function postContactUs(){
 		$input = Input::all();
 		$validate = $validator = Validator::make(
-		    array(
-		    	'name' => $input['name'],
-		    	'email' => $input['email'],
-		    	'message' => $input{'message'}),
-		    array(
-		    	'name' => 'required',
-		    	'email' => 'required|email',
-		    	'message' => 'required')
-		    );
+			array(
+				'name' => $input['name'],
+				'email' => $input['email'],
+				'message' => $input{'message'}),
+			array(
+				'name' => 'required',
+				'email' => 'required|email',
+				'message' => 'required')
+			);
 
 		if($validate->fails()){
 			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
@@ -546,6 +546,7 @@ public function addReply(){
 			->done()
 			);
 
-		error_log($transaction);
+		print_r($transaction);
+		
 	}
 }
