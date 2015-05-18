@@ -18,15 +18,15 @@ class HomeController extends BaseController {
 	public function postContactUs(){
 		$input = Input::all();
 		$validate = $validator = Validator::make(
-		    array(
-		    	'name' => $input['name'],
-		    	'email' => $input['email'],
-		    	'message' => $input{'message'}),
-		    array(
-		    	'name' => 'required',
-		    	'email' => 'required|email',
-		    	'message' => 'required')
-		    );
+			array(
+				'name' => $input['name'],
+				'email' => $input['email'],
+				'message' => $input{'message'}),
+			array(
+				'name' => 'required',
+				'email' => 'required|email',
+				'message' => 'required')
+			);
 
 		if($validate->fails()){
 			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
@@ -113,7 +113,7 @@ class HomeController extends BaseController {
 		return View::make('homes.playlist', compact(array('options', 'playlists','categories', 'notifications')));
 	}
 
-		public function getCategory($category = null){
+	public function getCategory($category = null){
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
 		if(!empty($category)){
@@ -549,6 +549,7 @@ public function addReply(){
 			->done()
 			);
 
-		error_log($transaction);
+		print_r($transaction);
+		
 	}
 }
