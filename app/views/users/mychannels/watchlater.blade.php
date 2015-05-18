@@ -51,10 +51,12 @@
 					<div class="content-padding">
 						<div class="col-md-6 col-sm-8 col-xs-8">
 							<div class="input-group">
-								{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+								{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}
+								{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 								<span class="input-group-btn">
 									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 								</span>
+								{{Form::close()}}
 							</div>
 						</div>
 
