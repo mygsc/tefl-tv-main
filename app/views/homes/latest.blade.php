@@ -22,7 +22,7 @@
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($latestVideo->channel_name))}}">{{$latestVideo->channel_name}}</a>
 								<br />
-								<i class="fa fa-eye"></i> {{$latestVideo->views}} | <i class="fa fa-thumbs-up"></i>  {{$latestVideo->likes}} | {{date('F d, Y',strtotime($latestVideo->created_at))}}
+								<i class="fa fa-eye"></i> {{number_format($latestVideo->views)}} | <i class="fa fa-thumbs-up"></i>  {{$latestVideo->likes}} | {{date('F d, Y',strtotime($latestVideo->created_at))}}
 							</div>
 							
 						</div>
