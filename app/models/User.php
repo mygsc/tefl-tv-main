@@ -68,8 +68,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
 		'password' => 'required',
 		'confirm_password' =>'same:password|required',
-		'first_name' => 'required|regex:/(^[A-Za-z]+$)+/',
-		'last_name' => 'required|regex:/(^[A-Za-z]+$)+/',
+		'first_name' => 'required|regex:/(^[A-Za-z_ -]+$)+/',
+		'last_name' => 'required|regex:/(^[A-Za-z_ -]+$)+/',
 		'contact_number' => 'regex:/(^[+0-9]+$)+/');
 
 	public static $userPasswordRules = array(
@@ -174,7 +174,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'channel_name',
 			'organization',
 			'interests',
-			DB::raw('(SELECT sum(videos.views) from videos where videos.user_id = users.id) as views'),
+			DB::raw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) AS views'),
 			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
 		->take($limit)
 		->join('users_profile', 'users_profile.user_id', '=', 'users.id')

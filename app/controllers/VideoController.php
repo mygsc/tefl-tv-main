@@ -3,7 +3,7 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
-	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater){
+	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
 		$this->User = $users;
@@ -12,6 +12,7 @@ class VideoController extends BaseController {
 		$this->url = URL::full();
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->UserWatchLater = $watchLater;
+		$this->UserFavorite = $userFavorite;
 	}
 	public function getUpload(){
 		if(Auth::check()){return View::make('users.upload');}
@@ -308,8 +309,22 @@ class VideoController extends BaseController {
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		return View::make('users.mychannels.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture'));
+	}
+
+	public function getSearchFavorites() {
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
+		$findUsersVideos = $this->UserFavorite->getSearchFavoriteVideos($search);
+
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		
 
+		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
 
 }

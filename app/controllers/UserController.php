@@ -11,7 +11,9 @@ class UserController extends BaseController {
 		UserFavorite $favorite,
 		Feedback $feedback,
 		Playlist $playlist,
-		ReportedFeedback $reportedFeedback)
+		ReportedFeedback $reportedFeedback,
+		UserFavorite $userFavorite,
+		Hybrid_Auth $hybridauth)
 	{
 		$this->Notification = $notification;
 		$this->Video = $video;
@@ -22,7 +24,9 @@ class UserController extends BaseController {
 		$this->Favorite = $favorite;
 		$this->Feedback = $feedback;
 		$this->Playlist = $playlist;
-		$this->ReportedFeedback = $reportedFeedback;	
+		$this->ReportedFeedback = $reportedFeedback;
+		$this->UserFavorite = $userFavorite;
+		$this->Hybrid_Auth = $hybridauth;	
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -57,7 +61,7 @@ class UserController extends BaseController {
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
 		}
-
+		return $validate->messages();
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
@@ -203,27 +207,15 @@ class UserController extends BaseController {
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 
+		//return $datas;
 		return View::make('homes.topchannels', compact(array('datas','categories', 'notifications')));
 	}
 
 	public function getMoreTopChannels(){
 		//Insert additional data to $datas
 		$datas = $this->User->getTopChannels(50);
-		foreach($datas as $key => $channel){
-			$img = 'img/user/'. $channel->id. '.jpg';
-			if(Auth::check()){
-				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-				$datas[$key]->ifsubscribe = 'No';
-				if(!$ifsubscribe->isEmpty()){
-					$datas[$key]->ifsubscribe = 'Yes';
-				}
-			}
-			if(!file_exists(public_path($img))){
-				$img = '/img/user/0.jpg';
-			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
-		}
+		$categories = $this->Video->getCategory();
+
 		return View::make('homes.moretopchannels', compact(array('datas')));
 	}
 
@@ -236,7 +228,7 @@ class UserController extends BaseController {
 			$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 			$countAllViews = $this->Video->convertToShortNumbers($allViews);
-			$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
+			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
@@ -376,7 +368,8 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$findUsersVideos = $this->Favorite->getUserFavoriteVideos($this->Auth->id);
+		$findUsersVideos = $this->UserFavorite->getUserFavoriteVideos($this->Auth->id);
+		// return $findUsersVideos;
 
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
@@ -690,7 +683,7 @@ class UserController extends BaseController {
 		$countVideos = Video::where('user_id', $userChannel->id)->get();
 
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-		$usersWebsite = Website::where('user_id', Auth::User()->id)->first();
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		//r3mmel
 		return View::make('users.channels.viewusers', compact('userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture', 'countVideos', 'countSubscribers', 'countAllViews','usersWebsite'));
@@ -967,7 +960,7 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$findUsersVideos = $this->Favorite->getUserFavoriteVideos($userChannel->id);
+		$findUsersVideos = $this->UserFavorite->getUserFavoriteVideos($userChannel->id);
 		return View::make('users.channels.favorites', compact('userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id'));
 	}
 
@@ -1398,9 +1391,6 @@ class UserController extends BaseController {
 	}
 
 	public function viewSocial() {
-		// $web = 'facebook';
-		// return DB::table('websites')->where('user_id', $this->Auth->id)->pluck($web);
-
 		return View::make('testing');
 	}
 
@@ -1444,15 +1434,27 @@ class UserController extends BaseController {
 			$sessionGmail = $userProfile->displayName;
 			$sessionGmail = Session::put('sessionGmail', $sessionGmail);
 		}
-
-		return Redirect::route('users.edit.channel', compact('sessionFacebook', 'sessionTwitter','sessionGmail'))->withFlashGood('Connected!');
+		// return Redirect::route('users.edit.channel', compact('sessionFacebook', 'sessionTwitter','sessionGmail'))->withFlashGood('Connected with '.$action.'!');
+		return Redirect::route('users.edit.channel')->withFlashGood('Connected with '.$action.'!');
 		
 	}
 
 	public function logoutSocial($action) {
-			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
-			return $socialAuth;
-		    $hybridAuth->logoutAllProviders();
+		$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
+		$provider = $socialAuth->authenticate($action);
+		$provider->logout();
+
+		if($action == 'facebook'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['facebook' => '']);
+		}
+
+		if($action == 'twitter'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['twitter' => '']);
+		}
+
+		if($action == 'google'){
+			$action = Website::where(['user_id' => $this->Auth->id])->update(['google' => '']);
+		}
 
 		return Redirect::route('users.edit.channel')->withFlashGood('Disconnected!'); 
 		
