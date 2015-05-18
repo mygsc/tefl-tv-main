@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="row">
-	<div class="container pa White">
+	<br/>
+	<div class="container pageH White">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
 		
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
-				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-g visible-md" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -19,31 +19,29 @@
 				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 				  		<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  	</ul><!--tabNav-->
-				  	<nav class="navbar navbar-default visible-sm visible-xs">
-					  <div class="container-fluid">
-					    <div class="navbar-header">
-					      
-					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					      <h4 class="inline mg-t-20">Favorites</h4>	
-					        <span class="fa fa-bars"></span>
-					      </button>
-			
-					    </div>
-					    <div class="collapse navbar-collapse" id="myNavbar">
-					      <ul class="nav navbar-nav">
-					        <li>{{link_to_route('users.channel', 'Home')}}</li>
-					    	<li>{{link_to_route('users.about', 'About')}}</li>
-					    	<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
-					    	<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-					  		<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
-					  		<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-					  		<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-					      </ul>
-					    </div>
-					  </div>
-					</nav>
+				  	</ul>
 				</div>
+			  	<nav class="navbar navbar-default visible-sm visible-xs">
+				  <div class="container-fluid">
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				      <h4 class="inline mg-t-20">Favorites</h4>	
+				        <span class="fa fa-bars"></span>
+				      </button>
+				    </div>
+				    <div class="collapse navbar-collapse" id="myNavbar">
+						<ul class="nav navbar-nav">
+							<li>{{link_to_route('users.channel', 'Home')}}</li>
+							<li>{{link_to_route('users.about', 'About')}}</li>
+							<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
+							<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+							<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+							<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
+							<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+						</ul>
+					</div>
+				  </div>
+				</nav>
 
 				<div class="White">
 					<br/>
@@ -116,4 +114,9 @@
 		<br/>
 	</div><!--/.container page-->
 </div>
+@stop
+
+
+@section('script')
+	{{HTML::script('js/jquery.js')}}
 @stop
