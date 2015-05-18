@@ -112,7 +112,7 @@ class HomeController extends BaseController {
 		return View::make('homes.playlist', compact(array('options', 'playlists','categories', 'notifications')));
 	}
 
-		public function getCategory($category = null){
+	public function getCategory($category = null){
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
 		if(!empty($category)){
@@ -219,7 +219,7 @@ class HomeController extends BaseController {
 
 		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-		->where('comments.video_id', $videoId)->get();
+		->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {

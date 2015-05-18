@@ -35,11 +35,12 @@
 						| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 						<br/>
 						<p class="text-justify">{{$getVideoComment->comment}}</p>
+						<?php
+							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
+							$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
+						?>
 						@if(isset(Auth::User()->id))
 							<?php
-								$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
-								$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
-
 								$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
 									'comment_id' => $getVideoComment->id, 
 									'user_id' => Auth::User()->id,
@@ -77,35 +78,22 @@
 									<span class='fa-thumbs-down redC hand'></span>
 								@endif
 								<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
-							</div>
-							&nbsp;
-							<?php 
-								$getCommentReplies = DB::table('comments_reply')
-								->join('users', 'users.id', '=', 'comments_reply.user_id')
-								->where('comment_id', $getVideoComment->id)->count(); 
-							?>
-							<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
+							</div>&nbsp;
 						@else
-							<?php
-								$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
-								$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
-							?>
 							<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 							<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
-							<?php 
-								$getCommentReplies = DB::table('comments_reply')
-								->join('users', 'users.id', '=', 'comments_reply.user_id')
-								->where('comment_id', $getVideoComment->id)->count(); 
-							?>
-							<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
 							<!--end updated by cess 3/26/15-->
 						@endif<!--auth user-->
 						<?php
+							$getCommentRepliesCount = DB::table('comments_reply')
+								->join('users', 'users.id', '=', 'comments_reply.user_id')
+								->where('comment_id', $getVideoComment->id)->count(); 
 							$getCommentReplies = DB::table('comments_reply')
 								->join('users', 'users.id', '=', 'comments_reply.user_id')
 								->orderBy('comments_reply.created_at', 'asc')
 								->where('comment_id', $getVideoComment->id)->get(); 
 						?>
+						<span class="repLink hand">{{$getCommentRepliesCount}}<i class="fa fa-reply"></i></span>
 						<div id="replysection" class="panelReply">
 							<?php
 							foreach($getCommentReplies as $getCommentReply):
@@ -126,6 +114,73 @@
 										echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->created_at)) . "</small><br/>" ;
 										echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
 									</div>
+									<!--Comment Reply Thumbs up/down section-->
+									@if(isset(Auth::User()->id))
+										<?php
+											$likesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $getCommentReply->id, 'status' => 'liked'))->count();
+											$dislikeCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $getCommentReply->id, 'status' => 'disliked'))->count();
+
+											$ifAlreadyLiked = DB::table('comments_reply_likesdislikes')->where(array(
+												'comments_reply_id' => $getCommentReply->id, 
+												'user_id' => Auth::User()->id,
+												'status' => 'liked'
+											))->first();
+											$ifAlreadyDisliked = DB::table('comments_reply_likesdislikes')->where(array(
+												'comments_reply_id' => $getCommentReply->id, 
+												'user_id' => Auth::User()->id,
+												'status' => 'disliked'
+											))->first();
+										?>
+										<div class='fa replylikedup'>
+											@if(!$ifAlreadyLiked)
+												<span class='fa-thumbs-up hand'></span>
+												<input type="hidden" value="liked" name="status">
+											@else
+												<span class='fa-thumbs-up blueC hand'></span>
+												<input type="hidden" value="unliked" name="status">
+											@endif
+											<input type="hidden" value="{{$getCommentReply->id}}" name="likeCommentId">
+											<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
+											<input type="hidden" value="{{$videoId}}" name="video_id">
+											<span class="likescount" id="likescount">{{$likesCount}}</span>
+										</div>
+										&nbsp;
+										<div class='fa replylikedup'>
+											<input type="hidden" value="{{$getCommentReply->id}}" name="dislikeCommentId">
+											<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
+											<input type="hidden" value="{{$videoId}}" name="video_id">
+											@if(!$ifAlreadyDisliked)
+												<input type="hidden" value="disliked" name="status">
+												<span class='fa-thumbs-down hand'></span>
+											@else
+												<input type="hidden" value="undisliked" name="status">
+												<span class='fa-thumbs-down redC hand'></span>
+											@endif
+											<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
+										</div>
+										&nbsp;
+										<?php 
+											$getCommentReplies = DB::table('comments_reply')
+											->join('users', 'users.id', '=', 'comments_reply.user_id')
+											->where('comment_id', $getCommentReply->id)->count(); 
+										?>
+										<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
+									@else
+										<?php
+											$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getCommentReply->id, 'status' => 'liked'))->count();
+											$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getCommentReply->id, 'status' => 'disliked'))->count();
+										?>
+										<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+										<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+										<?php 
+											$getCommentReplies = DB::table('comments_reply')
+											->join('users', 'users.id', '=', 'comments_reply.user_id')
+											->where('comment_id', $getCommentReply->id)->count(); 
+										?>
+										<span class="repLink hand">{{$getCommentReplies}}<i class="fa fa-reply"></i></span>
+										<!--end updated by cess 3/26/15-->
+									@endif<!--auth user-->
+									<!--//Comment Reply Thumbs up/down section-->
 								</div>	
 							<?php endforeach;?>
 							
