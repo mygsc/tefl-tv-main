@@ -203,27 +203,15 @@ class UserController extends BaseController {
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 
+		//return $datas;
 		return View::make('homes.topchannels', compact(array('datas','categories', 'notifications')));
 	}
 
 	public function getMoreTopChannels(){
 		//Insert additional data to $datas
 		$datas = $this->User->getTopChannels(50);
-		foreach($datas as $key => $channel){
-			$img = 'img/user/'. $channel->id. '.jpg';
-			if(Auth::check()){
-				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
-				$datas[$key]->ifsubscribe = 'No';
-				if(!$ifsubscribe->isEmpty()){
-					$datas[$key]->ifsubscribe = 'Yes';
-				}
-			}
-			if(!file_exists(public_path($img))){
-				$img = '/img/user/0.jpg';
-			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
-		}
+		$categories = $this->Video->getCategory();
+
 		return View::make('homes.moretopchannels', compact(array('datas')));
 	}
 

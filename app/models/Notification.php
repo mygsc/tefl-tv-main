@@ -119,22 +119,26 @@ class Notification extends Eloquent {
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'DESC')
+				->groupBy('notification')
 				->simplePaginate($paginate);
 			}elseif(isset($read)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->whereRead($read)
+				->groupBy('notification')
 				->OrderBy('created_at', 'DESC')
 				->get();
 			}elseif(isset($limit)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'ASC')
+				->groupBy('notification')
 				->take($limit)
 				->get();
 			}else{
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
+				->groupBy('notification')
 				->OrderBy('created_at', 'DESC')
 				->get();
 			}

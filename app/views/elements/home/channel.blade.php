@@ -48,7 +48,7 @@
 			</div><!--/.row-->
 			<div class="Subscribers greyDark">
 				<div class="row">
-					<h4 class="inline orangeC">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{$channel->total}} Views</h4>
+					<h4 class="inline orangeC">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
 					<br/>
 					@foreach($channel->subscribers as $subscriber)
 						@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
