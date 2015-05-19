@@ -41,8 +41,12 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
 	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
-	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
-	Route::post('adddisliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLiked'));
+	//r3mmel
+	Route::post('addlikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedComment'));
+	Route::post('adddislikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedComment'));
+	Route::post('addlikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedReply'));
+	Route::post('adddislikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedReply'));
+	//r3mmel
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
