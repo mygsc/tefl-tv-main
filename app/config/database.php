@@ -54,8 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '192.168.1.9',
-
+			'host'      => 'localhost',
 			'database'  => 'tefl-tv',
 			'username'  => 'root',
 			'password'  => '',
