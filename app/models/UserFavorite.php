@@ -29,4 +29,22 @@ class UserFavorite extends Eloquent {
 
 		return $userFavorite;
 	}
+
+	public function getSearchFavoriteVideos($search){
+		if($search == ''){
+			return $search;
+		}
+
+		$search = UserFavorite::select('user_favorite.id', 'user_favorite.user_id', 'video_id', 'title',
+		 'user_favorite.created_at','user_favorite.updated_at',
+		 DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = user_favorite.user_id) AS likes'),
+		 DB::raw('(SELECT v2.user_id FROM videos v2 WHERE v2.id = user_favorite.video_id) AS uploader,
+		(SELECT u2.channel_name FROM users u2 WHERE u2.id = uploader) AS uploaders_channel_name')
+		 )
+		->join('videos', 'videos.id', '=', 'user_favorite.video_id')
+		->where('videos.title', $search)
+		->get();
+
+		return $search;
+	}
 }

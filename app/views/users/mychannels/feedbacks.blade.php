@@ -47,20 +47,11 @@
 				<div class="feedbackSection content-padding">
 					
 	@if($userFeedbacks->isEmpty())
-		
-		<br/><br/>
-		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
-		<span id='errorlabel' class='input-error'></span>
-		<br/>
-		<div class="text-right">
-				<button id='btnfeedback' class="btn btn-info mg-t-10">Post</button>
-				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
-				{{Form::hidden('feedbackOwner', Auth::User()->id, array('id' => 'feedbackOwner'))}}
-		</div>
 		<h3 class="text-center">No feedbacks yet..</h3>
 	@else
 					       
 	<div class="feedbacks row">
+		@if(!isset(Auth::User()->id))
 		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
@@ -71,7 +62,7 @@
 				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
 				{{Form::hidden('feedbackOwner', Auth::User()->id, array('id' => 'feedbackOwner'))}}
 		</div>
-
+		@endif
 	<div class="col-md-12 feedbacksarea">
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
