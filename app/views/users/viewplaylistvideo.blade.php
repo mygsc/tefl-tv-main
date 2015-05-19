@@ -66,12 +66,15 @@
 				
 			
 					<div class="col-md-3 text-right">
-						
-						<div class="buttons">
-						{{Form::model($playlist, array('route' => array('playlistdelete.post',Crypt::encrypt($playlist->id))))}}
-							{{Form::submit('Delete Playlist',array('class'=>'btn btn-primary'))}}
-						{{Form::close()}}
-						</div>
+						@if(isset(Auth::User()->id))
+							@if(Auth::User()->id == $playlist->user_id)
+								<div class="buttons">
+								{{Form::model($playlist, array('route' => array('playlistdelete.post',Crypt::encrypt($playlist->id))))}}
+									{{Form::submit('Delete Playlist',array('class'=>'btn btn-primary'))}}
+								{{Form::close()}}
+								</div>
+							@endif
+						@endif
 					</div>
 
 			
@@ -81,7 +84,7 @@
 						<div class="row">
 						{{Form::hidden("encrypt",Crypt::encrypt($playlist->id),array('id'=>'encrypt'))}}
 							<div class="col-md-3">
-								@if(empty($videos))
+								@if(!empty($videos))
 								<div class="" style="position:relative;">
 									<div class="playlist-info" >
 										0
@@ -144,6 +147,8 @@
 										@endif
 										</a>
 									</div>
+								@if(isset(Auth::User()->id))
+									@if(Auth::User()->id == $playlist->user_id)
 									<div class="col-md-10">
 										<span class="pull-right" style="margin-right:20px;">
 											<!--<button class="btn btn-default" title="set as playlist thumbnail"><i class="fa fa-file-image-o"></i></button> &nbsp;-->
@@ -153,6 +158,8 @@
 										<a href="/watchplaylist={{$video->file_name}}/{{Crypt::encrypt($playlist->id)}}" target="_blank"><p>{{$video->title}}</p></a>
 										<small>{{$video->channel_name}}</small>
 									</div>
+									@endif
+								@endif
 							</div>
 							<br/>
 							@endforeach
@@ -171,7 +178,10 @@
 
 	
 @stop
-@section('script')
-	{{HTML::script('js/user/playlist.js')}}
-@stop
-
+@if(isset(Auth::User()->id))
+	@if(Auth::User()->id == $playlist->user_id)
+		@section('script')
+			{{HTML::script('js/user/playlist.js')}}
+		@stop
+	@endif
+@endif

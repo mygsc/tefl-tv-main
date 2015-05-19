@@ -74,8 +74,8 @@
 							<p class="text-center">No playlists yet</p>
 						@else
 							@foreach($playlists as $key=>$playlist)
-							<div id="playlists" class="col-sm-6 col-md-3">
-								<a href="/mychannels/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
+							<div id="playlists" class="col-xs-2 col-md-3">
+								<a href="/channels/{{$userChannel->channel_name}}/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 								@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
 									<div class="" style="position:relative;">

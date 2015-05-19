@@ -117,6 +117,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('delete-reply-feedback', array('as' => 'post.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteUserFeedbackReply'));
 	Route::post('spam-reply-feedback', array('as' => 'post.users.report-reply-feedback', 'uses' => 'UserController@postReportUserFeedbackReply'));
 	Route::get('search', array('as' =>'search', 'uses' => 'VideoController@getSearch'));
+	Route::get('searchMyFavorites', array('as' => 'searchFavorites', 'uses' => 'VideoController@getSearchFavorites'));
+	Route::get('searchWatchLater', array('as' => 'searchWatchLater', 'uses' => 'VideoController@getSearchWatchLater'));
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
@@ -131,6 +133,7 @@ Route::get('channels/{channel_name}/favorites', array('before' => 'auth.channels
 Route::get('channels/{channel_name}/watchlater', array('before' => 'auth.channels', 'as' => 'view.users.watchLater2', 'uses' => 'UserController@getViewUsersWatchLater'));
 Route::get('channels/{channel_name}/about', array('before' => 'auth.channels', 'as' => 'view.users.about2', 'uses' => 'UserController@getViewUsersAbout'));
 Route::get('channels/{channel_name}/playlists', array('before' => 'auth.channels', 'as' => 'view.users.playlists2', 'uses' => 'UserController@getViewUsersPlaylists'));
+Route::get('channels/{channel_name}/videoplaylist={playlistid}', array('before' => 'auth.channels', 'as' => 'view.users.videoplaylist', 'uses' => 'UserController@getViewVideoPlaylist'));
 Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channels', 'as' => 'view.users.subscribers2', 'uses' => 'UserController@getViewUsersSubscribers'));
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));

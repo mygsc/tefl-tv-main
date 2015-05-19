@@ -36,6 +36,7 @@ class FacebookController extends Controller {
 		} catch(FacebookRequestException $ex) {
 			return Redirect::route('homes.index')->withFlashWarning('Something went wrong please try again');
 		} catch(\Exception $ex) {
+			return $e;
 			return Redirect::route('homes.signin')->withFlashBad('Facebook Permission was denied');
 		}
 		if ($session) {
