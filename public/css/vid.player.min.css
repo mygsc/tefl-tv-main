@@ -1,6 +1,6 @@
 	/* Moving on to the styling, we'll start with the main progress bar
 	 first and then the value part of it. After that, we'll do some experiments :D oh really*/
-	.wrapper {
+	.wrapper{
 		background: #2a2a2a;
 		padding:0px 10px 8px 10px;
 		width: 100%!Important;
@@ -58,7 +58,7 @@ div#progressbar{
 }
 
 div#progressbar #current-progress{
-	width:0;height:100%;border-radius: 2px; position: relative;background-color: red;	
+	width:0%;height:100%;border-radius: 2px; position: relative;background-color: #fc8b02;	
 }div#button-progress{
 	z-index: 2;
 	width: 15px;
@@ -66,17 +66,15 @@ div#progressbar #current-progress{
 	position: absolute;
 	left: -20px;
 	text-decoration: overline;
-	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
-	background: red;
-	outline:none;
+	background: #fc8b02;
 	top: -6px;
-	margin-left: 10px;
+	margin-left: 0px;
 	display: none;
 	border-radius: 20px;
 	border:5px solid #fff; 
 	cursor: pointer;
 }div#button-progress:hover{
-	background: #fff;border:5px solid red; 
+	background: #fff;border:5px solid #fc8b02; 
 }
 div#buffered{
 	height: 100%;
@@ -180,15 +178,15 @@ input#seek-slider::-moz-range-thumb {
 	z-index: 2;
 }
 
-/*div#controls{
+div#controls{
   position: absolute;
-  bottom: 0;
+  bottom: -8px !important;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 2147483647;
   background: rgba(42,42,42,0.8);
-}*/
+}
 #controls-fullscreen{
   position: absolute;
   bottom: 0;
@@ -347,7 +345,7 @@ button#play{
 	height: 0; 
 	border-top: 20px solid transparent;
 	border-bottom: 20px solid transparent;
-	border-left: 36px solid #fff;
+	border-left: 36px solid #fc8b02;
 	margin: auto;  
   	position: absolute;
  	left:0;
@@ -360,8 +358,8 @@ button#play{
 	left: 0;
   	right: 0;
   	bottom: 0;
-  	width: 5%;
-  	height: 5%;
+  	width: 4%;
+  	height: 4%;
   	cursor: pointer;
   	background: rgba(0,0,0,0.6);
   	outline: 1px solid #fff;

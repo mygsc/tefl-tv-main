@@ -36,11 +36,12 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
-	Route::any('watch!v={idtitle}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
+	Route::any('watch!v={filename}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
 	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
+
 	//r3mmel
 	Route::post('addlikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedComment'));
 	Route::post('adddislikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedComment'));
@@ -53,10 +54,10 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
 	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
-	Route::get('signin/facebookconnect', array('as' => 'homes.facebookconnect', 'uses' => 'FacebookController@getFacebookConnect'));
-	Route::get('signin/authorizefacebook', array('as' => 'homes.authorizefacebook', 'uses' => 'FacebookController@getAuthorizeFacebook'));
-	Route::get('signin/googleconnect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
-	Route::get('signupwithsocialmedia', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
+	Route::get('signin/facebook-connect', array('as' => 'homes.facebookconnect', 'uses' => 'FacebookController@getFacebookConnect'));
+	Route::get('signin/authorize-facebook', array('as' => 'homes.authorizefacebook', 'uses' => 'FacebookController@getAuthorizeFacebook'));
+	Route::get('signin/google-connect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
+	Route::get('signup-with-social-media', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
 	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
 });
 
