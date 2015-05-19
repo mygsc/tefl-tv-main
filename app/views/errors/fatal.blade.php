@@ -8,18 +8,18 @@
 
 	<div class="row">
 		<div class="">
-			<img src="/img/errorBg.png" style="width:100%;" class="shadow mg-b-20 slideInUp-e">
+			<img src="/img/errorBg.png" style="width:100%;" class="shadow mg-b-20">
 
 			<div class="">
-				<h1 class="text-center">Sorry something went wrong.<br/>
-				<small class="text-center mg-b-20">Would you like to report this? Please contact our administrator.</small></h1>
+				<h1 class="text-center animated slideInDown">Sorry something went wrong.<br/>
+				<small class="text-center mg-b-20 ">Would you like to report this? Please contact our administrator.</small></h1>
 				<div class="text-center ">
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reportModal">
+					<button type="button" class="btn btn-danger animated slideInLeft" data-toggle="modal" data-target="#reportModal">
 	 					<i class="fa fa-flag"></i> Report
-					</button> <a href="/"><button class="btn btn-primary"><i class="fa fa-home"></i> Home</button></a>
+					</button> <a href="/"><button class="btn btn-primary animated slideInRight"><i class="fa fa-home"></i> Home</button></a>
 				</div>
 			</div>
-			<div style="background:#fff;height:300px;margin-top:20px;" class="slideInDown-e shadow"></div>
+		
 		</div>
 	</div>
 
