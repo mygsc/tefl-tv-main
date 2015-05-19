@@ -64,7 +64,7 @@ div#progressbar #current-progress{
 	width: 15px;
 	height: 15px;
 	position: absolute;
-	left: -20px;
+	left: 0%;
 	text-decoration: overline;
 	background: #fc8b02;
 	top: -6px;
