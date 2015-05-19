@@ -1,23 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-<div class='container White same-H'>
-	<div class="col-md-3 hidden-sm hidden-xs">
-		<div class="row">
-			<br/>
-			<div class="same-H">
-				<div class="">
-					@include('elements/home/sideNav')
-					@include('elements/home/adverstisementSmall')
-					<br/>
-					@include('elements/home/carouselAds')	
+<div class='container'>
+	
 
-				</div>
-			</div>
-		</div>
-	</div><!--/.col-3 right section navigations-->
-
-	<div class="col-md-9">
+	<div class="col-md-9 White same-H">
 		<h1>About TEFL TV</h1>
 		<!--about us content-->
 		<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -73,15 +60,17 @@
 						{{$errors->first('email')}}
 					</span>
 					@endif
-					{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact' , 'class' => 'form-control')); }}
+					{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact form-control')); }}
 					@if($errors->has('message'))
 					<span class="inputError">
 						{{$errors->first('message')}}
 					</span>
 					@endif
 				</span>
-				{{ Form::submit('Submit', array('class' => 'btn btn-primary'))}}
-				{{Form::close()}}
+				<div class="text-right">
+					{{ Form::submit('Submit', array('class' => 'btn btn-primary'))}}
+					{{Form::close()}}
+				</div>
 				<br/>
 
 			</div><!--/.row-->
@@ -89,6 +78,19 @@
 		<!--/contact us-->
 
 	</div><!--/.col-md-9-->
+	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+		<div class="same-H grey pad-s-10">
+			@include('elements/home/categories')
+			<div>
+				@include('elements/home/carouselAds')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/adverstisementSmall')
+				
+			</div>
+		</div>
+	</div>
+
 
 </div><!--/.container page-->
 
