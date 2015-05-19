@@ -50,7 +50,7 @@
 		<h3 class="text-center">No feedbacks yet..</h3>
 	@else
 					       
-	<div class="feedbacks row">
+	<div class="feedbacks row mg-t-20">
 		@if(!isset(Auth::User()->id))
 		<br/><br/>
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>

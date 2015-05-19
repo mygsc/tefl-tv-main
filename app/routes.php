@@ -41,11 +41,16 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
 	Route::get('watchplaylist={videoId}/{playlistId}', array('as'=>'users.watchplaylist', 'uses'=>'HomeController@getWatchPlaylist'));
-	Route::post('addliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addLiked'));
-	Route::post('add-disliked', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLiked'));
-	Route::post('forgot-password', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
-	Route::get('reset-password/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
-	Route::post('reset-password', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
+
+	//r3mmel
+	Route::post('addlikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedComment'));
+	Route::post('adddislikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedComment'));
+	Route::post('addlikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedReply'));
+	Route::post('adddislikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedReply'));
+	//r3mmel
+	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
+	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
+	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
 	Route::get('category/{category?}', array('as' => 'homes.category', 'uses' => 'HomeController@getCategory'));
 	Route::get('changelogs', array('as' => 'homes.changelogs', 'uses' => 'HomeController@getChangeLogs'));
 	Route::get('timezone', array('as' => 'homes.timezone', 'uses' => 'HomeController@getTimezone'));
@@ -129,6 +134,7 @@ Route::get('channels/{channel_name}/favorites', array('before' => 'auth.channels
 Route::get('channels/{channel_name}/watchlater', array('before' => 'auth.channels', 'as' => 'view.users.watchLater2', 'uses' => 'UserController@getViewUsersWatchLater'));
 Route::get('channels/{channel_name}/about', array('before' => 'auth.channels', 'as' => 'view.users.about2', 'uses' => 'UserController@getViewUsersAbout'));
 Route::get('channels/{channel_name}/playlists', array('before' => 'auth.channels', 'as' => 'view.users.playlists2', 'uses' => 'UserController@getViewUsersPlaylists'));
+Route::get('channels/{channel_name}/videoplaylist={playlistid}', array('before' => 'auth.channels', 'as' => 'view.users.videoplaylist', 'uses' => 'UserController@getViewVideoPlaylist'));
 Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channels', 'as' => 'view.users.subscribers2', 'uses' => 'UserController@getViewUsersSubscribers'));
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));

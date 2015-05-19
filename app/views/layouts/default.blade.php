@@ -66,6 +66,10 @@
 		$('.desc').removeClass('hide');
 	});
 </script>
+<!--flash message fade-->
+<script type="text/javascript">
+    $('.fadeThis').delay(3000).fadeOut('slow');
+</script>
 
 <!-- Facebook Login -->
 <div id="fb-root"></div>

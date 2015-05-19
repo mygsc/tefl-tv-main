@@ -284,7 +284,6 @@ class VideoController extends BaseController {
 		}
 		return app::abort(404, 'Page not available');
 	}
-
 	public function getSearch() {
 	  $search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 	  $countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
@@ -328,5 +327,4 @@ class VideoController extends BaseController {
 
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
-
 }

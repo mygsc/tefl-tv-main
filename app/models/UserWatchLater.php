@@ -48,6 +48,6 @@ class UserWatchLater extends Eloquent {
 		->join('videos', 'videos.id', '=', 'user_watch_later.video_id')
 		->where('videos.title', $search)
 		->get();
-		return $watchLater;
+		return $watchLater; 
 	}
 }

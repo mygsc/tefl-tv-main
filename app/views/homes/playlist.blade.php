@@ -18,7 +18,7 @@
 								<br/>
 								<span class="glyphicon glyphicon-list fs-24"></span>
 							</div>
-							<a href="{{route('users.watchplaylist', array($playlist->video_id, $playlist->randID))}}">
+							<a href="/channels/{{$playlist->channel_name}}/videoplaylist={{$playlist->randID}}">
 								<div class="thumbnail-2">
 									<img src="/img/thumbnails/v1.png" class="h-video">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
@@ -26,7 +26,7 @@
 							</a>
 						</div>
 						<div class="v-Info">
-							<a href="{{route('users.watchplaylist', array($playlist->video_id, $playlist->randID))}}">{{$playlist->name}}</a>
+						<a href="/channels/{{$playlist->channel_name}}/videoplaylist={{$playlist->randID}}">{{$playlist->name}}</a>
 						</div>
 						<div class="count">
 							<a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a>

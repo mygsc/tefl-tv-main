@@ -44,7 +44,7 @@
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
-        			// alert(data['status']);
+        			alert(data['status']);
         			$('textarea.txtreply').val('');
         			$(this).prepend(data['reply']);
 	        	}
@@ -58,10 +58,10 @@
 		$("#replyLink").addClass("hidden");
 	});
 
-	$('#mainCommentBody').on("click", '.likedup', function() {
+	$('#mainCommentBody').on("click", '.commentlikedup', function() {
 	    $.ajax({
 			type: 'POST',
-			url: '/addliked',
+			url: '/addlikedcomment',
 			cache: false, 
 			context: this,
         	data: {
@@ -85,14 +85,64 @@
             }
         });
 	});  
-
-	// $(".likedup").click(function() {
-		
-	// });
-	$("#mainCommentBody").on("click", '.dislikedup', function () {
+	$("#mainCommentBody").on("click", '.commentdislikedup', function () {
 		$.ajax({
 			type: 'POST',
-			url: '/adddisliked',
+			url: '/adddislikedcomment',
+			cache: false, 
+			context: this,
+        	data: {
+        		dislikeCommentId: $(this).find('input[name=dislikeCommentId]').val(),
+        		dislikeUserId: $(this).find('input[name=dislikeUserId]').val(),
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
+        	},
+        	success: function(data){
+        		if(data['status'] == 'success'){
+        			$(this).find('span#dislikescounts').text(data['dislikescount']);
+        			$(this).find('input[name=status]').val(data['label']);
+        			if(data['label'] == 'undisliked'){
+        				$(this).find('span.fa-thumbs-down').addClass('redC');
+        			} else if(data['label'] == 'disliked'){
+        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        			}
+        			// alert(data['likescount']);
+        		} 
+            }
+        });
+	});
+
+	$('#mainCommentBody').on("click", '.replylikedup', function() {
+	    $.ajax({
+			type: 'POST',
+			url: '/addlikedreply',
+			cache: false, 
+			context: this,
+        	data: {
+        		likeCommentId: $(this).find('input[name=likeCommentId]').val(),
+        		likeUserId: $(this).find('input[name=likeUserId]').val(),
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
+        	},
+        	success: function(data){
+        		if(data['status'] == 'success'){
+        			$(this).find('span#likescount').text(data['likescount']);
+        			$(this).find('input[name=status]').val(data['label']);
+        			if(data['label'] == 'unliked'){
+        				$(this).find('span.fa-thumbs-up').addClass('blueC');
+        			} else if(data['label'] == 'liked'){
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+        			}
+        			$(this).find('span.fa-thumbs-up').val(data['label']);
+        			// alert(data['likescount']);
+        		} 
+            }
+        });
+	});
+	$("#mainCommentBody").on("click", '.replydislikedup', function () {
+		$.ajax({
+			type: 'POST',
+			url: '/adddislikedreply',
 			cache: false, 
 			context: this,
         	data: {

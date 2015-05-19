@@ -242,8 +242,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         
                                         <div class="seeVideoContent">
                                             <p>
-                                               {{$videos->description}}
-
+                                               {{$videos->description}}<br/><br/>
+                                                <p>Tags: {{$videos->tags}}<br/>
+                                                Categories: {{$videos->category}}</p>
                                            </p>
                                        </div>
                                     </div><!--./col-md-11-->
@@ -288,16 +289,17 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 <a href="watch!v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-4">
-                                    @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                    <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
-                                    @else
-                                    <img src="/img/thumbnails/video.png" alt="" width="100%" />
-                                    @endif
+                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
+                                        @else
+                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                                        @endif
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div ><span class="v-list">{{ Str::limit($relation['title'],50) }}</span></div>
+                                        <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span>
+                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
+                                        <span>{{$videos->views}} view/s</span>
                                     </div>
                                 </div>
                                 </a>
