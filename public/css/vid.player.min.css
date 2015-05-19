@@ -362,7 +362,7 @@ button#play{
   	height: 4%;
   	cursor: pointer;
   	background: rgba(0,0,0,0.6);
-  	outline: 1px solid #fff;
+  	outline: 1px solid #000;
   	display: none;
 }div#ads-hide center{
 	color:#fff;
