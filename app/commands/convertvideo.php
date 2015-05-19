@@ -92,8 +92,7 @@ class convertvideo extends Command {
 			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
-			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
+			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
 		// $mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
 		// $webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
 		// $ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
@@ -108,7 +107,6 @@ class convertvideo extends Command {
 	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
@@ -119,18 +117,9 @@ class convertvideo extends Command {
 	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
-			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_low.ogg')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	private function ffmpeg(){
-		// if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
-  		// return $ffmpeg = FFMpeg\FFMpeg::create([
-		// 	'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg.exe',
-		// 	'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe.exe',
-		// 	'timeout'=>0,
-		// 	'ffmpeg.threads'=>12,
-		// 	]);
-		// } 
 		return $ffmpeg = FFMpeg\FFMpeg::create([
 			'ffmpeg.binaries'=>'/usr/bin/ffmpeg',
 			'ffprobe.binaries'=>'/usr/bin/ffprobe',

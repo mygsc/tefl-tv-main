@@ -219,7 +219,7 @@ class HomeController extends BaseController {
 
 		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-		->where('comments.video_id', $videoId)->get();
+		->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
