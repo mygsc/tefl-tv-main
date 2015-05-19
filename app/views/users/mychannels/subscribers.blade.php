@@ -10,6 +10,7 @@
 
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
+					<!-- Nav tabs -->
 					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
@@ -19,7 +20,7 @@
 						<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 						<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
 						<li role="presentation" class="active">{{link_to_route('users.subscribers', 'Subscribers/Subscriptionss')}}</li>
-					</ul>
+					</ul><!--tabNav-->
 				</div>
 				<nav class="navbar navbar-default visible-sm visible-xs">
 					<div class="container-fluid">

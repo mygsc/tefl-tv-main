@@ -93,7 +93,6 @@ class convertvideo extends Command {
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
-			
 		// $mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
 		// $webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
 		// $ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});

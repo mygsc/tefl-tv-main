@@ -550,6 +550,39 @@ class UserController extends BaseController {
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		$videos =$this->Playlist->playlistControl(NULL,$id,NULL,NULL);
 		$playlist = Playlist::where('id',$id)->first();
+		//return $videos;
+		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
+
+	}
+
+	public function getViewVideoPlaylist($channel_name,$id){
+		$randID = Playlist::where('randID',$id)
+							->first();
+		$id = $randID->id;
+		$owner = User::find($randID->user_id);
+		if(Auth::check()){
+			$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+			$usersChannel = UserProfile::find(Auth::User()->id);
+			$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+			$countAllViews = $this->Video->convertToShortNumbers($allViews);
+			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+			$user_id = Auth::User()->id;
+		}else{
+			$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
+			$usersChannel = UserProfile::find($owner->id);
+			$countVideos = DB::table('videos')->where('user_id', $owner->id)->get();
+			$allViews = DB::table('videos')->where('user_id', $owner->id)->sum('views');
+			$countAllViews = $this->Video->convertToShortNumbers($allViews);
+			
+			$picture = public_path('img/user/') . $owner->id . '.jpg';
+			$user_id = 0;
+		}
+		$userChannel = User::find($owner->id);
+		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
+		$videos =$this->Playlist->playlistControl(NULL,$id,NULL,NULL);
+		
+		$playlist = Playlist::where('id',$id)->first();
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
 
 	}
@@ -693,6 +726,7 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
+
 		foreach ($userFeedbacks as $key => $userFeedback) {
 			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
 			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
