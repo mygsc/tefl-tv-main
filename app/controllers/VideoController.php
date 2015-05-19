@@ -19,13 +19,15 @@ class VideoController extends BaseController {
 		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to upload video.');
 	}
 	public function postUpload($filenameLenght = 11){
-		$fileName = str_random($filenameLenght);$input = Input::all();
+		$fileName = str_random($filenameLenght);
+		$input = Input::all();
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
 		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght++);}
 		if($validator->passes()){
 			$input['user_id'] = $this->Auth->id;
+			$ext = $input['video']->getClientOriginalExtension();
 			$create = Video::create($input);
 			$latest_id = $create->id;
 			Session::put('fileName', $fileName);
@@ -35,6 +37,7 @@ class VideoController extends BaseController {
 			$db_filename->title = 'Untitled';
 			$db_filename->total_time = $getVidDuration;
 			$db_filename->tags = null;
+			$db_filename->extension = $ext;
 			$db_filename->publish = 0;
 			if($db_filename->save()){
 				$destinationPath = public_path('videos'.DS. $userFolderName);
@@ -45,7 +48,6 @@ class VideoController extends BaseController {
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'], $destinationPath, $fileName);
-				$ext = $input['video']->getClientOriginalExtension();
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
 				return Response::json([
@@ -66,16 +68,16 @@ class VideoController extends BaseController {
 		->with('message', 'There were validation errors.');
 	}
 	public function getconvertVideo($fileName, $ext){
-		// $filename = Video::where('file_name',$fileName)->where('publish',0)->first();
-		// if($filename->count()){
-		// 	$id = $filename->user_id;
-		// 	$user = User::find($id);
-		// 	$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
-		// 	$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name);
-		// 	shell_exec("php artisan ConvertVideo $videoPath $destinationPath $fileName");
-		// 	return Response::json(array('response'=>'Done converting...'));
-		// }
-		// return app::abort(404,'Page not found.');
+		$filename = Video::where('file_name',$fileName)->where('publish',0)->first();
+		if($filename->count()){
+			$id = $filename->user_id;
+			$user = User::find($id);
+			$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
+			$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name);
+			shell_exec("php artisan ConvertVideo $videoPath $destinationPath $fileName");
+			return Response::json(array('response'=>'Done converting...'));
+		}
+		return app::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -224,8 +226,8 @@ class VideoController extends BaseController {
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
 	}
-	public function imageResize($image, $w, $h, $destination){
-		Image::make($image)->resize($w,$h)->encode('jpg', 10)->save($destination);
+	public function imageResize($source, $w, $h, $destination){
+		Image::make($source)->resize($w,$h)->encode('jpg', 10)->save($destination);
 	}
 
 	public function getViewVideoPlayer(){

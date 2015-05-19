@@ -22,7 +22,7 @@
 	</div>
 
 	<div id='ads-hide'>
-		<center>ads</center>
+		<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 	</div>
 	{{-- </div> --}}
 	
@@ -33,7 +33,8 @@
 					<input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
 					<div id="buffered"></div>
 					<div  id="current-progress">	
-						<div id="button-progress" class="progress-button"></div>	 
+						<div id="button-progress" class="progress-button">
+						</div>	 
 					</div> 
 				</div>
 			</div><!--/.progress-bar-->
@@ -84,7 +85,7 @@
 
 					</ul>							
 				</div><!--/.share-video-->
-				<i id='hd-setting' title='HD setting' class='player setting'></i>
+				<i id='hd-setting' title='Video Quality' class='player setting'></i>
 				<i id='share-video' title='Share video' class='player share'></i>
 				{{-- <i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i> --}}
 				<img src="/img/logos/teflTv.png" class="playerLogo">
