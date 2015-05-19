@@ -21,6 +21,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
 	Route::get('aboutus', array('as' => 'homes.aboutus', 'uses' => 'HomeController@getAboutUs'));
+	Route::post('aboutus', array('as' => 'post.homes.aboutus', 'uses' => 'HomeController@postContactUs'));
 	Route::get('privacy', array('as' => 'homes.privacy', 'uses' => 'HomeController@getPrivacy'));
 	Route::get('terms-and-conditions', array('as' => 'homes.termsandconditions', 'uses' => 'HomeController@getTermsAndConditions'));
 	Route::get('copyright', array('as' => 'homes.copyright', 'uses' => 'HomeController@getCopyright'));
@@ -111,9 +112,12 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('facebook/', array('as' => 'facebook', 'uses' => 'UserController@getAuthSocial'));
 	Route::post('delete-reply-feedback', array('as' => 'post.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteUserFeedbackReply'));
 	Route::post('spam-reply-feedback', array('as' => 'post.users.report-reply-feedback', 'uses' => 'UserController@postReportUserFeedbackReply'));
-
+	Route::get('search', array('as' =>'search', 'uses' => 'VideoController@getSearch'));
+	Route::get('searchMyFavorites', array('as' => 'searchFavorites', 'uses' => 'VideoController@getSearchFavorites'));
+	Route::get('searchWatchLater', array('as' => 'searchWatchLater', 'uses' => 'VideoController@getSearchWatchLater'));
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
+	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
 });
 //*********End of Channels************//
 

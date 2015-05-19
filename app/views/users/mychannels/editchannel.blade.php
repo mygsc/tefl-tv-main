@@ -35,7 +35,7 @@
                  <button style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout</button>
                  <iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
                  <div id='uName'></div>
-                 <img src='' id='imgHolder'/>
+                 <img src='' id='imgHolder'/> -->
                 
                         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}   
                         <div class="textbox-layout"> 
@@ -97,8 +97,8 @@
                                         {{Form::label('website', 'Website: ')}} 
                                         {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
 
-                                        {{Form::label('gmail', 'Gmail: ')}}
-                                        {{Form::text('gmail', null, array('placeholder' => 'Gmail Account'))}}
+                                        {{Form::label('google', 'Gmail: ')}}
+                                        {{Form::text('google', null, array('placeholder' => 'Gmail Account'))}}
 
                                         {{Form::label('facebook', 'Facebook: ')}}       
                                         {{Form::text('facebook', null, array('placeholder' => 'Facebook Account'))}}
@@ -122,56 +122,75 @@
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
+                                                
                                             </div>
                                             @else
                                              <div class="col-md-2">
                                                 <div id="status" class="text-left connectTo c-fb">
-                                                    <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Facebook Account</a>
+                                                    <a href="logout/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Facebook</a>
                                                 </div>
-                                                 
+                                                
                                             </div>
                                             <div class="col-md-10">
-                                                {{Form::text('facebook','', array('placeholder' => 'facebook.com/userAccount', 'disabled'))}}
+                                                @if(Session::has('sessionFacebook'))
+                                                 Signed in as <a href="https://www.facebook.com/{{$userWebsite->facebook}}" target="_blank">{{$sessionFacebook}}</a>
+                                                @endif
                                             </div>
                                             @endif
                                         </div>
                                        	<br/>
                                         <div class="row">
+                                            @if(empty($userWebsite->twitter))
                                             <div class="col-md-2">
-                                                @if(empty($userWebsite->twitter))
-                                                <div class="text-left connectTo c-tr">
-                                                    <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
-                                                </div>
-                                                @else
                                                 <div class="text-left connectTo c-tr">
                                                     <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
                                                 </div>
-                                                @endif
+                                                 
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
+                                                
                                             </div>
+                                            @else
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="logout/twitter" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Twitter</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-10">
+                                                @if(Session::has('sessionTwitter'))
+                                                 Signed in as <a href="{{$userWebsite->twitter}}" target="_blank">{{$sessionTwitter}}</a>
+                                                @endif
+                                            </div>
+                                            @endif
                                         </div>
         
                                         <br/>
-           
-                                        <div class="row">
+                                         <div class="row">
+                                            @if(empty($userWebsite->google))
                                             <div class="col-md-2">
-                                                @if(empty($userWebsite->google))
                                                 <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                                                 </div>
-                                                @else
-                                                <div class="text-left connectTo c-gp">
-                                                    <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Google Account</a>
-                                                </div>
-                                                @endif
-
-                                
+                                                 
                                             </div>
                                             <div class="col-md-10">
-                                                 {{Form::text('gmail', $userWebsite->google, array('placeholder' => 'Gmail Account', 'disabled'))}}
+                                                {{Form::text('google', $userWebsite->google, array('placeholder' => 'Google Account', 'disabled'))}}
                                             </div>
+                                            @else
+                                             <div class="col-md-2">
+                                                <div id="status" class="text-left connectTo c-fb">
+                                                    <a href="logout/google" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Google</a>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-10">
+                                                @if(Session::has('sessionGoogle'))
+                                                 Signed in as <a href="{{$userWebsite->google}}" target="_blank">{{$sessionGoogle}}</a>
+                                                @endif
+                                            </div>
+                                            @endif
                                         </div>
                                        
                                         <br/>

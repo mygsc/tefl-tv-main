@@ -25,7 +25,7 @@
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingNot">
     <p class="panel-title">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNot" aria-expanded="false" aria-controls="collapseNot">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNot" aria-expanded="false" aria-controls="collapseNot" id="notification">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
     </p>
@@ -34,11 +34,12 @@
     <div class="panel-body">
       @if(!empty($notifications))
         @foreach($notifications as $notification)
-
+          {{$notification->notification}}<br />
         @endforeach
       @else
         No new notifcation
       @endif
+      {{link_to_route('users.notifications', 'See all notifications')}}
     </div>
   </div>
 </div>

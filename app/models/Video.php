@@ -93,44 +93,25 @@ class Video extends Eloquent{
 	}
 	
 
-	public function countViews($countAllViews = null){
-		$a = $countAllViews;
-		$convertNumber = number_format($a);
-
-		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
-			$a = $countAllViews;
-			$round = round(($a/1000), 1);
-			$convertNumber = number_format($round, 4, ',', ' ') . 'k';
+	public function convertToShortNumbers($numbers = null){
+		$splitNumber = str_split($numbers);
+		if(strlen($numbers) >=  10){
+			$suffix = 'B';
+			$prefix = substr($numbers,0, -9);
+			$convertedNumber = $prefix . $suffix;
+		}elseif(strlen($numbers) >= 7 && strlen($numbers) <= 9){
+			$suffix = 'M';
+			$prefix = substr($numbers,0, -6);
+			$convertedNumber = $prefix . $suffix;
+		}elseif(strlen($numbers) >= 4 && strlen($numbers) <= 6){
+			$suffix = 'K';
+			$prefix = substr($numbers,0, -3);
+			$convertedNumber = $prefix . $suffix;
+		}else{
+			$convertedNumber = $numbers;
 		}
 
-		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){
-			$a = $countAllViews;
-			$round = round(($a/1000000), 1);
-			$convertNumber = number_format($round, 3, ',', ' ') . 'm';
-		}
-		return $convertNumber;
-	}
-
-	public function countVideos($countAllViews = null){
-		$a = $countAllViews;
-		$convertNumber = number_format($a);
-
-		if(strlen($countAllViews) >= 4 || strlen($countAllViews) >= 6) {
-			$a = $countAllViews;
-			$round = round(($a/1000), 1);
-			$convertNumber = number_format($round, 3, ',', ' ') . 'k';
-		}
-
-		if(strlen($countAllViews) >=7 && strlen($countAllViews) <= 9 ){
-			$a = $countAllViews;
-			$round = round(($a/1000000), 1);
-			$convertNumber = number_format($round, 3, ',', ' ') . 'm';
-		}
-		return $convertNumber;
-	}
-
-	public function countLikes(){
-
+		return $convertedNumber;
 	}
 
 	public function searchVideos($search = null){
@@ -239,15 +220,15 @@ class Video extends Eloquent{
 
 	public function relations($query = null,$id = null,$limit = null){
 
-	  $returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
-									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
-						->whereRaw($query)
-						->where('videos.deleted_at', NULL)
-						->where('videos.publish', '1')
-						->where('videos.report_count', '<', 5)
-						->where('videos.id','!=',$id)
-						->where('users.status','=','1')
-						->join('users', 'user_id', '=', 'users.id');
+		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
+			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+		->whereRaw($query)
+		->where('videos.deleted_at', NULL)
+		->where('videos.publish', '1')
+		->where('videos.report_count', '<', 5)
+		->where('videos.id','!=',$id)
+		->where('users.status','=','1')
+		->join('users', 'user_id', '=', 'users.id');
 
 		if(!empty($limit)){
 			$returndata = $returndata->take($limit);
@@ -257,20 +238,20 @@ class Video extends Eloquent{
 	}
 
 	public function randomRelation($limit = null,$id = null){
-	  if(empty($limit)){
-	   $limit = "";
-	  }
-	  $returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
-									'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
-							->where('videos.deleted_at', NULL)
-							->where('videos.publish', '1')
-							->where('videos.report_count', '<', 5)
-							->where('videos.id','!=',$id)
-							->where('users.status','=','1')
-							->join('users', 'user_id', '=', 'users.id')
-							->take($limit)->get();
-	  return $returndata;
-	 }
+		if(empty($limit)){
+			$limit = "";
+		}
+		$returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.report_count',
+			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+		->where('videos.deleted_at', NULL)
+		->where('videos.publish', '1')
+		->where('videos.report_count', '<', 5)
+		->where('videos.id','!=',$id)
+		->where('users.status','=','1')
+		->join('users', 'user_id', '=', 'users.id')
+		->take($limit)->get();
+		return $returndata;
+	}
 
 
 	public function getVideos($auth = null, $orderBy = null, $limit = null) {
@@ -278,7 +259,7 @@ class Video extends Eloquent{
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
-			->where('videos.user_id', $auth);
+		->where('videos.user_id', $auth);
 
 		if(!empty($orderBy)) {
 			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
@@ -289,5 +270,13 @@ class Video extends Eloquent{
 		}
 
 		return $getVideos->take($limit)->get();
+	}
+
+	public function getSearchVideos($search = null){
+		if($search == ''){
+			return $search;
+		}
+		$search = DB::select("SELECT *,(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes FROM videos WHERE title LIKE '%".$search."%'");
+		return $search;
 	}
 }

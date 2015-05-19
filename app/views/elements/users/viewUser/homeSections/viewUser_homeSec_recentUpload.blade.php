@@ -8,17 +8,17 @@
 			</div>
 		</div>
 		@else
-		@if(isset($recentUpload[0]->id))
+		@if(isset($recentUpload->id))
 		<div class="col-md-6">
 			<div id="vid-wrapper">
 				<div id="vid-controls" class="p-relative">
 					<div class="embed-responsive embed-responsive-16by9 h-video">
-						<a href="{{route('homes.watch-video', array($recentUpload[0]->file_name))}}" target="_blank">
-							@if(file_exists(public_path('/videos/'.$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')) )
-							<video poster="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
-								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-								<source src="/videos/{{$recentUpload[0]->id.'-'.$recentUpload[0]->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+						<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
+							@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+							<video poster="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
 							</video>
 							@else
 									{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
@@ -33,17 +33,17 @@
 
 					<div class="col-md-6">
 						
-						<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
-						<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
+						<h3><b>Title: {{$recentUpload->title}}</b></h3>
+						<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 						<br/>
 						
 						<p class="text-justify">
-							Description: {{$recentUpload[0]->description}}
+							Description: {{$recentUpload->description}}
 						</p>
 						<br/>
 						<span class=""><!--/counts and share link-->
-							{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
-							{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
+							{{$recentUpload->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+							{{$recentUpload->likes}} Likes&nbsp;&nbsp;|&nbsp;&nbsp;
 							<span class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 									<p class="inline"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>

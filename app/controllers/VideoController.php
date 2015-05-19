@@ -3,7 +3,7 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
-	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers){
+	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
 		$this->User = $users;
@@ -11,6 +11,8 @@ class VideoController extends BaseController {
 		$this->Auth = Auth::User();
 		$this->url = URL::full();
 		define('DS', DIRECTORY_SEPARATOR); 
+		$this->UserWatchLater = $watchLater;
+		$this->UserFavorite = $userFavorite;
 	}
 	public function getUpload(){
 		if(Auth::check()){return View::make('users.upload');}
@@ -39,6 +41,7 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
+
 				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
 				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
@@ -73,7 +76,7 @@ class VideoController extends BaseController {
 			shell_exec("php artisan ConvertVideo ". $videoPath." " .$destinationPath." ".  $fileName);
 			return Response::json(['response'=>'Done converting...']);
 		}
-		return App::abort(404,'Page not found.');
+		return app::abort(404,'Page not found.');
 	}
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
@@ -94,14 +97,17 @@ class VideoController extends BaseController {
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$ogg = new FFMpeg\Format\Video\Ogg();
 			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		// $mp4
+		// 	->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
+		// $webm
+		// 	->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
+		// $ogg
+		// 	->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm')
 			->save($ogg, $destinationPath.DS.$fileName.DS.$fileName.'_hd.ogg');
-		$mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
-		$webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
-		$ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
-		return $percentage1+$percentage2+$percentage3;	
+		//return Response::json(['percentloaded'=>$percentage1+$percentage2+$percentage3]);	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
@@ -129,8 +135,8 @@ class VideoController extends BaseController {
 	private function ffmpeg(){
 		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
     		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg.exe',
-			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe.exe',
+			'ffmpeg.binaries'=>'C:\xampp\ffmpeg\bin\ffmpeg',
+			'ffprobe.binaries'=>'C:\xampp\ffmpeg\bin\ffprobe',
 			'timeout'=>0,
 			'ffmpeg.threads'=>12,
 			]);
@@ -170,7 +176,7 @@ class VideoController extends BaseController {
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return App::abort('404','Page not found.');}
+		if(empty($fileName)){return app::abort('404','Page not found.');}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
@@ -311,4 +317,49 @@ class VideoController extends BaseController {
 		}
 		return app::abort(404, 'Page not available');
 	}
+
+	public function getSearch() {
+	  $search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
+	  $countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+	  $usersChannel = UserProfile::find(Auth::User()->id);
+	  $usersVideos = $this->Video->getVideos($this->Auth->id,'videos.created_at');
+	  $countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+	  $allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+	  $picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+	  $countAllViews = $this->Video->countViews($allViews);
+	  $usersVideos =$this->Video->getSearchVideos($search);
+	  return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
+	 }
+
+	public function getSearchWatchLater() {
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
+		$usersWatchLater = $this->UserWatchLater->getSearchWatchLater($search);
+		// return $usersWatchLater;
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
+		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$countAllViews = $this->Video->countViews($allViews);		
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+
+		return View::make('users.mychannels.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture'));
+	}
+
+	public function getSearchFavorites() {
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
+		$findUsersVideos = $this->UserFavorite->getSearchFavoriteVideos($search);
+
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = User::find(Auth::User()->id)->video;
+		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+		
+
+		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
+	}
+
 }

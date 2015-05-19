@@ -103,7 +103,7 @@ class Notification extends Eloquent {
 				}
 
 			}
-			$notification =  new Notification();
+			$notification = new Notification();
 			$notification->user_id = $user_id;
 			$notification->notification = $notificationMessage;
 			$notification->save();
@@ -119,28 +119,33 @@ class Notification extends Eloquent {
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'DESC')
+				->groupBy('notification')
 				->simplePaginate($paginate);
 			}elseif(isset($read)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->whereRead($read)
+				->groupBy('notification')
 				->OrderBy('created_at', 'DESC')
 				->get();
 			}elseif(isset($limit)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
 				->OrderBy('created_at', 'ASC')
+				->groupBy('notification')
 				->take($limit)
 				->get();
 			}else{
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
+				->groupBy('notification')
 				->OrderBy('created_at', 'DESC')
 				->get();
 			}
+
 			foreach($result as $key => $user){
 				$fileName = $user->user_id. '.jpg';
-				$path = 'img/user/'.$fileName; 
+				$path = '/img/user/'.$fileName; 
 				if(!file_exists(public_path($path))){
 					$path = '/img/user/0.jpg';
 				}

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+// $(document).ready(function(){
 	$("#btncomment").click(function() {
 		var txtComment = $('#comment').val();
 		var txtVideoId = $('#commentVideo').val();
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('form#video-addReply').on('submit', function(e){
+	$('#mainCommentBody').on('submit', 'form#video-addReply', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
 		$.ajax({
@@ -52,14 +52,14 @@ $(document).ready(function(){
     	});
     });
 
-    $("#replyLink").click(function() {
+    $('#mainCommentBody').on("click", '.repLink', function() {
 		$("#txtreply").removeClass("hidden");
 		$("#replybutton").removeClass("hidden");
 		$("#replyLink").addClass("hidden");
 	});
 
-	$(".likedup").click(function() {
-		$.ajax({
+	$('#mainCommentBody').on("click", '.likedup', function() {
+	    $.ajax({
 			type: 'POST',
 			url: '/addliked',
 			cache: false, 
@@ -67,7 +67,8 @@ $(document).ready(function(){
         	data: {
         		likeCommentId: $(this).find('input[name=likeCommentId]').val(),
         		likeUserId: $(this).find('input[name=likeUserId]').val(),
-        		status: $(this).find('input[name=status]').val()
+        		status: $(this).find('input[name=status]').val(),
+        		video_id: $(this).find('input[name=video_id]').val()
         	},
         	success: function(data){
         		if(data['status'] == 'success'){
@@ -83,8 +84,12 @@ $(document).ready(function(){
         		} 
             }
         });
-	});
-	$(".dislikedup").click(function() {
+	});  
+
+	// $(".likedup").click(function() {
+		
+	// });
+	$("#mainCommentBody").on("click", '.dislikedup', function () {
 		$.ajax({
 			type: 'POST',
 			url: '/adddisliked',
@@ -110,4 +115,4 @@ $(document).ready(function(){
             }
         });
 	});
-}); 
+// }); 
