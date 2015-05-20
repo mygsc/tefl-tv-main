@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 			);
 
 		if($validate->fails()){
-			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+			return Redirect::intended('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 		}
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
@@ -114,6 +114,7 @@ class HomeController extends BaseController {
 	}
 
 	public function getCategory($category = null){
+		$this->Video->deleteJobAdVideo();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
 		if(!empty($category)){
@@ -133,7 +134,7 @@ class HomeController extends BaseController {
 			->where('report_count', '<', 5)
 			->orderBy(DB::raw('(views + likes)'))
 			->join('users', 'user_id', '=', 'users.id')
-			->paginate( 16);
+			->paginate(16);
 
 			foreach($videos as $key => $video){
 			//Thumbnails
@@ -144,8 +145,7 @@ class HomeController extends BaseController {
 				if(file_exists(public_path($thumbnail))){
 					$videos[$key]->thumbnail = $thumbnail;
 				}
-			}
-
+			} 
 			//return DB::getQueryLog();
 			if(!$videos->isEmpty()){
 				return View::make('homes.category', compact(array('videos','category','categories','notifications')));

@@ -3,7 +3,16 @@
 		<div class="span12" style="background:rgba(0,0,0, 0.15)">
 			<div class="col-md-10 col-md-offset-1">
 				<span class="close">x</span> 
-				<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
+				<script type="text/javascript">
+    google_ad_client = "ca-pub-3138986188138771";
+    google_ad_slot = "4882426847";
+    google_ad_width = 320;
+    google_ad_height = 100;
+</script>
+<!-- tefltv ads -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
 			</div>
 		</div>
 	</div>

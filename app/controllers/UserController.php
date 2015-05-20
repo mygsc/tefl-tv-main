@@ -61,7 +61,7 @@ class UserController extends BaseController {
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
 		}
-		return $validate->messages();
+
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
@@ -215,8 +215,9 @@ class UserController extends BaseController {
 		//Insert additional data to $datas
 		$datas = $this->User->getTopChannels(50);
 		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
 
-		return View::make('homes.moretopchannels', compact(array('datas')));
+		return View::make('homes.moretopchannels', compact(array('datas', 'categories', 'notifications')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {

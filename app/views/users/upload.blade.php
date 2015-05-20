@@ -204,7 +204,7 @@
 							<br>
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
-								
+							<br><br>
 							</div>	
 						</div>
 				
