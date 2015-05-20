@@ -1,5 +1,6 @@
 <?php
 
+
 class Video extends Eloquent{
 	use SoftDeletingTrait;
 	protected $table = 'videos';
@@ -279,5 +280,27 @@ class Video extends Eloquent{
 
 		$search = DB::select("SELECT *,(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes FROM videos WHERE title LIKE '%".$search."%'");
 		return $search;
+	}
+
+	public function deleteJobAdVideo(){
+		$date = new DateTime;
+		$date->modify('-30 days');
+		$formatted_date = $date->format('Y-m-d H:i:s');
+
+		$videos = Video::where('category', 'LIKE','%Video CV%')
+		->where('created_at','<', $formatted_date)
+		->orderBy('created_at','ASC')
+		->orwhere('category', 'LIKE', '%Job AD')
+		->where('created_at','<', $formatted_date)
+		->orderBy('created_at','ASC');
+
+		$findVideo = $videos->get(array('videos.id'));
+		if(!$findVideo->isEmpty()){
+			foreach($findVideo as $playlist_item){
+				PlaylistItem::where('video_id', $playlist_item->id)->delete();
+			}
+		}
+		$videos->delete();
+		return true;
 	}
 }

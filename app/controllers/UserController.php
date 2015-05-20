@@ -215,8 +215,9 @@ class UserController extends BaseController {
 		//Insert additional data to $datas
 		$datas = $this->User->getTopChannels(50);
 		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
 
-		return View::make('homes.moretopchannels', compact(array('datas')));
+		return View::make('homes.moretopchannels', compact(array('datas', 'categories', 'notifications')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
