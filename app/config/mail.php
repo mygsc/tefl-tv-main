@@ -30,7 +30,8 @@ return array(
 
 	//'host' => 'smtp.mailgun.org',
 	//'host' => 'smtp.gmail.com', //Gmail
-	 'host' => 'smtp.sendgrid.net',
+	 //'host' => 'smtp.sendgrid.net',
+	'host' => 'mail.tefltv.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,7 +58,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'guavabytesteam@gmail.com', 'name' => 'Graphic Studio Central'),
+	'from' => array('address' => 'no-reply@tefltv.com', 'name' => 'TEFL TV'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,7 +85,7 @@ return array(
 	|
 	*/
 
-	'username' => 'Grald',
+	'username' => 'no-reply@tefltv.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,7 +98,7 @@ return array(
 	|
 	*/
 
-	'password' => 'sendgrid.com.ph25',
+	'password' => 'elearning321',
 
 	/*
 	|--------------------------------------------------------------------------
