@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 			);
 
 		if($validate->fails()){
-			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+			return Redirect::intended('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 		}
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
