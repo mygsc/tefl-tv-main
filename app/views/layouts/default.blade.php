@@ -77,8 +77,4 @@
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
 @yield('modal')
 
-<br />
-	<center>This page took {{(microtime(true) - LARAVEL_START)}} ms to render</center>
-<br />
-
 </html>
