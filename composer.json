@@ -10,7 +10,8 @@
 		"facebook/php-sdk-v4" : "4.0.*",
 		"google/apiclient": "1.0.*@beta",
 		"hybridauth/hybridauth": "*",
-		"pencepay/pencepay-php": "1.*"
+		"pencepay/pencepay-php": "1.*",
+		"laracasts/utilities": "~2.0"
 	},
 	"autoload": {
 		"classmap": [

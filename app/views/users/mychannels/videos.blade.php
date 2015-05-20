@@ -82,8 +82,8 @@
 				</nav>
 				<br/>
 					<div class="col-md-6 col-sm-6">
+						{{Form::open(array('route' => 'search','method' => 'GET'))}}
 						<div class="input-group" style="margin-bottom:10px;">
-							{{Form::open(array('route' => 'search','method' => 'GET'))}}
 							{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}

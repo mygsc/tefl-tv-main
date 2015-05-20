@@ -92,14 +92,11 @@
 								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished upload.</h3>
 								<center>
 									<div id="screenshot">
-										
 										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
 										<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">
-										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">	
-																									
+										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">						
 									</div>
 									<br/>
-									
 										<small>Or select desired thumbnail:</small><br><br/>
 										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 										<br><br/>

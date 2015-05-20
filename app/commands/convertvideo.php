@@ -64,10 +64,9 @@ class convertvideo extends Command {
 		return array(
 			array('videoPath', InputArgument::REQUIRED, 'You need a video path to proceed a conversion.'),
 			array('destinationPath', InputArgument::REQUIRED, 'You need a destiantion path to proceed a conversion.'),
-			array('filename', InputArgument::REQUIRED, 'You need a video file_name to proceed a conversion.'),
+			array('filename', InputArgument::REQUIRED, 'You need a video filename to proceed a conversion.'),
 		);
 	}
-
 	/**
 	 * Get the console command options.
 	 *
@@ -79,7 +78,6 @@ class convertvideo extends Command {
 			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
 		);
 	}
-
 	private function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
@@ -88,14 +86,11 @@ class convertvideo extends Command {
 			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();
-			$ogg->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
 		// $mp4->on('progress', function ($video, $mp4, $percentage1) {$percentage1;});
 		// $webm->on('progress', function ($video, $webm, $percentage2) {$percentage2;});
-		// $ogg->on('progress', function ($video, $ogg, $percentage3) {$percentage3;});
 		//return $percentage1+$percentage2+$percentage3;	
 	}
 	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
@@ -103,8 +98,7 @@ class convertvideo extends Command {
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
@@ -113,8 +107,7 @@ class convertvideo extends Command {
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$ogg = new FFMpeg\Format\Video\Ogg();$ogg->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-	    $webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video
 			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	

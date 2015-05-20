@@ -48,6 +48,7 @@ class HomeController extends BaseController {
 
 	public function getCopyright() {
 		return View::make('homes.copyright');
+
 	}
 
 	public function postPlaylist() {

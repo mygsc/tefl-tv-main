@@ -50,8 +50,8 @@
 					<br/>
 					<div class="content-padding">
 						<div class="col-md-6 col-sm-8 col-xs-8">
+							{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}	
 							<div class="input-group">
-								{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}
 								{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 								<span class="input-group-btn">
 									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
@@ -124,7 +124,7 @@
 									</div>
 									<br/>		
 								</div>
-							</div>
+					
 
 							<div class="inlineInfo ">
 								<div class="count">

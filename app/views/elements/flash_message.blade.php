@@ -1,5 +1,6 @@
 @if(Session::has('flash_good'))
-	<div class="p-relative text-center">
+
+	<div class="p-relative text-center fadeThis">
 		<div class="animated flipInX p-absolute flash center-block alert">
 			<div class="good alert-dismissible same-H" role="alert">
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -12,7 +13,7 @@
 
 @if(Session::has('flash_bad'))
 	<div class="p-relative text-center">
-		<div class="animated flipInX p-absolute flash center-block alert">
+		<div class="animated flipInX p-absolute flash center-block alert fadeThis">
 			<div class="bad alert-dismissible same-H" role="alert">
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong><p class="text-center"><i class="fa fa-close"></i> {{ Session::get('flash_bad') }}</p></strong>
@@ -24,7 +25,7 @@
 @if(Session::has('flash_warning'))
 
 	<div class="p-relative text-center">
-		<div class="animated flipInX p-absolute flash center-block alert">
+		<div class="animated flipInX p-absolute flash center-block alert fadeThis">
 			<div class="warn alert-dismissible same-H" role="alert">
 			  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong><p class="text-center"> <i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_warning') }}</p></strong>
