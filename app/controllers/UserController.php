@@ -550,7 +550,7 @@ class UserController extends BaseController {
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		$videos =$this->Playlist->playlistControl(NULL,$id,NULL,NULL);
 		$playlist = Playlist::where('id',$id)->first();
-		//return $videos;
+
 		return View::make('users.viewplaylistvideo', compact('playlist','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','videos','picture','userChannel','user_id','ifAlreadySubscribe'));
 
 	}
@@ -1052,7 +1052,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscriberProfile = $this->Subscribe->Subscribers($userChannel->id);
-		// return $subscriberProfile;
 		$subscriptionProfile = $this->Subscribe->Subscriptions($userChannel->id);
 
 		return View::make('users.channels.subscribers', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id'));

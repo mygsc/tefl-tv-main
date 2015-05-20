@@ -1,6 +1,5 @@
        
 <h3>Comments</h3>
-
 	
 	<div class="comments row mg-lr-5">
 		@if(isset(Auth::User()->id))
@@ -94,11 +93,6 @@
 							->join('users', 'users.id', '=', 'comments_reply.user_id')
 							->orderBy('comments_reply.created_at', 'asc')
 							->where('comment_id', $getVideoComment->id)->get();
-							
-							// $getCommentReplies = DB::table('comments_reply')
-							// 	->join('users', 'users.id', '=', 'comments_reply.user_id')
-							// 	->orderBy('comments_reply.created_at', 'asc')
-							// 	->where('comment_id', $getVideoComment->id)->get();  
 						?>
 						<span class="repLink hand">{{$getCommentRepliesCount}}<i class="fa fa-reply"></i></span>
 
