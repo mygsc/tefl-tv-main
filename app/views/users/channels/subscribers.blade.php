@@ -131,7 +131,7 @@
 											@endif
 											&nbsp;
 
-											<a href="{{route('view.users.channel')}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
+											<a href="{{route('view.users.channel', $profile->channel_name)}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 											<br/>&nbsp;
 											@if(isset(Auth::User()->id))
 													<?php
