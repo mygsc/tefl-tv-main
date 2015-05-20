@@ -57,7 +57,7 @@ $(document).ready(function(){
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
                     document.getElementById("save").disabled = false;
-                    //convertVideo(response.file, response.ext);
+                    convertVideo(response.file, response.ext);
                 },
                 error: function(response, status, e){
                     alert(e);
