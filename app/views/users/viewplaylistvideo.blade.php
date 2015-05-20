@@ -18,7 +18,7 @@
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 				  		<li role="presentation" class="active">{{link_to_route('users.playlists', 'My Playlists')}}</li>
 				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
-				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 				  	</ul><!--tabNav-->
 				</div>
 				<nav class="navbar navbar-default visible-sm visible-xs">
