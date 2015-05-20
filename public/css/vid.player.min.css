@@ -64,15 +64,15 @@ div#progressbar #current-progress{
 	width: 15px;
 	height: 15px;
 	position: absolute;
-	left: 0%;
+	left: 0;
 	text-decoration: overline;
 	background: #fc8b02;
 	top: -6px;
 	margin-left: 0px;
-	display: none;
 	border-radius: 20px;
 	border:5px solid #fff; 
 	cursor: pointer;
+	display: none;
 }div#button-progress:hover{
 	background: #fff;border:5px solid #fc8b02; 
 }
