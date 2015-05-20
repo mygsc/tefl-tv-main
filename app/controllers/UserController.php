@@ -61,7 +61,7 @@ class UserController extends BaseController {
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
 		}
-		return $validate->messages();
+
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
@@ -215,8 +215,9 @@ class UserController extends BaseController {
 		//Insert additional data to $datas
 		$datas = $this->User->getTopChannels(50);
 		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
 
-		return View::make('homes.moretopchannels', compact(array('datas')));
+		return View::make('homes.moretopchannels', compact(array('datas', 'categories', 'notifications')));
 	}
 
 	public function getUsersChannel($subscriberLists = array(), $subscriptionLists = array() ) {
@@ -339,9 +340,9 @@ class UserController extends BaseController {
 			$userChannel->zip_code = Input::get('zip_code');
 			$userChannel->save();
 
-			$findUserWebsite = Website::where('user_id',9)->first();
+			$findUserWebsite = Website::where('user_id', Auth::User()->id)->first();
 
-			if(isset($findUserWebsite)){
+			if(!isset($findUserWebsite)){
 				DB::table('websites')->insert(array('user_id' => Auth::User()->id, 'facebook' => Input::get('facebook'), 'twitter' => Input::get('twitter'), 'instagram' => Input::get('instagram'), 'google' => Input::get('google'), 'others' => Input::get('others')));
 			}else{
 				$userWebsite = Website::where('user_id',Auth::User()->id)->first();
@@ -353,7 +354,7 @@ class UserController extends BaseController {
 				$userWebsite->save();
 			}
 		}else{
-			return Redirect::route('users.editchannel')->withErrors($validate);
+			return Redirect::route('users.edit.channel')->withErrors($validate)->withInput();
 		}
 		return Redirect::route('users.channel')->withFlashGood('Successfully updated your channel!');
 
@@ -740,7 +741,6 @@ class UserController extends BaseController {
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
 		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1)->first();
-		// return $recentUpload;
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		foreach($usersPlaylists as $playlist){
 			$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);

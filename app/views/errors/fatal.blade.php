@@ -34,6 +34,7 @@
 		     	 	<div class="modal-body" width="80%">
 			            <div class="">
 			            	<span class="textbox-layout">
+			            	{{Form::open(array('route' => 'post.homes.aboutus'))}}
 								{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
 								@if($errors->has('name'))
 								<span class="inputError">

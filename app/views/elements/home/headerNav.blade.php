@@ -52,7 +52,8 @@
 
                                 <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
                             @else
-                                <li>{{ link_to_route('homes.signin', 'Sign-in', null, array('class' => '')) }}</li>
+                                <li>{{ link_to_route('homes.signin', 'Sign-in / Sign-up', null, array('class' => '')) }}</li>
+                 
                             @endif
                         </ul>
                     </div>
