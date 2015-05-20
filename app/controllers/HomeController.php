@@ -36,19 +36,6 @@ class HomeController extends BaseController {
 
 	public function getPrivacy() {
 		return View::make('homes.privacy');
-		$getCommentReplies = 
-		User::select(
-			'users.id',
-			'channel_name')
-		->join('comments_reply', 'comments_reply.user_id', '=', 'users.id')
-		->orderBy('comments_reply.created_at', 'asc')
-		->where('comments_reply.comment_id', $getVideoComment->id)->get();
-
-		$getCommentReplies = DB::select('users.id', 'comments.id as commentid')
-		->table('comments_reply')
-		->join('users', 'users.id', '=', 'comments_reply.user_id')
-		->orderBy('comments_reply.created_at', 'asc')
-		->where('comment_id', $getVideoComment->id)->get();
 	}
 
 	public function getTermsAndConditions() {

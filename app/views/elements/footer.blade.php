@@ -48,6 +48,6 @@
 
 
 <div class="footer2">
-      <span>{{ link_to_route('homes.changelogs', 'TEFL TV BETA VERSION 1.0.2', null) }}</span>
- 
+      <span class="blueC">TEFL TV BETA VERSION 1.0</span>
+      
 </div>

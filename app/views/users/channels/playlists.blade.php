@@ -54,15 +54,17 @@
 				
 
 					<div class="col-md-6 col-sm-6  mg-t-10">
-						{{Form::open()}}
-						<div class="input-group" style="">
-							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
-							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
-							<span class="input-group-btn">
-								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
-							</span>
-						</div>
-						{{Form::close()}}
+						@if(!empty(Auth::User()->id))
+							{{Form::open()}}
+							<div class="input-group" style="">
+								{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
+								{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
+								<span class="input-group-btn">
+									{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
+								</span>
+							</div>
+							{{Form::close()}}
+						@endif
 					</div>
 
 
