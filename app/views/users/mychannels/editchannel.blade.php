@@ -107,8 +107,6 @@
                                         {{Form::label('twitter', 'Twitter: ')}}
                                         {{Form::text('twitter', null, array('placeholder' => 'Twitter Account'))}}
 
-                                        {{Form::label('instagram', 'Instagram: ')}}
-                                        {{Form::text('instagram', null, array('placeholder' => 'Instagram Account'))}}      
                                     @else
                         
                                         <br/>
