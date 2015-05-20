@@ -49,5 +49,5 @@
 
 <div class="footer2">
       <span class="blueC">TEFL TV BETA VERSION 1.0</span>
- 
+      
 </div>
