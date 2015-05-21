@@ -53,7 +53,7 @@
 					</div>
 				
 
-					<div class="col-md-6 col-sm-6  mg-t-10">
+					<!-- <div class="col-md-6 col-sm-6  mg-t-10">
 						@if(!empty(Auth::User()->id))
 							{{Form::open()}}
 							<div class="input-group" style="">
@@ -65,7 +65,7 @@
 							</div>
 							{{Form::close()}}
 						@endif
-					</div>
+					</div> -->
 
 
 
