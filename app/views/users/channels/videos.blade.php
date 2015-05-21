@@ -84,11 +84,13 @@
 				<div class="">
 					<br/>
 					<div class="col-md-6 col-sm-6">
+						{{Form::open(array('route' => ['channels.search', $userChannel->channel_name], 'method' => 'GET'))}}
 						<div class="input-group" style="margin-bottom:10px;">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+							{{ Form::text('searchTitle', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
+							{{Form::close()}}
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6">

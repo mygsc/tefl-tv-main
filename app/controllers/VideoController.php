@@ -327,4 +327,41 @@ class VideoController extends BaseController {
 
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
+
+	public function getChannelSearch($channel_name) {
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$user_id = 0;
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchTitle'));
+		$usersVideos =$this->Video->getSearchVideos($search);
+
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
+
+		return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite'));
+	}
+
+	public function getSearchChannelPlaylists($channel_name) {
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
+		$user_id = 0;
+		$a = $this->Playlist->searchPlaylists($search);
+		return $a;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::find($userChannel->id);
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		foreach($playlists as $playlist){
+			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
+		}
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
+
+		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
+	}
 }
