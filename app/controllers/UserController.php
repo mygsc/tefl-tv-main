@@ -680,24 +680,28 @@ class UserController extends BaseController {
 	public function postUsersChangePassword() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userPasswordRules);
+		$loggedUser = Auth::User()->password;
+		$currentPassword = Hash::check(Input::get('currentPassword'), $loggedUser);
 
 		if($validate->fails()){
-			return Redirect::route('users.change-password')->withErrors($validate)->withFlashBad('Please check your inputs!');
+			if($currentPassword != $loggedUser){
+				return Redirect::route('users.change-password')->withErrors($validate)->withFlashBad('Please check your inputs!')->withPassNotEqual('Incorrect current password');
+			}else{
+				return Redirect::route('users.change-password')->withErrors($validate)->withFlashBad('Please check your inputs!');
+			}
 		} else{
-			$loggedUser = Auth::User()->password;
 			$currentPassword = Hash::check(Input::get('currentPassword'), $loggedUser);
 			$newPassword = Input::get('newPassword');
 			$inputNewPassword = Input::get('currentPassword');
 			if($currentPassword == $loggedUser){
 				if($newPassword != $inputNewPassword){
 					$user = User::where('id', Auth::User()->id)->update(['password' => Hash::make(Input::get('newPassword'))]);
-					Auth::logout();
-					return Redirect::route('homes.index')->withFlashGood('Successfully changed the password.');
+					return Redirect::route('users.channel')->withFlashGood('Successfully changed the password.');
 				}else{
 					return Redirect::route('users.change-password')->with('flash_warning','Current Password and New Password must not match')->withErrors($validate);
 				}
 			} else{
-				return Redirect::route('users.change-password')->withFlashBad('Current password must match!');
+				return Redirect::route('users.change-password')->withFlashBad('Incorrect current password!');
 			}
 		}
 	}
