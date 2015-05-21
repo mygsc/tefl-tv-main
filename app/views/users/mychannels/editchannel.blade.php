@@ -142,18 +142,17 @@
                                                 <div class="text-left connectTo c-tr">
                                                     <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-md-10">
                                                 {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
-                                                
                                             </div>
                                             @else
-                                            <div class="col-md-2">
-                                                <div id="status" class="text-left connectTo c-fb">
-                                                    <a href="logout/twitter" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Twitter</a>
+                                             <div class="col-md-2">
+                                                <div class="text-left connectTo c-tr">
+                                                    <a href="logout/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Sign-out with Twitter</a>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-md-10">
                                                 @if(Session::has('sessionTwitter'))
@@ -167,7 +166,7 @@
                                         <div class="row">
                                             @if(empty($userWebsite->google))
                                             <div class="col-md-2">
-                                                <div class="text-left connectTo c-gp">
+                                               <div class="text-left connectTo c-gp">
                                                     <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                                                 </div>
                                                 
@@ -176,9 +175,9 @@
                                                 {{Form::text('google', $userWebsite->google, array('placeholder' => 'Google Account', 'disabled'))}}
                                             </div>
                                             @else
-                                            <div class="col-md-2">
-                                                <div id="status" class="text-left connectTo c-fb">
-                                                    <a href="logout/google" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Google</a>
+                                             <div class="col-md-2">
+                                                <div class="text-left connectTo c-gp">
+                                                    <a href="logout/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
                                                 </div>
                                                 
                                             </div>
