@@ -350,9 +350,8 @@ class VideoController extends BaseController {
 
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
 
-		$playlistsFromSearchToId = $this->Playlist->searchPlaylists($userChannel->id, $search);
+		$playlists = $this->Playlist->searchPlaylists($userChannel->id, 'sad');
 		return $playlistsFromSearchToId;
-		
 
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$usersChannel = UserProfile::find($userChannel->id);
@@ -362,7 +361,8 @@ class VideoController extends BaseController {
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
 
-		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		// $playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		// return $playlists;
 		foreach($playlists as $playlist){
 			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
 		}
