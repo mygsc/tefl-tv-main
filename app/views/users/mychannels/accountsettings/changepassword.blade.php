@@ -30,6 +30,13 @@
                                     {{Form::label('currentPassword', ' Current Password: ')}}
                                     {{Form::password('currentPassword', null, array('required' => true))}}
                                     <span class="inputError">
+                                        @if(isset($PassNotEqual))
+                                            <span class="inputError">
+                                                {{$PassNotEqual}}
+                                            </span>
+                                        @endif
+                                    </span>
+                                    <span class="inputError">
                                         {{$errors->first('currentPassword')}}
                                     </span>
                                     <br/><br/>

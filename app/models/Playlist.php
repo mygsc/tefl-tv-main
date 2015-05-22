@@ -89,8 +89,14 @@ class Playlist extends Eloquent {
 		return $returvalue->get();
 	}
 
-	public function playlistget(){
+	public function searchPlaylists($auth = null, $search = null){
+		if($search == ''){
+			return $search;
+		}
+
+		$searchPlaylist = DB::select("SELECT * FROM playlists WHERE name LIKE '%$search%' AND user_id = $auth");
+
+		return $searchPlaylist;
 
 	}
-
 }

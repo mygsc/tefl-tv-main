@@ -637,25 +637,11 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		Pencepay_Context::setPublicKey("pub_jgCebc4gqioxgC");
-		Pencepay_Context::setSecretKey("Dsm17Im1BLncat3If8YA7zYA9stJty8MM8l7EfqMkbI=");
-		Pencepay_Context::setEnvironment(Pencepay_Context::PRODUCTION);
+		$sample = array('red', 'blue');
 
-		$transaction = Pencepay_Transaction::create(
-			Pencepay_Request_Transaction::build()
-			->orderId('123456')
-			->amount(10.99)
-			->currencyCode('EUR')
-			->creditCard()
-			->cardholderName('John Hancock')
-			->number('4350100010001002')
-			->cvv('313')
-			->expiryMonth(12)
-			->expiryYear(2016)
-			->done()
-			);
+		$sample[] = 'yellow';
 
-		print_r($transaction);
+		return $sample;
 		
 	}
 }
