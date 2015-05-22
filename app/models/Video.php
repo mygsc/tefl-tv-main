@@ -255,7 +255,7 @@ class Video extends Eloquent{
 	}
 
 
-	public function getVideos($auth = null, $orderBy = null, $uploded = null, $limit = null) {
+	public function getVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
