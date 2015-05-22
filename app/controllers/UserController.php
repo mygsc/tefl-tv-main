@@ -1411,7 +1411,7 @@ class UserController extends BaseController {
 							<br/>
 						</div>
 						<div class='count'>
-							<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+							<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".date('M d Y', strtotime($result->created_at))."
 						</div>
 					</div>
 				</div>
@@ -1466,7 +1466,7 @@ class UserController extends BaseController {
 						<br/>
 					</div>
 					<div class='count'>
-						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".date('M d Y', strtotime($result->created_at))."
 					</div>
 				</div>
 			</div>";

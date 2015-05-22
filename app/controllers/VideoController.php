@@ -373,4 +373,8 @@ class VideoController extends BaseController {
 
 		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
 	}
+
+	public function getUserSearchPlaylists() {
+		return Input::all();
+	}
 }
