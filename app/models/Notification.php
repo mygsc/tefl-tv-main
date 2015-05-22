@@ -8,8 +8,8 @@ class Notification extends Eloquent {
 		return $this->belongsTo('User');
 	}
 
-	public function constructNotificationMessage($user_id, $notifier_id, $type, $routes = null, $callback = null){
-		if(!empty($user_id) || !empty($notifier_id) || !empty($type)){
+	public function constructNotificationMessage($user_id, $notifier_id = null, $type, $routes = null, $callback = null){
+		if(!empty($user_id) || !empty($type)){
 			$notifierInfo = User::find($notifier_id);			$notifierLink = '<a class="inline" style="margin-right:0;" href="'.route('view.users.channel',$notifierInfo->channel_name).'">'. $notifierInfo->channel_name.'</a>';
 
 			if($type == 'subscribed'){
@@ -24,6 +24,8 @@ class Notification extends Eloquent {
 				$message = 'has uploaded new <a class="inline" href="'.$routes.'">video</a>';
 			}elseif($type == 'comment'){
 				$message = 'has added a comment to your <a class="inline" href="'.$routes.'">video</a>';
+			}elseif($type == 'uploaded'){
+				$message = 'your <a href="'.$routes.'">Video</a> is ready';
 			}else{
 				return false;
 			}
@@ -47,23 +49,23 @@ class Notification extends Eloquent {
 				$getTime = abs($roundedTime);
 
 				switch (true) {
-					case ($getTime >= 6144):
+					case ($getTime >= 6143):
 					$getTime = round($getTime / 6144);
 					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
 					break;
-					case ($getTime >= 720):
+					case ($getTime >= 719):
 					$getTime = round($getTime / 720);
 					$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
 					break;
-					case ($getTime >= 168):
+					case ($getTime >= 167):
 					$getTime = round($getTime / 168);
 					$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
 					break;
-					case ($getTime >= 24):
+					case ($getTime >= 23):
 					$getTime = round($getTime / 24);
 					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
 					break;
-					case ($getTime >= 24):
+					case ($getTime <= 23):
 					$getTime = round($getTime / 24);
 					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
 					break;

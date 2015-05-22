@@ -65,10 +65,10 @@
 						<div class="col-md-6">
 							<div class="p-relative">
 								{{-- <h3 id='upload-status' style="text-align:center">
-								 HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
+								{{--HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
 								 Uploading and converting your video it takes several minutes please wait... </h3> --}}
 								<span id="percentage"></span>
-								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
+								{{-- HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))--}}
 								<div id="wrapper">
 									<div id="progressbar-loaded"></div>
 								</div>
@@ -92,12 +92,40 @@
 								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished upload.</h3>
 								<center>
 									<div id="screenshot">
-										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
+										<!--<div class="inline col-md-4" id="img-thumb-1">
+											<div class="spinner">
+											  <div class="rect1"></div>
+											  <div class="rect2"></div>
+											  <div class="rect3"></div>
+											  <div class="rect4"></div>
+											  <div class="rect5"></div>
+											</div>
+										</div>
+										<div class="inline col-md-4" id="img-thumb-2">	
+											<div class="spinner">
+											  <div class="rect1"></div>
+											  <div class="rect2"></div>
+											  <div class="rect3"></div>
+											  <div class="rect4"></div>
+											  <div class="rect5"></div>
+											</div>
+										</div>	
+										<div class="inline col-md-4" id="img-thumb-3">	
+											<div class="spinner">
+											  <div class="rect1"></div>
+											  <div class="rect2"></div>
+											  <div class="rect3"></div>
+											  <div class="rect4"></div>
+											  <div class="rect5"></div>
+											</div>
+										</div>-->		
+										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">		
 										<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">
 										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">						
+										
 									</div>
 									<br/>
-										<small>Or select desired thumbnail:</small><br><br/>
+										<small>Or browse your own thumbnail:</small><br><br/>
 										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 										<br><br/>
 										<div class="file-upload2 btn btn-primary">

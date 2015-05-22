@@ -25,7 +25,7 @@
 									<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
 								</video>
 							@else
-								{{HTML::image('img/thumbnails/video.png','',array('class' => 'hvr-grow-rotate'))}}
+								{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 							@endif
 							<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 						</div>

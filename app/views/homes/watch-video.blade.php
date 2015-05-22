@@ -238,7 +238,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 @endif
                                             </span>
                                         </p> 
-                                        <p>Posted on <b>{{$videos->created_at}}</b> &nbsp; </p>
+                                        <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
                                         <div class="seeVideoContent">
                                             <p>

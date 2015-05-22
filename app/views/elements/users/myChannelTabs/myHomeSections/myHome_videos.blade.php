@@ -23,7 +23,7 @@
 									<source id="ogg" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
 								</video>
 							@else
-								{{HTML::image('img/thumbnails/video.png','alt', array('class' => 'hvr-grow-rotate'))}}
+								{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 							@endif
 							<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 						</a>

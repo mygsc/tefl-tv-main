@@ -22,7 +22,7 @@
 					<br/>
 					<span class="glyphicon glyphicon-list fs-24"></span>
 				</div>
-				<img src="/img/thumbnails/v1.png" class="h-video thumb">
+				<img src="/img/thumbnails/video-sm.jpg" width="100%" class="h-video thumb">
 			</div>
 
 			<div class="v-Info">

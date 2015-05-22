@@ -121,7 +121,7 @@
 									@if(empty($subscriberProfile))
 										No Subscribers
 									@else
-									@foreach($subscriptionProfile as $key => $profile1)
+										@foreach($subscriptionProfile as $key => $profile1)
 									<div class="subscribers">
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
@@ -131,7 +131,7 @@
 											@endif
 											&nbsp;
 
-											<a href="{{route('view.users.channel', $profile->channel_name)}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
+											<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 											<br/>&nbsp;
 											@if(isset(Auth::User()->id))
 													<?php

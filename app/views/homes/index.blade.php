@@ -49,10 +49,10 @@
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
-							<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
+							<a href="{{route('homes.watch-video', array($recommended->file_name))}}" >
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
@@ -79,10 +79,11 @@
 			@foreach($populars as $popular)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
-						<span class="v-time inline">{{$popular->total_time}}</span>
+					<span class="v-time inline">{{$popular->total_time}}</span>
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
+						
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
+							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -109,11 +110,11 @@
 			@foreach($latests as $latest)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
+					<a href="{{route('homes.watch-video', array($latest->file_name))}}" class="thumbnail-h">
 
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
+							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -139,10 +140,10 @@
 			@foreach($randoms as $random)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
 						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
+							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">

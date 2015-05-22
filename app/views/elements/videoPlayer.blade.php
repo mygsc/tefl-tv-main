@@ -23,7 +23,28 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 		<div class="triangle-icon"></div>
 	</div>
 
-	<div class="load-video" id="loader"></div>
+	<div class="load-video" id="loader">
+	<div class="spinner2">
+		<div class="spinner2-containerb containerb1">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner2-containerb containerb2">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner2-containerb containerb3">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+	</div>
+</div>
 	<div class="error-video" id="error-video">
 		<small>
 			Error: Please try again later. <a href="#" id="retry-error">Retry.</a>

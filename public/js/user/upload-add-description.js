@@ -176,7 +176,7 @@ $("#poster").on("change", function(){
 
 
 $('img.thumb-1').on('click', function(){
-  $(this).css({'outline':'3px solid #00FF00'});
+  $(this).css({'outline':'3px solid #3ea9cb'});
   $('img.thumb-2').css({'outline':'1px solid #ccc'});
   $('img.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-1');
@@ -185,7 +185,7 @@ $('img.thumb-1').on('click', function(){
   //$('#poster').reset();
 });
 $('img.thumb-2').on('click', function(){
- $(this).css({'outline':'3px solid #00FF00'});
+ $(this).css({'outline':'3px solid #3ea9cb'});
  $('img.thumb-1').css({'outline':'1px solid #ccc'});
   $('img.thumb-3').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-2');
@@ -193,7 +193,7 @@ $('img.thumb-2').on('click', function(){
   thumbnail.value = image;
 });
 $('img.thumb-3').on('click', function(){
-  $(this).css({'outline':'3px solid #00FF00'});
+  $(this).css({'outline':'3px solid #3ea9cb'});
   $('img.thumb-1').css({'outline':'1px solid #ccc'});
   $('img.thumb-2').css({'outline':'1px solid #ccc'});
   var getImg = document.getElementById('img-thumb-3');

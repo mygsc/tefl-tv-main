@@ -45,15 +45,17 @@
 					<br/>
 					<div class="col-md-6 col-sm-6 mg-t-10">
 						<div class="input-group">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-							</span>
+							{{Form::open(array('route' => 'social', 'method' => 'GET'))}}
+									{{Form::text('add', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+										<span class="input-group-btn">
+									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+							{{Form::close()}}
+								</span>
 						</div>
 					</div>
 				
 
-					<div class="col-md-6 col-sm-6  mg-t-10">
+					<!-- <div class="col-md-6 col-sm-6  mg-t-10">
 						@if(!empty(Auth::User()->id))
 							{{Form::open()}}
 							<div class="input-group" style="">
@@ -65,7 +67,7 @@
 							</div>
 							{{Form::close()}}
 						@endif
-					</div>
+					</div> -->
 
 
 
@@ -99,7 +101,7 @@
 										<br/>
 										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 									</div>
-										<img src="/img/thumbnails/video.png">
+										{{HTML::image('img/thumbnails/video-sm.jpg')}}
 									</div>
 									@endif
 								@else
