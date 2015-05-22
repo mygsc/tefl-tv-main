@@ -93,12 +93,13 @@ class Playlist extends Eloquent {
 
 	}
 
-	public function searchPlaylists($search = null){
+	public function searchPlaylists($auth = null,$search = null){
 		if($search = '' || $search = null){
 			return 'wrong';
 		}
 
 		$searchPlaylists = Playlist::select()
+		->where('user_id', $auth)
 		->where('name', 'LIKE', '%'.$search.'%')
 		->get();
 

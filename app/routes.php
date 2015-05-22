@@ -143,7 +143,7 @@ Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-fee
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
 Route::post('channels/delete-reply-feedback', array('as' => 'post.view.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteFeedbackReply'));
 Route::post('channels/spam-reply-feedback', array('as' => 'post.view.users.spam-reply-feedback', 'uses' => 'UserController@postSpamFeedbackReply'));
-Route::get('channels/{channel_name}/videos/', array('as' => 'channels.search', 'uses' => 'VideoController@getChannelSearch'));
+Route::get('channels/{channel_name}/videos/searchVideo', array('as' => 'channels.search', 'uses' => 'VideoController@getChannelSearch'));
 Route::get('channels/{channel_name}/searchPlaylistsName', array('as' => 'channels.search.playlists', 'uses' => 'VideoController@getSearchChannelPlaylists'));
 
 //**********ADMIN**********//

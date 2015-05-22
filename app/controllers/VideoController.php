@@ -347,9 +347,10 @@ class VideoController extends BaseController {
 	public function getSearchChannelPlaylists($channel_name) {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
 		$user_id = 0;
-		$a = $this->Playlist->searchPlaylists($search);
-		return $a;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		$a = $this->Playlist->searchPlaylists($userChannel->id, $search);
+		return $a;
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$usersChannel = UserProfile::find($userChannel->id);
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
