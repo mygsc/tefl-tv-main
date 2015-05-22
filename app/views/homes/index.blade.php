@@ -61,8 +61,9 @@
 									</div>
 									<div class="count">
 										by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
-										<br />
+										<!--<br />
 										<i class="fa fa-eye"></i> {{number_format($recommended->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$recommended->likes}} | {{date('F d, Y',strtotime($recommended->created_at))}}
+										-->
 									</div>
 								</div>
 							</a>
