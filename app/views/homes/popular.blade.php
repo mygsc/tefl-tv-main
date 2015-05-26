@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="row White">
-<div class="container h-minH">
+<div class="row ">
+<div class="container">
 	<div class="row">
-		<div class="col-lg-9 col-md-8 same-H White ">
+		<div class="col-lg-9 col-md-8 same-H White h-minH ">
 			<h1 class="tblue mg-b-20 mg-t-20">Popular Videos</h1>
 			@foreach($popularVideos as $key => $popularVideo)
 			<!-- 12 column / 3 column = 4 -->
@@ -14,7 +14,7 @@
 					<div class="p-relative">
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 
-							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}">
+							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 
@@ -24,8 +24,9 @@
 						</div>
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
-							<br />
+							<!--<br />
 							<i class="fa fa-eye"></i> {{number_format($popularVideo->views)}} | <i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} | {{date('F d, Y',strtotime($popularVideo->created_at))}}
+							-->
 						</div>
 					</div>
 					</div>

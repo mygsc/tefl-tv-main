@@ -89,7 +89,7 @@
 															<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
 														</video>
 														@else
-															{{HTML::image('img/thumbnails/video.png')}}
+															{{HTML::image('img/thumbnails/video-sm.jpg')}}
 														@endif
 										</a>
 										</div>

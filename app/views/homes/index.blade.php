@@ -49,10 +49,10 @@
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
-							<a href="{{route('homes.watch-video', array($recommended->file_name))}}">
+							<a href="{{route('homes.watch-video', array($recommended->file_name))}}" >
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}">
+									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
@@ -61,8 +61,9 @@
 									</div>
 									<div class="count">
 										by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
-										<br />
+										<!--<br />
 										<i class="fa fa-eye"></i> {{number_format($recommended->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$recommended->likes}} | {{date('F d, Y',strtotime($recommended->created_at))}}
+										-->
 									</div>
 								</div>
 							</a>
@@ -79,10 +80,11 @@
 			@foreach($populars as $popular)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
-						<span class="v-time inline">{{$popular->total_time}}</span>
+					<span class="v-time inline">{{$popular->total_time}}</span>
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
+						
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}">
+							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -91,8 +93,9 @@
 							</div>
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($popular->channel_name))}}">{{$popular->channel_name}}</a>
-								<br />
+								<!--<br />
 								<i class="fa fa-eye"></i> {{number_format($popular->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$popular->likes}} | {{date('F d, Y',strtotime($popular->created_at))}}
+								-->
 							</div>
 						</div>
 					</a>
@@ -109,11 +112,11 @@
 			@foreach($latests as $latest)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($latest->file_name))}}">
+					<a href="{{route('homes.watch-video', array($latest->file_name))}}" class="thumbnail-h">
 
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}">
+							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -123,8 +126,9 @@
 
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
-								<br />
+								<!--<br />
 								<i class="fa fa-eye"></i> {{number_format($latest->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$latest->likes}} | {{date('F d, Y',strtotime($latest->created_at))}}
+								-->
 							</div>
 						</div>
 					</a>
@@ -139,10 +143,10 @@
 			@foreach($randoms as $random)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}">
-						<span class="v-time inline">{{$popular->total_time}}</span>
+					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
+						<span class="v-time inline">{{$random->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}">
+							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -151,8 +155,9 @@
 							</div>
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
-								<br />
+								<!--<br />
 								<i class="fa fa-eye"></i> {{number_format($random->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$random->likes}} | {{date('F d, Y',strtotime($random->created_at))}}
+								-->
 							</div>
 						</div>
 					</a>

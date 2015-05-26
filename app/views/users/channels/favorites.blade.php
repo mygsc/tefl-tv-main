@@ -69,7 +69,7 @@
 								@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
 									<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
 									@else
-										{{HTML::image('img/thumbnails/video.png')}}
+										{{HTML::image('img/thumbnails/video-sm.jpg')}}
 									@endif
 								</a>
 							</div>

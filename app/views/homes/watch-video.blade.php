@@ -1,16 +1,16 @@
 @extends('layouts.default')
 @section('meta')
-    <meta property="og:title" content="{{$videos->title}}">
+    <!--<meta property="og:title" content="{{$videos->title}}">
         <meta property="og:site_name" content="{{asset('/')}}">
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
-        <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
 
-       <!--  <meta property="og:type" content="video">
-        <meta property="og:video:width" content="500"> 
-        <meta property="og:video:height" content="300"> 
-        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">  -->
-
+       <meta property="og:type" content="video">
+<meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:video:width" content="640"> 
+        <meta property="og:video:height" content="360"> 
+<meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -61,6 +61,24 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
                             <!--video paler-->
                             <br/>
+	<!--advertisement-->
+	<div class="advertisement" id='advertisement' style="display:none">
+		<div class="span12" style="background:rgba(0,0,0, 0.15)">
+			<div class="col-md-10 col-md-offset-1">
+				<span class="close">x</span> 
+				<script type="text/javascript">
+    google_ad_client = "ca-pub-3138986188138771";
+    google_ad_slot = "4882426847";
+    google_ad_width = 320;
+    google_ad_height = 100;
+</script>
+<!-- tefltv ads -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+			</div>
+		</div>
+	</div>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
@@ -238,7 +256,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 @endif
                                             </span>
                                         </p> 
-                                        <p>Posted on <b>{{$videos->created_at}}</b> &nbsp; </p>
+                                        <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
                                         <div class="seeVideoContent">
                                             <p>
@@ -349,5 +367,4 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 </div>
 
 @stop
-
 

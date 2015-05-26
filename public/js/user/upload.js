@@ -51,16 +51,16 @@ $(document).ready(function(){
                     // window.location.href = "add-description!v="+response.file;
                     // $('#wrapper').fadeOut();  
                     $('#loader-progress').fadeOut();
+		    $('#spinner').fadeOut();
                     document.getElementById('post-save').action = 'add-description/'+response.vidid;
-                    $('#percentage').html('<br/>Your video is completely uploaded click save to confirm.').css({'color':'green'});
+                    $('#percentage').html('<br/>Your video is completely uploaded you can now click save.').css({'color':'#3ea9cb'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
                     document.getElementById("save").disabled = false;
-                   
                 },
                 error: function(response, status, e){
-                    alert(e);
+                    console.log('Oops something went wrong please contact the admin of TEFL TV.');
                 },
                 resetForm: true 
             });
