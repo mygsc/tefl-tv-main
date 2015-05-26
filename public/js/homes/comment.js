@@ -3,13 +3,17 @@
 		var txtComment = $('#comment').val();
 		var txtVideoId = $('#commentVideo').val();
 		var txtUserId = $('#commentUser').val();
+
+        $('#btncomment').attr('disabled', 'disabled');
 		if(txtComment.trim() == null || txtComment.trim() == 'undefined'){
-			alert('Empty comment. Please try again.')
+			alert('Empty comment. Please try again.');
+            setTimeout(enable, 1000);
 		}else{
 			$.ajax({
 				type: 'POST',
 				url: '/addcomment',
 				cache: false, 
+                context: this,
 	            data: {
 	            	comment:txtComment,
 	            	video_id:txtVideoId,
@@ -19,15 +23,20 @@
 		        	if(data['status'] == 'error'){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
-		        		$('textarea#comment').val('');
+                        txtComment = '';
+		        		$('#comment').val('');
+                        // alert(txtComment + " - " + $('#comment').val());
 		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		$('#replysection').find(".panelReply").hide('slow');
-		        		// alert(data['status']);
 		        	}
-	           	}
+                    setTimeout(enable, 1000);
+	           	} 
 	    	});
-		}
+        }
 	});
+    function enable () {
+        $('#btncomment').removeAttr('disabled');
+    }
 
 	$('#mainCommentBody').on('submit', 'form#video-addReply', function(e){
 		e.preventDefault();

@@ -141,7 +141,7 @@ class HomeController extends BaseController {
 				$folderName = $video->user_id. '-'. $video->channel_name;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-				$videos[$key]->thumbnail = 'img\thumbnails\video.png';
+				$videos[$key]->thumbnail = 'img\thumbnails\video-sm.jpg';
 				if(file_exists(public_path($thumbnail))){
 					$videos[$key]->thumbnail = $thumbnail;
 				}
@@ -156,7 +156,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle=null){
 		$videos = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
+		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);

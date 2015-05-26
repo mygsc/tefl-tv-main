@@ -1013,9 +1013,12 @@ class UserController extends BaseController {
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
 		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		
+		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews)
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
@@ -1428,6 +1431,7 @@ class UserController extends BaseController {
 
 		}else{
 			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND deleted_at IS NULL v. publish = 0 ORDER BY v.publish DESC");
+
 		}
 
 		$var = '';
@@ -1502,7 +1506,7 @@ class UserController extends BaseController {
 		try{
 			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
 			$provider = $socialAuth->authenticate($action);
-			$userProfile = $provider->getUserProfile();	
+			$userProfile = $provider->getUserProfile();
 		}
 		catch (Exception $e) {
 			return $e->getMessage();
