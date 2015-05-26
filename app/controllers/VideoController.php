@@ -126,8 +126,8 @@ class VideoController extends BaseController {
 	}
 	private function ffmpeg(){
 		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'/usr/bin/ffmpeg',
-			'ffprobe.binaries'=>'/usr/bin/ffprobe',
+			'ffmpeg.binaries'=>'/usr/local/bin/ffmpeg',
+			'ffprobe.binaries'=>'/usr/local/bin/ffprobe',
 			'timeout'=>0,
 			'ffmpeg.threads'=>12,
 			]);
@@ -145,14 +145,15 @@ class VideoController extends BaseController {
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return app::abort(404,'Page not found.');}
+		if(empty($fileName)){return Redirect::route('get.upload')->withFlashGood('Video uploading has been cancelled.');}
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload')->withFlashGood('Video uploading has been cancelled.');
+			
 		}
+		return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');
 	}
 	public function deleteDirectory($dirname) {
 		if (is_dir($dirname))
@@ -292,7 +293,7 @@ class VideoController extends BaseController {
 	  $countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 	  $allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 	  $picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-	  $countAllViews = $this->Video->countViews($allViews);
+	  $countAllViews = $this->Video->convertToShortNumbers($allViews);
 	  $usersVideos =$this->Video->getSearchVideos($search);
 	  return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	 }
@@ -306,7 +307,7 @@ class VideoController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->countViews($allViews);		
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);		
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		return View::make('users.mychannels.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture'));
@@ -326,5 +327,55 @@ class VideoController extends BaseController {
 		
 
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
+	}
+
+	public function getChannelSearch($channel_name) {
+		$userChannel = User::where('channel_name', $channel_name)->first();
+		$user_id = 0;
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchTitle'));
+		$usersVideos =$this->Video->getSearchVideos($search);
+
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
+
+		return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite'));
+	}
+
+	public function getSearchChannelPlaylists($channel_name) {
+		$user_id = 0;
+		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
+
+		$playlists = $this->Playlist->searchPlaylists($userChannel->id, $search);
+
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$usersChannel = UserProfile::find($userChannel->id);
+		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+
+
+		// $playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		// return $playlists;
+		if(!empty($playlists)){
+			foreach($playlists as $playlist){
+				$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
+			}
+		}
+
+		// return $playlists;
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
+
+		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
+	}
+
+	public function getUserSearchPlaylists() {
+		return Input::all();
 	}
 }

@@ -1,9 +1,18 @@
 	<!--advertisement-->
-	<div class="advertisement" id='advertisement' style="display:none">
-		<div class="span12" style="background:rgba(0,0,0, 0.15)">
+	<div class="advertisement" id='advertisement'>
+		<div class="span12">
 			<div class="col-md-10 col-md-offset-1">
 				<span class="close">x</span> 
-				<iframe src="http://ctrlq.org/sandbox/adsense/?at=image&is=728x90&gl=default&url=nintendo" class="img-responsive" width="100%" frameborder="0" scrolling="no"></iframe>
+				<script type="text/javascript">
+				    google_ad_client = "ca-pub-3138986188138771";
+				    google_ad_slot = "1188440440";
+				    google_ad_width = 728;
+				    google_ad_height = 90;
+				</script>
+				<!-- TEFL TV Normal -->
+				<script type="text/javascript"
+				src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
 			</div>
 		</div>
 	</div>
@@ -17,7 +26,7 @@
 	<div class="load-video" id="loader"></div>
 	<div class="error-video" id="error-video">
 		<small>
-			Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
+			{{-- Error: Please try again later. <a href="#" id="retry-error">Retry.</a> --}}
 		</small>
 	</div>
 

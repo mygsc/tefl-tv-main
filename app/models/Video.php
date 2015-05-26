@@ -1,5 +1,6 @@
 <?php
 
+
 class Video extends Eloquent{
 	use SoftDeletingTrait;
 	protected $table = 'videos';
@@ -254,13 +255,17 @@ class Video extends Eloquent{
 	}
 
 
-	public function getVideos($auth = null, $orderBy = null, $limit = null) {
+	public function getVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
-			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
-		->where('videos.user_id', $auth);
+		->where('videos.user_id', $auth)
+		->where('deleted_at', NULL);
 
+		if(!empty($uploaded)){
+			$getVideos = $getVideos->where('uploaded', $uploaded);
+		}
 		if(!empty($orderBy)) {
 			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
 		}
@@ -274,10 +279,32 @@ class Video extends Eloquent{
 
 	public function getSearchVideos($search = null){
 		if($search == ''){
-			return $search;
+			return App::abort('Error!');
 		}
 
 		$search = DB::select("SELECT *,(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes FROM videos WHERE title LIKE '%".$search."%'");
 		return $search;
+	}
+
+	public function deleteJobAdVideo(){
+		$date = new DateTime;
+		$date->modify('-30 days');
+		$formatted_date = $date->format('Y-m-d H:i:s');
+
+		$videos = Video::where('category', 'LIKE','%Video CV%')
+		->where('created_at','<', $formatted_date)
+		->orderBy('created_at','ASC')
+		->orwhere('category', 'LIKE', '%Job AD')
+		->where('created_at','<', $formatted_date)
+		->orderBy('created_at','ASC');
+
+		$findVideo = $videos->get(array('videos.id'));
+		if(!$findVideo->isEmpty()){
+			foreach($findVideo as $playlist_item){
+				PlaylistItem::where('video_id', $playlist_item->id)->delete();
+			}
+		}
+		$videos->delete();
+		return true;
 	}
 }

@@ -238,7 +238,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 @endif
                                             </span>
                                         </p> 
-                                        <p>Posted on <b><span class="set_timezone">{{$videos->created_at}}</span></b> &nbsp; </p>
+                                        <p>Posted on <b>{{$videos->created_at}}</b> &nbsp; </p>
                                         
                                         <div class="seeVideoContent">
                                             <p>
@@ -299,7 +299,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
                                         <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{$videos->views}} view/s</span>
+                                        <span>{{number_format($videos->views)}} view/s</span>
                                     </div>
                                 </div>
                                 </a>

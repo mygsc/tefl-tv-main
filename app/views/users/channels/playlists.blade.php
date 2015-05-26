@@ -44,16 +44,18 @@
 				<div class="">
 					<br/>
 					<div class="col-md-6 col-sm-6 mg-t-10">
+						{{Form::open(array('route' => ['channels.search.playlists', $userChannel->channel_name], 'method' => 'GET'))}}
 						<div class="input-group">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+							{{ Form::text('searchPlaylists', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
+							{{Form::close()}}
 						</div>
 					</div>
 				
 
-					<div class="col-md-6 col-sm-6  mg-t-10">
+					<!-- <div class="col-md-6 col-sm-6  mg-t-10">
 						@if(!empty(Auth::User()->id))
 							{{Form::open()}}
 							<div class="input-group" style="">
@@ -65,17 +67,17 @@
 							</div>
 							{{Form::close()}}
 						@endif
-					</div>
+					</div> -->
 
 
 
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
-						@if($playlists->isEmpty())
+						@if(empty($playlists))
 							<p class="text-center">No playlists yet</p>
 						@else
-							@foreach($playlists as $key=>$playlist)
+							@foreach($playlists as $key=> $playlist)
 							<div id="playlists" class="col-xs-2 col-md-3">
 								<a href="/channels/{{$userChannel->channel_name}}/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 								@if(isset($thumbnail_playlists[$key][0]))

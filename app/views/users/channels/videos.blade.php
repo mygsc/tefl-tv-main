@@ -84,11 +84,13 @@
 				<div class="">
 					<br/>
 					<div class="col-md-6 col-sm-6">
+						{{Form::open(array('route' => ['channels.search', $userChannel->channel_name], 'method' => 'GET'))}}
 						<div class="input-group" style="margin-bottom:10px;">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+							{{ Form::text('searchTitle', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
+							{{Form::close()}}
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6">
@@ -143,7 +145,8 @@
 									<br/>
 								</div>
 								<div class="count">
-									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{$usersVideo->created_at}}
+									<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
+									{{$usersVideo->uploaded}}
 								</div>
 							</div>
 						</div>
