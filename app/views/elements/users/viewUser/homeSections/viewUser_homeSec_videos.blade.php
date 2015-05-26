@@ -19,13 +19,10 @@
 					<div id="findVid">
 						<div class="thumbnail-2"> 
 							@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name.'.jpg')) )
-								<video poster="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate" />
-									<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.mp4'}}" type="video/mp4" />
-									<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.webm'}}" type="video/webm" />
-									<source src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.ogg'}}" type="video/ogg" />
-								</video>
+								<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate" />
+							
 							@else
-								{{HTML::image('img/thumbnails/video.png','',array('class' => 'hvr-grow-rotate'))}}
+								{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 							@endif
 							<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
