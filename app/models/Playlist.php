@@ -90,7 +90,7 @@ class Playlist extends Eloquent {
 	}
 
 	public function searchPlaylists($auth = null, $search = null){
-		if($search == ''){
+		if($search == '' OR $search == null){
 			return $search;
 		}
 

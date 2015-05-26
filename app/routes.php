@@ -121,6 +121,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('search', array('as' =>'search', 'uses' => 'VideoController@getSearch'));
 	Route::get('searchMyFavorites', array('as' => 'searchFavorites', 'uses' => 'VideoController@getSearchFavorites'));
 	Route::get('searchWatchLater', array('as' => 'searchWatchLater', 'uses' => 'VideoController@getSearchWatchLater'));
+	Route::get('playlists/searchPlaylistsName', array('as' => 'users.search.playlists', 'uses' => 'VideoController@getUserSearchPlaylists'));
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
