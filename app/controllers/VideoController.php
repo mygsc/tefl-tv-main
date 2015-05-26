@@ -221,7 +221,7 @@ class VideoController extends BaseController {
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify in a moment when your video is ready to watch.');
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify to you in a moment when your video is ready to watch.');
 			}
 			return Redirect::route('get.upload');					
 		}
