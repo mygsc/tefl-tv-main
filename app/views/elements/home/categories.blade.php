@@ -31,15 +31,19 @@
     </p>
   </div>
   <div id="collapseNot" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNot">
-    <div class="panel-body">
+    <div class="panel-body" style="font-size:12px;">
       @if(!empty($notifications))
         @foreach($notifications as $notification)
-          {{$notification->notification}}<br />
+          <li>{{$notification->notification}}</li>
         @endforeach
       @else
         No new notifcation
       @endif
-      {{link_to_route('users.notifications', 'See all notifications')}}
+      
+      <div class="text-center mg-t-10">
+      	{{link_to_route('users.notifications', 'See all notifications')}}
+      </div>
+      
     </div>
   </div>
 </div>
