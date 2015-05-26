@@ -1,10 +1,12 @@
 $(document).ready(function(){
-	$("#btnfeedback").click(function() {
+	$("#btnfeedback").click(function(e) {
 		var txtFeedback = $('#feedback').val();
 		var txtUserId = $('#feedbackUser').val();
 		var txtFeedbackerId = $('#feedbackOwner').val();
+		$('#btnfeedback').attr('disabled', 'disabled');
 		if(txtFeedback.trim() == null || txtFeedback.trim() == 'undefined'){
 			alert('Empty feedbacks. Please try again.');
+			setTimeout(enable, 1000);
 		}else{
 			$.ajax({
 				type: 'POST',
@@ -21,15 +23,21 @@ $(document).ready(function(){
 		        	}else if(data['status'] == 'success'){
 		        		$('textarea#feedback').val('');
 		        		$('#appendNewFeedbackHere').prepend(data['feedback']);
-		        		// alert(data['status']);
+		        		// alert(data['status'])
 		        	}
+		        	setTimeout(enable, 1000);
 	           	}
 	    	});
 		}
 	});
+	
+	function enable () {
+        $('#btnfeedback').removeAttr('disabled');
+    }
 
 	$('form#addReplyFeedback').on('submit', function(e){
 		e.preventDefault();
+		e.stopPropagation();
 		var url = $(this).prop('action');
 		$.ajax({
 			type: 'POST',
