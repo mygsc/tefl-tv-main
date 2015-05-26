@@ -51,7 +51,8 @@ $(document).ready(function(){
                     // window.location.href = "add-description!v="+response.file;
                     // $('#wrapper').fadeOut();  
                     $('#loader-progress').fadeOut();
-                    //document.getElementById('post-save').action = 'add-description/'+response.vidid;
+		    $('#spinner').fadeOut();
+                    document.getElementById('post-save').action = 'add-description/'+response.vidid;
                     $('#percentage').html('<br/>Your video is completely uploaded you can now click save.').css({'color':'#3ea9cb'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;

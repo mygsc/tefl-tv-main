@@ -1013,9 +1013,12 @@ class UserController extends BaseController {
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
 		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		
+		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countAllViews = $this->Video->convertToShortNumbers($allViews)
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
@@ -1411,7 +1414,7 @@ class UserController extends BaseController {
 							<br/>
 						</div>
 						<div class='count'>
-							<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+							<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".date('M d Y', strtotime($result->created_at))."
 						</div>
 					</div>
 				</div>
@@ -1467,7 +1470,7 @@ class UserController extends BaseController {
 						<br/>
 					</div>
 					<div class='count'>
-						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".$result->created_at."
+						<i class='fa fa-eye'></i> ".$result->views." | <i class='fa fa-thumbs-up'></i> ".$result->likes." | <i class='fa fa-calendar'></i> ".date('M d Y', strtotime($result->created_at))."
 					</div>
 				</div>
 			</div>";

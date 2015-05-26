@@ -5,11 +5,11 @@
 				<span class="close">x</span> 
 				<script type="text/javascript">
     google_ad_client = "ca-pub-3138986188138771";
-    google_ad_slot = "4882426847";
-    google_ad_width = 320;
-    google_ad_height = 100;
+    google_ad_slot = "1188440440";
+    google_ad_width = 728;
+    google_ad_height = 90;
 </script>
-<!-- tefltv ads -->
+<!-- TEFL TV Normal -->
 <script type="text/javascript"
 src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
@@ -24,7 +24,7 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 	</div>
 
 	<div class="load-video" id="loader">
-	<div class="spinner2">
+	<div class="spinner2" id='spinner'>
 		<div class="spinner2-containerb containerb1">
 			<div class="circle1"></div>
 			<div class="circle2"></div>
@@ -47,7 +47,7 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 </div>
 	<div class="error-video" id="error-video">
 		<small>
-			Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
+			<a style='display:none' href="#" id="retry-error">Retry.</a>
 		</small>
 	</div>
 

@@ -44,20 +44,7 @@ class convertvideo extends Command {
 		 if($videos !== false){
 		 	$this->convertVideo($videos);
 		 }
-		 // $videoPath = $this->argument('videoPath');
-		 // $destinationPath = $this->argument('destinationPath');
-		 // $filename = $this->argument('filename');
-		 // print("\n$videoPath\n\n");
-		 // $this->convertVideoToHigh($videoPath,$destinationPath,$filename);
-		 // $this->convertVideoToNormal($videoPath,$destinationPath,$filename);
-		 // $this->convertVideoToLow($videoPath,$destinationPath,$filename);
-		//  $publish = Video::where('file_name',$filename);
-		// if($publish->count()){
-		// 	$publish = $publish->first();
-		// 	$publish->uploaded = 1;
-		// 	$publish->save();
-		// 	//File::delete($videoPath);
-		// }
+
 		print("\r \n Conversion Done... \r \n");
 	}
 
@@ -80,18 +67,19 @@ class convertvideo extends Command {
 		if(!empty($videos)){
 			$filename = $videos->file_name;
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
-			$destinationPath = public_path('videos/'. $folderName .DS. $filename);
-			$source = $destinationPath . DS. 'original' .'.'. $videos->extension;
-			$this->convertVideoToHigh($source, $destinationPath, $filename);
-			$this->convertVideoToNormal($source, $destinationPath, $filename);
-			$this->convertVideoToLow($source, $destinationPath, $filename);
+			$destination = public_path('videos/'. $folderName .DS. $filename);//
+			$source = $destination . DS. 'original' .'.'. $videos->extension;
+			$this->convertVideoToHigh($source, $destination, $filename);
+			$this->convertVideoToNormal($source, $destination, $filename);
+			$this->convertVideoToLow($source, $destination, $filename);
+			//$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
 				
 				$routes = route('homes.watch-video', $filename);
-				$message = 'your <a href="'.$routes.'">Video</a> is ready';
+				$message = 'Your <a href="'.$routes.'">video</a> is ready to watch';
 				$notification = new Notification();
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
@@ -102,7 +90,21 @@ class convertvideo extends Command {
 		}
 		return false;
 	}
-	
+	public function convertVideoToDiffFormat($source, $destination, $filename){
+		$hdmp4 = $destination.DS.$filename.'_hd.mp4';
+		$normalmp4 = $destination.DS.$filename.'.mp4';
+		$lowmp4 = $destination.DS.$filename.'_low.mp4';
+		$hdwebm = $destination.DS.$filename.'_hd.webm';
+		$normalwebm = $destination.DS.$filename.'.webm';
+		$lowwebm = $destination.DS.$filename.'_low.webm';
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 $hdmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x480 -bufsize 1835k -b:v 500k -vcodec libx264 $normalmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 $lowmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x480 -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");
+				
+	}
 	/**
 	 * Get the console command arguments.
 	 *

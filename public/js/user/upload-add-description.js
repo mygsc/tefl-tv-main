@@ -105,7 +105,7 @@ $(document).ready(function(){
     };
  window.checkThumbnail = function() {
   if(thumbnail.value == 0){
-    alert('Please select available thumbnail if available or select desire thumbnail.');
+    alert('Please select available thumbnail if available or select your own thumbnail.');
      return false;
   }
 }

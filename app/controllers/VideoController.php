@@ -78,7 +78,6 @@ class VideoController extends BaseController {
 			$videoPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name.DS.$fileName.DS.'original'.'.'.$ext);
 			$destinationPath = public_path('videos'.DS.$user->id.'-'.$user->channel_name);
 			shell_exec("php artisan ConvertVideo $videoPath $destinationPath $fileName");
-			//shell_exec("ffmpeg -i $videoPath "."$destinationPath.test.mp4 ");
 			return Response::json(array('response'=>'Done converting...'));
 		}
 		return app::abort(404,'Page not found.');
@@ -196,13 +195,13 @@ class VideoController extends BaseController {
 				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
 			}
-			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
+			if(strlen($input['thumbnail']) > 1){  
 				$getImage = $input['thumbnail'];
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
 				$source = $destinationPath.$fileName.'.jpg';
-				$success = file_put_contents($saveImage, $decodeImage);
+				$success = file_put_contents($source, $decodeImage);
 				$this->imageResize($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->imageResize($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}		
@@ -300,7 +299,7 @@ class VideoController extends BaseController {
 	  $countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 	  $allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 	  $picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-	  $countAllViews = $this->Video->convertToShortNumbers($allViews);
+	  $countAllViews = $this->Video->countViews($allViews);
 	  $usersVideos =$this->Video->getSearchVideos($search);
 	  return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	 }
@@ -313,7 +312,7 @@ class VideoController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);		
+		$countAllViews = $this->Video->countViews($allViews);		
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		return View::make('users.mychannels.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture'));
@@ -330,52 +329,6 @@ class VideoController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
-	}
-
-	public function getChannelSearch($channel_name) {
-		$userChannel = User::where('channel_name', $channel_name)->first();
-		$user_id = 0;
-		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchTitle'));
-		$usersVideos =$this->Video->getSearchVideos($search);
-
-		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);
-		$countVideos = Video::where('user_id', $userChannel->id)->count();
-		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-
-		return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite'));
-	}
-
-	public function getSearchChannelPlaylists($channel_name) {
-		$user_id = 0;
-		$userChannel = User::where('channel_name', $channel_name)->first();
-
-		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
-
-		$playlists = $this->Playlist->searchPlaylists($userChannel->id, $search);
-
-		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-		$usersChannel = UserProfile::find($userChannel->id);
-		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
-		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);
-		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-
-
-		// $playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
-		// return $playlists;
-		if(!empty($playlists)){
-			foreach($playlists as $playlist){
-				$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
-			}
-		}
-
-		// return $playlists;
-		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-
-		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
 	}
 }
 
