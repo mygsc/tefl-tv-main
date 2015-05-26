@@ -54,6 +54,10 @@ class UserController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userRules);
 
+		if($input::has('cancel')){
+			return Redirect::route('homes.index')->flashBad('Action was canceled');
+		}
+
 		if($validate->passes()){
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
