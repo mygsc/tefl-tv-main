@@ -54,7 +54,7 @@ class UserController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userRules);
 
-		if($input::has('cancel')){
+		if(Input::has('cancel')){
 			return Redirect::route('homes.index')->flashBad('Action was canceled');
 		}
 
@@ -68,6 +68,7 @@ class UserController extends BaseController {
 
 	public function postSignUp() {
 		$input = Input::all();
+
 		if(Input::has('cancel')){
 			return Redirect::route('homes.signin');
 		}
