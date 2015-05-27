@@ -53,6 +53,10 @@ class UserController extends BaseController {
 		Session::reflash();
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userRules);
+    
+		if(Input::has('cancel')){
+			return Redirect::route('homes.index')->withFlashBad('Action was canceled');
+		}
 
 		if($validate->passes()){
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
