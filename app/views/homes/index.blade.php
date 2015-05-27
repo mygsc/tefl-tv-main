@@ -8,7 +8,7 @@
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
-@stop
+	@stop
 @section('content')
 <div class="container">
 	<div class="row">
