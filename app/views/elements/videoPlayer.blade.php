@@ -1,4 +1,3 @@
-
 <!--advertisement-->
 	@include('ads/728x90')
 	<div class="play-icon" id="play-icon">
@@ -31,12 +30,11 @@
 		<small>
 		</small>
 	</div>
+</div>
 
 <div id='ads-hide'>
 	<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 </div>
-
-
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
