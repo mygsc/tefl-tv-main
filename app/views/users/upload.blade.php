@@ -75,10 +75,9 @@
 								
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
-									   <source id='mp4' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.mp4--}}" 
-									   type="video/mp4">
-										<source id='webm' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.webm--}}" type="video/webm">
-										<source id='ogg' src="{{--/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$video->file_name.'/'.$video->file_name}}.ogg--}}" type="video/ogg">
+									   <source id='mp4' src="" type="video/mp4">
+										<source id='webm' src="" type="video/webm">
+										<source id='ogg' src="" type="video/ogg">
 									</video>
 								</div>
 								@include('elements/videoPlayer')
@@ -141,8 +140,10 @@
 										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">						
 										-->
 									</div>
-									
-										<small class="mg-t-20">Or select desired thumbnail:</small><br><br/>
+
+									<br/>
+										<small>or browse your own thumbnail:</small><br><br/>
+
 										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 										<br><br/>
 										<div class="file-upload2 btn btn-primary">

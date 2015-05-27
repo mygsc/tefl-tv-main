@@ -10,6 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
@@ -120,6 +121,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('search', array('as' =>'search', 'uses' => 'VideoController@getSearch'));
 	Route::get('searchMyFavorites', array('as' => 'searchFavorites', 'uses' => 'VideoController@getSearchFavorites'));
 	Route::get('searchWatchLater', array('as' => 'searchWatchLater', 'uses' => 'VideoController@getSearchWatchLater'));
+	Route::get('playlists/searchPlaylistsName', array('as' => 'users.search.playlists', 'uses' => 'VideoController@getUserSearchPlaylists'));
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
@@ -143,7 +145,8 @@ Route::post('channels/delete-feedback', array('as' => 'post.viewusers.delete-fee
 Route::post('channels/spam-feedback', array('as' => 'post.view.users.spam-feedback', 'uses' => 'UserController@postSpamFeedback'));
 Route::post('channels/delete-reply-feedback', array('as' => 'post.view.users.delete-reply-feedback', 'uses' => 'UserController@postDeleteFeedbackReply'));
 Route::post('channels/spam-reply-feedback', array('as' => 'post.view.users.spam-reply-feedback', 'uses' => 'UserController@postSpamFeedbackReply'));
-Route::get('channels/{channel_name}/videos/', array('as' => 'channels.search', 'uses' => 'VideoController@getChannelSearch'));
+Route::get('channels/search', array('as' => 'channels.search', 'uses' => 'VideoController@getChannelSearch'));
+Route::get('channels/{channel_name}/videos/searchVideo', array('as' => 'channels.search', 'uses' => 'VideoController@getChannelSearch'));
 Route::get('channels/{channel_name}/searchPlaylistsName', array('as' => 'channels.search.playlists', 'uses' => 'VideoController@getSearchChannelPlaylists'));
 
 //**********ADMIN**********//
@@ -175,3 +178,5 @@ Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getView
 Route::get('embed/{id}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
+
+

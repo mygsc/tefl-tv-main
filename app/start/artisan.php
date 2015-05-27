@@ -11,3 +11,4 @@
 |
 */
 Artisan::add(new convertvideo);
+Artisan::add(new Sample);

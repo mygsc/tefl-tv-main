@@ -3,6 +3,8 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
+	protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
+	protected $ffprobePath = '/home/tefltv/bin/ffprobe';
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
@@ -38,15 +40,16 @@ class VideoController extends BaseController {
 			$db_filename->total_time = $getVidDuration;
 			$db_filename->tags = null;
 			$db_filename->extension = $ext;
+			$db_filename->uploaded = 0;
 			$db_filename->publish = 0;
 			if($db_filename->save()){
 				$destinationPath = public_path('videos'.DS. $userFolderName);
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				// $this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				// $this->convertVideoToLow($input['video'],$destinationPath,$fileName);
+				 //$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
+				 //$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
+				 //$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
@@ -82,77 +85,79 @@ class VideoController extends BaseController {
 	private function captureImage($videoFile,$destinationPath,$fileName){
 		$duration = $this->duration($videoFile);
 		$firstSnap = rand(1, $duration);$secondSnap = rand(1, $duration);$thirdSnap = rand(1, $duration);
-		$ffmpeg = FFMpeg\FFMpeg::create();$video = $ffmpeg->open($videoFile);$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
+		$ffmpeg = $this->ffmpeg();
+		$video = $ffmpeg->open($videoFile);
+		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
 		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($firstSnap))->save($getImage1);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($secondSnap))->save($getImage2);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($thirdSnap))->save($getImage3);
   	  	$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);$saveImage_1 = file_get_contents($getImage1);$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);Session::put('thumbnail_1',$convertedImage_1);
 		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);$saveImage_2 = file_get_contents($getImage2);$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);Session::put('thumbnail_2',$convertedImage_2);
 		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
 	}
-	private function convertVideoToHigh($videoFile, $destinationPath, $fileName, $P1=0,$P2=0){
+	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();
-			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$webm = new FFMpeg\Format\Video\WebM();
-			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		// $mp4
-		// 	->on('progress', function ($video, $mp4, $P1) {$P1;});
-		// $webm
-		// 	->on('progress', function ($video, $webm, $P2) {$P2;});
-		$video
-			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
-			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');
-		//return Response::json(['percentloaded'=>$P1+$P2]);	
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
+			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');	
 	}
-	private function convertVideoToNormal($videoFile, $destinationPath, $fileName){
+	public function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video
-			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
+		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
-	private function convertVideoToLow($videoFile, $destinationPath, $fileName){
+	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video
-			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
+		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
-	private function ffmpeg(){
+	public function ffmpeg(){
 		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>'/usr/local/bin/ffmpeg',
-			'ffprobe.binaries'=>'/usr/local/bin/ffprobe',
+			'ffmpeg.binaries'=>$this->ffmpegPath,
+			'ffprobe.binaries'=>$this->ffprobePath,
 			'timeout'=>0,
-			'ffmpeg.threads'=>12,
+			'ffmpeg.threads'=>12
+			]);
+	}
+	private function ffprobe(){
+		return $ffprobe = FFMpeg\FFProbe::create([
+			'ffmpeg.binaries'=>$this->ffmpegPath,
+			'ffprobe.binaries'=>$this->ffprobePath,
+			'timeout'=>0,
+			'ffmpeg.threads'=>12
 			]);
 	}
 	private function getTimeDuration($path){
-		$ffprobe = FFMpeg\FFProbe::create();$duration = $ffprobe->format($path)->get('duration');
+		$ffprobe = $this->ffprobe();$duration = $ffprobe->format($path)->get('duration');
 		$vidMinLenght = floor($duration / 60);$vidSecLenght = floor($duration - ($vidMinLenght * 60));$hrs = floor($vidMinLenght / 60);$mins =  floor($vidMinLenght - ($hrs * 60));$secs =   floor($duration - ($vidMinLenght * 60));
 		if($secs < 10) { $secs = '0'.$secs; }if($vidSecLenght < 10) { $vidSecLenght = '0'.$vidSecLenght;}if($mins < 10) { $mins = '0'.$mins; }if($hrs < 10) { $hrs = '0'.$hrs; }
 		if($duration <= 3600){return $result=$vidMinLenght.':'.$vidSecLenght;}else{return $result = $hrs.':'.$mins.':'.$secs;}
 	}
 	private function duration($path){
-		$ffprobe = FFMpeg\FFProbe::create(); 
+		$ffprobe = $this->ffprobe(); 
 		$duration = $ffprobe->format($path)->get('duration');
 		return $result = floor($duration);
 	}
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
-		if(empty($fileName)){return app::abort(404,'Page not found.');}
+		if(empty($fileName)){return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');}
+
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-			return Redirect::route('get.upload')->withFlashGood('Video uploading has been cancelled.');
+
 		}
+		return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');
 	}
 	public function deleteDirectory($dirname) {
 		if (is_dir($dirname))
@@ -188,15 +193,15 @@ class VideoController extends BaseController {
 				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
 			}
-			if(strlen($input['thumbnail']) > 1){ //has selected thumbnail 
+			if(strlen($input['thumbnail']) > 1){  
 				$getImage = $input['thumbnail'];
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
-				$saveImage = $destinationPath.$fileName.'.jpg';
-				$success = file_put_contents($saveImage, $decodeImage);
-				$this->imageResize($saveImage, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->imageResize($saveImage, 240, 141, $destinationPath.$fileName.'.jpg');	
+				$source = $destinationPath.$fileName.'.jpg';
+				$success = file_put_contents($source, $decodeImage);
+				$this->imageResize($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->imageResize($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}		
 			$tags = explode(',',Input::get('tags'));
 			foreach($tags as $tag){
@@ -216,7 +221,7 @@ class VideoController extends BaseController {
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('New video has been uploaded successfully.');
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify to you in a moment when your video is ready to watch.');
 			}
 			return Redirect::route('get.upload');					
 		}
@@ -292,11 +297,10 @@ class VideoController extends BaseController {
 	  $countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 	  $allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 	  $picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-	  $countAllViews = $this->Video->convertToShortNumbers($allViews);
+	  $countAllViews = $this->Video->countViews($allViews);
 	  $usersVideos =$this->Video->getSearchVideos($search);
 	  return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	 }
-
 	public function getSearchWatchLater() {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$usersWatchLater = $this->UserWatchLater->getSearchWatchLater($search);
@@ -306,12 +310,11 @@ class VideoController extends BaseController {
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);		
+		$countAllViews = $this->Video->countViews($allViews);		
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		return View::make('users.mychannels.watchlater', compact('countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture'));
 	}
-
 	public function getSearchFavorites() {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$findUsersVideos = $this->UserFavorite->getSearchFavoriteVideos($search);
@@ -323,8 +326,6 @@ class VideoController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		
-
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
 
@@ -345,23 +346,37 @@ class VideoController extends BaseController {
 	}
 
 	public function getSearchChannelPlaylists($channel_name) {
-		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
 		$user_id = 0;
-		$a = $this->Playlist->searchPlaylists($search);
-		return $a;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
+
+		$playlists = $this->Playlist->searchPlaylists($userChannel->id, $search);
+
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$usersChannel = UserProfile::find($userChannel->id);
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
-		foreach($playlists as $playlist){
-			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
+
+
+		// $playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		// return $playlists;
+		if(!empty($playlists)){
+			foreach($playlists as $playlist){
+				$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
+			}
 		}
+
+		// return $playlists;
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
 		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
 	}
+
+	public function getUserSearchPlaylists() {
+		return Input::all();
+	}
 }
+

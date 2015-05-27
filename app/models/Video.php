@@ -178,9 +178,9 @@ class Video extends Eloquent{
 			$folderName = $video->user_id. '-'. $video->channel_name;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-			$data[$key]->thumbnail = '/img/thumbnails/video.png';
+			$data[$key]->thumbnail = '/img/thumbnails/video-sm.jpg';
 			if(file_exists(public_path($thumbnailPath))){
-				$data[$key]->thumbnail = $thumbnail;
+				$data[$key]->thumbnail = $thumbnailPath ;
 			}
 		}
 		return $data;
@@ -255,13 +255,17 @@ class Video extends Eloquent{
 	}
 
 
-	public function getVideos($auth = null, $orderBy = null, $limit = null) {
+	public function getVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
-			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes'),
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
-		->where('videos.user_id', $auth);
+		->where('videos.user_id', $auth)
+		->where('deleted_at', NULL);
 
+		if(!empty($uploaded)){
+			$getVideos = $getVideos->where('uploaded', $uploaded);
+		}
 		if(!empty($orderBy)) {
 			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
 		}

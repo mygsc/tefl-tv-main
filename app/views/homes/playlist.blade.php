@@ -20,7 +20,7 @@
 							</div>
 							<a href="/channels/{{$playlist->channel_name}}/videoplaylist={{$playlist->randID}}">
 								<div class="thumbnail-2">
-									<img src="/img/thumbnails/v1.png" class="h-video">
+									<img src="/img/thumbnails/video-sm.jpg" class="h-video" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 							</a>

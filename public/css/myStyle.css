@@ -1752,9 +1752,9 @@ html * {
 .video-info {
     text-align: center;
     color: #dfdfdf;
-    background: rgba(255,  255,  255,  0.125);
+    background: rgba(255,  255,  255,  0.6);
     position: absolute;
-    height:62px ;
+    height:42px ;
     z-index: 99998;
     font-size: 1.0em;
     bottom: 0;
@@ -1763,7 +1763,7 @@ html * {
     padding-bottom: 10px;
 }
 div .video-info:hover{
-    background: rgba(255,  255,  255,  0.75);
+    background: rgba(255,  255,  255,  0.90);
 }
 
 .Div-channel-border {

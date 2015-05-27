@@ -1,18 +1,24 @@
 	<!--advertisement-->
-	<div class="advertisement" id='advertisement' style="display:none">
-		<div class="span12" style="background:rgba(0,0,0, 0.15)">
+	<div class="advertisement" id='advertisement'>
+		<div class="span12">
 			<div class="col-md-10 col-md-offset-1">
 				<span class="close">x</span> 
 				<script type="text/javascript">
-					google_ad_client = "ca-pub-3138986188138771";
-					google_ad_slot = "4882426847";
-					google_ad_width = 320;
-					google_ad_height = 100;
+
+
+				    google_ad_client = "ca-pub-3138986188138771";
+				    google_ad_slot = "1188440440";
+				    google_ad_width = 728;
+				    google_ad_height = 90;
 				</script>
-				<!-- tefltv ads -->
-				<script type="text/javascript"
-				src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script>
+<!-- TEFL TV Normal -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+			</div>
+
+
 		</div>
 	</div>
 </div>
@@ -23,8 +29,11 @@
 	<div class="triangle-icon"></div>
 </div>
 
-<div class="load-video" id="loader">
-	<div class="spinner2">
+
+
+	<div class="load-video" id="loader">
+	<div class="spinner2" id='spinner'>
+
 		<div class="spinner2-containerb containerb1">
 			<div class="circle1"></div>
 			<div class="circle2"></div>
@@ -43,6 +52,14 @@
 			<div class="circle3"></div>
 			<div class="circle4"></div>
 		</div>
+
+	</div>
+</div>
+	<div class="error-video" id="error-video">
+		<small>
+			{{-- Error: Please try again later. <a href="#" id="retry-error">Retry.</a> --}}
+		</small>
+
 	</div>
 </div>
 

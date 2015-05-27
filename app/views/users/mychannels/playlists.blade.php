@@ -56,7 +56,7 @@
 				
 
 					<div class="col-md-6 col-sm-6  mg-t-10">
-						{{Form::open()}}
+						{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
 						<div class="input-group" style="">
 							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
 							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
@@ -106,7 +106,7 @@
 											<br/>
 											<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 										</div>
-										<img src="/img/thumbnails/video.png">
+										{{HTML::image('img/thumbnails/video-sm.jpg')}}
 									</div>
 									@endif
 									@else
@@ -118,7 +118,7 @@
 											<br/>
 											<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 										</div>
-										<img src="/img/thumbnails/video.png">
+										{{HTML::image('img/thumbnails/video-sm.jpg')}}
 									</div>
 									@endif
 
