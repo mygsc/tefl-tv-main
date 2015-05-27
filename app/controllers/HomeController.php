@@ -72,6 +72,7 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		//return $randoms;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		//return $notifications;
@@ -170,6 +171,7 @@ class HomeController extends BaseController {
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
 		->where('publish','1')
+		->where('uploaded','1')
 		->where('report_count','<','5')
 		->where('id','!=',$videos->id)
 		->orderBy('id','desc')

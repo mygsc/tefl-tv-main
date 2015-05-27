@@ -129,7 +129,11 @@
 										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 							
 										@else
+<<<<<<< HEAD
+											{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('width' => '100%','class' => 'hvr-grow-rotate'))}}
+=======
 											{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
+>>>>>>> d17e1a700122dfffc867ba05f95ad017a684552b
 										@endif
 										<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>						
 									</div>
