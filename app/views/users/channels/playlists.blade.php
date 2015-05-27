@@ -101,7 +101,7 @@
 										<br/>
 										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 									</div>
-										<img src="/img/thumbnails/video.png">
+										{{HTML::image('img/thumbnails/video-sm.jpg')}}
 									</div>
 									@endif
 								@else

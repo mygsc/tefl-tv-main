@@ -43,8 +43,9 @@ Category: {{$category}} - TEFL-tv
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($video->channel_name))}}">{{$video->channel_name}}</a>
-									<br />
+									<!--<br />
 									<i class="fa fa-eye"></i> {{$video->views}} | <i class="fa fa-thumbs-up"></i> {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
+									-->
 								</div>
 							</div>
 						</a>	

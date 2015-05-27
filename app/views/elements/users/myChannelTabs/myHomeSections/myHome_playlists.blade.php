@@ -37,7 +37,7 @@
 						<br/>
 						<span class="glyphicon glyphicon-list fs-24"></span>
 					</div>
-						<img src="/img/thumbnails/video.png">
+						<img src="/img/thumbnails/video-sm.jpg" width="100%">
 					@endif
 				@else
 					<div class="playlist-info" >

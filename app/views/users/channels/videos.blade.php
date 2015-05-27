@@ -44,7 +44,7 @@
 		<div class="row same-H White">
 			@include('elements/users/profileTop2')
 			
-			<div class="Div-channel-border">
+			<div class="channel-content">
 
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
@@ -129,7 +129,11 @@
 										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 							
 										@else
-											{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;','class' => 'hvr-grow-rotate'))}}
+<<<<<<< HEAD
+											{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('width' => '100%','class' => 'hvr-grow-rotate'))}}
+=======
+											{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
+>>>>>>> d17e1a700122dfffc867ba05f95ad017a684552b
 										@endif
 										<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>						
 									</div>

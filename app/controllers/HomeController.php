@@ -72,6 +72,7 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		//return $randoms;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		//return $notifications;
@@ -141,7 +142,7 @@ class HomeController extends BaseController {
 				$folderName = $video->user_id. '-'. $video->channel_name;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-				$videos[$key]->thumbnail = 'img\thumbnails\video.png';
+				$videos[$key]->thumbnail = 'img\thumbnails\video-sm.jpg';
 				if(file_exists(public_path($thumbnail))){
 					$videos[$key]->thumbnail = $thumbnail;
 				}
@@ -156,7 +157,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle=null){
 		$videos = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','This video is not found.');
+		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
@@ -638,11 +639,17 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$sample = array('red', 'blue');
-
-		$sample[] = 'yellow';
-
-		return $sample;
+		for ($i=1; $i<=100; $i++) {
+    if ($i % 15 == 0) {
+        printf("FizzBuzz\n");
+    } else if ($i % 5 == 0) {
+        printf("Buzz\n");
+    } else if ($i % 3 == 0) {
+        printf("Fizz\n");
+    } else{
+        printf("%d\n", $i);
+    }
+}
 		
 	}
 }

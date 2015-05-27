@@ -54,6 +54,10 @@ class UserController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userRules);
 
+		if(Input::has('cancel')){
+			return Redirect::route('homes.index')->withFlashBad('Action was canceled');
+		}
+
 		if($validate->passes()){
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
@@ -64,6 +68,7 @@ class UserController extends BaseController {
 
 	public function postSignUp() {
 		$input = Input::all();
+
 		if(Input::has('cancel')){
 			return Redirect::route('homes.signin');
 		}
@@ -766,7 +771,13 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
-
+		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
+		
 		foreach ($userFeedbacks as $key => $userFeedback) {
 			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
 			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
@@ -796,12 +807,6 @@ class UserController extends BaseController {
 
 			$userFeedbacks[$key]->spamCounts = DB::table('reported_feedbacks')->where('feedback_id', $userFeedback->id)->count();
 		}
-		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews);
-		$countVideos = Video::where('user_id', $userChannel->id)->count();
-		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
-		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
 		return View::make('users.channels.feedbacks', compact('picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id','var','usersWebsite'));
 	}
@@ -1013,9 +1018,12 @@ class UserController extends BaseController {
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
 		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		
+		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
+		
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
@@ -1065,6 +1073,7 @@ class UserController extends BaseController {
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
 		return View::make('users.channels.about', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id','usersWebsite'));
@@ -1078,6 +1087,7 @@ class UserController extends BaseController {
 		$countVideos = DB::table('videos')->where('user_id', $userChannel->id)->get();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
 
@@ -1428,6 +1438,7 @@ class UserController extends BaseController {
 
 		}else{
 			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND deleted_at IS NULL v. publish = 0 ORDER BY v.publish DESC");
+
 		}
 
 		$var = '';
@@ -1502,7 +1513,7 @@ class UserController extends BaseController {
 		try{
 			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
 			$provider = $socialAuth->authenticate($action);
-			$userProfile = $provider->getUserProfile();	
+			$userProfile = $provider->getUserProfile();
 		}
 		catch (Exception $e) {
 			return $e->getMessage();

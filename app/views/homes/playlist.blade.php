@@ -10,7 +10,7 @@
 			<div class="col-lg-9 col-md-8 same-H White h-minH">
 				<h1 class="tblue mg-b-20 mg-t-20">Playlists</h1>
 					@foreach($playlists as $key=>$playlist)
-					<div class="col-md-4">
+					<div class="col-md-6 col-lg-4 col-sm-6">
 						<div class="p-relative">
 							<div class="playlist-info" >		
 								<br/>
@@ -20,7 +20,7 @@
 							</div>
 							<a href="/channels/{{$playlist->channel_name}}/videoplaylist={{$playlist->randID}}">
 								<div class="thumbnail-2">
-									<img src="/img/thumbnails/v1.png" class="h-video">
+									<img src="/img/thumbnails/video-sm.jpg" class="h-video" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 							</a>

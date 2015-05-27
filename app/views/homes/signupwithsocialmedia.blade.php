@@ -83,7 +83,7 @@ Sign up with {{strtoupper(Session::get('social_media'))}}
 								<br/>
 							<div class="text-right mg-t-20"> 
 								{{Form::submit('Cancel', array('class' => 'btn btn-info', 'name' => 'cancel'))}}
-								{{Form::submit('sign-up', array('class' => 'btn btn-warning'))}}
+								{{Form::submit('Sign-up', array('class' => 'btn btn-warning'))}}
 							</div>
 						</div>
 

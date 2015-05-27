@@ -136,7 +136,9 @@
 												@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 												@else
-													{{HTML::image('img/thumbnails/video.png','alt', array('style:width:100%;','class' => 'hvr-grow-rotate'))}}
+
+													{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
+
 												@endif
 												<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 											</div>
@@ -144,11 +146,13 @@
 									</div>
 
 								<div class="inlineInfo ">
-									<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">	
-										<div class="v-Info">
+									
+									<div class="v-Info">
+										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">	
 											{{$usersVideo->title}}
-										</div>
-									</a>
+										</a>
+									</div>
+									
 								
 									<div class="text-justify desc hide">
 										<p>{{$usersVideo->description}}</p>
