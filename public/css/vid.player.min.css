@@ -72,7 +72,6 @@ div#progressbar #current-progress{
 	border-radius: 20px;
 	border:5px solid #fff; 
 	cursor: pointer;
-	display: none;
 }div#button-progress:hover{
 	background: #fff;border:5px solid #fc8b02; 
 }
@@ -289,22 +288,15 @@ input#volume::-moz-range-thumb {
 #share-video{
 	cursor:pointer;
 }
-.advertisement{
-	position: absolute;
-	bottom: 0;
-	background:transparent;
-	width: 100%;
-	min-height:10px;
+div.advertisement{
 	display: none;
-}.video-ads{
 	position: absolute;
-	width:10%;
-	height:80%;
-	bottom:0;
-	top:0;
 	left:0;
-	right:0;
-	background:rgba(42,42,42,0.9);
+  	right: 0;
+  	bottom: 0;
+	background:transparent;
+	width: 728px;
+	height:90px;
 }
 button#play{
 	background:rgba(42,42,42,0.9);
@@ -384,8 +376,8 @@ button#play{
 div.error-video{
  	margin: auto;  
   	position: absolute;
- 	/*left:0;
-  	right: 0;*/
+ 	left:0;
+  	right: 0;
   	top: 0;
   	/*bottom: 0;*/
   	width: 100%;
@@ -455,19 +447,21 @@ img#play{
 }#minus-vol:hover{
 	color:#337AB7;
 }
-span.close{
+small.close{
 cursor:pointer;
-background:#000;
+background: gray;
 position:absolute;
-right:2px;
-top:0;
+right:4px;
+top:2px;
 font-size: 15px;
-padding: 3px;
 z-index: 1111;
-color:#fff;
+color:#ff0000;
+width: 18px;
+height: 18px;
+text-align: center;
 }
-span.close:hover{
-color:#337AB7;
+small.close:hover{
+color:#0050ff;
 }
 .fullscreen-video{
   position: fixed;
