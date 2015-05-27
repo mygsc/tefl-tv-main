@@ -1,4 +1,3 @@
-
 <!--advertisement-->
     <div class="advertisement" id='advertisement'>
        {{--  <div class="span12">
@@ -49,7 +48,6 @@
 
 		</small>
 	</div>
-<<<<<<< HEAD
 </div>
 
 <div class="error-video" id="error-video">
@@ -61,10 +59,6 @@
 <div id='ads-hide'>
 	<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 </div>
-
-=======
->>>>>>> 7353c4ae5eadb82c4bad535a0fdbcb2071d6150c
-
 	<div id='ads-hide'>
 		<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 	</div>
