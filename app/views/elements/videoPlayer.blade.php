@@ -1,25 +1,6 @@
 	<!--advertisement-->
-	<div class="advertisement" id='advertisement' style="display:none">
-		<div class="span12" style="background:rgba(0,0,0, 0.15)">
-			<div class="col-md-10 col-md-offset-1">
-				<small class="close">x</small> 
-				<script type="text/javascript">
-
-
-				    google_ad_client = "ca-pub-3138986188138771";
-				    google_ad_slot = "1188440440";
-				    google_ad_width = 728;
-				    google_ad_height = 90;
-				</script>
-				<!-- TEFL TV Normal -->
-				<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>
-
-
-			</div>
-		</div>
-	</div>
-	<!--advertisement-->
+	@include('ads/728x90')
+	<!--end of advertisement-->
 	{{-- <div class="video-ads" id="vid-annotation"></div> --}} 
 	{{-- <div id="vid-wrap"> --}}
 	<div class="play-icon" id="play-icon">
