@@ -1018,7 +1018,7 @@ class UserController extends BaseController {
 		
 		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
-		$countAllViews = $this->Video->convertToShortNumbers($allViews)
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);

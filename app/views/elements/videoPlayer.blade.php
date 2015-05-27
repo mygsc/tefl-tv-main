@@ -1,21 +1,6 @@
 
 <!--advertisement-->
-    <div class="advertisement" id='advertisement'>
-       {{--  <div class="span12">
-            <div class="col-md-10 col-md-offset-1"> --}}
-                <div class="close">x</div> 
-                <script type="text/javascript">
-                    google_ad_client = "ca-pub-3138986188138771";
-                    google_ad_slot = "1188440440";
-                    google_ad_width = 728;
-                    google_ad_height = 90;
-                </script>
-                <!-- TEFL TV Normal -->
-                <script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-                </script>
-            {{-- </div>
-        </div>--}}
-    </div>
+	@include('ads/728x90')
 	<div class="play-icon" id="play-icon">
 		<div class="triangle-icon"></div>
 	</div>
@@ -44,30 +29,14 @@
 </div>
 	<div class="error-video" id="error-video">
 		<small>
-
-			Video not available this time please try later. <a href="#" id="retry-error">Retry.</a> 
-
 		</small>
 	</div>
-<<<<<<< HEAD
-</div>
-
-<div class="error-video" id="error-video">
-	<small>
-		Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
-	</small>
-</div>
 
 <div id='ads-hide'>
 	<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 </div>
 
-=======
->>>>>>> 7353c4ae5eadb82c4bad535a0fdbcb2071d6150c
 
-	<div id='ads-hide'>
-		<center><span class='glyphicon glyphicon-chevron-up'></span></center>
-	</div>
 	{{-- </div> --}}
 	
 	<div class="vd" style="margin-top:-7px;">
