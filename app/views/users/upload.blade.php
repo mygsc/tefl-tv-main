@@ -88,7 +88,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished upload.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished uploading.</h3>
 								<center>
 									<div id="screenshot">
 										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
