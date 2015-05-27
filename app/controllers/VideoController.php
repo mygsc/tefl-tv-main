@@ -99,24 +99,27 @@ class VideoController extends BaseController {
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');	
 	}
 	public function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	public function ffmpeg(){
@@ -149,15 +152,14 @@ class VideoController extends BaseController {
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');}
-
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-
 		}
 		return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');
+
 	}
 	public function deleteDirectory($dirname) {
 		if (is_dir($dirname))
@@ -221,7 +223,7 @@ class VideoController extends BaseController {
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify to you in a moment when your video is ready to watch.');
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify in a moment when your video is ready to watch.');
 			}
 			return Redirect::route('get.upload');					
 		}

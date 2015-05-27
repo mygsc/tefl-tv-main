@@ -15,15 +15,14 @@
 				<div class="col-lg-3 col-md-3 col-sm-6">
 					<div class="thumbnail-2">
 						<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
-							
-							@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-
-								<video id='media-video' poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="hvr-grow-rotate" >
+						<video id='media-video' poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="hvr-grow-rotate" >
 									<source id="mp4" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
 									<source id="webm" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
 								</video>
 
+
 								<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="hvr-grow-rotate" />
+								
 								
 							@else
 								{{HTML::image(' ','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
@@ -53,4 +52,4 @@
 				@endif
 			</div>
 		</div><!--well-->
-	</div><!--1st 6 column Videos
+	</div><!--1st 6 column Videos-->
