@@ -385,11 +385,10 @@ button#play{
   	right: 0;
   	top: 0;
   	bottom: 0;
-  	width: 13%;
-  	height: 16%;
-  	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
-	padding-top: 10px;
-	padding-bottom: 10px;
+  	width: 70px;
+  	height: 30px;
+  	background: transparent; /* url('/img/icons/loader.gif') no-repeat 50% 50%;*/
+	padding: 10px;
 	border-radius: 5px;
 }
 div.error-video{

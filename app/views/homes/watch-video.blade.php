@@ -5,12 +5,13 @@
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
         <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
-
+       <meta property="og:title" content="{{$videos->title}}">
+       <meta property="og:description" content="{{$videos->description}}">
        <meta property="og:type" content="video">
-<meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
-        <meta property="og:video:width" content="640"> 
-        <meta property="og:video:height" content="360"> 
-<meta property="og:video:tag" content="{{$videos->tags}}"> 
+       <meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+       <meta property="og:video:width" content="640"> 
+       <meta property="og:video:height" content="360"> 
+       <meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -20,11 +21,11 @@
 {{-- */$playlistCounter = 1;/* --}}
 {{-- */$playlistCounter2 = 1;/* --}}
 @section('some_script')
-{{HTML::script('js/subscribe.js')}}
-{{HTML::script('js/homes/watch.js')}}
-{{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
-{{HTML::script('js/homes/comment.js')}}
+{{HTML::script('/js/subscribe.js')}}
+{{HTML::script('/js/homes/watch.js')}}
+{{HTML::script('/js/video-player/media.player.min.js')}}
+{{HTML::script('/js/video-player/fullscreen.min.js')}}
+{{HTML::script('/js/homes/comment.js')}}
 
 <script type="text/javascript">
     $(document).ready(function(){
