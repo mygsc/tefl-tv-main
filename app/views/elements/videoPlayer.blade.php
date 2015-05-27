@@ -49,21 +49,8 @@
 
 		</small>
 	</div>
-<<<<<<< HEAD
-</div>
 
-<div class="error-video" id="error-video">
-	<small>
-		Error: Please try again later. <a href="#" id="retry-error">Retry.</a>
-	</small>
-</div>
 
-<div id='ads-hide'>
-	<center><span class='glyphicon glyphicon-chevron-up'></span></center>
-</div>
-
-=======
->>>>>>> 7353c4ae5eadb82c4bad535a0fdbcb2071d6150c
 
 	<div id='ads-hide'>
 		<center><span class='glyphicon glyphicon-chevron-up'></span></center>
