@@ -16,6 +16,6 @@
 		{{Form::close()}}
 	</div>
 	<hr>
-	<p class="text-center">Login with your <a href="{{route('homes.facebookconnect',array('action' => 'signin'))}}">Facecook</a> or  <a href="{{route('homes.googleconnect', array('action' => 'signin'))}}">Google</a> Account</p>
+	<p class="text-center">Login with your <a href="{{route('homes.facebookconnect',array('action' => 'signin'))}}">Facebook</a> or  <a href="{{route('homes.googleconnect', array('action' => 'signin'))}}">Google</a> Account</p>
 
 </div>
