@@ -141,7 +141,7 @@ class HomeController extends BaseController {
 				$folderName = $video->user_id. '-'. $video->channel_name;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-				$videos[$key]->thumbnail = 'img\thumbnails\video.png';
+				$videos[$key]->thumbnail = 'img\thumbnails\video-sm.jpg';
 				if(file_exists(public_path($thumbnail))){
 					$videos[$key]->thumbnail = $thumbnail;
 				}
