@@ -171,6 +171,7 @@ class HomeController extends BaseController {
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
 		->where('publish','1')
+		->where('uploaded','1')
 		->where('report_count','<','5')
 		->where('id','!=',$videos->id)
 		->orderBy('id','desc')
