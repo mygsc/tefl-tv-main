@@ -18,7 +18,6 @@
 							</video>
 							@endif
 						</div>
-
 						@include('elements/videoPlayer')
 					</div>
 				
