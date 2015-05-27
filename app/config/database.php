@@ -55,11 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-
-			'database'  => 'tefltv',
-
-			'username'  => 'gil',
-			'password'  => 'gsc2014',
+			'database'  => 'tefl-tv',
+			'username'  => 'root',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
