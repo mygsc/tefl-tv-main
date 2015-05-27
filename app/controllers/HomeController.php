@@ -72,6 +72,7 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		//return $randoms;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		//return $notifications;
@@ -637,11 +638,17 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$sample = array('red', 'blue');
-
-		$sample[] = 'yellow';
-
-		return $sample;
+		for ($i=1; $i<=100; $i++) {
+    if ($i % 15 == 0) {
+        printf("FizzBuzz\n");
+    } else if ($i % 5 == 0) {
+        printf("Buzz\n");
+    } else if ($i % 3 == 0) {
+        printf("Fizz\n");
+    } else{
+        printf("%d\n", $i);
+    }
+}
 		
 	}
 }

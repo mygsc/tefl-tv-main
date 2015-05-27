@@ -21,6 +21,6 @@ return array(
 	'client_id' => '985117573586-oi2vvlie97jvan9n3fnduohhmjmj8voj.apps.googleusercontent.com',
 	'email' => '985117573586-oi2vvlie97jvan9n3fnduohhmjmj8voj@developer.gserviceaccount.com',
 	'client_secret' => 'CxWE8DhxSUOhi6NoXOMHnLtS',
-	'redirect_uri' => route('homes.googleconnect')
+	'redirect_uri' => 'http://www.tefltv.com/signin/google-connect'
 
 	);
