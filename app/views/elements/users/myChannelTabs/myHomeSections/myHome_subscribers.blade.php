@@ -5,9 +5,10 @@
 		</div>
 		<div class="Div-channelSubSection" id="subscriberWrapper">
 			<br/><br/>
+			
 			<div class="row-same-height">
-				@if(empty($subscriberProfile))
-				<p class="text-center">No subscribers yet.</p>
+				@if($subscriberProfile->isEmpty())
+					<p class="text-center">No subscribers yet.</p>
 				@else
 					@foreach($subscriberProfile as $profile)
 					<div class="col-md-6" >

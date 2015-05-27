@@ -10,7 +10,7 @@
   </div>
   <div id="collapseTwo" class="panel-collapse" role="tabpanel" aria-labelledby="headingTwo">
     <div class="panel-body">
-      <li role="presentation">{{link_to_route('users.channel', 'Home', Auth::User()->channel_name)}}</li>
+      <li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
       <li role="presentation">{{link_to_route('users.about', 'About')}}</li>
       <li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
       <li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
