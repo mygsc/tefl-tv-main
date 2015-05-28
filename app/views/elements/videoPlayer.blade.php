@@ -1,8 +1,4 @@
-	<!--advertisement-->
-	@include('ads/728x90')
-	<!--end of advertisement-->
-	{{-- <div class="video-ads" id="vid-annotation"></div> --}} 
-	{{-- <div id="vid-wrap"> --}}
+	
 	<div class="play-icon" id="play-icon">
 		<div class="triangle-icon"></div>
 	</div>
@@ -40,7 +36,7 @@
 	<div id='ads-hide'>
 		<center><span class='glyphicon glyphicon-chevron-up'></span></center>
 	</div>
-	{{-- </div> --}}
+	
 	
 	<div class="vd" style="margin-top:-7px;">
 		<div class="wrapper" id="controls">

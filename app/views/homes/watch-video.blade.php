@@ -81,6 +81,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <div class="col-md-6">
                                                
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
+                                            {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
                                             @if(isset(Auth::User()->id))
 
                                             <span class="dropdown" id="dropdown">
