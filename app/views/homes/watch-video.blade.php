@@ -29,7 +29,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
-            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE');
             $(".seeVideoContent").slideToggle("slow");
         });    
     });
@@ -259,17 +259,18 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
                                         <div class="seeVideoContent">
-                                            <p>
+                                            <pre>
                                                {{$videos->description}}<br/><br/>
-                                                <p>Tags: {{$videos->tags}}<br/>
-                                                Categories: {{$videos->category}}</p>
-                                           </p>
+                                            </pre>
+                                            <p><b>Tags:</b> {{$videos->tags}}<br/>
+                                                <b>Categories:</b> {{$videos->category}}</p>
+                                           
                                        </div>
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
                                <div class="h-seeMore">
-                                <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
+                                <a class="linkReadMore text-center"><span>SHOW MORE</span></a>
                             </div>
                             <br/>
                         </div><!--/.info-->
