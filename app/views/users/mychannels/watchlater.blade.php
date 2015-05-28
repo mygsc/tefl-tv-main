@@ -81,7 +81,7 @@
 					</div>
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($usersWatchLater))
+						@if($usersWatchLater->isEmpty())
 							<p class="text-center">There's no video to watch later.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
@@ -116,9 +116,7 @@
 												<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
 											</video>
 										@else
-
 											{{HTML::image('img/thumbnails/video-sm.jpg')}}
-
 										@endif
 											<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
 											</a>
