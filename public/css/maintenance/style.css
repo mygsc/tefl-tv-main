@@ -154,7 +154,6 @@ a:hover {
 .jumbotron h1 {
   color: #fff;
   font-family: 'Teko', sans-serif;
-  font-size: 13em;
   font-weight: 200;
   text-shadow: 0.025em 0.025em 0.025em rgba(0, 0, 0, 0.8);
   visibility: hidden;

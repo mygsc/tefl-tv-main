@@ -12,7 +12,7 @@
          <div class="animated zoomInDown">
           <img src="img/logos/teflTv.png" style="max-width:350px;">
           </div>
-          <h1 class="glow in tlt" style="font-size:10.0em!important">We'll be right back.</h1>
+          <h1 class="glow in tlt" style="font-size:120px!important">We'll be right back.</h1>
         </div>
     </div>
   

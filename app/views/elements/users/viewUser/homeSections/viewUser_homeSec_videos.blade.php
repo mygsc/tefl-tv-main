@@ -11,7 +11,7 @@
 	<br/>
 
 	@if($findVideos->isEmpty())
-		No videos yet..
+		<p class="text-center">No videos yet..</p>
 	@else
 		@foreach($findVideos as $key => $findVideo)
 			<div class="col-md-3">
