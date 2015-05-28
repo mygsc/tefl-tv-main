@@ -130,7 +130,7 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true, 'id'=>'description'))}}
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif

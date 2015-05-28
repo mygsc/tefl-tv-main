@@ -51,7 +51,6 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
