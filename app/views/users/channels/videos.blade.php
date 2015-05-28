@@ -117,7 +117,7 @@
 
 				<div id="videosContainer" class='container'>
 					<div class="col-md-12" style="margin-left:-10px;">
-						@if(empty($usersVideos))
+						@if($usersVideos->isEmpty())
 							<p class="text-center">No Videos yet.</p>
 						@else
 						@foreach($usersVideos as $usersVideo)

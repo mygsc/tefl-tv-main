@@ -199,7 +199,7 @@
 						<div class="Div-channelSubSection" id="subscriberWrapper">
 							<br/><br/>
 							<div class="row-same-height">
-								@if(empty($subscriberProfile))
+								@if($subscriberProfile->isEmpty())
 									<p class="text-center">No subscribers yet.</p>
 								@else
 									@foreach($subscriberProfile as $profile)
@@ -255,7 +255,7 @@
 				<div class="Div-channelSubSection" id="subscriberWrapper">
 					<br/><br/>
 					<div class="row-same-height">
-						@if(empty($subscriptionProfile))
+						@if($subscriptionProfile->isEmpty())
 							<p class="text-center">No Subscriptions yet</p>
 						@else
 							@foreach($subscriptionProfile as $profile1)
