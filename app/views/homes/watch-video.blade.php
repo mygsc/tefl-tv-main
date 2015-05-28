@@ -61,24 +61,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
                             <!--video paler-->
                             <br/>
-	<!--advertisement-->
-	<div class="advertisement" id='advertisement' style="display:none">
-		<div class="span12" style="background:rgba(0,0,0, 0.15)">
-			<div class="col-md-10 col-md-offset-1">
-				<span class="close">x</span> 
-				<script type="text/javascript">
-    google_ad_client = "ca-pub-3138986188138771";
-    google_ad_slot = "4882426847";
-    google_ad_width = 320;
-    google_ad_height = 100;
-</script>
-<!-- tefltv ads -->
-<script type="text/javascript"
-src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-			</div>
-		</div>
-	</div>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
