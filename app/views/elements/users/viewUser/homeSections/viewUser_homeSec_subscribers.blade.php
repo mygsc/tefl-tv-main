@@ -6,7 +6,7 @@
 		</div>
 		<br/>
 		<div class="">
-			@if(empty($subscribers))
+			@if($subscribers->isEmpty())
 				<p class="text-center fs-12">No Subscriber yet</p>
 			@else
 				@foreach($subscribers as $subscriber)

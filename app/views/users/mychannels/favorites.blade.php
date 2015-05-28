@@ -68,7 +68,7 @@
 
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($findUsersVideos))
+						@if($findUsersVideos->isEmpty())
 							<p class="text-center">You don't have favorites yet.</p>
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)

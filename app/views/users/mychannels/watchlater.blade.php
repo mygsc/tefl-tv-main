@@ -81,7 +81,7 @@
 					</div>
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($usersWatchLater))
+						@if($usersWatchLater->isEmpty())
 							<p class="text-center">There's no video to watch later.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)

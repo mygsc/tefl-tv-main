@@ -10,7 +10,7 @@
 	</div>
 	<br/>
 	<div class="row">
-		@if(empty($usersPlaylists))
+		@if($usersPlaylists->isEmpty())
 		<p class="text-center fs-12">No Playlists yet</p>
 		@else
 		@foreach($usersPlaylists as $playlists)
