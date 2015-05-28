@@ -59,7 +59,7 @@
 										</div>-->
 									</div>
 									<br/><br/>
-									@if(empty($subscriberProfile))
+									@if($subscriberProfile->isEmpty())
 										<p class="text-center">No Subscribers</p>
 									@else
 									@foreach($subscriberProfile as $key => $profile)
@@ -118,8 +118,8 @@
 										</div>-->
 									</div>
 									<br/><br/>
-									@if(empty($subscriberProfile))
-										No Subscribers
+									@if($subscriptionProfile->isEmpty())
+										<p class="text-center">No Subscription</p>
 									@else
 										@foreach($subscriptionProfile as $key => $profile1)
 									<div class="subscribers">

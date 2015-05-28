@@ -10,7 +10,7 @@
 	</div>
 	<br/>
 
-	@if(empty($findVideos))
+	@if($findVideos->isEmpty())
 		No videos yet..
 	@else
 		@foreach($findVideos as $key => $findVideo)

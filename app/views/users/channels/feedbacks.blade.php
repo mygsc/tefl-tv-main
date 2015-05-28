@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="feedbackSection content-padding">
-					@if(empty($userFeedbacks))
+					@if($userFeedbacks->isEmpty())
 					<br/><br/>
 					<div class="mg-t-20">
 						<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
