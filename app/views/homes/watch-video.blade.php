@@ -29,7 +29,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
-            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE');
             $(".seeVideoContent").slideToggle("slow");
         });    
     });
@@ -241,17 +241,18 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
                                         <div class="seeVideoContent">
-                                            <p>
+                                            <pre>
                                                {{$videos->description}}<br/><br/>
-                                                <p>Tags: {{$videos->tags}}<br/>
-                                                Categories: {{$videos->category}}</p>
-                                           </p>
+                                            </pre>
+                                            <p><b>Tags:</b> {{$videos->tags}}<br/>
+                                                <b>Categories:</b> {{$videos->category}}</p>
+                                           
                                        </div>
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
                                <div class="h-seeMore">
-                                <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
+                                <a class="linkReadMore text-center"><span>SHOW MORE</span></a>
                             </div>
                             <br/>
                         </div><!--/.info-->
@@ -299,7 +300,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
                                         <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($videos->views)}} view/s</span>
+                                        <span>{{number_format($relation['views'])}} view/s</span>
                                     </div>
                                 </div>
                                 </a>

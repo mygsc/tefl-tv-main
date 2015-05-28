@@ -61,7 +61,7 @@
       <span class="">
         @if(!empty($categories))
           @foreach($categories as $category)
-           {{$category}}
+          <span class="capitalize"> {{$category}}</span>
           @endforeach
         @endif
       </span>
