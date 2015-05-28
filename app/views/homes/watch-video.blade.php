@@ -317,7 +317,7 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                                         <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
                                         <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($videos->views)}} view/s</span>
+                                        <span>{{number_format($relation['views'])}} view/s</span>
                                     </div>
                                 </div>
                                 </a>
