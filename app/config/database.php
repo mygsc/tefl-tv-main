@@ -51,17 +51,6 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-
-		// 'mysql' => array(
-		// 	'driver'    => 'mysql',
-		// 	'host'      => 'localhost',
-		// 	'database'  => 'tefltv_test',
-		// 	'username'  => 'tefltv_testadmin',
-		// 	'password'  => 'elearning321',
-		// 	'charset'   => 'utf8',
-		// 	'collation' => 'utf8_unicode_ci',
-		// 	'prefix'    => '',
-		// ),
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
