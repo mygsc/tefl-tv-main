@@ -7,8 +7,7 @@
 			<br/><br/>
 			
 			<div class="row-same-height">
-				@if(empty($subscriberProfile))
-				<div class="col-md-6">
+				@if($subscriberProfile->isEmpty())
 					<p class="text-center">No subscribers yet.</p>
 				@else
 					@foreach($subscriberProfile as $profile)
