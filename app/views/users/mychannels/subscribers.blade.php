@@ -120,9 +120,13 @@
 									<br/><br/>
 									<div class="subscribers">
 										@if($subscriptionProfile->isEmpty())
+<<<<<<< HEAD
 											<div class="col-md-6 col-sm-12 col-xs-12">
 												<p>No Subscriptions yet..</p>
 											</div>
+=======
+											No Subscriptions
+>>>>>>> development
 										@else
 										@foreach($subscriptionProfile as $key => $profile1)
 											<div class="col-md-6 col-sm-6 col-xs-12">
