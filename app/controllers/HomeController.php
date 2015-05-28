@@ -643,11 +643,20 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$sample = array('red', 'blue');
-
-		$sample[] = 'yellow';
-
-		return $sample;
-		
+		// $path = '/usr/bin/ffmpeg';
+		// $source = '/home/grald/Desktop/explainer.wmv';
+		// $destination = '/home/grald/Desktop/explainer.mp4';
+		// $destination1 = '/home/grald/Desktop/explainer.webm';
+		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		// return 'done converting...';
+	}
+	public function postincrementView($filename=null){
+		$increment = Video::where('file_name', $filename)->first();
+		if($increment->count()){
+			$totalView = $increment->views;
+			$increment->views = $totalView + 1;
+			$increment->save();
+			return Response::json(['totalView'=>$totalView]);
+		}
 	}
 }
