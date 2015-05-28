@@ -3,7 +3,6 @@
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
-		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
@@ -12,9 +11,8 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 White same-H">
-			<div class="row">	
-				<div class="ad-bg">
+		<div class="col-md-12 ">	
+				<div class="ad-bg same-H">
 					<div class="row">
 						<div class="col-md-6" style="">
 							<div class="mg-l-10  mg-b-10">
@@ -34,14 +32,15 @@
 					    		</div><!--/.row-->
 			    			</div>
 						</div><!--/.col-md-6-->
-						<div class="col-md-6">
+						<div class="col-md-6	">
 						</div>
 					</div>
 				</div>
 			</div>
-
+		</div>
+		<div class="col-md-9 White same-H">
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row grey mg-t--20">
+		<div class="row grey">
 		
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
@@ -169,7 +168,8 @@
 		<br/>
 	</div><!--/.container page-->
 	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
+
+			<div class="same-H grey pad-s-10 mg-l-10 row">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
