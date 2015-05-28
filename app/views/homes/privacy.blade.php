@@ -5,6 +5,7 @@
 <div class="col-md-9 White sameH-h text-justify">
 	<div class="pad-10">
 		<h1>PRIVACY POLICY</h1>
+		<br/>
 		<p> 
 			1. We will endeavor to make sure our policies and practices in relation to the collection, use, retention, transfer and access of personal data (as defined in the Ordinance) supplied by you comply with the requirements of the Personal Data (Privacy) Ordinance (Cap. 486, the laws of <b>Hong Kong) (the “Ordinance”)</b>.
 		</p>
