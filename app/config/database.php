@@ -51,11 +51,10 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tefl-tv',
+			'database'  => 'tefltv_main',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
