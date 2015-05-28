@@ -236,6 +236,7 @@ class Video extends Eloquent{
 		if(!empty($limit)){
 			$returndata = $returndata->take($limit);
 		}
+
 		return  $returndata->get();
 
 	}
@@ -244,7 +245,7 @@ class Video extends Eloquent{
 		if(empty($limit)){
 			$limit = "";
 		}
-		$returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.created_at','videos.deleted_at','videos.publish','videos.uploaded','videos.report_count',
+		$returndata = Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish','videos.uploaded','videos.report_count',
 			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
