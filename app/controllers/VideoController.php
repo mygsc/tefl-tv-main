@@ -268,7 +268,7 @@ class VideoController extends BaseController {
 	public function counter($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::where('id','=',$id)->first();
-		$video->views = $video->views+1;
+		$video->views = $video->views++;
 		$video->update();
 	}
 
