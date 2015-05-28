@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'tefl-tv',
+			'database'  => 'tefltv_main',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
