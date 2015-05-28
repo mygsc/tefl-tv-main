@@ -5,6 +5,8 @@ class VideoController extends BaseController {
 	protected $url;
 	protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
 	protected $ffprobePath = '/home/tefltv/bin/ffprobe';
+	// protected $ffmpegPath = '/usr//bin/ffmpeg';
+	// protected $ffprobePath = '/usr/bin/ffprobe';
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
@@ -268,7 +270,7 @@ class VideoController extends BaseController {
 	public function counter($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::where('id','=',$id)->first();
-		$video->views = $video->views+1;
+		$video->views = $video->views++;
 		$video->update();
 	}
 

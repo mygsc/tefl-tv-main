@@ -52,7 +52,7 @@ $(document).ready(function(){
                     // $('#wrapper').fadeOut();  
                     $('#loader-progress').fadeOut();
 		    $('#spinner').fadeOut();
-                    document.getElementById('post-save').action = 'add-description/'+response.vidid;
+                    document.getElementById('post-save').action = 'addDescription/'+response.vidid;
                     $('#percentage').html('<br/>Your video is completely uploaded you can now click save.').css({'color':'#3ea9cb'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
@@ -72,19 +72,17 @@ $(document).ready(function(){
 
 });//end of function
 
-function convertVideo(filename,ext){
-    $.ajax({
-        url:'/convert-video/'+filename+'/'+ext,
-        type:'GET',
-        data:{gerald:'burasca'},
-        success:function(e){
-            console.log(e.response);
-        },
-        error: function(e){
-            alert(e);
-        }
-    });
+$('#description').keypress(function(e){
+    enterKey(e);
+});
+ 
+ function enterKey(e){
+    if(e.keyCode === 13){
+        var desc = $('#description').val();
+        desc + "\n";
+    }
 }
+
 
 
 
