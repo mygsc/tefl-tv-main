@@ -153,15 +153,26 @@ class HomeController extends BaseController {
 		}
 		return Redirect::route('homes.index');
 	}
+	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
+		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
+		if($getQty==3){ $hrs = $totalResult[0]*3600;$min = $totalResult[1]*60;$sec = $totalResult[2]*1;}
+		if($getQty==2){ $min = $totalResult[0]*60;$sec = $totalResult[1]*1;}
+		if($getQty==1){ $sec = $totalResult[0]*1;} 
+		return $duration =  $hrs + $min + $sec;
+	}
 
-	public function watchVideo($idtitle=null){
+	public function watchVideo($idtitle=null, $autoplay = 1){
 		$videos = Video::where('file_name','=',$idtitle)->first();
+		$totalTime = $videos->total_time;
+		$duration = $this->duration($totalTime);
 		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+
+		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
+
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
@@ -169,19 +180,19 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-		->where('publish','1')
-		->where('uploaded','1')
-		->where('report_count','<','5')
-		->where('id','!=',$videos->id)
-		->orderBy('id','desc')
-		->take(3)->get();
+			->where('publish','1')
+			->where('uploaded','1')
+			->where('report_count','<','5')
+			->where('id','!=',$videos->id)->orderBy('id','desc')->take(3)->get();
 		$likeownerVideosCounter = 0;
+
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
+
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
-		}else{
+		} else{
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
@@ -190,7 +201,6 @@ class HomeController extends BaseController {
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
 				$randomCounter--;
-
 			}
 		}
 
@@ -199,14 +209,13 @@ class HomeController extends BaseController {
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
 			$favorites = UserFavorite::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = UserWatchLater::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$like = UserLike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$dislike = UserDislike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-
+				->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$playlists = null;
@@ -216,12 +225,13 @@ class HomeController extends BaseController {
 			$like = null;
 			$dislike = null;
 		}
+
 		$likeCounter = UserLike::where('video_id','=',$id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 
 		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-		->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
@@ -243,12 +253,11 @@ class HomeController extends BaseController {
 			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+			// $datas[$key]->image_src = $img;
+			// $datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
-
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
@@ -644,19 +653,20 @@ class HomeController extends BaseController {
 
 	public function testingpage(){ 
 		// $path = '/usr/bin/ffmpeg';
-		// $source = '/home/grald/Desktop/explainer.wmv';
+		// $source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
 		// $destination = '/home/grald/Desktop/explainer.mp4';
 		// $destination1 = '/home/grald/Desktop/explainer.webm';
 		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
-		// return 'done converting...';
+		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $destination1");
+		return 'done converting...';
 	}
-	public function postincrementView($filename=null){
+	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){
 			$totalView = $increment->views;
 			$increment->views = $totalView + 1;
 			$increment->save();
-			return Response::json(['totalView'=>$totalView]);
+			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
 		}
 	}
 }

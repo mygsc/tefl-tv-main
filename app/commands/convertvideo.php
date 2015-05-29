@@ -69,10 +69,10 @@ class convertvideo extends Command {
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
 			$destination = public_path('videos/'. $folderName .DS. $filename);//
 			$source = $destination . DS. 'original' .'.'. $videos->extension;
-			$this->convertVideoToHigh($source, $destination, $filename);
-			$this->convertVideoToNormal($source, $destination, $filename);
-			$this->convertVideoToLow($source, $destination, $filename);
-			//$this->convertVideoToDiffFormat($source, $destination, $filename);
+			// $this->convertVideoToHigh($source, $destination, $filename);
+			// $this->convertVideoToNormal($source, $destination, $filename);
+			// $this->convertVideoToLow($source, $destination, $filename);
+			$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;

@@ -143,7 +143,7 @@
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
-						<span class="v-time inline">{{$popular->total_time}}</span>
+						<span class="v-time inline">{{$random->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
