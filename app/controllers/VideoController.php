@@ -3,10 +3,10 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
-	// protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
-	// protected $ffprobePath = '/home/tefltv/bin/ffprobe';
-	protected $ffmpegPath = '/usr/bin/ffmpeg';
-	protected $ffprobePath = '/usr/bin/ffprobe';
+	protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
+	protected $ffprobePath = '/home/tefltv/bin/ffprobe';
+	// protected $ffmpegPath = '/usr/bin/ffmpeg';
+	// protected $ffprobePath = '/usr/bin/ffprobe';
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
