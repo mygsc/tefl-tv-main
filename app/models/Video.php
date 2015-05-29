@@ -179,9 +179,9 @@ class Video extends Eloquent{
 			$folderName = $video->user_id. '-'. $video->channel_name;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-			$data[$key]->thumbnail = '/img/thumbnails/video-sm.jpg';
+			$data[$key]->thumbnail = '/img/thumbnails/video.png';
 			if(file_exists(public_path($thumbnailPath))){
-				$data[$key]->thumbnail = $thumbnailPath ;
+				$data[$key]->thumbnail = $thumbnail;
 			}
 		}
 		return $data;
@@ -248,7 +248,7 @@ class Video extends Eloquent{
 			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
-		->where('videos.uploaded','1')
+		->where('videos.uploa ded','1')
 		->where('videos.report_count', '<', 5)
 		->where('videos.id','!=',$id)
 		->where('users.status','=','1')
