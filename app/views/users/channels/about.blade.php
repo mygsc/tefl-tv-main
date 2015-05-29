@@ -6,17 +6,17 @@
 <div class="row">
 	<div class="container pageH White">
 		<div class="row same-H">
-			@include('elements/users/profileTop2')
+			@include('elements/users/viewUser/viewUser_profileTop')
 			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation" class="active">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+							<li role="presentation" class="active">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+							<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
+							<li role="presentation">{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
+							<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+							<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 				  	</ul><!--tabNav-->
 
 				  	<nav class="navbar navbar-default visible-sm visible-xs">
@@ -44,7 +44,7 @@
 				  	<br/>
 				    <div class="tab-content">
 					  <br/>
-						<div class="row">
+						<div class="">
 							<div class="col-md-12">
 								<div class="" id="about">
 									<div class="col-md-12 grey">
@@ -104,7 +104,6 @@
 									<h3 class="orangeC text-center">-Contact Information-</h3>
 									<div class="well2">
 										<table class="tableLayout">
-											
 											<tr>
 												@if(empty(Auth::User()->email))
 

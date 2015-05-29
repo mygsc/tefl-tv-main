@@ -24,6 +24,7 @@ $(document).ready(function(){
                 $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 
                 $('.h-minH').fadeOut(500);
                 $('#add-description').fadeIn(1000);
+                $('#percentage').html('Start uploading...').css({'color':'#000'});
             }else{
                 $('#progress').fadeOut('fast');
                 return $('#upload-error').html('Error: File type is not valid.').css({'color':'#cc3510'});
@@ -40,20 +41,17 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    $('#percentage').html('Uploading...'+percentComplete+'%').css({'color':'#000'});
+                    $('#percentage').html('Uploading in progress...'+percentComplete+'%').css({'color':'#000'});
                     if(percentComplete==100){
-                        $('#percentage').html('Done please wait a moment...');
+                        $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
                     }
-                    //$('#percentage').html('Uploading and converting your video it takes several minutes.').css({'color':'#000'});
                 },
                 success: function(response){
-                    // $('#percentage').html('Done please wait a moment...');
-                    // window.location.href = "add-description!v="+response.file;
-                    // $('#wrapper').fadeOut();  
                     $('#loader-progress').fadeOut();
-		    $('#spinner').fadeOut();
+                    $('#loader').fadeOut();
+		            $('#spinner').fadeOut();
                     document.getElementById('post-save').action = 'addDescription/'+response.vidid;
-                    $('#percentage').html('<br/>Your video is completely uploaded you can now click save.').css({'color':'#3ea9cb'});
+                    $('#percentage').html('Your video is completely uploaded you can now click save.').css({'color':'#000'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
@@ -75,7 +73,6 @@ $(document).ready(function(){
 // $('#description').keypress(function(e){
 //     enterKey(e);
 // });
-
 //  function enterKey(e){
 //     if(e.keyCode === 13){
 //         var desc = $('#description').val();

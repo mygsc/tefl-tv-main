@@ -121,13 +121,13 @@ hr  {
     
     box-sizing:  content-box
 }
-   {
+pre  {
     
     overflow:  auto
 }
 code, 
 kbd, 
- , 
+pre, 
 samp  {
     
     font-size:  1em
@@ -256,7 +256,7 @@ th  {
 }
 
     blockquote, 
-       {
+    pre  {
     
         border:  1px solid #999;
     
@@ -711,7 +711,7 @@ th  {
     content: "\e179"}
 .glyphicon-header:before {
     content: "\e180"}
-.glyphicon-com ssed:before {
+.glyphicon-compressed:before {
     content: "\e181"}
 .glyphicon-earphone:before {
     content: "\e182"}
@@ -1192,7 +1192,7 @@ address {
     font-style: normal;
     line-height: 1.42857143;
 }
-code, kbd,  , samp {
+code, kbd, pre, samp {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
@@ -1218,7 +1218,7 @@ kbd kbd {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-  {
+pre {
     display: block;
     padding: 9.5px;
     margin: 0 0 10px;
@@ -1230,15 +1230,15 @@ kbd kbd {
 
     border-radius: 4px;
 }
-  code {
+pre code {
     padding: 0;
     font-size: inherit;
     color: inherit;
-    white-space:  -wrap;
+    white-space: pre-wrap;
     background-color: transparent;
     border-radius: 0;
 }
-. -scrollable {
+.pre-scrollable {
     max-height: 340px;
     overflow-y: scroll;
 }
@@ -3582,7 +3582,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .pager .next>a, .pager .next>span {
     float: right;
 }
-.pager . vious>a, .pager . vious>span {
+.pager .previous>a, .pager .previous>span {
     float: left;
 }
 .pager .disabled>a, .pager .disabled>a:focus, .pager .disabled>a:hover, .pager .disabled>span {
@@ -4765,31 +4765,31 @@ button.close {
     -webkit-transform: translate3d(100%, 0, 0);
     transform: translate3d(100%, 0, 0);
 }
-.carousel-inner>.item.active.left, .carousel-inner>.item. v {
+.carousel-inner>.item.active.left, .carousel-inner>.item.prev {
     left: 0;
     -webkit-transform: translate3d(-100%, 0, 0);
     transform: translate3d(-100%, 0, 0);
 }
-.carousel-inner>.item.active, .carousel-inner>.item.next.left, .carousel-inner>.item. v.right {
+.carousel-inner>.item.active, .carousel-inner>.item.next.left, .carousel-inner>.item.prev.right {
     left: 0;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
-}.carousel-inner>.active, .carousel-inner>.next, .carousel-inner>. v {
+}.carousel-inner>.active, .carousel-inner>.next, .carousel-inner>.prev {
     display: block;
 }
 .carousel-inner>.active {
     left: 0;
 }
-.carousel-inner>.next, .carousel-inner>. v {
+.carousel-inner>.next, .carousel-inner>.prev {
     position: absolute;
     top: 0;
     width: 100%}
 .carousel-inner>.next {
     left: 100%}
-.carousel-inner>. v {
+.carousel-inner>.prev {
     left: -100%}
-.carousel-inner>.next.left, .carousel-inner>. v.right {
+.carousel-inner>.next.left, .carousel-inner>.prev.right {
     left: 0;
 }
 .carousel-inner>.active.left {
@@ -4834,13 +4834,13 @@ button.close {
     outline: 0;
     opacity: .9;
 }
-.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon- v {
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
     position: absolute;
     top: 50%;
     z-index: 5;
     display: inline-block;
 }
-.carousel-control .glyphicon-chevron-left, .carousel-control .icon- v {
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
     left: 50%;
     margin-left: -10px;
 }
@@ -4848,14 +4848,14 @@ button.close {
     right: 50%;
     margin-right: -10px;
 }
-.carousel-control .icon-next, .carousel-control .icon- v {
+.carousel-control .icon-next, .carousel-control .icon-prev {
     width: 20px;
     height: 20px;
     margin-top: -10px;
     font-family: serif;
     line-height: 1;
 }
-.carousel-control .icon- v:before {
+.carousel-control .icon-prev:before {
     content: '\2039'}
 .carousel-control .icon-next:before {
     content: '\203a'}
@@ -4903,13 +4903,13 @@ button.close {
     text-shadow: none;
 }
 @media screen and (min-width:768px) {
-    .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon- v {
+    .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
     width: 30px;
     height: 30px;
     margin-top: -15px;
     font-size: 30px;
 }
-.carousel-control .glyphicon-chevron-left, .carousel-control .icon- v {
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
     margin-left: -15px;
 }
 .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next {
