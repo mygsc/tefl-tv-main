@@ -43,7 +43,8 @@
 			<br/>
 			<div class="row">
 				<div class="gMapAlt">
-					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1461.0549223360788!2d-85.75507619999998!3d42.91272430000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8819b06fecb194fd%3A0x9e91004f0a34d58f!2s2885+Sanford+Ave+SW%2C+Grandville%2C+MI+49418%2C+USA!5e0!3m2!1sen!2sph!4v1424049361913" class="gMapAlt"></iframe>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m19!1m12!1m3!1d3691.804362584677!2d114.15436199999999!3d22.285399500000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m4!3e6!4m0!4m1!2s9B%2C+Amtel+Building%2C++148+Des+Voeux+Road+Central%2C++Central+Hongkong!5e0!3m2!1sen!2sph!4v1432802903442"  class="gMapAlt"></iframe>
+
 				</div>
 				<br/>
 				{{Form::open(array('route' => 'post.homes.aboutus'))}}

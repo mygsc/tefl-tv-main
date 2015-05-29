@@ -49,9 +49,6 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				 //$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
@@ -383,5 +380,6 @@ class VideoController extends BaseController {
 	public function getUserSearchPlaylists() {
 		return Input::all();
 	}
+	
 }
 

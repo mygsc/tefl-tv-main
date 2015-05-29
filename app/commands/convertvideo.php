@@ -97,9 +97,9 @@ class convertvideo extends Command {
 		$hdwebm = $destination.DS.$filename.'_hd.webm';
 		$normalwebm = $destination.DS.$filename.'.webm';
 		$lowwebm = $destination.DS.$filename.'_low.webm';
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 $hdmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libx264 $normalmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 $lowmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
 		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
 		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
 		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
