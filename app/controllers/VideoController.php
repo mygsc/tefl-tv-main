@@ -28,7 +28,7 @@ class VideoController extends BaseController {
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
-		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght++);}
+		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght+1);}
 		if($validator->passes()){
 			$input['user_id'] = $this->Auth->id;
 			$ext = $input['video']->getClientOriginalExtension();
