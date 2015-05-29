@@ -29,7 +29,7 @@
 					</ul>
 					@endif
 					{{Form::open(array('route' => 'post.upload','files' => true,'id'=>'vidSubmit'))}}
-					<div style="margin-left:auto; margin-right:auto;" >
+					<div style="margin-lewft:auto; margin-right:auto;" >
 						<label class="fileContainer" style="margin-left:auto;">
 							<img src="/img/icons/upload.png">
 							{{Form::file('video', array('id'=>'vids-upload','accept'=>"video/*"))}}						
@@ -115,14 +115,14 @@
 								
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true))}}
+									{{Form::text('title',null,array('class'=>'form-control'))}}
 									@if ($errors->has('title'))
 										<small style="color:red">{{$errors->first('title')}}</small>
 									@endif
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
-									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control','required'=>true)) }}
+									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control')) }}
 
 								</div> 
 							
@@ -130,12 +130,12 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true, 'id'=>'description'))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description'))}}
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
-								{{Form::text('tags',null,array('class'=>'form-control','required'=>true))}}
+								{{Form::text('tags',null,array('class'=>'form-control'))}}
 									@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
 									@endif
