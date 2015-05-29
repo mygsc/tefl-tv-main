@@ -59,7 +59,7 @@
 <div class="row" style="display:none" id='add-description'>
 	<div class="container page White same-H">	
 		<div class="">
-		{{Form::open(array('files'=>'true', 'route' => 'post.addDescription', 'id'=>'post-save'))}}
+		{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
 				<div class="">
 					<div class="row">
 						<div class="col-md-6">
