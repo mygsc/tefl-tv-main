@@ -181,7 +181,7 @@ class Video extends Eloquent{
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$data[$key]->thumbnail = '/img/thumbnails/video.png';
 			if(file_exists(public_path($thumbnailPath))){
-				$data[$key]->thumbnail = $thumbnail;
+				$data[$key]->thumbnail = $thumbnailPath;
 			}
 		}
 		return $data;

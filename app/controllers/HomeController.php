@@ -180,7 +180,9 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-			->where('publish','1')->where('uploaded','1')->where('report_count','<','5')
+			->where('publish','1')
+			->where('uploaded','1')
+			->where('report_count','<','5')
 			->where('id','!=',$videos->id)->orderBy('id','desc')->take(3)->get();
 		$likeownerVideosCounter = 0;
 
@@ -251,8 +253,8 @@ class HomeController extends BaseController {
 			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+			// $datas[$key]->image_src = $img;
+			// $datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
 		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
