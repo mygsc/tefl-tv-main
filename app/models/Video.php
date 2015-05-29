@@ -249,7 +249,7 @@ class Video extends Eloquent{
 			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
-		->where('videos.uploa ded','1')
+		->where('videos.uploaded','1')
 		->where('videos.report_count', '<', 5)
 		->where('videos.id','!=',$id)
 		->where('users.status','=','1')

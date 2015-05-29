@@ -156,6 +156,7 @@ class HomeController extends BaseController {
 
 	public function watchVideo($idtitle=null){
 		$videos = Video::where('file_name','=',$idtitle)->first();
+		
 		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
