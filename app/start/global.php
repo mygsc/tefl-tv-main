@@ -66,6 +66,7 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
+	return Response::view('errors.maintenance', array(), 500);
 	return Response::make("Be right back!", 503);
 });
 

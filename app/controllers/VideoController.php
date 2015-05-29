@@ -49,9 +49,6 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				 //$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
@@ -261,10 +258,11 @@ class VideoController extends BaseController {
 		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$searchResults = $this->Video->searchVideos($search);
+		$categories = $this->Video->getCategory();
 		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
-		return View::make('homes.searchresult', compact(array('type','searchResults', 'search')));
+		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories')));
 	}
 
 	public function counter($id){
@@ -382,5 +380,6 @@ class VideoController extends BaseController {
 	public function getUserSearchPlaylists() {
 		return Input::all();
 	}
+	
 }
 

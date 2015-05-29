@@ -161,7 +161,7 @@ class HomeController extends BaseController {
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
 
-		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
@@ -641,11 +641,20 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$sample = array('red', 'blue');
-
-		$sample[] = 'yellow';
-
-		return $sample;
-		
+		// $path = '/usr/bin/ffmpeg';
+		// $source = '/home/grald/Desktop/explainer.wmv';
+		// $destination = '/home/grald/Desktop/explainer.mp4';
+		// $destination1 = '/home/grald/Desktop/explainer.webm';
+		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		// return 'done converting...';
+	}
+	public function postincrementView($filename=null){
+		$increment = Video::where('file_name', $filename)->first();
+		if($increment->count()){
+			$totalView = $increment->views;
+			$increment->views = $totalView + 1;
+			$increment->save();
+			return Response::json(['totalView'=>$totalView]);
+		}
 	}
 }
