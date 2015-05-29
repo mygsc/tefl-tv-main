@@ -44,7 +44,7 @@
 				  	<br/>
 				    <div class="tab-content">
 					  <br/>
-						<div class="row">
+						<div class="">
 							<div class="col-md-12">
 								<div class="" id="about">
 									<div class="col-md-12 grey">
@@ -104,7 +104,6 @@
 									<h3 class="orangeC text-center">-Contact Information-</h3>
 									<div class="well2">
 										<table class="tableLayout">
-											
 											<tr>
 												@if(empty(Auth::User()->email))
 
