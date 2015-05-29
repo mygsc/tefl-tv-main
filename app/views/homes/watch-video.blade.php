@@ -243,14 +243,15 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         </p> 
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
-                                        <div class="seeVideoContent">
-                                            <pre>
-                                               {{$videos->description}}<br/><br/>
-                                            </pre>
+                                        <div class="seeVideoContent black">
+                                            <br/>
+                                            <pre style="text-indent:none!important;">{{$videos->description}}</pre>
+                                            <br/><br/>
                                             <p><b>Tags:</b> {{$videos->tags}}<br/>
-                                                <b>Categories:</b> {{$videos->category}}</p>
+                                            <b>Categories:</b> {{$videos->category}}</p>
                                            
                                        </div>
+                                    
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
