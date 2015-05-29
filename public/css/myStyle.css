@@ -934,6 +934,9 @@ center;     margin: 0 auto; }
 .blogComment {
     padding-left: 80px;
 }
+.pad-r-40{
+    padding-right: 60px;
+}
 .grey{
     background: #E0E0E0;
 }
