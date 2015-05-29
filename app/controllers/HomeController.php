@@ -160,8 +160,10 @@ class HomeController extends BaseController {
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
+
 		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
+
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
@@ -169,19 +171,17 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-		->where('publish','1')
-		->where('uploaded','1')
-		->where('report_count','<','5')
-		->where('id','!=',$videos->id)
-		->orderBy('id','desc')
-		->take(3)->get();
+			->where('publish','1')->where('uploaded','1')->where('report_count','<','5')
+			->where('id','!=',$videos->id)->orderBy('id','desc')->take(3)->get();
 		$likeownerVideosCounter = 0;
+
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
+
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
-		}else{
+		} else{
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
@@ -190,7 +190,6 @@ class HomeController extends BaseController {
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
 				$randomCounter--;
-
 			}
 		}
 
@@ -199,14 +198,13 @@ class HomeController extends BaseController {
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
 			$favorites = UserFavorite::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = UserWatchLater::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$like = UserLike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$dislike = UserDislike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-
+				->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$playlists = null;
@@ -216,12 +214,13 @@ class HomeController extends BaseController {
 			$like = null;
 			$dislike = null;
 		}
+
 		$likeCounter = UserLike::where('video_id','=',$id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 
 		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-		->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
@@ -248,7 +247,6 @@ class HomeController extends BaseController {
 
 		}
 		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
-
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
