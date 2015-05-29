@@ -282,11 +282,12 @@ class Video extends Eloquent{
 	}
 
 	public function getSearchVideos($search = null){
-		if($search == ''){
+		if(empty($search)){
 			return App::abort('Error!');
 		}
-
-		$search = DB::select("SELECT *,(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = videos.user_id) AS likes FROM videos WHERE title LIKE '%".$search."%'");
+		$search = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'))->where('title','LIKE', '%'.$search.'%')->get();
 		return $search;
 	}
 

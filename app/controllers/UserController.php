@@ -403,7 +403,7 @@ class UserController extends BaseController {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
-		$countVideos = DB::table('videos')->where('user_id', Auth::User()->id)->get();
+		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
