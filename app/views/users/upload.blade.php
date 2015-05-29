@@ -8,9 +8,9 @@
 	{{HTML::script('js/user/upload.js')}}
 	{{HTML::script('js/user/upload-add-description.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
-	{{HTML::script('js/video-player/media.player.upload.min.js')}}
+	{{--HTML::script('js/video-player/media.player.upload.min.js')--}}
 	{{HTML::script('js/bootstrap.min.js')}}
-	{{HTML::style('css/vid.player.min.css')}}
+	{{--HTML::style('css/vid.player.min.css')--}}
 	{{HTML::style('css/upload.min.css')}}
 @stop
 @section('content')
@@ -80,7 +80,7 @@
 										<source id='ogg' src="" type="video/ogg">
 									</video>
 								</div>
-								@include('elements/videoPlayer')
+								{{-- @include('elements/videoPlayer') --}}
 							</div>
 			
 						</div>
@@ -88,7 +88,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished uploading.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h3>
 								<center>
 									<div id="screenshot">
 										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
