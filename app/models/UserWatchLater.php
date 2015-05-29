@@ -34,8 +34,8 @@ class UserWatchLater extends Eloquent {
 		return $userVideoWatchLater;
 	}
 
-	public function getSearchWatchLater($search){
-		if($search == ''){
+	public function getSearchWatchLater($auth = null, $search = null){
+		if(empty($search)){
 			return $search;
 		}
 
@@ -46,7 +46,8 @@ class UserWatchLater extends Eloquent {
 		(SELECT u2.channel_name FROM users u2 WHERE u2.id = uploader) AS uploaders_channel_name')
 		 )
 		->join('videos', 'videos.id', '=', 'user_watch_later.video_id')
-		->where('videos.title', $search)
+		->where('user_watch_later.user_id', $auth)
+		->where('videos.title', 'LIKE', '%'.$search.'%')
 		->get();
 		return $watchLater; 
 	}
