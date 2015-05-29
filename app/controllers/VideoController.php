@@ -261,10 +261,11 @@ class VideoController extends BaseController {
 		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$searchResults = $this->Video->searchVideos($search);
+		$categories = $this->Video->getCategory();
 		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
-		return View::make('homes.searchresult', compact(array('type','searchResults', 'search')));
+		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories')));
 	}
 
 	public function counter($id){
