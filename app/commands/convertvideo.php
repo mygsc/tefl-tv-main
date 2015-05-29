@@ -54,7 +54,7 @@ class convertvideo extends Command {
 		->where('uploaded', '0')
 		->where('report_count', '<', 5)
 		->join('users', 'videos.user_id', '=','users.id')
-		->take(2)
+		->take(1)
 		->orderBy('created_at', 'asc')
 		->get();
 		if($videos->isEmpty()){
