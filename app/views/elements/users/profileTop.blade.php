@@ -29,7 +29,7 @@
 
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label>{{count($countVideos)}} Videos</label> &nbsp;
+									<label>{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</span>
 								
