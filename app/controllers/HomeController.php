@@ -72,7 +72,6 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
-		//return $randoms;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		//return $notifications;
@@ -161,7 +160,7 @@ class HomeController extends BaseController {
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
@@ -248,7 +247,6 @@ class HomeController extends BaseController {
 			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		
 		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
 	}
@@ -534,6 +532,9 @@ class HomeController extends BaseController {
 			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'disliked'))->count();
+
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
 			if($likeUserId != $videoData->user_id){
@@ -544,7 +545,7 @@ class HomeController extends BaseController {
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
 			/*Notification End*/
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCount' => $dislikesCount));
 
 		} elseif($statuss == 'unliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
@@ -566,7 +567,10 @@ class HomeController extends BaseController {
 					)
 				);
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
-			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'liked'))->count();
+
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked', 'likesCount' => $likesCount));
 		} elseif($statuss == 'undisliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
@@ -639,17 +643,20 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		for ($i=1; $i<=100; $i++) {
-    if ($i % 15 == 0) {
-        printf("FizzBuzz\n");
-    } else if ($i % 5 == 0) {
-        printf("Buzz\n");
-    } else if ($i % 3 == 0) {
-        printf("Fizz\n");
-    } else{
-        printf("%d\n", $i);
-    }
-}
-		
+		// $path = '/usr/bin/ffmpeg';
+		// $source = '/home/grald/Desktop/explainer.wmv';
+		// $destination = '/home/grald/Desktop/explainer.mp4';
+		// $destination1 = '/home/grald/Desktop/explainer.webm';
+		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		// return 'done converting...';
+	}
+	public function postincrementView($filename=null){
+		$increment = Video::where('file_name', $filename)->first();
+		if($increment->count()){
+			$totalView = $increment->views;
+			$increment->views = $totalView + 1;
+			$increment->save();
+			return Response::json(['totalView'=>$totalView]);
+		}
 	}
 }

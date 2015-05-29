@@ -74,7 +74,7 @@
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
-						@if(empty($playlists))
+						@if($playlists->isEmpty())
 							<p class="text-center">No playlists yet</p>
 						@else
 							@foreach($playlists as $key=> $playlist)

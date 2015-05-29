@@ -63,6 +63,9 @@ title {
     font-size: 1.2em;
     font-weight: bold;
 }
+.capitalize {
+    text-transform: capitalize;
+}
 @media (max-width: 991px) {
     .navbar-header {
         float: none;
@@ -1761,6 +1764,9 @@ html * {
     width: 100%;
     padding-left: 10px;
     padding-bottom: 10px;
+    border-left: 1px solid #cecece;
+    border-right: 1px solid #cecece;
+    border-bottom: 1px solid #cecece;
 }
 div .video-info:hover{
     background: rgba(255,  255,  255,  0.90);
@@ -2025,6 +2031,7 @@ div.crop-square img {
     background-color: #fff;
     border-radius: 2px;
     overflow: hidden;
+    border: 1px solid #cecece;
 }
 
 a.thumbnail-h {
@@ -3149,7 +3156,7 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
   z-index: 999999999999999999999;
 }
 
-
+ 
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/

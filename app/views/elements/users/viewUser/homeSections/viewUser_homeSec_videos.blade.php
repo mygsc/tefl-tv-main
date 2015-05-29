@@ -10,8 +10,8 @@
 	</div>
 	<br/>
 
-	@if(empty($findVideos))
-		No videos yet..
+	@if($findVideos->isEmpty())
+		<p class="text-center">No videos yet..</p>
 	@else
 		@foreach($findVideos as $key => $findVideo)
 			<div class="col-md-3">

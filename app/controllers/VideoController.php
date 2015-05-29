@@ -5,6 +5,8 @@ class VideoController extends BaseController {
 	protected $url;
 	protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
 	protected $ffprobePath = '/home/tefltv/bin/ffprobe';
+	// protected $ffmpegPath = '/usr//bin/ffmpeg';
+	// protected $ffprobePath = '/usr/bin/ffprobe';
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
@@ -47,9 +49,6 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				 //$this->convertVideoToHigh($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToNormal($input['video'],$destinationPath,$fileName);
-				 //$this->convertVideoToLow($input['video'],$destinationPath,$fileName);
 				$this->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
@@ -99,24 +98,27 @@ class VideoController extends BaseController {
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_hd.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_hd.webm');	
 	}
 	public function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'.webm');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
-		$video->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
+		$video
+			->save($mp4, $destinationPath.DS.$fileName.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.DS.$fileName.'_low.webm');	
 	}
 	public function ffmpeg(){
@@ -149,15 +151,14 @@ class VideoController extends BaseController {
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');}
-
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
 			Video::where('file_name', $fileName)->delete();
-
 		}
 		return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');
+
 	}
 	public function deleteDirectory($dirname) {
 		if (is_dir($dirname))
@@ -221,7 +222,7 @@ class VideoController extends BaseController {
 				for($n=1;$n<=3;$n++){
 					File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				}
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify to you in a moment when your video is ready to watch.');
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGood('Your video has been saved we will notify in a moment when your video is ready to watch.');
 			}
 			return Redirect::route('get.upload');					
 		}
@@ -257,16 +258,17 @@ class VideoController extends BaseController {
 		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$searchResults = $this->Video->searchVideos($search);
+		$categories = $this->Video->getCategory();
 		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
-		return View::make('homes.searchresult', compact(array('type','searchResults', 'search')));
+		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories')));
 	}
 
 	public function counter($id){
 		$id = Crypt::decrypt($id);
 		$video = Video::where('id','=',$id)->first();
-		$video->views = $video->views+1;
+		$video->views = $video->views++;
 		$video->update();
 	}
 
@@ -378,5 +380,6 @@ class VideoController extends BaseController {
 	public function getUserSearchPlaylists() {
 		return Input::all();
 	}
+	
 }
 

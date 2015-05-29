@@ -1,4 +1,4 @@
-videos-->
+<!--videos-->
 	<div class="col-md-12 grey">
 		<br/>
 		<div class="orangeC text-center">
@@ -8,7 +8,7 @@ videos-->
 		</div>
 		<br/>
 		<div class="">
-			@if(empty($usersVideos))
+			@if($usersVideos->isEmpty())
 				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
@@ -17,15 +17,7 @@ videos-->
 						<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 							
 							@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-
-								{{-- <video id='media-video' poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="hvr-grow-rotate" >
-									<source id="mp4" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.mp4'}}" type="video/mp4" />
-									<source id="webm" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.webm'}}" type="video/webm" />
-									<source id="ogg" src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.ogg'}}" type="video/ogg" />
-								</video> --}}
-
 								<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}"  width="100%" class="hvr-grow-rotate" />
-								
 							@else
 								{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 							@endif
@@ -50,4 +42,4 @@ videos-->
 				@endif
 			</div>
 		</div><!--well-->
-	</div><!--1st 6 column Videos
+	</div><!--1st 6 column Videos-->

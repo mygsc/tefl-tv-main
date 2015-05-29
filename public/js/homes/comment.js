@@ -3,17 +3,13 @@
 		var txtComment = $('#comment').val();
 		var txtVideoId = $('#commentVideo').val();
 		var txtUserId = $('#commentUser').val();
-
-        $('#btncomment').attr('disabled', 'disabled');
 		if(txtComment.trim() == null || txtComment.trim() == 'undefined'){
-			alert('Empty comment. Please try again.');
-            setTimeout(enable, 1000);
+			alert('Empty comment. Please try again.')
 		}else{
 			$.ajax({
 				type: 'POST',
 				url: '/addcomment',
 				cache: false, 
-                context: this,
 	            data: {
 	            	comment:txtComment,
 	            	video_id:txtVideoId,
@@ -23,20 +19,15 @@
 		        	if(data['status'] == 'error'){
 		        		$('#errorlabel').text(data['label']);
 		        	}else if(data['status'] == 'success'){
-                        txtComment = '';
-		        		$('#comment').val('');
-                        // alert(txtComment + " - " + $('#comment').val());
+		        		$('textarea#comment').val('');
 		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		$('#replysection').find(".panelReply").hide('slow');
+		        		// alert(data['status']);
 		        	}
-                    setTimeout(enable, 1000);
-	           	} 
+	           	}
 	    	});
-        }
+		}
 	});
-    function enable () {
-        $('#btncomment').removeAttr('disabled');
-    }
 
 	$('#mainCommentBody').on('submit', 'form#video-addReply', function(e){
 		e.preventDefault();
@@ -85,11 +76,12 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
+                        $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC');
+                        $(this).parent().find('.commentdislikedup > span.dislikescount').val(data['dislikesCount']);
         			} else if(data['label'] == 'liked'){
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
-        			$(this).find('span.fa-thumbs-up').val(data['label']);
-        			// alert(data['likescount']);
+        			$(this).find('span.fa-thumbs-down').val(data['label']);
         		} 
             }
         });
@@ -112,10 +104,11 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
         				$(this).find('span.fa-thumbs-down').addClass('redC');
+                        $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC');
+                        $(this).parent().find('.commentdislikedup > span.likescount').val(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
         				$(this).find('span.fa-thumbs-down').removeClass('redC');
         			}
-        			// alert(data['likescount']);
         		} 
             }
         });
@@ -143,7 +136,6 @@
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
-        			// alert(data['likescount']);
         		} 
             }
         });

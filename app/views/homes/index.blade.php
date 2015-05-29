@@ -3,7 +3,6 @@
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
-		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
@@ -12,9 +11,8 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 White same-H">
-			<div class="row">	
-				<div class="ad-bg">
+		<div class="col-md-12 ">	
+				<div class="ad-bg same-H">
 					<div class="row">
 						<div class="col-md-6" style="">
 							<div class="mg-l-10  mg-b-10">
@@ -34,20 +32,21 @@
 					    		</div><!--/.row-->
 			    			</div>
 						</div><!--/.col-md-6-->
-						<div class="col-md-6">
+						<div class="col-md-6	">
 						</div>
 					</div>
 				</div>
 			</div>
-
+		</div>
+		<div class="col-md-9 White same-H">
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row grey mg-t--20">
+		<div class="row grey">
 		
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
 				<div class="row ">
 					@foreach($recommendeds as $recommended)
-					<div class="col-lg-4 col-md-6 col-sm-6">
+					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
 							<a href="{{route('homes.watch-video', array($recommended->file_name))}}" >
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
@@ -78,7 +77,7 @@
 		<div class="row">
 			<h2 class="orangeC mg-l-10">Popular Videos</h2>
 			@foreach($populars as $popular)
-			<div class="col-lg-4 col-md-6 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<span class="v-time inline">{{$popular->total_time}}</span>
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
@@ -110,7 +109,7 @@
 			<h2 class="orangeC mg-l-10">Latest Videos</h2>
 
 			@foreach($latests as $latest)
-			<div class="col-lg-4 col-md-6 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($latest->file_name))}}" class="thumbnail-h">
 
@@ -141,10 +140,10 @@
 		<div class="row">
 			<h2 class="orangeC mg-l-10">Random Videos</h2>
 			@foreach($randoms as $random)
-			<div class="col-lg-4 col-md-6 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
-						<span class="v-time inline">{{$random->total_time}}</span>
+						<span class="v-time inline">{{$popular->total_time}}</span>
 						<div class="thumbnail-2">
 							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
@@ -169,7 +168,8 @@
 		<br/>
 	</div><!--/.container page-->
 	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
+
+			<div class="same-H grey pad-s-10 mg-l-10 row">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')

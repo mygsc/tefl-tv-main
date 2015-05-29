@@ -69,10 +69,10 @@ class convertvideo extends Command {
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
 			$destination = public_path('videos/'. $folderName .DS. $filename);//
 			$source = $destination . DS. 'original' .'.'. $videos->extension;
-			$this->convertVideoToHigh($source, $destination, $filename);
-			$this->convertVideoToNormal($source, $destination, $filename);
-			$this->convertVideoToLow($source, $destination, $filename);
-			//$this->convertVideoToDiffFormat($source, $destination, $filename);
+			// $this->convertVideoToHigh($source, $destination, $filename);
+			// $this->convertVideoToNormal($source, $destination, $filename);
+			// $this->convertVideoToLow($source, $destination, $filename);
+			$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
@@ -97,13 +97,12 @@ class convertvideo extends Command {
 		$hdwebm = $destination.DS.$filename.'_hd.webm';
 		$normalwebm = $destination.DS.$filename.'.webm';
 		$lowwebm = $destination.DS.$filename.'_low.webm';
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 $hdmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x480 -bufsize 1835k -b:v 500k -vcodec libx264 $normalmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 $lowmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
 		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x480 -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");
-				
+		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
 	}
 	/**
 	 * Get the console command arguments.
@@ -131,7 +130,7 @@ class convertvideo extends Command {
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();
 			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();
 			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -142,7 +141,7 @@ class convertvideo extends Command {
 		$ffmpeg = $this->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'.mp4')
 			->save($webm, $destinationPath.DS.$fileName.'.webm');	
@@ -150,7 +149,7 @@ class convertvideo extends Command {
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
-		$mp4 = new FFMpeg\Format\Video\X264();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
