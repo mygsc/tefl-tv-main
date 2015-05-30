@@ -652,12 +652,12 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		// $path = '/usr/bin/ffmpeg';
-		// $source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
-		// $destination = '/home/grald/Desktop/explainer.mp4';
-		// $destination1 = '/home/grald/Desktop/explainer.webm';
-		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
-		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $destination1");
+		$path = '/usr/bin/ffmpeg';
+		$source = '/home/grald/Desktop/trip.mp4';
+		//$destination = '/home/grald/Desktop/explainer.mp4';
+		$destination1 = '/home/grald/Desktop/trip.webm';
+		//shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination1");
 		return 'done converting...';
 	}
 	public function postincrementView($filename=null, $autoplay=1){

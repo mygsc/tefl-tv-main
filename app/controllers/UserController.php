@@ -419,11 +419,14 @@ class UserController extends BaseController {
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make($input,Video::$video_edit_rules);
 		if($validator->passes()){
-			if($input['poster']){
+			if(Input::hasFile('poster')){
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg');
+					File::delete($destinationPath.$fileName.'_600x338.jpg');
+					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
+					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
-				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
+				return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
 			}
 
 			$video = Video::where('file_name',$id)->first();
