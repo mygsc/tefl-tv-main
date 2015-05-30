@@ -1,4 +1,9 @@
 @extends('layouts.default')
+
+@section('title')
+    {{$videos->title}}
+@stop
+
 @section('meta')
     <!--<meta property="og:title" content="{{$videos->title}}">
         <meta property="og:site_name" content="{{asset('/')}}">
