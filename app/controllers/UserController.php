@@ -294,8 +294,14 @@ class UserController extends BaseController {
 			$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$sessionFacebook = Session::get('sessionFacebook');
+			$sessionFacebook = Cookie::forever('sessionFacebook', $sessionFacebook);
+			$sessionFacebook = $sessionFacebook->getValue();
 			$sessionTwitter = Session::get('sessionTwitter');
+			$sessionTwitter = Cookie::forever('sessionTwitter', $sessionTwitter);
+			$sessionTwitter = $sessionTwitter->getValue();
 			$sessionGmail = Session::get('sessionGmail');
+			$sessionGmail = Cookie::forever('sessionGmail', $sessionGmail);
+			$sessionGmail = $sessionGmail->getValue();
 			return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));
 		}
 		
@@ -735,7 +741,7 @@ class UserController extends BaseController {
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		
+		if($this->Auth->id == $userChannel->id) return Redirect::route('users.channel');
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		if(empty($userChannel)) return View::make('users.channelnotexist');
