@@ -189,10 +189,9 @@ class HomeController extends BaseController {
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
-
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
-		} else{
+		}else{
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
@@ -200,7 +199,6 @@ class HomeController extends BaseController {
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
-				$randomCounter--;
 			}
 		}
 
@@ -257,6 +255,7 @@ class HomeController extends BaseController {
 			// $datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
+
 		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
@@ -652,12 +651,14 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		// $path = '/usr/bin/ffmpeg';
-		// $source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
-		// $destination = '/home/grald/Desktop/explainer.mp4';
-		// $destination1 = '/home/grald/Desktop/explainer.webm';
-		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
-		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $destination1");
+		$path = '/usr/bin/ffmpeg';
+		$source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
+		//$destination = '/home/grald/Desktop/explainer.mp4';
+		$destination1 = '/home/grald/Desktop/triphd.webm';
+		$destination2 = '/home/grald/Desktop/trip600x360.webm';
+		//shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		shell_exec("$path  -i $source -original 1 -metadata title='License to TEFL TV' -s 600x480 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination1");
+		//shell_exec("$path  -i $source -s 600x360 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination2");
 		return 'done converting...';
 	}
 	public function postincrementView($filename=null, $autoplay=1){
