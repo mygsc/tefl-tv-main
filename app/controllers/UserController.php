@@ -426,13 +426,15 @@ class UserController extends BaseController {
 		$validator = Validator::make($input,Video::$video_edit_rules);
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
+				if(!file_exists($destinationPath)){
+					return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
+				}
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
 					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
-				return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
 			}
 
 			$video = Video::where('file_name',$id)->first();
@@ -455,7 +457,7 @@ class UserController extends BaseController {
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',$id)->withFlashGood('Successfully updated');
+			return Redirect::route('video.edit.get',$id)->withFlashGood('Changes has been successfully saved.');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
