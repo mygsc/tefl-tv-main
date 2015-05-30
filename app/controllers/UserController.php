@@ -294,8 +294,14 @@ class UserController extends BaseController {
 			$userWebsite = Website::where('user_id', Auth::User()->id)->first();
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$sessionFacebook = Session::get('sessionFacebook');
+			$sessionFacebook = Cookie::forever('sessionFacebook', $sessionFacebook);
+			$sessionFacebook = $sessionFacebook->getValue();
 			$sessionTwitter = Session::get('sessionTwitter');
+			$sessionTwitter = Cookie::forever('sessionTwitter', $sessionTwitter);
+			$sessionTwitter = $sessionTwitter->getValue();
 			$sessionGmail = Session::get('sessionGmail');
+			$sessionGmail = Cookie::forever('sessionGmail', $sessionGmail);
+			$sessionGmail = $sessionGmail->getValue();
 			return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));
 		}
 		
@@ -419,11 +425,16 @@ class UserController extends BaseController {
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make($input,Video::$video_edit_rules);
 		if($validator->passes()){
-			if($input['poster']){
+			if(Input::hasFile('poster')){
+				if(!file_exists($destinationPath)){
+					return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
+				}
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg');
+					File::delete($destinationPath.$fileName.'_600x338.jpg');
+					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
+					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
-				$resizeImage = Image::make($poster->getRealPath())->fit(600,339)->save($destinationPath.$fileName.'.jpg');
 			}
 
 			$video = Video::where('file_name',$id)->first();
@@ -446,7 +457,7 @@ class UserController extends BaseController {
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',$id)->withFlashGood('Successfully updated');
+			return Redirect::route('video.edit.get',$id)->withFlashGood('Changes has been successfully saved.');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
@@ -732,7 +743,7 @@ class UserController extends BaseController {
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		
+		if($this->Auth->id == $userChannel->id) return Redirect::route('users.channel');
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		if(empty($userChannel)) return View::make('users.channelnotexist');

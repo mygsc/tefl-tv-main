@@ -4,7 +4,7 @@ return array(
 	"providers"  => array (
 		"Google"     => array (
 			"enabled"    => true,
-			 "keys"    => array ( "id" => "434751596783-gnklt9ebvmo1dv8ekpkk4boq63af5thr.apps.googleusercontent.com", "secret" => "yIg9k_mUPVN5iXoSmAfjzHk4" ),
+			 "keys"    => array ( "id" => "195870632416-ikscr2lt2c8rcponse0sld4btviiaro4.apps.googleusercontent.com", "secret" => "ftGqSdVQkN10hSaL-nlsBN77" ),
 	          // "scope"           => "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
 			),
 		"Facebook"   => array (
