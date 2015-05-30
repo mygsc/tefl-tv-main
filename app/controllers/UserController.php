@@ -743,7 +743,9 @@ class UserController extends BaseController {
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		if($this->Auth->id == $userChannel->id) return Redirect::route('users.channel');
+		if(Auth::check()){
+			if($this->Auth->id == $userChannel->id) return Redirect::route('users.channel');
+		}
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		if(empty($userChannel)) return View::make('users.channelnotexist');
