@@ -14,10 +14,6 @@
 				<video id="media-video" width="100%" poster="/img/thumbnails/v1.png">
 					<source src='/videos/movie.mp4' type='video/mp4'>
 					<source src='/videos/movie.webm' type='video/webm'>
-					<source src='/videos/movie.ogg' type='video/ogg'>
-					<source src='/videos/movie.mov' type='video/mov'>
-					<source src='/videos/movie.m4v' type='video/x-m4v'>
-					<source src='/videos/movie.3gp' type='video/3gpp'>
 				</video>
 				<div class="advertisement" style="display:none">
 					<span class="close">x</span> 

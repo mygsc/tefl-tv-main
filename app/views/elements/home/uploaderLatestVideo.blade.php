@@ -14,7 +14,7 @@
         @foreach($ownerVideos as $ownerVideo)
         <div class="col-md-4">
             <div class="vThumbnails">
-                <a href="/watch!v={{$ownerVideo->file_name}}" class="">
+                <a href="/watch?v={{$ownerVideo->file_name}}" class="">
                     @if(file_exists(public_path("/videos/".$ownerVideo->user_id."-".$owner->channel_name."/".$ownerVideo->file_name."/".$ownerVideo->file_name.".jpg")))
                     <img src="/videos/{{$ownerVideo->user_id}}-{{$owner->channel_name}}/{{$ownerVideo->file_name}}/{{$ownerVideo->file_name}}.jpg" alt=""/>
                     @else

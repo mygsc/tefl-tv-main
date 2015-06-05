@@ -8,9 +8,9 @@
 	{{HTML::script('js/user/upload.js')}}
 	{{HTML::script('js/user/upload-add-description.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
-	{{HTML::script('js/video-player/media.player.upload.min.js')}}
+	{{--HTML::script('js/video-player/media.player.upload.min.js')--}}
 	{{HTML::script('js/bootstrap.min.js')}}
-	{{HTML::style('css/vid.player.min.css')}}
+	{{--HTML::style('css/vid.player.min.css')--}}
 	{{HTML::style('css/upload.min.css')}}
 @stop
 @section('content')
@@ -29,7 +29,7 @@
 					</ul>
 					@endif
 					{{Form::open(array('route' => 'post.upload','files' => true,'id'=>'vidSubmit'))}}
-					<div style="margin-left:auto; margin-right:auto;" >
+					<div style="margin-lewft:auto; margin-right:auto;" >
 						<label class="fileContainer" style="margin-left:auto;">
 							<img src="/img/icons/upload.png">
 							{{Form::file('video', array('id'=>'vids-upload','accept'=>"video/*"))}}						
@@ -80,7 +80,7 @@
 										<source id='ogg' src="" type="video/ogg">
 									</video>
 								</div>
-								@include('elements/videoPlayer')
+								{{-- @include('elements/videoPlayer') --}}
 							</div>
 			
 						</div>
@@ -88,7 +88,7 @@
 						<div class="col-md-6">
 
 							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnail will show after video is finished uploading.</h3>
+								<h3 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h3>
 								<center>
 									<div id="screenshot">
 										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
@@ -115,14 +115,14 @@
 								
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control', 'required'=>true))}}
+									{{Form::text('title',null,array('class'=>'form-control'))}}
 									@if ($errors->has('title'))
 										<small style="color:red">{{$errors->first('title')}}</small>
 									@endif
 								</div>
 								<div class="col-md-4">
 									{{Form::label('Publish/Unpublish:')}}
-									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control','required'=>true)) }}
+									{{ Form::select('publish', array('1' => 'Publish','0' => 'Unpublish'), 1 , array('class' => 'form-control')) }}
 
 								</div> 
 							
@@ -130,12 +130,12 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;','required'=>true, 'id'=>'description'))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description'))}}
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
-								{{Form::text('tags',null,array('class'=>'form-control','required'=>true))}}
+								{{Form::text('tags',null,array('class'=>'form-control'))}}
 									@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
 									@endif

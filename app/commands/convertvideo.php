@@ -9,8 +9,10 @@ class convertvideo extends Command {
 	 * @var string
 	 */
 	protected $name = 'ConvertVideo';
-	protected $ffmpegPath = '/root/bin/ffmpeg';
-	protected $ffprobePath = '/root/bin/ffprobe';
+	// protected $ffmpegPath = '/root/bin/ffmpeg';
+	// protected $ffprobePath = '/root/bin/ffprobe';
+	protected $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
+	protected $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
 	/**  
 	 * The console command description.
 	 *

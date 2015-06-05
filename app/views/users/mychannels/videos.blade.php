@@ -131,7 +131,7 @@
 											{{Form::close()}}
 										</span>
 								
-										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
 											<div class="thumbnail-2">
 												@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
@@ -146,7 +146,7 @@
 								<div class="inlineInfo ">
 									
 									<div class="v-Info">
-										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">	
+										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">	
 											{{$usersVideo->title}}
 										</a>
 									</div>

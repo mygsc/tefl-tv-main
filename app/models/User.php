@@ -178,7 +178,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
 		->take($limit)
 		->join('users_profile', 'users_profile.user_id', '=', 'users.id')
-		->orderBy('views')
+		->orderBy('views', 'DESC')
 		->get();
 
 		foreach($userData as $key => $user){

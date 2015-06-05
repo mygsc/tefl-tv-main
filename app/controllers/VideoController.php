@@ -3,10 +3,10 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
-	protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
-	protected $ffprobePath = '/home/tefltv/bin/ffprobe';
-	// protected $ffmpegPath = '/usr//bin/ffmpeg';
-	// protected $ffprobePath = '/usr/bin/ffprobe';
+	// protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
+	// protected $ffprobePath = '/home/tefltv/bin/ffprobe';
+	protected $ffmpegPath = '/usr/local/bin/ffmpeg';
+	protected $ffprobePath = '/usr/local/bin/ffprobe';
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
@@ -28,7 +28,7 @@ class VideoController extends BaseController {
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
-		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght++);}
+		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght+1);}
 		if($validator->passes()){
 			$input['user_id'] = $this->Auth->id;
 			$ext = $input['video']->getClientOriginalExtension();
@@ -58,9 +58,9 @@ class VideoController extends BaseController {
 					'thumb1' => Session::get('thumbnail_1'),
 					'thumb2' => Session::get('thumbnail_2'),
 					'thumb3' => Session::get('thumbnail_3'),
-					'videoPath' => $videoPath,
-					'destinationPath' => $destinationPath,
-					'ext' => $ext,
+					// 'videoPath' => $videoPath,
+					// 'destinationPath' => $destinationPath,
+					// 'ext' => $ext,
 					]);
 			}
 		}
@@ -237,7 +237,8 @@ class VideoController extends BaseController {
 	}
 
 	public function getViewVideoPlayer(){
-		$filename = str_replace('http://localhost:8000/watch?v=', '', $this->url);
+		$domain = asset('/');
+		$filename = str_replace($domain.'watch?v=', '', $this->url);
 		return $filename;
 		return View::make('videoplayer');
 	}
