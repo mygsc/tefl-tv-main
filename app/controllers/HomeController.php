@@ -170,7 +170,7 @@ class HomeController extends BaseController {
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
 		$videos = Video::where('file_name', '=', $filename)->first();
-		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the link you are looking is not found.');
+		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the page you are looking is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
 		$id = $videos->id;

@@ -325,4 +325,10 @@ class Video extends Eloquent{
 	public function resizeImage($source, $w, $h, $destination){
 		Image::make($source)->resize($w,$h)->encode('jpg', 10)->save($destination);
 	}
+	public function getTimeDuration($path){
+		$ffprobe = $this->ffprobe();$duration = $ffprobe->format($path)->get('duration');
+		$vidMinLenght = floor($duration / 60);$vidSecLenght = floor($duration - ($vidMinLenght * 60));$hrs = floor($vidMinLenght / 60);$mins =  floor($vidMinLenght - ($hrs * 60));$secs =   floor($duration - ($vidMinLenght * 60));
+		if($secs < 10) { $secs = '0'.$secs; }if($vidSecLenght < 10) { $vidSecLenght = '0'.$vidSecLenght;}if($mins < 10) { $mins = '0'.$mins; }if($hrs < 10) { $hrs = '0'.$hrs; }
+		if($duration <= 3600){return $result=$vidMinLenght.':'.$vidSecLenght;}else{return $result = $hrs.':'.$mins.':'.$secs;}
+	}
 }

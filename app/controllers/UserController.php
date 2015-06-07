@@ -390,11 +390,22 @@ class UserController extends BaseController {
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
+	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
+		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
+		if($getQty==3){ $hrs = $totalResult[0]; $min = $totalResult[1]; $sec = $totalResult[2];}
+		if($getQty==2){ $min = $totalResult[0]; $sec = $totalResult[1];}
+		if($getQty==1){ $sec = $totalResult[0];}
+		if($hrs<10){$hrs = '0'.$hrs;}
+		if($min<10){$min = '0'.$min;}
+		if($sec<10){$sec = '0'.$sec;}
+		return $duration =  $hrs.':' . $min.':' . $sec;
+	}
 
 	public function getEditVideo($id){
 		$file_name = Video::where('file_name',$id)->first();
 		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
 		$id = $file_name->id;
+		$hms = $this->duration($file_name->total_time);
 		$video = Video::find($id);
 		$owner = User::find($video->user_id);
 		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
@@ -421,7 +432,7 @@ class UserController extends BaseController {
 		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
 		$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
 		$getThumbnail->convertImageToBase64($thumb1,$thumb2,$thumb3); 
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
 	}
 
 	public function postEditVideo($id){

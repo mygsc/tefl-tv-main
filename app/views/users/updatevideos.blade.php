@@ -7,7 +7,11 @@
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
 <script type="text/javascript">
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
+	hms = document.getElementById('hms').value;
+
 	$(document).ready(function() {
+
 		$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
@@ -65,21 +69,94 @@
 		});
 
 		function createAnnotation(title,id){
-			var annotation = document.getElementById('annotation');
+			count += 1; 
+			var annotationTypeTag = document.createElement('span');
+			if(id=='note'){annotationTypeTag.className = 'glyphicon glyphicon-file';}
+			else if(id=='title'){annotationTypeTag.className = 'glyphicon glyphicon-font';}
+			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-folder-close';}
+			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
+			var annotationTypeCaption = document.createTextNode(title);
+			var elem = document.createTextNode(title);
 			var createDiv = document.createElement('div');
 			var createSpan = document.createElement('span');
-			var createTextarea = document.createElement('textarea');        
-			var elem = document.createTextNode(title);
-			var spanContent = document.createTextNode('Delete');       
-			createDiv.appendChild(elem);
-			createSpan.appendChild(spanContent);  
-			createDiv.setAttribute('id', 'annotation-'+id);    
-			createDiv.setAttribute('style', 'width:100%;height:25px;color:#000;margin-top:10px;');
+			var createTextarea = document.createElement('textarea'); 
+			checkbox = document.createElement('input');
+			checkbox.type = 'checkbox';  
+			checkbox.name = 'checkbox' + '-link-' + count;
+			checkbox.id = 'checkbox' + '-link-' + count; 
+			var label = document.createElement('label');
+			var labelText = document.createTextNode('link');
+			// var elem = document.createTextNode(title);
+			var spanText = document.createTextNode('x');  
+			createDiv.appendChild(annotationTypeTag);
+			annotationTypeTag.appendChild(annotationTypeCaption);
+			//createDiv.appendChild(elem);
+			createSpan.appendChild(spanText); 
+			label.appendChild(labelText);
+			createSpan.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');//border:1px solid #1AADF2;
+			createSpan.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
+			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
+			createTextarea.setAttribute('placeholder', 'Enter text here...');
+			createTextarea.style.marginTop = '5px';
+			label.setAttribute('for', 'checkbox' + '-link-' + count);
+			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
 			annotation.appendChild(createDiv); 
-			annotation.appendChild(createTextarea); 
+			createDiv.appendChild(createSpan);
+			createDiv.appendChild(createTextarea); 
+			
+			 
+			var startTagLabel = document.createElement('label');
+			var startTagCaption = document.createTextNode('Start:');
+				startTagLabel.appendChild(startTagCaption);
+				createDiv.appendChild(startTagLabel);
+			var startTagInput = document.createElement('input'); 
+				startTagInput.type = 'text';
+				startTagInput.id = 'start' + '-time-' + count;
+				startTagInput.name = 'start' + '-time-' + count;
+				startTagInput.value = '00:00:00';
+				createDiv.appendChild(startTagInput);
+				
+			var endTagLabel = document.createElement('label');
+			var endTagCaption = document.createTextNode('End:');
+				endTagLabel.appendChild(endTagCaption);
+				createDiv.appendChild(endTagLabel);
+			var endTagInput = document.createElement('input');  
+				endTagInput.type = 'text';
+				endTagInput.id = 'start' + '-time-' + count;
+				endTagInput.name = 'start' + '-time-' + count;
+				endTagInput.value = hms;
+				createDiv.appendChild(endTagInput);
+				createDiv.appendChild(checkbox); 
+				createDiv.appendChild(label);
+			var input = document.createElement('input');
+					input.type = 'text';
+					input.id = 'input' + '-link-' + count;
+					input.name = 'input' + '-link-' + count;
+					input.setAttribute('placeholder', 'Enter url e.g: www.tefltv.com');
+					input.setAttribute('style', 'display:none');
+					createDiv.appendChild(input);
+			//document.getElementById("custom-annotation").appendChild(createDiv);
+			checkbox.onclick = function(){
+				var getid = this.id;
+				var textbox = getid.replace('checkbox','input');
+				if(document.getElementById(getid).checked == true){
+					$('#' + textbox).fadeIn('fast');
+				}else{
+					
+					$('#' + textbox).fadeOut('fast');
+				}
+			  	
+			};
+			createSpan.onclick = function(){
+				var getid = this.id;
+				var removeDiv = getid.replace('close-','');
+				$('#'+removeDiv).remove();
+			}
 		}
 
 	});
+
 $('#t-1').bind('mouseover',function(){
 	var selector = this.id;
 	setAsThumbnail(selector);
@@ -182,9 +259,9 @@ function getId(id){
 							<div id="vid-controls" class="p-relative">
 
 								<div class="embed-responsive embed-responsive-16by9">
-									<div style="color:#fff;padding:3px;background:rgba(42,42,42,0.9);position:absolute;top:0;left:0;z-index:1111;"class='annotation-custom'>
-										Annotation
-									</div>
+									 <div style="color:#fff;padding:3px;background:transparent;position:absolute;top:0;left:0;z-index:1111;" id='custom-annotation'>
+										
+									</div> 
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 									<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
 										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
@@ -220,7 +297,7 @@ function getId(id){
 
 										<div class="col-md-7 content-padding">
 											<span class="file-upload mg-l--2">
-												<span class="btn btn-default"><i class="fa fa-arrow-up"></i> Update Video Cover</span>
+												<span class="btn btn-default"><i class="fa fa-arrow-up"></i> Change Video Cover</span>
 												<input type="file" name="poster" id="poster" accept="image/*"/>
 												<input type="hidden" value="{{$video->file_name}}" name="filename"/>
 											</span>
@@ -260,8 +337,7 @@ function getId(id){
 													@endif
 													<br>
 													<div class="" id="annotation">
-
-
+														<!--ANNOTATION AREA DON'T REMOVE-->
 													</div>
 													<br/>
 													<div class="well">
@@ -287,7 +363,7 @@ function getId(id){
 														{{ Form::text('new_tags', null, array('class'=>'form-control','placeholder'=>'Add new tags...')) }}<br/><br/>
 														{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 														{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
-
+														{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
 														<p class="notes">*Double click the existing tag to edit.</p>
 														<div id="wrapper">
 															@if($tags == null)
