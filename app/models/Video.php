@@ -7,7 +7,7 @@ class Video extends Eloquent{
 	protected $dates = ['deleted_at'];
 	protected $softDelete = true;
 	protected $guarded = array('id');
-	protected $fillable = ['user_id','title','description','publish','file_name','extension','views','likes','inappropriate'];
+	protected $fillable = ['user_id','title','total_time', 'description','publish','uploaded','file_name','extension','views','category','tags','report_count','recommended', 'likes','inappropriate'];
 
 	public static $video_rules = array(
 		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
@@ -316,5 +316,13 @@ class Video extends Eloquent{
 		}
 		$videos->delete();
 		return true;
+	}
+	public function convertImageToBase64($getImage1,$getImage2,$getImage3){
+		$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);$saveImage_1 = file_get_contents($getImage1);$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);Session::put('thumbnail_1',$convertedImage_1);
+		$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);$saveImage_2 = file_get_contents($getImage2);$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);Session::put('thumbnail_2',$convertedImage_2);
+		$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
+	}
+	public function resizeImage($source, $w, $h, $destination){
+		Image::make($source)->resize($w,$h)->encode('jpg', 10)->save($destination);
 	}
 }

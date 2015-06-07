@@ -123,7 +123,7 @@
 								<div id='list' class="col-md-3 col-sm-6 mg-b-10">
 									<div class="inlineVid">
 										<span class="btn-sq">	
-											<a href="edit={{$usersVideo->file_name}}" >
+											<a href="edit/v={{$usersVideo->file_name}}" >
 												<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span>
 											</a>
 											{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;

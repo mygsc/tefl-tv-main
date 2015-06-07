@@ -12,7 +12,7 @@
 */
 
 Route::group(array('prefix' => '/'), function() {
-	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
+	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
@@ -105,8 +105,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::get('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@countNotifcation'));
 	Route::get('videoplaylist={id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
-	Route::get('edit={id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
-	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
+	Route::get('edit/v={id}', array('before'=>'auth','as'=>'video.edit.get', 'uses'=>'UserController@getEditVideo'));
+	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postEditVideo'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
 	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
