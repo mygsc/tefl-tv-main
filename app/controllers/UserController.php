@@ -390,25 +390,13 @@ class UserController extends BaseController {
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
-	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
-		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
-		if($getQty==3){ $hrs = $totalResult[0]; $min = $totalResult[1]; $sec = $totalResult[2];}
-		if($getQty==2){ $min = $totalResult[0]; $sec = $totalResult[1];}
-		if($getQty==1){ $sec = $totalResult[0];}
-		if($hrs<10){$hrs = '0'.$hrs;}
-		if($min<10){$min = '0'.$min;}
-		if($sec<10){$sec = '0'.$sec;}
-		return $duration =  $hrs.':' . $min.':' . $sec;
-	}
 
-	public function getEditVideo($id){
+	public function getedit($id){
 		$file_name = Video::where('file_name',$id)->first();
-		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
 		$id = $file_name->id;
-		$hms = $this->duration($file_name->total_time);
 		$video = Video::find($id);
 		$owner = User::find($video->user_id);
-		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
+
 		if($video->user_id != Auth::User()->id){
 			return Redirect::route('users.channel');
 		}
@@ -426,24 +414,10 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$getThumbnail = new Video;
-		$filename = $file_name->file_name;
-		$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-		$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
-		if(!file_exists($thumb1)){
-			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.$filename.'_hd.mp4');
-			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
-			$getThumbnail->captureImage($videoFile,$destinationPath,$filename);
-			$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-			$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-			$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
-		}
-		$getThumbnail->convertImageToBase64($thumb1,$thumb2,$thumb3); 
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture'));
 	}
 
-	public function postEditVideo($id){
+	public function postedit($id){
 		$input = Input::all();
 		$poster = $input['poster'];
 		$fileName = Input::get('filename');
@@ -462,17 +436,6 @@ class UserController extends BaseController {
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
 			}
-			if(strlen($input['selected-thumbnail']) > 1){  
-				$getImage = $input['selected-thumbnail'];
-				$getImage = str_replace('data:image/png;base64,', '', $getImage);
-				$getImage = str_replace(' ', '+', $getImage);
-				$decodeImage = base64_decode($getImage);
-				$source = $destinationPath.$fileName.'.jpg';
-				$success = file_put_contents($source, $decodeImage);
-				$image = new Video;
-				$image->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$image->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
-			}	
 
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
@@ -525,7 +488,7 @@ class UserController extends BaseController {
 		$video = Video::find($id);
 		if($video->user_id == Auth::User()->id){
 			$video->delete();
-			return Redirect::route('users.myvideos')->withFlashGood('Video has been successfully deleted.');
+			return Redirect::route('users.myvideos');
 		}
 		return Redirect::route('users.channel');
 	}
