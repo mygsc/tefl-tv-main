@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
-	$('#char-limit').html(limitChar+'/5000');
+	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
 	if(limitChar>=50){
 		document.getElementById("submit-save-changes").disabled = false;
@@ -103,7 +103,7 @@
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
-			createTextarea.setAttribute('ng-model', 'content');
+			createTextarea.setAttribute('id', 'textarea-annotation-'+id+'-'+count);
 			createTextarea.style.marginTop = '5px';
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
@@ -185,7 +185,10 @@
 				$('#div-'+removeDiv).remove();
 			}
 			createTextarea.onkeyup = function(){
+				var getid = this.id;
+				var getCurrentId = getid.replace('textarea-','div-');
 				var content = createTextarea.value;
+				$('#'+getCurrentId).html(content);
 			}
 		}
 
@@ -260,10 +263,11 @@ $('textarea#description').mousemove(function(e){
    checkLimit(getLength);
 });
 function checkLimit(limit){
-   $('#char-limit').html(limit+'/5000');
-   if(limit>=min){document.getElementById("submit-save-changes").disabled = false;}
+   $('#char-limit').html(limit);
+   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});}
+   if(limit>=min){$('#char-limit').html(limit).css({'color':'#008cff'});document.getElementById("submit-save-changes").disabled = false;}
    else{document.getElementById("submit-save-changes").disabled = true;}
-   if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+   if(limit>=max){$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
 }
 $('#upload-cancel').on('click',function(){
         $('#cancel-upload-vid').modal('show');
@@ -410,7 +414,7 @@ $('#upload-cancel').on('click',function(){
 														</span>
 														@endif
 														{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-														<small id='char-limit'>0/5000</small><br/>
+														<small id='char-limit'>0</small id='max-limit'><small>/5000</small><br/>
 														<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 														
 													</div>

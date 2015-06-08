@@ -8,11 +8,17 @@ class Video extends Eloquent{
 	protected $softDelete = true;
 	protected $guarded = array('id');
 	protected $fillable = ['user_id','title','total_time', 'description','publish','uploaded','file_name','extension','views','category','tags','report_count','recommended', 'likes','inappropriate'];
-	public $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
+	/*
+	* Path of ffmpeg located at opt folder for local development
+	* It is used for converting video, capturing image and grabbing information of the video (open source).
+	* version 2.6.2 stable release
+	* Note: Please don't update 
+	*/
+	public $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg'; 
 	public $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
+
 	public static $video_rules = array(
-		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
-		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
+		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo 'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
 		'title' => 'required',
