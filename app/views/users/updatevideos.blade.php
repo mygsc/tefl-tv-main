@@ -6,6 +6,7 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/angular.min.js')}}
 <script type="text/javascript">
 	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
 	hms = document.getElementById('hms').value;
@@ -73,7 +74,7 @@
 			var annotationTypeTag = document.createElement('span');
 			if(id=='note'){annotationTypeTag.className = 'glyphicon glyphicon-file';}
 			else if(id=='title'){annotationTypeTag.className = 'glyphicon glyphicon-font';}
-			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-folder-close';}
+			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-link';}
 			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			var annotationTypeCaption = document.createTextNode(title);
 			var elem = document.createTextNode(title);
@@ -98,6 +99,7 @@
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
+			createTextarea.setAttribute('ng-model', 'content');
 			createTextarea.style.marginTop = '5px';
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
@@ -136,7 +138,21 @@
 					input.setAttribute('placeholder', 'Enter url e.g: www.tefltv.com');
 					input.setAttribute('style', 'display:none');
 					createDiv.appendChild(input);
-			//document.getElementById("custom-annotation").appendChild(createDiv);
+			/*
+			* Annotation 
+			*/
+			var annotWrapper = document.createElement('div');
+			var annotDiv = document.createElement('div');
+			var annotClose = document.createElement('span');
+			annotWrapper.setAttribute('style','position:absolute;top:0;');
+			annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
+			annotDiv.setAttribute('style','padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;background:rgba(42,42,42,0.6);');
+			annotClose.setAttribute('style','float:right;border-radius:50px;position:absolute;top:0;right:0;width:30px;height:20px;background:#000;border:1px solid #fff;');
+			document.getElementById("custom-annotation").appendChild(annotWrapper);
+			annotWrapper.appendChild(annotClose);
+			annotWrapper.appendChild(annotDiv);
+			var annotContent = document.createTextNode('content');
+			annotDiv.appendChild(annotContent);
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
@@ -152,6 +168,7 @@
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
+				$('#wrapper-'+removeDiv).remove();
 			}
 		}
 
@@ -278,6 +295,7 @@ function getId(id){
 												@include('elements/videoPlayer')
 											</div><!--vid-controls-->
 											<br/>
+											
 											<p>Available thumbnails:</p>
 											<div id='t-1' style='position:relative;display:inline-block'>
 												<img src="{{Session::get('thumbnail_1')}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
@@ -291,7 +309,7 @@ function getId(id){
 												<img src="{{Session::get('thumbnail_3')}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
 												<label class='caption-t-3'></label>
 											</div>
-
+											
 
 										</div><!--/.col-md-5-->
 
@@ -336,7 +354,7 @@ function getId(id){
 													</span>
 													@endif
 													<br>
-													<div class="" id="annotation">
+													<div ng-app="" class="" id="annotation">
 														<!--ANNOTATION AREA DON'T REMOVE-->
 													</div>
 													<br/>

@@ -431,6 +431,14 @@ class UserController extends BaseController {
 		$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
 		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
 		$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
+		if(!file_exists($thumb1)){
+			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.$filename.'_hd.mp4');
+			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
+			$getThumbnail->captureImage($videoFile,$destinationPath,$filename);
+			$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
+			$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
+			$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
+		}
 		$getThumbnail->convertImageToBase64($thumb1,$thumb2,$thumb3); 
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
 	}
