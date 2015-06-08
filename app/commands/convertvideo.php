@@ -9,8 +9,10 @@ class convertvideo extends Command {
 	 * @var string
 	 */
 	protected $name = 'ConvertVideo';
-	protected $ffmpegPath = '/root/bin/ffmpeg';
-	protected $ffprobePath = '/root/bin/ffprobe';
+	// protected $ffmpegPath = '/root/bin/ffmpeg';
+	// protected $ffprobePath = '/root/bin/ffprobe';
+	protected $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
+	protected $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
 	/**  
 	 * The console command description.
 	 *
@@ -37,8 +39,6 @@ class convertvideo extends Command {
 	public function fire()
 	{
 		$routes = route('homes.watch-video', '1');
-		echo $routes;
-	
 		 print("\nVideo is currently converting...\n");
 		 $videos = $this->findVideoNotConverted();
 		 if($videos !== false){
@@ -72,14 +72,14 @@ class convertvideo extends Command {
 			// $this->convertVideoToHigh($source, $destination, $filename);
 			// $this->convertVideoToNormal($source, $destination, $filename);
 			// $this->convertVideoToLow($source, $destination, $filename);
-			$this->convertVideoToDiffFormat($source, $destination, $filename);
+			$this->convertVideoToDiffFormat($source, $destination, $filename, $username = $videos->channel_name);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
 				
 				$routes = route('homes.watch-video', $filename);
-				$message = 'Your <a href="'.$routes.'">video</a> is ready to watch';
+				$message = '<a href="'.$routes.'">Your video is ready to watch.</a>';
 				$notification = new Notification();
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
@@ -90,19 +90,21 @@ class convertvideo extends Command {
 		}
 		return false;
 	}
-	public function convertVideoToDiffFormat($source, $destination, $filename){
+	public function convertVideoToDiffFormat($source, $destination, $filename, $username){
+		$title = "TEFL TV";
+		$currentYear = date("Y");
 		$hdmp4 = $destination.DS.$filename.'_hd.mp4';
 		$normalmp4 = $destination.DS.$filename.'.mp4';
 		$lowmp4 = $destination.DS.$filename.'_low.mp4';
 		$hdwebm = $destination.DS.$filename.'_hd.webm';
 		$normalwebm = $destination.DS.$filename.'.webm';
 		$lowwebm = $destination.DS.$filename.'_low.webm';
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
+		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
+		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
+		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
 	}
 	/**
 	 * Get the console command arguments.

@@ -123,15 +123,15 @@
 								<div id='list' class="col-md-3 col-sm-6 mg-b-10">
 									<div class="inlineVid">
 										<span class="btn-sq">	
-											<a href="edit={{$usersVideo->file_name}}" >
+											<a href="edit/v={{$usersVideo->file_name}}" >
 												<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span>
 											</a>
-											{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id))))}}&nbsp;
+											{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id)),'onsubmit'=> 'return confirm("Are you sure you want to delete this?")' ))}}&nbsp;
 											<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
 											{{Form::close()}}
 										</span>
 								
-										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
 											<div class="thumbnail-2">
 												@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 												<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
@@ -146,7 +146,7 @@
 								<div class="inlineInfo ">
 									
 									<div class="v-Info">
-										<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">	
+										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">	
 											{{$usersVideo->title}}
 										</a>
 									</div>
@@ -171,6 +171,24 @@
 			</div>
 		</div>
 		<br/>
+	</div>
+
+	<div class="modal fade" id="delete-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Remove Video</h4>
+		      </div>
+		      <div class="modal-body">
+		       		<p>Are you sure you want to remove this video?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+		        <a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
+		      </div>
+		    </div>
+		  </div>
 	</div>
 @stop
 

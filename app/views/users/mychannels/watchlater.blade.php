@@ -92,7 +92,7 @@
 									<span title="Remove from watch later?" class="btn-sq inline">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline' ,'onsubmit'=> 'return confirm("Are you sure you want to delete this?")'))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
