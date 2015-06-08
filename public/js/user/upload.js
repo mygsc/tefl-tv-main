@@ -2,6 +2,12 @@ document.getElementById("save").disabled = true;
 var firstThumbnail = document.getElementById('img-thumb-1');
 var secondThumbnail = document.getElementById('img-thumb-2');
 var thirdThumbnail = document.getElementById('img-thumb-3');
+var min=50, max=5000, limitChar = document.getElementById('description').value.length;
+$('#char-limit').html(limitChar+'/5000');
+    document.getElementById("save").disabled = true;
+    if(limitChar>=50){
+        document.getElementById("save").disabled = false;
+    }
 $(document).ready(function(){
     $('#loader').fadeIn(500);
 	$('#progress').hide();
@@ -70,15 +76,20 @@ $(document).ready(function(){
 
 });//end of function
 
-// $('#description').keypress(function(e){
-//     enterKey(e);
-// });
-//  function enterKey(e){
-//     if(e.keyCode === 13){
-//         var desc = $('#description').val();
-//         desc + "\n";
-//     }
-// }
+$('textarea#description').keyup(function(e){
+    var getLength = document.getElementById('description').value.length;
+   checkLimit(getLength);
+});
+$('textarea#description').mousemove(function(e){
+    var getLength = document.getElementById('description').value.length;
+   checkLimit(getLength);
+});
+function checkLimit(limit){
+   $('#char-limit').html(limit+'/5000');
+   if(limit>=min){document.getElementById("save").disabled = false;}
+   else{document.getElementById("save").disabled = true;}
+   if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+}
 
 
 

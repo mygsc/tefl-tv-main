@@ -9,8 +9,12 @@
 {{HTML::script('js/angular.min.js')}}
 <script type="text/javascript">
 	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
-	hms = document.getElementById('hms').value;
-
+	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
+	$('#char-limit').html(limitChar+'/5000');
+	document.getElementById("submit-save-changes").disabled = true;
+	if(limitChar>=50){
+		document.getElementById("submit-save-changes").disabled = false;
+	}
 	$(document).ready(function() {
 
 		$('#form-add-setting').on('submit', function() {
@@ -151,7 +155,7 @@
 			document.getElementById("custom-annotation").appendChild(annotWrapper);
 			annotWrapper.appendChild(annotClose);
 			annotWrapper.appendChild(annotDiv);
-			var annotContent = document.createTextNode('content');
+			var annotContent = document.createTextNode(id);
 			annotDiv.appendChild(annotContent);
 			checkbox.onclick = function(){
 				var getid = this.id;
@@ -234,6 +238,22 @@ function removeThumbnailCaption(selector){
 function getId(id){
  	return document.getElementById(id);
 }
+$('textarea#description').keyup(function(e){
+	var getLength = document.getElementById('description').value.length;
+   checkLimit(getLength);
+});
+$('textarea#description').mousemove(function(e){
+	var getLength = document.getElementById('description').value.length;
+   checkLimit(getLength);
+});
+function checkLimit(limit){
+   $('#char-limit').html(limit+'/5000');
+   if(limit>=min){document.getElementById("submit-save-changes").disabled = false;}
+   else{document.getElementById("submit-save-changes").disabled = true;}
+   if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+}
+
+
 </script>
 @stop
 @section('content')
@@ -374,7 +394,10 @@ function getId(id){
 															{{$errors->first('description')}}
 														</span>
 														@endif
-														{{ Form::textarea('description', null, array('class'=>'form-control','style'=>"height:150px!important;",'required'=>true)) }}
+														{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
+														<small id='char-limit'>0/5000</small><br/>
+														<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
+														
 													</div>
 													<div class="well">
 														{{ Form::label('Tags:')}}&nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
@@ -396,7 +419,7 @@ function getId(id){
 													</div>
 													<br/>
 													<div class="text-right mg-b-10"> 
-														{{Form::submit('Save Changes', array('class' => 'btn btn-info'))}}
+														{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 													</div>
 												</div><!--/.col-md-7-->
 												{{Form::close()}}
