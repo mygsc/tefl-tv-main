@@ -8,11 +8,8 @@ class convertvideo extends Command {
 	 *
 	 * @var string
 	 */
+	protected $video_; 
 	protected $name = 'ConvertVideo';
-	// protected $ffmpegPath = '/root/bin/ffmpeg';
-	// protected $ffprobePath = '/root/bin/ffprobe';
-	protected $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
-	protected $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
 	/**  
 	 * The console command description.
 	 *
@@ -29,6 +26,7 @@ class convertvideo extends Command {
 	{
 		define('DS', DIRECTORY_SEPARATOR); 
 		parent::__construct();
+		$this->video_ = new Video;
 	}
 
 	/**
@@ -99,12 +97,13 @@ class convertvideo extends Command {
 		$hdwebm = $destination.DS.$filename.'_hd.webm';
 		$normalwebm = $destination.DS.$filename.'.webm';
 		$lowwebm = $destination.DS.$filename.'_low.webm';
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
-		shell_exec("$this->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
-		shell_exec("$this->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
+		$path = new Video;
+		shell_exec("$path->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
+		shell_exec("$path->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
+		shell_exec("$path->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
+		shell_exec("$path->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
+		shell_exec("$path->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
+		shell_exec("$path->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
 	}
 	/**
 	 * Get the console command arguments.
@@ -129,7 +128,7 @@ class convertvideo extends Command {
 		);
 	}
 	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
-		$ffmpeg = $this->ffmpeg();
+		$ffmpeg = $this->video_->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();
@@ -140,7 +139,7 @@ class convertvideo extends Command {
 			->save($webm, $destinationPath.DS.$fileName.'_hd.webm');
 	}
 	public function convertVideoToNormal($videoFile, $destinationPath, $fileName){
-		$ffmpeg = $this->ffmpeg();
+		$ffmpeg = $this->video_->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(640,360))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
@@ -149,22 +148,11 @@ class convertvideo extends Command {
 			->save($webm, $destinationPath.DS.$fileName.'.webm');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
-		$ffmpeg = $this->ffmpeg();$video = $ffmpeg->open($videoFile);
+		$ffmpeg = $this->video_->ffmpeg();$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(320,240))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'_low.mp4')
 			->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
 	}
-	public function ffmpeg(){
-		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>$this->ffmpegPath,
-			'ffprobe.binaries'=>$this->ffprobePath,
-			'timeout'=>0,
-			'ffmpeg.threads'=>12
-			]);
-	}
-
-	
-
 }

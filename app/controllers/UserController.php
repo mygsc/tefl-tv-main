@@ -1,7 +1,7 @@
 <?php
 
 class UserController extends BaseController {
-
+protected $video_;
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -27,6 +27,7 @@ class UserController extends BaseController {
 		$this->ReportedFeedback = $reportedFeedback;
 		$this->UserFavorite = $userFavorite;
 		$this->Hybrid_Auth = $hybridauth;	
+		$this->video_ = new Video;
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -286,25 +287,21 @@ class UserController extends BaseController {
 	}
 
 	public function getEditUsersChannel() {
-		if(!Auth::check()){
-			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
-		}
-		else{
-			$userChannel = UserProfile::where('user_id',Auth::User()->id)->first();
-			$userWebsite = Website::where('user_id', Auth::User()->id)->first();
-			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-			$sessionFacebook = Session::get('sessionFacebook');
-			$sessionFacebook = Cookie::forever('sessionFacebook', $sessionFacebook);
-			$sessionFacebook = $sessionFacebook->getValue();
-			$sessionTwitter = Session::get('sessionTwitter');
-			$sessionTwitter = Cookie::forever('sessionTwitter', $sessionTwitter);
-			$sessionTwitter = $sessionTwitter->getValue();
-			$sessionGmail = Session::get('sessionGmail');
-			$sessionGmail = Cookie::forever('sessionGmail', $sessionGmail);
-			$sessionGmail = $sessionGmail->getValue();
-			return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));
-		}
-		
+		if(!Auth::check()){return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');}
+		$userChannel = UserProfile::where('user_id', $this->Auth->id)->first();
+		if(!isset($userChannel)) {return Redirect::route('homes.post.signin')->withFlashBad('You have an empty profile.');}
+		$userWebsite = Website::where('user_id', $this->Auth->id)->first();
+		$picture = public_path('img'.DS.'user'.DS.$this->Auth->id . '.jpg');
+		$sessionFacebook = Session::get('sessionFacebook');
+		$sessionFacebook = Cookie::forever('sessionFacebook', $sessionFacebook);
+		$sessionFacebook = $sessionFacebook->getValue();
+		$sessionTwitter = Session::get('sessionTwitter');
+		$sessionTwitter = Cookie::forever('sessionTwitter', $sessionTwitter);
+		$sessionTwitter = $sessionTwitter->getValue();
+		$sessionGmail = Session::get('sessionGmail');
+		$sessionGmail = Cookie::forever('sessionGmail', $sessionGmail);
+		$sessionGmail = $sessionGmail->getValue();
+		return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));	
 	}
 
 	public function postEditUsersChannel($channel_name) {
@@ -426,7 +423,6 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$getThumbnail = new Video;
 		$filename = $file_name->file_name;
 		$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
 		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
@@ -434,12 +430,12 @@ class UserController extends BaseController {
 		if(!file_exists($thumb1)){
 			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.$filename.'_hd.mp4');
 			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
-			$getThumbnail->captureImage($videoFile,$destinationPath,$filename);
+			$this->video_->captureImage($videoFile,$destinationPath,$filename);
 			$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
 			$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
 			$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
 		}
-		$getThumbnail->convertImageToBase64($thumb1,$thumb2,$thumb3); 
+		$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); 
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
 	}
 
@@ -469,9 +465,8 @@ class UserController extends BaseController {
 				$decodeImage = base64_decode($getImage);
 				$source = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($source, $decodeImage);
-				$image = new Video;
-				$image->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$image->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
+				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
 			
 

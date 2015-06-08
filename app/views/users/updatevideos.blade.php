@@ -148,15 +148,18 @@
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			annotWrapper.setAttribute('style','position:absolute;top:0;');
+			annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
 			annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
-			annotDiv.setAttribute('style','padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;background:rgba(42,42,42,0.6);');
-			annotClose.setAttribute('style','float:right;border-radius:50px;position:absolute;top:0;right:0;width:30px;height:20px;background:#000;border:1px solid #fff;');
+			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
+			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
+			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotWrapper);
-			annotWrapper.appendChild(annotClose);
+			annotDiv.appendChild(annotClose);
 			annotWrapper.appendChild(annotDiv);
-			var annotContent = document.createTextNode(id);
+			var annotContent = document.createTextNode(''); //let it empty
+			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
+			annotClose.appendChild(x);
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
@@ -173,6 +176,16 @@
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
 				$('#wrapper-'+removeDiv).remove();
+			}
+			annotClose.onclick = function(){
+				var getid = this.id;
+				var removeDiv = getid.replace('close-','');
+				$('#'+removeDiv).remove();
+				$('#wrapper-'+removeDiv).remove();
+			}
+			createTextarea.onkeyup = function(){
+				var content = createTextarea.value;
+				
 			}
 		}
 
@@ -252,7 +265,9 @@ function checkLimit(limit){
    else{document.getElementById("submit-save-changes").disabled = true;}
    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
 }
-
+$('#upload-cancel').on('click',function(){
+        $('#cancel-upload-vid').modal('show');
+    });
 
 </script>
 @stop
@@ -432,23 +447,7 @@ function checkLimit(limit){
 						</div><!--/.row-->
 
 
-						<div class="modal fade" id="delete-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title" id="myModalLabel">Remove Video</h4>
-							      </div>
-							      <div class="modal-body">
-							       		<p>Are you sure you want to remove this video?</p>
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-							        <a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
-							      </div>
-							    </div>
-							  </div>
-						</div>
+						
 
 
 						@stop
