@@ -37,6 +37,22 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+
+		<div class="same-H grey pad-s-10 mg-r-10 row">
+			@include('elements/home/categories')
+			<div>
+				@include('elements/home/adverstisement_half_large_recatangle')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/carouselAds')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/adverstisementSmall')
+				
+			</div>
+		</div>
+	</div>
 		<div class="col-md-9 White same-H">
 		<!--RECOMMENDED VIDEOS SECTION -->
 		<div class="row grey">
@@ -166,22 +182,7 @@
 		</div>
 		<br/>
 	</div><!--/.container page-->
-	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
-			<div class="same-H grey pad-s-10 mg-l-10 row">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-					
-				</div>
-			</div>
-		</div>
 </div><!--first row-->
 </div>
 </div>
