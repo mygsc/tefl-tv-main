@@ -56,7 +56,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'tefltv_main',
 			'username'  => 'root',
-			'password'  => 'admin',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
