@@ -144,11 +144,11 @@
 									@endif
 								{{Form::label('Category:')}}<br>
 								<span class="span-tags">
-									{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
+									{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
 									<label for='instruct'>Teachers Instructional</label>
 								</span>
 								<span class="span-tags">
-									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
+									{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
 									<label for='music-vid'>Students Instructional</label>
 								</span>
 								<span class="span-tags">

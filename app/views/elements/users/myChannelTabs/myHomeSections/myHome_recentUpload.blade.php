@@ -47,7 +47,7 @@
 			<br/>
 			
 			<p class="text-justify">
-				Description: {{$recentUpload->description}}
+				Description: {{ Str::limit($recentUpload->description, 400) }}
 			</p>
 			<br/>
 			<span class=""><!--/counts and share link-->

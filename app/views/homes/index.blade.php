@@ -184,8 +184,6 @@
 	</div><!--/.container page-->
 
 </div><!--first row-->
-</div>
-</div>
 @stop
 
 

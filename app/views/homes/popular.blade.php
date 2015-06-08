@@ -5,6 +5,18 @@
 <div class="row ">
 <div class="container">
 	<div class="row">
+		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 		<div class="col-lg-9 col-md-8 same-H White h-minH ">
 			<h1 class="tblue mg-b-20 mg-t-20">Popular Videos</h1>
 			@foreach($popularVideos as $key => $popularVideo)
@@ -34,18 +46,6 @@
 				</div>
 			</a>
 			@endforeach
-		</div>
-		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-					
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
