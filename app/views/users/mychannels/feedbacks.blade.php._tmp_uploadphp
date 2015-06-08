@@ -7,7 +7,7 @@
 		<div class="row ">
 			@include('elements/users/profileTop')
 
-			<div class="White channel-content">
+			<div class="White channel-content same-H">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">

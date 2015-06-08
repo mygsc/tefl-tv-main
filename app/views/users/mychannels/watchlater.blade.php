@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH White">
+	<div class="container pageH">
 		<br/>
 		<div class="row same-H">
 			@include('elements/users/profileTop')
-			<div class="Div-channel-border channel-content">
+			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
@@ -42,9 +42,8 @@
 					    </div>
 					  </div>
 					</nav>
-				  	
-
 				</div>
+
 
 				<div class="row mg-l--20">
 					<br/>
@@ -147,6 +146,7 @@
 		</div><!--/.row-->
 		<br/>
 	</div><!--/.container page-->
+</div>
 @stop
 
 @section('script')

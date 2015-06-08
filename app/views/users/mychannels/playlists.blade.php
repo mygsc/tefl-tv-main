@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH White same-H">
+	<div class="container pageH">
 		<br/>
 		<div class="row ">
 			@include('elements/users/profileTop')
-			<div class="channel-content">
+			<div class=" White channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
