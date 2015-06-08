@@ -130,10 +130,13 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description'))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description', 'maxlength'=>5000))}}
+									<small id='char-limit'>0/5000</small><br/>
+									<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif
+									<br/>
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
 								{{Form::text('tags',null,array('class'=>'form-control'))}}
 									@if ($errors->has('tags'))
