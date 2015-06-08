@@ -168,6 +168,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::post('adminsignup', array('as' => 'post.admin.adminsignup', 'uses' => 'AdminController@postAdminSignup'));
 	Route::get('reportedvideos', array('as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
+	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
 
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 

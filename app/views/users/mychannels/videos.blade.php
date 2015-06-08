@@ -172,6 +172,24 @@
 		</div>
 		<br/>
 	</div>
+
+	<div class="modal fade" id="delete-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Remove Video</h4>
+		      </div>
+		      <div class="modal-body">
+		       		<p>Are you sure you want to remove this video?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+		        <a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
+		      </div>
+		    </div>
+		  </div>
+	</div>
 @stop
 
 
