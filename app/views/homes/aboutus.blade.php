@@ -3,7 +3,18 @@
 @section('content')
 <div class='container'>
 	
-
+	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+		<div class="same-H grey pad-s-10">
+			@include('elements/home/categories')
+			<div>
+				@include('elements/home/carouselAds')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/adverstisementSmall')
+				
+			</div>
+		</div>
+	</div>
 	<div class="col-md-9 White same-H">
 		<h1>About TEFL TV</h1>
 		<!--about us content-->
@@ -79,18 +90,7 @@
 		<!--/contact us-->
 
 	</div><!--/.col-md-9-->
-	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-		<div class="same-H grey pad-s-10">
-			@include('elements/home/categories')
-			<div>
-				@include('elements/home/carouselAds')
-			</div>
-			<div class="mg-t-10">
-				@include('elements/home/adverstisementSmall')
-				
-			</div>
-		</div>
-	</div>
+
 
 
 </div><!--/.container page-->

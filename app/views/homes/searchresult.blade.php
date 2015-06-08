@@ -6,6 +6,18 @@
 
 @section('content')
 	<div class="container ">
+		<div class="col-lg-3 col-md-4">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+					
+				</div>
+			</div>
+		</div>
 		<div class="col-md-9 White same-H h-minH">
 			<div class="">
 				
@@ -25,18 +37,6 @@
 						@include('elements.home.searchs.video')
 					@endif
 				@endif
-			</div>
-		</div>
-		<div class="col-lg-3 col-md-4">
-			<div class="same-H grey pad-s-10">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-					
-				</div>
 			</div>
 		</div>
 	</div>
