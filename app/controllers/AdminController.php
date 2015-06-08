@@ -123,4 +123,12 @@ class AdminController extends BaseController {
 		$users = User::all();
 		return View::make('admins.users', compact('users'));
 	}
+
+	public function postDeleteUser($id){
+		$id = Crypt::decrypt($id);
+		$user = User::find($id);
+		$user->delete();
+
+		return Redirect::route('get.admin.users')->withFlashGood('Successfully deleted the user.');
+	}
 }
