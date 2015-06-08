@@ -148,14 +148,15 @@
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
-			annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
+			// annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
+			// annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
 			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
+			annotDiv.setAttribute('id','div-annotation-'+id+'-'+count);
 			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
 			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
-			document.getElementById("custom-annotation").appendChild(annotWrapper);
+			document.getElementById("custom-annotation").appendChild(annotDiv);
 			annotDiv.appendChild(annotClose);
-			annotWrapper.appendChild(annotDiv);
+			//annotWrapper.appendChild(annotDiv);
 			var annotContent = document.createTextNode(''); //let it empty
 			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
@@ -175,17 +176,16 @@
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
-				$('#wrapper-'+removeDiv).remove();
+				$('#div-'+removeDiv).remove();
 			}
 			annotClose.onclick = function(){
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
-				$('#wrapper-'+removeDiv).remove();
+				$('#div-'+removeDiv).remove();
 			}
 			createTextarea.onkeyup = function(){
 				var content = createTextarea.value;
-				
 			}
 		}
 
