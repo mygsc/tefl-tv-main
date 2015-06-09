@@ -23,18 +23,15 @@
 <body>
 	<div id="fb-root"></div>
 	{{HTML::script('js/facebook.js')}}
-	{{HTML::script('js/google.js')}}		
-		@include('elements/header')
-		@include('elements/home/headerNav')
-		<div class="container">
+	{{HTML::script('js/google.js')}}
+
+	@include('elements/header')
+	@include('elements/home/headerNav')
+	<div class="container">
 		@include('elements/flash_message')
-		</div>
-		<div id="content">
-			@yield('content')
-		</div>
-		<div class="footer">
-			@include('elements/footer')
-		</div>
+		@yield('content')
+	</div>
+	@include('elements/footer')
 
 </body>
 

@@ -31,6 +31,7 @@
 					<th>Status</th>
 					<th>Role</th>
 					<th>Created</th>
+					<th>Actions</th>
 				</tr>
 				@foreach($users as $user)
 					<tr>
@@ -45,13 +46,18 @@
 						?>
 						<td>{{$user->id}}</td>
 						<td>{{$user->email}}</td>
-						<td><a href="http://localhost:8000/channel/{{$user->channel_name}}" target="_blank">{{$user->channel_name}}</a></td> 
+						<td><a href="{{route('view.users.channel', $user->channel_name)}}" target="_blank">{{$user->channel_name}}</a></td> 
 						<!--Hindi pa na fifinalize ung link kaya static muna-->
 
 						<td>{{$verified}}</td>
 						<td>{{$status}}</td>
 						<td>{{$role}}</td>
 						<td>{{ date("M d, Y H:ma", strtotime($user->created_at))}}</td>
+						<td>
+							{{Form::open(array('style'=>'float:right','route' => array('post.admin.deleteusers', Crypt::encrypt($user->id)),'onsubmit'=> 'return confirm("Are you sure you want to delete this?")' ))}}&nbsp;
+								<span title="Delete User">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+							{{Form::close()}}
+						</td>
 					</tr>
 				@endforeach
 			</table>

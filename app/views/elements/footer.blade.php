@@ -5,7 +5,7 @@
             <div class="col-lg-7 col-md-8 col-xs-12 col-sm-10" style="padding:15px 0 0 0;">
                     <span class="ctgryNav-f">
                         {{ link_to_route('homes.index', 'Home', null) }}
-                        {{ link_to_route('homes.aboutus', 'About Us', null) }}
+                        {{ link_to_route('homes.aboutus', 'Contact Us', null) }}
                         {{ link_to_route('homes.advertisements', 'Advertisement', null) }}
                         {{ link_to_route('homes.privacy', 'Privacy', null) }}
                         {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}

@@ -20,22 +20,22 @@ class Admin extends Eloquent implements UserInterface, RemindableInterface {
 	public static function getAuthLoginStatus($verified, $status, $role){
 		if($role != 2){
 			Auth::logout();
-			return Redirect::route('admin.index')->withFlashMessage('Invalid account! Please try again!');
+			return Redirect::route('admin.index')->withFlashBad('Invalid account! Please try again!');
 		}
 		if($verified == 0){
 			Auth::logout();
 			return Redirect::route('admin.index')->withInput()
-			->withFlashMessage('Your account is not verified. Check your email address for verification.');
+			->withFlashBad('Your account is not verified. Check your email address for verification.');
 		}
 		if($status == 0){
 			Auth::logout();
 			return Redirect::route('admin.index')->withInput()
-			->withFlashMessage('Your account is deactived! Please contact the TEFLTV Administrator');
+			->withFlashBad('Your account is deactived! Please contact the TEFLTV Administrator');
 		}
 		if($status == 2){
 			Auth::logout();
 			return Redirect::route('admin.index')->withInput()
-			->withFlashMessage('Your account is banned! Please contact the TEFLTV Administrator');
+			->withFlashBad('Your account is banned! Please contact the TEFLTV Administrator');
 		}
 	}
 	public static function sendResetPasswordMail($adminInfo){

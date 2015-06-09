@@ -130,10 +130,13 @@
 							<div class="textbox-layout">
 								<br/>
 								{{Form::label('Description:')}}
-								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description'))}}
+								{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:200px!important;', 'id'=>'description', 'maxlength'=>5000))}}
+									<small id='char-limit'>0/5000</small><br/>
+									<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif
+									<br/>
 								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
 								{{Form::text('tags',null,array('class'=>'form-control'))}}
 									@if ($errors->has('tags'))
@@ -141,11 +144,11 @@
 									@endif
 								{{Form::label('Category:')}}<br>
 								<span class="span-tags">
-									{{Form::checkbox('cat[]','Instructional',false,['id'=>'instruct'])}}
+									{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
 									<label for='instruct'>Teachers Instructional</label>
 								</span>
 								<span class="span-tags">
-									{{Form::checkbox('cat[]','Music Video',false,['id'=>'music-vid'])}}
+									{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
 									<label for='music-vid'>Students Instructional</label>
 								</span>
 								<span class="span-tags">
