@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
-	$('#char-limit').html(limitChar+'/5000');
+	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
 	if(limitChar>=50){
 		document.getElementById("submit-save-changes").disabled = false;
@@ -103,7 +103,7 @@
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
-			createTextarea.setAttribute('ng-model', 'content');
+			createTextarea.setAttribute('id', 'textarea-annotation-'+id+'-'+count);
 			createTextarea.style.marginTop = '5px';
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
@@ -148,15 +148,19 @@
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			annotWrapper.setAttribute('style','position:absolute;top:0;');
-			annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
-			annotDiv.setAttribute('style','padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;background:rgba(42,42,42,0.6);');
-			annotClose.setAttribute('style','float:right;border-radius:50px;position:absolute;top:0;right:0;width:30px;height:20px;background:#000;border:1px solid #fff;');
-			document.getElementById("custom-annotation").appendChild(annotWrapper);
-			annotWrapper.appendChild(annotClose);
-			annotWrapper.appendChild(annotDiv);
-			var annotContent = document.createTextNode(id);
+			// annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
+			// annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
+			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
+			annotDiv.setAttribute('id','div-annotation-'+id+'-'+count);
+			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
+			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			document.getElementById("custom-annotation").appendChild(annotDiv);
+			annotDiv.appendChild(annotClose);
+			//annotWrapper.appendChild(annotDiv);
+			var annotContent = document.createTextNode(''); //let it empty
+			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
+			annotClose.appendChild(x);
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
@@ -172,7 +176,19 @@
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
-				$('#wrapper-'+removeDiv).remove();
+				$('#div-'+removeDiv).remove();
+			}
+			annotClose.onclick = function(){
+				var getid = this.id;
+				var removeDiv = getid.replace('close-','');
+				$('#'+removeDiv).remove();
+				$('#div-'+removeDiv).remove();
+			}
+			createTextarea.onkeyup = function(){
+				var getid = this.id;
+				var getCurrentId = getid.replace('textarea-','div-');
+				var content = createTextarea.value;
+				$('#'+getCurrentId).html(content);
 			}
 		}
 
@@ -247,12 +263,15 @@ $('textarea#description').mousemove(function(e){
    checkLimit(getLength);
 });
 function checkLimit(limit){
-   $('#char-limit').html(limit+'/5000');
-   if(limit>=min){document.getElementById("submit-save-changes").disabled = false;}
+   $('#char-limit').html(limit);
+   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});}
+   if(limit>=min){$('#char-limit').html(limit).css({'color':'#008cff'});document.getElementById("submit-save-changes").disabled = false;}
    else{document.getElementById("submit-save-changes").disabled = true;}
-   if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+   if(limit>=max){$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
 }
-
+$('#upload-cancel').on('click',function(){
+        $('#cancel-upload-vid').modal('show');
+    });
 
 </script>
 @stop
@@ -395,7 +414,7 @@ function checkLimit(limit){
 														</span>
 														@endif
 														{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-														<small id='char-limit'>0/5000</small><br/>
+														<small id='char-limit'>0</small id='max-limit'><small>/5000</small><br/>
 														<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 														
 													</div>
@@ -432,23 +451,7 @@ function checkLimit(limit){
 						</div><!--/.row-->
 
 
-						<div class="modal fade" id="delete-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title" id="myModalLabel">Remove Video</h4>
-							      </div>
-							      <div class="modal-body">
-							       		<p>Are you sure you want to remove this video?</p>
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-							        <a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
-							      </div>
-							    </div>
-							  </div>
-						</div>
+						
 
 
 						@stop

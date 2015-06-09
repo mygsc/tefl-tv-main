@@ -5,8 +5,9 @@
 	<br/>
 	<div class="container">
 		<div class="row same-H White">
+
 			@include('elements/users/profileTop')
-			<div class="channel-content">
+			<div class=" White channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
@@ -20,15 +21,14 @@
 						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 					</ul><!--tabNav-->
 				</div>
+				
 				<nav class="navbar navbar-default visible-sm visible-xs">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
-					      
 					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 					      <h4 class="inline mg-t-20">Favorites</h4>	
 					        <span class="fa fa-bars"></span>
 					      </button>
-			
 					    </div>
 					    <div class="collapse navbar-collapse" id="myNavbar">
 					      <ul class="nav navbar-nav">

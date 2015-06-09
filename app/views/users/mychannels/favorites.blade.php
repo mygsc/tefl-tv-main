@@ -5,9 +5,10 @@
 	<br/>
 	<div class="container">
 		<div class="row same-H White">
+
 			@include('elements/users/profileTop')
 		
-			<div class="Div-channel-border channel-content">
+			<div class="White channel-content">
 				<div role="tabpanel">
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
