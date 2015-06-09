@@ -49,7 +49,7 @@
 				  	<!-- Tab panes -->
 				    <div class="tab-content">
 					  <br/>
-						<div class="row">
+						<div class="">
 							<div class="col-md-12">
 								<div class="" id="about">
 									<div class="col-md-12 grey">

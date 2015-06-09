@@ -10,12 +10,11 @@
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
         <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
-
-       <meta property="og:type" content="video">
-<meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:type" content="video">
+        <meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
-<meta property="og:video:tag" content="{{$videos->tags}}"> 
+        <meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -150,9 +149,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             
@@ -296,7 +295,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item" id="">
-                                <a href="watch!v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
+                                <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-4">
                                         @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))

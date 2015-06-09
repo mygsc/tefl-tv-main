@@ -26,6 +26,15 @@
                         <li>{{ link_to_route('get.admin.users', 'Users', null, array('class' => 'btn')) }}</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Users  <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>{{ link_to_route('get.admin.users', 'List of Users', null, array('class' => '')) }}</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Videos  <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
