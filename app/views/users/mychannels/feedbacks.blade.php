@@ -2,10 +2,9 @@
 
 @section('content')
 <div class="row">
-			<br/>
-	<div class="container pageH White">
-
-		<div class="row same-H">
+	<br/>
+	<div class="container">
+		<div class="row same-H White">
 			@include('elements/users/profileTop')
 
 			<div class="White channel-content">
