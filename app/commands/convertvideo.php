@@ -40,6 +40,8 @@ class convertvideo extends Command {
 		 print("\nVideo is currently converting...\n");
 		 $videos = $this->findVideoNotConverted();
 		 if($videos !== false){
+		 	$videos->uploaded = '2';
+		 	$videos->save();
 		 	$this->convertVideo($videos);
 		 }
 
@@ -58,6 +60,8 @@ class convertvideo extends Command {
 		if($videos->isEmpty()){
 			return false;
 		}
+		
+
 		return $videos->first();
 	}
 

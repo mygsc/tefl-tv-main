@@ -23,24 +23,21 @@
 <body>
 	<div id="fb-root"></div>
 	{{HTML::script('js/facebook.js')}}
-	{{HTML::script('js/google.js')}}		
-		@include('elements/header')
-		@include('elements/home/headerNav')
-		<div class="container">
+	{{HTML::script('js/google.js')}}
+
+	@include('elements/header')
+	@include('elements/home/headerNav')
+	<div class="container">
 		@include('elements/flash_message')
-		</div>
-		<div id="content">
-			@yield('content')
-		</div>
-		<div class="footer">
-			@include('elements/footer')
-		</div>
+		@yield('content')
+	</div>
+	@include('elements/footer')
 
 </body>
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}

@@ -14,8 +14,8 @@ class Video extends Eloquent{
 	* version 2.6.2 stable release
 	* Note: Please don't update 
 	*/
-	public $ffmpegPath = 'root/bin/ffmpeg'; 
-	public $ffprobePath = 'root/bin/ffprobe';
+	public $ffmpegPath = '/root/bin/ffmpeg'; 
+	public $ffprobePath = '/home/tefltv/bin/ffprobe';
 
 	public static $video_rules = array(
 		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo 'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	

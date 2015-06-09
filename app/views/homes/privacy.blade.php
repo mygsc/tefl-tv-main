@@ -109,8 +109,7 @@
 				9B, Amtel Building, <br/>
 				148 Des Voeux Road Central, <br/>
 				Central Hongkong<br/>
-
-				Email : privacy@graphicstudiocentral.com 
+					Email : privacy@tefltv.com 
 			</p>
 		</div>
 	</div><!--/.col-md-9 left section, writeUps-->
