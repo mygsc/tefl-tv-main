@@ -658,15 +658,7 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$path = '/usr/bin/ffmpeg';
-		$source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
-		//$destination = '/home/grald/Desktop/explainer.mp4';
-		$destination1 = '/home/grald/Desktop/triphd.webm';
-		$destination2 = '/home/grald/Desktop/trip600x360.webm';
-		//shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
-		shell_exec("$path  -i $source -original 1 -metadata title='License to TEFL TV' -s 600x480 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination1");
-		//shell_exec("$path  -i $source -s 600x360 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination2");
-		return 'done converting...';
+		print rand(0,99);
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
