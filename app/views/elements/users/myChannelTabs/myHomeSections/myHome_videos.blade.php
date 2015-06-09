@@ -14,7 +14,7 @@
 				@foreach($usersVideos as $usersVideo)
 				<div class="col-lg-3 col-md-3 col-sm-6">
 					<div class="thumbnail-2">
-						<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+						<a href="{{route('homes.watch-video', array('v='.$usersVideo->file_name))}}" target="_blank">
 							
 							@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 								<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg' . '?' . rand(0,99)}}"  width="100%" class="hvr-grow-rotate" />
@@ -25,7 +25,7 @@
 						</a>
 					</div>
 						
-							<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
+							<a href="{{route('homes.watch-video','v='.$usersVideo->file_name)}}" target="_blank">
 								<div class="v-Info">
 									{{$usersVideo->title}}
 								</div>

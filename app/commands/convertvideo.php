@@ -66,6 +66,7 @@ class convertvideo extends Command {
 	}
 
 	public function convertVideo($videos = null){
+
 		if(!empty($videos)){
 			$filename = $videos->file_name;
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
@@ -81,8 +82,8 @@ class convertvideo extends Command {
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
 				
-				$routes = route('homes.watch-video', $filename);
-				$message = '<a href="'.$routes.'">Your video is ready to watch.</a>';
+				$routes = route('homes.watch-video', 'v='.$filename);
+				$message = 'Your <a href="'.$routes.'">video </a>is ready.';
 				$notification = new Notification();
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
