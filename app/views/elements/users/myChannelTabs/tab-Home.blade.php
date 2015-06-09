@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="mg-20">
 	<h1>ito yun</h1>

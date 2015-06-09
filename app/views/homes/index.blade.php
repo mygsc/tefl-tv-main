@@ -66,7 +66,7 @@
 							<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}" width="100%">
+									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
@@ -98,7 +98,7 @@
 					<a href='{{route('homes.watch-video', array('v=' . $popular->file_name))}}' class="thumbnail-h">
 						
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$popular->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -130,7 +130,7 @@
 
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
@@ -160,7 +160,7 @@
 					<a href='{{route('homes.watch-video', array( 'v=' . $popular->file_name))}}' class="thumbnail-h">
 						<span class="v-time inline">{{$random->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$random->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
