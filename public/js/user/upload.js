@@ -4,10 +4,6 @@ var secondThumbnail = document.getElementById('img-thumb-2');
 var thirdThumbnail = document.getElementById('img-thumb-3');
 var min=50, max=5000, limitChar = document.getElementById('description').value.length;
 $('#char-limit').html(limitChar+'/5000');
-    document.getElementById("save").disabled = true;
-    if(limitChar>=50){
-        document.getElementById("save").disabled = false;
-    }
 $(document).ready(function(){
     $('#loader').fadeIn(500);
 	$('#progress').hide();
@@ -86,8 +82,6 @@ $('textarea#description').mousemove(function(e){
 });
 function checkLimit(limit){
    $('#char-limit').html(limit+'/5000');
-   if(limit>=min){document.getElementById("save").disabled = false;}
-   else{document.getElementById("save").disabled = true;}
    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
 }
 

@@ -8,11 +8,17 @@ class Video extends Eloquent{
 	protected $softDelete = true;
 	protected $guarded = array('id');
 	protected $fillable = ['user_id','title','total_time', 'description','publish','uploaded','file_name','extension','views','category','tags','report_count','recommended', 'likes','inappropriate'];
-	protected $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
-	protected $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
+	/*
+	* Path of ffmpeg located at opt folder for local development
+	* It is used for converting video, capturing image and grabbing information of the video (open source).
+	* version 2.6.2 stable release
+	* Note: Please don't update 
+	*/
+	public $ffmpegPath = '/root/bin/ffmpeg'; 
+	public $ffprobePath = '/home/tefltv/bin/ffprobe';
+
 	public static $video_rules = array(
-		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo
-		//'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
+		'video' => 'required' //,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo 'video' => 'max:307200kb|mimes:mp4,webm,mov,ogg,x-flv,x-mpegURL,MP2T,3gpp,quicktime,x-msvideo,x-ms-wmv|required',	
 		);
 	public static $addDescription = array(
 		'title' => 'required',
@@ -207,7 +213,7 @@ class Video extends Eloquent{
 	}
 
 	public function getCategory(){
-		$categoryList = array('Instructional','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		$categoryList = array('Teachers Instructional','Students Instructional','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		$categories = array();
 		foreach ($categoryList as $key => $category) {
 			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();

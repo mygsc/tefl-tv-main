@@ -181,12 +181,7 @@
 			
 		</div>
 		<br/>
-	</div><!--/.container page-->
+	</div><!--first row-->
 
-</div><!--first row-->
-</div>
-</div>
+</div><!--/.container page-->
 @stop
-
-
-

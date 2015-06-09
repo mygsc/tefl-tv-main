@@ -2,6 +2,7 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/bootstrap.min.js')}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">
@@ -122,13 +123,23 @@
 								@foreach($usersVideos as $usersVideo)
 								<div id='list' class="col-md-3 col-sm-6 mg-b-10">
 									<div class="inlineVid">
-										<span class="btn-sq">	
-											<a href="edit/v={{$usersVideo->file_name}}" >
-												<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span>
-											</a>
-											{{Form::open(array('style'=>'float:right','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id)),'onsubmit'=> 'return confirm("Are you sure you want to delete this?")' ))}}&nbsp;
-											<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
-											{{Form::close()}}
+										<span class="btn-sq">
+											<table >
+												<tr>
+													<td>
+														<a href="edit/v={{$usersVideo->file_name}}" >
+															<span title="Update Video"><button class="btn-ico btn-default" ><i class="fa fa-pencil" ></i></button></span>
+														</a>
+													</td>
+													<td>
+														<span>	
+															{{Form::open(array('style'=>'float:right;display:inline;','route' => array('video.post.delete', Crypt::encrypt($usersVideo->id)),'onsubmit'=> 'return confirm("Are you sure you want to delete this?")' ))}}&nbsp;
+																<span title="Remove Video">{{Form::button('<i class="fa fa-trash" ></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}</span>
+															{{Form::close()}}
+														</span>
+													</td>
+												</tr>
+											</table>
 										</span>
 								
 										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
