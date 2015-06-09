@@ -3,9 +3,8 @@
 @section('content')
 <div class="row">
 	<br/>
-	<div class="container pageH White">
-		<br/>
-		<div class="row same-H">
+	<div class="container">
+		<div class="row same-H White">
 			@include('elements/users/profileTop')
 		
 			<div class="Div-channel-border channel-content">
