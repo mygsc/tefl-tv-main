@@ -3,10 +3,7 @@
 class VideoController extends BaseController {
 	protected $user;
 	protected $url;
-	// protected $ffmpegPath = '/home/tefltv/bin/ffmpeg';
-	// protected $ffprobePath = '/home/tefltv/bin/ffprobe';
-	protected $ffmpegPath = '/opt/ffmpeg/bin/ffmpeg';
-	protected $ffprobePath = '/opt/ffmpeg/bin/ffprobe';
+	protected $video_;
 	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
@@ -17,6 +14,7 @@ class VideoController extends BaseController {
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->UserWatchLater = $watchLater;
 		$this->UserFavorite = $userFavorite;
+		$this->video_ = new Video;
 	}
 	public function getUpload(){
 		if(Auth::check()){return View::make('users.upload');}
@@ -35,7 +33,7 @@ class VideoController extends BaseController {
 			$create = Video::create($input);
 			$latest_id = $create->id;
 			Session::put('fileName', $fileName);
-			$getVidDuration = $this->getTimeDuration($input['video']);
+			$getVidDuration = $this->video_->getTimeDuration($input['video']);
 			$db_filename = Video::find($latest_id);
 			$db_filename->file_name = $fileName;
 			$db_filename->title = 'Untitled';
@@ -49,7 +47,7 @@ class VideoController extends BaseController {
 				$videoFolderPath = $destinationPath.DS.$fileName;
 				if(!file_exists($destinationPath)){mkdir($destinationPath);}
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
-				$this->captureImage($input['video'], $destinationPath, $fileName);
+				$this->video_->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
 				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
 				return Response::json([
@@ -58,9 +56,6 @@ class VideoController extends BaseController {
 					'thumb1' => Session::get('thumbnail_1'),
 					'thumb2' => Session::get('thumbnail_2'),
 					'thumb3' => Session::get('thumbnail_3'),
-					// 'videoPath' => $videoPath,
-					// 'destinationPath' => $destinationPath,
-					// 'ext' => $ext,
 					]);
 			}
 		}
@@ -69,45 +64,8 @@ class VideoController extends BaseController {
 		->withErrors($validator)
 		->withFlashBad('There were validation errors, Please check your video.');
 	}
-	private function captureImage($videoFile,$destinationPath,$fileName){
-		$duration = $this->duration($videoFile);
-		$firstSnap = rand(1, $duration);$secondSnap = rand(1, $duration);$thirdSnap = rand(1, $duration);
-		$ffmpeg = $this->ffmpeg();
-		$video = $ffmpeg->open($videoFile);
-		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
-		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($firstSnap))->save($getImage1);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($secondSnap))->save($getImage2);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($thirdSnap))->save($getImage3);
-  	  	$getThumbnail = new Video;
-  	  	$getThumbnail->convertImageToBase64($getImage1,$getImage2,$getImage3);
-  	}
-	// public function convertImageToBase64($getImage1,$getImage2,$getImage3){
-	// 	$convertImageData_URI_1 = pathinfo($getImage1, PATHINFO_EXTENSION);$saveImage_1 = file_get_contents($getImage1);$convertedImage_1 = 'data:image/' . $convertImageData_URI_1 . ';base64,' . base64_encode($saveImage_1);Session::put('thumbnail_1',$convertedImage_1);
-	// 	$convertImageData_URI_2 = pathinfo($getImage2, PATHINFO_EXTENSION);$saveImage_2 = file_get_contents($getImage2);$convertedImage_2 = 'data:image/' . $convertImageData_URI_2 . ';base64,' . base64_encode($saveImage_2);Session::put('thumbnail_2',$convertedImage_2);
-	// 	$convertImageData_URI_3 = pathinfo($getImage3, PATHINFO_EXTENSION);$saveImage_3 = file_get_contents($getImage3);$convertedImage_3 = 'data:image/' . $convertImageData_URI_3 . ';base64,' . base64_encode($saveImage_3);Session::put('thumbnail_3',$convertedImage_3);
-	// }
-	public function ffmpeg(){
-		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>$this->ffmpegPath,
-			'ffprobe.binaries'=>$this->ffprobePath,
-			'timeout'=>0,
-			'ffmpeg.threads'=>12
-			]);
-	}
-	private function ffprobe(){
-		return $ffprobe = FFMpeg\FFProbe::create([
-			'ffmpeg.binaries'=>$this->ffmpegPath,
-			'ffprobe.binaries'=>$this->ffprobePath,
-			'timeout'=>0,
-			'ffmpeg.threads'=>12
-			]);
-	}
-	private function getTimeDuration($path){
-		$ffprobe = $this->ffprobe();$duration = $ffprobe->format($path)->get('duration');
-		$vidMinLenght = floor($duration / 60);$vidSecLenght = floor($duration - ($vidMinLenght * 60));$hrs = floor($vidMinLenght / 60);$mins =  floor($vidMinLenght - ($hrs * 60));$secs =   floor($duration - ($vidMinLenght * 60));
-		if($secs < 10) { $secs = '0'.$secs; }if($vidSecLenght < 10) { $vidSecLenght = '0'.$vidSecLenght;}if($mins < 10) { $mins = '0'.$mins; }if($hrs < 10) { $hrs = '0'.$hrs; }
-		if($duration <= 3600){return $result=$vidMinLenght.':'.$vidSecLenght;}else{return $result = $hrs.':'.$mins.':'.$secs;}
-	}
 	private function duration($path){
-		$ffprobe = $this->ffprobe(); 
+		$ffprobe = $this->video_->ffprobe(); 
 		$duration = $ffprobe->format($path)->get('duration');
 		return $result = floor($duration);
 	}
@@ -154,8 +112,8 @@ class VideoController extends BaseController {
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->imageResize($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->imageResize($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
+				$this->video_->resizeImage($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
 			}
 			if(strlen($input['thumbnail']) > 1){  
 				$getImage = $input['thumbnail'];
@@ -164,8 +122,8 @@ class VideoController extends BaseController {
 				$decodeImage = base64_decode($getImage);
 				$source = $destinationPath.$fileName.'.jpg';
 				$success = file_put_contents($source, $decodeImage);
-				$this->imageResize($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->imageResize($source, 240, 141, $destinationPath.$fileName.'.jpg');	
+				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}		
 			$tags = explode(',',Input::get('tags'));
 			foreach($tags as $tag){
@@ -194,9 +152,6 @@ class VideoController extends BaseController {
 		->withInput()
 		->withErrors($validator)
 		->with('message', 'There were validation errors.');
-	}
-	public function imageResize($source, $w, $h, $destination){
-		Image::make($source)->resize($w,$h)->encode('jpg', 10)->save($destination);
 	}
 
 	public function getViewVideoPlayer(){
