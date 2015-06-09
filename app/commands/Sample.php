@@ -37,12 +37,8 @@ class Sample extends Command {
 	 */
 	public function fire()
 	{
-$random = array('yellow','Pink','blue','red','orange','violet');
-$randNum = rand(0,4);
-$user = UserProfile::find(14);
-$user->first_name = $random[$randNum];
-$user->save();
-print 'finish';
+		$routes = route('homes.watch-video', 'a');
+		print $routes;
 	}
 
 	/**

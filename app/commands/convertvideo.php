@@ -66,6 +66,7 @@ class convertvideo extends Command {
 	}
 
 	public function convertVideo($videos = null){
+
 		if(!empty($videos)){
 			$filename = $videos->file_name;
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
