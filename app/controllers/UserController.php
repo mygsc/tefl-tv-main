@@ -484,8 +484,8 @@ protected $video_;
 				// $decodeImage = base64_decode($getImage);
 				// $source = $destinationPath.$fileName.'.jpg';
 				// $success = file_put_contents($source, $decodeImage);
-				$asset = asset('/');
-				$thumbnail = str_replace($asset, '', $thumb);
+				$domain = asset('/');
+				$thumbnail = str_replace($domain, '', $thumb);
 				$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
