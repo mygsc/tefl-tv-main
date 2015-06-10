@@ -478,15 +478,15 @@ protected $video_;
 			$d =  Input::get('selected-thumbnail');
 			if(strlen($d)>1){  
 				//return Input::get('selected-thumbnail');
-				$getImageSelected = Input::get('selected-thumbnail');
-				$getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
-				$getImage = str_replace('data:image/png;base64,', '', $getImage);
-				$getImage = str_replace(' ', '+', $getImage);
-				$decodeImage = base64_decode($getImage);
-				$source = $destinationPath.$fileName.'.jpg';
-				$success = file_put_contents($source, $decodeImage);
-				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
+				// $getImageSelected = Input::get('selected-thumbnail');
+				// $getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
+				// $getImage = str_replace('data:image/png;base64,', '', $getImage);
+				// $getImage = str_replace(' ', '+', $getImage);
+				// $decodeImage = base64_decode($getImage);
+				// $source = $destinationPath.$fileName.'.jpg';
+				// $success = file_put_contents($source, $decodeImage);
+				$this->video_->resizeImage($d, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage($d, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
 			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
