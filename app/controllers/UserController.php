@@ -784,11 +784,11 @@ protected $video_;
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$findVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,6);
+		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
-		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,1)->first();
+		$recentUpload = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,1)->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
 		foreach($usersPlaylists as $playlist){
@@ -1057,7 +1057,7 @@ protected $video_;
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		$usersVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at', 1);
 		
 		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
