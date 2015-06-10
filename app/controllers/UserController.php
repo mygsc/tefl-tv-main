@@ -387,6 +387,7 @@ protected $video_;
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
+
 	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
 		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
 		if($getQty==3){ $hrs = $totalResult[0]; $min = $totalResult[1]; $sec = $totalResult[2];}
@@ -413,17 +414,9 @@ protected $video_;
 			return $thumbnail;
 		}
 
-	public function getEditVideo($id){
-		$file_name = Video::where('file_name',$id)->first();
-		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
- 		$id = $file_name->id;
-		$hms = $this->duration($file_name->total_time);
- 		$video = Video::find($id);
- 		$owner = User::find($video->user_id);
-		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
- 		if($video->user_id != Auth::User()->id){return Redirect::route('users.channel');}
- 		if($video->tags == ""){$tags = null;}else{$tags = explode(',',$video->tags);}
- 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+	public function getEditVideo($file_name){
+		$video = Video::where('file_name', $file_name)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -431,13 +424,32 @@ protected $video_;
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$filename = $file_name->file_name; $extension = $file_name->extension;
-		$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		
+		if(!$video->isEmpty()){
+			$video = $video->first();
+			$owner = User::find($video->user_id);
+			$id = $video->id;
+			$hms = $this->duration($video->total_time);
+			$filename = $video->file_name; $extension = $video->extension;
+
+			$tags = null;
+			if($video->tags != ""){
+				$tags = explode(',',$video->tags);
+			}
+			
+			$thumbnail = '1';
+		//$thumbnail = $this->threeThumbnailPath($filename, $extension);
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
+
+
+		}
+
+		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
 
 	public function postEditVideo($id){
 		$input = Input::all();
+		return $input;
 		$poster = $input['poster'];
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
