@@ -781,11 +781,11 @@ protected $video_;
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$findVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,6);
+		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
-		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,1)->first();
+		$recentUpload = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,1)->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
 		foreach($usersPlaylists as $playlist){
@@ -1054,7 +1054,7 @@ protected $video_;
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		$usersVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at', 1);
 		
 		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1411,13 +1411,16 @@ protected $video_;
 		$user_id = Input::get('userid');
 		if(Auth::check()){
 			if($order == 'Likes'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY likes DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY likes DESC");
 			}elseif($order == 'Views') {
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY v.views DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY v.views DESC");
 			}elseif($order == 'Recent'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY v.created_at DESC");	
-			}else{
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL AND v. publish = 0 ORDER BY v.publish DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY v.created_at DESC");	
+			}elseif($order == 'Unpublished'){
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '0' AND deleted_at IS NULL ORDER BY v.created_at DESC");
+			}
+			else{
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL AND v.publish = '0' ORDER BY v.created_at DESC");
 			}
 			$var = '';
 			foreach ($results as $result){
