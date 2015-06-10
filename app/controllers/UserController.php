@@ -440,9 +440,9 @@ protected $video_;
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
 	}
 
-	public function postEditVideo($id, $selectedCategory = null){
+	public function postEditVideo($id, $selectedCategory=null){
 		$input = Input::all();
-		$poster = $input['poster'];
+		$poster = Input::get('poster');
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
@@ -460,7 +460,8 @@ protected $video_;
 				}
 			}
 			if(strlen($input['selected-thumbnail']) > 1){  
-				$getImage = $input['selected-thumbnail'];
+				$getImageSelected = $input['selected-thumbnail'];
+				$getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
