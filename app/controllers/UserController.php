@@ -448,12 +448,21 @@ protected $video_;
 	}
 
 	public function postEditVideo($id, $selectedCategory=null){
-		$input = Input::all();
+		//$input = Input::all();
 		$poster = Input::get('poster');
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
-		$validator = Validator::make($input,Video::$video_edit_rules);
+		$validator = Validator::make([
+			'title'=>Input::get('title'),
+			'description'=> Input::get('description'),
+			//'new_tags'=> Input::get('new_tags')
+			],
+			[
+			'title'=>'required',
+			'description'=>'required',
+			//'new_tags'=>'required',
+			]);//Video::$video_edit_rules
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
 				if(!file_exists($destinationPath)){
@@ -466,9 +475,10 @@ protected $video_;
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
 			}
-			if(strlen($input['selected-thumbnail']) > 1){  
-				$getImageSelected = $input['selected-thumbnail'];
+			if(strlen(Input::get('selected-thumbnail') > 1)){  
+				$getImageSelected = Input::get('selected-thumbnail');
 				$getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
+				return $getImage;
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
@@ -481,12 +491,12 @@ protected $video_;
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
 			$video->category = $selectedCategory;
-			$video->title = $input['title'];
-			$video->description = $input['description'];
-			$video->publish = $input['publish'];
-			if($input['new_tags'] != null){
+			$video->title = Input::get('title');
+			$video->description = Input::get('description');
+			$video->publish = Input::get('publish');
+			if(Input::get('new_tags') != null){
 				$video_tag = Video::where('file_name',$id)->first()->toArray();
-				$new_tags = explode(',',$input['new_tags']);
+				$new_tags = explode(',',Input::get('new_tags'));
 				foreach($new_tags as $new_tag){
 					if($new_tag != null){
 						$tag_result[] = strtolower($new_tag);
