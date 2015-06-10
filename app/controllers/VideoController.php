@@ -106,7 +106,6 @@ class VideoController extends BaseController {
 		$id = Crypt::decrypt($id);  
 		$videos = Video::find($id);
 		$fileName = $videos->file_name;
-		//$input = Input::all(); 
 		$validator = Validator::make([
 			'title'=>Input::get('title'),
 			'description' => Input::get('description'),

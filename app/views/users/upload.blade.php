@@ -61,17 +61,12 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
-								{{-- <h3 id='upload-status' style="text-align:center">
-								 HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
-								 Uploading and converting your video it takes several minutes please wait... </h3> --}}
-								
 								<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
 								<br/>
 								<div id="wrapper">
 									<div id="progressbar-loaded">
 											<center><span id="percentage"></span></center>
-									</div><br/>
-									
+									</div>
 								</div>
 								<p id="msg-status"></p>
 								
