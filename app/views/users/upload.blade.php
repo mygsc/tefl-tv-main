@@ -115,7 +115,7 @@
 								
 								<div class="col-md-8" >
 									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control'))}}
+									{{Form::text('title',null,array('class'=>'form-control', 'id'=>'title'))}}
 									@if ($errors->has('title'))
 										<small style="color:red">{{$errors->first('title')}}</small>
 									@endif

@@ -13,6 +13,7 @@ $(document).ready(function(){
         var file = document.getElementById('vids-upload').value;
         var fileSize = document.getElementById('vids-upload').files[0];
         var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
+        
             if(fileSize.size > limitSize){
                 $('#progress').fadeOut('fast');
                 return $('#upload-error').html('Error: File size is too big.').css({'color':'#cc3510'});
@@ -22,6 +23,7 @@ $(document).ready(function(){
                 return $('#upload-error').html('Error: No selected file.').css({'color':'#cc3510'}); 
             }
             if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov") {
+                $('#title').val(file);
                 $(this).closest("#vidSubmit").submit();
                 $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 
                 $('.h-minH').fadeOut(500);
@@ -43,17 +45,17 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    $('#percentage').html('Uploading in progress...'+percentComplete+'%').css({'color':'#000'});
-                    if(percentComplete==100){
-                        $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
-                    }
+                    $('#percentage').html(percentComplete+'% uploaded ' + ' Please wait a moment while the video is uploading...').css({'color':'#000'});
+                    // if(percentComplete==100){
+                    //     $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
+                    // }
                 },
                 success: function(response){
                     $('#loader-progress').fadeOut();
                     $('#loader').fadeOut();
 		            $('#spinner').fadeOut();
                     document.getElementById('post-save').action = 'addDescription/'+response.vidid;
-                    $('#percentage').html('Your video is completely uploaded you can now click save.').css({'color':'#000'});
+                    $('#percentage').html('The video is now uploaded you may now click save.').css({'color':'#105cce'});
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
