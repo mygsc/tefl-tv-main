@@ -387,6 +387,7 @@ protected $video_;
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
+
 	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
 		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
 		if($getQty==3){ $hrs = $totalResult[0]; $min = $totalResult[1]; $sec = $totalResult[2];}
@@ -399,37 +400,23 @@ protected $video_;
 	}
 	private function threeThumbnailPath($filename, $extension){
 		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
-		$thumb1 = $thumb.'_thumb1.png';
-		$thumb2 = $thumb.'_thumb2.png';
-		$thumb3 = $thumb.'_thumb3.png';
-			if(!file_exists($thumb1)){
+		$thumbnail= $thumb.'_thumb1.png';
+		// $thumb2 = $thumb.'_thumb2.png';
+		// $thumb3 = $thumb.'_thumb3.png';
+			if(!file_exists($thumbnail)){
 				$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
 				$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
 				$this->video_->captureImage($videoFile,$destinationPath,$filename);
-				$thumb1 = $thumb.'_thumb1.png';
-				$thumb2 = $thumb.'_thumb2.png';
-				$thumb3 = $thumb.'_thumb3.png';
-			}else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+				// $thumb1 = $thumb.'_thumb1.png';
+				// $thumb2 = $thumb.'_thumb2.png';
+				// $thumb3 = $thumb.'_thumb3.png';
+			}//else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+			return $thumbnail;
 		}
 
-	public function getEditVideo($id){
-		$file_name = Video::where('file_name',$id)->first();
-		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
- 		$id = $file_name->id;
-		$hms = $this->duration($file_name->total_time);
- 		$video = Video::find($id);
- 		$owner = User::find($video->user_id);
-		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
-
- 		if($video->user_id != Auth::User()->id){
- 			return Redirect::route('users.channel');
- 		}
- 		if($video->tags == ""){
-			$tags = null;
-		}else{
-			$tags = explode(',',$video->tags);
-		}
- 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+	public function getEditVideo($file_name){
+		$video = Video::where('file_name', $file_name)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -437,13 +424,32 @@ protected $video_;
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$filename = $file_name->file_name; $extension = $file_name->extension;
-		$this->threeThumbnailPath($filename, $extension);
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
+		
+		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
+			$video = $video->first();
+			$owner = User::find($video->user_id);
+			$id = $video->id;
+			$hms = $this->duration($video->total_time);
+			$filename = $video->file_name; $extension = $video->extension;
+
+			$tags = null;
+			if($video->tags != ""){
+				$tags = explode(',',$video->tags);
+			}
+			
+			$thumbnail = '1';
+		$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
+
+
+		}
+
+		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
 
-	public function postEditVideo($id){
+	public function postEditVideo($id, $selectedCategory = null){
 		$input = Input::all();
+		return $input;
 		$poster = $input['poster'];
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
@@ -471,10 +477,10 @@ protected $video_;
 				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
-			
-
+			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
+			$video->category = $selectedCategory;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
