@@ -37,6 +37,7 @@
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}

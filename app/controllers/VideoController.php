@@ -106,17 +106,26 @@ class VideoController extends BaseController {
 		$id = Crypt::decrypt($id);  
 		$videos = Video::find($id);
 		$fileName = $videos->file_name;
-		$input = Input::all(); 
-		$validator = Validator::make($input,Video::$addDescription);
+		//$input = Input::all(); 
+		$validator = Validator::make([
+			'title'=>Input::get('title'),
+			'description' => Input::get('description'),
+			'tags' => Input::get('tags')
+			],
+			[
+			'title'=> 'required',
+			'description'=> 'required',
+			'tags' => 'required'
+			]);//Video::$addDescription
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
-				$this->video_->resizeImage($input['poster'], 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->video_->resizeImage($input['poster'], 240, 141, $destinationPath.$fileName.'.jpg');
+				$this->video_->resizeImage(Input::get('poster'), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage(Input::get('poster'), 240, 141, $destinationPath.$fileName.'.jpg');
 			}
-			if(strlen($input['thumbnail']) > 1){  
-				$getImage = $input['thumbnail'];
+			if(strlen(Input::get('thumbnail') > 1)){  
+				$getImage = Input::get('thumbnail');
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
@@ -134,11 +143,11 @@ class VideoController extends BaseController {
 			$uniqueTag = array_unique($newTags);$implodeTag = implode(',',$uniqueTag);$video = Video::find($id);$publish = $video->publish;
 			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			if($publish == 0){
-				$video->title = $input['title'];
-				$video->description = $input['description'];
+				$video->title = Input::get('title');
+				$video->description = Input::get('description');
 				$video->category = $selectedCategory;
 				$video->tags =  $implodeTag;
-				$video->publish = $input['publish'];
+				$video->publish = Input::get('publish');
 				$video->save();
 				// for($n=1;$n<=3;$n++){
 				// 	File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
