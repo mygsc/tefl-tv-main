@@ -56,6 +56,7 @@ Upload
 <div class="row" style="display:none" id='add-description'>
 	<div class="container page White same-H"> 
 		<div class="">
+
 			{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
@@ -72,6 +73,7 @@ Upload
 									</div>
 								</div>
 								<p id="msg-status"></p>
+
 								</div>
 							</div>
 							<div class="col-md-2 text-right">
@@ -168,6 +170,14 @@ Upload
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
+												<label for='music-vid'>For Students</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
+												<label for='instruct'>For Teachers</label>
+											</span>
+											<span class="v-category">
 												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
@@ -190,15 +200,6 @@ Upload
 											<span class="v-category">
 												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
 												<label for='qa'>Question and Answer</label>
-											</span>
-
-											<span class="v-category">
-												{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
-												<label for='music-vid'>Students Instructional</label>
-											</span>
-											<span class="v-category">
-												{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
-												<label for='instruct'>Teachers Instructional</label>
 											</span>
 											<span class="v-category">
 												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}

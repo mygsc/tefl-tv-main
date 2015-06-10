@@ -28,7 +28,7 @@ $(document).ready(function(){
                 $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 
                 $('.h-minH').fadeOut(500);
                 $('#add-description').fadeIn(1000);
-                $('#percentage').html('Start uploading...').css({'color':'#000'});
+                $('#percentage').html('Start uploading...').css({'color':'#eaa207'});
             }else{
                 $('#progress').fadeOut('fast');
                 return $('#upload-error').html('Error: File type is not valid.').css({'color':'#cc3510'});
@@ -45,9 +45,11 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
+
                     $('#percentage').html(percentComplete+'%');
                     $('#up-msg').html('<i class="fa fa-info-circle"></i> '+' Please wait a moment while the video is uploading...').css({'color':'#5ec6e8'});
                     
+
                     // if(percentComplete==100){
                     //     $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
                     // }
@@ -58,6 +60,7 @@ $(document).ready(function(){
 		            $('#spinner').fadeOut();
                     document.getElementById('post-save').action = 'addDescription/'+response.vidid;
                     $('#up-msg').html('<i class="fa fa-check"></i> '+' The video has been uploaded, you may now click save.').css({'color':'#376d2e'});
+
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
