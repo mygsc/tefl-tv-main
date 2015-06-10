@@ -1441,8 +1441,7 @@ protected $video_;
 				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY v.created_at DESC");	
 			}elseif($order == 'Unpublished'){
 				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '0' AND deleted_at IS NULL ORDER BY v.created_at DESC");
-			}
-			else{
+			}else{
 				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL AND v.publish = '0' ORDER BY v.created_at DESC");
 			}
 			$var = '';

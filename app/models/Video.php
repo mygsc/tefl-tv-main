@@ -289,11 +289,11 @@ class Video extends Eloquent{
 	}
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
-			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			'category', 'tags', 'report_count', 'recommended', 'videos.deleted_at', 'videos.created_at', 'videos.updated_at',
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
 		->where('videos.user_id', $auth)
-		->where('publish', 1)
+		->where('publish', '1')
 		->where('deleted_at', NULL);
 
 		if(!empty($uploaded)){
@@ -320,7 +320,8 @@ class Video extends Eloquent{
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'))
 		->where('videos.user_id', $auth)
 		->where('deleted_at', NULL)
-		->where('uploaded', 1)
+		->where('publish', '1')
+		->where('uploaded', '1')
 		->where('title','LIKE', '%'.$search.'%')->get();
 		return $search;
 	}
