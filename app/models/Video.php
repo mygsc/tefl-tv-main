@@ -12,7 +12,7 @@ class Video extends Eloquent{
 	* Path of ffmpeg located at opt folder for local development
 	* It is used for converting video, capturing image and grabbing information of the video (open source).
 	* version 2.6.2 stable release
-	* Note: Please don't update 
+	* Note: Please don't update or change the path of ffmpeg in the server default ('/home/tefltv/bin/ffmpeg').
 	*/
 	public $ffmpegPath = '/home/tefltv/bin/ffmpeg'; 
 	public $ffprobePath = '/home/tefltv/bin/ffprobe';
@@ -287,6 +287,28 @@ class Video extends Eloquent{
 
 		return $getVideos->take($limit)->get();
 	}
+	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
+		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'videos.deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
+			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
+		->where('videos.user_id', $auth)
+		->where('publish', '1')
+		->where('deleted_at', NULL);
+
+		if(!empty($uploaded)){
+			$getVideos = $getVideos->where('uploaded', $uploaded);
+		}
+		if(!empty($orderBy)) {
+			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
+		}
+
+		if(!empty($limit)) {
+			$getVideos = $getVideos->take($limit);
+		}
+
+		return $getVideos->take($limit)->get();
+	}
 
 	public function getSearchVideos($auth = null, $search = null){
 		if(empty($search)){
@@ -298,7 +320,8 @@ class Video extends Eloquent{
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'))
 		->where('videos.user_id', $auth)
 		->where('deleted_at', NULL)
-		->where('uploaded', 1)
+		->where('publish', '1')
+		->where('uploaded', '1')
 		->where('title','LIKE', '%'.$search.'%')->get();
 		return $search;
 	}

@@ -124,7 +124,7 @@ protected $video_;
 		
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
-				return Redirect::route('homes.signin')->with('flash_good', 'Password has been renewed');
+				return Redirect::route('homes.signin')->with('flash_good', 'Password has been re-newed');
 			}
 		}
 		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
@@ -387,6 +387,7 @@ protected $video_;
 		$deleteFavorite->delete();
 		return Redirect::route('users.channel')->withFlashBad('Selected video deleted');
 	}
+
 	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
 		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
 		if($getQty==3){ $hrs = $totalResult[0]; $min = $totalResult[1]; $sec = $totalResult[2];}
@@ -397,25 +398,25 @@ protected $video_;
 		if($sec<10){$sec = $sec;}
 		return $duration =  $hrs.':' . $min.':' . $sec;
 	}
-
-	public function getEditVideo($id){
-		$file_name = Video::where('file_name',$id)->first();
-		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
- 		$id = $file_name->id;
-		$hms = $this->duration($file_name->total_time);
- 		$video = Video::find($id);
- 		$owner = User::find($video->user_id);
-		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
-
- 		if($video->user_id != Auth::User()->id){
- 			return Redirect::route('users.channel');
- 		}
- 		if($video->tags == ""){
-			$tags = null;
-		}else{
-			$tags = explode(',',$video->tags);
+	private function threeThumbnailPath($filename, $extension){
+		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
+		$thumbnail= $thumb.'_thumb1.png';
+		// $thumb2 = $thumb.'_thumb2.png';
+		// $thumb3 = $thumb.'_thumb3.png';
+			if(!file_exists($thumbnail)){
+				$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
+				$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
+				$this->video_->captureImage($videoFile,$destinationPath,$filename);
+				// $thumb1 = $thumb.'_thumb1.png';
+				// $thumb2 = $thumb.'_thumb2.png';
+				// $thumb3 = $thumb.'_thumb3.png';
+			}//else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+			return $thumbnail;
 		}
- 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+
+	public function getEditVideo($file_name){
+		$video = Video::where('file_name', $file_name)->get();
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -423,24 +424,32 @@ protected $video_;
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
-		$filename = $file_name->file_name;$extension = 'original.'.$file_name->extension;
-		$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-		$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
-		if(!file_exists($thumb1)){
-			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.$extension);
-			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
-			$this->video_->captureImage($videoFile,$destinationPath,$filename);
-			$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-			$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-			$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
+
+		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
+			$video = $video->first();
+			$owner = User::find($video->user_id);
+			$id = $video->id;
+			$hms = $this->duration($video->total_time);
+			$filename = $video->file_name; $extension = $video->extension;
+
+			$tags = null;
+			if($video->tags != ""){
+				$tags = explode(',',$video->tags);
+			}
+			
+			$thumbnail = '1';
+		$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
+
+
 		}
-		$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); 
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
+
+		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
 
-	public function postEditVideo($id){
+	public function postEditVideo($id, $selectedCategory = null){
 		$input = Input::all();
+		return $input;
 		$poster = $input['poster'];
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
@@ -468,10 +477,10 @@ protected $video_;
 				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
-			
-
+			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
+			$video->category = $selectedCategory;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
@@ -784,11 +793,11 @@ protected $video_;
 		if(empty($userChannel)) return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
-		$findVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,6);
+		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
-		$recentUpload = $this->Video->getVideos($userChannel->id, 'videos.created_at',1,1)->first();
+		$recentUpload = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,1)->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 
 		foreach($usersPlaylists as $playlist){
@@ -1057,7 +1066,7 @@ protected $video_;
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
-		$usersVideos = $this->Video->getVideos($userChannel->id, 'videos.created_at', 1);
+		$usersVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at', 1);
 		
 		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1414,13 +1423,15 @@ protected $video_;
 		$user_id = Input::get('userid');
 		if(Auth::check()){
 			if($order == 'Likes'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY likes DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY likes DESC");
 			}elseif($order == 'Views') {
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY v.views DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY v.views DESC");
 			}elseif($order == 'Recent'){
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL ORDER BY v.created_at DESC");	
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '1' AND deleted_at IS NULL ORDER BY v.created_at DESC");	
+			}elseif($order == 'Unpublished'){
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND v.publish = '0' AND deleted_at IS NULL ORDER BY v.created_at DESC");
 			}else{
-				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL AND v. publish = 0 ORDER BY v.publish DESC");
+				$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$this->Auth->id. "'AND deleted_at IS NULL AND v.publish = '0' ORDER BY v.created_at DESC");
 			}
 			$var = '';
 			foreach ($results as $result){

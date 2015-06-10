@@ -264,10 +264,15 @@ $('textarea#description').mousemove(function(e){
 });
 function checkLimit(limit){
    $('#char-limit').html(limit);
-   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});}
-   if(limit>=min){$('#char-limit').html(limit).css({'color':'#008cff'});document.getElementById("submit-save-changes").disabled = false;}
+   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});$('#max-limit').html('/5000');}
+   if(limit>=min && limit < max){$('#char-limit').html(limit).css({'color':'#0b58dd'});document.getElementById("submit-save-changes").disabled = false;$('#max-limit').html('/5000');}
    else{document.getElementById("submit-save-changes").disabled = true;}
-   if(limit>=max){$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+   if(limit>=max){
+   	var charLen = document.getElementById('description').value.length;
+   	$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
+   	//for(var n=max; limit > max ; limit--){console.log('minus one');}
+   	}
+   	
 }
 $('#upload-cancel').on('click',function(){
         $('#cancel-upload-vid').modal('show');
@@ -336,18 +341,33 @@ $('#upload-cancel').on('click',function(){
 											<br/>
 											
 											<p>Available thumbnails:</p>
-											<div id='t-1' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_1')}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+											@if(file_exists($thumbnail))
+												<div id='t-1' style='position:relative;display:inline-block'>
+												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
 												<label class='caption-t-1'></label>
-											</div>
-											<div id='t-2' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_2')}}" id='thumb-2' class='img-thumbnail' width="150" height="100" >
-												<label class='caption-t-2'></label>
-											</div>
-											<div id='t-3' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_3')}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
-												<label class='caption-t-3'></label>
-											</div>
+												</div>
+												<div id='t-2' style='position:relative;display:inline-block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-2'></label>
+												</div>
+												<div id='t-3' style='position:relative;display:inline-block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-3'></label>
+												</div>
+											@else
+												<div id='t-1' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-1'></label>
+												</div>
+												<div id='t-2' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-2'></label>
+												</div>
+												<div id='t-3' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-3'></label>
+												</div>
+											@endif
 											
 
 										</div><!--/.col-md-5-->
@@ -414,7 +434,7 @@ $('#upload-cancel').on('click',function(){
 														</span>
 														@endif
 														{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-														<small id='char-limit'>0</small id='max-limit'><small>/5000</small><br/>
+														<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
 														<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 														
 													</div>
@@ -435,7 +455,68 @@ $('#upload-cancel').on('click',function(){
 															@endforeach
 															@endif
 														</div>
+														
 													</div>
+													<div class="well">
+															{{Form::label('Category:')}}<br/>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
+																<label for='instruct'>Teachers Instructional</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
+																<label for='music-vid'>Students Instructional</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+																<label for='vid-blog'>Video Blog</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+																<label for='vid-cv'>Video CV</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+																<label for='job-ad'>Job AD</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+																<label for='music'>Music</label>
+															</span>
+															
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+																<label for='anim-vid'>Animated Video</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+																<label for='anim-music-vid'>Animated Music Video</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+																<label for='qa'>Question and Answer</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+																<label for='advice'>Advice</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+																<label for='podcast'>Podcast</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
+																<label for='interviews'>Interviews</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+																<label for='documentaries'>Documentaries</label>
+															</span>
+															<span class="span-tags">
+																{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+																<label for='miscellaneous'>Miscellaneous</label>
+															</span>
+														</div>	
 													<br/>
 													<div class="text-right mg-b-10"> 
 														{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}

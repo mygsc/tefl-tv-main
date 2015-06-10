@@ -181,3 +181,7 @@ Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testing
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
 Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);
 
+Route::group(array('prefix' => 'partners'), function() {
+	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@indx'));
+	
+});
