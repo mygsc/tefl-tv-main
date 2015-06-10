@@ -1,16 +1,20 @@
 @extends('layouts.default')
+
+@section('title')
+    {{$videos->title}}
+@stop
+
 @section('meta')
     <!--<meta property="og:title" content="{{$videos->title}}">
         <meta property="og:site_name" content="{{asset('/')}}">
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
         <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
-
-       <meta property="og:type" content="video">
-<meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:type" content="video">
+        <meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
-<meta property="og:video:tag" content="{{$videos->tags}}"> 
+        <meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -29,7 +33,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
-            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW VIDEO STORY' ? 'HIDE VIDEO STORY' : 'SHOW VIDEO STORY');
+            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE');
             $(".seeVideoContent").slideToggle("slow");
         });    
     });
@@ -61,24 +65,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
                             <!--video paler-->
                             <br/>
-	<!--advertisement-->
-	<div class="advertisement" id='advertisement' style="display:none">
-		<div class="span12" style="background:rgba(0,0,0, 0.15)">
-			<div class="col-md-10 col-md-offset-1">
-				<span class="close">x</span> 
-				<script type="text/javascript">
-    google_ad_client = "ca-pub-3138986188138771";
-    google_ad_slot = "4882426847";
-    google_ad_width = 320;
-    google_ad_height = 100;
-</script>
-<!-- tefltv ads -->
-<script type="text/javascript"
-src="//pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-			</div>
-		</div>
-	</div>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
                                 <div class="col-md-12">
@@ -99,6 +85,9 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                                             <div class="col-md-6">
                                                
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
+                                            {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
+                                            {{Form::hidden('autoplay', $autoplay, ['id'=>'autoplay'])}}
+                                            {{Form::hidden('duration', $duration, ['id'=>'duration'])}}
                                             @if(isset(Auth::User()->id))
 
                                             <span class="dropdown" id="dropdown">
@@ -160,9 +149,9 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 
                                                 </a>
                                                 <span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch!v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch!v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-                                                    <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch!v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                                    <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                                    <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                                    <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                                 </span><!--/.dropdown-menu pull-right White-->
                                             </span><!--/.dropdown share-->
                                             
@@ -258,18 +247,20 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                                         </p> 
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         
-                                        <div class="seeVideoContent">
-                                            <p>
-                                               {{$videos->description}}<br/><br/>
-                                                <p>Tags: {{$videos->tags}}<br/>
-                                                Categories: {{$videos->category}}</p>
-                                           </p>
+                                        <div class="seeVideoContent black">
+                                            <br/>
+                                            <pre style="text-indent:none!important;">{{$videos->description}}</pre>
+                                            <br/><br/>
+                                            <p><b>Tags:</b> {{$videos->tags}}<br/>
+                                            <b>Categories:</b> {{$videos->category}}</p>
+                                           
                                        </div>
+                                    
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
                                <div class="h-seeMore">
-                                <a class="linkReadMore text-center">SHOW VIDEO STORY</a>
+                                <a class="linkReadMore text-center"><span>SHOW MORE</span></a>
                             </div>
                             <br/>
                         </div><!--/.info-->
@@ -304,7 +295,7 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item" id="">
-                                <a href="watch!v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
+                                <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-4">
                                         @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
@@ -317,7 +308,7 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
                                         <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
                                         <span>by: {{$relation['channel_name']}}</span><br/>
                                         <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($videos->views)}} view/s</span>
+                                        <span>{{number_format($relation['views'])}} view/s</span>
                                     </div>
                                 </div>
                                 </a>

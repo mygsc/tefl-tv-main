@@ -2,7 +2,6 @@
 
 class HomeController extends BaseController {
 
-
 	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
 		$this->User = $user;
 		$this->Video = $video;
@@ -10,6 +9,17 @@ class HomeController extends BaseController {
 		$this->Auth = Auth::User();
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
+	}
+	public function getIndex() {
+		//return Hash::make('123123');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
+		$populars = $this->Video->getFeaturedVideo('popular', '9');
+		$latests = $this->Video->getFeaturedVideo('latest', '9');
+		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+		//return $notifications;
+		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
 	public function getAboutUs() { 
 		return View::make('homes.aboutus');
@@ -63,21 +73,11 @@ class HomeController extends BaseController {
 		return View::make('homes.signin');
 	}
 
-	public function getWatchVideo() {
-		return View::make('homes.advertisements');
-	}
+	// public function getWatchVideo() {
+	// 	return View::make('homes.advertisements');
+	// }
 
-	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
-		$populars = $this->Video->getFeaturedVideo('popular', '9');
-		$latests = $this->Video->getFeaturedVideo('latest', '9');
-		$randoms = $this->Video->getFeaturedVideo('random', '9');
-		//return $randoms;
-		$categories = $this->Video->getCategory();
-		$notifications = $this->Notification->getNotificationForSideBar();
-		//return $notifications;
-		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
-	}
+
 
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
@@ -142,7 +142,7 @@ class HomeController extends BaseController {
 				$folderName = $video->user_id. '-'. $video->channel_name;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
-				$videos[$key]->thumbnail = 'img\thumbnails\video-sm.jpg';
+				$videos[$key]->thumbnail = 'img/thumbnails/video-sm.jpg';
 				if(file_exists(public_path($thumbnail))){
 					$videos[$key]->thumbnail = $thumbnail;
 				}
@@ -154,15 +154,32 @@ class HomeController extends BaseController {
 		}
 		return Redirect::route('homes.index');
 	}
-
-	public function watchVideo($idtitle=null){
-		$videos = Video::where('file_name','=',$idtitle)->first();
-		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
+	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
+		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
+		if($getQty==3){ $hrs = $totalResult[0]*3600;$min = $totalResult[1]*60;$sec = $totalResult[2]*1;}
+		if($getQty==2){ $min = $totalResult[0]*60;$sec = $totalResult[1]*1;}
+		if($getQty==1){ $sec = $totalResult[0]*1;} 
+		return $duration =  $hrs + $min + $sec;
+	}
+	private function getURL(){
+		$url = URL::full();
+		$domain = asset('/');
+		$filename = str_replace($domain.'watch?v=', '', $url);
+		return $filename;
+	}
+	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
+		$filename = $this->getURL();
+		$videos = Video::where('file_name', '=', $filename)->first();
+		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the page you are looking is not found.');
+		$totalTime = $videos->total_time;
+		$duration = $this->duration($totalTime);
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-		if($videos->publish != '1')return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+
+		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
+
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
@@ -170,12 +187,12 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-		->where('publish','1')
-		->where('report_count','<','5')
-		->where('id','!=',$videos->id)
-		->orderBy('id','desc')
-		->take(3)->get();
+			->where('publish','1')
+			->where('uploaded','1')
+			->where('report_count','<','5')
+			->where('id','!=',$videos->id)->orderBy('id','desc')->take(3)->get();
 		$likeownerVideosCounter = 0;
+
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
@@ -189,8 +206,6 @@ class HomeController extends BaseController {
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
-				$randomCounter--;
-
 			}
 		}
 
@@ -199,14 +214,13 @@ class HomeController extends BaseController {
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
 			$favorites = UserFavorite::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$watchLater = UserWatchLater::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$like = UserLike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
+				->where('user_id','=',Auth::User()->id)->first();
 			$dislike = UserDislike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-
+				->where('user_id','=',Auth::User()->id)->first();
 		}
 		else{
 			$playlists = null;
@@ -216,12 +230,13 @@ class HomeController extends BaseController {
 			$like = null;
 			$dislike = null;
 		}
+
 		$likeCounter = UserLike::where('video_id','=',$id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 
 		//////////////////////r3mmel////////////////////////////
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-		->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
@@ -243,13 +258,12 @@ class HomeController extends BaseController {
 			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+			// $datas[$key]->image_src = $img;
+			// $datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
 
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
@@ -533,6 +547,9 @@ class HomeController extends BaseController {
 			);
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'disliked'))->delete();
+			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'disliked'))->count();
+
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
 			if($likeUserId != $videoData->user_id){
@@ -543,7 +560,7 @@ class HomeController extends BaseController {
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
 			/*Notification End*/
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCount' => $dislikesCount));
 
 		} elseif($statuss == 'unliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
@@ -565,7 +582,10 @@ class HomeController extends BaseController {
 					)
 				);
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
-			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();
+			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'liked'))->count();
+
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked', 'likesCount' => $likesCount));
 		} elseif($statuss == 'undisliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
@@ -638,17 +658,15 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		for ($i=1; $i<=100; $i++) {
-    if ($i % 15 == 0) {
-        printf("FizzBuzz\n");
-    } else if ($i % 5 == 0) {
-        printf("Buzz\n");
-    } else if ($i % 3 == 0) {
-        printf("Fizz\n");
-    } else{
-        printf("%d\n", $i);
-    }
-}
-		
+		print rand(0,99);
+	}
+	public function postincrementView($filename=null, $autoplay=1){
+		$increment = Video::where('file_name', $filename)->first();
+		if($increment->count()){
+			$totalView = $increment->views;
+			$increment->views = $totalView + 1;
+			$increment->save();
+			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
+		}
 	}
 }

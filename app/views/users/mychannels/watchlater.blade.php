@@ -2,11 +2,13 @@
 
 @section('content')
 <div class="row">
-	<div class="container pageH White">
-		<br/>
-		<div class="row same-H">
+
+	<br/>
+	<div class="container">
+		<div class="row same-H White">
+
 			@include('elements/users/profileTop')
-			<div class="Div-channel-border channel-content">
+			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
@@ -42,9 +44,8 @@
 					    </div>
 					  </div>
 					</nav>
-				  	
-
 				</div>
+
 
 				<div class="row mg-l--20">
 					<br/>
@@ -81,7 +82,7 @@
 					</div>
 					<div id="videosContainer" class='container'>
 						<br/>
-						@if(empty($usersWatchLater))
+						@if($usersWatchLater->isEmpty())
 							<p class="text-center">There's no video to watch later.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
@@ -93,7 +94,7 @@
 									<span title="Remove from watch later?" class="btn-sq inline">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline'))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline' ,'onsubmit'=> 'return confirm("Are you sure you want to delete this?")'))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
@@ -147,6 +148,7 @@
 		</div><!--/.row-->
 		<br/>
 	</div><!--/.container page-->
+</div>
 @stop
 
 @section('script')

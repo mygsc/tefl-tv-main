@@ -42,12 +42,12 @@
 		<div class="modal-content">
 			<div class="row content-padding">
 				<br/>
-				Please enter your email
+				<p>Please enter your email:</p> 
 				{{Form::open(array('route' => 'post.forgotpassword'))}}
 				{{Form::email('email', null, array('class' => 'form-control'))}}
 				<br/><br/>
 				<div class="text-right">
-					{{Form::submit('retrieve', array('class' => 'btn btn-warning'))}}
+					{{Form::submit('Submit', array('class' => 'btn btn-warning'))}}
 				</div>
 				<br/>
 			</div>

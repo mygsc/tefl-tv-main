@@ -12,12 +12,12 @@
 */
 
 Route::group(array('prefix' => '/'), function() {
-	Route::get('upload',array('as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
+	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
+	Route::post('addDescription/{id}',array('before'=>'auth','as' => 'post.add.description', 'uses'=>'VideoController@postAddDescription'));
 	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
-	Route::post('add-description/{id}',array('before'=>'auth','as' => 'post.add.description', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
@@ -37,7 +37,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('signup', array('as' => 'homes.post.signup', 'uses' => 'UserController@postSignUp'));
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
-	Route::any('watch!v={filename}', array('as' => 'homes.watch-video', 'uses' => 'HomeController@watchVideo'));
+	Route::any('watch', array('as' => 'homes.watch-video', 'uses' => 'HomeController@getWatchVideo'));
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
@@ -105,8 +105,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
 	Route::get('countnotifications', array('as' => 'user.countnotifications', 'uses' => 'UserController@countNotifcation'));
 	Route::get('videoplaylist={id}', array('as'=>'video.playlist', 'uses'=>'UserController@getViewPlaylistVideo'));
-	Route::get('edit={id}', array('as'=>'video.edit.get', 'uses'=>'UserController@getedit'));
-	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postedit'));
+	Route::get('edit/v={id}', array('before'=>'auth','as'=>'video.edit.get', 'uses'=>'UserController@getEditVideo'));
+	Route::post('edit/{id}', array('as'=>'video.post.edit', 'uses'=>'UserController@postEditVideo'));
 	Route::post('edit_tag/{id}', array('as'=>'video.post.editTag', 'uses'=>'UserController@posteditTag'));
 	Route::post('removeTag/{id}', array('as'=>'video.post.removetag', 'uses'=>'UserController@removeTag'));
 	Route::post('deleteVideo/{id}', array('as'=>'video.post.delete', 'uses'=>'UserController@deleteVideo'));
@@ -154,29 +154,34 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
 	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
 	Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminController@logout'));
-	Route::get('resetpassword', array('as' => 'get.admin.resetpassword', 'uses' => 'AdminController@getResetPassword'));
-	Route::post('resetpassword', array('as' => 'post.admin.resetpassword', 'uses' => 'AdminController@postResetPassword'));
-	Route::get('pwdreset/{id}', array('as' => 'get.admin.pwdreset', 'uses' => 'AdminController@getPwdReset'));
-	Route::post('pwdreset', array('as' => 'post.admin.pwdreset', 'uses' => 'AdminController@postPwdReset'));
-	Route::get('changepassword', array('as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
-	Route::post('changepassword', array('as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
-	Route::get('recommendedvideos', array('as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
-	Route::post('recommendedvideos', array('as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
-	Route::get('createadminlink', array('as' => 'get.admin.createadminlink', 'uses' => 'AdminController@getCreateAdminLink'));
-	Route::post('createadminlink', array('as' => 'post.admin.createadminlink', 'uses' => 'AdminController@postCreateAdminLink'));
+	Route::get('resetpassword', array('before' => 'auth.admin', 'as' => 'get.admin.resetpassword', 'uses' => 'AdminController@getResetPassword'));
+	Route::post('resetpassword', array('before' => 'auth.admin', 'as' => 'post.admin.resetpassword', 'uses' => 'AdminController@postResetPassword'));
+	Route::get('pwdreset/{id}', array('before' => 'auth.admin', 'as' => 'get.admin.pwdreset', 'uses' => 'AdminController@getPwdReset'));
+	Route::post('pwdreset', array('before' => 'auth.admin', 'as' => 'post.admin.pwdreset', 'uses' => 'AdminController@postPwdReset'));
+	Route::get('changepassword', array('before' => 'auth.admin', 'as' => 'get.admin.changepassword', 'uses' => 'AdminController@getChangePassword'));
+	Route::post('changepassword', array('before' => 'auth.admin', 'as' => 'post.admin.changepassword', 'uses' => 'AdminController@postChangePassword'));
+	Route::get('recommendedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.recommendedvideos', 'uses' => 'AdminController@getRecommendedVideos'));
+	Route::post('recommendedvideos', array('before' => 'auth.admin', 'as' => 'post.admin.recommendedvideos', 'uses' => 'AdminController@postRecommendedVideos'));
+	Route::get('createadminlink', array('before' => 'auth.admin', 'as' => 'get.admin.createadminlink', 'uses' => 'AdminController@getCreateAdminLink'));
+	Route::post('createadminlink', array('before' => 'auth.admin', 'as' => 'post.admin.createadminlink', 'uses' => 'AdminController@postCreateAdminLink'));
 	Route::get('adminsignup/{id}', array('as' => 'get.admin.adminsignup', 'uses' => 'AdminController@getAdminSignup'));
 	Route::post('adminsignup', array('as' => 'post.admin.adminsignup', 'uses' => 'AdminController@postAdminSignup'));
-	Route::get('reportedvideos', array('as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
-	Route::get('users', array('as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
+	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
+	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
+	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
 
 	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
 
 });
 //**********ADMIN**********//
 
-Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
+//Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 Route::get('embed/{id}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
+Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);
 
-
+Route::group(array('prefix' => 'partners'), function() {
+	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@indx'));
+	
+});

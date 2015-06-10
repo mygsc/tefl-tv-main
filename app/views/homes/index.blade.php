@@ -3,7 +3,6 @@
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
-		{{ HTML::style('css/bootstrap.css') }}
 	@stop
 	@section('some_script')
 	{{HTML::script('js/video-player/media.player.min.js')}}
@@ -12,20 +11,18 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 White same-H">
-			<div class="row">	
-				<div class="ad-bg">
+		<div class="col-md-12 ">	
+				<div class="ad-bg same-H">
 					<div class="row">
 						<div class="col-md-6" style="">
 							<div class="mg-l-10  mg-b-10">
 								<div class="vid-wrapperb p-relative">
 									<div id="vid-controls">
 										<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-							              	<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-												<source id='mp4' src='/videos/tefltv.mp4' type='video/mp4'>
-												<source id='webm' src='/videos/tefltv.webm' type='video/webm'>
-												<source id='ogg' src='/videos/tefltv.ogvq' type='video/ogg'> 
-											</video>	
+							          <video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+													<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+													<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+												</video>	
 										</div><!--/embed-responsive-->
 										<div class="n-mg-b">
 											@include('elements/videoPlayer')
@@ -34,14 +31,31 @@
 					    		</div><!--/.row-->
 			    			</div>
 						</div><!--/.col-md-6-->
-						<div class="col-md-6">
+						<div class="col-md-6	">
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
+		<div class="same-H grey pad-s-10 mg-r-10 row">
+			@include('elements/home/categories')
+			<div>
+				@include('elements/home/adverstisement_half_large_recatangle')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/carouselAds')
+			</div>
+			<div class="mg-t-10">
+				@include('elements/home/adverstisementSmall')
+				
+			</div>
+		</div>
+	</div>
+		<div class="col-md-9 White same-H">
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row grey mg-t--20">
+		<div class="row grey">
 		
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
@@ -49,15 +63,15 @@
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
-							<a href="{{route('homes.watch-video', array($recommended->file_name))}}" >
+							<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail}}" width="100%">
+									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
 									<div class="v-Info">
-										<a href="{{route('homes.watch-video', array($recommended->file_name))}}">{{$recommended->title}}</a>
+										<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>{{$recommended->title}}</a>
 									</div>
 									<div class="count">
 										by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
@@ -81,15 +95,15 @@
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
 					<span class="v-time inline">{{$popular->total_time}}</span>
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
+					<a href='{{route('homes.watch-video', array('v=' . $popular->file_name))}}' class="thumbnail-h">
 						
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$popular->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$popular->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
-								<a href="{{route('homes.watch-video', array($popular->file_name))}}">{{$popular->title}}</a>
+								<a href='{{route('homes.watch-video', array('v=' .$popular->file_name))}}'>{{$popular->title}}</a>
 							</div>
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($popular->channel_name))}}">{{$popular->channel_name}}</a>
@@ -112,16 +126,16 @@
 			@foreach($latests as $latest)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($latest->file_name))}}" class="thumbnail-h">
+					<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}' class="thumbnail-h">
 
 						<span class="v-time inline">{{$latest->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate"  src="{{$latest->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
-								<a href="{{route('homes.watch-video', array($latest->file_name))}}">{{$latest->title}}</a>
+								<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>{{$latest->title}}</a>
 							</div>
 
 							<div class="count">
@@ -143,15 +157,15 @@
 			@foreach($randoms as $random)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
-					<a href="{{route('homes.watch-video', array($popular->file_name))}}" class="thumbnail-h">
+					<a href='{{route('homes.watch-video', array( 'v=' . $popular->file_name))}}' class="thumbnail-h">
 						<span class="v-time inline">{{$random->total_time}}</span>
 						<div class="thumbnail-2">
-							<img class="hvr-grow-rotate" src="{{$random->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$random->thumbnail. '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 						<div class="video-info">
 							<div class="v-Info">
-								<a href="{{route('homes.watch-video', array($random->file_name))}}">{{$random->title}}</a>
+								<a href='{{route('homes.watch-video', array('v=' . $random->file_name))}}'>{{$random->title}}</a>
 							</div>
 							<div class="count">
 								by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
@@ -167,26 +181,7 @@
 			
 		</div>
 		<br/>
-	</div><!--/.container page-->
-	<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-					
-				</div>
-			</div>
-		</div>
-</div><!--first row-->
-</div>
-</div>
+	</div><!--first row-->
+
+</div><!--/.container page-->
 @stop
-
-
-

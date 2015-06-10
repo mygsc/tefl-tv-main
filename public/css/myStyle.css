@@ -63,6 +63,9 @@ title {
     font-size: 1.2em;
     font-weight: bold;
 }
+.capitalize {
+    text-transform: capitalize;
+}
 @media (max-width: 991px) {
     .navbar-header {
         float: none;
@@ -931,6 +934,9 @@ center;     margin: 0 auto; }
 .blogComment {
     padding-left: 80px;
 }
+.pad-r-40{
+    padding-right: 60px;
+}
 .grey{
     background: #E0E0E0;
 }
@@ -1149,7 +1155,7 @@ center;     margin: 0 auto; }
 }
 
 .channel-content {
-    min-height: 250px;
+    min-height: 280px;
 }
 
 .span-tags {
@@ -1761,6 +1767,9 @@ html * {
     width: 100%;
     padding-left: 10px;
     padding-bottom: 10px;
+    border-left: 1px solid #cecece;
+    border-right: 1px solid #cecece;
+    border-bottom: 1px solid #cecece;
 }
 div .video-info:hover{
     background: rgba(255,  255,  255,  0.90);
@@ -2025,6 +2034,7 @@ div.crop-square img {
     background-color: #fff;
     border-radius: 2px;
     overflow: hidden;
+    border: 1px solid #cecece;
 }
 
 a.thumbnail-h {
@@ -2140,9 +2150,6 @@ body {
 
 
 
-.v-time {
-    left: 15px;
-}
 
 .user-Dp {
     margin: 10;
@@ -3057,23 +3064,31 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 
 }
 /*to remain footer on bottom*/
-
+html,
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+#whole-wrapper {
+    min-height:100%;
+    position:relative;
+}
 #header {
-    background:#ededed;
     padding:10px;
 }
-#content {
-    margin-top: 0;
-
+#content {    
+    padding-bottom:50px; /* Height of the footer element */
 }
 #footer {
-    margin-top: 20px;
+    background:#ffab62;
     width:100%;
     height:100px;
     position:absolute;
-    bottom:0!important;
+    bottom:0;
     left:0;
 }
+
 
 @-webkit-keyframes slideInDown-e {
   0% {

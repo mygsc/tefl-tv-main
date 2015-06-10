@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="row">
-	<div class="container page White same-H">
-		<br/>
-		<div class="row ">
+	<br/>
+	<div class="container">
+		<div class="row same-H White">
 			@include('elements/users/profileTop2')
 
 			<div class=" channel-content">
@@ -74,7 +74,7 @@
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
-						@if(empty($playlists))
+						@if($playlists->isEmpty())
 							<p class="text-center">No playlists yet</p>
 						@else
 							@foreach($playlists as $key=> $playlist)
@@ -129,6 +129,7 @@
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
+		<br/>
 	</div><!--/.container page-->
 </div>
 

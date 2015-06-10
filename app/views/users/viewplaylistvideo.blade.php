@@ -6,19 +6,19 @@
 		<br/>
 		<div class="row same-H White">
 		{{-- */$playlistCounter = 1;/* --}}
-			@include('elements/users/profileTop2')
+			@include('elements/users/viewUser/viewUser_profileTop')
 
 			<div class=" Div-channel-border">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
-				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
-				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
-				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-				  		<li role="presentation" class="active">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<!--<li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>-->
+				  		<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
+				    	<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+				  		
 				  	</ul><!--tabNav-->
 				</div>
 				<nav class="navbar navbar-default visible-sm visible-xs">

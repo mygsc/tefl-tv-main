@@ -30,9 +30,9 @@ class UserFavorite extends Eloquent {
 		return $userFavorite;
 	}
 
-	public function getSearchFavoriteVideos($search){
-		if($search == ''){
-			return $search;
+	public function getSearchFavoriteVideos($search = null){
+		if(empty($search)){
+			return false;
 		}
 
 		$search = UserFavorite::select('user_favorite.id', 'user_favorite.user_id', 'video_id', 'title',
@@ -42,7 +42,7 @@ class UserFavorite extends Eloquent {
 		(SELECT u2.channel_name FROM users u2 WHERE u2.id = uploader) AS uploaders_channel_name')
 		 )
 		->join('videos', 'videos.id', '=', 'user_favorite.video_id')
-		->where('videos.title', $search)
+		->where('videos.title', 'LIKE', '%'.$search.'%')
 		->get();
 
 		return $search;

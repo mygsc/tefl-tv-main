@@ -5,15 +5,27 @@ Category: {{$category}} - TEFL-tv
 @section('content')
 <div class="container  ">
 	<div class="row">
+		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
+			<div class="same-H grey pad-s-10">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+
+				</div>
+			</div>
+		</div>
 		<div class="col-lg-9 col-md-8 same-H White h-minH ">
-			<h1 class="mg-t-20 mg-b-20">{{$category}}</h1>
+			<h1 class="mg-t-20 mg-b-20 capitalize">{{$category}}</h1>
 			<div class="col-md-12">
 				@foreach($videos as $video)
 				<div class="col-lg-4 col-md-4 col-sm-6 hidden-xs ">
 					<div class="p-relative">
 						<a href="{{route('homes.watch-video', array($video->file_name))}}" class="thumbnail-h">
 							<div class="thumbnail-2"> 
-								<img class="hvr-grow-rotate" src="{{asset($video->thumbnail)}}">
+								<img class="hvr-grow-rotate" src="{{asset($video->thumbnail)}}" width="100%">
 								<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 							</div>
 							<div class="video-info">
@@ -23,7 +35,8 @@ Category: {{$category}} - TEFL-tv
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($video->channel_name))}}">{{$video->channel_name}}</a>
 									<br />
-									<i class="fa fa-eye"></i> {{number_format($video->views)}} | <i class="fa fa-thumbs-up"></i>  {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
+									<!--<i class="fa fa-eye"></i> {{number_format($video->views)}} | <i class="fa fa-thumbs-up"></i>  {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
+									-->
 								</div>
 							</div>
 
@@ -53,19 +66,10 @@ Category: {{$category}} - TEFL-tv
 				</div>
 				@endforeach
 			</div>
-			{{ $videos->links()}}
-		</div>
-		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
 
-				</div>
-			</div>
+			<div class="text-center">
+					{{ $videos->links()}}
+			</div>	
 		</div>
 	</div>
 </div>
