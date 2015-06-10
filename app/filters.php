@@ -12,9 +12,9 @@
 */
 
 App::before(function($request){
-	// if( ! Request::secure()){
- //        return Redirect::secure(Request::path());
- //    }
+    //if( ! Request::secure()){
+    //    return Redirect::secure(Request::path());
+    //}
     /* kahit ano siguro dito
 	if(!Request::secure() && array_get($_SERVER, 'SERVER_PORT') != 443){
         return Redirect::secure(Request::path());
@@ -52,6 +52,18 @@ Route::filter('auth', function(){
 
 Route::filter('auth.basic', function(){
 	return Auth::basic();
+});
+
+Route::filter('auth.admin', function(){
+    if (!Auth::check()){
+    	if(isset(Auth::User()->role)){
+    		if(Auth::User()->role != 2){
+	    		return View::make('admins.login');
+	    	}
+	    	return View::make('admins.login');
+    	}
+    	return View::make('admins.login');
+    }
 });
 
 /*

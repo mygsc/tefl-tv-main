@@ -57,7 +57,7 @@
 			</span>
 
 			<span class="pull-right">
-				<span id="time" class="ctime time">{{--TIME DISPLAY HERE--}}</span> 
+				<span id="time" class="ctime time" >{{--TIME DISPLAY HERE--}}</span> 
 				<span class="sound" title="Volume">
 				<i id='mute-icon' class='player sound-on'></i>
 					<div class="volume" style="display:none">
