@@ -341,18 +341,33 @@ $('#upload-cancel').on('click',function(){
 											<br/>
 											
 											<p>Available thumbnails:</p>
-											<div id='t-1' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_1')}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+											@if(file_exists($thumbnail))
+												<div id='t-1' style='position:relative;display:inline-block'>
+												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
 												<label class='caption-t-1'></label>
-											</div>
-											<div id='t-2' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_2')}}" id='thumb-2' class='img-thumbnail' width="150" height="100" >
-												<label class='caption-t-2'></label>
-											</div>
-											<div id='t-3' style='position:relative;display:inline-block'>
-												<img src="{{Session::get('thumbnail_3')}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
-												<label class='caption-t-3'></label>
-											</div>
+												</div>
+												<div id='t-2' style='position:relative;display:inline-block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-2'></label>
+												</div>
+												<div id='t-3' style='position:relative;display:inline-block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-3'></label>
+												</div>
+											@else
+												<div id='t-1' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-1'></label>
+												</div>
+												<div id='t-2' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-2'></label>
+												</div>
+												<div id='t-3' style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+													<label class='caption-t-3'></label>
+												</div>
+											@endif
 											
 
 										</div><!--/.col-md-5-->

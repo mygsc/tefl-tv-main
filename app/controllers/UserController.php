@@ -399,17 +399,18 @@ protected $video_;
 	}
 	private function threeThumbnailPath($filename, $extension){
 		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
-		$thumb1 = $thumb.'_thumb1.png';
-		$thumb2 = $thumb.'_thumb2.png';
-		$thumb3 = $thumb.'_thumb3.png';
-			if(!file_exists($thumb1)){
+		$thumbnail= $thumb.'_thumb1.png';
+		// $thumb2 = $thumb.'_thumb2.png';
+		// $thumb3 = $thumb.'_thumb3.png';
+			if(!file_exists($thumbnail)){
 				$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
 				$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
 				$this->video_->captureImage($videoFile,$destinationPath,$filename);
-				$thumb1 = $thumb.'_thumb1.png';
-				$thumb2 = $thumb.'_thumb2.png';
-				$thumb3 = $thumb.'_thumb3.png';
-			}else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+				// $thumb1 = $thumb.'_thumb1.png';
+				// $thumb2 = $thumb.'_thumb2.png';
+				// $thumb3 = $thumb.'_thumb3.png';
+			}//else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+			return $thumbnail;
 		}
 
 	public function getEditVideo($id){
@@ -420,15 +421,8 @@ protected $video_;
  		$video = Video::find($id);
  		$owner = User::find($video->user_id);
 		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
-
- 		if($video->user_id != Auth::User()->id){
- 			return Redirect::route('users.channel');
- 		}
- 		if($video->tags == ""){
-			$tags = null;
-		}else{
-			$tags = explode(',',$video->tags);
-		}
+ 		if($video->user_id != Auth::User()->id){return Redirect::route('users.channel');}
+ 		if($video->tags == ""){$tags = null;}else{$tags = explode(',',$video->tags);}
  		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -438,8 +432,8 @@ protected $video_;
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$filename = $file_name->file_name; $extension = $file_name->extension;
-		$this->threeThumbnailPath($filename, $extension);
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
+		$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
 	}
 
 	public function postEditVideo($id){
