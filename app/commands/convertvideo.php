@@ -40,6 +40,8 @@ class convertvideo extends Command {
 		 print("\nVideo is currently converting...\n");
 		 $videos = $this->findVideoNotConverted();
 		 if($videos !== false){
+		 	$videos->uploaded = '2';
+		 	$videos->save();
 		 	$this->convertVideo($videos);
 		 }
 
@@ -58,10 +60,13 @@ class convertvideo extends Command {
 		if($videos->isEmpty()){
 			return false;
 		}
+		
+
 		return $videos->first();
 	}
 
 	public function convertVideo($videos = null){
+
 		if(!empty($videos)){
 			$filename = $videos->file_name;
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
@@ -75,9 +80,8 @@ class convertvideo extends Command {
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
-				
-				$routes = route('homes.watch-video', $filename);
-				$message = 'Your<a href="'.$routes.'"> video </a> is ready to watch.';
+				$routes = route('homes.watch-video', 'v='.$filename);
+				$message = 'Your <a href="'.$routes.'">video </a>is ready.';
 				$notification = new Notification();
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;

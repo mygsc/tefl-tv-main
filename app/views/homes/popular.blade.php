@@ -21,12 +21,12 @@
 			<h1 class="tblue mg-b-20 mg-t-20">Popular Videos</h1>
 			@foreach($popularVideos as $key => $popularVideo)
 			<!-- 12 column / 3 column = 4 -->
-			<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
+			<a href="{{route('homes.watch-video', array('v=' .$popularVideo->file_name))}}">
 				<div class="col-md-4">
 					<div class="p-relative">
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 
-							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail . '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 
