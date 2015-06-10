@@ -41,6 +41,8 @@ div.img-t{
 	background: url('/img/thumbnails/150x100.jpg') no-repeat 50% 50%;
 }img.thumb-1, .thumb-2, .thumb-3{
 	outline:1px solid #ccc;
+	height: 80px;
+	width: 120px;
 }
 img:hover{
 	cursor: pointer;
