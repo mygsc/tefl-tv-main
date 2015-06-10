@@ -62,16 +62,37 @@
 		{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
 				<div class="">
 					<div class="row">
+						<table>
+							<tr>
+								<td>	
+									{{-- <h3 id='upload-status' style="text-align:center">
+									HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
+									Uploading and converting your video it takes several minutes please wait... </h3> --}}
+									
+									{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
+									<div id="wrapper">
+										<div id="progressbar-loaded">
+											<span id="percentage"></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									
+								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
+
+						
+								</td>
+							</tr>
+						</table>
+						
+						</div>
+						<div class="col-md-2">
+							
+						</div>
 						<div class="col-md-6">
 							<div class="p-relative">
-								{{-- <h3 id='upload-status' style="text-align:center">
-								 HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
-								 Uploading and converting your video it takes several minutes please wait... </h3> --}}
-								<span id="percentage"></span>
-								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
-								<div id="wrapper">
-									<div id="progressbar-loaded"></div>
-								</div>
+								
 								
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">
@@ -87,27 +108,6 @@
 
 						<div class="col-md-6">
 
-							<div class="col-sm-12" >
-								<h3 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h3>
-								<center>
-									<div id="screenshot">
-										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
-										<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">
-										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">						
-									</div>
-									<br/>
-										<small>or browse your own thumbnail:</small><br><br/>
-										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
-										<br><br/>
-										<div class="file-upload2 btn btn-primary">
-											<span>Browse thumbnail</span>
-											<input type="file" name="poster" id="poster" accept="image/*"/>
-										</div>
-										<br/><br/><br/><br/>
-								</center>
-							</div>
-						</div>
-					
 						<div class="col-md-12 grey mg-t-20">
 							<h3>Add Information to your video</h3>
 							
@@ -202,13 +202,31 @@
 								</span>
 									{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
 							</div>
-							<div class="text-right">
-							<br>
-								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
-							<br><br>
-							</div>	
+							
 						</div>
+						<div class="col-sm-12" >
+								<h3 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h3>
+								<center>
+									<div id="screenshot">
+										<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">					
+										<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">
+										<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="150" height="100">						
+									</div>
+									<br/>
+										<small>or browse your own thumbnail:</small><br><br/>
+										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
+										<br><br/>
+										<div class="file-upload2 btn btn-primary">
+											<span>Browse thumbnail</span>
+											<input type="file" name="poster" id="poster" accept="image/*"/>
+										</div>
+										<br/><br/><br/><br/>
+								</center>
+							</div>
+					
+
+						</div>
+
 				
 							<div class="modal fade" id="cancel-upload-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							  <div class="modal-dialog">
