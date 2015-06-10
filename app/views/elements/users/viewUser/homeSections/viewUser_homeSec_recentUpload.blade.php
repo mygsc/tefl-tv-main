@@ -14,11 +14,11 @@
 				<div id="vid-controls" class="p-relative">
 					<div class="embed-responsive embed-responsive-16by9 h-video">
 						<a href="{{route('homes.watch-video', array($recentUpload->file_name))}}" target="_blank">
-							@if(file_exists(public_path('/videos/'.$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-							<video poster="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
+							@if(file_exists(public_path('videos/'.$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
+							<video poster="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+								<source src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
+								<source src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
+								<source src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
 							</video>
 							@else
 									{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
