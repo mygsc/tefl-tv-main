@@ -424,6 +424,7 @@ protected $video_;
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
+
 		
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
@@ -444,6 +445,7 @@ protected $video_;
 		}
 
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
+
 	}
 
 	public function postEditVideo($id, $selectedCategory=null){
