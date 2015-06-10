@@ -45,7 +45,7 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    $('#percentage').html(percentComplete+'% uploaded ' + ' Please wait a moment while the video is uploading...').css({'color':'#000'});
+                    $('#percentage').html(percentComplete+'% uploaded ' + ' please wait a moment while the video is uploading...').css({'color':'#000'});
                     // if(percentComplete==100){
                     //     $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
                     // }

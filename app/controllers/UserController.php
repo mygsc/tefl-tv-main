@@ -413,7 +413,7 @@ protected $video_;
 			return $thumbnail;
 		}
 
-	public function getEditVideo($id){
+	public function getEditVideo($id, $categories=null){
 		$file_name = Video::where('file_name',$id)->first();
 		if(!isset($file_name)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
  		$id = $file_name->id;
@@ -423,6 +423,10 @@ protected $video_;
 		if(!isset($video)){return Redirect::route('homes.signin')->withFlashBad('You must login to do that.');}
  		if($video->user_id != Auth::User()->id){return Redirect::route('users.channel');}
  		if($video->tags == ""){$tags = null;}else{$tags = explode(',',$video->tags);}
+ 		//if($video->category == ""){$categories = null;}else{$categories = explode(',',$video->category);}
+ 		//$categories = explode(',',$video->category);
+ 		//$categories = count($categories);
+ 		//return $categories[1];
  		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
@@ -436,7 +440,7 @@ protected $video_;
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
 	}
 
-	public function postEditVideo($id){
+	public function postEditVideo($id, $selectedCategory = null){
 		$input = Input::all();
 		$poster = $input['poster'];
 		$fileName = Input::get('filename');
@@ -465,10 +469,10 @@ protected $video_;
 				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
-			
-
+			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
+			$video->category = $selectedCategory;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
