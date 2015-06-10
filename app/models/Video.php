@@ -14,7 +14,7 @@ class Video extends Eloquent{
 	* version 2.6.2 stable release
 	* Note: Please don't update 
 	*/
-	public $ffmpegPath = '/root/bin/ffmpeg'; 
+	public $ffmpegPath = '/home/tefltv/bin/ffmpeg'; 
 	public $ffprobePath = '/home/tefltv/bin/ffprobe';
 
 	public static $video_rules = array(

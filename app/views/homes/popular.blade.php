@@ -26,7 +26,7 @@
 					<div class="p-relative">
 						<span class="v-time inline">{{$popularVideo->total_time}}</span>
 						<div class="thumbnail-2"> 
-							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail}}" width="100%">
+							<img class="hvr-grow-rotate" src="{{$popularVideo->thumbnail . '?' . rand(0,99)}}" width="100%">
 							<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 						</div>
 

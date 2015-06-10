@@ -264,10 +264,15 @@ $('textarea#description').mousemove(function(e){
 });
 function checkLimit(limit){
    $('#char-limit').html(limit);
-   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});}
-   if(limit>=min){$('#char-limit').html(limit).css({'color':'#008cff'});document.getElementById("submit-save-changes").disabled = false;}
+   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});$('#max-limit').html('/5000');}
+   if(limit>=min && limit < max){$('#char-limit').html(limit).css({'color':'#0b58dd'});document.getElementById("submit-save-changes").disabled = false;$('#max-limit').html('/5000');}
    else{document.getElementById("submit-save-changes").disabled = true;}
-   if(limit>=max){$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+   if(limit>=max){
+   	var charLen = document.getElementById('description').value.length;
+   	$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
+   	//for(var n=max; limit > max ; limit--){console.log('minus one');}
+   	}
+   	
 }
 $('#upload-cancel').on('click',function(){
         $('#cancel-upload-vid').modal('show');
@@ -414,7 +419,7 @@ $('#upload-cancel').on('click',function(){
 														</span>
 														@endif
 														{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-														<small id='char-limit'>0</small id='max-limit'><small>/5000</small><br/>
+														<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
 														<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
 														
 													</div>

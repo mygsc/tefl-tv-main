@@ -46,6 +46,7 @@
 			@include('elements/users/profileTop')		
 			<div class="channel-content">
 				<div>
+				
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs hidden-sm hidden-xs" role="tablist">
 				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home')}}</li>

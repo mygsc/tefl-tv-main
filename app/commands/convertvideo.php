@@ -66,6 +66,7 @@ class convertvideo extends Command {
 	}
 
 	public function convertVideo($videos = null){
+
 		if(!empty($videos)){
 			$filename = $videos->file_name;
 			$folderName = $videos->user_id. '-'. $videos->channel_name;
@@ -79,9 +80,8 @@ class convertvideo extends Command {
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
-				
-				$routes = route('homes.watch-video', $filename);
-				$message = '<a href="'.$routes.'">Your video is ready to watch.</a>';
+				$routes = route('homes.watch-video', 'v='.$filename);
+				$message = 'Your <a href="'.$routes.'">video </a>is ready.';
 				$notification = new Notification();
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
@@ -94,7 +94,6 @@ class convertvideo extends Command {
 	}
 	public function convertVideoToDiffFormat($source, $destination, $filename, $username){
 		$title = "TEFL TV";
-		$currentYear = date("Y");
 		$hdmp4 = $destination.DS.$filename.'_hd.mp4';
 		$normalmp4 = $destination.DS.$filename.'.mp4';
 		$lowmp4 = $destination.DS.$filename.'_low.mp4';
