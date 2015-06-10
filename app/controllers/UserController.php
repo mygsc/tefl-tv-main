@@ -475,10 +475,11 @@ protected $video_;
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
 			}
-			if(strlen(Input::get('selected-thumbnail') > 1)){  
+			$d =  Input::get('selected-thumbnail');
+			if(strlen($d)>1){  
+				//return Input::get('selected-thumbnail');
 				$getImageSelected = Input::get('selected-thumbnail');
 				$getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
-				return $getImage;
 				$getImage = str_replace('data:image/png;base64,', '', $getImage);
 				$getImage = str_replace(' ', '+', $getImage);
 				$decodeImage = base64_decode($getImage);
