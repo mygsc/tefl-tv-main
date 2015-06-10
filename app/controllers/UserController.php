@@ -124,7 +124,7 @@ protected $video_;
 		
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
-				return Redirect::route('homes.signin')->with('flash_good', 'Password has been renewed');
+				return Redirect::route('homes.signin')->with('flash_good', 'Password has been re-newed');
 			}
 		}
 		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
@@ -394,9 +394,23 @@ protected $video_;
 		if($getQty==1){ $sec = $totalResult[0];}
 		if($hrs<10){$hrs = '0'.$hrs;}
 		if($min<10){$min = '0'.$min;}
-		if($sec<10){$sec = '0'.$sec;}
+		if($sec<10){$sec = $sec;}
 		return $duration =  $hrs.':' . $min.':' . $sec;
 	}
+	private function threeThumbnailPath($filename, $extension){
+		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
+		$thumb1 = $thumb.'_thumb1.png';
+		$thumb2 = $thumb.'_thumb2.png';
+		$thumb3 = $thumb.'_thumb3.png';
+			if(!file_exists($thumb1)){
+				$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
+				$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
+				$this->video_->captureImage($videoFile,$destinationPath,$filename);
+				$thumb1 = $thumb.'_thumb1.png';
+				$thumb2 = $thumb.'_thumb2.png';
+				$thumb3 = $thumb.'_thumb3.png';
+			}else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+		}
 
 	public function getEditVideo($id){
 		$file_name = Video::where('file_name',$id)->first();
@@ -424,18 +438,7 @@ protected $video_;
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 		$filename = $file_name->file_name; $extension = $file_name->extension;
-		$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-		$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-		$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
-		if(!file_exists($thumb1)){
-			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
-			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
-			$this->video_->captureImage($videoFile,$destinationPath,$filename);
-			$thumb1 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb1.png');
-			$thumb2 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb2.png');
-			$thumb3 = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename.'_thumb3.png');
-		}
-		$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); 
+		$this->threeThumbnailPath($filename, $extension);
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms'));
 	}
 
