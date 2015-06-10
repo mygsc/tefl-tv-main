@@ -53,6 +53,7 @@ class convertvideo extends Command {
 		$videos = Video::select('videos.id', 'videos.user_id','users.channel_name','videos.uploaded', 'videos.extension', 'videos.file_name', 'videos.created_at')
 		->where('uploaded', '0')
 		->where('report_count', '<', 5)
+		->where('deleted_at', null)
 		->join('users', 'videos.user_id', '=','users.id')
 		->take(1)
 		->orderBy('created_at', 'asc')

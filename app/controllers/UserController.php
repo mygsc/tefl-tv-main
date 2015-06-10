@@ -426,7 +426,7 @@ protected $video_;
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
 		
-		if(!$video->isEmpty()){
+		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
 			$id = $video->id;
