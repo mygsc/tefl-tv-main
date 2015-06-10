@@ -438,7 +438,7 @@ protected $video_;
 			}
 			
 			$thumbnail = '1';
-		//$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		$thumbnail = $this->threeThumbnailPath($filename, $extension);
 		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
 
 
@@ -447,7 +447,7 @@ protected $video_;
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
 
-	public function postEditVideo($id){
+	public function postEditVideo($id, $selectedCategory = null){
 		$input = Input::all();
 		return $input;
 		$poster = $input['poster'];
@@ -477,10 +477,10 @@ protected $video_;
 				$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
-			
-
+			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
+			$video->category = $selectedCategory;
 			$video->title = $input['title'];
 			$video->description = $input['description'];
 			$video->publish = $input['publish'];
