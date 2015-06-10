@@ -394,7 +394,7 @@ protected $video_;
 		if($getQty==1){ $sec = $totalResult[0];}
 		if($hrs<10){$hrs = '0'.$hrs;}
 		if($min<10){$min = '0'.$min;}
-		if($sec<10){$sec = '0'.$sec;}
+		if($sec<10){$sec = $sec;}
 		return $duration =  $hrs.':' . $min.':' . $sec;
 	}
 	private function threeThumbnailPath($filename, $extension){
