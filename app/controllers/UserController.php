@@ -437,10 +437,9 @@ protected $video_;
 			if($video->tags != ""){
 				$tags = explode(',',$video->tags);
 			}
-			
-			$thumbnail = '1';
-			$thumbnail = $this->threeThumbnailPath($filename, $extension);
-			return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
+		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
+		$thumbnail = $this->threeThumbnailPath($filename, $extension);
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail', 'thumb'));
 
 
 		}
@@ -477,8 +476,8 @@ protected $video_;
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
 			}
-			$d =  Input::get('selected-thumbnail');
-			if(strlen($d)>1){  
+			$thumb =  Input::get('selected-thumbnail');
+			if(strlen($thumb)>1){  
 				//return Input::get('selected-thumbnail');
 				// $getImageSelected = Input::get('selected-thumbnail');
 				// $getImage = $this->video_->convertSingleImageToBase64($getImageSelected);
@@ -487,8 +486,10 @@ protected $video_;
 				// $decodeImage = base64_decode($getImage);
 				// $source = $destinationPath.$fileName.'.jpg';
 				// $success = file_put_contents($source, $decodeImage);
-				$this->video_->resizeImage($d, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->video_->resizeImage($d, 240, 141, $destinationPath.$fileName.'.jpg');	
+				$domain = asset('/');
+				$thumbnail = str_replace($domain, '', $thumb);
+				$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
 			}	
 			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
