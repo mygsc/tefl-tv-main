@@ -10,7 +10,7 @@
 		{{Form::label('username')}}
 		{{Form::text('username')}}
 		{{Form::label('password')}}
-		{{Form::text('password')}}
+		{{Form::password('password')}}
 		{{Form::submit('verify')}}
 	{{Form::close()}}
 @stop

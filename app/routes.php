@@ -189,7 +189,7 @@ Route::group(array('prefix' => 'partnerships'), function() {
 });
 Route::get('partners/learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnershipController@partnerLearnMore'));
 Route::get('publishers/learnmore', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@publisherLearnMore'));
-Route::group(array('prefix' => 'partnership','before' => 'partners'), function() {
+Route::group(array('prefix' => 'partnerships','before' => 'partners'), function() {
 	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@verification'));
 	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
 });
