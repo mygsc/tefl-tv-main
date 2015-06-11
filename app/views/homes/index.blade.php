@@ -178,10 +178,11 @@
 				</div>
 			</div>
 			@endforeach
-			
 		</div>
 		<br/>
 	</div><!--first row-->
 
 </div><!--/.container page-->
+
+
 @stop
