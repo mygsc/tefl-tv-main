@@ -59,6 +59,7 @@ Upload
 		<div class="">
 
 
+
 			{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
@@ -69,6 +70,7 @@ Upload
 							<h3 id="up-msg" class="text-center"></h3>
 							<div class="col-md-10">
 								<div class="row">
+
 								<div id="wrapper">
 									<div id="progressbar-loaded" class="text-center">
 										<b><span id="percentage"></span></b>
@@ -91,6 +93,18 @@ Upload
 										{{-- <h3 id='upload-status' style="text-align:center">
 										HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
 										Uploading and converting your video it takes several minutes please wait... </h3> --}}
+										<div id="loader-status" class="loader-ico">
+											<div class="la-ball-spin la-lg center-block">
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+											</div>
+										</div>
 
 										<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
 										<div class="embed-responsive embed-responsive-16by9 h-video">
@@ -120,6 +134,7 @@ Upload
 											</div>
 										</center>
 									</div>
+
 								</div>
 
 								<div class="col-md-7 col-md-height grey col-top ">
@@ -144,7 +159,7 @@ Upload
 										</div>
 										<div class="textbox-layout">
 											<br/>
-											{{Form::label('Description:')}}<small id='char-limit'>0/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
+											{{Form::label('Description:')}} <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
 											@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
@@ -157,6 +172,7 @@ Upload
 											{{Form::text('tags',null,array('class'=>'form-control'))}}
 											@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
+
 											@endif
 
 											{{Form::label('Category:')}}<br>
@@ -185,7 +201,7 @@ Upload
 												<label for='instruct'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">
@@ -228,6 +244,7 @@ Upload
 
 
 
+
 					<div class="modal fade" id="cancel-upload-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -247,11 +264,18 @@ Upload
 					</div>
 
 				</div>
+
 			</div>
+
 		</div>
 		{{Form::close()}}
 		<br/>
 	</div>
+
+
+</div>
+
+
 
 </div>
 
