@@ -44,10 +44,7 @@
 						</div>
 					</label> <br>
 					<label id="upload-error"></label>
-					{{--<div id="wrapper">
-							<div id="progressbar-loaded"></div> 
-					</div><br/>
-					 <label id="percentage"></label> --}} 
+					
 					{{Form::close()}}
 				</div>
 			</div>
@@ -59,19 +56,19 @@
 <div class="row" style="display:none" id='add-description'>
 	<div class="container page White same-H">	
 		<div class="">
-		{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
+		{{Form::open(array('route' => 'post.addDescription', 'id'=>'post-save'))}}
 				<div class="">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
-								{{-- <h3 id='upload-status' style="text-align:center">
-								 HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
-								 Uploading and converting your video it takes several minutes please wait... </h3> --}}
-								<span id="percentage"></span>
-								{{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}}
+								<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
+								<br/>
 								<div id="wrapper">
-									<div id="progressbar-loaded"></div>
+									<div id="progressbar-loaded">
+											<center><span id="percentage"></span></center>
+									</div>
 								</div>
+								<p id="msg-status"></p>
 								
 								<div class="embed-responsive embed-responsive-16by9 h-video">
 									<video preload="auto" width="400" id="media-video">

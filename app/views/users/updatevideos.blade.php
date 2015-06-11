@@ -190,6 +190,16 @@
 				var content = createTextarea.value;
 				$('#'+getCurrentId).html(content);
 			}
+			 var $dragging = null;
+
+		    $('#div-annotation-note-1').on("mousemove", function(e) {
+		        if ($dragging) {
+		            $dragging.offset({
+		                top: e.pageY,
+		                left: e.pageX
+		            });
+		        }
+		    });
 		}
 
 	});
@@ -458,7 +468,7 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Category:')}}<br/>
+															{{Form::label('Categories:')}}<br/>
 															<span class="span-tags">
 																{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
 																<label for='instruct'>Teachers Instructional</label>
