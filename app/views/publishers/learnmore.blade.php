@@ -7,7 +7,7 @@
 @section('content')
 	<h1>Learn more about publishers</h1>
 
-	<a href="{{route('partnerships.verification')}}">{{Form::button('Apply now')}}</a>
+	<a href="{{route('partners.adsense')}}">{{Form::button('Apply now')}}</a>
 @stop
 
 
