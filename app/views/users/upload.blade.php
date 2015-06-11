@@ -57,6 +57,7 @@ Upload
 	<div class="container page White same-H"> 
 		<div class="">
 
+
 			{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
@@ -70,6 +71,7 @@ Upload
 								<div id="wrapper">
 									<div id="progressbar-loaded" class="text-center">
 										<b><span id="percentage"></span></b>
+
 									</div>
 								</div>
 								<p id="msg-status"></p>
@@ -106,6 +108,10 @@ Upload
 												<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">     
 												<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">
 												<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">      
+												<br/>
+												<small class="mg-t-10">or browse your own thumbnail:</small><br><br/>
+												<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
+												<br>
 												<div class="file-upload2 btn btn-primary">
 													<span>Browse thumbnail</span>
 													<input type="file" name="poster" id="poster" accept="image/*"/>

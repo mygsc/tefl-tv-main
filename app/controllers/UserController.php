@@ -432,14 +432,11 @@ protected $video_;
 			$id = $video->id;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
+			$tags = null;if($video->tags != ""){$tags = explode(',',$video->tags);}
+			$categories = null;if($video->category !=""){$categories = explode(',',$video->category);}
 
-			$tags = null;
-			if($video->tags != ""){
-				$tags = explode(',',$video->tags);
-			}
-		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
 		$thumbnail = $this->threeThumbnailPath($filename, $extension);
-		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail', 'thumb'));
+		return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
 
 
 		}

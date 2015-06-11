@@ -353,7 +353,7 @@ button#play{
   	width: 13%;
   	height: 16%;
   	/*background: rgba(27,27,27,0.6);*/
-  	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
+
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
