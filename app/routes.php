@@ -181,7 +181,16 @@ Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testing
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
 Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);
 
-Route::group(array('prefix' => 'partners'), function() {
-	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@indx'));
+
+//**********Partners**********//
+Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@index'));
+Route::group(array('prefix' => 'partnerships'), function() {
 	
 });
+Route::get('partners/learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnershipController@partnerLearnMore'));
+Route::get('publishers/learnmore', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@publisherLearnMore'));
+Route::group(array('prefix' => 'partnership','before' => 'partners'), function() {
+	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@verification'));
+	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
+});
+
