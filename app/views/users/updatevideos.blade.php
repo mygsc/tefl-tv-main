@@ -8,7 +8,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/angular.min.js')}}
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -81,9 +81,12 @@
 			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-link';}
 			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			var annotationTypeCaption = document.createTextNode(title);
-			var elem = document.createTextNode(title);
+			var types = document.createTextNode(title);
 			var createDiv = document.createElement('div');
-			var createSpan = document.createElement('span');
+			var close = document.createElement('span');
+			close.className = 'close-annotation-' + id + '-' + count;
+			var save = document.createElement('span');
+			//save.className = 'glyphicon glyphicon-floppy-disk';
 			var createTextarea = document.createElement('textarea'); 
 			checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';  
@@ -91,15 +94,17 @@
 			checkbox.id = 'checkbox' + '-link-' + count; 
 			var label = document.createElement('label');
 			var labelText = document.createTextNode('link');
-			// var elem = document.createTextNode(title);
-			var spanText = document.createTextNode('x');  
+			var closeText = document.createTextNode('x'); 
+			var saveText = document.createTextNode('save');  
 			createDiv.appendChild(annotationTypeTag);
 			annotationTypeTag.appendChild(annotationTypeCaption);
-			//createDiv.appendChild(elem);
-			createSpan.appendChild(spanText); 
+			close.appendChild(closeText);
+			save.appendChild(saveText); 
 			label.appendChild(labelText);
-			createSpan.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');//border:1px solid #1AADF2;
-			createSpan.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			close.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			close.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			save.setAttribute('style', 'margin-right:2px;color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			save.setAttribute('id', 'save-annotation-' + id + '-' + count);
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
@@ -108,7 +113,8 @@
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
 			annotation.appendChild(createDiv); 
-			createDiv.appendChild(createSpan);
+			createDiv.appendChild(close);
+			createDiv.appendChild(save);
 			createDiv.appendChild(createTextarea); 
 			
 			 
@@ -116,23 +122,23 @@
 			var startTagCaption = document.createTextNode('Start:');
 				startTagLabel.appendChild(startTagCaption);
 				createDiv.appendChild(startTagLabel);
-			var startTagInput = document.createElement('input'); 
-				startTagInput.type = 'text';
-				startTagInput.id = 'start' + '-time-' + count;
-				startTagInput.name = 'start' + '-time-' + count;
-				startTagInput.value = '00:00:00';
-				createDiv.appendChild(startTagInput);
+			var startTime = document.createElement('input'); 
+				startTime.type = 'text';
+				startTime.id = 'start' + '-time-' + count;
+				startTime.name = 'start' + '-time-' + count;
+				startTime.value = h+'0:'+m+'0:'+s+'0';
+				createDiv.appendChild(startTime);
 				
 			var endTagLabel = document.createElement('label');
 			var endTagCaption = document.createTextNode('End:');
 				endTagLabel.appendChild(endTagCaption);
 				createDiv.appendChild(endTagLabel);
-			var endTagInput = document.createElement('input');  
-				endTagInput.type = 'text';
-				endTagInput.id = 'start' + '-time-' + count;
-				endTagInput.name = 'start' + '-time-' + count;
-				endTagInput.value = hms;
-				createDiv.appendChild(endTagInput);
+			var endTime = document.createElement('input');  
+				endTime.type = 'text';
+				endTime.id = 'start' + '-time-' + count;
+				endTime.name = 'start' + '-time-' + count;
+				endTime.value = hms;
+				createDiv.appendChild(endTime);
 				createDiv.appendChild(checkbox); 
 				createDiv.appendChild(label);
 			var input = document.createElement('input');
@@ -172,11 +178,34 @@
 				}
 			  	
 			};
-			createSpan.onclick = function(){
+			close.onclick = function(){
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
 				$('#div-'+removeDiv).remove();
+			}
+			close.onmouseover = function(){
+				var getid = this.id;
+				$('.'+getid).css({'border-bottom':'2px solid #0f85e0'});
+			}
+			close.onmouseleave = function(){
+				var getid = this.id;
+				$('.'+getid).css({'border-bottom':'1px solid red'});
+				
+			}
+			save.onclick = function(){
+				// var getid = this.id;
+				// var removeDiv = getid.replace('save-','');
+				// $('#'+removeDiv).remove();
+				// $('#div-'+removeDiv).remove();
+			}
+			save.onmouseover = function(){
+				var getid = this.id;
+				$('#'+getid).css({'border-bottom':'2px solid #0f85e0'});
+			}
+			save.onmouseleave = function(){
+				var getid = this.id;
+				$('#'+getid).css({'border-bottom':'1px solid red'});
 			}
 			annotClose.onclick = function(){
 				var getid = this.id;
@@ -190,16 +219,9 @@
 				var content = createTextarea.value;
 				$('#'+getCurrentId).html(content);
 			}
-			 var $dragging = null;
-
-		    $('#div-annotation-note-1').on("mousemove", function(e) {
-		        if ($dragging) {
-		            $dragging.offset({
-		                top: e.pageY,
-		                left: e.pageX
-		            });
-		        }
-		    });
+			startTime.onkeyup = function(){
+				alert('ok');
+			}
 		}
 
 	});
@@ -468,7 +490,7 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Categories:')}}<br/>
+															{{Form::label('Category:')}}<br/>
 															<span class="span-tags">
 																{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
 																<label for='instruct'>Teachers Instructional</label>
