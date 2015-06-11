@@ -184,14 +184,14 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 
 
 //**********Partners**********//
-Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@index'));
-Route::group(array('prefix' => 'partnerships'), function() {
-	
-});
-Route::get('partners/learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnershipController@partnerLearnMore'));
-Route::get('publishers/learnmore', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@publisherLearnMore'));
-Route::group(array('prefix' => 'partnerships','before' => 'partners'), function() {
-	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@verification'));
+Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@getIndex'));
+Route::get('partners/learnmore', array('before' => 'partners','as' => 'partners.learnmore', 'uses' => 'PartnershipController@getPartnerLearnMore'));
+Route::get('partners/adsense', array('before' => 'partnerships.verification', 'as' => 'partners.adsense', 'uses' => 'PartnershipController@getPartnersAdsense'));
+Route::get('publishers/learnmore', array('before' => 'partners','as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPublisherLearnMore'));
+Route::get('publishers/adsense', array('before' => 'partnerships.verification', 'as' => 'publishers.adsense', 'uses' => 'PartnershipController@getPublisherAdsense'));
+Route::group(array('prefix' => 'partnerships',), function() {
+	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@getVerification'));
 	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
+	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
 });
 

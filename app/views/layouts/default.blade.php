@@ -28,7 +28,7 @@
 	@include('elements/header')
 	@include('elements/home/headerNav')
 	<div class="container">
-		@include('elements/flash_message')
+		@include('elements.flash_message')
 		@yield('content')
 	</div>
 	@include('elements/footer')
