@@ -68,6 +68,7 @@ Upload
 							<h3 id="up-msg" class="text-center"></h3>
 							<div class="col-md-10">
 								<div class="row">
+
 								<div id="wrapper">
 									<div id="progressbar-loaded" class="text-center">
 										<b><span id="percentage"></span></b>
@@ -133,6 +134,32 @@ Upload
 											</div>
 										</center>
 									</div>
+									<br/>
+										<small>or browse your own thumbnail:</small><br><br/>
+										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
+										<br><br/>
+										<div class="file-upload2 btn btn-primary">
+											<span>Browse thumbnail</span>
+											{{Form::open(array('route' => 'post.add.description', 'files' => true, 'id'=>'post-save'))}}
+											<input type="file" name="poster" id="poster" accept="image/*"/>
+										</div>
+										<br/><br/><br/><br/>
+								</center>
+							</div>
+						</div>
+					
+						<div class="col-md-12 grey mg-t-20">
+							<h3>Add Information to your video</h3>
+							
+							<div class="row">
+								
+								<div class="col-md-8" >
+									{{Form::label('Title:')}}
+									{{Form::text('title',null,array('class'=>'form-control', 'id'=>'title'))}}
+									@if ($errors->has('title'))
+										<small style="color:red">{{$errors->first('title')}}</small>
+									@endif
+
 								</div>
 
 								<div class="col-md-7 col-md-height grey col-top ">
@@ -236,6 +263,14 @@ Upload
 
 								</div>
 							</div>
+
+							<div class="text-right">
+							<br>
+								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
+								{{Form::close()}}
+							<br><br>
+							</div>	
 						</div>
 					</div>
 
@@ -260,7 +295,9 @@ Upload
 					</div>
 
 				</div>
+
 			</div>
+
 		</div>
 		{{Form::close()}}
 		<br/>

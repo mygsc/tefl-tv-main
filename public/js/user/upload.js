@@ -65,6 +65,7 @@ $(document).ready(function(){
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
                     document.getElementById("save").disabled = false;
+                    $('#loader-status').fadeOut(500);
                 },
                 error: function(response, status, e){
                     console.log('Oops something went wrong please contact the admin of TEFL TV.');
