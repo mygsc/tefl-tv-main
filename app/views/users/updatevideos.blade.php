@@ -220,7 +220,10 @@
 				$('#'+getCurrentId).html(content);
 			}
 			startTime.onkeyup = function(){
-				alert('ok');
+				var getid = this.id;
+				var len = document.getElementById(getid).value.length;
+				if(len>8){document.getElementById(getid).value='00:00:00';}
+
 			}
 		}
 
