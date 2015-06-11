@@ -90,9 +90,20 @@ Upload
 										{{-- <h3 id='upload-status' style="text-align:center">
 										HTML::image('img/icons/uploading.gif',null,array('height'=>'25px','width' => '25px'))
 										Uploading and converting your video it takes several minutes please wait... </h3> --}}
-
+										<div id="loader-status" class="loader-ico">
+											<div class="la-ball-spin la-lg center-block">
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+											</div>
+										</div>
 										<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
-										<div class="embed-responsive embed-responsive-16by9 h-video">
+										<div class="embed-responsive embed-responsive-16by9 h-video" style="">
 											<video preload="auto" width="400" id="media-video">
 												<source id='mp4' src="" type="video/mp4">
 												<source id='webm' src="" type="video/webm">
@@ -100,8 +111,11 @@ Upload
 											</video>
 										</div>
 										{{-- @include('elements/videoPlayer') --}}
+										
 									</div>
-									<div class="col-sm-12" >
+
+
+								<div class="col-sm-12" >
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
 											<div id="screenshot">

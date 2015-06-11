@@ -6,8 +6,8 @@
 
 @section('content')
 	<div class="row">
-		<img src="/img/v-bg.jpg" class="center-block visible-lg visible-md visible-sm" width="100%">
-		<img src="/img/v-bg_sm.jpg" class="center-block visible-xs" width="100%">
+		<img src="/img/v-bg.png" class="center-block visible-lg visible-md visible-sm" width="100%">
+		<img src="/img/v-bg_sm.png" class="center-block visible-xs" width="100%">
 	</div>
 	<div class="">
 		<div class="container">
@@ -23,15 +23,15 @@
 		<div class="container">
 			<div class="row text-center div-Steps">
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/select-ico.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
+					<img src="/img/icons/select.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
 					<h2>Select from different categories of videos</h2>
 				</div>
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/share-ico.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
+					<img src="/img/icons/share.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
 					<h2>Embed video to your website or share to your social media accounts.</h2>
 				</div>
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/earn-ico.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
+					<img src="/img/icons/earn.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
 					<h2>Earn Revenue in every advertisement impression.</h2>
 				</div>
 			</div>
@@ -59,8 +59,6 @@
 			</div>
 		</div>
 	</div>
-
-	<a href="{{route('partnerships.verification')}}">{{Form::button('Apply now')}}</a>
 @stop
 
 

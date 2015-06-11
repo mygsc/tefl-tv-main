@@ -14,7 +14,6 @@
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/partnership.css') }}
-	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
