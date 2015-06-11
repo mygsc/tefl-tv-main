@@ -56,12 +56,13 @@
 <div class="row" style="display:none" id='add-description'>
 	<div class="container page White same-H">	
 		<div class="">
-		{{Form::open(array('route' => 'post.addDescription', 'id'=>'post-save'))}}
+		
+
+
 				<div class="">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="p-relative">
-								<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
 								<br/>
 								<div id="wrapper">
 									<div id="progressbar-loaded">
@@ -77,7 +78,6 @@
 										<source id='ogg' src="" type="video/ogg">
 									</video>
 								</div>
-								{{-- @include('elements/videoPlayer') --}}
 							</div>
 			
 						</div>
@@ -98,6 +98,7 @@
 										<br><br/>
 										<div class="file-upload2 btn btn-primary">
 											<span>Browse thumbnail</span>
+											{{Form::open(array('route' => 'post.add.description', 'files' => true, 'id'=>'post-save'))}}
 											<input type="file" name="poster" id="poster" accept="image/*"/>
 										</div>
 										<br/><br/><br/><br/>
@@ -203,6 +204,7 @@
 							<br>
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
+								{{Form::close()}}
 							<br><br>
 							</div>	
 						</div>
@@ -228,7 +230,7 @@
 						</div>
 					</div>
 				</div>
-			{{Form::close()}}
+			
 		</div>
 	</div>
 </div>
