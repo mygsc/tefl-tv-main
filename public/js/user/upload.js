@@ -92,11 +92,3 @@ function checkLimit(limit){
    $('#char-limit').html(limit+'/5000');
    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
 }
-
-
-
-
-
-
-
-

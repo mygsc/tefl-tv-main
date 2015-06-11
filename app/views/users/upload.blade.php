@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 
 @section('title')
@@ -58,7 +59,8 @@ Upload
 		<div class="">
 
 
-			{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
+
+			{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
 
@@ -103,8 +105,9 @@ Upload
 												<div></div>
 											</div>
 										</div>
+
 										<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
-										<div class="embed-responsive embed-responsive-16by9 h-video" style="">
+										<div class="embed-responsive embed-responsive-16by9 h-video">
 											<video preload="auto" width="400" id="media-video">
 												<source id='mp4' src="" type="video/mp4">
 												<source id='webm' src="" type="video/webm">
@@ -112,11 +115,8 @@ Upload
 											</video>
 										</div>
 										{{-- @include('elements/videoPlayer') --}}
-										
 									</div>
-
-
-								<div class="col-sm-12" >
+									<div class="col-sm-12" >
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
 											<div id="screenshot">
@@ -134,31 +134,6 @@ Upload
 											</div>
 										</center>
 									</div>
-									<br/>
-										<small>or browse your own thumbnail:</small><br><br/>
-										<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
-										<br><br/>
-										<div class="file-upload2 btn btn-primary">
-											<span>Browse thumbnail</span>
-											{{Form::open(array('route' => 'post.add.description', 'files' => true, 'id'=>'post-save'))}}
-											<input type="file" name="poster" id="poster" accept="image/*"/>
-										</div>
-										<br/><br/><br/><br/>
-								</center>
-							</div>
-						</div>
-					
-						<div class="col-md-12 grey mg-t-20">
-							<h3>Add Information to your video</h3>
-							
-							<div class="row">
-								
-								<div class="col-md-8" >
-									{{Form::label('Title:')}}
-									{{Form::text('title',null,array('class'=>'form-control', 'id'=>'title'))}}
-									@if ($errors->has('title'))
-										<small style="color:red">{{$errors->first('title')}}</small>
-									@endif
 
 								</div>
 
@@ -197,78 +172,76 @@ Upload
 											{{Form::text('tags',null,array('class'=>'form-control'))}}
 											@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
-							@endif
-								{{Form::label('Category:')}}<br>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
-									<label for='instruct'>Teachers Instructional</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
-									<label for='music-vid'>Students Instructional</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
-									<label for='vid-blog'>Video Blog</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
-									<label for='vid-cv'>Video CV</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
-									<label for='job-ad'>Job AD</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
-									<label for='music'>Music</label>
-								</span>
-								
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
-									<label for='anim-vid'>Animated Video</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
-									<label for='anim-music-vid'>Animated Music Video</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
-									<label for='qa'>Question and Answer</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
-									<label for='advice'>Advice</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
-									<label for='podcast'>Podcast</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
-									<label for='interviews'>Interviews</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
-									<label for='documentaries'>Documentaries</label>
-								</span>
-								<span class="span-tags">
-									{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
-									<label for='miscellaneous'>Miscellaneous</label>
-								</span>
-									{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
 
+											@endif
+
+											{{Form::label('Category:')}}<br>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+												<label for='advice'>Advice</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+												<label for='anim-music-vid'>Animated Music Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+												<label for='anim-vid'>Animated Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+												<label for='documentaries'>Documentaries</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
+												<label for='music-vid'>For Students</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
+												<label for='instruct'>For Teachers</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												<label for='interviews'>Interviews</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+												<label for='job-ad'>Job AD</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+												<label for='miscellaneous'>Miscellaneous</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+												<label for='music'>Music</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+												<label for='podcast'>Podcast</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+												<label for='qa'>Question and Answer</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+												<label for='vid-blog'>Video Blog</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+												<label for='vid-cv'>Video CV</label>
+											</span>
+
+											{{Form::hidden('thumbnail', 0, array('id'=>'selected-thumbnail'))}}
+										</div>
+									</div>
+
+								</div>
 							</div>
-
-							<div class="text-right">
-							<br>
-								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
-								{{Form::close()}}
-							<br><br>
-							</div>	
 						</div>
 					</div>
+
 
 
 
@@ -299,12 +272,16 @@ Upload
 		<br/>
 	</div>
 
+
+</div>
+
+
+
 </div>
 
 </div>
 
 
 @stop
-
 
 

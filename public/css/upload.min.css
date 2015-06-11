@@ -1,3 +1,4 @@
+
 .file-upload2 {
 	position: relative;
 	overflow: hidden;
@@ -61,4 +62,5 @@ span.v-category{
 .v-category label{
 	font-weight: normal!important;
 	font-size: 13px;
+
 }
