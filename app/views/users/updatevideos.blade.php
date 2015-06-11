@@ -190,6 +190,16 @@
 				var content = createTextarea.value;
 				$('#'+getCurrentId).html(content);
 			}
+			 var $dragging = null;
+
+		    $('#div-annotation-note-1').on("mousemove", function(e) {
+		        if ($dragging) {
+		            $dragging.offset({
+		                top: e.pageY,
+		                left: e.pageX
+		            });
+		        }
+		    });
 		}
 
 	});

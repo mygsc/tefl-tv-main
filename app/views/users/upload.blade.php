@@ -57,6 +57,7 @@ Upload
 	<div class="container page White same-H"> 
 		<div class="">
 
+
 			{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
@@ -70,6 +71,7 @@ Upload
 								<div id="wrapper">
 									<div id="progressbar-loaded" class="text-center">
 										<b><span id="percentage"></span></b>
+
 									</div>
 								</div>
 								<p id="msg-status"></p>
@@ -100,22 +102,20 @@ Upload
 										{{-- @include('elements/videoPlayer') --}}
 									</div>
 									<div class="col-sm-12" >
-										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show when the video's uploaded.</h4>
+										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
 											<div id="screenshot">
 												<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">     
 												<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">
 												<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">      
-												<br>
-												<small>or browse your own thumbnail:</small><br><br/>
+												<br/>
+												<small class="mg-t-10">or browse your own thumbnail:</small><br><br/>
 												<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 												<br>
 												<div class="file-upload2 btn btn-primary">
 													<span>Browse thumbnail</span>
 													<input type="file" name="poster" id="poster" accept="image/*"/>
 												</div>
-										
-								
 											</div>
 										</center>
 									</div>
