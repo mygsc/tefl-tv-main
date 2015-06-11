@@ -23,7 +23,8 @@ class PartnershipController extends Controller {
 	}
 
 	public function postVerification(){
-		return 'Wala pa e';
+		$input = Input::all();
+		return $input;
 	}
 
 	public function account(){
