@@ -187,7 +187,7 @@
 									<label for='podcast'>Podcast</label>
 								</span>
 								<span class="span-tags">
-									{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+									{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 									<label for='interviews'>Interviews</label>
 								</span>
 								<span class="span-tags">

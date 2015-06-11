@@ -135,8 +135,8 @@
 				createDiv.appendChild(endTagLabel);
 			var endTime = document.createElement('input');  
 				endTime.type = 'text';
-				endTime.id = 'start' + '-time-' + count;
-				endTime.name = 'start' + '-time-' + count;
+				endTime.id = 'end' + '-time-' + count;
+				endTime.name = 'end' + '-time-' + count;
 				endTime.value = hms;
 				createDiv.appendChild(endTime);
 				createDiv.appendChild(checkbox); 
@@ -223,7 +223,11 @@
 				var getid = this.id;
 				var len = document.getElementById(getid).value.length;
 				if(len>8){document.getElementById(getid).value='00:00:00';}
-
+			}
+			endTime.onkeyup = function(){
+				var getid = this.id;
+				var len = document.getElementById(getid).value.length;
+				if(len>8){document.getElementById(getid).value=hms;}
 			}
 		}
 
