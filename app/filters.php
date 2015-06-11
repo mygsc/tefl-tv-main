@@ -100,3 +100,22 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Custom Filter
+|--------------------------------------------------------------------------
+|
+| Custom filter made by the team
+| 
+| 
+|
+*/
+
+Route::filter('partners', function()
+{
+	if(!Auth::check()){
+		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to proceed');
+	}
+	
+});
