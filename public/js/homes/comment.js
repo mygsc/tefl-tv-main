@@ -22,7 +22,6 @@
 		        		$('textarea#comment').val('');
 		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		$('#replysection').find(".panelReply").hide('slow');
-		        		// alert(data['status']);
 		        	}
 	           	}
 	    	});
@@ -44,7 +43,6 @@
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
-        			alert(data['status']);
         			$('textarea.txtreply').val('');
         			$(this).prepend(data['reply']);
 	        	}
@@ -58,7 +56,10 @@
 		$("#replyLink").addClass("hidden");
 	});
 
-	$('#mainCommentBody').on("click", '.commentlikedup', function() {
+    var stopClickCommmentLike = false;
+	$('#mainCommentBody').on("click", '.commentlikedup', function getCommentLikedUp() {
+        if(stopClickCommmentLike) return;
+        stopClickCommmentLike = true;
 	    $.ajax({
 			type: 'POST',
 			url: '/addlikedcomment',
@@ -78,15 +79,19 @@
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
                         $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC');
                         $(this).parent().find('.commentdislikedup > span.dislikescount').val(data['dislikesCount']);
-        			} else if(data['label'] == 'liked'){
+                    } else if(data['label'] == 'liked'){
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
         			$(this).find('span.fa-thumbs-down').val(data['label']);
         		} 
+                stopClickCommmentLike = false;
             }
         });
 	});  
+    var stopClickCommentDislike = false;
 	$("#mainCommentBody").on("click", '.commentdislikedup', function () {
+        if(stopClickCommentDislike) return;
+        stopClickCommentDislike = true;
 		$.ajax({
 			type: 'POST',
 			url: '/adddislikedcomment',
@@ -110,11 +115,15 @@
         				$(this).find('span.fa-thumbs-down').removeClass('redC');
         			}
         		} 
+                stopClickCommentDislike = false;
             }
         });
 	});
-
+    
+    var stopClickReplyLiked = false;
 	$('#mainCommentBody').on("click", '.replylikedup', function() {
+        if(stopClickReplyLiked) return;
+        stopClickReplyLiked = true;
 	    $.ajax({
 			type: 'POST',
 			url: '/addlikedreply',
@@ -137,10 +146,15 @@
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
         		} 
+                stopClickReplyLiked = false;
             }
         });
 	});
+
+    var stopClickReplyDisliked = false;
 	$("#mainCommentBody").on("click", '.replydislikedup', function () {
+        if(stopClickReplyDisliked) return;
+        stopClickReplyDisliked = true;
 		$.ajax({
 			type: 'POST',
 			url: '/adddislikedreply',
@@ -161,8 +175,8 @@
         			} else if(data['label'] == 'disliked'){
         				$(this).find('span.fa-thumbs-down').removeClass('redC');
         			}
-        			// alert(data['likescount']);
         		} 
+                stopClickReplyDisliked = false;
             }
         });
 	});

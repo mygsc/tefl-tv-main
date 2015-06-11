@@ -7,10 +7,10 @@
 @section('content')
 	For additional security purposes we would like to verify your account 
 	{{Form::open(array('route' => 'post.partnerships.verification'))}}
-		{{Form::label('username')}}
-		{{Form::text('username')}}
+		{{Form::label('channel_name')}}
+		{{Form::text('channel_name', Auth::User()->channel_name)}}
 		{{Form::label('password')}}
-		{{Form::text('password')}}
+		{{Form::password('password')}}
 		{{Form::submit('verify')}}
 	{{Form::close()}}
 @stop

@@ -937,6 +937,9 @@ center;     margin: 0 auto; }
 .pad-r-40{
     padding-right: 60px;
 }
+.grey2{
+    background: #d6d8d9;
+}
 .grey{
     background: #E0E0E0;
 }
@@ -2424,6 +2427,10 @@ td.w-75per {
 .mg-t-20 {
     margin-top: 20px;
 }
+.mg-t-15 {
+    margin-top: 15px;
+}
+
 .mg-b-20 {
     margin-bottom: 20px;
 }

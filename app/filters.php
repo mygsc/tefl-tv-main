@@ -119,3 +119,11 @@ Route::filter('partners', function()
 	}
 	
 });
+
+Route::filter('partnerships.verification', function()
+	{
+	if(!Session::has('partnership_token')){
+		return Redirect::route('partnerships.verification');
+	}
+	
+});

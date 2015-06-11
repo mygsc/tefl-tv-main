@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 
 @section('title')
@@ -58,7 +59,7 @@ Upload
 		<div class="">
 
 
-			{{Form::open(array('route' => 'post.addDescription', 'files'=>true, 'id'=>'post-save'))}}
+			{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save'))}}
 
 			<div class="row">
 
@@ -258,6 +259,5 @@ Upload
 
 
 @stop
-
 
 
