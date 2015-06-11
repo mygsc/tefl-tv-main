@@ -144,7 +144,7 @@ Upload
 										</div>
 										<div class="textbox-layout">
 											<br/>
-											{{Form::label('Description:')}}<small id='char-limit'>0/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
+											{{Form::label('Description:')}} <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
 											@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
@@ -185,7 +185,7 @@ Upload
 												<label for='instruct'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">

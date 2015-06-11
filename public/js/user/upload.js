@@ -2,7 +2,7 @@ document.getElementById("save").disabled = true;
 var firstThumbnail = document.getElementById('img-thumb-1');
 var secondThumbnail = document.getElementById('img-thumb-2');
 var thirdThumbnail = document.getElementById('img-thumb-3');
-var min=50, max=5000, limitChar = document.getElementById('description').value.length;
+var min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false;
 $('#char-limit').html(limitChar+'/5000');
 $(document).ready(function(){
     $('#loader').fadeIn(500);
@@ -60,8 +60,9 @@ $(document).ready(function(){
                     firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
                     secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
                     thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
-                    document.getElementById("save").disabled = false;
+                    //document.getElementById("save").disabled = false;
                     $('#loader-status').fadeOut(500);
+                    done = true;
                 },
                 error: function(response, status, e){
                     console.log('Oops something went wrong please contact the admin of TEFL TV.');
@@ -87,4 +88,22 @@ $('textarea#description').mousemove(function(e){
 function checkLimit(limit){
    $('#char-limit').html(limit+'/5000');
    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+}
+
+function checkLimit(limit){
+   $('#char-limit').html(limit);
+   if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});$('#max-limit').html('/5000');}
+   if(limit>=min && limit < max){
+        $('#char-limit').html(limit).css({'color':'#0b58dd'});
+        if(done){
+             document.getElementById("save").disabled = false;
+        }
+       $('#max-limit').html('/5000');
+    }
+   else{document.getElementById("save").disabled = true;}
+   if(limit>=max){
+    var charLen = document.getElementById('description').value.length;
+    $('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
+    }
+    
 }
