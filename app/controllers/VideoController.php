@@ -102,7 +102,7 @@ class VideoController extends BaseController {
 		$videos = Video::where('file_name','=',$filename)->get();
 		return View::make('users.addDescription',compact('videos'));
 	}
-	public function postAddDescription($id, $selectedCategory = null){
+	public function postAddDescription($id, $selectedCategory = null;){
 		$id = Crypt::decrypt($id);  
 		$videos = Video::find($id);
 		$fileName = $videos->file_name;
