@@ -41,6 +41,7 @@
 				<h1 class="orangeC">-Featured Partners-</h1>
 				<a href="" ><h3 class="mg-t--20">How to be a partner?</h3></a>
 
+
 				<div class="col-md-4">
 					<a href="http://www.auathailand.org" target="_blank">
 						<img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
@@ -59,6 +60,9 @@
 			</div>
 		</div>
 	</div>
+
+	<a href="{{route('partners.adsense')}}">{{Form::button('Apply now')}}</a>
+
 @stop
 
 
