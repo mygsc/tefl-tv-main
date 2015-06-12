@@ -49,20 +49,20 @@ class VideoController extends BaseController {
 				if(!file_exists($videoFolderPath)){mkdir($videoFolderPath);}
 				$this->video_->captureImage($input['video'], $destinationPath, $fileName);
 				$input['video']->move($destinationPath.DS.$fileName.DS, 'original.'.$ext);
-				$videoPath = $destinationPath.DS.$fileName.DS.$fileName.'.'.$ext;
+				$thumbnail = '/videos'.DS.$userFolderName.DS.$fileName.DS.$fileName;
 				return Response::json([
 					'vidid' => Crypt::encrypt($latest_id),
 					'file' => $fileName, 
-					'thumb1' => Session::get('thumbnail_1'),
-					'thumb2' => Session::get('thumbnail_2'),
-					'thumb3' => Session::get('thumbnail_3'),
+					'thumb1' => $thumbnail.'_thumb1.png',//Session::get('thumbnail_1'),
+					'thumb2' => $thumbnail.'_thumb2.png',//Session::get('thumbnail_2'),
+					'thumb3' => $thumbnail.'_thumb3.png'//Session::get('thumbnail_3'),
 					]);
 			}
 		}
 		return Redirect::route('get.upload')
 		->withInput()
 		->withErrors($validator)
-		->withFlashBad('There were validation errors, Please check your video.');
+		->withFlashBad('Oops please check your video details.');
 	}
 	private function duration($path){
 		$ffprobe = $this->video_->ffprobe(); 
@@ -124,15 +124,20 @@ class VideoController extends BaseController {
 				$this->video_->resizeImage(Input::file('poster'), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage(Input::file('poster'), 240, 141, $destinationPath.$fileName.'.jpg');
 			}else{
-				if(strlen(Input::get('thumbnail') > 1)){  
-					$getImage = Input::get('thumbnail');
-					$getImage = str_replace('data:image/png;base64,', '', $getImage);
-					$getImage = str_replace(' ', '+', $getImage);
-					$decodeImage = base64_decode($getImage);
-					$source = $destinationPath.$fileName.'.jpg';
-					$success = file_put_contents($source, $decodeImage);
-					$this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-					$this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
+				$selectedThumb =  Input::get('thumbnail');
+				if(strlen($selectedThumb) > 1){  
+					// $getImage = Input::get('thumbnail');
+					// $getImage = str_replace('data:image/png;base64,', '', $getImage);
+					// $getImage = str_replace(' ', '+', $getImage);
+					// $decodeImage = base64_decode($getImage);
+					// $source = $destinationPath.$fileName.'.jpg';
+					// $success = file_put_contents($source, $decodeImage);
+					// $this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					// $this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
+					$getDomain = asset('/');
+					$thumbnail = str_replace($getDomain, '', $selectedThumb);
+					$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
 				}		
 			}
 			
@@ -154,7 +159,7 @@ class VideoController extends BaseController {
 				// for($n=1;$n<=3;$n++){
 				// 	File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
 				// }
-				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGoodWithoutHide('Your video has been saved we will notify in a moment when your video is ready to watch.');
+				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGoodWithoutHide('Your video has been saved we will notify in a moment when your video is ready.');
 			}
 			return Redirect::route('get.upload');					
 		}

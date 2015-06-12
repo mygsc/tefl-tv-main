@@ -6,9 +6,9 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/angular.min.js')}}
+{{--HTML::script('js/angular.min.js')--}}
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0,
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -149,24 +149,24 @@
 					input.setAttribute('style', 'display:none');
 					createDiv.appendChild(input);
 			/*
-			* Annotation 
+			* Creat div of Annotation at video 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			// annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
-			// annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
 			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
 			annotDiv.setAttribute('id','div-annotation-'+id+'-'+count);
 			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
 			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			annotDiv.appendChild(annotClose);
-			//annotWrapper.appendChild(annotDiv);
-			var annotContent = document.createTextNode(''); //let it empty
+			var annotContent = document.createTextNode(''); 
 			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
 			annotClose.appendChild(x);
+			/*
+			* Event listener of annotaion builder 
+			*/
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
@@ -265,6 +265,7 @@ $('#t-1').bind('click',function(){
 	$('#t-3').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-1').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 $('#t-2').bind('click',function(){
 	var selector = this.id;
@@ -273,6 +274,7 @@ $('#t-2').bind('click',function(){
 	$('#t-3').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-2').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 $('#t-3').bind('click',function(){
 	var selector = this.id;
@@ -281,6 +283,7 @@ $('#t-3').bind('click',function(){
 	$('#t-2').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-3').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 function setAsThumbnail(selector){
 	$('.caption-' + selector).html('Set as thumbnail').css({'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
@@ -309,7 +312,6 @@ function checkLimit(limit){
    if(limit>=max){
    	var charLen = document.getElementById('description').value.length;
    	$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
-   	//for(var n=max; limit > max ; limit--){console.log('minus one');}
    	}
    	
 }
@@ -379,7 +381,7 @@ $('#upload-cancel').on('click',function(){
 											</div><!--vid-controls-->
 											<br/>
 											
-											<p>Available thumbnails:</p>
+											<h3>Available thumbnails:</h3>
 											@if(file_exists($thumbnail))
 												<div id='t-1' style='position:relative;display:inline-block'>
 												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
@@ -523,7 +525,7 @@ $('#upload-cancel').on('click',function(){
 												<label for='instruct'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">

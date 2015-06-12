@@ -466,14 +466,16 @@ protected $video_;
 					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				}
+			}else{
+				$selectedThumb =  Input::get('selected-thumbnail');
+				if(strlen($selectedThumb)>1){  
+					$getDomain = asset('/');
+					$thumbnail = str_replace($getDomain, '', $selectedThumb);
+					$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
+				}	
 			}
-			$thumb =  Input::get('selected-thumbnail');
-			if(strlen($thumb)>1){  
-				$getDomain = asset('/');
-				$thumbnail = str_replace($getDomain, '', $thumb);
-				$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-				$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
-			}	
+			
 			if(Input::has('cat')){$selectedCategory = implode(',',Input::get('cat'));}
 			$video = Video::where('file_name',$id)->first();
 			$id = $video->file_name;
