@@ -110,9 +110,24 @@ function validate(){
     var title = $('#title').val();
     var desc = $('#description').val();
     var tag = $('#tags').val();
-    if(title==""){ alert('Title field is requied.'); return false; }
-    else if(desc==""){ alert('Description field is requied.'); return false;}
-    else if(tag==""){ alert('Tag field is requied.'); document.getElementById('tags').focus(); return false; }
+    if(title==""){
+        errors('Oops title field is required.');
+        return false;
+    }
+    else if(desc==""){
+        errors('Oops description field is required.');
+         return false;
+    }
+    else if(tag==""){ 
+        errors('Oops tag field is required.');
+         return false;
+    }
     return true;
 }
+function errors(message){
+    $('#validation-rule').modal('show');
+    $('#error-msg').html(message);
+    //document.getElementById('tags').focus(); 
+}
+
 

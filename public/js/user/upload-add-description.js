@@ -226,11 +226,16 @@ function getId(id){
   return document.getElementById(id);
 }
 function setAsThumbnail(selector){
-  $('.caption-' + selector).html('Set as thumbnail').css({'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
-  $('#'+selector).css({'outline':'3px solid #0b8ddd','background':'rgba(42,42,42,0.5)'});
+  if($('#caption-' + selector).hasClass('glyphicon glyphicon-ok')){
+    $('#caption-' + selector).html('').css({'color':'#0b8ddd', 'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
+    $('#'+selector).css({'outline':'2px solid #0b8ddd','background':'rgba(42,42,42,0.5)'});
+  }else{
+    $('#caption-' + selector).html('Set as thumbnail').css({'color':'#0b8ddd', 'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
+    $('#'+selector).css({'outline':'2px solid #0b8ddd','background':'rgba(42,42,42,0.5)'});
+  }
 }
 function removeThumbnailCaption(selector){
-  $('.caption-' + selector).html('').css({'background':'transparent', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
+  $('#caption-' + selector).html('').css({'background':'transparent', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
   $('#'+selector).css({'outline':'0px solid #0b8ddd','background':'transparent'});
 }
 $('#img-thumb-1').bind('mouseover',function(){
@@ -266,13 +271,13 @@ $('#img-thumb-1').bind('click',function(){
     var thumbSrc = document.getElementById('thumb-1-img').src;
     getId('selected-thumbnail').value = thumbSrc;
     document.getElementById('media-video').poster = thumbSrc;
-    var fi = document.getElementById('sel-t-1');
+    var fi = document.getElementById('caption-img-thumb-1');
     fi.className = "glyphicon glyphicon-ok";
-    $(fi).html('').css({'color':'#0b8ddd','background':'rgba(42,42,42,0.5)'});
-    var sec = document.getElementById('sel-t-2');
+    $(fi).html('').css({'color':'#0b8ddd','background':'rgba(42,42,42,0.5)','width':'100%', 'height':'100%'});
+    var sec = document.getElementById('caption-img-thumb-2');
     sec.className = "";
     $(sec).html('').css({'background':'transparent'});
-    var thi = document.getElementById('sel-t-3');
+    var thi = document.getElementById('caption-img-thumb-3');
     thi.className = "";
     $(thi).html('').css({'background':'transparent'});
     
@@ -285,13 +290,13 @@ $('#img-thumb-2').bind('click',function(){
     var thumbSrc = document.getElementById('thumb-2-img').src;
     getId('selected-thumbnail').value = thumbSrc;
     document.getElementById('media-video').poster = thumbSrc;
-    var sec = document.getElementById('sel-t-2');
+    var sec = document.getElementById('caption-img-thumb-2');
     sec.className = "glyphicon glyphicon-ok";
-    $(sec).html('').css({'color':'#0b8ddd'});
-     var fi = document.getElementById('sel-t-1');
+    $(sec).html('').css({'color':'#0b8ddd','width':'100%', 'height':'100%'});
+     var fi = document.getElementById('caption-img-thumb-1');
     fi.className = "";
     $(fi).html('').css({'background':'transparent'});
-    var thi = document.getElementById('sel-t-3');
+    var thi = document.getElementById('caption-img-thumb-3');
     thi.className = "";
     $(thi).html('').css({'background':'transparent'});
 });
@@ -303,15 +308,15 @@ $('#img-thumb-3').bind('click',function(){
     var thumbSrc = document.getElementById('thumb-3-img').src;
     getId('selected-thumbnail').value = thumbSrc;
     document.getElementById('media-video').poster = thumbSrc;
-     var thi = document.getElementById('sel-t-3');
+     var thi = document.getElementById('caption-img-thumb-3');
     thi.className = "glyphicon glyphicon-ok";
-    $(thi).html('').css({'color':'#0b8ddd'});
-    var sec = document.getElementById('sel-t-2');
+    $(thi).html('').css({'color':'#0b8ddd','width':'100%', 'height':'100%'});
+    var sec = document.getElementById('caption-img-thumb-2');
     sec.className = "";
-    $(sec).html('').css({'color':'#0b8ddd'});
-     var fi = document.getElementById('sel-t-1');
+    //$(sec).html('').css({'color':'#0b8ddd'});
+     var fi = document.getElementById('caption-img-thumb-1');
     fi.className = "";
-    $(fi).html('').css({'background':'transparent'});
+    //$(fi).html('').css({'background':'transparent'});
 });
 
 

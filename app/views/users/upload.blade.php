@@ -9,9 +9,7 @@
 	{{HTML::script('js/user/upload.js')}}
 	{{HTML::script('js/user/upload-add-description.js')}}
 	{{HTML::script('js/video-player/jquery.form.min.js')}}
-	{{--HTML::script('js/video-player/media.player.upload.min.js')--}}
 	{{HTML::script('js/bootstrap.min.js')}}
-	{{--HTML::style('css/vid.player.min.css')--}}
 	{{HTML::style('css/upload.min.css')}}
 @stop
 @section('content')
@@ -112,22 +110,17 @@
 									<div class="col-sm-12" >
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
-											<!-- <div id="screenshot"> -->
-												<!-- <img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">     
-												<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">
-												<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">      
-												 -->
 												<div id="img-thumb-1" style='position:relative;display:inline-block'>
 													<img src="/img/thumbnails/150x100.jpg" id='thumb-1-img' class='img-thumbnail' width="150" height="100" >
-													<label id='sel-t-1' class='caption-img-thumb-1'></label>
+													<label id='caption-img-thumb-1'></label>
 												</div>
 												<div id="img-thumb-2" style='position:relative;display:inline-block'>
 													<img src="/img/thumbnails/150x100.jpg" id='thumb-2-img' class='img-thumbnail' width="150" height="100" >
-													<label id='sel-t-2' class='caption-img-thumb-2'></label>
+													<label id='caption-img-thumb-2'></label>
 												</div>
 												<div id="img-thumb-3" style='position:relative;display:inline-block'>
 													<img src="/img/thumbnails/150x100.jpg" id='thumb-3-img' class='img-thumbnail' width="150" height="100" >
-													<label id='sel-t-3' class='caption-img-thumb-3'></label>
+													<label id='caption-img-thumb-3'></label>
 												</div>
 
 												<br/>
@@ -137,9 +130,7 @@
 												<div class="file-upload2 btn btn-primary">
 													<span>Browse thumbnail</span>
 													{{Form::file('poster', array('id'=>'poster','accept'=>"image/*"))}} 
-													<!-- <input type="file" name="poster" id="poster" accept="image/*"/> -->
 												</div>
-											<!-- </div> -->
 										</center>
 									</div>
 
@@ -266,6 +257,22 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 									<a id='user-cancel-upload' href="/cancel-upload" class="btn btn-primary">Yes</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="validation-rule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Validation Error</h4>
+								</div>
+								<div class="modal-body">
+									<p id='error-msg'>message</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
 								</div>
 							</div>
 						</div>
