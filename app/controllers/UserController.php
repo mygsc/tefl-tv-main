@@ -401,24 +401,15 @@ protected $video_;
 	private function threeThumbnailPath($filename, $extension){
 		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
 		$thumbnail= $thumb.'_thumb1.png';
-		// $thumb2 = $thumb.'_thumb2.png';
-		// $thumb3 = $thumb.'_thumb3.png';
 			if(!file_exists($thumbnail)){
 				$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
 				$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
 				$this->video_->captureImage($videoFile,$destinationPath,$filename);
-				// $thumb1 = $thumb.'_thumb1.png';
-				// $thumb2 = $thumb.'_thumb2.png';
-				// $thumb3 = $thumb.'_thumb3.png';
-			}//else{$this->video_->convertImageToBase64($thumb1,$thumb2,$thumb3); }
+			}
 			return $thumbnail;
 		}
 
 	public function getEditVideo($file_name, $tags = null, $category = null){
-		
-		$arr = array('gerald' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5);
-        json_encode($arr);
-
 		$video = Video::where('file_name', $file_name)->get();
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
@@ -465,16 +456,17 @@ protected $video_;
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
 				}
-					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
-					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
-				
-			}else{
+					Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
+					Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
+			}
+			else{
 				$selectedThumb =  Input::get('selected-thumbnail');
 				if(strlen($selectedThumb)>1){  
 					$getDomain = asset('/');
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
-					$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-					$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
+					$removeSpace = str_replace('%20',' ', $thumbnail);
+					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
 				}	
 			}
 			

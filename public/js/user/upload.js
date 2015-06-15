@@ -57,9 +57,9 @@ $(document).ready(function(){
                     document.getElementById('post-save').action = 'addDescription/'+response.vidid;
                     $('#up-msg').html('<i class="fa fa-check"></i> '+' The video has been uploaded, you may now click save.').css({'color':'#376d2e'});
 
-                    firstThumbnail.src = response.thumb1;firstThumbnail.width = 150;firstThumbnail.height = 100;
-                    secondThumbnail.src = response.thumb2;secondThumbnail.width = 150;secondThumbnail.height = 100;
-                    thirdThumbnail.src = response.thumb3;thirdThumbnail.width = 150;thirdThumbnail.height = 100;
+                    firstThumbnail.src = response.thumb1;firstThumbnail.width = '150';firstThumbnail.height = '100';
+                    secondThumbnail.src = response.thumb2;secondThumbnail.width = '150';secondThumbnail.height = '100';
+                    thirdThumbnail.src = response.thumb3;thirdThumbnail.width = '150';thirdThumbnail.height = '100';
                     //document.getElementById("save").disabled = false;
                     $('#loader-status').fadeOut(500);
                     done = true;
@@ -127,7 +127,6 @@ function validate(){
 function errors(message){
     $('#validation-rule').modal('show');
     $('#error-msg').html(message);
-    //document.getElementById('tags').focus(); 
 }
 
 
