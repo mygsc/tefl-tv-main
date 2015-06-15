@@ -565,7 +565,7 @@ class HomeController extends BaseController {
 			if($likeUserId != $videoData->user_id){
 				$channel_id = Comment::find($likeCommentId)->first();
 				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', $videoData->file_name);
+				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
 				$type = 'liked';
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
