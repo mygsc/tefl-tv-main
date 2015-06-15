@@ -1382,10 +1382,11 @@ protected $video_;
 		if(Auth::check()){
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 			$notifications = $this->Notification->getTimePosted($notifications);
+			$categories = $this->Video->getCategory();
 			if($notifications === false){
 				app::abort(404, 'Error');
 			}
-			return View::make('users.notifications', compact('notifications'));
+			return View::make('users.notifications', compact(array('categories','notifications')));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	
 	}
