@@ -1,7 +1,7 @@
 document.getElementById("save").disabled = true;
-var firstThumbnail = document.getElementById('img-thumb-1');
-var secondThumbnail = document.getElementById('img-thumb-2');
-var thirdThumbnail = document.getElementById('img-thumb-3');
+var firstThumbnail = document.getElementById('thumb-1-img');
+var secondThumbnail = document.getElementById('thumb-2-img');
+var thirdThumbnail = document.getElementById('thumb-3-img');
 var min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false;
 $('#char-limit').html(limitChar+'/5000');
 $(document).ready(function(){
@@ -49,10 +49,6 @@ $(document).ready(function(){
                     $('#percentage').html(percentComplete+'%');
                     $('#up-msg').html('<i class="fa fa-info-circle"></i> '+' Please wait a moment while the video is uploading...').css({'color':'#5ec6e8'});
                     
-
-                    // if(percentComplete==100){
-                    //     $('#percentage').html('Done please wait a moment...').css({'color':'#000'});
-                    // }
                 },
                 success: function(response){
                     $('#loader-progress').fadeOut();
@@ -89,19 +85,17 @@ $('textarea#description').mousemove(function(e){
     var getLength = document.getElementById('description').value.length;
    checkLimit(getLength);
 });
-function checkLimit(limit){
-   $('#char-limit').html(limit+'/5000');
-   if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
-}
+// function checkLimit(limit){
+//    $('#char-limit').html(limit+'/5000');
+//    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
+// }
 
 function checkLimit(limit){
    $('#char-limit').html(limit);
    if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});$('#max-limit').html('/5000');}
    if(limit>=min && limit < max){
         $('#char-limit').html(limit).css({'color':'#0b58dd'});
-        if(done){
-             document.getElementById("save").disabled = false;
-        }
+        if(done){document.getElementById("save").disabled = false;}
        $('#max-limit').html('/5000');
     }
    else{document.getElementById("save").disabled = true;}
@@ -111,3 +105,29 @@ function checkLimit(limit){
     }
     
 }
+
+function validate(){
+    var title = $('#title').val();
+    var desc = $('#description').val();
+    var tag = $('#tags').val();
+    if(title==""){
+        errors('Oops title field is required.');
+        return false;
+    }
+    else if(desc==""){
+        errors('Oops description field is required.');
+         return false;
+    }
+    else if(tag==""){ 
+        errors('Oops tag field is required.');
+         return false;
+    }
+    return true;
+}
+function errors(message){
+    $('#validation-rule').modal('show');
+    $('#error-msg').html(message);
+    //document.getElementById('tags').focus(); 
+}
+
+
