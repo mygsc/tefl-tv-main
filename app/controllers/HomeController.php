@@ -565,7 +565,7 @@ class HomeController extends BaseController {
 			if($likeUserId != $videoData->user_id){
 				$channel_id = Comment::find($likeCommentId)->first();
 				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', $videoData->file_name);
+				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
 				$type = 'liked';
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
@@ -614,18 +614,20 @@ class HomeController extends BaseController {
 				array('comments_reply_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked')
 			);
 			$likesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'status' => 'liked'))->count();
-
+			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'disliked'))->delete();
+			
+			$dislikesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'status' => 'disliked'))->count();
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
 			if($likeUserId != $videoData->user_id){
 				$channel_id = Comment::find($likeCommentId)->first();
 				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', $videoData->file_name);
+				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
 				$type = 'liked';
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
 			/*Notification End*/
-			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked'));
+			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCountReply' => $dislikesCountReply));
 
 		} elseif($statuss == 'unliked'){
 			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
@@ -646,8 +648,12 @@ class HomeController extends BaseController {
 					'status' 	   => 'disliked'
 					)
 				);
+			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();
+			
 			$dislikesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
-			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
+			$likesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'status' => 'liked'))->count();
+
+			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked', 'likesCount' => $likesCount));
 		} elseif($statuss == 'undisliked'){
 			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
@@ -668,7 +674,34 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		print rand(0,99);
+		$getTime = 0;
+		switch (true) {
+					case ($getTime >= 6143):
+					$getTime = round($getTime / 6144);
+					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
+					break;
+					case ($getTime >= 719):
+					$getTime = round($getTime / 720);
+					$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
+					break;
+					case ($getTime >= 167):
+					$getTime = round($getTime / 168);
+					$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
+					break;
+					case ($getTime >= 24):
+					$getTime = round($getTime / 24);
+					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
+					break;
+					case ($getTime >= 1 and $getTime <= 23):
+					$getTime = round($getTime);
+					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
+					break;
+					default:
+					$getTime = 'a few minutes ago';
+					break;
+				}
+
+		return $getTime;
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();

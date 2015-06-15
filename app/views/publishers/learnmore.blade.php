@@ -1,7 +1,7 @@
 @extends('layouts.partnership')
 
 @section('title')
-	Learn more about TEFL TV Publishers Program
+	TEFLTV Publisher
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
 	<div class="">
 		<div class="container">
 			<div class="text-center tagline">
-				<button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button>
+				<a href="{{route('partners.adsense')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
 				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
 			</div>
 		</div>
@@ -23,16 +23,16 @@
 		<div class="container">
 			<div class="row text-center div-Steps">
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/select.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
+					<img src="/img/icons/select-ico.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
 					<h2>Select from different categories of videos</h2>
 				</div>
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/share.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
+					<img src="/img/icons/share-ico.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
 					<h2>Embed video to your website or share to your social media accounts.</h2>
 				</div>
 				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/earn.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-					<h2>Earn Revenue in every advertisement impression.</h2>
+					<img src="/img/icons/earn-ico.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
+					<h2>Earn Revenue from every advertisement.</h2>
 				</div>
 			</div>
 		</div>
@@ -60,8 +60,6 @@
 			</div>
 		</div>
 	</div>
-
-	<a href="{{route('partners.adsense')}}">{{Form::button('Apply now')}}</a>
 
 @stop
 
