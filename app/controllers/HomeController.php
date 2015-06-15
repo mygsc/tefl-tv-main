@@ -22,7 +22,9 @@ class HomeController extends BaseController {
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
 	public function getAboutUs() { 
-		return View::make('homes.aboutus');
+		$categories = $this->Video->getCategory();
+
+		return View::make('homes.aboutus', compact('categories'));
 	}
 
 	public function postContactUs(){
@@ -39,7 +41,7 @@ class HomeController extends BaseController {
 			);
 
 		if($validate->fails()){
-			return Redirect::intended('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 		}
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
@@ -67,6 +69,14 @@ class HomeController extends BaseController {
 
 	public function getChannels() {
 		return View::make('homes.channels');
+	}
+
+	public function partnership(){
+		return View::make('homes.partnership');
+	}
+
+	public function getPartnershipVerification(){
+		return View::make('homes.partnership');
 	}
 
 	public function getSignIn() {

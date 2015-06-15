@@ -11,13 +11,14 @@
 |
 */
 
+
 Route::group(array('prefix' => '/'), function() {
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));
 	Route::get('cancel-upload',array('before'=>'auth','as' => 'user.upload.video.cancel', 'uses'=>'VideoController@getCancelUploadVideo'));
 	Route::get('add-description!v={id}',array('before'=>'auth','as' => 'get.addDescription', 'uses'=>'VideoController@getAddDescription'));
 	Route::post('addDescription/{id}',array('before'=>'auth','as' => 'post.add.description', 'uses'=>'VideoController@postAddDescription'));
-	Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
+	//Route::patch('addDescription/{id}',array('before'=>'auth','as' => 'post.addDescription', 'uses'=>'VideoController@postAddDescription'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('search-result', array('as' => 'homes.searchresult', 'uses' => 'VideoController@getSearchResult'));
 	Route::post('search-videos', array('as' => 'post.search-video', 'uses' => 'VideoController@postSearchVideos'));
@@ -181,7 +182,16 @@ Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testing
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
 Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);
 
-Route::group(array('prefix' => 'partners'), function() {
-	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@indx'));
-	
+
+//**********Partners**********//
+Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@getIndex'));
+Route::get('partners/learnmore', array('before' => 'partners','as' => 'partners.learnmore', 'uses' => 'PartnershipController@getPartnerLearnMore'));
+Route::get('partners/adsense', array('before' => 'partnerships.verification', 'as' => 'partners.adsense', 'uses' => 'PartnershipController@getPartnersAdsense'));
+Route::get('publishers/learnmore', array('before' => 'partners','as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPublisherLearnMore'));
+Route::get('publishers/adsense', array('before' => 'partnerships.verification', 'as' => 'publishers.adsense', 'uses' => 'PartnershipController@getPublisherAdsense'));
+Route::group(array('prefix' => 'partnerships',), function() {
+	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@getVerification'));
+	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
+	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
 });
+

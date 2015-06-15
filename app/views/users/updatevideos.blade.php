@@ -8,7 +8,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/angular.min.js')}}
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation',
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -81,9 +81,12 @@
 			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-link';}
 			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			var annotationTypeCaption = document.createTextNode(title);
-			var elem = document.createTextNode(title);
+			var types = document.createTextNode(title);
 			var createDiv = document.createElement('div');
-			var createSpan = document.createElement('span');
+			var close = document.createElement('span');
+			close.className = 'close-annotation-' + id + '-' + count;
+			var save = document.createElement('span');
+			//save.className = 'glyphicon glyphicon-floppy-disk';
 			var createTextarea = document.createElement('textarea'); 
 			checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';  
@@ -91,15 +94,17 @@
 			checkbox.id = 'checkbox' + '-link-' + count; 
 			var label = document.createElement('label');
 			var labelText = document.createTextNode('link');
-			// var elem = document.createTextNode(title);
-			var spanText = document.createTextNode('x');  
+			var closeText = document.createTextNode('x'); 
+			var saveText = document.createTextNode('save');  
 			createDiv.appendChild(annotationTypeTag);
 			annotationTypeTag.appendChild(annotationTypeCaption);
-			//createDiv.appendChild(elem);
-			createSpan.appendChild(spanText); 
+			close.appendChild(closeText);
+			save.appendChild(saveText); 
 			label.appendChild(labelText);
-			createSpan.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');//border:1px solid #1AADF2;
-			createSpan.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			close.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			close.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			save.setAttribute('style', 'margin-right:2px;color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			save.setAttribute('id', 'save-annotation-' + id + '-' + count);
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
@@ -108,7 +113,8 @@
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
 			annotation.appendChild(createDiv); 
-			createDiv.appendChild(createSpan);
+			createDiv.appendChild(close);
+			createDiv.appendChild(save);
 			createDiv.appendChild(createTextarea); 
 			
 			 
@@ -116,23 +122,23 @@
 			var startTagCaption = document.createTextNode('Start:');
 				startTagLabel.appendChild(startTagCaption);
 				createDiv.appendChild(startTagLabel);
-			var startTagInput = document.createElement('input'); 
-				startTagInput.type = 'text';
-				startTagInput.id = 'start' + '-time-' + count;
-				startTagInput.name = 'start' + '-time-' + count;
-				startTagInput.value = '00:00:00';
-				createDiv.appendChild(startTagInput);
+			var startTime = document.createElement('input'); 
+				startTime.type = 'text';
+				startTime.id = 'start' + '-time-' + count;
+				startTime.name = 'start' + '-time-' + count;
+				startTime.value = h+'0:'+m+'0:'+s+'0';
+				createDiv.appendChild(startTime);
 				
 			var endTagLabel = document.createElement('label');
 			var endTagCaption = document.createTextNode('End:');
 				endTagLabel.appendChild(endTagCaption);
 				createDiv.appendChild(endTagLabel);
-			var endTagInput = document.createElement('input');  
-				endTagInput.type = 'text';
-				endTagInput.id = 'start' + '-time-' + count;
-				endTagInput.name = 'start' + '-time-' + count;
-				endTagInput.value = hms;
-				createDiv.appendChild(endTagInput);
+			var endTime = document.createElement('input');  
+				endTime.type = 'text';
+				endTime.id = 'end' + '-time-' + count;
+				endTime.name = 'end' + '-time-' + count;
+				endTime.value = hms;
+				createDiv.appendChild(endTime);
 				createDiv.appendChild(checkbox); 
 				createDiv.appendChild(label);
 			var input = document.createElement('input');
@@ -172,11 +178,34 @@
 				}
 			  	
 			};
-			createSpan.onclick = function(){
+			close.onclick = function(){
 				var getid = this.id;
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
 				$('#div-'+removeDiv).remove();
+			}
+			close.onmouseover = function(){
+				var getid = this.id;
+				$('.'+getid).css({'border-bottom':'2px solid #0f85e0'});
+			}
+			close.onmouseleave = function(){
+				var getid = this.id;
+				$('.'+getid).css({'border-bottom':'1px solid red'});
+				
+			}
+			save.onclick = function(){
+				// var getid = this.id;
+				// var removeDiv = getid.replace('save-','');
+				// $('#'+removeDiv).remove();
+				// $('#div-'+removeDiv).remove();
+			}
+			save.onmouseover = function(){
+				var getid = this.id;
+				$('#'+getid).css({'border-bottom':'2px solid #0f85e0'});
+			}
+			save.onmouseleave = function(){
+				var getid = this.id;
+				$('#'+getid).css({'border-bottom':'1px solid red'});
 			}
 			annotClose.onclick = function(){
 				var getid = this.id;
@@ -189,6 +218,16 @@
 				var getCurrentId = getid.replace('textarea-','div-');
 				var content = createTextarea.value;
 				$('#'+getCurrentId).html(content);
+			}
+			startTime.onkeyup = function(){
+				var getid = this.id;
+				var len = document.getElementById(getid).value.length;
+				if(len>8){document.getElementById(getid).value='00:00:00';}
+			}
+			endTime.onkeyup = function(){
+				var getid = this.id;
+				var len = document.getElementById(getid).value.length;
+				if(len>8){document.getElementById(getid).value=hms;}
 			}
 		}
 
@@ -458,64 +497,63 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Category:')}}<br/>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
-																<label for='instruct'>Teachers Instructional</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
-																<label for='music-vid'>Students Instructional</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
-																<label for='vid-blog'>Video Blog</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
-																<label for='vid-cv'>Video CV</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
-																<label for='job-ad'>Job AD</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
-																<label for='music'>Music</label>
-															</span>
-															
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
-																<label for='anim-vid'>Animated Video</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
-																<label for='anim-music-vid'>Animated Music Video</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
-																<label for='qa'>Question and Answer</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
-																<label for='advice'>Advice</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
-																<label for='podcast'>Podcast</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
-																<label for='interviews'>Interviews</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
-																<label for='documentaries'>Documentaries</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
-																<label for='miscellaneous'>Miscellaneous</label>
-															</span>
+															{{Form::label('Categories:')}}<br/>
+															<span class="v-category">
+												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+												<label for='advice'>Advice</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+												<label for='anim-music-vid'>Animated Music Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+												<label for='anim-vid'>Animated Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+												<label for='documentaries'>Documentaries</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
+												<label for='music-vid'>For Students</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
+												<label for='instruct'>For Teachers</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												<label for='interviews'>Interviews</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+												<label for='job-ad'>Job AD</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+												<label for='miscellaneous'>Miscellaneous</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+												<label for='music'>Music</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+												<label for='podcast'>Podcast</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+												<label for='qa'>Question and Answer</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+												<label for='vid-blog'>Video Blog</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+												<label for='vid-cv'>Video CV</label>
+											</span>
 														</div>	
 													<br/>
 													<div class="text-right mg-b-10"> 

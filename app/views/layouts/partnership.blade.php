@@ -13,7 +13,7 @@
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
-	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/partnership.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
@@ -27,10 +27,9 @@
 
 	@include('elements/header')
 	@include('elements/home/headerNav')
-	<div class="container">
-		@include('elements.flash_message')
+		@include('elements/flash_message')
 		@yield('content')
-	</div>
+
 	@include('elements/footer')
 
 </body>
@@ -40,30 +39,12 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
-{{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
 <!--list and gri display for my channel-->
-<script type="text/javascript">
-	setCorrectTimezone();
 
-	$('.grid').click(function() {
-		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
-		$('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
-		$('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
-		$('.desc').addClass('hide');
-	});
-	$('.list').click(function() {
-		$('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
-		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
-		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
-		$('.desc').removeClass('hide');
-	});
-</script>
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
