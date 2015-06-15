@@ -48,7 +48,7 @@ class Notification extends Eloquent {
 				$roundedTime = round($getTimeDiff);
 				$getTime = abs($roundedTime);
 
-				switch (true) {
+				switch ($getTime) {
 					case ($getTime >= 6143):
 					$getTime = round($getTime / 6144);
 					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
@@ -61,12 +61,12 @@ class Notification extends Eloquent {
 					$getTime = round($getTime / 168);
 					$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
 					break;
-					case ($getTime >= 23):
+					case ($getTime >= 24):
 					$getTime = round($getTime / 24);
 					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
 					break;
-					case ($getTime <= 24):
-					$getTime = round($getTime / 24);
+					case ($getTime >= 1 and $getTime <= 23):
+					$getTime = round($getTime);
 					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
 					break;
 
