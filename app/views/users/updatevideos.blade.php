@@ -124,7 +124,7 @@
 				createDiv.appendChild(startTagLabel);
 			var startTime = document.createElement('input'); 
 				startTime.type = 'text';
-				startTime.id = 'start' + '-time-' + count;
+				startTime.id = 'start' + '-time-' + annot + '-' + id + '-' + count;
 				startTime.name = 'start' + '-time-' + count;
 				startTime.value = h+'0:'+m+'0:'+s+'0';
 				createDiv.appendChild(startTime);
@@ -194,10 +194,10 @@
 				
 			}
 			save.onclick = function(){
-				// var getid = this.id;
-				// var removeDiv = getid.replace('save-','');
-				// $('#'+removeDiv).remove();
-				// $('#div-'+removeDiv).remove();
+				 var getid = this.id;
+				 var getNewId = getid.replace('save-', 'start-time-');
+				 var time = selector(getNewId).value;
+				 var getTime = time.split(":");
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -228,6 +228,9 @@
 				var getid = this.id;
 				var len = document.getElementById(getid).value.length;
 				if(len>8){document.getElementById(getid).value=hms;}
+			}
+			function selector(idorclass){
+				return document.getElementById(idorclass);
 			}
 		}
 
@@ -286,7 +289,7 @@ $('#t-3').bind('click',function(){
 	document.getElementById('media-video').poster = thumbSrc;
 });
 function setAsThumbnail(selector){
-	$('.caption-' + selector).html('Set as thumbnail').css({'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
+	$('.caption-' + selector).html('Set as thumbnail').css({'color':'#0b8ddd','line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
 	$('#'+selector).css({'outline':'3px solid #0b8ddd','background':'rgba(42,42,42,0.5)'});
 }
 function removeThumbnailCaption(selector){

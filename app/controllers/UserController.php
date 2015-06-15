@@ -182,7 +182,7 @@ protected $video_;
 		$user->token = $generateToken;
 		$user->save();
 		//--------------Email Done----------------------//
-		return Redirect::route('homes.signin')->withFlashGood("Mail was Successfully sent, Please check your email!");
+		return Redirect::route('homes.signin')->withFlashGood("Mail was successfully sent, Please check your email!");
 
 	}
 
@@ -191,7 +191,7 @@ protected $video_;
 	public function getSignOut() {
 		Auth::logout();
 		Session::flush();
-		return Redirect::route('homes.index')->withFlashGood('Logout!');
+		return Redirect::route('homes.index')->withFlashGood('You have logged out!');
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
@@ -443,7 +443,7 @@ protected $video_;
 	}
 
 	public function postEditVideo($id, $selectedCategory=null){
-		$poster = Input::get('poster');
+		$poster = Input::file('poster');
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
@@ -460,12 +460,14 @@ protected $video_;
 				if(!file_exists($destinationPath)){
 					return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
 				}
+
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
+				}
 					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
-				}
+				
 			}else{
 				$selectedThumb =  Input::get('selected-thumbnail');
 				if(strlen($selectedThumb)>1){  
