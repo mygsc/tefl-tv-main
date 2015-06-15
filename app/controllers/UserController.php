@@ -444,6 +444,7 @@ protected $video_;
 	}
 
 	public function postEditVideo($id, $selectedCategory=null){
+
 		$poster = Input::file('poster');
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
@@ -466,16 +467,21 @@ protected $video_;
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
 				}
+
 					$mdThumbnail = Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 					$smThumbnail = Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 				
 			}else{
+
 				$selectedThumb =  Input::get('selected-thumbnail');
 				if(strlen($selectedThumb)>1){  
 					$getDomain = asset('/');
+                                        
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
-					$this->video_->resizeImage(public_path($thumbnail), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-					$this->video_->resizeImage(public_path($thumbnail), 240, 141, $destinationPath.$fileName.'.jpg');	
+                                        $removeSpace = str_replace('%20',' ', $thumbnail);
+                                        
+					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
 				}	
 			}
 			
