@@ -14,6 +14,7 @@
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/partnership.css') }}
+	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
@@ -40,6 +41,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/main.js')}}
+{{HTML::script('js/wow.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -60,7 +62,18 @@
   ga('send', 'pageview');
 
 </script>
-
+<script>
+	wow = new WOW(
+	{
+			      boxClass:     'wow',      // default
+			      animateClass: 'animated', // default
+			      offset:       0,          // default
+			      mobile:       true,       // default
+			      live:         true        // default
+			  }
+			  )
+	wow.init();
+</script>
 
 
 @yield('script') 

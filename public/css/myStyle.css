@@ -991,7 +991,9 @@ center;     margin: 0 auto; }
 .blueC {
     color: #1870dc!important;
 }
-
+.greenC{
+    color: #376d2e!important;
+}
 .redC {
     color: #ca2027!important;
 }
@@ -4082,7 +4084,7 @@ img.user {
     height: 80px!important;
 }
 .h-minH{
-    min-height: 730px;
+    min-height: 740px;
 }
 .h-title {
     width: 100%!important;
