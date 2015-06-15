@@ -668,34 +668,7 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$getTime = 0;
-		switch (true) {
-					case ($getTime >= 6143):
-					$getTime = round($getTime / 6144);
-					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
-					break;
-					case ($getTime >= 719):
-					$getTime = round($getTime / 720);
-					$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
-					break;
-					case ($getTime >= 167):
-					$getTime = round($getTime / 168);
-					$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
-					break;
-					case ($getTime >= 24):
-					$getTime = round($getTime / 24);
-					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
-					break;
-					case ($getTime >= 1 and $getTime <= 23):
-					$getTime = round($getTime);
-					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
-					break;
-					default:
-					$getTime = 'a few minutes ago';
-					break;
-				}
 
-		return $getTime;
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();

@@ -22,8 +22,6 @@
 
 <body>
 	<div id="fb-root"></div>
-	{{HTML::script('js/facebook.js')}}
-	{{HTML::script('js/google.js')}}
 
 	@include('elements/header')
 	@include('elements/home/headerNav')

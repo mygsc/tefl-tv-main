@@ -1,10 +1,15 @@
 @extends('layouts.default')
+
+@section('title')
+	My Channel
+@stop
+
 @section('some_script')
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
-
+	{{HTML::style('css/upload.min.css')}}
 	<script type="text/javascript">
 		$('.grid').click(function() {
 		    $('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
@@ -43,7 +48,7 @@
 	<br/>
 	<div class="container White same-H">
 		<div class="row ">
-			@include('elements/users/profileTop')		
+			@include('elements.users.profileTop')		
 			<div class="channel-content">
 				<div>
 				
