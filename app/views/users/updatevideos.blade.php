@@ -6,9 +6,9 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/angular.min.js')}}
+{{--HTML::script('js/angular.min.js')--}}
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0,
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -124,7 +124,7 @@
 				createDiv.appendChild(startTagLabel);
 			var startTime = document.createElement('input'); 
 				startTime.type = 'text';
-				startTime.id = 'start' + '-time-' + count;
+				startTime.id = 'start' + '-time-' + annot + '-' + id + '-' + count;
 				startTime.name = 'start' + '-time-' + count;
 				startTime.value = h+'0:'+m+'0:'+s+'0';
 				createDiv.appendChild(startTime);
@@ -149,24 +149,24 @@
 					input.setAttribute('style', 'display:none');
 					createDiv.appendChild(input);
 			/*
-			* Annotation 
+			* Creat div of Annotation at video 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			// annotWrapper.setAttribute('style','position:absolute;top:0;z-index:2147483647;');
-			// annotWrapper.setAttribute('id','wrapper-annotation-'+id+'-'+count);
 			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
 			annotDiv.setAttribute('id','div-annotation-'+id+'-'+count);
 			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
 			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			annotDiv.appendChild(annotClose);
-			//annotWrapper.appendChild(annotDiv);
-			var annotContent = document.createTextNode(''); //let it empty
+			var annotContent = document.createTextNode(''); 
 			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
 			annotClose.appendChild(x);
+			/*
+			* Event listener of annotaion builder 
+			*/
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
@@ -194,10 +194,10 @@
 				
 			}
 			save.onclick = function(){
-				// var getid = this.id;
-				// var removeDiv = getid.replace('save-','');
-				// $('#'+removeDiv).remove();
-				// $('#div-'+removeDiv).remove();
+				 var getid = this.id;
+				 var getNewId = getid.replace('save-', 'start-time-');
+				 var time = selector(getNewId).value;
+				 var getTime = time.split(":");
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -228,6 +228,9 @@
 				var getid = this.id;
 				var len = document.getElementById(getid).value.length;
 				if(len>8){document.getElementById(getid).value=hms;}
+			}
+			function selector(idorclass){
+				return document.getElementById(idorclass);
 			}
 		}
 
@@ -265,6 +268,7 @@ $('#t-1').bind('click',function(){
 	$('#t-3').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-1').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 $('#t-2').bind('click',function(){
 	var selector = this.id;
@@ -273,6 +277,7 @@ $('#t-2').bind('click',function(){
 	$('#t-3').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-2').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 $('#t-3').bind('click',function(){
 	var selector = this.id;
@@ -281,9 +286,10 @@ $('#t-3').bind('click',function(){
 	$('#t-2').css({'border':'0px solid #0b8ddd'});
 	var thumbSrc = document.getElementById('thumb-3').src;
 	getId('selected-thumbnail').value = thumbSrc;
+	document.getElementById('media-video').poster = thumbSrc;
 });
 function setAsThumbnail(selector){
-	$('.caption-' + selector).html('Set as thumbnail').css({'line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
+	$('.caption-' + selector).html('Set as thumbnail').css({'color':'#0b8ddd','line-height':'90px', 'cursor':'pointer', 'background':'rgba(42,42,42,0.5)', 'text-align':'center', 'width':'100%','height':'100%', 'margin':'auto','position':'absolute','top':'0','left':'0','right':'0','bottom':'0'});
 	$('#'+selector).css({'outline':'3px solid #0b8ddd','background':'rgba(42,42,42,0.5)'});
 }
 function removeThumbnailCaption(selector){
@@ -309,7 +315,6 @@ function checkLimit(limit){
    if(limit>=max){
    	var charLen = document.getElementById('description').value.length;
    	$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
-   	//for(var n=max; limit > max ; limit--){console.log('minus one');}
    	}
    	
 }
@@ -379,7 +384,7 @@ $('#upload-cancel').on('click',function(){
 											</div><!--vid-controls-->
 											<br/>
 											
-											<p>Available thumbnails:</p>
+											<h3>Available thumbnails:</h3>
 											@if(file_exists($thumbnail))
 												<div id='t-1' style='position:relative;display:inline-block'>
 												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
@@ -497,64 +502,63 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Category:')}}<br/>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Teachers Instructional',false,['id'=>'instruct'])}}
-																<label for='instruct'>Teachers Instructional</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Students Instructional',false,['id'=>'music-vid'])}}
-																<label for='music-vid'>Students Instructional</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
-																<label for='vid-blog'>Video Blog</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
-																<label for='vid-cv'>Video CV</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
-																<label for='job-ad'>Job AD</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
-																<label for='music'>Music</label>
-															</span>
-															
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
-																<label for='anim-vid'>Animated Video</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
-																<label for='anim-music-vid'>Animated Music Video</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
-																<label for='qa'>Question and Answer</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
-																<label for='advice'>Advice</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
-																<label for='podcast'>Podcast</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
-																<label for='interviews'>Interviews</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
-																<label for='documentaries'>Documentaries</label>
-															</span>
-															<span class="span-tags">
-																{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
-																<label for='miscellaneous'>Miscellaneous</label>
-															</span>
+															{{Form::label('Categories:')}}<br/>
+															<span class="v-category">
+												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+												<label for='advice'>Advice</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+												<label for='anim-music-vid'>Animated Music Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+												<label for='anim-vid'>Animated Video</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+												<label for='documentaries'>Documentaries</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
+												<label for='music-vid'>For Students</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
+												<label for='instruct'>For Teachers</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
+												<label for='interviews'>Interviews</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+												<label for='job-ad'>Job AD</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+												<label for='miscellaneous'>Miscellaneous</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+												<label for='music'>Music</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+												<label for='podcast'>Podcast</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+												<label for='qa'>Question and Answer</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+												<label for='vid-blog'>Video Blog</label>
+											</span>
+											<span class="v-category">
+												{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+												<label for='vid-cv'>Video CV</label>
+											</span>
 														</div>	
 													<br/>
 													<div class="text-right mg-b-10"> 
