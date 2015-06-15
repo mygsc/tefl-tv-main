@@ -65,7 +65,7 @@ class Notification extends Eloquent {
 					$getTime = round($getTime / 24);
 					$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
 					break;
-					case ($getTime <= 23):
+					case ($getTime <= 24):
 					$getTime = round($getTime / 24);
 					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
 					break;
