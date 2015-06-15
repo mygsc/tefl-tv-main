@@ -621,7 +621,7 @@ class HomeController extends BaseController {
 			if($likeUserId != $videoData->user_id){
 				$channel_id = Comment::find($likeCommentId)->first();
 				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', $videoData->file_name);
+				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
 				$type = 'liked';
 				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
 			}
@@ -669,8 +669,8 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$getTime = 22;
-		switch ($getTime) {
+		$getTime = 0;
+		switch (true) {
 					case ($getTime >= 6143):
 					$getTime = round($getTime / 6144);
 					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
@@ -691,7 +691,6 @@ class HomeController extends BaseController {
 					$getTime = round($getTime);
 					$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
 					break;
-
 					default:
 					$getTime = 'a few minutes ago';
 					break;
