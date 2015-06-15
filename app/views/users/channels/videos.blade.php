@@ -125,7 +125,7 @@
 								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
 									<div class="thumbnail-2">
 										@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
-										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
+										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg' . '?' . rand(0,99)}}" width="100%" class="hvr-grow-rotate">
 							
 										@else
 											{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}

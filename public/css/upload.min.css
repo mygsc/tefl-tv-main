@@ -1,4 +1,3 @@
-
 .file-upload2 {
 	position: relative;
 	overflow: hidden;
@@ -34,7 +33,6 @@
 	background:#D9EDF7;
 	padding: 2px 0;
 }
-
 div.img-t{
 	width: 120px;
 	height:80px;
@@ -62,5 +60,4 @@ span.v-category{
 .v-category label{
 	font-weight: normal!important;
 	font-size: 13px;
-
 }

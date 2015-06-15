@@ -23,14 +23,14 @@ Category: {{$category}} - TEFL-tv
 				@foreach($videos as $video)
 				<div class="col-lg-4 col-md-4 col-sm-6 hidden-xs ">
 					<div class="p-relative">
-						<a href="{{route('homes.watch-video', array($video->file_name))}}" class="thumbnail-h">
+						<a href="{{route('homes.watch-video', array('v=' .$video->file_name))}}" class="thumbnail-h">
 							<div class="thumbnail-2"> 
-								<img class="hvr-grow-rotate" src="{{asset($video->thumbnail)}}" width="100%">
+								<img class="hvr-grow-rotate" src="{{asset($video->thumbnail . '?' . rand(0,99))}}" width="100%">
 								<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 							</div>
 							<div class="video-info">
 								<div class="v-Info">
-									<a href="{{route('homes.watch-video', array($video->file_name))}}">{{$video->title}}</a>
+									<a href="{{route('homes.watch-video', array('v=' .$video->file_name))}}">{{$video->title}}</a>
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($video->channel_name))}}">{{$video->channel_name}}</a>

@@ -2,17 +2,15 @@
 @extends('layouts.default')
 
 @section('title')
-Upload
+	Upload
 @stop
 @section('some_script')
-{{HTML::script('js/jquery.min.js')}}
-{{HTML::script('js/user/upload.js')}}
-{{HTML::script('js/user/upload-add-description.js')}}
-{{HTML::script('js/video-player/jquery.form.min.js')}}
-{{--HTML::script('js/video-player/media.player.upload.min.js')--}}
-{{HTML::script('js/bootstrap.min.js')}}
-{{--HTML::style('css/vid.player.min.css')--}}
-{{HTML::style('css/upload.min.css')}}
+	{{HTML::script('js/jquery.min.js')}}
+	{{HTML::script('js/user/upload.js')}}
+	{{HTML::script('js/user/upload-add-description.js')}}
+	{{HTML::script('js/video-player/jquery.form.min.js')}}
+	{{HTML::script('js/bootstrap.min.js')}}
+	{{HTML::style('css/upload.min.css')}}
 @stop
 @section('content')
 
@@ -45,7 +43,6 @@ Upload
 						</div>
 					</label> <br>
 					<label id="upload-error"></label>
-					
 					{{Form::close()}}
 				</div>
 			</div>
@@ -58,12 +55,7 @@ Upload
 	<div class="container page White same-H"> 
 		<div class="">
 
-
-
-			{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save'))}}
-
 			<div class="row">
-
 				<div class="col-md-12 content-padding">
 					<div class="mg-t-20 content-padding">
 						<div class="row">
@@ -83,6 +75,7 @@ Upload
 							</div>
 							<div class="col-md-2 text-right">
 								<div class="row">
+								{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								</div>
@@ -106,32 +99,38 @@ Upload
 											</div>
 										</div>
 
-										<!-- {{ HTML::image('img/icons/uploading.gif',null,array('height'=>'18px','width' => '18px', 'id'=>'loader-progress'))}} -->
 										<div class="embed-responsive embed-responsive-16by9 h-video">
-											<video preload="auto" width="400" id="media-video">
+											<video width="400" id="media-video" poster=''>
 												<source id='mp4' src="" type="video/mp4">
 												<source id='webm' src="" type="video/webm">
-												<source id='ogg' src="" type="video/ogg">
 											</video>
 										</div>
-										{{-- @include('elements/videoPlayer') --}}
+										
 									</div>
 									<div class="col-sm-12" >
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
-											<div id="screenshot">
-												<img class="thumb-1" id="img-thumb-1" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">     
-												<img class="thumb-2" id="img-thumb-2" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">
-												<img class="thumb-3" id="img-thumb-3" src="/img/thumbnails/150x100.jpg" alt="" width="120" height="80">      
+												<div id="img-thumb-1" style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-1-img' class='img-thumbnail' width="150" height="100" >
+													<label id='caption-img-thumb-1'></label>
+												</div>
+												<div id="img-thumb-2" style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-2-img' class='img-thumbnail' width="150" height="100" >
+													<label id='caption-img-thumb-2'></label>
+												</div>
+												<div id="img-thumb-3" style='position:relative;display:inline-block'>
+													<img src="/img/thumbnails/150x100.jpg" id='thumb-3-img' class='img-thumbnail' width="150" height="100" >
+													<label id='caption-img-thumb-3'></label>
+												</div>
+
 												<br/>
 												<small class="mg-t-10">or browse your own thumbnail:</small><br><br/>
 												<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 												<br>
 												<div class="file-upload2 btn btn-primary">
 													<span>Browse thumbnail</span>
-													<input type="file" name="poster" id="poster" accept="image/*"/>
+													{{Form::file('poster', array('id'=>'poster','accept'=>"image/*"))}} 
 												</div>
-											</div>
 										</center>
 									</div>
 
@@ -159,7 +158,7 @@ Upload
 										</div>
 										<div class="textbox-layout">
 											<br/>
-											{{Form::label('Description:')}}<small id='char-limit'>0/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
+											{{Form::label('Description:')}} <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
 											@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
@@ -169,7 +168,7 @@ Upload
 
 											<br/>
 											{{Form::label('Tags:')}} &nbsp;<small class="notes">*Use comma(,) to separate each tags. e.g. Education,Blog<br/></small>
-											{{Form::text('tags',null,array('class'=>'form-control'))}}
+											{{Form::text('tags',null,array('class'=>'form-control','id'=>'tags'))}}
 											@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>
 
@@ -201,7 +200,7 @@ Upload
 												<label for='instruct'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'insterviews'])}}
+												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">
@@ -241,7 +240,7 @@ Upload
 							</div>
 						</div>
 					</div>
-
+{{Form::close()}}
 
 
 
@@ -262,13 +261,29 @@ Upload
 							</div>
 						</div>
 					</div>
+					<div class="modal fade" id="validation-rule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Validation Error</h4>
+								</div>
+								<div class="modal-body">
+									<p id='error-msg'>message</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
 				</div>
 
 			</div>
 
 		</div>
-		{{Form::close()}}
+		
 		<br/>
 	</div>
 

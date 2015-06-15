@@ -1,8 +1,8 @@
 	/* Moving on to the styling, we'll start with the main progress bar
-	 first and then the value part of it. After that, we'll do some experiments :D */
-	.wrapper {
+	 first and then the value part of it. After that, we'll do some experiments :D*/
+	.wrapper{
 		background: #2a2a2a;
-		padding:0 10px 8px 10px;
+		padding:0px 10px 8px 10px;
 		width: 100%!Important;
 		margin-top: 0;
 		border-top: 1px solid #000;
@@ -20,12 +20,10 @@
 	}
 	img#play-pause{
 		cursor:pointer;
-	}
-	.img-play{
+	}.img-play{
 		padding:0 5px;
 		margin-right: 10px;
-	}
-	.sound{
+	}.sound{
 		padding:0 5px;
 		cursor:pointer;
 		position: relative;
@@ -36,24 +34,17 @@
 		right: 0;
 		background:rgba(42,42,42,0.9);
 		border-radius: 10px;
-	}
-
-	.fullscreen{
+	}.fullscreen{
 		padding:0 5px;
 		cursor:pointer;
-	}
-	
-	.time{
+	}.time{
 		color: #fff;
 		font-size: 1.2em;
-	}
-
-	.title{
+	}.title{
 		color: #b5daf9;
 		font-size: 0.9em;
 		font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 		font-weight: normal!Important;
-
 	}
 	.playerLogo{
 		height:20px;
@@ -67,30 +58,30 @@ div#progressbar{
 }
 
 div#progressbar #current-progress{
-	width:0;height:100%;border-radius: 2px; position: relative;background-color: red;	
+	width:0%;height:100%;border-radius: 2px; position: relative;background-color: #fc8b02;	
 }div#button-progress{
 	z-index: 2;
 	width: 15px;
 	height: 15px;
 	position: absolute;
-	left: -20px;
+	left: 0;
 	text-decoration: overline;
-	/*background: url('/img/icons/handle.png') no-repeat 50% 50%;*/
-	background: #fff;
-	outline:none;
+	background: #fc8b02;
 	top: -6px;
-	margin-left: 10px;
-	display: none;
+	margin-left: 0px;
 	border-radius: 20px;
-
-}div#buffered{
+	border:5px solid #fff; 
+	cursor: pointer;
+}div#button-progress:hover{
+	background: #fff;border:5px solid #fc8b02; 
+}
+div#buffered{
 	height: 100%;
 	position: absolute;
 	background: rgba(42,42,42,0.9);
 	width: 0%;
 	border-radius:5px;
 	top:0;
-	z-index: 22222;
 }#loadbar > span{
 		position:absolute;
 		left:0;
@@ -130,7 +121,6 @@ div.volume div.volume-static-holder{
 	height: 70%;
 	border-radius:10px;
 	position: relative;
-
 }
 
  /*Special styling for WebKit/Blink */
@@ -143,6 +133,8 @@ input#seek-slider{
 	height: 100%;
 	border: none;
 	outline: none;
+	position: relative;
+	z-index: 333;
 }input#seek-slider::-moz-range-track {
 	-moz-appearance: none;
 	border-radius: 5px;
@@ -184,15 +176,22 @@ input#seek-slider::-moz-range-thumb {
 }
 
 div#controls{
-
-/*.controls{
   position: absolute;
-  bottom: 0;/*-10px !important;*/
+  bottom: -8px !important;
   left: 0;
   right: 0;
   width: 100%;
-  background: rgba(42,42,42,0.9);
-  /*z-index: 2147483647*/
+  z-index: 2147483647;
+  background: rgba(42,42,42,0.8);
+}
+#controls-fullscreen{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2147483647;
+  background: rgba(42,42,42,0.8);
 }
 
 div#progress-amount {
@@ -288,21 +287,33 @@ input#volume::-moz-range-thumb {
 #share-video{
 	cursor:pointer;
 }
-.advertisement{
+
+div.advertisement{
+	display: none;
 	position: absolute;
-	bottom: 40px;
+	left: 0;
+  	right: 0;
+  	bottom: 0;
 	background:transparent;
-	width: 100%;
-	min-height:10px;
-}.video-ads{
-	position: absolute;
-	width:10%;
-	height:80%;
-	bottom:0;
-	top:0;
-	left:0;
-	right:0;
-	background:rgba(42,42,42,0.9);
+	width: 728px;
+	height:90px;
+	margin: auto;
+	border: 1px solid #000;
+}div.close{
+	cursor:pointer;
+	background: #000;
+	position:absolute;
+	right: 0;
+	top: 0;
+	font-size: 15px;
+	z-index: 1111;
+	color:#ff0000;
+	width: 18px;
+	height: 18px;
+	text-align: center;
+}
+div.close:hover{
+	color:#0050ff;
 }
 button#play{
 	background:rgba(42,42,42,0.9);
@@ -324,7 +335,7 @@ button#play{
   	padding:20px 10px 0px 15px; 
   	z-index: 2;
 }
- .play-icon{
+ div.play-icon{
  	margin: auto;  
   	position: absolute;
  	left:0;
@@ -335,29 +346,75 @@ button#play{
   	height: 16%;
   	cursor: pointer;
   	border-radius: 5px;
-  	/*background: rgba(27,27,27,0.6);*/
-  	background: rgba(0,0,0,0.6) url('/img/icons/play-btn.png') no-repeat 50% 50%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}.play-icon span{
-  	background: rgba(27,27,27,0.6);
-	padding: 15px;
+  	background: rgba(0,0,0,0.6);
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
+}div.triangle-icon {
+	width: 0; 
+	height: 0; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+	border-left: 36px solid #fc8b02;
+	margin: auto;  
+  	position: absolute;
+ 	left:0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+}div#ads-hide{
+	margin: auto;  
+  	position: absolute;
+	left: 0;
+  	right: 0;
+  	bottom: 0;
+  	width: 4%;
+  	height: 4%;
+  	cursor: pointer;
+  	background: rgba(0,0,0,0.6);
+  	outline: 1px solid #fff;
+  	display: none;
+}div#ads-hide center{
+	color:#fff;
 }
 .load-video{
+ 	margin: auto;  
+  	position: absolute;
+ 	left: 0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 13%;
+  	height: 16%;
+  	background: rgba(0,0,0,0.6) url('/img/icons/loader.gif') no-repeat 50% 50%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 5px;
+}
+div.error-video{
  	margin: auto;  
   	position: absolute;
  	left:0;
   	right: 0;
   	top: 0;
   	bottom: 0;
-  	width: 13%;
-  	height: 16%;
-  	/*background: rgba(27,27,27,0.6);*/
-
-	padding-top: 10px;
-	padding-bottom: 10px;
+  	width: 35%;
+  	height: 8%;
+  	background:transparent;
+	padding: 10px;
+	display: none;
+	text-align: center;
+	text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
-div#error-handler{
+div.error-video small{
+ 	color:#fff;
+}
+.play-icon{
+	display: none;
+}
+.play-icon span{
+  	background: rgba(27,27,27,0.6);
+	padding: 15px;
+}div#error-handler{
 	margin: auto;  
   	position: absolute;
  	left:0;
@@ -369,7 +426,6 @@ div#error-handler{
   	background: rgba(42,42,42,0.9);
   	color:#c92626;
 }
-
 img#play{
 	margin: auto;  
   	position: absolute;
@@ -393,8 +449,6 @@ img#play{
   	cursor: pointer;
   	text-align:center;
   	 padding: 20px;
-
-
 }.play-icon:hover{
 	-moz-box-shadow:inset 0px 2px 13px #ffffff;
 	-webkit-box-shadow:inset 0px 2px 13px #ffffff;
@@ -409,18 +463,6 @@ img#play{
 	cursor:pointer;color:#fff;position:relative;left:2px;bottom:0;
 }#minus-vol:hover{
 	color:#337AB7;
-}
-span.close{
-cursor:pointer;
-background:transparent;
-color:#000;
-position:absolute;
-right:5px;
-font-weight: bold;
-font-size: 12px;
-}
-span.close:hover{
-color:red;
 }
 .fullscreen-video{
   position: fixed;
@@ -439,43 +481,3 @@ color:red;
 	text-align:center;
 	color:#fff;
 }
-/*.progress-button {
-    -webkit-animation-name: spin;
-    -webkit-animation-duration: 4000ms;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-name: spin;
-    -moz-animation-duration: 4000ms;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
-    -ms-animation-name: spin;
-    -ms-animation-duration: 4000ms;
-    -ms-animation-iteration-count: infinite;
-    -ms-animation-timing-function: linear;
-    
-    animation-name: spin;
-    animation-duration: 4000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-@-ms-keyframes spin {
-    from { -ms-transform: rotate(0deg); }
-    to { -ms-transform: rotate(360deg); }
-}
-@-moz-keyframes spin {
-    from { -moz-transform: rotate(0deg); }
-    to { -moz-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
-}
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
-}*/
-
