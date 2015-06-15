@@ -39,6 +39,7 @@ class PartnershipController extends Controller {
 		return Redirect::route('partnerships.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
 
+
 	public function getPartnersAdsense(){
 		return View::make('partners.adsense');
 	}
