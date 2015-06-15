@@ -48,7 +48,7 @@ class Notification extends Eloquent {
 				$roundedTime = round($getTimeDiff);
 				$getTime = abs($roundedTime);
 
-				switch ($getTime) {
+				switch (true) {
 					case ($getTime >= 6143):
 					$getTime = round($getTime / 6144);
 					$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
