@@ -216,7 +216,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row text-right">
-                                                <img src="/img/user/{{$owner->id}}.jpg" class="user">
+                                                <img src="/img/user/{{$owner->id}}.jpg?{{rand(0,99)}}" class="user">
                                             </div>
                                         </div>
                                     @else
