@@ -33,8 +33,15 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
-            $(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE');
-            $(".seeVideoContent").slideToggle("slow");
+            if($(".linkReadMore span").html() == 'SHOW MORE'){
+                $(".linkReadMore span").html('SHOW LESS');
+                $("#desc-preview").hide();
+            }else{
+                 $(".linkReadMore span").html('SHOW MORE');
+                $("#desc-preview").show(500);
+            }
+            //$(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ?  : 'SHOW MORE');
+            $(".seeVideoContent").slideToggle("fast");
         });    
     });
 </script>
@@ -246,7 +253,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             </span>
                                         </p> 
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
-                                        
+                                        <br />
+                                        <p id="desc-preview">{{str_limit($videos->description, $limit = 50, $end = '...')}}</p>
                                         <div class="seeVideoContent black">
                                             <br/>
                                             <pre style="text-indent:none!important;">{{$videos->description}}</pre>
