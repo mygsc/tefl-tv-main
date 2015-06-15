@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-sm-4 col-md-4">
 					<img src="/img/icons/earn-ico.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-					<h2>Earn Revenue in every advertisement impression.</h2>
+					<h2>Earn Revenue from every advertisement.</h2>
 				</div>
 			</div>
 		</div>
