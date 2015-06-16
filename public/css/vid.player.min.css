@@ -1,5 +1,6 @@
 	/* Moving on to the styling, we'll start with the main progress bar
 	 first and then the value part of it. After that, we'll do some experiments :D*/
+
 	.wrapper{
 		background: #2a2a2a;
 		padding:0px 10px 8px 10px;
@@ -481,3 +482,4 @@ img#play{
 	text-align:center;
 	color:#fff;
 }
+

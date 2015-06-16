@@ -63,13 +63,10 @@
 				{{Form::hidden('feedbackOwner', Auth::User()->id, array('id' => 'feedbackOwner'))}}
 		</div>
 		@endif
-	<div class="col-md-12 feedbacksarea">
+	<div class="col-md-12 feedbacksarea" id="mainCommentBody">
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
-
-				
-
 				<?php
 					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
 						$temp = 'img/user/'.$userFeedback->user_id . '.jpg';
