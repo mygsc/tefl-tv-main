@@ -97,7 +97,6 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
 				<label class="fileContainer">
-					<h3 class="alert alert-success">Profile is successfully updated</h3>
 					<h3><u>Upload new channel cover</u></h3>
 					{{Form::file('coverPhoto', array('id' => 'upload_cover_photo'))}}
 				</label>

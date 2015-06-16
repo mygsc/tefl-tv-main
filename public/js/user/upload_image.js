@@ -27,8 +27,9 @@ $(document).ready(function() {
 
 			},
 			success: function(response){
-				if(response === true){
+				if(response.result === true){
 					$('#upload-message').text('Your profile was successfully updated').fadeIn(500);
+					window.location.href=response.route;
 				}else{
 					$('#upload-message').text('Please select only valid images ex: jpg, jpeg, png');
 				}

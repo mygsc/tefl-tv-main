@@ -246,7 +246,7 @@ class UserController extends BaseController {
 				}
 
 				Input::file('image')->move($save_path, 'profile_picture.jpg');
-				return Response::json(true);
+				return Response::json(array('result' =>true, 'route' => route('users.channel')));
 			}
 		}
 		return Response::json(false);
