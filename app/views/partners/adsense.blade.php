@@ -13,8 +13,7 @@ Apply as publisher of TEFL TV
 				<div class="well">
 					<span>Please enter your adsense account</span>
 					{{Form::text('adsense')}}
-					<span class="notes"> Don't know how to retrieve your adsense ID? <a href="#">click here</a></span>
-					
+					<span class="notes"> Don't know how to retrieve your adsense ID? <a href="#">click here</a></span>	
 				</div>
 
 				<div class="well" style="height:350px; overflow:auto;">
