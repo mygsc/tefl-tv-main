@@ -149,7 +149,7 @@
 					input.setAttribute('style', 'display:none');
 					createDiv.appendChild(input);
 			/*
-			* Creat div of Annotation at video 
+			* Create div of Annotation at video 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
@@ -165,7 +165,7 @@
 			annotDiv.appendChild(annotContent);
 			annotClose.appendChild(x);
 			/*
-			* Event listener of annotaion builder 
+			* Event listener of annotation builder 
 			*/
 			checkbox.onclick = function(){
 				var getid = this.id;
@@ -198,6 +198,7 @@
 				 var getNewId = getid.replace('save-', 'start-time-');
 				 var time = selector(getNewId).value;
 				 var getTime = time.split(":");
+				 stylesheet.insertRule(".vp-text { border: 1px solid black;}", 0);
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -329,6 +330,7 @@ $('#upload-cancel').on('click',function(){
 {{-- */$explodeID = 0;/* --}}
 {{-- */$tagDelete = 1;/* --}}
 {{-- */$explodeRemove = 0;/* --}}
+
 
 
 

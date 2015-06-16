@@ -78,7 +78,7 @@
         			if(data['label'] == 'unliked'){
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
                         $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC');
-                        $(this).parent().find('.commentdislikedup > span.dislikescount').val(data['dislikesCount']);
+                        $(this).parent().find('.commentdislikedup > span.dislikescount').text(data['dislikesCount']);
                     } else if(data['label'] == 'liked'){
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
@@ -110,7 +110,7 @@
         			if(data['label'] == 'undisliked'){
         				$(this).find('span.fa-thumbs-down').addClass('redC');
                         $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC');
-                        $(this).parent().find('.commentdislikedup > span.likescount').val(data['likesCount']);
+                        $(this).parent().find('.commentlikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
         				$(this).find('span.fa-thumbs-down').removeClass('redC');
         			}
@@ -141,7 +141,9 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
-        			} else if(data['label'] == 'liked'){
+                        $(this).parent().find('.replydislikedup > span.fa-thumbs-down').removeClass('redC');
+                        $(this).parent().find('.replydislikedup > span.dislikescount').text(data['dislikesCountReply']);
+                    } else if(data['label'] == 'liked'){
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
@@ -172,6 +174,8 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
         				$(this).find('span.fa-thumbs-down').addClass('redC');
+                        $(this).parent().find('.replylikedup > span.fa-thumbs-up').removeClass('blueC');
+                        $(this).parent().find('.replylikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
         				$(this).find('span.fa-thumbs-down').removeClass('redC');
         			}
