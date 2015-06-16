@@ -2044,13 +2044,28 @@ div.crop-square img {
 }
 
 .thumbnail-2 {
-    display: block;
     margin-bottom: 20px;
     line-height: 1.42857143;
-    background-color: #fff;
-    border-radius: 2px;
+    background-color: #cecece;
+    border: 1px solid #333;
+    display: block;
+    width: 100%;
+    position: relative;
+    height: 0;
+    padding: 56.25% 0 0 0;
     overflow: hidden;
-    border: 1px solid #cecece;
+
+}
+.thumbnail-2 img{
+    position: absolute;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 a.thumbnail-h {
