@@ -37,15 +37,13 @@ class convertvideo extends Command {
 	public function fire()
 	{
 		$routes = route('homes.watch-video', '1');
-		 print("\nVideo is currently converting...\n");
 		 $videos = $this->findVideoNotConverted();
 		 if($videos !== false){
-		 	$videos->uploaded = '2';
-		 	$videos->save();
+		 	//$videos->uploaded = '2';
+		 	//$videos->save();
 		 	$this->convertVideo($videos);
-		 }
+		 }else return print("\r \r \n ------Nothing to convert------- \r \r \n\n Developed by:GSC Team \r \n\n");
 
-		print("\r \n Conversion Done... \r \n");
 	}
 
 	public function findVideoNotConverted(){
@@ -61,22 +59,21 @@ class convertvideo extends Command {
 		if($videos->isEmpty()){
 			return false;
 		}
-		
-
 		return $videos->first();
 	}
 
 	public function convertVideo($videos = null){
-
 		if(!empty($videos)){
 			$filename = $videos->file_name;
-			$folderName = $videos->user_id. '-'. $videos->channel_name;
-			$destination = public_path('videos/'. $folderName .DS. $filename);//
-			$source = $destination . DS. 'original' .'.'. $videos->extension;
+			$folderName = "$videos->user_id"."-"."$videos->channel_name";
+			$destination = public_path("videos".DS."$folderName".DS."$filename");
+			$source = "$destination".DS."original.".$videos->extension;
 			// $this->convertVideoToHigh($source, $destination, $filename);
 			// $this->convertVideoToNormal($source, $destination, $filename);
 			// $this->convertVideoToLow($source, $destination, $filename);
-			$this->convertVideoToDiffFormat($source, $destination, $filename, $username = $videos->channel_name);
+			if(!file_exists($source)){return print("\r \r \n ----------Oops error while converting----------- \r \r \n Contact support: GSC Team \r \n\n");}
+			print("\r \r \n --------Video is currently converting---------\r \r \n");
+			$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
@@ -87,27 +84,33 @@ class convertvideo extends Command {
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
 				$notification->save();
+				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 
 			return true;
 		}
 		return false;
 	}
-	public function convertVideoToDiffFormat($source, $destination, $filename, $username){
-		$title = "TEFL TV";
-		$hdmp4 = $destination.DS.$filename.'_hd.mp4';
-		$normalmp4 = $destination.DS.$filename.'.mp4';
-		$lowmp4 = $destination.DS.$filename.'_low.mp4';
-		$hdwebm = $destination.DS.$filename.'_hd.webm';
-		$normalwebm = $destination.DS.$filename.'.webm';
-		$lowwebm = $destination.DS.$filename.'_low.webm';
+	public function convertVideoToDiffFormat($source, $destination, $filename){
+		$hdmp4 = "$destination".DS."$filename"."_hd.mp4";
+		$normalmp4 = "$destination".DS."$filename".".mp4";
+		$lowmp4 = "$destination".DS."$filename"."_low.mp4";
+		$hdwebm = "$destination".DS."$filename"."_hd.webm";
+		$normalwebm = "$destination".DS."$filename".".webm";
+		$lowwebm = "$destination".DS."$filename"."_low.webm";
 		$path = new Video;
-		shell_exec("$path->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $hdmp4");
-		shell_exec("$path->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame $normalmp4");
-		shell_exec("$path->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame $lowmp4");
-		shell_exec("$path->ffmpegPath  -i $source -s 1280x720 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis $hdwebm");
-		shell_exec("$path->ffmpegPath  -i $source -s 640x360 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis $normalwebm");
-		shell_exec("$path->ffmpegPath  -i $source -s 320x240 -metadata title='TEFL TV' -metadata artist='G-rald' -metadata year='2015' -metadata album='Graphic Studio Central' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis $lowwebm");	
+		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV'  -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame '$hdmp4'");
+		print("\r \r \n MP4 HD version of video is done converting...\r\n\n");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame '$normalmp4'");
+		print("\r \r \n MP4 Normal version of video is done converting...\r\n\n");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame '$lowmp4'");
+		print("\r \r \n MP4 Low version of video is done converting...\r\n\n");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis '$hdwebm'");
+		print("\r \r \n WEMB HD version of video is done converting...\r\n\n");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis '$normalwebm'");
+		print("\r \r \n WEBM Normal version of video is done converting...\r\n\n");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis '$lowwebm'");	
+		print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
 	}
 	/**
 	 * Get the console command arguments.
