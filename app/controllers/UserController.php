@@ -246,10 +246,11 @@ class UserController extends BaseController {
 				}
 
 				Input::file('image')->move($save_path, 'profile_picture.jpg');
-				return true;
+				return Response::json(true);
 			}
 		}
-		return false;
+		return Response::json(false);
+		
 	}
 
 	public function postUsersUploadCoverPhoto() {

@@ -12,6 +12,7 @@ $(document).ready(function() {
 	$('form#upload_profile_picture').on('submit',function(e){
 		e.preventDefault();
 		$(this).ajaxSubmit({ 
+
 			url:   '/mychannels/upload-image', 
 			type: 'POST', 
 			beforeSubmit: function() {
@@ -26,15 +27,20 @@ $(document).ready(function() {
 
 			},
 			success: function(response){
-				console.log(response);
+				if(response === true){
+					$('#upload-message').text('Your profile was successfully updated').fadeIn(500);
+				}else{
+					$('#upload-message').text('Please select only valid images ex: jpg, jpeg, png');
+				}
 				$('#loader-progress').fadeOut();
 				$('#loader').fadeOut();
-				$('#spinner').fadeOut();
-                },
-                error: function(response, status, e){
-                	console.log('Oops something went wrong please contact the admin of TEFL TV.');
-                },
-                resetForm: true 
-            });
-});
+				$('#wrapper').fadeOut();
+
+			},
+			error: function(response, status, e){
+				console.log('Oops something went wrong please contact the admin of TEFL TV.');
+			},
+			resetForm: true 
+		});
+	});
 });

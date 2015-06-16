@@ -132,6 +132,7 @@
 			<div class="modal-body">
 				<div class="text-center">
 					{{HTML::image($usersImages['profile_picture'], 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
+					<b><span id="upload-message"></span></b>
 					<div id="wrapper">
 					<div id="progressbar-loaded" class="text-center">
 						<b><span id="percentage"></span></b>
@@ -141,7 +142,7 @@
 				</div>            
 			</div>
 			<div class="modal-footer">
-				{{Form::submit("Save", array('class' => 'btn btn-info'))}}
+				{{Form::submit("Update", array('class' => 'btn btn-info'))}}
 				{{Form::close()}}
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			</div>
