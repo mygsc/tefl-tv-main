@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-7 col-md-8 col-xs-12 col-sm-10" style="padding:15px 0 0 0;">
+            <div class="col-lg-9 col-md-9 col-xs-12 col-sm-10" style="padding:15px 0 0 0;">
                     <span class="ctgryNav-f">
                         {{ link_to_route('homes.index', 'Home', null) }}
                         {{ link_to_route('homes.aboutus', 'Contact Us', null) }}
@@ -10,13 +10,13 @@
                         {{ link_to_route('homes.privacy', 'Privacy', null) }}
                         {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}
                         {{ link_to_route('homes.copyright', 'Copyright', null) }}
+                        {{ link_to_route('partners.learnmore', 'Partner', null) }}
                         {{ link_to_route('publishers.learnmore', 'Publisher', null) }}
-
+                      
                     </span><!--/.ctgryNav-f-->
-              
             </div><!--/.col-md-7 col-xs-12-->
 
-            <div class="col-lg-5 col-md-4">
+            <div class="col-lg-3 col-md-4">
                 <div class="col-lg-12 col-xs-12 hidden-sm" style="padding:5px 0 0 0;">
                     <span class="text-right">
                             <a href="https://www.facebook.com/tefltv1"><i class="socialMedia socialMedia-facebook pull-right"></i></a>
@@ -41,7 +41,6 @@
                     </span>
                 </span>
             </div>
-
         </div><!--/.row-->
     </div><!--/.container-->
 </div><!--/.footer1-->
