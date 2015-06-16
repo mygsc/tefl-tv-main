@@ -136,7 +136,7 @@ class VideoController extends BaseController {
 					// $this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 					$getDomain = asset('/');
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
-                                        $removeSpace = str_replace('%20',' ', $thumbnail);
+					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
 				}		
