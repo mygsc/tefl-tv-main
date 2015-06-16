@@ -25,6 +25,7 @@
 											</video>	
 										</div><!--/embed-responsive-->
 										<div class="n-mg-b">
+											@include('ads/728x90')
 											@include('elements/videoPlayer')
 										</div>
 									</div>
@@ -60,13 +61,17 @@
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
 				<div class="row ">
+				
+
+
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
+						
 							<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%">
+									<img class="hvr-grow-rotate main_image" id="" src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%" height="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">
@@ -178,6 +183,8 @@
 				</div>
 			</div>
 			@endforeach
+			{{Form::hidden('autoplay',0,['id'=>'autoplay'])}}
+			{{Form::hidden('duration',41,['id'=>'duration'])}}
 		</div>
 		<br/>
 	</div><!--first row-->

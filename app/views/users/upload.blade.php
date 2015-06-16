@@ -21,7 +21,7 @@
 				<div class="row">
 					<h1>Upload Video</h1>
 					<p>Video allowed types: mp4, webm, ogg, wmv, avi, flv and mov.</p>
-					<p>Maximum size limit: 150mb</p>
+					<p>Maximum size limit: 2gb</p>
 					@if ($errors->any())
 					<ul style="list-style:none;color:red">
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}
@@ -192,12 +192,12 @@
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
-												<label for='music-vid'>For Students</label>
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'for-students'])}}
+												<label for='for-students'>For Students</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
-												<label for='instruct'>For Teachers</label>
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'for-teachers'])}}
+												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
 												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}

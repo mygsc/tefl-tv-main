@@ -12,7 +12,7 @@
 	<div class="">
 		<div class="container">
 			<div class="text-center tagline">
-				<a href="{{route('partners.adsense')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
+				<a href="{{route('publishers.adsense')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
 				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 		<div class="row White">
 			<div class="container text-center div-partners">
 				<h1 class="orangeC">-Featured Partners-</h1>
-				<a href="" ><h3 class="mg-t--20">How to be a partner?</h3></a>
+				<a href="{{route('partners.learnmore')}}" ><h3 class="mg-t--20">How to be a partner?</h3></a>
 
 
 				<div class="col-md-4">
