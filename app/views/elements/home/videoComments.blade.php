@@ -38,7 +38,7 @@
 						<div class='tooltipDelete' style="float:right;">
 							@if(isset(Auth::User()->id))
                                 @if(Auth::User()->id == $getVideoComment->user_id)
-                                	<button class="deleteComment btn-trans fa fa-trash" title="remove">	
+                                	<button class="deleteComment btn-trans fa fa-trash" title="Delete this comment">	
 										{{Form::hidden('comment_id', Crypt::encrypt($getVideoComment->id), array('id' => 'comment_id'))}}
 										{{Form::hidden('video_id', Crypt::encrypt($getVideoComment->video_id), array('id' => 'video_id'))}}
 										{{Form::hidden('user_id', Crypt::encrypt($getVideoComment->user_id), array('id' => 'user_id'))}}
@@ -102,10 +102,10 @@
 								->where('comment_id', $getVideoComment->id)->count(); 
 
 							$getCommentReplies = DB::table('comments_reply')
-							->select('users.id', 'users.channel_name', 'comments_reply.id as commentreplyid', 'comments_reply.reply', 'comments_reply.created_at as commentreplycreated_at')
+							->select('users.id', 'users.channel_name', 'comments_reply.id as commentreplyid', 'comments_reply.user_id', 'comments_reply.comment_id', 'comments_reply.reply', 'comments_reply.created_at as commentreplycreated_at')
 							->join('users', 'users.id', '=', 'comments_reply.user_id')
 							->orderBy('comments_reply.created_at', 'asc')
-							->where('comment_id', $getVideoComment->id)->get();
+							->where('comments_reply.comment_id', $getVideoComment->id)->get();
 						?>
 						<span class="repLink hand">{{$getCommentRepliesCount}}<i class="fa fa-reply"></i></span>
 
@@ -128,7 +128,20 @@
 											echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 											echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->commentreplycreated_at)) . "</small><br/>" ;
 											echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
-											
+
+											<div class='tooltipDelete' style="float:right;">
+												@if(isset(Auth::User()->id))
+													@if(isset($getCommentReply->user_id))
+						                                @if(Auth::User()->id == $getCommentReply->user_id)
+						                                	<button class="deleteReply btn-trans fa fa-trash" title="Delete this reply">	
+																{{Form::hidden('c_id', Crypt::encrypt($getCommentReply->commentreplyid), array('id' => 'c_id'))}}
+																{{Form::hidden('comment_id', Crypt::encrypt($getCommentReply->comment_id), array('id' => 'comment_id'))}}
+																{{Form::hidden('user_id', Crypt::encrypt($getCommentReply->user_id), array('id' => 'user_id'))}}
+															</button>
+						                                @endif
+						                            @endif
+					                            @endif
+											</div>
 										</div>
 										
 										<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
@@ -183,11 +196,6 @@
 											
 										@endif<!--auth user-->
 										<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
-										<?php 
-											// $getCommentReplies = DB::table('comments_reply')
-											// ->join('users', 'users.id', '=', 'comments_reply.user_id')
-											// ->where('comment_id', $getCommentReply->id)->count(); 
-										?>
 									</div>
 								</div>	
 							<?php endforeach;?>

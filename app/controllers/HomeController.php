@@ -673,6 +673,19 @@ class HomeController extends BaseController {
 		}
 		return Response::json(array('status' => 'failed'));
 	}
+	public function deleteReply() {
+		$c_id = Crypt::decrypt(Input::get('c_id'));
+		$comment_Id = Crypt::decrypt(Input::get('comment_id'));
+		$userId = Crypt::decrypt(Input::get('user_id'));
+		$inputs = $c_id ."-". $comment_Id ."-". $userId;
+
+		$deleteReply = DB::table('comments_reply')->where(array('id' => $c_id, 'comment_id' => $comment_Id, 'user_id' => $userId))->delete();
+		
+		if($deleteReply){
+			return Response::json(array('status' => 'success', 'inputs' => $inputs));
+		}
+		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
+	}
 
 
 	public function getChangeLogs() {
