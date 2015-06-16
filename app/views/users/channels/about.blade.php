@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="container pageH White">
 		<div class="row same-H">
-			@include('elements/users/viewUser/viewUser_profileTop')
+			@include('elements.users.profileTop2')
 			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->

@@ -209,7 +209,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	*@return $Images 		Contains informations of the user who signed in
 	*@throws boolean false
 	*/
-	public function getUsersImages($user_id = null, $cover_photo = false){
+	public static function getUsersImages($user_id = null, $cover_photo = false){
 		if(empty($user_id)){
 			return false;
 		}

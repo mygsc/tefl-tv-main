@@ -674,7 +674,7 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-
+		return $this->Subscribe->test();
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();

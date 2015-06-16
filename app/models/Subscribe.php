@@ -53,6 +53,11 @@ class Subscribe extends Eloquent {
 		->where('user_id',$auth)
 		->take($limit)
 		->get();
+
+		foreach($subscribers as $key => $subscriber){
+			$profile_picture = User::getUsersImages($subscriber->subscriber_id);
+			$subscribers[$key]['profile_picture'] = $profile_picture['profile_picture'];
+		}
 		return $subscribers;
 	}
 
@@ -68,6 +73,11 @@ class Subscribe extends Eloquent {
 		->where('subscriber_id',$auth)
 		->take($limit)
 		->get();
+
+		foreach($subscriptions as $key => $subscription){
+			$profile_picture = User::getUsersImages($subscription->user_id);
+			$subscriptions[$key]['profile_picture'] = $profile_picture['profile_picture'];
+		}
 		return $subscriptions;
 	}
   	

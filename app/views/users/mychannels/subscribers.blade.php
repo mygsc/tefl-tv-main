@@ -69,11 +69,7 @@
 											@foreach($subscriberProfile as $key => $profile)
 											<div class="subscribers">
 												<div class="col-md-6 col-sm-12 col-xs-12">
-													@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-									                	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-									                @else
-									                	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-									                @endif
+													{{HTML::image($profile['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 													&nbsp;
 
 													<span><b><a href="{{route('view.users.channel', $profile->channel_name)}}">{{$profile->channel_name}}</a></b></span>&nbsp;
@@ -121,13 +117,9 @@
 										@else
 										@foreach($subscriptionProfile as $key => $profile1)
 											<div class="col-md-6 col-sm-6 col-xs-12">
-												@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-								                	{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-								                @else
-								                	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-								                @endif
+								                	{{HTML::image($profile1['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 												&nbsp;
-												<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
+												<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 												<br/>&nbsp;
 												<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 												@if(isset($profile1->id))

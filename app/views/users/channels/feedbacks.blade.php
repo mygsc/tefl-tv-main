@@ -5,7 +5,7 @@
 	<br/>
 	<div class="container">
 		<div class="row same-H White">
-			@include('elements/users/viewUser/viewUser_profileTop')
+			@include('elements.users.profileTop2')
 			<br/>
 			<div class=" channel-content">
 				<div role="tabpanel">
