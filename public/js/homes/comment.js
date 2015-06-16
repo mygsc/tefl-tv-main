@@ -184,4 +184,24 @@
             }
         });
 	});
+
+    $("#mainCommentBody").on("click", 'button.deleteComment', function () {
+        var comment_id = $(this).find('#comment_id').val();
+        var user_id = $(this).find('#user_id').val(); 
+        var video_id = $(this).find('#video_id').val();
+        $.ajax({
+            type: 'POST',
+            // url: {{URL::route('post.deletecomment')}},
+            url: '/deletecomment',
+            cache: false,
+            context: this,
+            data: {comment_id: comment_id, user_id: user_id, video_id: video_id},
+            success: function(data){
+                if(data['status'] == 'success'){
+                    alert(comment_id);
+                    $(this).parents('.commentDeleteArea').fadeOut(500);
+                }
+            }
+        });
+    });
 // }); 

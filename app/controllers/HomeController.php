@@ -661,6 +661,19 @@ class HomeController extends BaseController {
 		}
 	}
 
+	public function deleteComment() {
+		$commentId = Crypt::decrypt(Input::get('comment_id'));
+		$videoId = Crypt::decrypt(Input::get('video_id'));
+		$userId = Crypt::decrypt(Input::get('user_id'));
+
+		$deleteComment = DB::table('comments')->where(array('id' => $commentId, 'user_id' => $userId, 'video_id' => $videoId))->delete();
+		
+		if($deleteComment){
+			return Response::json(array('status' => 'success'));
+		}
+		return Response::json(array('status' => 'failed'));
+	}
+
 
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');

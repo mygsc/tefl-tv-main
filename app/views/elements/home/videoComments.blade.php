@@ -16,7 +16,7 @@
 	<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 		<div id="appendNewCommentHere"></div>
 		@foreach($getVideoComments as $getVideoComment)
-			<div class="commentsarea row">
+			<div class="commentsarea row commentDeleteArea">
 				<?php
 					if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
 						$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
@@ -34,6 +34,19 @@
 						| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 						<br/>
 						<p class="text-justify">{{$getVideoComment->comment}}</p>
+
+						<div class='tooltipDelete' style="float:right;">
+							@if(isset(Auth::User()->id))
+                                @if(Auth::User()->id == $getVideoComment->user_id)
+                                	<button class="deleteComment btn-trans fa fa-trash" title="remove">	
+										{{Form::hidden('comment_id', Crypt::encrypt($getVideoComment->id), array('id' => 'comment_id'))}}
+										{{Form::hidden('video_id', Crypt::encrypt($getVideoComment->video_id), array('id' => 'video_id'))}}
+										{{Form::hidden('user_id', Crypt::encrypt($getVideoComment->user_id), array('id' => 'user_id'))}}
+									</button>
+                                @endif
+                            @endif
+						</div>
+
 						<?php
 							$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
 							$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
@@ -99,14 +112,13 @@
 						<div id="replysection" class="panelReply">
 							<?php
 							foreach($getCommentReplies as $getCommentReply):
-								// dd($getCommentReply);
 								if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
 									$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
 								} else{
 									$temp = 'img/user/0.jpg';
 								}
 								?>
-
+								<div class="deleteReplyArea">
 								<div class="commentProfilePic col-md-1">
 									{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
 								</div>
@@ -116,7 +128,9 @@
 										echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 										echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->commentreplycreated_at)) . "</small><br/>" ;
 										echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
+										
 									</div>
+									
 									<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
 									<?php
 										$likesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $getCommentReply->commentreplyid, 'status' => 'liked'))->count();
@@ -187,11 +201,11 @@
 								{{Form::close()}} 
 							@endif
 						</div><!--/.reply section-->
-					</div><!--/.col-md-10-->
-				</div><!--/.row-->
+					</div><!--/.row-->
+				</div><!--/.col-md-11-->
+				<hr/>
 			</div><!--/.commentsrowarea-->
-			<hr/>
-
+			
 		@endforeach
 	</div>
 </div>
