@@ -21,7 +21,7 @@
 				<div class="row">
 					<h1>Upload Video</h1>
 					<p>Video allowed types: mp4, webm, ogg, wmv, avi, flv and mov.</p>
-					<p>Maximum size limit: 150mb</p>
+					<p>Maximum size limit: 2gb</p>
 					@if ($errors->any())
 					<ul style="list-style:none;color:red">
 						{{ implode('', $errors->all('<li class="error">:message</li>')) }}

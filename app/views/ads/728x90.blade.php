@@ -1,6 +1,7 @@
     <div class="advertisement" id='advertisement'>
        {{--  <div class="span12">
             <div class="col-md-10 col-md-offset-1"> --}}
+            
                 <div class="close">x</div> 
                 <script type="text/javascript">
                     google_ad_client = "ca-pub-3138986188138771";

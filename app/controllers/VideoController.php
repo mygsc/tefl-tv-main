@@ -55,7 +55,7 @@ class VideoController extends BaseController {
 					'file' => $fileName, 
 					'thumb1' => $thumbnail.'_thumb1.png',//Session::get('thumbnail_1'),
 					'thumb2' => $thumbnail.'_thumb2.png',//Session::get('thumbnail_2'),
-					'thumb3' => $thumbnail.'_thumb3.png'//Session::get('thumbnail_3'),
+					'thumb3' => $thumbnail.'_thumb3.png',//Session::get('thumbnail_3'),
 					]);
 			}
 		}
@@ -126,14 +126,6 @@ class VideoController extends BaseController {
 			}else{
 				$selectedThumb =  Input::get('thumbnail');
 				if(strlen($selectedThumb) > 1){  
-					// $getImage = Input::get('thumbnail');
-					// $getImage = str_replace('data:image/png;base64,', '', $getImage);
-					// $getImage = str_replace(' ', '+', $getImage);
-					// $decodeImage = base64_decode($getImage);
-					// $source = $destinationPath.$fileName.'.jpg';
-					// $success = file_put_contents($source, $decodeImage);
-					// $this->video_->resizeImage($source, 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-					// $this->video_->resizeImage($source, 240, 141, $destinationPath.$fileName.'.jpg');	
 					$getDomain = asset('/');
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
 					$removeSpace = str_replace('%20',' ', $thumbnail);
