@@ -492,7 +492,7 @@ protected $video_;
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',$id)->withFlashGood('Changes has been successfully saved.');
+			return Redirect::route('users.myvideos','v='.$id.'&edit=successfull')->withFlashGood('Changes has been successfully saved.');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
