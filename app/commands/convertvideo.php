@@ -22,8 +22,7 @@ class convertvideo extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(){
 		define('DS', DIRECTORY_SEPARATOR); 
 		parent::__construct();
 		$this->video_ = new Video;
@@ -77,8 +76,8 @@ class convertvideo extends Command {
 			// $this->convertVideoToHigh($source, $destination, $filename);
 			// $this->convertVideoToNormal($source, $destination, $filename);
 			// $this->convertVideoToLow($source, $destination, $filename);
-			if(!file_exists($source)){return print("\r \r \n ----------Oops error while converting----------- \r \r \n Contact support: GSC Team \r \n\n");}
-			print("\r \r \n --------Video is currently converting---------\r \r \n");
+			if(!file_exists($source)){return print("\r \r \n ---------- Oops error while converting ----------- \r \r \n Contact support: GSC Team \r \n\n");}
+			print("\r \r \n -------- Video is currently converting ---------\r \r \n");
 			$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
@@ -90,7 +89,7 @@ class convertvideo extends Command {
 				$notification->user_id = $videos->user_id;
 				$notification->notification = $message;
 				$notification->save();
-				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
+				print("\r \r \n --------- Conversion is done successfully --------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 
 			return true;
@@ -116,7 +115,7 @@ class convertvideo extends Command {
 		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis '$normalwebm'");
 		print("\r \r \n WEBM Normal version of video is done converting...\r\n\n");
 		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis '$lowwebm'");	
-		print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
+		//print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
 	}
 	/**
 	 * Get the console command arguments.

@@ -192,12 +192,12 @@
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
-												<label for='music-vid'>For Students</label>
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'for-students'])}}
+												<label for='for-students'>For Students</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
-												<label for='instruct'>For Teachers</label>
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'for-teachers'])}}
+												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
 												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
