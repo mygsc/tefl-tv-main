@@ -869,9 +869,10 @@ protected $video_;
 
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
 				$temp = 'img/user/'.$userInfo->id . '.jpg';
-			}
+			}else {
 				$temp = 'img/user/0.jpg';
 			}
+			
 
 			$newFeedback ='
 			<div class="feedbacksarea row">
@@ -922,7 +923,6 @@ protected $video_;
 			));
 		}
 	}
-
 
 	public function postAddReplyFeedback(){
 		$reply = trim(Input::get('txtreply'));
