@@ -245,8 +245,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                 {{Form::hidden('status','subscribeOff')}}
                                                                 {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
                                                             @endif
-                                                    @endif
                                                     {{Form::close()}}
+                                                    @endif
                                                 @else
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
                                                 @endif
