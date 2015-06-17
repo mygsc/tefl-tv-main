@@ -669,6 +669,7 @@ class UserController extends BaseController {
 			$countAllViews = $this->Video->convertToShortNumbers($allViews);
 			$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 			$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
+			//return $userFeedbacks;
 			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 
 			return View::make('users.mychannels.feedbacks', compact('usersImages','countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks','usersWebsite'));
@@ -805,36 +806,7 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
-
-		foreach ($userFeedbacks as $key => $userFeedback) {
-			$userFeedbacks[$key]->img = $this->User->addProfilePicture($userFeedback->user_id);
-			$userFeedbacks[$key]->likesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'liked'))->count();
-			$userFeedbacks[$key]->dislikeCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $userFeedback->id, 'status' => 'disliked'))->count();
-
-			if(Auth::check()){
-				$userFeedbacks[$key]->ifAlreadyLiked = DB::table('feedbacks_likesdislikes')->where(array(
-					'feedback_id' => $userFeedback->id, 
-					'user_id' => Auth::User()->id,
-					'status' => 'liked'
-					))->first();
-				$userFeedbacks[$key]->ifAlreadyDisliked = DB::table('feedbacks_likesdislikes')->where(array(
-					'feedback_id' => $userFeedback->id, 
-					'user_id' => Auth::User()->id,
-					'status' => 'disliked'
-					))->first();
-			}
-
-			$userFeedbacks[$key]->countFeedbackReplies = DB::table('feedback_replies')
-			->join('users', 'users.id', '=', 'feedback_replies.user_id')
-			->where('feedback_id', $userFeedback->id)->count();
-
-			$userFeedbacks[$key]->getFeedbackReplies = FeedbackReply::select('feedback_replies.id', 'user_id', 'reply', 'feedback_id',
-				'feedback_replies.created_at', 'feedback_replies.updated_at', 'channel_name')
-			->join('users', 'users.id', '=', 'feedback_replies.user_id')
-			->get();	
-
-			$userFeedbacks[$key]->spamCounts = DB::table('reported_feedbacks')->where('feedback_id', $userFeedback->id)->count();
-		}
+		//return $userFeedbacks;
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->count();
@@ -842,7 +814,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($userChannel->id, true);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.feedbacks', compact('usersImages','picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','user_id','var','usersWebsite'));
+		return View::make('users.channels.feedbacks', compact('usersImages','picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','usersWebsite', 'user_id'));
 	}
 
 	public function postViewUsersFeedbacks() {
@@ -1392,16 +1364,20 @@ class UserController extends BaseController {
 	}
 
 	public function postFeedbacks() {
-		$channelName = Input::get('term');
-		$name = str_replace('@', '', $channelName);
-		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
-		foreach($query as $q) {
-			$channelNames[] = array(
-				'id' => $q->id,
-				'label' => $q->channel_name
-				);
+		$input = Input::all();
+		$validator = Validator::make($input,$this->Feedback->rules());
+
+		if($validator->passes()){
+			$feedbackSenderID = Crypt::decrypt($input['feedbackSender']);
+			$feedbackReceiverID = Crypt::decrypt($input['feedbackReceiver']);
+
+			$feedbacks = new Feedback();
+			$feedbacks->feedback_receiver_id = $feedbackReceiverID;
+			$feedbacks->feedback_sender_id = $feedbackSenderID;
+			$feedbacks->feedback = $input['feedback'];
+			$feedbacks->save();
 		}
-		return Response::json($channelNames);
+		return Redirect::route('view.users.feedbacks2', $input['channel_name'])->withErrors($validator);
 	}
 
 	public function getSortVideos() {

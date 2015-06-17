@@ -194,14 +194,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $userData;
 	}
 
-	public function addProfilePicture($user_id){
-		$img = '/img/user/'. $user_id. '.jpg';
-		if(!file_exists(public_path($img))){
-			$img = '/img/user/0.jpg';
-		}
-		return $img;
-	}
-
 	/** getUsersImages
 	*
 	*@param $users_id		Contains the social media use by the user to sign in

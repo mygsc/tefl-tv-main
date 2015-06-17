@@ -51,30 +51,24 @@
 	@else
 					       
 	<div class="feedbacks row mg-t-20">
-		@if(!isset(Auth::User()->id))
+		@if(Auth::check())
 		<br/><br/>
+		{{ Form::open(array('routes' => 'post.users.feedbacks'))}}
 		<textarea id='feedback' class="form-control v-feedback" placeholder="Write your feedback.."></textarea>
 		<span id='errorlabel' class='input-error'></span>
 		<br/><br/>
-		<div class="text-right">
-
+		<div class="text-right">s
 				<button id='btnfeedback' class="btn btn-info">Post</button>
 				{{Form::hidden('feedbackUser', Auth::User()->id, array('id' => 'feedbackUser'))}}
 				{{Form::hidden('feedbackOwner', Auth::User()->id, array('id' => 'feedbackOwner'))}}
+				{{Form::submit('Post Feedback', array('class' => 'btn btn-info'))}}
 		</div>
+		{{Form::close()}}
 		@endif
 	<div class="col-md-12 feedbacksarea" id="mainCommentBody">
 		<div id="appendNewFeedbackHere"></div>
 		@foreach($userFeedbacks as $userFeedback)
 			<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
-				<?php
-					if(file_exists(public_path('img/user/'.$userFeedback->user_id . '.jpg'))){
-						$temp = 'img/user/'.$userFeedback->user_id . '.jpg';
-					} else{
-						$temp = 'img/user/0.jpg';
-					}
-				?>
-
 				<div class="feedbackProfilePic col-md-1">
 					{{HTML::image($temp, 'alt', array('class' => 'userRep'))}}
 				</div>
