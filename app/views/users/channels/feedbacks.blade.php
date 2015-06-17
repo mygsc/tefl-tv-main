@@ -83,7 +83,7 @@
 								<div class="col-md-11">
 									<div class="row">
 										{{ link_to_route('view.users.channel', $userFeedback->channel_name, $parameters = array($userFeedback->channel_name), $attributes = array('id' => 'channel_name')) }}
-										| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($userFeedback->created_at)); ?></small> 
+										| &nbsp;<small><?php echo date('M m, Y', strtotime($userFeedback->created_at)); ?></small> 
 										<br/>
 										<p class="text-justify">
 											{{$userFeedback->feedback}}
@@ -121,19 +121,19 @@
 										</div>
 										&nbsp;
 
-										<span class="repLink hand">{{$userFeedback->countFeedbackReplies}}<i class="fa fa-reply"></i></span>
+										<!--<span class="repLink hand">{{$userFeedback->countFeedbackReplies}}
+										<i class="fa fa-reply"></i></span>-->
 										@else
 
 										<span class="likescount" id="likescount">{{$userFeedback->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 										<span class="dislikescount" id="dislikescounts">{{$userFeedback->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 
-										<span class="repLink hand">{{$userFeedback->countFeedbackReplies}}<i class="fa fa-reply"></i></span>
+										<!--<span class="repLink hand">{{$userFeedback->countFeedbackReplies}}<i class="fa fa-reply"></i></span>-->
 										<!--end updated by cess 3/26/15-->
 										@endif<!--auth user-->
 										@if(Auth::check())
 										@if(Auth::User()->id == $userFeedback->user_id)
 										<span class="nav_div">
-
 											<button class="delete fa fa-trash btn-trans" title="remove" id="feedback{{$userFeedback->id}}">
 												{{Form::hidden('channel_id', $userFeedback->channel_id, array('id' => 'channel_id'))}}
 												{{Form::hidden('user_id', Auth::User()->id, array('id' => 'user_id'))}}

@@ -1022,7 +1022,7 @@ class UserController extends BaseController {
 	public function getViewUsersVideos($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
+		
 		$usersVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at', 1);
 
 
@@ -1376,6 +1376,8 @@ class UserController extends BaseController {
 			$feedbacks->feedback_sender_id = $feedbackSenderID;
 			$feedbacks->feedback = $input['feedback'];
 			$feedbacks->save();
+
+			return Redirect::route('view.users.feedbacks2', $input['channel_name'])->withFlashGood('Feedback was submitted');
 		}
 		return Redirect::route('view.users.feedbacks2', $input['channel_name'])->withErrors($validator);
 	}

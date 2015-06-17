@@ -98,7 +98,6 @@
 							<option>Recent</option>
 							<option>Likes</option>
 							<option>Views</option>
-							<option>Unpublished</option>
 						</select>
 						&nbsp;&nbsp;
 					

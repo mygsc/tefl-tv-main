@@ -26,6 +26,7 @@ class Feedback extends Eloquent {
 			DB::raw('(SELECT count(rf.feedback_id) from reported_feedbacks rf where rf.feedback_id = feedbacks.id) as spam'))
 		->where('feedback_receiver_id',$auth)
 		->join('users', 'users.id', '=', 'feedback_sender_id')
+		->orderBy('created_at')
 		->get();
 
 		foreach($feedbacks as $key => $feedback){
