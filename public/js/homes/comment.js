@@ -184,4 +184,40 @@
             }
         });
 	});
+
+    $("#mainCommentBody").on("click", 'button.deleteComment', function () {
+        var comment_id = $(this).find('#comment_id').val();
+        var user_id = $(this).find('#user_id').val(); 
+        var video_id = $(this).find('#video_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/deletecomment',
+            cache: false,
+            context: this,
+            data: {comment_id: comment_id, user_id: user_id, video_id: video_id},
+            success: function(data){
+                if(data['status'] == 'success'){
+                    alert(comment_id);
+                    $(this).parents('.commentDeleteArea').fadeOut(500);
+                }
+            }
+        });
+    });
+    $("#mainCommentBody").on("click", 'button.deleteReply', function () {
+        var c_id = $(this).find('#c_id').val();
+        var comment_id = $(this).find('#comment_id').val();
+        var user_id = $(this).find('#user_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/deletereply',
+            cache: false,
+            context: this,
+            data: {c_id: c_id, comment_id: comment_id, user_id: user_id},
+            success: function(data){
+                if(data['status'] == 'success'){
+                    $(this).parents('.deleteReplyArea').fadeOut(500);
+                }
+            }
+        });
+    });
 // }); 
