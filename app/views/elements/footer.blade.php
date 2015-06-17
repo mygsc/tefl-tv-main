@@ -10,8 +10,8 @@
                         {{ link_to_route('homes.privacy', 'Privacy', null) }}
                         {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}
                         {{ link_to_route('homes.copyright', 'Copyright', null) }}
-                        {{ link_to_route('partners.learnmore', 'Partner', null) }}
-                        {{ link_to_route('publishers.learnmore', 'Publisher', null) }}
+                        {{ link_to_route('pagenotfound', 'Partner', null) }}
+                        {{ link_to_route('pagenotfound', 'Publisher', null) }}
                       
                     </span><!--/.ctgryNav-f-->
             </div><!--/.col-md-7 col-xs-12-->

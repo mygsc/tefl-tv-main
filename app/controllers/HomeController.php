@@ -87,7 +87,9 @@ class HomeController extends BaseController {
 	// 	return View::make('homes.advertisements');
 	// }
 
-
+	public function error(){
+		return View::make('errors.maintenance');
+	}
 
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
