@@ -1,5 +1,8 @@
 // $(document).ready(function(){
+    var stopClickCommment = false;
 	$("#btncomment").click(function() {
+        if(stopClickCommment) return;
+        stopClickCommment = true;
 		var txtComment = $('#comment').val();
 		var txtVideoId = $('#commentVideo').val();
 		var txtUserId = $('#commentUser').val();
@@ -23,6 +26,7 @@
 		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		$('#replysection').find(".panelReply").hide('slow');
 		        	}
+                    stopClickCommment = false;
 	           	}
 	    	});
 		}
