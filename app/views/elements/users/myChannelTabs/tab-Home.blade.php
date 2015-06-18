@@ -1,93 +1,86 @@
 <div class="row">
 	<div class="mg-20">
-	<h1>ito yun</h1>
+		<h1>ito yun</h1>
 		<br/>
 		@if(empty($recentUpload))
-		<div class="row">
-			<div class="text-center alert alert-info noA">
-				<h3>
-					{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
-				</h3>
-			</div>
-		</div>
-		@else
-
-		<div class="col-md-6">
-
-			 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
-			 <div id="vid-wrapper">
-				 <div id="vid-controls">
-					 <div class="embed-responsive embed-responsive-16by9">
-					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')))
-						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
-					 	@else
-					 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-					 		<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
-					 	@endif	
-						
-					</div>
-					@include('elements/videoPlayer')
+			<div class="row">
+				<div class="text-center alert alert-info noA">
+					<h3>
+						{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
+					</h3>
 				</div>
 			</div>
-
-		</div>
+		@else
+			<div class="col-md-6">
+				<!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
+				<div id="vid-wrapper">
+					<div id="vid-controls">
+						<div class="embed-responsive embed-responsive-16by9">
+						 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name.'.jpg')))
+							 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.jpg'}}"  width="100%" >
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+								</video>
+						 	@else
+						 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
+						 		<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.mp4'}}" type="video/mp4" />
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.webm'}}" type="video/webm" />
+							 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload[0]->file_name.'/'.$recentUpload[0]->file_name. '.ogg'}}" type="video/ogg" />
+								</video>
+						 	@endif	
+						</div>
+						@include('elements/videoPlayer')
+					</div>
+				</div>
+			</div>
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
 				<p style="margin-left:30px;">No recent Activity</p>
 			@else
-			<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
-			<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
-			<br/>
-			
-			<p class="text-justify">
-				Description: {{$recentUpload[0]->description}}
-			</p>
-			<br/>
-			<span class=""><!--/counts and share link-->
-				{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+				<h3><b>Title: {{$recentUpload[0]->title}}</b></h3>
+				<p>Uploaded: {{date('M d Y',strtotime($recentUpload[0]->created_at))}}</p>
+				<br/>
+				<p class="text-justify">Description: {{$recentUpload[0]->description}}</p>
+				<br/>
 
-				{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<span class=""><!--/counts and share link-->
+					{{$recentUpload[0]->views}} Views &nbsp;&nbsp;|&nbsp;&nbsp;
+					{{$recentUpload[0]->likes}} Likes&nbsp;&nbsp;<i class="fa fa-thumbs-up hand" title="like this"></i>&nbsp;&nbsp;|&nbsp;&nbsp;
 
-				<span class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
-					</a>
-					<span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
-						<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
-						<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
-						<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
-	                </span><!--/.dropdown-menu pull-right White-->
-	            </span><!--/.dropdown share-->
-			</span><!--/counts and share link-->
+					<span class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
+						</a>
+						<span class="dropdown-menu drop pull-right White snBg" style="padding:5px 5px;text-align:center;width:auto;">
+							<a href=""><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+							<a href=""><i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+							<a href=""><i class="socialMedia socialMedia-instagram" title="Share on Instagram"></i></a>
+		                </span><!--/.dropdown-menu pull-right White-->
+		            </span><!--/.dropdown share-->
+				</span><!--/counts and share link-->
 			@endif
 		</div><!--/.col-md-6-->
 	</div>
 </div>
 <br/>
 
-	<!--videos-->
-	<div class="col-md-12 grey">
-		<br/>
-		<div class="orangeC text-center">
-			<h2>VIDEOS 
-				<small class="">({{link_to_route('users.myvideos', 'Show All')}})</small>
-			</h2>
-		</div>
-		<br/>
-		<div class="">
-			@if(empty($usersVideos))
-				<p class="text-center">No Videos Uploaded yet..</p>
-			@else
-				@foreach($usersVideos as $usersVideo)
+<!--videos-->
+<div class="col-md-12 grey">
+	<br/>
+	<div class="orangeC text-center">
+		<h2>VIDEOS 
+			<small class="">({{link_to_route('users.myvideos', 'Show All')}})</small>
+		</h2>
+	</div>
+	<br/>
+	<div class="">
+		@if(empty($usersVideos))
+			<p class="text-center">No Videos Uploaded yet..</p>
+		@else
+			@foreach($usersVideos as $usersVideo)
 				<div class="col-lg-3 col-md-3 col-sm-6">
 					<div class="p-relative">
 						<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
@@ -103,115 +96,108 @@
 						</a>
 						<div class="video-info">
 							<a href="{{route('homes.watch-video',$usersVideo->file_name)}}" target="_blank">
-								<div class="v-Info">
-									{{$usersVideo->title}}
-								</div>
+								<div class="v-Info">{{$usersVideo->title}}</div>
 							</a>
 							<div class="count">
-									{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes
+								{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes
 							</div>
 						</div>
 					</div>
 					<BR/>
 				</div>
-				@endforeach
-				@endif
-			</div>
-		</div><!--well-->
-	</div><!--1st 6 column Videos-->
+			@endforeach
+		@endif
+	</div>
+</div><!--well-->
+</div><!--1st 6 column Videos-->
 
-	<!--Playlists-->
-	<div class="col-md-12 White">
-		<div class="">
-			<div class="orangeC text-center">
-				<br/>
-				<h2>PLAYLISTS 
-					<small class="">({{link_to_route('users.playlists', 'Show All')}})</small>
-				</h2>
-				<br/>
-			</div>
-			
-			<div class="row">
-			
+<!--Playlists-->
+<div class="col-md-12 White">
+	<div class="">
+		<div class="orangeC text-center">
+			<br/>
+			<h2>PLAYLISTS 
+				<small class="">({{link_to_route('users.playlists', 'Show All')}})</small>
+			</h2>
+			<br/>
+		</div>
+		<div class="row">
+		
 			@if($usersPlaylists->isEmpty())
 				<p class="text-center">No Playlists yet</p>
 			@else
-			@foreach($usersPlaylists as $key=>$playlist)
-			<div class="col-lg-3 col-md-3 col-sm-2">
-			<div class="p-relative">
-				@if(isset($thumbnail_playlists[$key][0]))	
-					@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
-					<div class="playlist-info" >
-						{{count($thumbnail_playlists[$key])}}
-						<br/>
-						Video(s)
-						<br/>
-						<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-					</div>
-						<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
-					@else	
-					<div class="playlist-info" >
-						{{count($thumbnail_playlists[$key])}}
-						<br/>
-						Video(s)
-						<br/>
-						<span class="glyphicon glyphicon-list fs-24"></span>
-					</div>
-						<img src="/img/thumbnails/video.png">
-					@endif
-				@else
-					<div class="playlist-info" >
-						0
-						<br/>
-						Video(s)
-						<br/>
-						<span class="glyphicon glyphicon-list fs-24"></span>
-					</div>
-					<img src="/img/thumbnails/video.png">
-				@endif
-					</div>
-				<div class="v-Info">
-					<span class="fa fa-globe"></span> | {{$playlist->name}}
-				</div>
-					
-				<div class="count">
-					{{date('M d Y',strtotime($playlist->updated_at))}}
-				</div>
-			</div>
-			@endforeach
-			@endif
-			
-			</div>
-		</div>
-
-	</div><!--/.2nd 6 column Playlists-->
-	<br/>
-	<!--Subscribers-->
-
-	<div class="col-md-12 ">
-		<div class="row">
-			<div class="row-same-height">
-				<div class="col-md-6 greyDark col-md-height col-top">
-					<div class="row">
-						<div class="h-title grey orangeC">
-							<span><b>SUBSCRIBERS</span>&nbsp;
+				@foreach($usersPlaylists as $key=>$playlist)
+					<div class="col-lg-3 col-md-3 col-sm-2">
+						<div class="p-relative">
+							@if(isset($thumbnail_playlists[$key][0]))	
+								@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
+									<div class="playlist-info" >
+										{{count($thumbnail_playlists[$key])}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+									</div>
+									<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
+								@else	
+									<div class="playlist-info" >
+										{{count($thumbnail_playlists[$key])}}
+										<br/>
+										Video(s)
+										<br/>
+										<span class="glyphicon glyphicon-list fs-24"></span>
+									</div>
+									<img src="/img/thumbnails/video.png">
+								@endif
+							@else
+								<div class="playlist-info" >
+									0
+									<br/>
+									Video(s)
+									<br/>
+									<span class="glyphicon glyphicon-list fs-24"></span>
+								</div>
+								<img src="/img/thumbnails/video.png">
+							@endif
 						</div>
-						<div class="Div-channelSubSection" id="subscriberWrapper">
-							<br/><br/>
-							<div class="row-same-height">
-								@if($subscriberProfile->isEmpty())
-									<p class="text-center">No subscribers yet.</p>
-								@else
-									@foreach($subscriberProfile as $profile)
+						<div class="v-Info">
+							<span class="fa fa-globe"></span> | {{$playlist->name}}
+						</div>
+							
+						<div class="count">
+							{{date('M d Y',strtotime($playlist->updated_at))}}
+						</div>
+					</div>
+				@endforeach
+			@endif
+		</div>
+	</div>
+</div><!--/.2nd 6 column Playlists-->
+<br/>
+
+<!--Subscribers-->
+<div class="col-md-12 ">
+	<div class="row">
+		<div class="row-same-height">
+			<div class="col-md-6 greyDark col-md-height col-top">
+				<div class="row">
+					<div class="h-title grey orangeC"><span><b>SUBSCRIBERS</span>&nbsp;</div>
+					<div class="Div-channelSubSection" id="subscriberWrapper">
+						<br/><br/>
+						<div class="row-same-height">
+							@if($subscriberProfile->isEmpty())
+								<p class="text-center">No subscribers yet.</p>
+							@else
+								@foreach($subscriberProfile as $profile)
 									<div class="col-md-6" >
 										<div class="row user-padding" id="subscriberLists">
 											<a href="{{route('view.users.channel', $profile->channel_name)}}">
-													@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-										             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-										            @else
-										             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-										            @endif
-										            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
+												@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
+									             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
+									            @else
+									             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
+									            @endif
+									            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
 											</a>
 											<br/>
 											&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;
@@ -241,65 +227,64 @@
 									</div>
 								@endforeach						
 							@endif			
-							</div>
 						</div>
 					</div>
-				</div><!--/.3rd column 6 Subscribers-->
+				</div>
+			</div><!--/col-md-6 greyDark col-md-height col-top-->
 
 			<!--Subscriptions-->
 			<div class="col-md-6 col-md-height col-top">
 				<div class="row grey">
 					<div class="h-title greyDark orangeC">
-					<span><b>SUBSCRIPTIONS</b></span>&nbsp;
-				</div>
-				<div class="Div-channelSubSection" id="subscriberWrapper">
-					<br/><br/>
-					<div class="row-same-height">
-						@if($subscriptionProfile->isEmpty())
-							<p class="text-center">No Subscriptions yet</p>
-						@else
-							@foreach($subscriptionProfile as $profile1)
-								<div class="col-md-6" >
-									<div class="user-padding" id="subscriberLists">
+						<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+					</div>
+					<div class="Div-channelSubSection" id="subscriberWrapper">
+						<br/><br/>
+						<div class="row-same-height">
+							@if($subscriptionProfile->isEmpty())
+								<p class="text-center">No Subscriptions yet</p>
+							@else
+								@foreach($subscriptionProfile as $profile1)
+									<div class="col-md-6" >
+										<div class="user-padding" id="subscriberLists">
+											<a href="{{route('view.users.channel', $profile1->channel_name)}}">
+												@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
+										            {{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
+										        @else
+										            {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
+										        @endif
+												&nbsp;
+												<span><b>{{$profile1->channel_name}}</b></span>
+											</a>
+											<br/>
+											&nbsp;<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;
+											Subscribers</span>&nbsp;
 
-										<a href="{{route('view.users.channel', $profile1->channel_name)}}">
-											@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-									            {{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-									        @else
-									            {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-									        @endif
-											&nbsp;
-											<span><b>{{$profile1->channel_name}}</b></span>
-										</a>
-										<br/>
-										&nbsp;<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;
-										Subscribers</span>&nbsp;
-
-										@if(isset($profile1->id))
-											@if(isset(Auth::User()->id))
-												<?php
-													$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
-												?>
-												{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-									    			{{Form::hidden('user_id', $profile1->id)}}
-									    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-									    			@if(!$ifAlreadySubscribe)
-									    				{{Form::hidden('status','subscribeOn')}}
-												    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-												    @else
-												    	{{Form::hidden('status','subscribeOff')}}
-												    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
-												    @endif
-												{{Form::close()}}
+											@if(isset($profile1->id))
+												@if(isset(Auth::User()->id))
+													<?php
+														$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
+													?>
+													{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+										    			{{Form::hidden('user_id', $profile1->id)}}
+										    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
+										    			@if(!$ifAlreadySubscribe)
+										    				{{Form::hidden('status','subscribeOn')}}
+													    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+													    @else
+													    	{{Form::hidden('status','subscribeOff')}}
+													    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs pull-right', 'id'=>'subscribebutton'))}}
+													    @endif
+													{{Form::close()}}
+												@endif
 											@endif
-										@endif
+										</div>
 									</div>
-								</div>
-							@endforeach						
-						@endif			
+								@endforeach						
+							@endif			
+						</div>
 					</div>
 				</div>
-			</div>
-		</div><!--/.3rd column 6 Subscription-->
-	</div><!--/.4th column 6 Subscription-->
-</div>
+			</div><!--/.3rd column 6 Subscription-->
+		</div><!--/.row-same-height-->
+	</div><!--/.row-->

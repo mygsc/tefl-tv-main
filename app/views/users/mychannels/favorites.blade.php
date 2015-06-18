@@ -120,5 +120,5 @@
 
 
 @section('script')
-	{{HTML::script('js/jquery.js')}}
+	{{HTML::script('js/jquery.min.js')}}
 @stop

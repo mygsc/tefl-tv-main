@@ -87,7 +87,7 @@ protected $video_;
 
 	public function getResetPassword($token = null){
 		$findUser = User::where('token', $token)->get();
-		if($findUser->isEmpty()) return app::abort(404, 'Page not available');
+		if($findUser->isEmpty()) return Response::view('errors.fatal', array(), 404);
 		$userInfo = $findUser->first();
 		return View::make('homes.resetpassword', compact(array('userInfo','token')));
 	}
@@ -100,6 +100,7 @@ protected $video_;
 		if($validator->fails() || $findUser->isEmpty()){
 			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
+
 		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
 			$getUserInfo = User::where('email', Input::get('email'))->first();
@@ -117,11 +118,9 @@ protected $video_;
 		$input = Input::all();
 		$user_id = Crypt::decrypt($input['uid']);
 		$validator = Validator::make(
-			array(
-				'password' => $input['password'],
-				'password_confirmation' => $input['password_confirmation']),
-			array('password' => 'required|min:6','password_confirmation' => 'same:password'));
-		
+			array('password' => $input['password'],'password_confirmation' => $input['password_confirmation']),
+			array('password' => 'required|min:6','password_confirmation' => 'same:password')
+		);
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
 				return Redirect::route('homes.signin')->with('flash_good', 'Password has been re-newed');
@@ -229,6 +228,7 @@ protected $video_;
 			foreach($usersPlaylists as $playlist){
 				$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 			}
+
 			$increment = 0;
 			$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at', 1,1)->first();
 
@@ -376,7 +376,6 @@ protected $video_;
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$findUsersVideos = $this->UserFavorite->getUserFavoriteVideos($this->Auth->id);
 			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-
 			return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture','usersWebsite'));
 		}
 		
@@ -451,13 +450,12 @@ protected $video_;
 				if(!file_exists($destinationPath)){
 					return Redirect::route('video.edit.get',$fileName)->withFlashBad('Sorry you cannot change your thumbnail at this moment.');	
 				}
-
 				if(file_exists($destinationPath.$fileName.'.jpg')){
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
 				}
-					Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
-					Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
+				Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
+				Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 			}
 			else{
 				$selectedThumb =  Input::get('selected-thumbnail');
@@ -492,7 +490,7 @@ protected $video_;
 				$video->tags = $final_tag;
 			}
 			$video->save();
-			return Redirect::route('video.edit.get',$id)->withFlashGood('Changes has been successfully saved.');
+			return Redirect::route('users.myvideos','v='.$id.'&edit=successfull')->withFlashGood('Changes has been successfully saved.');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
 
@@ -661,7 +659,6 @@ protected $video_;
 				$playlistItem->delete();
 			}
 		}
-
 		return Redirect::route('users.playlists')->withFlashGood('Playlist successfully removed');
 	}
 
@@ -678,10 +675,8 @@ protected $video_;
 			$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 			$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
 			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-
 			return View::make('users.mychannels.feedbacks', compact('countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks','usersWebsite'));
 		}
-		
 	}
 
 	public function editplaylistTitle($id){
@@ -713,10 +708,8 @@ protected $video_;
 			$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id);
 			$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id);
 			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-
 			return View::make('users.mychannels.subscribers', compact('countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','usersWebsite'));
 		}
-		
 	}
 
 	public function postUsersChangePassword() {
@@ -739,12 +732,10 @@ protected $video_;
 				if($newPassword != $inputNewPassword){
 					$user = User::where('id', Auth::User()->id)->update(['password' => Hash::make(Input::get('newPassword'))]);
 					return Redirect::route('users.channel')->withFlashGood('Successfully changed the password.');
-				}else{
-					return Redirect::route('users.change-password')->with('flash_warning','Current Password and New Password must not match')->withErrors($validate);
 				}
-			} else{
-				return Redirect::route('users.change-password')->withFlashBad('Incorrect current password!');
-			}
+				return Redirect::route('users.change-password')->with('flash_warning','Current Password and New Password must not match')->withErrors($validate);
+			} 
+			return Redirect::route('users.change-password')->withFlashBad('Incorrect current password!');
 		}
 	}
 
@@ -757,22 +748,22 @@ protected $video_;
 		$validate = Validator::make($input, User::$userEmailRules);
 		if($validate->fails()){
 			return Redirect::route('users.change-email')->withErrors($validate);
-		} else{
-			$currentEmail = Auth::User()->email;
-			$newEmail = Input::get('newEmail');
-			$checkPassword = Hash::check(Input::get('password'), Auth::User()->password);
-			$currentPassword = Input::get('password');
+		} 
+		$currentEmail = Auth::User()->email;
+		$newEmail = Input::get('newEmail');
+		$checkPassword = Hash::check(Input::get('password'), Auth::User()->password);
+		$currentPassword = Input::get('password');
 
-			if($currentEmail != $newEmail){
-				if($checkPassword != $currentPassword) {
-					return Redirect::route('users.change-email')->withFlashBad('Password must match with your existing password');
-				}
-			} else{
-				return Redirect::route('users.change-email')->with('flash_warning','Current Email and New Email must not match')->withErrors($validate);
+		if($currentEmail != $newEmail){
+			if($checkPassword != $currentPassword) {
+				return Redirect::route('users.change-email')->withFlashBad('Password must match with your existing password');
 			}
-			$user = User::where('email', Auth::User()->email)->update(['email' => $newEmail]);
-			return Redirect::route('users.channel')->withFlashGood('Successful, Please open your email');
+		} else{
+			return Redirect::route('users.change-email')->with('flash_warning','Current Email and New Email must not match')->withErrors($validate);
 		}
+		$user = User::where('email', Auth::User()->email)->update(['email' => $newEmail]);
+		return Redirect::route('users.channel')->withFlashGood('Successful, Please open your email');
+		
 	}
 
 	public function getViewUsersChannel($channel_name) {
@@ -861,7 +852,6 @@ protected $video_;
 		if(empty($feedback)){
 			return Response::json(array('status'=>'error','label' => 'The feedback field is required.'));
 		}
-
 		if(!empty($feedback)){
 			$feedbacks = new Feedback;
 			$feedbacks->user_id = $user_id;
@@ -879,9 +869,10 @@ protected $video_;
 
 			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
 				$temp = 'img/user/'.$userInfo->id . '.jpg';
-			} else{
+			}else {
 				$temp = 'img/user/0.jpg';
 			}
+			
 
 			$newFeedback ='
 			<div class="feedbacksarea row">
@@ -929,10 +920,9 @@ protected $video_;
 				'feedback' => $feedback,
 				'user_id' => $user_id,
 				'feedback' => $newFeedback
-				));
+			));
 		}
 	}
-
 
 	public function postAddReplyFeedback(){
 		$reply = trim(Input::get('txtreply'));
@@ -1005,8 +995,8 @@ protected $video_;
 				array('feedback_id' => $dislikeFeedbackId,
 					'user_id'    => $dislikeUserId,
 					'status' 	   => 'disliked'
-					)
-				);
+				)
+			);
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
 		} elseif($statuss == 'undisliked'){
@@ -1023,7 +1013,6 @@ protected $video_;
 		$feedback_id = Input::get('feedback_id');
 		$id = Input::get('id');
 		$deleteFeedback = DB::table('feedbacks')->where(array('channel_id' => $channelId, 'user_id' => $userId, 'id' => $feedback_id))->delete();
-
 		return Response::json($deleteFeedback);
 	}
 
@@ -1032,7 +1021,6 @@ protected $video_;
 		$userId = Input::get('user_id');
 		$id = Input::get('id');
 		$a = FeedbackReply::find($id)->delete();
-
 		return Response::json($a);
 	}
 
@@ -1041,7 +1029,6 @@ protected $video_;
 		$userId = Input::get('user_id');
 		$spamId = Input::get('spamID');
 		$a = $this->ReportedFeedback->getReportCount($spamId, $channelId, $userId);
-
 		return Response::json($a);
 	}
 
@@ -1060,7 +1047,6 @@ protected $video_;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$userFeedbacks = Feedback::where('channel_id', $userChannel->id)->get();
 		$usersVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at', 1);
-		
 		
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
@@ -1130,12 +1116,12 @@ protected $video_;
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
+		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
 		foreach($playlists as $playlist){
 			$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
 		}
-		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-
+		
 		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
 	}
 
@@ -1320,28 +1306,25 @@ protected $video_;
 			$likeResult = UserLike::where('video_id',$id)->count();
 			$dislikeResult = UserDislike::where('video_id',$id)->count();
 			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-
 		}
 	}
 
 	public function dislikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = UserDislike::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id);
+		$counter = UserDislike::where('user_id','=',Auth::User()->id)->where('video_id','=',$id);
 
 		if(!$counter->count()){
 			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
 			$dislikeResult = UserDislike::where('video_id',$id)->count();
 			$likeResult = UserLike::where('video_id',$id)->count();
 			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-
 		}
 	}
 
 	public function unlikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = UserLike::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id);
+		$counter = UserLike::where('user_id','=',Auth::User()->id)->where('video_id','=',$id);
+
 		if($counter->count()){
 			$unlike = UserLike::where('user_id','=',Auth::User()->id)
 			->where('video_id','=',$id)->first();
@@ -1403,12 +1386,11 @@ protected $video_;
 		$channelName = Input::get('term');
 		$name = str_replace('@', '', $channelName);
 		$query = DB::select("SELECT * FROM users WHERE channel_name LIKE '%".$name."%'");
+		
 		foreach($query as $q) {
-			$channelNames[] = array(
-				'id' => $q->id,
-				'label' => $q->channel_name
-				);
+			$channelNames[] = array('id' => $q->id,'label' => $q->channel_name);
 		}
+
 		return Response::json($channelNames);
 	}
 
@@ -1478,10 +1460,8 @@ protected $video_;
 			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND deleted_at IS NULL ORDER BY v.views DESC");
 		}elseif($order == 'Recent'){
 			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND deleted_at IS NULL ORDER BY v.created_at DESC");
-
 		}else{
 			$results = DB::select("SELECT v.id, v.user_id, v.title, v.description, v.publish, v.file_name, v.views, (SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.user_id = v.user_id) AS likes, v.created_at, v.updated_at FROM videos v WHERE v.user_id ='" .$user_id. "'AND deleted_at IS NULL v. publish = 0 ORDER BY v.publish DESC");
-
 		}
 
 		$var = '';
@@ -1546,6 +1526,7 @@ protected $video_;
 	}
 
 	public function addFeedback() { $var = 'l'; }
+
 	public function viewSocial() { return View::make('testing');}
 
 	public function social($action) {
@@ -1557,8 +1538,7 @@ protected $video_;
 			$socialAuth = New Hybrid_Auth(app_path(). '/config/hybridauth.php');
 			$provider = $socialAuth->authenticate($action);
 			$userProfile = $provider->getUserProfile();
-		}
-		catch (Exception $e) {
+		} catch (Exception $e) {
 			return $e->getMessage();
 		}
 		
@@ -1566,26 +1546,24 @@ protected $video_;
 			$user = Website::where('user_id',$this->Auth->id)->first();
 			$user->$action = $userProfile->identifier;
 			$user->save();
-		}else{
+		} else{
 			$user = Website::where('user_id',$this->Auth->id)->first();
 			$user->$action = $userProfile->profileURL;
 			$user->save();
 		}
 		if($action == 'facebook'){
-		$sessionFacebook = $userProfile->displayName;
-		$sessionFacebook = Session::put('sessionFacebook', $sessionFacebook);
+			$sessionFacebook = $userProfile->displayName;
+			$sessionFacebook = Session::put('sessionFacebook', $sessionFacebook);
 		}
 		if($action == 'twitter'){
-		$sessionTwitter = $userProfile->displayName;
-		$sessionTwitter = Session::put('sessionTwitter', $sessionTwitter);
+			$sessionTwitter = $userProfile->displayName;
+			$sessionTwitter = Session::put('sessionTwitter', $sessionTwitter);
 		}
 		if($action == 'google'){
 			$sessionGmail = $userProfile->displayName;
 			$sessionGmail = Session::put('sessionGmail', $sessionGmail);
 		}
-
 		return Redirect::route('users.edit.channel')->withFlashGood('Connected with '.$action.'!');
-		
 	}
 
 	public function logoutSocial($action) {
@@ -1602,9 +1580,7 @@ protected $video_;
 		if($action == 'google'){
 			$action = Website::where(['user_id' => $this->Auth->id])->update(['google' => '']);
 		}
-
 		return Redirect::route('users.edit.channel')->withFlashGood('Disconnected!'); 
-		
 	}
 	public function postDeleteUserFeedbackReply() { return Input::all(); }
 	public function postReportUserFeedbackReply() { return Input::all(); }
