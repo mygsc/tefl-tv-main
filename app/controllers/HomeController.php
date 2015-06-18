@@ -2,13 +2,14 @@
 
 class HomeController extends BaseController {
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
+		$this->Comment = $comments;
 	}
 	public function getIndex() {
 		//return Hash::make('123123');
@@ -245,8 +246,7 @@ class HomeController extends BaseController {
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 
 		//////////////////////r3mmel////////////////////////////
-		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+		$getVideoComments = $this->Comment->getComments($videoId);
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
