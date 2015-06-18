@@ -38,10 +38,10 @@ class convertvideo extends Command {
 		$routes = route('homes.watch-video', '1');
 		$videos = $this->findVideoNotConverted();
 		if($videos !== false){
-			foreach($videos as $video){
-				$video->uploaded = '2';
-				$video->save();
-			}
+			// foreach($videos as $video){ 
+			// 	$video->uploaded = '2';
+			// 	$video->save();
+			// }
 
 			foreach($videos as $video){
 				$this->convertVideo($video);

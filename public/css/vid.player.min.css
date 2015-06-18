@@ -288,7 +288,30 @@ input#volume::-moz-range-thumb {
 #share-video{
 	cursor:pointer;
 }
-
+/*@media(min-width: 500px){ .advertisement{
+	display: none;
+	position: absolute;
+	left: 0;
+  	right: 0;
+  	bottom: 0;
+	background:transparent;
+	width: 468px;
+	height:60px;
+	margin: auto;
+	border: 1px solid #000;
+}}
+@media(min-width: 800px){ .advertisement{
+	display: none;
+	position: absolute;
+	left: 0;
+  	right: 0;
+  	bottom: 0;
+	background:transparent;
+	width: 728px;
+	height:90px;
+	margin: auto;
+	border: 1px solid #000;
+}}*/
 div.advertisement{
 	display: none;
 	position: absolute;
@@ -300,7 +323,8 @@ div.advertisement{
 	height:90px;
 	margin: auto;
 	border: 1px solid #000;
-}div.close{
+}
+div.close{
 	cursor:pointer;
 	background: #000;
 	position:absolute;
