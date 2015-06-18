@@ -208,8 +208,11 @@ class HomeController extends BaseController {
 		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
 
 		//////////////////////r3mmel////////////////////////////
+		if(!Auth::check()) Session::put('url.intended', URL::full());
 		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+		$getVideoCommentsCounts = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
+			->where('comments.video_id', $videoId)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$ifAlreadySubscribe = 0;
 		if(isset(Auth::User()->id)) {
@@ -232,7 +235,13 @@ class HomeController extends BaseController {
 				$img = '/img/user/0.jpg';
 			}
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
+		return View::make('homes.watch-video',
+			compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
+				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
+				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts'
+			)
+		);
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
