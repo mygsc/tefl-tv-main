@@ -1594,6 +1594,12 @@ protected $video_;
 		$create->end = Input::get('end');
 		$create->link = Input::get('link');
 		$create->save();
-		return Response::json(array('msg'=>'success'));
+		return Response::json(array('msg'=>'success','id'=>$create->id));
 	}
+	public function postDeleteAnnotation($id=null){
+		$result = Annotation::find($id);
+		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
+		$result->delete(); return Response::json(array('msg'=>'delete success.')); 
+	}
+
 }

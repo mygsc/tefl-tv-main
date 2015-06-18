@@ -194,9 +194,11 @@
 			};
 			close.onclick = function(){
 				var getid = this.id;
+				var id = this.className; id = id.replace('glyphicon glyphicon-trash','');
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
 				$('#div-'+removeDiv).remove();
+				annotations.remove(id);
 			}
 			close.onmouseover = function(){
 				var getid = this.id;
@@ -278,8 +280,8 @@
 			}
 			function mov(e){
 			  var div = selector('div-annotation-note-1');
-			  div.style.top = e.clientY - (e.clientY - div.offsetTop) + "px";
-			  div.style.left = e.clientX - (e.clientX - div.offsetLeft) + "px";
+			  div.style.top = e.pageY - (e.pageY - div.offsetTop) + "px";
+			  div.style.left = e.pageX - (e.pageX - div.offsetLeft) + "px";
 			}
 
 			function selector(name){
@@ -294,13 +296,14 @@
 									data: {filename:filename, types:types,content:content,start:start,end:end,link:link},
 									success: function(e){
 										console.log(e.msg);
+										close.className = 'glyphicon glyphicon-trash ' + e.id;
 									},
 									error: function(){
 										console.log('OOps error while adding annotation.');
 									}
 								});
 							},
-						delete: function(id){
+						remove: function(id){
 							$.ajax({
 									type: 'POST',
 									url:'/deleteannotation/'+id,
@@ -312,7 +315,7 @@
 										console.log('OOps error while deleting annotation.');
 									}
 								});
-						}
+						 }
 					}
 			}();
 		}
