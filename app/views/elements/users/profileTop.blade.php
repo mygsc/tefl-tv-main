@@ -73,12 +73,12 @@
 				</div>
 
 				@if(empty($usersChannel->interests))
-					<span class="pull-right btn btn-info whiteC"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;	
+					<span class="pull-right"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;	
 
 					<br/><br/>
 					<p class="text-justify notes center-block"></p>
 				@else
-					<span class="pull-right btn-primary"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;
+					<span class="pull-right"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;
 					
 
 					<br/><br/>
@@ -88,16 +88,6 @@
 						<i class="fa fa-quote-right"></i>
 					</p>
 				@endif
-					
-				<div class="p-relative text-center">
-					<div class="animated flipInX p-absolute flash center-block alert">
-						<div class="good alert-dismissible same-H" role="alert">
-						  <button type="button" class="close mg-r-20" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						  <strong><p class="text-center"><i class="fa fa-check"></i>Do you want to earn money? Upgrade your acccount and become Partner or Publisher now.</p></strong>
-
-						</div>
-					</div>
-				</div>
 					
 			</div>
 		</div>
