@@ -290,15 +290,6 @@ input#volume::-moz-range-thumb {
 
 div.advertisement{
 	display: none;
-	position: absolute;
-	left: 0;
-  	right: 0;
-  	bottom: 0;
-	background:transparent;
-	width: 728px;
-	height:90px;
-	margin: auto;
-	border: 1px solid #000;
 }div.close{
 	cursor:pointer;
 	background: #000;
@@ -481,3 +472,4 @@ img#play{
 	text-align:center;
 	color:#fff;
 }
+
