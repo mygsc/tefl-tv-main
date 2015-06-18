@@ -425,9 +425,13 @@ protected $video_;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
-			if($video->category != ""){$category = explode(',',$video->category);}
+			//if($video->category != ""){
+			    $category = explode(',',$video->category);
+				$videoCategory = $this->video_->categorySelected($category);
+			//}
+
 			$thumbnail = $this->threeThumbnailPath($filename, $extension);
-			return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail'));
+			return View::make('users.updatevideos', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail','videoCategory'));
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}

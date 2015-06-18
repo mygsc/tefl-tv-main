@@ -25,12 +25,12 @@
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingNot">
     <p class="panel-title">
-      <a class="" data-toggle="collapse" data-parent="#accordion" href="#notifications" aria-expanded="false" aria-controls="notifications" id="notification">
+      <a class="">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
     </p>
   </div>
-  <div id="notifications" class="panel-collapse" role="tabpanel" aria-labelledby="headingNot">
+  <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
       @if(!empty($notifications))
         @foreach($notifications as $notification)
@@ -51,12 +51,12 @@
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingOne">
     <p class="panel-title">
-      <a class="" data-toggle="" data-parent="#accordion" href="#categories" aria-expanded="true" aria-controls="categories">
+      <a class="">
         <i class="fa fa-video-camera"></i> Categories
       </a>
     </p>
   </div>
-  <div id="categories" class="panel-collapse" role="tabpanel" aria-labelledby="headingOne">
+  <div id="categories">
     <div class="panel-body cat-h">
       <span class="">
         @if(!empty($categories))

@@ -591,59 +591,59 @@ $('#upload-cancel').on('click',function(){
 													<div class="well">
 															{{Form::label('Category:')}}<br/>
 															<span class="v-category">
-												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+												{{Form::checkbox('cat[]','Advice',$videoCategory[0],['id'=>'advice'])}}
 												<label for='advice'>Advice</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+												{{Form::checkbox('cat[]','Animated Music Video',$videoCategory[1],['id'=>'anim-music-vid'])}}
 												<label for='anim-music-vid'>Animated Music Video</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+												{{Form::checkbox('cat[]','Animated Video',$videoCategory[2],['id'=>'anim-vid'])}}
 												<label for='anim-vid'>Animated Video</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+												{{Form::checkbox('cat[]','Documentaries',$videoCategory[3],['id'=>'documentaries'])}}
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Students',false,['id'=>'for-students'])}}
+												{{Form::checkbox('cat[]','For Students',$videoCategory[4],['id'=>'for-students'])}}
 												<label for='for-students'>For Students</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'for-teachers'])}}
+												{{Form::checkbox('cat[]','For Teachers',$videoCategory[5],['id'=>'for-teachers'])}}
 												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
+												{{Form::checkbox('cat[]','Interviews',$videoCategory[6],['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+												{{Form::checkbox('cat[]','Job AD',$videoCategory[7],['id'=>'job-ad'])}}
 												<label for='job-ad'>Job AD</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+												{{Form::checkbox('cat[]','Miscellaneous',$videoCategory[8],['id'=>'miscellaneous'])}}
 												<label for='miscellaneous'>Miscellaneous</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+												{{Form::checkbox('cat[]','Music',$videoCategory[9],['id'=>'music'])}}
 												<label for='music'>Music</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+												{{Form::checkbox('cat[]','Podcast',$videoCategory[10],['id'=>'podcast'])}}
 												<label for='podcast'>Podcast</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+												{{Form::checkbox('cat[]','Question and Answer',$videoCategory[11],['id'=>'qa'])}}
 												<label for='qa'>Question and Answer</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+												{{Form::checkbox('cat[]','Video Blog',$videoCategory[12],['id'=>'vid-blog'])}}
 												<label for='vid-blog'>Video Blog</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+												{{Form::checkbox('cat[]','Video CV',$videoCategory[13],['id'=>'vid-cv'])}}
 												<label for='vid-cv'>Video CV</label>
 											</span>
 														</div>	
