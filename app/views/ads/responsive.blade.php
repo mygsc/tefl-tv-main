@@ -16,7 +16,7 @@
         position:relative;
 
     }
-    .close-ads{
+    span.close-ads {
         cursor: pointer;
         background: rgba(0,0,0,0.6);
         outline: 1px solid #fff;
@@ -41,7 +41,6 @@
             <span class="close-ads">
                 <b><i class="glyphicon glyphicon-chevron-down"></i></b> hide ads
             </span>
-
         </div>
         <div class="ads-relative-wrapper">
 
