@@ -1,20 +1,26 @@
        
-<h3>Comments</h3>
+<h3>All Comments({{$getVideoCommentsCounts}})</h3>
 	
 	<div class="comments row mg-lr-5">
 		@if(isset(Auth::User()->id))
-		<span id='errorlabel' class='input-error'></span>
-		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
-		<div class="text-right">
-			<button id='btncomment' class="btn btn-info">Post</button>
-		</div>
+			<span id='errorlabel' class='input-error'></span>
+			<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts.."></textarea>
+			<div class="text-right">
+				<button id='btncomment' class="btn btn-info">Post</button>
+			</div>
 
-		{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
-		{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+			{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
+			{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+		@else
+			<a href="{{route('homes.signin')}}">
+				<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Click this to login."></textarea>
+			</a>
 		@endif
 
 	<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 		<div id="appendNewCommentHere"></div>
+		
+		
 		@foreach($getVideoComments as $getVideoComment)
 			<div class="commentsarea row commentDeleteArea">
 				<?php
