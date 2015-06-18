@@ -1,7 +1,8 @@
-       
+
 <h3>All Comments({{$getVideoCommentsCounts}})</h3>
 	
 	<div class="comments row mg-lr-5">
+
 		@if(isset(Auth::User()->id))
 			<span id='errorlabel' class='input-error'></span>
 			<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts.."></textarea>
@@ -16,6 +17,8 @@
 				<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Click this to login."></textarea>
 			</a>
 		@endif
+		</div>
+		</div>
 
 	<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 		<div id="appendNewCommentHere"></div>

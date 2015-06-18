@@ -25,7 +25,7 @@
 											</video>	
 										</div><!--/embed-responsive-->
 										<div class="n-mg-b">
-											@include('ads/728x90')
+											@include('ads/responsive')
 											@include('elements/videoPlayer')
 										</div>
 									</div>
