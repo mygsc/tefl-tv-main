@@ -27,6 +27,13 @@
 					<h3>All Comments ({{$getVideoCommentsCounts}}) </h3>
 					<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 						<div id="appendNewCommentHere"></div>
+						
+						@if(count($getVideoComments) <= 0)
+							<br/>
+							<center> No comments to display </center>
+							<br/>
+							<br/>
+						@endif
 						@foreach($getVideoComments as $getVideoComment)
 							<div class="commentsarea row commentDeleteArea">
 								<?php
