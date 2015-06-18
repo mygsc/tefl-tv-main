@@ -314,17 +314,18 @@ input#volume::-moz-range-thumb {
 	border: 1px solid #000;
 }}*/
 div.advertisement{
-	display: none;
+	display: block!important;
 	position: absolute;
 	left: 0;
   	right: 0;
   	bottom: 0;
 	background:transparent;
-	width: 728px;
-	height:90px;
+	width:100%!important;
+	height:100%!important;
 	margin: auto;
 	border: 1px solid #000;
 }
+
 div.close{
 	cursor:pointer;
 	background: #000;
