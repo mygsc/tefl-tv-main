@@ -127,7 +127,7 @@
 								                	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
 								                @endif
 												&nbsp;
-												<a href="{{route('view.users.channel')}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
+												<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 												<br/>&nbsp;
 												<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 												@if(isset($profile1->id))

@@ -12,7 +12,7 @@
 	<div class="">
 		<div class="container">
 			<div class="text-center tagline">
-				<a href="{{route('partners.adsense')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
+				<a href="{{route('partners/partners_program')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
 				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
 			</div>
 		</div>

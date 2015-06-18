@@ -15,6 +15,10 @@ class PartnershipController extends Controller {
 		Session::put('url.intended', URL::route('partners.adsense'));
 		return View::make('partners.learnmore');
 	}
+	public function getPartnersProgram(){
+		return View::make('partners.partners_program');
+	}
+
 
 	public function getPublisherLearnMore(){
 		Session::put('url.intended', URL::route('publishers.adsense'));
