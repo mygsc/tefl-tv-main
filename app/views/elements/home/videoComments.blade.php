@@ -27,7 +27,7 @@
 		<div class="White same-H pad-v-10">
 			<div class="row">
 				<div class="content-padding">
-					<h3>All Comments{{--({{$getVideoCommentsCounts}})--}}</h3>
+					<h3>All Comments ({{$getVideoCommentsCounts}}) </h3>
 					<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 						<div id="appendNewCommentHere"></div>
 
