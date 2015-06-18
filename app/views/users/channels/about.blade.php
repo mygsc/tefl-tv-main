@@ -48,9 +48,7 @@
 							<div class="col-md-12">
 								<div class="" id="about">
 									<div class="col-md-12 grey">
-									@if(empty($usersChannel->interests))
-
-									@else
+									@if(!empty($usersChannel->interests))
 										<h3 class="orangeC text-center">-Interests-</h3>
 										<div class="well2">
 											<p class="text-justify">
@@ -68,33 +66,27 @@
 											<tr class="">
 												<td width="20%"><small><label>Name</label></small> </td>
 												<td width="5%"><b>:</b></td>
-												<td width="75%">{{$usersChannel->first_name}} {{$usersChannel->last_name}}</td>
+												<td width="75%">{{$usersProfile->first_name}} {{$usersProfile->last_name}}</td>
 											</tr>
 											<tr>
-												@if(empty($usersChannel->birthdate))
-
-												@else
+												@if(!empty($usersProfile->birthdate))
 													<td><small><label>Birthdate</label></small></td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->birthdate}}</td>
+													<td>{{$usersProfile->birthdate}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty(Auth::User()->organization))
-
-												@else
+												@if(!empty($usersProfile->organization))
 													<td><small><label>Organizations</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->organization}}</td>
+													<td>{{$usersProfile->organization}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty($usersChannel->work))
-
-												@else
+												@if(!empty($usersProfile->work))
 													<td><small><label>Work</label></small></td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->work}}</td>
+													<td>{{$usersProfile->work}}</td>
 												@endif
 											</tr>
 										</table>
@@ -105,46 +97,38 @@
 									<div class="well2">
 										<table class="tableLayout">
 											<tr>
-												@if(empty(Auth::User()->email))
-
-												@else
+												@if(!empty($userChannel->email))
 													<td width="20%"><small><label>Email</label></small> </td>
 													<td width="5%"><b>:</b></td>
-													<td width="75%">{{Auth::User()->email}}</td>
+													<td width="75%">{{$userChannel->email}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty(Auth::User()->website))
-
-												@else
+												@if(!empty($usersChannel->website))
 													<td><small><label>Website</label></small></td>
 													<td><b>:</b></td>
-													<td>{{Auth::User()->website}}</td>
+													<td>{{$usersChannel->website}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty($usersChannel->contact_number))
-
-												@else
+												@if(!empty($usersProfile->contact_number))
 													<td><small><label>Contact Number</label></small></td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->contact_number}}</td>
+													<td>{{$usersProfile->contact_number}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty($usersChannel->zip_code))
-
-												@else
+												@if(!empty($usersProfile->zip_code))
 													<td><small><label>Zip Code</label></small></td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->zip_code}}</td>
+													<td>{{$usersProfile->zip_code}}</td>
 												@endif
 											</tr>
 										</table>
 									</div>
 								</div>
 								<div class="col-md-12">
-								@if(empty($usersChannel->address))
+								@if(empty($usersProfile->address))
 
 								@else
 									<h3 class="orangeC text-center">-Address-</h3>
@@ -153,35 +137,29 @@
 											<tr>
 													<td width="20%"><small><label>Address</label></small></td>
 													<td width="5%"><b>:</b></td>
-													<td width="75%">{{$usersChannel->address}}</td>
+													<td width="75%">{{$usersProfile->address}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty($usersChannel->city))
-
-												@else
+												@if(!empty($usersProfile->city))
 													<td><small><label>City</label></small> </td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->city}}</td>
+													<td>{{$usersProfile->city}}</td>
 												@endif
 											</tr>
 											<tr>
-												@if(empty($usersChannel->state))
-
-												@else
+												@if(!empty($usersProfile->state))
 													<td><small><label>State</label></small></td>
 													<td><b>:</b></td>
-													<td>{{$usersChannel->state}}</td>
+													<td>{{$usersProfile->state}}</td>
 												@endif
 											</tr>
 											
 											<tr>
-												@if(empty($usersChannel->country_id))
-
-												@else
+												@if(!empty($usersProfile->country_id))
 												<td><small><label>Country</label></small></td>
 												<td><b>:</b></td>
-												<td>{{$usersChannel->country_id}}</td>
+												<td>{{$usersProfile->country_id}}</td>
 												@endif
 											</tr>
 										</table>

@@ -197,7 +197,7 @@ class UserController extends BaseController {
 		$datas = $this->User->getTopChannels(10);
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-		
+
 		return View::make('homes.topchannels', compact(array('datas','categories', 'notifications')));
 	}
 
@@ -1073,7 +1073,7 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
-		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
+		$usersProfile = UserProfile::where('user_id',$userChannel->id)->first();
 		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1081,7 +1081,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.about', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','user_id','usersWebsite'));
+		return View::make('users.channels.about', compact('usersImages','userChannel','countSubscribers','usersProfile','usersVideos', 'countVideos', 'countAllViews','picture','user_id','usersWebsite'));
 	}
 
 	public function getViewUsersPlaylists($channel_name) {
@@ -1130,7 +1130,7 @@ class UserController extends BaseController {
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 				//Notification
-				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribed');
+				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribe');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
@@ -1337,11 +1337,8 @@ class UserController extends BaseController {
 	public function getNotification(){
 		if(Auth::check()){
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
-			$notifications = $this->Notification->getTimePosted($notifications);
 			$categories = $this->Video->getCategory();
-			if($notifications === false){
-				app::abort(404, 'Error');
-			}
+
 			return View::make('users.notifications', compact(array('categories','notifications')));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	

@@ -36,6 +36,7 @@ class convertvideo extends Command {
 	 */
 	public function fire()
 	{
+
 		$routes = route('homes.watch-video', '1');
 		 $videos = $this->findVideoNotConverted();
 		 if($videos !== false){
@@ -78,12 +79,9 @@ class convertvideo extends Command {
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
-				$routes = route('homes.watch-video', 'v='.$filename);
-				$message = 'Your <a href="'.$routes.'">video </a>is ready.';
-				$notification = new Notification();
-				$notification->user_id = $videos->user_id;
-				$notification->notification = $message;
-				$notification->save();
+				
+				$notifications = new Notification();
+				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready');
 				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 

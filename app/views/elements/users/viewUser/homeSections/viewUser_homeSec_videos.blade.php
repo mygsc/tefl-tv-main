@@ -15,7 +15,7 @@
 	@else
 		@foreach($findVideos as $key => $findVideo)
 			<div class="col-md-3">
-				<a href="{{route('homes.watch-video', array($findVideo->file_name))}}" target="_blank">	
+				<a href="{{route('homes.watch-video', array('v='. $findVideo->file_name))}}" target="_blank">	
 					<div id="findVid">
 						<div class="thumbnail-2"> 
 							@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$findVideo->file_name.'/'.$findVideo->file_name.'.jpg')) )
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div class="v-Info">
-						{{$findVideo->title}}
+						<a href="{{route('homes.watch-video', array('v='.$findVideo->file_name))}}" target="_blank">{{$findVideo->title}}</a>
 					</div>
 				</a>
 				<div class="count">

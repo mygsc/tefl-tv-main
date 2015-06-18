@@ -55,6 +55,11 @@ class Video extends Eloquent{
 
 		return $this->hasMany('UserWatchLater');
 	}
+
+	public function notifications(){
+		return $this->hasMany('notifications');
+	}
+	
 	public function getFeaturedVideo($type = null, $limit = null){
 		if(!empty($type)){
 

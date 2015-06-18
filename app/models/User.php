@@ -182,7 +182,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		->get();
 
 		foreach($userData as $key => $user){
-			$userData[$key]->profile_picture = $this->addProfilePicture($user->id);
+			$profile_picture = $this->getUsersImages($user->id);
+			$userData[$key]->profile_picture = $profile_picture['profile_picture'];
 
 			if(Auth::check()){
 				$userData[$key]->ifsubscribe = $this->checkSubscription(Auth::user()->id, $user->id);

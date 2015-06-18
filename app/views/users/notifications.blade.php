@@ -16,14 +16,14 @@
 		<div class="col-md-9 same-H h-minH White">
 			<div class="">
 			<h3>Notifications</h3>
-			@if($notifications->isEmpty())
+			@if($notifications == null)
 			<div class="text-center">
 				<hr/>
 					<p>No notification</p>
 				<hr/>
 
 			</div>
-			@endif
+			@else
 				@foreach($notifications as $key => $notification)
 				
 				<!------To Display date-------->
@@ -38,7 +38,8 @@
 					<p><b>{{date('F d, Y',strtotime($notification->created_at))}}</b></p>
 					<hr/>
 				@endif
-					<p><img src="{{$notification->profile_picture}}" class="un-img"> &nbsp; {{$notification->notification}}
+					<p>{{HTML::image($notification->profile_picture, 'alt', array('class' => 'un-img'))}} &nbsp;  {{$notification->notification}}
+
 					&nbsp; - &nbsp;
 					{{$notification->time_difference}}
 					</p>
@@ -46,7 +47,7 @@
 					
 				@endforeach
 			</div>
-
+			@endif
 			<div class="row text-center">
 			{{$notifications->links()}}
 			</div>

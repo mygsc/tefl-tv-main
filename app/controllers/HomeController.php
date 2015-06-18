@@ -186,7 +186,7 @@ class HomeController extends BaseController {
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-
+		$profile_picture = $this->User->getUsersImages($owner->id);
 		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
@@ -273,8 +273,9 @@ class HomeController extends BaseController {
 
 		}
 
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
+		return View::make('homes.watch-video',compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
 	}
+
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
@@ -674,7 +675,7 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		return $this->Subscribe->test();
+		return $this->Notification->getNotifications('1');
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
