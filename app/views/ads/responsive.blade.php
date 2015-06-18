@@ -42,7 +42,6 @@
                 <b><i class="glyphicon glyphicon-chevron-down"></i></b> 
             <!--     <span class='glyphicon glyphicon-remove-circle'></span> -->
             </span>
-
         </div>
         <div class="ads-relative-wrapper">
             <ins class="adsbygoogle "
