@@ -85,8 +85,11 @@
 			var createDiv = document.createElement('div');
 			var close = document.createElement('span');
 			close.className = 'close-annotation-' + id + '-' + count;
+			close.title = 'Delete';
+			close.className = 'glyphicon glyphicon-trash';
 			var save = document.createElement('span');
-			//save.className = 'glyphicon glyphicon-floppy-disk';
+			save.className = 'glyphicon glyphicon-floppy-save';
+			save.title = 'Save';
 			var createTextarea = document.createElement('textarea'); 
 			checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';  
@@ -94,22 +97,23 @@
 			checkbox.id = 'checkbox' + '-link-' + count; 
 			var label = document.createElement('label');
 			var labelText = document.createTextNode('link');
-			var closeText = document.createTextNode('x'); 
-			var saveText = document.createTextNode('save');  
+			var closeText = document.createTextNode(''); 
+			var saveText = document.createTextNode('');  
 			createDiv.appendChild(annotationTypeTag);
 			annotationTypeTag.appendChild(annotationTypeCaption);
 			close.appendChild(closeText);
 			save.appendChild(saveText); 
 			label.appendChild(labelText);
-			close.setAttribute('style', 'color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			close.setAttribute('style', 'color:#3f3b3b;cursor:pointer;border-bottom:1px solid red;padding:4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
 			close.setAttribute('id', 'close-annotation-' + id + '-' + count);
-			save.setAttribute('style', 'margin-right:2px;color:#000;cursor:pointer;border-bottom:1px solid red;padding:0px 4px 0px 4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
+			save.setAttribute('style', 'margin-right:2px;color:#3f3b3b;cursor:pointer;border-bottom:1px solid red;padding:4px;background:rgba(42,42,42,0.3); text-align:center; float:right;');
 			save.setAttribute('id', 'save-annotation-' + id + '-' + count);
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
 			createTextarea.setAttribute('placeholder', 'Enter text here...');
 			createTextarea.setAttribute('id', 'textarea-annotation-'+id+'-'+count);
 			createTextarea.style.marginTop = '5px';
+			createTextarea.name = 'textarea-annotation-'+id+'-'+count;
 			label.setAttribute('for', 'checkbox' + '-link-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
 			annotation.appendChild(createDiv); 
@@ -141,24 +145,37 @@
 				createDiv.appendChild(endTime);
 				createDiv.appendChild(checkbox); 
 				createDiv.appendChild(label);
-			var input = document.createElement('input');
-					input.type = 'text';
-					input.id = 'input' + '-link-' + count;
-					input.name = 'input' + '-link-' + count;
-					input.setAttribute('placeholder', 'Enter url e.g: www.tefltv.com');
-					input.setAttribute('style', 'display:none');
-					createDiv.appendChild(input);
+			var url = document.createElement('input');
+					url.type = 'text';
+					url.id = 'input' + '-link-' + count;
+					url.name = 'input' + '-link-' + count;
+					url.setAttribute('placeholder', 'Enter url');
+					url.setAttribute('style', 'display:none');
+					createDiv.appendChild(url);
 			/*
 			* Create div of Annotation at video 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
-			annotDiv.setAttribute('style','z-index:2147483647;padding:3px;min-width:200px;min-height:30px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
-			annotDiv.setAttribute('id','div-annotation-'+id+'-'+count);
-			annotClose.setAttribute('style','border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;margin-top:-5px;border-right:2px solid rgba(42,42,42,0.8);border-top:2px solid rgba(42,42,42,0.8);border-left:2px solid rgba(42,42,42,0.8);background:rgba(42,42,42,0.8);cursor:pointer');
+			if(id=="note"){
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
+			}
+			else if(id=="title"){
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;right:0;background:rgba(42,42,42,0.6);');
+			}
+			else if(id=='spotlight'){
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;left:0;background:rgba(42,42,42,0.6);');
+			}
+			else if(id=='label'){
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;right:0;background:rgba(42,42,42,0.6);');
+			}
+			annotDiv.setAttribute('id','div-annotation-' + id + '-' + count);
+			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;background:rgba(42,42,42,0.8);cursor:pointer;');
 			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
+			//var wrap = document.getElementById("custom-annotation");
+			//wrap.insertBefore(annotDiv, wrap.firstChild);
 			annotDiv.appendChild(annotClose);
 			var annotContent = document.createTextNode(''); 
 			var x = document.createTextNode('x');
@@ -170,12 +187,8 @@
 			checkbox.onclick = function(){
 				var getid = this.id;
 				var textbox = getid.replace('checkbox','input');
-				if(document.getElementById(getid).checked == true){
-					$('#' + textbox).fadeIn('fast');
-				}else{
-					
-					$('#' + textbox).fadeOut('fast');
-				}
+				if(document.getElementById(getid).checked == true) $('#' + textbox).fadeIn('fast');
+				else $('#' + textbox).fadeOut('fast');
 			  	
 			};
 			close.onclick = function(){
@@ -198,7 +211,7 @@
 				 var getNewId = getid.replace('save-', 'start-time-');
 				 var time = selector(getNewId).value;
 				 var getTime = time.split(":");
-				 stylesheet.insertRule(".vp-text { border: 1px solid black;}", 0);
+				 //stylesheet.insertRule(".vp-texts { border: 1px solid black;}", 0);
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -222,16 +235,38 @@
 			}
 			startTime.onkeyup = function(){
 				var getid = this.id;
-				var len = document.getElementById(getid).value.length;
-				if(len>8){document.getElementById(getid).value='00:00:00';}
+				var len = selector(getid).value.length;
+				if(len>8){selector(getid).value='00:00:00';}
 			}
 			endTime.onkeyup = function(){
 				var getid = this.id;
-				var len = document.getElementById(getid).value.length;
-				if(len>8){document.getElementById(getid).value=hms;}
+				var len = selector(getid).value.length;
+				if(len>8){selector(getid).value=hms;}
 			}
-			function selector(idorclass){
-				return document.getElementById(idorclass);
+			annotDiv.onmousedown = function(e){
+				 mov(e);
+			} 
+			annotDiv.onmouseup = function(){
+				
+			} 
+			function mouseUp(){
+				document.removeEventListener('mousemove',function(e){
+					mov(e);
+				},false);
+			}
+			function mouseDown(){
+				document.addEventListener('mousemove',function(e){
+					mov(e);
+				},true);
+			}
+			function mov(e){
+			  var div = selector('div-annotation-note-1');
+			  div.style.top = e.clientY - (e.clientY - div.offsetTop) + "px";
+			  div.style.left = e.clientX - (e.clientX - div.offsetLeft) + "px";
+			}
+
+			function selector(name){
+				return document.getElementById(name);
 			}
 		}
 
@@ -365,17 +400,15 @@ $('#upload-cancel').on('click',function(){
 
 							<div id="vid-controls" class="p-relative">
 
-								<div class="embed-responsive embed-responsive-16by9">
-									 <div style="color:#fff;padding:3px;background:transparent;position:absolute;top:0;left:0;z-index:1111;" id='custom-annotation'>
-										
-									</div> 
+								<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
+									 
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-									<video id="media-video" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
 										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 											<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
 											@else
-											<video id="media-video" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
+											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
 												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 													<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 													</video>
@@ -386,8 +419,9 @@ $('#upload-cancel').on('click',function(){
 											</div><!--vid-controls-->
 											<br/>
 											
-											<h3>Available thumbnails:</h3>
+											
 											@if(file_exists($thumbnail))
+											<h3>Available thumbnails:</h3>
 												<div id='t-1' style='position:relative;display:inline-block'>
 												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
 												<label class='caption-t-1'></label>
@@ -401,16 +435,17 @@ $('#upload-cancel').on('click',function(){
 													<label class='caption-t-3'></label>
 												</div>
 											@else
+											<h3>No available thumbnail:</h3>
 												<div id='t-1' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/150x100.jpg" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-1' class='img-thumbnail' width="150" height="100" >
 													<label class='caption-t-1'></label>
 												</div>
 												<div id='t-2' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/150x100.jpg" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-2' class='img-thumbnail' width="150" height="100" >
 													<label class='caption-t-2'></label>
 												</div>
 												<div id='t-3' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/150x100.jpg" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-3' class='img-thumbnail' width="150" height="100" >
 													<label class='caption-t-3'></label>
 												</div>
 											@endif
@@ -430,11 +465,11 @@ $('#upload-cancel').on('click',function(){
 												{{$errors->first('publish')}}
 											</span>
 											@endif
-											<?php $publish = array('0' => 'Unpublish', '1' => 'Publish');?>
-											{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+											
+											{{ Form::select('publish', ['1'=>'Publish','0'=>'Unpublish'], $video->publish,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 
 											<span class="dropdown">
-												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
+												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
 													<span class="caret"></span></button>
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 														<li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
@@ -444,11 +479,11 @@ $('#upload-cancel').on('click',function(){
 													</ul>
 												</span>
 												@else
-												<?php $publish = array('1' => 'Publish' , '0' => 'Unpublish');?>
-												{{ Form::select('publish', $publish, null,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
+											
+												{{ Form::select('publish', ['1'=>'Publish','0'=>'Unpublish'], $video->publish,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 
 												<span class="dropdown">
-													<button class="btn btn-default dropdown-toggle mg-l-10" type="button" id="menu1" data-toggle="dropdown">+ Add Annotation
+													<button class="btn btn-default dropdown-toggle mg-l-10" type="button" id="menu1" data-toggle="dropdown"><span class='glyphicon glyphicon-comment'></span> Add Annotation
 														<span class="caret"></span></button>
 														<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 															<li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
@@ -522,12 +557,12 @@ $('#upload-cancel').on('click',function(){
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Students',false,['id'=>'music-vid'])}}
-												<label for='music-vid'>For Students</label>
+												{{Form::checkbox('cat[]','For Students',false,['id'=>'for-students'])}}
+												<label for='for-students'>For Students</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'instruct'])}}
-												<label for='instruct'>For Teachers</label>
+												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'for-teachers'])}}
+												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
 												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}

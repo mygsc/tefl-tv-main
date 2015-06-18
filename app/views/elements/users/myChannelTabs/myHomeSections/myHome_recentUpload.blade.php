@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="mg-20">
 		<br/>
@@ -32,12 +31,10 @@
 							</video>
 					 	@endif	
 						</a>
+
 					</div>
-					@include('elements/videoPlayer')
 				</div>
 			</div>
-
-		</div>
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))

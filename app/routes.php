@@ -49,6 +49,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('adddislikedcomment', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedComment'));
 	Route::post('addlikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addLikedReply'));
 	Route::post('adddislikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedReply'));
+	Route::post('deletecomment', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteComment'));
+	Route::post('deletereply', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteReply'));
 	//r3mmel
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
@@ -185,7 +187,7 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@getIndex'));
 Route::get('partners/learnmore', array('before' => 'partners','as' => 'partners.learnmore', 'uses' => 'PartnershipController@getPartnerLearnMore'));
 Route::get('partners/adsense', array('before' => 'partnerships.verification', 'as' => 'partners.adsense', 'uses' => 'PartnershipController@getPartnersAdsense'));
-
+Route::get('partners/partners_program', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPartnersProgram'));
 Route::get('publishers/learnmore', array('before' => 'partners','as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPublisherLearnMore'));
 Route::get('publishers/adsense', array('before' => 'partnerships.verification', 'as' => 'publishers.adsense', 'uses' => 'PartnershipController@getPublisherAdsense'));
 Route::group(array('prefix' => 'partnerships',), function() {

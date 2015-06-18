@@ -32,6 +32,12 @@
 			    			</div>
 						</div><!--/.col-md-6-->
 						<div class="col-md-6	">
+							<div class="center-block text-center same-H" style="background: rgba(255,255,255,0.7);width:100%; padding:5px 5px;margin:0 auto; border:4px solid #f36523;">
+								<h3 class="text-center">Hi User! Do you know that you can earn money by upgrading your channel for FREE?</h3>
+								<a href="{{ route('partnerships.index')}}"><button class="btn btn-primary btn-sm">Learn more</button>
+							</div>
+
+						
 						</div>
 					</div>
 				</div>
@@ -60,13 +66,17 @@
 			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
 			<div class="col-md-12">
 				<div class="row ">
+				
+
+
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
+						
 							<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
 								<span class="v-time inline">{{$recommended->total_time}}</span> 	
 								<div class="thumbnail-2">
-									<img class="hvr-grow-rotate"  src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%">
+									<img class="hvr-grow-rotate main_image" id="" src="{{$recommended->thumbnail . '?' . rand(0,99)}}" width="100%" height="100%">
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 								<div class="video-info">

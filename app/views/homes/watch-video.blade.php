@@ -237,8 +237,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                 {{Form::hidden('status','subscribeOff')}}
                                                                 {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
                                                             @endif
-                                                    @endif
                                                     {{Form::close()}}
+                                                    @endif
                                                 @else
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
                                                 @endif
@@ -246,7 +246,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         </p> 
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         <br />
-                                        <p id="desc-preview">{{str_limit($videos->description, $limit = 50, $end = '...')}}</p>
+                                        <pre><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                         <div class="seeVideoContent black">
                                             <br/>
                                             <pre style="text-indent:none!important;">{{$videos->description}}</pre>

@@ -195,4 +195,3 @@
 {{HTML::script('js/mention.js')}}
 {{HTML::script('js/showHideToggle.js')}}
 {{HTML::script('js/user/reply.js')}}
-@stop

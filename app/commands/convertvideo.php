@@ -22,8 +22,7 @@ class convertvideo extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(){
 		define('DS', DIRECTORY_SEPARATOR); 
 		parent::__construct();
 		$this->video_ = new Video;
@@ -38,12 +37,18 @@ class convertvideo extends Command {
 	{
 
 		$routes = route('homes.watch-video', '1');
-		 $videos = $this->findVideoNotConverted();
-		 if($videos !== false){
-		 	//$videos->uploaded = '2';
-		 	//$videos->save();
-		 	$this->convertVideo($videos);
-		 }else return print("\r \r \n ------Nothing to convert------- \r \r \n\n Developed by:GSC Team \r \n\n");
+		$videos = $this->findVideoNotConverted();
+		if($videos !== false){
+			foreach($videos as $video){ 
+			 	$video->uploaded = '2';
+			 	$video->save();
+			}
+
+			foreach($videos as $video){
+				$this->convertVideo($video);
+			}
+
+		}else return print("\r \r \n ------Nothing to convert------- \r \r \n\n Developed by:GSC Team \r \n\n");
 
 	}
 
@@ -54,13 +59,13 @@ class convertvideo extends Command {
 		->where('report_count', '<', 5)
 		->where('deleted_at', null)
 		->join('users', 'videos.user_id', '=','users.id')
-		->take(1)
+		->take(5)
 		->orderBy('created_at', 'asc')
 		->get();
 		if($videos->isEmpty()){
 			return false;
 		}
-		return $videos->first();
+		return $videos;
 	}
 
 	public function convertVideo($videos = null){
@@ -72,14 +77,13 @@ class convertvideo extends Command {
 			// $this->convertVideoToHigh($source, $destination, $filename);
 			// $this->convertVideoToNormal($source, $destination, $filename);
 			// $this->convertVideoToLow($source, $destination, $filename);
-			if(!file_exists($source)){return print("\r \r \n ----------Oops error while converting----------- \r \r \n Contact support: GSC Team \r \n\n");}
-			print("\r \r \n --------Video is currently converting---------\r \r \n");
+			if(!file_exists($source)){return print("\r \r \n ---------- Oops error while converting ----------- \r \r \n Contact support: GSC Team \r \n\n");}
+			print("\r \r \n -------- Video is currently converting ---------\r \r \n");
 			$this->convertVideoToDiffFormat($source, $destination, $filename);
 			$checkFilename = Video::where('file_name',$filename)->first();
 			if($checkFilename->count()){
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
-				
 				$notifications = new Notification();
 				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready');
 				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
@@ -108,7 +112,7 @@ class convertvideo extends Command {
 		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis '$normalwebm'");
 		print("\r \r \n WEBM Normal version of video is done converting...\r\n\n");
 		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis '$lowwebm'");	
-		print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
+		//print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
 	}
 	/**
 	 * Get the console command arguments.
@@ -119,7 +123,7 @@ class convertvideo extends Command {
 	{
 		return array(
 
-		);
+			);
 	}
 	/**
 	 * Get the console command options.
@@ -130,18 +134,18 @@ class convertvideo extends Command {
 	{
 		return array(
 			//array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+			);
 	}
 	public function convertVideoToHigh($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->video_->ffmpeg();
 		$video = $ffmpeg->open($videoFile);
 		$video->filters()->resize(new FFMpeg\Coordinate\Dimension(1280,720))->synchronize();
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();
-			$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$mp4->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();
-			$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
+		$webm->setKiloBitrate(1000)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'_hd.mp4')
-			->save($webm, $destinationPath.DS.$fileName.'_hd.webm');
+		->save($webm, $destinationPath.DS.$fileName.'_hd.webm');
 	}
 	public function convertVideoToNormal($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->video_->ffmpeg();
@@ -150,7 +154,7 @@ class convertvideo extends Command {
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(400)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'.mp4')
-			->save($webm, $destinationPath.DS.$fileName.'.webm');	
+		->save($webm, $destinationPath.DS.$fileName.'.webm');	
 	}
 	public function convertVideoToLow($videoFile, $destinationPath, $fileName){
 		$ffmpeg = $this->video_->ffmpeg();$video = $ffmpeg->open($videoFile);
@@ -158,6 +162,6 @@ class convertvideo extends Command {
 		$mp4 = new FFMpeg\Format\Video\CustomVideo();$mp4->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$webm = new FFMpeg\Format\Video\WebM();$webm->setKiloBitrate(200)->setAudioChannels(2)->setAudioKiloBitrate(256);
 		$video->save($mp4, $destinationPath.DS.$fileName.'_low.mp4')
-			->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
+		->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
 	}
 }

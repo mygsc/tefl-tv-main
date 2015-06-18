@@ -9,7 +9,7 @@ $(document).ready(function(){
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
         $('#progress').fadeIn();
-        var limitSize = 157286400; //eq. 150 mb 10485760=10mb
+        var limitSize = 2000000000; //eq. 150 mb 150000000
         var file = document.getElementById('vids-upload').value;
         var fileSize = document.getElementById('vids-upload').files[0];
         var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();

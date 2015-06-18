@@ -121,7 +121,7 @@
 						@foreach($usersVideos as $usersVideo)
 						<div id='list' class="col-md-3 mg-b-10">
 							<div class="inlineVid">
-								<a href="{{route('homes.watch-video', array($usersVideo->file_name))}}" target="_blank">
+								<a href="{{route('homes.watch-video', array('v='.$usersVideo->file_name))}}" target="_blank">
 									<div class="thumbnail-2">
 										@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg' . '?' . rand(0,99)}}" width="100%" class="hvr-grow-rotate">
