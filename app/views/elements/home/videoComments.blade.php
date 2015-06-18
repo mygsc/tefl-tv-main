@@ -14,7 +14,7 @@
 					{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
 				@else
 					<a href="{{route('homes.signin')}}">
-						<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Click this to login."></textarea>
+						<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Sign-in first to leave a comment."></textarea>
 					</a>
 				@endif
 			</div>
