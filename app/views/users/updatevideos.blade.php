@@ -589,7 +589,7 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Categories:')}}<br/>
+															{{Form::label('Category:')}}<br/>
 															<span class="v-category">
 												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
 												<label for='advice'>Advice</label>
