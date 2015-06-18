@@ -1,4 +1,4 @@
-<div class="panel-group ctgryDiv" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group ctgryDiv" id="accordion" role="tablist" aria-multiselectable="false">
  @if(Auth::check())
  <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingTwo">
@@ -56,7 +56,7 @@
       </a>
     </p>
   </div>
-  <div id="categories" class="panel-collapse " role="tabpanel" aria-labelledby="headingOne">
+  <div id="categories" class="panel-collapse" role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body cat-h">
       <span class="">
         @if(!empty($categories))

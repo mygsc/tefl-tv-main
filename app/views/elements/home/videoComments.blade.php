@@ -2,7 +2,10 @@
 <h3>Comments</h3>
 	
 	<div class="comments row mg-lr-5">
+
 		@if(isset(Auth::User()->id))
+				<div class="grey">
+		<div class="row"> 
 		<span id='errorlabel' class='input-error'></span>
 		<textarea id='comment' class="form-control v-comment" placeholder="Write your comment.."></textarea>
 		<div class="text-right">
@@ -12,6 +15,8 @@
 		{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
 		{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
 		@endif
+		</div>
+		</div>
 
 	<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 		<div id="appendNewCommentHere"></div>
