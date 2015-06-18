@@ -1584,4 +1584,16 @@ protected $video_;
 	}
 	public function postDeleteUserFeedbackReply() { return Input::all(); }
 	public function postReportUserFeedbackReply() { return Input::all(); }
+	public function postAddAnnotation(){
+		$create = new Annotation;
+		$create->user_id = $this->Auth->id;
+		$create->vid_filename = Input::get('filename');
+		$create->types = Input::get('types');
+		$create->content = Input::get('content');
+		$create->start = Input::get('start');
+		$create->end = Input::get('end');
+		$create->link = Input::get('link');
+		$create->save();
+		return Response::json(array('msg'=>'success'));
+	}
 }

@@ -13,6 +13,14 @@ class Video extends Eloquent{
 	* It is used for converting video, capturing image and grabbing information of the video (open source).
 	* version 2.6.2 stable release
 	* Note: Please don't update or change the path of ffmpeg in the server default ('/home/tefltv/bin/ffmpeg').
+	* If ffmpeg encounter error when converting it might be useful to check the php.ini settings ff: 
+	* max_input_time = 24000
+	* max_execution_time = 24000
+	* upload_max_filesize = 12000M
+	* post_max_size = 24000M
+	* memory_limit = 12000M
+	* upload_max_size = 2500M
+	* post_max_file = 2500M
 	*/
 	public $ffmpegPath = '/home/tefltv/bin/ffmpeg'; 
 	public $ffprobePath = '/home/tefltv/bin/ffprobe';

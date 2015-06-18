@@ -25,6 +25,7 @@
 											</video>	
 										</div><!--/embed-responsive-->
 										<div class="n-mg-b">
+											@include('ads/728x90')
 											@include('elements/videoPlayer')
 										</div>
 									</div>
@@ -189,6 +190,8 @@
 			</div>
 			@endforeach
 		</div>
+		{{Form::hidden('autoplay',0,['id'=>'autoplay'])}}
+		{{Form::hidden('duration',41,['id'=>'duration'])}}
 		<br/>
 	</div><!--first row-->
 

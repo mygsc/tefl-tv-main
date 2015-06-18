@@ -63,6 +63,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('signin/google-connect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
 	Route::get('signup-with-social-media', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
 	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
+	Route::post('addannotation', array('as' => 'post.add.annotation', 'uses' => 'UserController@postAddAnnotation'));
+	Route::post('deleteannotation/{filename?}', array('as' => 'post.delete.annotation', 'uses' => 'UserController@postDeleteAnnotation'));
 });
 
 
