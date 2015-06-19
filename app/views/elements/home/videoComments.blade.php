@@ -87,7 +87,7 @@
 										<div class='fa commentlikedup thumbUpC'>
 											<span class="likescount" id="likescount">{{$likesCount}}</span>
 											@if(!$ifAlreadyLiked)
-											<span class='fa-thumbs-up hand'></span>
+											<span class='fa-thumbs-up thumbUpC hand'></span>
 											<input type="hidden" value="liked" name="status">
 											@else
 											<span class='fa-thumbs-up blueC active-ico hand'></span>
@@ -106,7 +106,7 @@
 											<input type="hidden" value="{{$videoId}}" name="video_id">
 											@if(!$ifAlreadyDisliked)
 											<input type="hidden" value="disliked" name="status">
-											<span class='fa-thumbs-down hand'></span>
+											<span class='fa-thumbs-down hand thumbDownC'></span>
 											@else
 											<input type="hidden" value="undisliked" name="status">
 											<span class='fa-thumbs-down redC active-ico hand'></span>
@@ -187,8 +187,9 @@
 															))->first();
 															?>
 															<div class='fa replylikedup thumbUpC'>
+																<span class="likescount" id="likescount">{{$likesCountReply}}</span>
 																@if(!$ifAlreadyLiked)
-																<span class='fa-thumbs-up hand'></span>
+																<span class='fa-thumbs-up hand thumbUpC'></span>
 																<input type="hidden" value="liked" name="status">
 																@else
 																<span class='fa-thumbs-up blueC active-ico hand'></span>
@@ -197,7 +198,7 @@
 																<input type="hidden" value="{{$getCommentReply->commentreplyid}}" name="likeCommentId">
 																<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 																<input type="hidden" value="{{$videoId}}" name="video_id">
-																<span class="likescount" id="likescount">{{$likesCountReply}}</span>
+																
 															</div>
 															&nbsp;
 															<div class='fa replydislikedup inline thumbDownC'>
@@ -207,7 +208,7 @@
 																<input type="hidden" value="{{$videoId}}" name="video_id">
 																@if(!$ifAlreadyDisliked)
 																<input type="hidden" value="disliked" name="status">
-																<span class='fa-thumbs-down hand'></span>
+																<span class='fa-thumbs-down thumbDownC hand'></span>
 																@else
 																<input type="hidden" value="undisliked" name="status">
 																<span class='fa-thumbs-down redC active-ico hand'></span>
@@ -216,8 +217,8 @@
 															</div>
 															&nbsp;
 															@else
-															<span class="likescount" id="likescount">{{$likesCountReply}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
-															<span class="dislikescount" id="dislikescounts">{{$dislikeCountReply}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+															<span class="likescount thumbUpC" id="likescount">{{$likesCountReply}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+															<span class="dislikescount thumbDownC" id="dislikescounts">{{$dislikeCountReply}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 															
 															@endif<!--auth user-->
 															<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
