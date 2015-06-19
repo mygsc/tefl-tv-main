@@ -191,13 +191,10 @@
 								@foreach($subscriberProfile as $profile)
 									<div class="col-md-6" >
 										<div class="row user-padding" id="subscriberLists">
-											<a href="{{route('view.users.channel', $profile->channel_name)}}">
-												@if(file_exists(public_path('img/user/'.$profile->subscriber_id.'.jpg')))
-									             	{{HTML::image('img/user/'.$profile->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-									            @else
-									             	{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-									            @endif
-									            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
+											<a href="{{route('view.users.channel', $profile->channel_name)}}">									
+										             	{{HTML::image($profile['profile_picture'], 'alt', array('class' => 'userRep2'))}}
+										           	
+										            &nbsp;<span><b>{{$profile->channel_name}}</b></span>
 											</a>
 											<br/>
 											&nbsp;<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;

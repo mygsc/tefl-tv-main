@@ -21,17 +21,9 @@
 	<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 		<div id="appendNewCommentHere"></div>
 		@foreach($getVideoComments as $getVideoComment)
-			<div class="commentsarea row commentDeleteArea">
-				<?php
-					if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
-						$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
-					} else{
-						$temp = 'img/user/0.jpg';
-					}
-				?>
-
+			<div class="commentsarea row">
 				<div class="commentProfilePic col-md-1">
-					{{HTML::image($temp, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
+					{{HTML::image($getVideoComment->profile_picture, 'alt', array('class' => 'img-responsive inline', 'height' => '48px', 'width' => '48px'))}}
 				</div>
 				<div class="col-md-11">
 					<div class="row">
