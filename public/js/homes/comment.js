@@ -80,11 +80,11 @@
         			$(this).find('span#likescount').text(data['likescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
-        				$(this).find('span.fa-thumbs-up').addClass('blueC');
-                        $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC');
+        				$(this).find('span.fa-thumbs-up').addClass('blueC active-ico');
+                        $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC active-ico');
                         $(this).parent().find('.commentdislikedup > span.dislikescount').text(data['dislikesCount']);
                     } else if(data['label'] == 'liked'){
-        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC active-ico');
         			}
         			$(this).find('span.fa-thumbs-down').val(data['label']);
         		} 
@@ -112,11 +112,11 @@
         			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
-        				$(this).find('span.fa-thumbs-down').addClass('redC');
-                        $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC');
+        				$(this).find('span.fa-thumbs-down').addClass('redC active-ico');
+                        $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC active-ico');
                         $(this).parent().find('.commentlikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
-        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        				$(this).find('span.fa-thumbs-down').removeClass('redC active-ico');
         			}
         		} 
                 stopClickCommentDislike = false;
@@ -145,10 +145,10 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
-                        $(this).parent().find('.replydislikedup > span.fa-thumbs-down').removeClass('redC');
+                        $(this).parent().find('.replydislikedup > span.fa-thumbs-down').removeClass('redC active-ico');
                         $(this).parent().find('.replydislikedup > span.dislikescount').text(data['dislikesCountReply']);
                     } else if(data['label'] == 'liked'){
-        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC active-ico');
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
         		} 
@@ -177,11 +177,11 @@
         			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
-        				$(this).find('span.fa-thumbs-down').addClass('redC');
-                        $(this).parent().find('.replylikedup > span.fa-thumbs-up').removeClass('blueC');
+        				$(this).find('span.fa-thumbs-down').addClass('redC active-ico');
+                        $(this).parent().find('.replylikedup > span.fa-thumbs-up').removeClass('blueC active-ico');
                         $(this).parent().find('.replylikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
-        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        				$(this).find('span.fa-thumbs-down').removeClass('redC active-ico');
         			}
         		} 
                 stopClickReplyDisliked = false;
@@ -189,7 +189,7 @@
         });
 	});
 
-    $("#mainCommentBody").on("click", 'button.deleteComment', function () {
+    $("#mainCommentBody").on("click", 'span.deleteComment', function () {
         var comment_id = $(this).find('#comment_id').val();
         var user_id = $(this).find('#user_id').val(); 
         var video_id = $(this).find('#video_id').val();

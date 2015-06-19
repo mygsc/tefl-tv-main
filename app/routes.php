@@ -86,7 +86,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('playlists', array('as' => 'users.playlists', 'uses' => 'UserController@getPlaylists'));
 	Route::get('about', array('as' => 'users.about', 'uses' => 'UserController@getAbout'));
 	Route::get('feedbacks', array('as' => 'users.feedbacks', 'uses' => 'UserController@getFeedbacks'));
-	Route::get('post-feedbacks', array('as' => 'post.users.feedbacks', 'uses' => 'UserController@postFeedbacks'));
+	Route::post('post-feedbacks', array('as' => 'post.users.feedbacks', 'uses' => 'UserController@postFeedbacks'));
 	Route::get('subscribers', array('as' => 'users.subscribers', 'uses' => 'UserController@getSubscribers'));
 	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
@@ -130,6 +130,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('testing/', array('as' => 'social', 'uses' => 'UserController@viewSocial'));
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
+	Route::post('upload-image', array('as' => 'users.upload.image', 'uses' => 'UserController@postUploadUsersProfilePicture'));
 });
 //*********End of Channels************//
 
@@ -174,9 +175,6 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
 	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
-
-	Route::post('upload-image/{channel_name}', array('as' => 'users.upload.image', 'uses' => 'UserController@postUsersUploadImage'));
-
 });
 //**********ADMIN**********//
 
@@ -200,3 +198,4 @@ Route::group(array('prefix' => 'partnerships',), function() {
 	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
 });
 
+Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));

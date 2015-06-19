@@ -25,13 +25,14 @@
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingNot">
     <p class="panel-title">
-      <a class="">
+      <a class="" id="notification">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
     </p>
   </div>
   <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
+      {{dd($notifications)}}
       @if(!empty($notifications))
         @foreach($notifications as $notification)
           <li>{{$notification->notification}}</li>

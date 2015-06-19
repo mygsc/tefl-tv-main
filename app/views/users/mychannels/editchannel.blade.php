@@ -240,6 +240,8 @@
     {{HTML::script('js/user/upload_image.js')}}
     {{HTML::script('js/user/modalclearing.js')}}
     {{HTML::script('http://code.jquery.com/ui/1.11.4/jquery-ui.js')}}
+    {{HTML::script('js/facebook.js')}}
+    {{HTML::script('js/google.js')}}
 
     <!-- Facebook Login -->
     <div id="fb-root"></div>

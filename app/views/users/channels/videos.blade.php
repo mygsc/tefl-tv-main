@@ -42,7 +42,7 @@
 	<div class="container page">
 		<br/>
 		<div class="row same-H White">
-			@include('elements/users/viewUser/viewUser_profileTop')
+			@include('elements.users.profileTop2')
 			<div class="channel-content">
 
 				<div role="tabpanel">
@@ -98,7 +98,6 @@
 							<option>Recent</option>
 							<option>Likes</option>
 							<option>Views</option>
-							<option>Unpublished</option>
 						</select>
 						&nbsp;&nbsp;
 					

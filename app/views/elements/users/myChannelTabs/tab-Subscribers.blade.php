@@ -16,7 +16,7 @@
 		@foreach($subscriberLists as $subscriberList)
 		<div class="subscribers">
 			<div class="col-md-6">
-				<img src="/img/user/u1.png" class="userRep2">&nbsp;
+				{{HTML::image($profile['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 				<a href="{{route('view.users.channel')}}"><span><b>{{$subscriberList->first_name}} {{$subscriberList->last_name}}</b></span></a>&nbsp;
 				<br/>&nbsp;
 				<span>w/ <b>2k</b> Subscribers</span>&nbsp;
