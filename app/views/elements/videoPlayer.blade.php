@@ -27,9 +27,7 @@
 </div>
 	<div class="error-video" id="error-video">
 		<small>
-
 			Video not available this time please try later. <a href="#" id="retry-error">Retry.</a> 
-
 		</small>
 	</div>
 

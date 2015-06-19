@@ -29,7 +29,8 @@
 
 								<span class="infoCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label>{{$countVideos}} Videos</label> &nbsp;
+									<!-- <label>{{$countVideos}} Videos</label> &nbsp; -->
+									<label href="{{route('users.myvideos','v='.$countVideos)}}">{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</span>
 								
