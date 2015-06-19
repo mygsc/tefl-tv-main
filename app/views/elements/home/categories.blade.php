@@ -32,6 +32,7 @@
   </div>
   <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
+      {{dd($notifications)}}
       @if(!empty($notifications))
         @foreach($notifications as $notification)
           <li>{{$notification->notification}}</li>
