@@ -16,7 +16,7 @@
 							</video>
 							@endif
 						</div>
-						@include('ads/728x90')
+						@include('ads/responsive')
 						@include('elements/videoPlayer')
 					</div>
 				
