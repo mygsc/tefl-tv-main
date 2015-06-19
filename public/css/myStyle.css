@@ -1275,6 +1275,10 @@ center;     margin: 0 auto; }
 .wv-counts{
     font-size: 13px;
 }
+.reply2comment{
+    padding: 10px 10px;
+    width: 100%;
+}
 .commentBox h4, 
 .replyDiv h4 {
     color: #337ab7!important;

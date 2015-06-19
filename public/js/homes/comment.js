@@ -201,7 +201,6 @@
             data: {comment_id: comment_id, user_id: user_id, video_id: video_id},
             success: function(data){
                 if(data['status'] == 'success'){
-                    alert(comment_id);
                     $(this).parents('.commentDeleteArea').fadeOut(500);
                 }
             }

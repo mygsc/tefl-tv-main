@@ -2,13 +2,14 @@
 
 class HomeController extends BaseController {
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
 		$this->Auth = Auth::User();
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
+		$this->Comment = $comments;
 	}
 	public function getIndex() {
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
@@ -149,7 +150,7 @@ class HomeController extends BaseController {
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
-
+		$profile_picture = $this->User->getUsersImages($owner->id);
 		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
@@ -209,8 +210,7 @@ class HomeController extends BaseController {
 
 		//////////////////////r3mmel////////////////////////////
 		if(!Auth::check()) Session::put('url.intended', URL::full());
-		$getVideoComments = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
-			->where('comments.video_id', $videoId)->orderBy('comments.id','desc')->get();
+		$getVideoComments = $this->Comment->getComments($videoId);
 		$getVideoCommentsCounts = DB::table('users')->join('comments', 'users.id', '=', 'comments.user_id')
 			->where('comments.video_id', $videoId)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
@@ -235,14 +235,16 @@ class HomeController extends BaseController {
 				$img = '/img/user/0.jpg';
 			}
 		}
+
 		return View::make('homes.watch-video',
-			compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
+			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
 				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts'
 			)
 		);
 	}
+
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
@@ -655,35 +657,36 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$getTime = 0;
-		switch (true) {
-			case ($getTime >= 6143):
-			$getTime = round($getTime / 6144);
-			$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
-			break;
-			case ($getTime >= 719):
-			$getTime = round($getTime / 720);
-			$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
-			break;
-			case ($getTime >= 167):
-			$getTime = round($getTime / 168);
-			$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
-			break;
-			case ($getTime >= 24):
-			$getTime = round($getTime / 24);
-			$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
-			break;
-			case ($getTime >= 1 and $getTime <= 23):
-			$getTime = round($getTime);
-			$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
-			break;
-			default:
-			$getTime = 'a few minutes ago';
-			break;
-		}
 
-		return $getTime;
-	}
+		switch (true) {
+				case ($getTime >= 6143):
+				$getTime = round($getTime / 6144);
+				$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
+				break;
+				case ($getTime >= 719):
+				$getTime = round($getTime / 720);
+				$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
+				break;
+				case ($getTime >= 167):
+				$getTime = round($getTime / 168);
+				$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
+				break;
+				case ($getTime >= 24):
+				$getTime = round($getTime / 24);
+				$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
+				break;
+				case ($getTime >= 1 and $getTime <= 23):
+				$getTime = round($getTime);
+				$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
+				break;
+
+				default:
+				$getTime = 'a few minutes ago';
+				break;
+			}
+
+			return $getTime;
+	}	
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){

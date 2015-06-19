@@ -8,6 +8,7 @@ class PartnershipController extends Controller {
 
 	public function getIndex(){
 		Session::forget('partnership_token');
+		Session::put('url.intended', URL::route('partnerships.index'));
 		return View::make('partnerships.index');
 	}
 

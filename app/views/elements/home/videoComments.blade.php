@@ -223,6 +223,9 @@
 													</div>	
 												<?php endforeach;?>
 												@if(isset(Auth::User()->id))
+												<div class="reply2comment">
+												<div class="grey row">
+												<div class="content-padding">
 												{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
 												{{Form::hidden('comment_id', $getVideoComment->id)}}
 												{{Form::hidden('user_id', Auth::User()->id)}}
@@ -231,6 +234,9 @@
 												{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right mg-t-10', 'id'=>'replybutton'))}}
 												<span class='replyError inputError'></span>
 												{{Form::close()}} 
+												</div>
+												</div>
+												</div>
 												@endif
 											</div><!--/.reply section-->
 										</div><!--/.row-->
