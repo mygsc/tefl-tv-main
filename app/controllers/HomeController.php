@@ -532,11 +532,8 @@ class HomeController extends BaseController {
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
 			if($likeUserId != $videoData->user_id){
-				$channel_id = Comment::find($likeCommentId)->first();
-				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
-				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
+				$type = 'like';
+				$this->Notification->sendNotification($channel_id->user_id, $notifier_id, $type); //Creates the notifcation
 			}
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCount' => $dislikesCount));
@@ -584,13 +581,13 @@ class HomeController extends BaseController {
 			$dislikesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'status' => 'disliked'))->count();
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
-			if($likeUserId != $videoData->user_id){
-				$channel_id = Comment::find($likeCommentId)->first();
-				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
-				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
-			}
+			// if($likeUserId != $videoData->user_id){
+			// 	$channel_id = Comment::find($likeCommentId)->first();
+			// 	$notifier_id = $likeUserId;
+			// 	$routes = route('homes.watch-video', 'v='.$videoData->file_name);
+			// 	$type = 'liked';
+			// 	$this->Notification->sendNotification($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
+			// }
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCountReply' => $dislikesCountReply));
 		} elseif($statuss == 'unliked'){

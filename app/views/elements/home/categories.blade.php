@@ -25,7 +25,7 @@
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingNot">
     <p class="panel-title">
-      <a class="">
+      <a class="" id="notification">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
     </p>
