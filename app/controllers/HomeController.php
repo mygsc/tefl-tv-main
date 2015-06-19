@@ -675,6 +675,10 @@ class HomeController extends BaseController {
 		return $time;
 	}
 
+	public function error(){
+		return View::make('errors.maintenance');
+	}
+
 	public function testingpage(){ 
 
 		switch (true) {
