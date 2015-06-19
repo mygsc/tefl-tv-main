@@ -145,26 +145,27 @@
 													<div class="commentProfilePic col-md-1">
 														{{HTML::image($temp, 'alt', array('class' => 'img-responsive', 'height' => '48px', 'width' => '48px'))}}
 													</div>
-													<div class="col-md-11">
-														<div class="row">
+													<div class="col-md-11 text-left">
+														<div class="">
 															<?php
 															echo link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name')) . "&nbsp|&nbsp;";
 															echo "<small>" . date('M m, Y h:i A',strtotime($getCommentReply->commentreplycreated_at)) . "</small><br/>" ;
 															echo "<p class='text-justify'>" . $getCommentReply->reply . "<br/>" . "</p></hr>";?>
-
-															<div class='tooltipDelete' style="float:right;">
-																@if(isset(Auth::User()->id))
-																@if(isset($getCommentReply->user_id))
-																@if(Auth::User()->id == $getCommentReply->user_id)
-																<button class="deleteReply btn-trans fa fa-trash" title="Delete this reply">	
-																	{{Form::hidden('c_id', Crypt::encrypt($getCommentReply->commentreplyid), array('id' => 'c_id'))}}
-																	{{Form::hidden('comment_id', Crypt::encrypt($getCommentReply->comment_id), array('id' => 'comment_id'))}}
-																	{{Form::hidden('user_id', Crypt::encrypt($getCommentReply->user_id), array('id' => 'user_id'))}}
-																</button>
-																@endif
-																@endif
-																@endif
-															</div>
+														</div>
+														<div class='tooltipDelete inline hand'>
+																<div class="wv-icon trashC">
+																	@if(isset(Auth::User()->id))
+																	@if(isset($getCommentReply->user_id))
+																	@if(Auth::User()->id == $getCommentReply->user_id)
+																	<span class="deleteReply fa fa-trash" title="Delete this reply">	
+																		{{Form::hidden('c_id', Crypt::encrypt($getCommentReply->commentreplyid), array('id' => 'c_id'))}}
+																		{{Form::hidden('comment_id', Crypt::encrypt($getCommentReply->comment_id), array('id' => 'comment_id'))}}
+																		{{Form::hidden('user_id', Crypt::encrypt($getCommentReply->user_id), array('id' => 'user_id'))}}
+																	</span>
+																	@endif
+																	@endif
+																	@endif
+																</div>
 														</div>
 
 														<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
@@ -185,12 +186,12 @@
 															'status' => 'disliked'
 															))->first();
 															?>
-															<div class='fa replylikedup'>
+															<div class='fa replylikedup thumbUpC'>
 																@if(!$ifAlreadyLiked)
 																<span class='fa-thumbs-up hand'></span>
 																<input type="hidden" value="liked" name="status">
 																@else
-																<span class='fa-thumbs-up blueC hand'></span>
+																<span class='fa-thumbs-up blueC active-ico hand'></span>
 																<input type="hidden" value="unliked" name="status">
 																@endif
 																<input type="hidden" value="{{$getCommentReply->commentreplyid}}" name="likeCommentId">
@@ -199,7 +200,8 @@
 																<span class="likescount" id="likescount">{{$likesCountReply}}</span>
 															</div>
 															&nbsp;
-															<div class='fa replydislikedup'>
+															<div class='fa replydislikedup inline thumbDownC'>
+																<span class="dislikescount" id="dislikescounts">{{$dislikeCountReply}}</span>
 																<input type="hidden" value="{{$getCommentReply->commentreplyid}}" name="dislikeCommentId">
 																<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
 																<input type="hidden" value="{{$videoId}}" name="video_id">
@@ -208,24 +210,25 @@
 																<span class='fa-thumbs-down hand'></span>
 																@else
 																<input type="hidden" value="undisliked" name="status">
-																<span class='fa-thumbs-down redC hand'></span>
+																<span class='fa-thumbs-down redC active-ico hand'></span>
 																@endif
-																<span class="dislikescount" id="dislikescounts">{{$dislikeCountReply}}</span> &nbsp;
+																 &nbsp;
 															</div>
 															&nbsp;
 															@else
 															<span class="likescount" id="likescount">{{$likesCountReply}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
 															<span class="dislikescount" id="dislikescounts">{{$dislikeCountReply}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
-
+															
 															@endif<!--auth user-->
 															<!-- //////////////////Comment Reply Thumbs up/down section///////////////// -->
+															<hr/>
 														</div>
 													</div>	
+
 												<?php endforeach;?>
 												@if(isset(Auth::User()->id))
-												<div class="reply2comment">
-												<div class="grey row">
-												<div class="content-padding">
+											
+												<hr/>
 												{{Form::open(array('route'=>'post.addreply', 'id' =>'video-addReply', 'class' => 'inline'))}}
 												{{Form::hidden('comment_id', $getVideoComment->id)}}
 												{{Form::hidden('user_id', Auth::User()->id)}}
@@ -234,9 +237,8 @@
 												{{Form::submit('Reply', array('class'=> 'btn btn-primary pull-right mg-t-10', 'id'=>'replybutton'))}}
 												<span class='replyError inputError'></span>
 												{{Form::close()}} 
-												</div>
-												</div>
-												</div>
+											
+								
 												@endif
 											</div><!--/.reply section-->
 										</div><!--/.row-->
