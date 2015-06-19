@@ -13,12 +13,7 @@
 					<div class="col-md-6">
 						<div class="row user-padding">
 							<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
-								@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
-								{{HTML::image('img/user/'.$subscriber->subscriber_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-								@else
-								{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-								@endif
-								&nbsp;
+								{{HTML::image($subscriber['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 								<span><b>{{$subscriber->channel_name}}</b></span>
 							</a>&nbsp;
 							<br/>&nbsp;

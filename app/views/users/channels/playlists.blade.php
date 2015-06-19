@@ -5,8 +5,7 @@
 	<br/>
 	<div class="container">
 		<div class="row same-H White">
-			@include('elements/users/profileTop2')
-
+			@include('elements.users.profileTop2')
 			<div class=" channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->

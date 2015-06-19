@@ -2,7 +2,6 @@
 
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/bootstrap.min.js')}}
 	{{HTML::script('js/sort.js')}}
 
 	<script type="text/javascript">

@@ -45,11 +45,12 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-                    counter++;
-                    if(counter==5) {$('#percentage').html(percentComplete+'%'+'.');}
-                    else if(counter==10) {$('#percentage').html(percentComplete+'%'+'..');}
-                    else if(counter==15) {$('#percentage').html(percentComplete+'%'+'...');}
-                    else if(counter > 15) {counter=0; $('#percentage').html(percentComplete+'%');}
+                    $('#percentage').html(percentComplete+'%');
+                    // counter++;
+                    // if(counter==5) {$('#percentage').html(percentComplete+'%'+'.');}
+                    // else if(counter==10) {$('#percentage').html(percentComplete+'%'+'..');}
+                    // else if(counter==15) {$('#percentage').html(percentComplete+'%'+'...');}
+                    // else if(counter > 15) {counter=0; $('#percentage').html(percentComplete+'%');}
                     $('#up-msg').html('<i class="fa fa-info-circle"></i> '+' Please wait a moment while the video is uploading...').css({'color':'#5ec6e8'});
                     
                 },
