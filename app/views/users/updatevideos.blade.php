@@ -635,7 +635,7 @@ $('#upload-cancel').on('click',function(){
 												<label for='podcast'>Podcast</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Question and Answer',$videoCategory[11],['id'=>'qa'])}}
+												{{Form::checkbox('cat[]','qa',$videoCategory[11],['id'=>'qa'])}}
 												<label for='qa'>Question and Answer</label>
 											</span>
 											<span class="v-category">

@@ -31,6 +31,7 @@
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
+    document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
             if($(".linkReadMore span").html() == 'SHOW MORE'){

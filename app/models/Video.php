@@ -412,7 +412,7 @@ class Video extends Eloquent{
 			]);
 	}
 	public function categorySelected($category, $advice=false, $animatedMusicVideo=false, $animatedVideo=false, $documentaries=false, $forStudents=false, $forTeachers=false, $interviews=false, $jobAd=false, $miscellaneous=false, $music=false, $podcast=false, $qa=false, $videoBlog=false, $videoCV=false){
-		$categories = ['advice'=>'Advice','animatedmusicvideo'=> 'Animated Music Video','animatedvideo'=>'Animated Video','documentaries'=> 'Documentaries','forstudents'=>'For Students','forteachers'=>'For Teachers','interviews'=> 'Interviews','jobad'=> 'Job AD','miscellaneous'=> 'Miscellaneous','music'=> 'Music','podcast'=> 'Podcast', 'qa' => 'Question and Answer', 'videoblog'=>'Video Blog', 'videocv' =>'Video CV'];
+		$categories = ['advice'=>'Advice','animatedmusicvideo'=> 'Animated Music Video','animatedvideo'=>'Animated Video','documentaries'=> 'Documentaries','forstudents'=>'For Students','forteachers'=>'For Teachers','interviews'=> 'Interviews','jobad'=> 'Job AD','miscellaneous'=> 'Miscellaneous','music'=> 'Music','podcast'=> 'Podcast', 'qa' => 'qa', 'videoblog'=>'Video Blog', 'videocv' =>'Video CV'];
 		for($n=0;$n<count($category);$n++){
 			if($categories['advice']==$category[$n]) $advice=true;
 			if($categories['animatedmusicvideo']==$category[$n]) $animatedMusicVideo=true;
