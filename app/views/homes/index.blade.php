@@ -1,6 +1,6 @@
 @extends('layouts.default')
 	@section('meta')
-		TEFL TV		
+			
 	@stop
 	@section('css')
 		{{HTML::style('css/vid.player.min.css')}}
