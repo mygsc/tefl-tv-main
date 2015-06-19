@@ -8,7 +8,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{--HTML::script('js/angular.min.js')--}}
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0,
+	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0, filename = document.getElementById('filename').value,types,content,start,end,link,
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -84,17 +84,17 @@
 			var types = document.createTextNode(title);
 			var createDiv = document.createElement('div');
 			var close = document.createElement('span');
-			close.className = 'close-annotation-' + id + '-' + count;
+			//close.id = 'close-annotation-' + id + '-' + count;
 			close.title = 'Delete';
 			close.className = 'glyphicon glyphicon-trash';
 			var save = document.createElement('span');
 			save.className = 'glyphicon glyphicon-floppy-save';
-			save.title = 'Save';
-			var createTextarea = document.createElement('textarea'); 
+			save.title = 'Save-' + id;
+			content = document.createElement('textarea'); 
 			checkbox = document.createElement('input');
 			checkbox.type = 'checkbox';  
-			checkbox.name = 'checkbox' + '-link-' + count;
-			checkbox.id = 'checkbox' + '-link-' + count; 
+			checkbox.name = 'checkbox' + '-url-' + annot +'-' + id + '-' + count;
+			checkbox.id = 'checkbox' + '-url-' + annot +'-' + id + '-' + count;
 			var label = document.createElement('label');
 			var labelText = document.createTextNode('link');
 			var closeText = document.createTextNode(''); 
@@ -110,16 +110,16 @@
 			save.setAttribute('id', 'save-annotation-' + id + '-' + count);
 			createDiv.setAttribute('id', 'annotation-' + id + '-' + count);    
 			createDiv.setAttribute('style', 'margin-bottom:5px;border-radius:4px;width:100%;height:100%;padding:19px;background:#e8e5e5;');
-			createTextarea.setAttribute('placeholder', 'Enter text here...');
-			createTextarea.setAttribute('id', 'textarea-annotation-'+id+'-'+count);
-			createTextarea.style.marginTop = '5px';
-			createTextarea.name = 'textarea-annotation-'+id+'-'+count;
-			label.setAttribute('for', 'checkbox' + '-link-' + count);
+			content.setAttribute('placeholder', 'Enter text here...');
+			content.setAttribute('id', 'content-annotation-'+id+'-'+count);
+			content.style.marginTop = '5px';
+			content.name = 'content-annotation-'+id+'-'+count;
+			label.setAttribute('for', 'checkbox' + '-url-' + annot +'-' + id + '-' + count);
 			label.setAttribute('style', 'margin-left:3px;cursor:pointer');
 			annotation.appendChild(createDiv); 
 			createDiv.appendChild(close);
 			createDiv.appendChild(save);
-			createDiv.appendChild(createTextarea); 
+			createDiv.appendChild(content); 
 			
 			 
 			var startTagLabel = document.createElement('label');
@@ -129,7 +129,7 @@
 			var startTime = document.createElement('input'); 
 				startTime.type = 'text';
 				startTime.id = 'start' + '-time-' + annot + '-' + id + '-' + count;
-				startTime.name = 'start' + '-time-' + count;
+				startTime.name = 'start' + '-time-annotation-' + id + '-' + count;
 				startTime.value = h+'0:'+m+'0:'+s+'0';
 				createDiv.appendChild(startTime);
 				
@@ -139,16 +139,16 @@
 				createDiv.appendChild(endTagLabel);
 			var endTime = document.createElement('input');  
 				endTime.type = 'text';
-				endTime.id = 'end' + '-time-' + count;
-				endTime.name = 'end' + '-time-' + count;
+				endTime.id = 'end' + '-time-annotation-' + id + '-' + count;
+				endTime.name = 'end' + '-time-annotation-' + id + '-' +count;
 				endTime.value = hms;
 				createDiv.appendChild(endTime);
 				createDiv.appendChild(checkbox); 
 				createDiv.appendChild(label);
 			var url = document.createElement('input');
 					url.type = 'text';
-					url.id = 'input' + '-link-' + count;
-					url.name = 'input' + '-link-' + count;
+					url.id = 'url' + '-annotation-' + id + '-' + count;
+					url.name = 'url' + '-annotation-' + id + '-' + count;
 					url.setAttribute('placeholder', 'Enter url');
 					url.setAttribute('style', 'display:none');
 					createDiv.appendChild(url);
@@ -186,20 +186,23 @@
 			*/
 			checkbox.onclick = function(){
 				var getid = this.id;
-				var textbox = getid.replace('checkbox','input');
+				console.log(getid);
+				var textbox = getid.replace('checkbox-','');
 				if(document.getElementById(getid).checked == true) $('#' + textbox).fadeIn('fast');
 				else $('#' + textbox).fadeOut('fast');
 			  	
 			};
 			close.onclick = function(){
 				var getid = this.id;
+				var id = this.className; id = id.replace('glyphicon glyphicon-trash','');
 				var removeDiv = getid.replace('close-','');
 				$('#'+removeDiv).remove();
 				$('#div-'+removeDiv).remove();
+				annotations.remove(id);
 			}
 			close.onmouseover = function(){
 				var getid = this.id;
-				$('.'+getid).css({'border-bottom':'2px solid #0f85e0'});
+				$('#'+getid).css({'border-bottom':'2px solid #0f85e0'});
 			}
 			close.onmouseleave = function(){
 				var getid = this.id;
@@ -208,10 +211,26 @@
 			}
 			save.onclick = function(){
 				 var getid = this.id;
-				 var getNewId = getid.replace('save-', 'start-time-');
-				 var time = selector(getNewId).value;
-				 var getTime = time.split(":");
-				 //stylesheet.insertRule(".vp-texts { border: 1px solid black;}", 0);
+				 var titles = this.title;
+				  content = getid.replace('save','content');
+				  content = selector(content).value;
+				  types = titles.replace('Save-','');
+				  start = getid.replace('save','start-time');
+				  start = selector(start).value;
+				  end = getid.replace('save','end-time');
+				  end = selector(end).value;
+				  link = getid.replace('save','url');
+				  link = selector(link).value;
+				  filename = filename;
+				 // start = getid.replace('save','content');
+				 // var getNewId = getid.replace('save-', 'start-time-');
+				 // var time = selector(getNewId).value;
+				 // var getTime = time.split(":");
+				 // console.log(filename,types,content,start,end,link);
+				 annotations.add(filename,types,content,start,end,link);
+
+				 
+				
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -227,11 +246,11 @@
 				$('#'+removeDiv).remove();
 				$('#div-'+removeDiv).remove();
 			}
-			createTextarea.onkeyup = function(){
+			content.onkeyup = function(){
 				var getid = this.id;
-				var getCurrentId = getid.replace('textarea-','div-');
-				var content = createTextarea.value;
-				$('#'+getCurrentId).html(content);
+				var getCurrentId = getid.replace('content','div');
+				var contents = content.value;
+				$('#'+getCurrentId).html(contents);
 			}
 			startTime.onkeyup = function(){
 				var getid = this.id;
@@ -261,13 +280,44 @@
 			}
 			function mov(e){
 			  var div = selector('div-annotation-note-1');
-			  div.style.top = e.clientY - (e.clientY - div.offsetTop) + "px";
-			  div.style.left = e.clientX - (e.clientX - div.offsetLeft) + "px";
+			  div.style.top = e.pageY - (e.pageY - div.offsetTop) + "px";
+			  div.style.left = e.pageX - (e.pageX - div.offsetLeft) + "px";
 			}
 
 			function selector(name){
 				return document.getElementById(name);
 			}
+			var annotations = function(){
+			return	{
+						add: function(filename,types,content,start,end,link){
+								$.ajax({
+									type: 'POST',
+									url:'/addannotation',
+									data: {filename:filename, types:types,content:content,start:start,end:end,link:link},
+									success: function(e){
+										console.log(e.msg);
+										close.className = 'glyphicon glyphicon-trash ' + e.id;
+									},
+									error: function(){
+										console.log('OOps error while adding annotation.');
+									}
+								});
+							},
+						remove: function(id){
+							$.ajax({
+									type: 'POST',
+									url:'/deleteannotation/'+id,
+									data: {filename:filename},
+									success: function(e){
+										console.log(e.msg);
+									},
+									error: function(){
+										console.log('OOps error while deleting annotation.');
+									}
+								});
+						 }
+					}
+			}();
 		}
 
 	});
@@ -457,7 +507,7 @@ $('#upload-cancel').on('click',function(){
 											<span class="file-upload mg-l--2">
 												<span class="btn btn-default"><i class="fa fa-arrow-up"></i> Change Video Cover</span>
 												<input type="file" name="poster" id="poster" accept="image/*"/>
-												<input type="hidden" value="{{$video->file_name}}" name="filename"/>
+												<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 											</span>
 											@if($video->publish == 0)
 											@if($errors->has('publish'))
@@ -494,7 +544,7 @@ $('#upload-cancel').on('click',function(){
 													</span>
 													@endif
 													<br>
-													<div ng-app="" class="" id="annotation">
+													<div class="" id="annotation">
 														<!--ANNOTATION AREA DON'T REMOVE-->
 													</div>
 													<br/>
@@ -539,61 +589,61 @@ $('#upload-cancel').on('click',function(){
 														
 													</div>
 													<div class="well">
-															{{Form::label('Categories:')}}<br/>
+															{{Form::label('Category:')}}<br/>
 															<span class="v-category">
-												{{Form::checkbox('cat[]','Advice',false,['id'=>'advice'])}}
+												{{Form::checkbox('cat[]','Advice',$videoCategory[0],['id'=>'advice'])}}
 												<label for='advice'>Advice</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Animated Music Video',false,['id'=>'anim-music-vid'])}}
+												{{Form::checkbox('cat[]','Animated Music Video',$videoCategory[1],['id'=>'anim-music-vid'])}}
 												<label for='anim-music-vid'>Animated Music Video</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Animated Video',false,['id'=>'anim-vid'])}}
+												{{Form::checkbox('cat[]','Animated Video',$videoCategory[2],['id'=>'anim-vid'])}}
 												<label for='anim-vid'>Animated Video</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Documentaries',false,['id'=>'documentaries'])}}
+												{{Form::checkbox('cat[]','Documentaries',$videoCategory[3],['id'=>'documentaries'])}}
 												<label for='documentaries'>Documentaries</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Students',false,['id'=>'for-students'])}}
+												{{Form::checkbox('cat[]','For Students',$videoCategory[4],['id'=>'for-students'])}}
 												<label for='for-students'>For Students</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','For Teachers',false,['id'=>'for-teachers'])}}
+												{{Form::checkbox('cat[]','For Teachers',$videoCategory[5],['id'=>'for-teachers'])}}
 												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
+												{{Form::checkbox('cat[]','Interviews',$videoCategory[6],['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
+												{{Form::checkbox('cat[]','Job AD',$videoCategory[7],['id'=>'job-ad'])}}
 												<label for='job-ad'>Job AD</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Miscellaneous',false,['id'=>'miscellaneous'])}}
+												{{Form::checkbox('cat[]','Miscellaneous',$videoCategory[8],['id'=>'miscellaneous'])}}
 												<label for='miscellaneous'>Miscellaneous</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
+												{{Form::checkbox('cat[]','Music',$videoCategory[9],['id'=>'music'])}}
 												<label for='music'>Music</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Podcast',false,['id'=>'podcast'])}}
+												{{Form::checkbox('cat[]','Podcast',$videoCategory[10],['id'=>'podcast'])}}
 												<label for='podcast'>Podcast</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Question and Answer',false,['id'=>'qa'])}}
+												{{Form::checkbox('cat[]','qa',$videoCategory[11],['id'=>'qa'])}}
 												<label for='qa'>Question and Answer</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Video Blog',false,['id'=>'vid-blog'])}}
+												{{Form::checkbox('cat[]','Video Blog',$videoCategory[12],['id'=>'vid-blog'])}}
 												<label for='vid-blog'>Video Blog</label>
 											</span>
 											<span class="v-category">
-												{{Form::checkbox('cat[]','Video CV',false,['id'=>'vid-cv'])}}
+												{{Form::checkbox('cat[]','Video CV',$videoCategory[13],['id'=>'vid-cv'])}}
 												<label for='vid-cv'>Video CV</label>
 											</span>
 														</div>	

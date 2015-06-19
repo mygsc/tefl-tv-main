@@ -8,6 +8,7 @@ class PartnershipController extends Controller {
 
 	public function getIndex(){
 		Session::forget('partnership_token');
+		Session::put('url.intended', URL::route('partnerships.index'));
 		return View::make('partnerships.index');
 	}
 
@@ -15,6 +16,10 @@ class PartnershipController extends Controller {
 		Session::put('url.intended', URL::route('partners.adsense'));
 		return View::make('partners.learnmore');
 	}
+	public function getPartnersProgram(){
+		return View::make('partners.partners_program');
+	}
+
 
 	public function getPublisherLearnMore(){
 		Session::put('url.intended', URL::route('publishers.adsense'));

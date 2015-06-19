@@ -2,14 +2,14 @@ document.getElementById("save").disabled = true;
 var firstThumbnail = document.getElementById('thumb-1-img');
 var secondThumbnail = document.getElementById('thumb-2-img');
 var thirdThumbnail = document.getElementById('thumb-3-img');
-var min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false;
+var counter=0, min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false;
 $('#char-limit').html(limitChar+'/5000');
 $(document).ready(function(){
     $('#loader').fadeIn(500);
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
         $('#progress').fadeIn();
-        var limitSize = 2000000000; //eq. 150 mb 150000000
+        var limitSize = 2147483647; //2gb eq. 150 mb 150000000 2000000000
         var file = document.getElementById('vids-upload').value;
         var fileSize = document.getElementById('vids-upload').files[0];
         var ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase();
@@ -45,8 +45,12 @@ $(document).ready(function(){
                 uploadProgress: function (event, position, total, percentComplete){ 
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
-
                     $('#percentage').html(percentComplete+'%');
+                    // counter++;
+                    // if(counter==5) {$('#percentage').html(percentComplete+'%'+'.');}
+                    // else if(counter==10) {$('#percentage').html(percentComplete+'%'+'..');}
+                    // else if(counter==15) {$('#percentage').html(percentComplete+'%'+'...');}
+                    // else if(counter > 15) {counter=0; $('#percentage').html(percentComplete+'%');}
                     $('#up-msg').html('<i class="fa fa-info-circle"></i> '+' Please wait a moment while the video is uploading...').css({'color':'#5ec6e8'});
                     
                 },

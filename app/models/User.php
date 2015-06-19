@@ -182,7 +182,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		->get();
 
 		foreach($userData as $key => $user){
-			$userData[$key]->profile_picture = $this->addProfilePicture($user->id);
+			$profile_picture = $this->getUsersImages($user->id);
+			$userData[$key]->profile_picture = $profile_picture['profile_picture'];
 
 			if(Auth::check()){
 				$userData[$key]->ifsubscribe = $this->checkSubscription(Auth::user()->id, $user->id);
@@ -194,12 +195,40 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $userData;
 	}
 
-	public function addProfilePicture($user_id){
-		$img = '/img/user/'. $user_id. '.jpg';
-		if(!file_exists(public_path($img))){
-			$img = '/img/user/0.jpg';
+	/** getUsersImages
+	*
+	*@param $users_id		Contains the social media use by the user to sign in
+	*		$cover_photo	Specify true if you want to include in the search and return
+	*@return $Images 		Contains informations of the user who signed in
+	*@throws boolean false
+	*/
+	public static function getUsersImages($user_id = null, $cover_photo = false){
+		if(empty($user_id)){
+			return false;
 		}
-		return $img;
+
+		if($cover_photo === true){
+			$default_cover_photo_path = 'img/user/cover.jpg';
+
+			$cover_photo_path = 'img/user/'.$user_id.'/cover_photo.jpg';
+			$original_cover_photo_path = 'img/user/'.$user_id.'/cover_photo_original.jpg';
+			$image['cover_photo'] = $default_cover_photo_path;
+			$image['cover_photo_original'] = $default_cover_photo_path. '?'. rand(0,100);
+			if(file_exists(public_path($cover_photo_path)) && file_exists(public_path($original_cover_photo_path))){
+				$image['cover_photo'] = $cover_photo_path . '?'. rand(0,100);
+				$image['cover_photo_original'] = $original_cover_photo_path. '?'. rand(0,100);
+			}
+		}
+
+		$default_profile_picture_path = 'img/user/0.jpg';
+		$profile_picture_path = 'img/user/'.$user_id.'/profile_picture.jpg';
+		$image['profile_picture'] = $default_profile_picture_path. '?'. rand(0,100);
+		if(file_exists(public_path($profile_picture_path))){
+			$image['profile_picture'] = $profile_picture_path. '?'. rand(0,100);
+		}
+
+		return $image;
+		
 	}
 
 	public function checkSubscription($subscriber_id, $subscription_id){
@@ -233,7 +262,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		$generateToken = null;
-$user = User::find($user_id);
+		$user = User::find($user_id);
 		if($user->verified == '0'){
 			$generateToken = Crypt::encrypt($password + rand(10,100));
 		}

@@ -13,6 +13,14 @@ class Video extends Eloquent{
 	* It is used for converting video, capturing image and grabbing information of the video (open source).
 	* version 2.6.2 stable release
 	* Note: Please don't update or change the path of ffmpeg in the server default ('/home/tefltv/bin/ffmpeg').
+	* If ffmpeg encounter error when converting it might be useful to check the php.ini settings ff: 
+	* max_input_time = 24000
+	* max_execution_time = 24000
+	* upload_max_filesize = 12000M
+	* post_max_size = 24000M
+	* memory_limit = 12000M
+	* upload_max_size = 2500M
+	* post_max_file = 2500M
 	*/
 	public $ffmpegPath = '/home/tefltv/bin/ffmpeg'; 
 	public $ffprobePath = '/home/tefltv/bin/ffprobe';
@@ -58,6 +66,11 @@ class Video extends Eloquent{
 
 		return $this->hasMany('UserWatchLater');
 	}
+
+	public function notifications(){
+		return $this->hasMany('notifications');
+	}
+	
 	public function getFeaturedVideo($type = null, $limit = null){
 		if(!empty($type)){
 
@@ -397,5 +410,25 @@ class Video extends Eloquent{
 			'timeout'=>0,
 			'ffmpeg.threads'=>12
 			]);
+	}
+	public function categorySelected($category, $advice=false, $animatedMusicVideo=false, $animatedVideo=false, $documentaries=false, $forStudents=false, $forTeachers=false, $interviews=false, $jobAd=false, $miscellaneous=false, $music=false, $podcast=false, $qa=false, $videoBlog=false, $videoCV=false){
+		$categories = ['advice'=>'Advice','animatedmusicvideo'=> 'Animated Music Video','animatedvideo'=>'Animated Video','documentaries'=> 'Documentaries','forstudents'=>'For Students','forteachers'=>'For Teachers','interviews'=> 'Interviews','jobad'=> 'Job AD','miscellaneous'=> 'Miscellaneous','music'=> 'Music','podcast'=> 'Podcast', 'qa' => 'qa', 'videoblog'=>'Video Blog', 'videocv' =>'Video CV'];
+		for($n=0;$n<count($category);$n++){
+			if($categories['advice']==$category[$n]) $advice=true;
+			if($categories['animatedmusicvideo']==$category[$n]) $animatedMusicVideo=true;
+			if($categories['animatedvideo']==$category[$n]) $animatedVideo=true;
+			if($categories['documentaries']==$category[$n]) $documentaries=true;
+			if($categories['forstudents']==$category[$n]) $forStudents=true;
+			if($categories['forteachers']==$category[$n]) $forTeachers=true;
+			if($categories['interviews']==$category[$n]) $interviews=true;
+			if($categories['jobad']==$category[$n]) $jobAd=true;
+			if($categories['miscellaneous']==$category[$n]) $miscellaneous=true;
+			if($categories['music']==$category[$n]) $music=true;
+			if($categories['podcast']==$category[$n]) $podcast=true;
+			if($categories['qa']==$category[$n]) $qa=true;
+			if($categories['videoblog']==$category[$n]) $videoBlog=true;
+			if($categories['videocv']==$category[$n]) $videoCV=true;
+			}
+		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
 	}
 }

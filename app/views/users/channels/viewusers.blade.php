@@ -11,7 +11,7 @@
 	<br/>
 	<div class="container">
 		<div class="row same-H White">
-			@include('elements/users/viewUser/viewUser_profileTop')
+			@include('elements.users.profileTop2')
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">

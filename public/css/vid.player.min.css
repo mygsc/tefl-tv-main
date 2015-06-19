@@ -313,6 +313,9 @@ input#volume::-moz-range-thumb {
 	margin: auto;
 	border: 1px solid #000;
 }}*/
+/*div#advertisement{
+	display: none;
+}*/
 div.advertisement{
 	display: none;
 	position: absolute;

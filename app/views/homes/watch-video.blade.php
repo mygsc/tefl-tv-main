@@ -31,6 +31,7 @@
 {{HTML::script('js/homes/comment.js')}}
 
 <script type="text/javascript">
+    document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
             if($(".linkReadMore span").html() == 'SHOW MORE'){
@@ -213,19 +214,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <div class="info" >
                                 <div class="well2 ">
                                     <div class="row">
-                                    @if(file_exists(public_path('/img/user/'.$owner->id.'.jpg')))
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row text-right">
-                                                <img src="/img/user/{{$owner->id}}.jpg?{{rand(0,99)}}" class="user">
+                                                <img src="{{$profile_picture['profile_picture']}}" class="user">
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="col-md-1 col-sm-2">
-                                            <div class="row text-right">
-                                                <img src="/img/user/0.jpg" class="user  ">
-                                            </div>
-                                        </div>
-                                    @endif
                                     <div class="col-md-11 col-sm-10">
                                         <p class="black">
 
@@ -277,13 +270,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
         
                 <!-- COMMENTS AREA -->
                 <div class="row mg-t-10">
-                    <div class="White same-H pad-v-10">
-                        <div class="row">
-                            <div class="content-padding">
-                             @include('elements/home/videoComments')
-                             </div>
-                        </div>
-                    </div>
+                    
+                    @include('elements/home/videoComments')
+        
                 </div>
                 <!-- COMMENTS AREA -->
 

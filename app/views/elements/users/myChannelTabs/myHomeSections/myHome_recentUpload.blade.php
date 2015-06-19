@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="mg-20">
 		<br/>
@@ -6,7 +5,7 @@
 		<div class="row">
 			<div class="text-center alert alert-info noA">
 				<h3>
-					{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
+					{{ link_to_route('get.upload', 'Upload a Video', null) }} now to make your channel more appealing to subscribers.
 				</h3>
 			</div>
 		</div>
@@ -18,6 +17,7 @@
 			 <div id="vid-wrapper">
 				 <div id="vid-controls" class="p-relative">
 					 <div class="embed-responsive embed-responsive-16by9">
+					 <a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')))
 						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" >
 						 		<source id= 'mp4' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
@@ -30,19 +30,18 @@
 						 		<source id= 'webm' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
 							</video>
 					 	@endif	
-						
+						</a>
+
 					</div>
-					@include('elements/videoPlayer')
 				</div>
 			</div>
-
 		</div>
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
 				<p style="margin-left:30px;">No recent Activity</p>
 			@else
-			<h3><b>Title: {{$recentUpload->title}}</b></h3>
+			<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank"><h3><b>Title: {{$recentUpload->title}}</b></h3></a>
 			<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 			<br/>
 			
