@@ -198,3 +198,4 @@ Route::group(array('prefix' => 'partnerships',), function() {
 	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
 });
 
+Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));
