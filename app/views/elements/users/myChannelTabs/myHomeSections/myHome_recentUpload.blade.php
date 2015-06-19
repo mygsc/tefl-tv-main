@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="text-center alert alert-info noA">
 				<h3>
-					{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
+					{{ link_to_route('get.upload', 'Upload a Video', null) }} now to make your channel more appealing to subscribers.
 				</h3>
 			</div>
 		</div>
@@ -35,6 +35,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
