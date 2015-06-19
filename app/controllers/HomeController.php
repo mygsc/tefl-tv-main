@@ -354,40 +354,53 @@ class HomeController extends BaseController {
 			}
 
 			$newComment =  
-			'<div class="commentsarea row">
+			'<div class="commentsarea row commentDeleteArea">
 				<div class="commentProfilePic col-md-1">'. 
 					HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
 				</div>
 				<div class="col-md-11">
-					<div class="row">'.
-						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'
+					<div class="row"><b>'.
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'</b>
 						| &nbsp;<small> just now. </small> 
 						<br/>
 						<p class="text-justify">'. $comments->comment . '</p>
-						<div class="fa commentlikedup">
-							<span class="fa-thumbs-up hand"></span>
-							<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-							<input type="hidden" value='.Auth::User()->id.'" name="likeUserId">
-							<input type="hidden" value="'.$video_id.'" name="video_id">
-							<input type="hidden" value="liked" name="status">
-							<span class="likescount" id="likescount">'.$likesCount.'</span>
+
+						<div class="tooltipDelete inline hand">
+							<div class="wv-icon trashC">
+								<span class="deleteComment fa fa-trash" title="Delete this comment">'.	
+									Form::hidden("comment_id", Crypt::encrypt($comments->id), array('id' => 'comment_id')) .
+									Form::hidden("video_id", Crypt::encrypt($video_id), array('id' => 'video_id')) .
+									Form::hidden("user_id", Crypt::encrypt(Auth::User()->id), array('id' => 'user_id')) . '
+								</span>
+							</div>
 						</div>
+
+						<div class="fa commentlikedup thumbUpC">
+							<span class="likescount" id="likescount">'.$likesCount.'</span>
+							<span class="fa-thumbs-up hand"></span>
+							<input type="hidden" value="liked" name="status">
+							<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+							<input type="hidden" value="'.Auth::User()->id.'" name="likeUserId">
+							<input type="hidden" value="'.$video_id.'" name="video_id">
+						</div>
+
 						&nbsp;
-						<div class="fa commentdislikedup">
-							<span class="fa-thumbs-down hand"></span>
+						<div class="fa commentdislikedup thumbDownC">
+							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span>
 							<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
 							<input type="hidden" value="'.Auth::User()->id.'" name="dislikeUserId">
 							<input type="hidden" value="'.$video_id.'" name="video_id">
 							<input type="hidden" value="disliked" name="status">
-							<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span> &nbsp;
-						</div>
+							<span class="fa-thumbs-down hand"></span>
+							 &nbsp;
+						</div>&nbsp;
 						&nbsp;
-						<span class="repLink hand">0<i class="fa fa-reply"></i></span>
+						<span class="repLink hand wv-counts replyC"><i class="fa fa-reply"></i> 0 Replies</span>
 
 						<div id="replysection" class="panelReply" style="display: none;">'.
 							Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
 								<input type="hidden" name="comment_id" value="'.$comments->id.'">
-								<input type="hidden" name="user_id" value="'.$userInfo->id.'">
+								<input type="hidden" name="user_id" value="'.Auth::User()->id.'">
 								<input type="hidden" name="video_id" value="'.$video_id.'">
 								<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
 								<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
@@ -435,15 +448,24 @@ class HomeController extends BaseController {
 			$newReply2 = '';
 
 			$newReplyFirst = 
-
-				'<div class="commentProfilePic col-md-1">
-					<img src="'.$temp.'" class="img-responsive inline" height="48px" width="48px" alt="alt"></div>
-				<div class="col-md-11">
-					<div class="row">' .
-						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
-						'<small>just now.</small><br/>
-						<p style="text-align:justify;">' . $replies->reply . '<br/>' . '</p></hr>
-					</div>
+				'<div class="deleteReplyArea">
+					<div class="commentProfilePic col-md-1">
+						<img src="'.$temp.'" class="img-responsive inline" height="48px" width="48px" alt="alt"></div>
+					<div class="col-md-11  text-left">
+						<div class="">' .
+							link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
+							'<small>just now.</small><br/>
+							<p style="text-align:justify;">' . $replies->reply . '<br/>' . '</p></hr>
+						</div>
+						<div class="tooltipDelete inline hand">
+								<div class="wv-icon trashC">
+									<span class="deleteReply fa fa-trash" title="Delete this reply">'.	
+										Form::hidden("c_id", Crypt::encrypt($replies->id), array('id' => 'c_id')).
+										Form::hidden("comment_id", Crypt::encrypt($replies->comment_id), array('id' => 'comment_id')).
+										Form::hidden("user_id", Crypt::encrypt($replies->user_id), array('id' => 'user_id')).'
+									</span>
+								</div>
+						</div>
 			';
 			$likesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'liked'))->count();
 			$dislikeCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'disliked'))->count();
@@ -459,7 +481,7 @@ class HomeController extends BaseController {
 			))->first();
 
 			$newReply2 = $newReply2 . '
-				<div class="fa replylikedup">';
+				<div class="fa replylikedup thumbUpC">';
 					if(!$ifAlreadyLiked){
 						$newReply2 = $newReply2 .'
 						<span class="fa-thumbs-up hand"></span>
@@ -476,7 +498,7 @@ class HomeController extends BaseController {
 					<span class="likescount" id="likescount">'.$likesCountReply.'</span>
 				</div>
 				&nbsp;
-				<div class="fa replydislikedup">
+				<div class="fa replydislikedup  inline thumbDownC">
 					<input type="hidden" value="'.$replies->id.'" name="dislikeCommentId">
 					<input type="hidden" value="'.$user_id.'" name="dislikeUserId">
 					<input type="hidden" value="'.$video_id.'" name="video_id">';
@@ -498,7 +520,7 @@ class HomeController extends BaseController {
 				->where('comment_id', $comment_id)->count(); 
 
 			$newReply2 = $newReply2 .'
-			</div>';
+			</div> </div>';
 			$newReply = $newReplyFirst . "" . $newReply2;
 
 			/*Notification Start*/
@@ -532,11 +554,8 @@ class HomeController extends BaseController {
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
 			if($likeUserId != $videoData->user_id){
-				$channel_id = Comment::find($likeCommentId)->first();
-				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
-				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
+				$type = 'like';
+				$this->Notification->sendNotification($channel_id->user_id, $notifier_id, $type); //Creates the notifcation
 			}
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCount' => $dislikesCount));
@@ -584,13 +603,13 @@ class HomeController extends BaseController {
 			$dislikesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'status' => 'disliked'))->count();
 			/*Notification Start*/
 			$videoData = Video::find($videoId)->first();
-			if($likeUserId != $videoData->user_id){
-				$channel_id = Comment::find($likeCommentId)->first();
-				$notifier_id = $likeUserId;
-				$routes = route('homes.watch-video', 'v='.$videoData->file_name);
-				$type = 'liked';
-				$this->Notification->constructNotificationMessage($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
-			}
+			// if($likeUserId != $videoData->user_id){
+			// 	$channel_id = Comment::find($likeCommentId)->first();
+			// 	$notifier_id = $likeUserId;
+			// 	$routes = route('homes.watch-video', 'v='.$videoData->file_name);
+			// 	$type = 'liked';
+			// 	$this->Notification->sendNotification($channel_id->user_id, $notifier_id, $type, $routes); //Creates the notifcation
+			// }
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCountReply' => $dislikesCountReply));
 		} elseif($statuss == 'unliked'){
@@ -654,6 +673,10 @@ class HomeController extends BaseController {
 		$convert_time = date("d-m-Y H:i:s", strtotime($inputs['current_time']));
 		$time = date('F d, Y', strtotime($convert_time. '+'. $inputs['users_GMT'].' hours'));
 		return $time;
+	}
+
+	public function error(){
+		return View::make('errors.maintenance');
 	}
 
 	public function testingpage(){ 

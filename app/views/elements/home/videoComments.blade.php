@@ -7,18 +7,18 @@
 				<div class="content-padding">
 					<h3 class="tBlue">Write a comment</h3>  
 					@if(isset(Auth::User()->id))
-					<span id='errorlabel' class='input-error'></span>
-					<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts.."></textarea>
-					<div class="text-right">
-						<button id='btncomment' class="btn btn-info">Post</button>
-					</div>
+						<span id='errorlabel' class='input-error'></span>
+						<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts.."></textarea>
+						<div class="text-right">
+							<button id='btncomment' class="btn btn-info">Post</button>
+						</div>
 
-					{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
-					{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
+						{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
+						{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
 					@else
-					<a href="{{route('homes.signin')}}">
-						<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Click this to login."></textarea>
-					</a>
+						<a href="{{route('homes.signin')}}">
+							<textarea id='comment' class="form-control v-comment" placeholder="Share your thoughts. Click this to login."></textarea>
+						</a>
 					@endif
 				</div>
 			</div>
@@ -30,8 +30,6 @@
 					<h3>All Comments ({{$getVideoCommentsCounts}}) </h3>
 					<div class="row commentsarea mg-lr-5" id="mainCommentBody">
 						<div id="appendNewCommentHere"></div>
-
-
 						@foreach($getVideoComments as $getVideoComment)
 						<div class="commentsarea row commentDeleteArea">
 							<?php
@@ -55,43 +53,45 @@
 									<div class='tooltipDelete inline hand'>
 										<div class="wv-icon trashC">
 										@if(isset(Auth::User()->id))
-										@if(Auth::User()->id == $getVideoComment->user_id)
-										<span class="deleteComment fa fa-trash" title="Delete this comment">	
-											{{Form::hidden('comment_id', Crypt::encrypt($getVideoComment->id), array('id' => 'comment_id'))}}
-											{{Form::hidden('video_id', Crypt::encrypt($getVideoComment->video_id), array('id' => 'video_id'))}}
-											{{Form::hidden('user_id', Crypt::encrypt($getVideoComment->user_id), array('id' => 'user_id'))}}
-										</span>
-										@endif
+											@if(Auth::User()->id == $getVideoComment->user_id)
+												<span class="deleteComment fa fa-trash" title="Delete this comment">	
+													{{Form::hidden('comment_id', Crypt::encrypt($getVideoComment->id), array('id' => 'comment_id'))}}
+													{{Form::hidden('video_id', Crypt::encrypt($getVideoComment->video_id), array('id' => 'video_id'))}}
+													{{Form::hidden('user_id', Crypt::encrypt($getVideoComment->user_id), array('id' => 'user_id'))}}
+												</span>
+											@endif
 										@endif
 										</div>
 									</div>
 
 									<?php
-									$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
-									$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
+										$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'liked'))->count();
+										$dislikeCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $getVideoComment->id, 'status' => 'disliked'))->count();
 									?>
 									@if(isset(Auth::User()->id))
 									<?php
-									$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
-										'comment_id' => $getVideoComment->id, 
-										'user_id' => Auth::User()->id,
-										'status' => 'liked'
-										))->first();
-									$ifAlreadyDisliked = DB::table('comments_likesdislikes')->where(array(
-										'comment_id' => $getVideoComment->id, 
-										'user_id' => Auth::User()->id,
-										'status' => 'disliked'
-										))->first();
-										?>
+										$ifAlreadyLiked = DB::table('comments_likesdislikes')->where(array(
+											'comment_id' => $getVideoComment->id, 
+											'user_id' => Auth::User()->id,
+											'status' => 'liked'
+											))->first();
+										$ifAlreadyDisliked = DB::table('comments_likesdislikes')->where(array(
+											'comment_id' => $getVideoComment->id, 
+											'user_id' => Auth::User()->id,
+											'status' => 'disliked'
+											))->first();
+									?>
 										
 										<div class='fa commentlikedup thumbUpC'>
 											<span class="likescount" id="likescount">{{$likesCount}}</span>
 											@if(!$ifAlreadyLiked)
+
 											<span class='fa-thumbs-up thumbUpC hand'></span>
 											<input type="hidden" value="liked" name="status">
+
 											@else
-											<span class='fa-thumbs-up blueC active-ico hand'></span>
-											<input type="hidden" value="unliked" name="status">
+												<span class='fa-thumbs-up blueC active-ico hand'></span>
+												<input type="hidden" value="unliked" name="status">
 											@endif
 											<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 											<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
@@ -107,9 +107,10 @@
 											@if(!$ifAlreadyDisliked)
 											<input type="hidden" value="disliked" name="status">
 											<span class='fa-thumbs-down hand thumbDownC'></span>
+
 											@else
-											<input type="hidden" value="undisliked" name="status">
-											<span class='fa-thumbs-down redC active-ico hand'></span>
+												<input type="hidden" value="undisliked" name="status">
+												<span class='fa-thumbs-down redC active-ico hand'></span>
 											@endif
 											 &nbsp;
 										</div>&nbsp;

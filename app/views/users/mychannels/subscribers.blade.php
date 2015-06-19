@@ -160,11 +160,10 @@
 </div><!--/.row-->
 @stop
 
-@section('script')
-	{{HTML::script('js/jquery.js')}}
-	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/homes/convert_specialString.js')}}
+@section('some_script')
+{{HTML::script('js/subscribe.js')}}
+{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/homes/convert_specialString.js')}}
 
 	<script type="text/javascript">
 		$('.grid').click(function() {

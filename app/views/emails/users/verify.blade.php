@@ -10,7 +10,9 @@
 			<div style="width:720px; height:auto; padding:20px 20px;">
 				Hi {{$first_name}}!<br>
 				<br>
-				Please click the link below to verify your account
+				Please click <a href='{{$url}}'>here</a> to verify your account <br/>
+				or <br/ >
+				please copy and paste this to your browser<br />
 				{{$url}}
 			</div>
 		</td>

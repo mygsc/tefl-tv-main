@@ -1,4 +1,3 @@
-
 <div class="White">
 	<div class="col-md-12">
 		<div class="row">
@@ -53,23 +52,8 @@
 								@endif
 							</span> 
 						</span>	
-
-				@if(empty($usersChannel->interests))
-					<span class="pull-right"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;	
-
-					<br/><br/>
-					<p class="text-justify notes center-block"></p>
-				@else
-					<span class="pull-right"><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</span>&nbsp;
-					
-
-					<br/><br/>
-					<p class="black center-block italic text-center fs-12">
-						<i class="fa fa-quote-left"></i>
-						{{ Str::limit($usersChannel->interests,300) }}
-						<i class="fa fa-quote-right"></i>
-					</p>
-				@endif
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -94,6 +78,8 @@
 
 	</div>
 </div>
+
+
 
 @section('script')
 {{HTML::script('js/user/upload_image.js')}}
@@ -125,40 +111,38 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
-	</div>
-</div>
 
 
-<!-- Modal -->
-<div class="modal fade overlay" id="change_profile_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog black ">
-		<div class="modal-content mod-change-dp text-center center-block">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				{{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true', 'class'=> 'inline', 'id' => 'upload_profile_picture') )}}
-				<label class="fileContainer">
-					<h3 class="inline "><u>Upload new photo </u></h3>
-					{{ Form::file('image', array('id' => 'uploaded_img'))}}
-				</label>
-			</div>
-			<div class="modal-body">
-				<div class="text-center">
-					{{HTML::image($usersImages['profile_picture'], 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
-					<b><span id="upload-message"></span></b>
-					<div id="wrapper">
-					<div id="progressbar-loaded" class="text-center">
-						<b><span id="percentage"></span></b>
-
+		<!-- Modal -->
+		<div class="modal fade overlay" id="change_profile_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog black ">
+				<div class="modal-content mod-change-dp text-center center-block">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						{{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true', 'class'=> 'inline', 'id' => 'upload_profile_picture') )}}
+						<label class="fileContainer">
+							<h3 class="inline "><u>Upload new photo </u></h3>
+							{{ Form::file('image', array('id' => 'uploaded_img'))}}
+						</label>
 					</div>
+					<div class="modal-body">
+						<div class="text-center">
+							{{HTML::image($usersImages['profile_picture'], 'Image preview', array('id' => 'preview', 'class' => 'center-block change-Dp'))}}
+							<b><span id="upload-message"></span></b>
+							<div id="wrapper">
+								<div id="progressbar-loaded" class="text-center">
+									<b><span id="percentage"></span></b>
+
+								</div>
+							</div>
+						</div>            
 					</div>
-				</div>            
-			</div>
-			<div class="modal-footer">
-				{{Form::submit("Update", array('class' => 'btn btn-info'))}}
-				{{Form::close()}}
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<div class="modal-footer">
+						{{Form::submit("Update", array('class' => 'btn btn-info'))}}
+						{{Form::close()}}
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-@stop
+		@stop

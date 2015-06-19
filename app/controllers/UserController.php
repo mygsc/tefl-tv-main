@@ -1122,7 +1122,7 @@ class UserController extends BaseController {
 			if(!$ifAlreadySubscribe){
 				DB::table('subscribes')->insert(array('user_id' => $user_id, 'subscriber_id' => $subscriber_id));
 				//Notification
-				$this->Notification->constructNotificationMessage($user_id,$subscriber_id,'subscribe');
+				$this->Notification->sendNotification($user_id,$subscriber_id,'subscribe');
 				//
 				return Response::json(array('status' => 'subscribeOff','label' => 'Unsubscribe'));
 			}
@@ -1327,7 +1327,7 @@ class UserController extends BaseController {
 		if(Auth::check()){
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 			$categories = $this->Video->getCategory();
-
+			$this->Notification->setStatus();
 			return View::make('users.notifications', compact(array('categories','notifications')));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	
