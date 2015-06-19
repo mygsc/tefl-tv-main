@@ -269,13 +269,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
         
                 <!-- COMMENTS AREA -->
                 <div class="row mg-t-10">
-                    <div class="White same-H pad-v-10">
-                        <div class="row">
-                            <div class="content-padding">
-                             @include('elements/home/videoComments')
-                             </div>
-                        </div>
-                    </div>
+                    
+                    @include('elements/home/videoComments')
+        
                 </div>
                 <!-- COMMENTS AREA -->
 
