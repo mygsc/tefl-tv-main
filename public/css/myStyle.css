@@ -1247,7 +1247,34 @@ center;     margin: 0 auto; }
     max-height: 300px;
     overflow: auto;
 }
+.wv-icon{
 
+    width:23px!important;
+    display: inline-block!important;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 2px;
+    font-size: 14px!important;
+}
+
+.trashC{
+    color:#FF6800;
+}
+.thumbUpC{
+    color: #6098CF;
+}
+.thumbDownC{
+    color: #EA7171;
+}
+.replyC{
+   color: #1E4C6E;
+}
+.active-ico{
+    font-size: 17px!important;
+}
+.wv-counts{
+    font-size: 13px;
+}
 .commentBox h4, 
 .replyDiv h4 {
     color: #337ab7!important;

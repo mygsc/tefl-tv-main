@@ -47,21 +47,23 @@
 							</div>
 							<div class="col-md-11">
 								<div class="row">
-									{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}
+									<b>{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}</b>
 									| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
 									<br/>
 									<p class="text-justify">{{$getVideoComment->comment}}</p>
 
-									<div class='tooltipDelete' style="float:right;">
+									<div class='tooltipDelete inline hand'>
+										<div class="wv-icon trashC">
 										@if(isset(Auth::User()->id))
 										@if(Auth::User()->id == $getVideoComment->user_id)
-										<button class="deleteComment btn-trans fa fa-trash" title="Delete this comment">	
+										<span class="deleteComment fa fa-trash" title="Delete this comment">	
 											{{Form::hidden('comment_id', Crypt::encrypt($getVideoComment->id), array('id' => 'comment_id'))}}
 											{{Form::hidden('video_id', Crypt::encrypt($getVideoComment->video_id), array('id' => 'video_id'))}}
 											{{Form::hidden('user_id', Crypt::encrypt($getVideoComment->user_id), array('id' => 'user_id'))}}
-										</button>
+										</span>
 										@endif
 										@endif
+										</div>
 									</div>
 
 									<?php
@@ -81,21 +83,24 @@
 										'status' => 'disliked'
 										))->first();
 										?>
-										<div class='fa commentlikedup'>
+										
+										<div class='fa commentlikedup thumbUpC'>
+											<span class="likescount" id="likescount">{{$likesCount}}</span>
 											@if(!$ifAlreadyLiked)
 											<span class='fa-thumbs-up hand'></span>
 											<input type="hidden" value="liked" name="status">
 											@else
-											<span class='fa-thumbs-up blueC hand'></span>
+											<span class='fa-thumbs-up blueC active-ico hand'></span>
 											<input type="hidden" value="unliked" name="status">
 											@endif
 											<input type="hidden" value="{{$getVideoComment->id}}" name="likeCommentId">
 											<input type="hidden" value="{{Auth::User()->id}}" name="likeUserId">
 											<input type="hidden" value="{{$videoId}}" name="video_id">
-											<span class="likescount" id="likescount">{{$likesCount}}</span>
+											
 										</div>
 										&nbsp;
-										<div class='fa commentdislikedup'>
+										<div class='fa commentdislikedup thumbDownC'>
+											<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span>
 											<input type="hidden" value="{{$getVideoComment->id}}" name="dislikeCommentId">
 											<input type="hidden" value="{{Auth::User()->id}}" name="dislikeUserId">
 											<input type="hidden" value="{{$videoId}}" name="video_id">
@@ -104,13 +109,14 @@
 											<span class='fa-thumbs-down hand'></span>
 											@else
 											<input type="hidden" value="undisliked" name="status">
-											<span class='fa-thumbs-down redC hand'></span>
+											<span class='fa-thumbs-down redC active-ico hand'></span>
 											@endif
-											<span class="dislikescount" id="dislikescounts">{{$dislikeCount}}</span> &nbsp;
+											 &nbsp;
 										</div>&nbsp;
 										@else
-										<span class="likescount" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
-										<span class="dislikescount" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+										<span class="likescount thumbUpC" id="likescount">{{$likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+										<span class="dislikescount thumbDownC" id="dislikescounts">{{$dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+										
 										<!--end updated by cess 3/26/15-->
 										@endif<!--auth user-->
 										<?php
@@ -124,8 +130,8 @@
 										->orderBy('comments_reply.created_at', 'asc')
 										->where('comments_reply.comment_id', $getVideoComment->id)->get();
 										?>
-										<span class="repLink hand">{{$getCommentRepliesCount}}<i class="fa fa-reply"></i></span>
-
+							
+										<span class="repLink hand wv-counts replyC"><i class="fa fa-reply"></i> {{$getCommentRepliesCount}} Replies</span>
 										<div id="replysection" class="panelReply">
 											<?php
 											foreach($getCommentReplies as $getCommentReply):
@@ -231,7 +237,7 @@
 									</div><!--/.col-md-11-->
 									<hr/>
 								</div><!--/.commentsrowarea-->
-
+								<hr/>
 								@endforeach
 							</div>
 						</div>
