@@ -253,7 +253,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			
 </div>
 {{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/showHideToggle.js')}}
