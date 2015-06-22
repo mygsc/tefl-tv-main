@@ -1,7 +1,7 @@
 @extends('layouts.partnership')
 
 @section('title')
-	Congratulation you just became a TEFL TV's {{Session::get('partnership_type')}}
+	Congratulation you just became a TEFL TV's partner
 @stop
 
 @section('content')
@@ -12,12 +12,12 @@
 			<!--for publisher-->
 			<div class="good text-center">
 				<h3 class="">
-					Congratulations you just became a TEFLTV Publisher.
+					Congratulations you just became a TEFLTV partner.
 					<!--{{Session::get('partnership_type')}}-->
 					<br/>
 					We are excited for you! Go browse, watch, share videos and start earning now!
 				</h3>
-				<a href="">Go to TEFLTV homepage.</a>
+				<a href="{{route('homes.index')}}">Go to TEFLTV homepage.</a>
 			</div>
 			<!--for partner
 			<div class="text-center good">

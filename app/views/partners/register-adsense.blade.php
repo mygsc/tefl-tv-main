@@ -268,7 +268,7 @@ Apply as publisher of TEFL TV
 				<div class="text-right mg-b-20">
 					<br />
 					<p class="notes">Please read terms and condition and click the checkbox at the bottom of the contex if you agree with it.</p>
-					<a href="{{route('partnerships.success')}}">{{Form::button('Submit Application', array('class' => 'btn btn-primary'))}}</a>
+					<a href="{{route('partners.success')}}">{{Form::button('Submit Application', array('class' => 'btn btn-primary'))}}</a>
 				</div>
 			</div>
 		</div>

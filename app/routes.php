@@ -186,16 +186,31 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 
 
 //**********Partners**********//
-Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@getIndex'));
-Route::get('partners/learnmore', array('before' => 'partners','as' => 'partners.learnmore', 'uses' => 'PartnershipController@getPartnerLearnMore'));
-Route::get('partners/adsense', array('before' => 'partnerships.verification', 'as' => 'partners.adsense', 'uses' => 'PartnershipController@getPartnersAdsense'));
-Route::get('partners/partners_program', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPartnersProgram'));
-Route::get('publishers/learnmore', array('before' => 'partners','as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPublisherLearnMore'));
-Route::get('publishers/adsense', array('before' => 'partnerships.verification', 'as' => 'publishers.adsense', 'uses' => 'PartnershipController@getPublisherAdsense'));
-Route::group(array('prefix' => 'partnerships',), function() {
-	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@getVerification'));
-	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
-	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
+Route::group(array('prefix' => 'partners'), function(){
+	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
+	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
+	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
+	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
+	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
+	Route::get('success', array('before' => 'partners.verification', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
 });
 
+//**********Partners**********//
+Route::group(array('prefix' => 'publishers'), function(){
+	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
+	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
+	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
+	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
+	Route::get('register-adsense', array('as' => 'publishers.register-adsense', 'uses' => 'PublisherController@getRegisterAdsense'));
+	Route::get('success', array('before' => 'publishers.publishers', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));
+});
+
+//********Partners and Publishers account verification*************//
+Route::get('verification', array('before' => 'auth', 'as' => 'users.verification', 'uses' => 'UserController@getVerification'));
+Route::post('verification', array('before' => 'auth','as' => 'post.users.verification', 'uses' => 'UserController@postVerification'));
+
+
+
+
+//********Error page***********//
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));

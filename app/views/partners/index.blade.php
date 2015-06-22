@@ -1,7 +1,7 @@
 @extends('layouts.partnership')
 
 @section('title')
-Partners Program
+TEFL TV Partner program
 @stop
 
 @section('content')
@@ -113,7 +113,7 @@ Partners Program
 					</li>
 					<br/>
 					<hr/>
-					<h3>Start earning money. <a href="{{route('partnerships.verification')}}">Become a Partner Now!</a></h3>
+					<h3>Start earning money. <a href="{{route('users.verification')}}">Become a Partner Now!</a></h3>
 					
 					<br/><br/>
 				</div>

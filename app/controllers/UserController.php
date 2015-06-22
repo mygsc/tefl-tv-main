@@ -1577,4 +1577,21 @@ class UserController extends BaseController {
 		$result->delete(); return Response::json(array('msg'=>'delete success.')); 
 	}
 
+	public function getVerification(){
+		Session::forget('partnership_token');
+		return View::make('users.verification');
+	}
+
+	public function postVerification(){
+		$input = Input::all();
+		if (Hash::check($input['password'],$this->Auth->password))
+		{
+			$partnershipToken = $this->Auth->channel . rand(0,50);
+			$partnershipToken = Crypt::encrypt($partnershipToken);
+			Session::put('partnership_token', $partnershipToken);
+			return Redirect::intended('/');
+		}
+		return Redirect::route('users.verification')->with('flash_bad','Invalid credentials')->withInput();
+	}
+
 }
