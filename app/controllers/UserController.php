@@ -1328,6 +1328,7 @@ class UserController extends BaseController {
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 			$categories = $this->Video->getCategory();
 			$this->Notification->setStatus();
+			return $notifications;
 			return View::make('users.notifications', compact(array('categories','notifications')));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	
