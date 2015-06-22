@@ -53,9 +53,9 @@ class HomeController extends BaseController {
 
 	public function partnership(){ return View::make('homes.partnership'); }
 
-	public function getPartnershipVerification(){ return View::make('homes.partnership'); }
-
-	public function getSignIn() { return View::make('homes.signin'); }
+	public function error(){
+		return View::make('errors.maintenance');
+	}
 
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
@@ -178,6 +178,7 @@ class HomeController extends BaseController {
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
 					$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
+					
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
