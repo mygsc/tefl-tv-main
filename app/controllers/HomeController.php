@@ -500,6 +500,7 @@ class HomeController extends BaseController {
 				</div>
 				&nbsp;
 				<div class="fa replydislikedup  inline thumbDownC">
+					<span class="dislikescount" id="dislikescounts">'.$dislikeCountReply.'</span>
 					<input type="hidden" value="'.$replies->id.'" name="dislikeCommentId">
 					<input type="hidden" value="'.$user_id.'" name="dislikeUserId">
 					<input type="hidden" value="'.$video_id.'" name="video_id">';
@@ -513,7 +514,7 @@ class HomeController extends BaseController {
 						<span class="fa-thumbs-down redC hand"></span>';
 					}
 					$newReply2 = $newReply2 .'
-					<span class="dislikescount" id="dislikescounts">'.$dislikeCountReply.'</span> &nbsp;
+					&nbsp;
 				</div>
 				&nbsp;';
 				$getCommentReplies = DB::table('comments_reply')
