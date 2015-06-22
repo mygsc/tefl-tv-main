@@ -48,33 +48,30 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
-		<div class="same-H grey pad-s-10 mg-r-10 row">
-			@include('elements/home/categories')
-			<div>
-				@include('elements/home/adverstisement_half_large_recatangle')
+				<div class="same-H mg-r-10 row">
+					@include('elements/home/categories')
+					<div>
+						@include('elements/home/adverstisement_half_large_recatangle')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
+
+					</div>
+				</div>
 			</div>
-			<div class="mg-t-10">
-				@include('elements/home/carouselAds')
-			</div>
-			<div class="mg-t-10">
-				@include('elements/home/adverstisementSmall')
-				
-			</div>
-		</div>
-	</div>
-		<div class="col-md-9 White same-H">
+		<div class="col-md-9  ">
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row grey">
-		
-			<h2 class="orangeC mg-l-10">Recommended Videos</h2>
+		<div class="row White same-H">
+			<div class="top-div">
+				<h2 class=" mg-l-10">Recommended Videos</h2>
+			</div>
 			<div class="col-md-12">
 				<div class="row ">
-				
-
-
 					@foreach($recommendeds as $recommended)
 					<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="p-relative">
@@ -105,8 +102,11 @@
 			</div><!--/.col-md-12-->
 		
 		</div><!--/.row for recommended videos-->
-		<div class="row">
-			<h2 class="orangeC mg-l-10">Popular Videos</h2>
+		<br/>
+		<div class="row White same-H">
+			<div class="top-div">
+				<h2 class="mg-l-10">Popular Videos</h2>
+			</div>
 			@foreach($populars as $popular)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">
@@ -134,10 +134,12 @@
 			@endforeach
 			
 		</div>
-
+		<br/>
 			
-		<div class="row grey">
-			<h2 class="orangeC mg-l-10">Latest Videos</h2>
+		<div class="row White same-H">
+			<div class="top-div">
+				<h2 class="mg-l-10">Latest Videos</h2>
+			</div>
 
 			@foreach($latests as $latest)
 			<div class="col-lg-4 col-md-4 col-sm-6">
@@ -167,9 +169,11 @@
 			@endforeach
 			
 		</div>
-
-		<div class="row">
-			<h2 class="orangeC mg-l-10">Random Videos</h2>
+		<br/>
+		<div class="row White same-H">
+			<div class="top-div">
+				<h2 class="mg-l-10">Random Videos</h2>
+			</div>
 			@foreach($randoms as $random)
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="p-relative">

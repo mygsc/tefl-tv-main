@@ -34,11 +34,11 @@
     document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
-            if($(".linkReadMore span").html() == 'SHOW MORE'){
-                $(".linkReadMore span").html('SHOW LESS');
+            if($(".linkReadMore span").html() == 'READ MORE'){
+                $(".linkReadMore span").html('READ LESS');
                 $("#desc-preview").hide();
             }else{
-                 $(".linkReadMore span").html('SHOW MORE');
+                 $(".linkReadMore span").html('READ MORE');
                 $("#desc-preview").show(500);
             }
             //$(".linkReadMore span").html($(".linkReadMore span").html() == 'SHOW MORE' ?  : 'SHOW MORE');
@@ -261,7 +261,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                    </div>
                                </div><!--/.well2-->
                                <div class="h-seeMore">
-                                <a class="linkReadMore text-center"><span>SHOW MORE</span></a>
+                                <a class="linkReadMore text-center"><span>READ MORE</span></a>
                             </div>
                             <br/>
                         </div><!--/.info-->

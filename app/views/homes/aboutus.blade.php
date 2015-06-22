@@ -1,21 +1,25 @@
 @extends('layouts.default')
 
 @section('content')
-<div class='container'>
-	
-	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-		<div class="same-H grey pad-s-10">
-			@include('elements/home/categories')
-			<div>
-				@include('elements/home/carouselAds')
-			</div>
-			<div class="mg-t-10">
-				@include('elements/home/adverstisementSmall')
-				
+<div class="container h-minH ">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+
+			<div class="same-H mg-r-10 row">
+				@include('elements/home/categories')
+				<div>
+					@include('elements/home/adverstisement_half_large_recatangle')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
+
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-9 White same-H">
+		<div class="col-md-9 White same-H">
 		<!--<h1>About TEFL TV</h1>
 		<!--about us content
 		<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -91,6 +95,7 @@
 
 	</div><!--/.col-md-9-->
 </div><!--/.container page-->
+</div>
 
 @stop
 
