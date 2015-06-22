@@ -53,10 +53,6 @@ class HomeController extends BaseController {
 
 	public function partnership(){ return View::make('homes.partnership'); }
 
-	public function error(){
-		return View::make('errors.maintenance');
-	}
-
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
 		$popularVideos = $this->Video->getFeaturedVideo('popular', 12);

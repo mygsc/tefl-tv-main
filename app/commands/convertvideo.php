@@ -85,7 +85,7 @@ class convertvideo extends Command {
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
 				$notifications = new Notification();
-				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready');
+				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready', $checkFilename->video_id);
 				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 
@@ -164,13 +164,4 @@ class convertvideo extends Command {
 		$video->save($mp4, $destinationPath.DS.$fileName.'_low.mp4')
 		->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
 	}
-	public function ffmpeg(){
-		return $ffmpeg = FFMpeg\FFMpeg::create([
-			'ffmpeg.binaries'=>$this->ffmpegPath,
-			'ffprobe.binaries'=>$this->ffprobePath,
-			'timeout'=>0,
-			'ffmpeg.threads'=>12
-			]);
-	}
 }
-
