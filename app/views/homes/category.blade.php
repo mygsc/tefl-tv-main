@@ -5,10 +5,14 @@ Category: {{$category}} - TEFL-tv
 @section('content')
 <div class="container  ">
 	<div class="row">
-		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+
+			<div class="same-H mg-r-10 row">
 				@include('elements/home/categories')
 				<div>
+					@include('elements/home/adverstisement_half_large_recatangle')
+				</div>
+				<div class="mg-t-10">
 					@include('elements/home/carouselAds')
 				</div>
 				<div class="mg-t-10">

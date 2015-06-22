@@ -2,7 +2,7 @@
  @if(Auth::check())
  <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingTwo">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a href="">
         <i class="fa fa-user"></i> My Channel
       </a>
@@ -24,7 +24,7 @@
 </div>
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingNot">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a class="" id="notification">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
@@ -50,7 +50,7 @@
 @endif
 <div class="panel panel-info">
   <div class="panel-heading" role="tab" id="headingOne">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a class="">
         <i class="fa fa-video-camera"></i> Categories
       </a>
