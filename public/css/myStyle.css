@@ -1858,7 +1858,6 @@ div .video-info:hover{
     position: absolute;
     left: 0;
     padding: 2px 2px 5px 2px;
-    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -1866,7 +1865,6 @@ div .video-info:hover{
     width: 150px;
     height: 150px;
     margin: auto;
-    border-radius: 7px 7px;
 }
 
 .change-Dp {
@@ -5181,7 +5179,6 @@ div .video-info:hover{
     position: absolute;
     left: 0;
     padding: 2px 2px 5px 2px;
-    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -5189,7 +5186,6 @@ div .video-info:hover{
     width: 150px;
     height: 150px;
     margin: auto;
-    border-radius: 7px 7px;
 }
 
 .change-Dp {
