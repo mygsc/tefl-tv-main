@@ -13,7 +13,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 ">	
-				<div class="ad-bg same-H">
+				<div class="ad-bg same-H mg-t-10">
 					<div class="row">
 						<div class="col-md-6" style="">
 							<div class="mg-l-10  mg-b-10">
@@ -41,32 +41,27 @@
 							</div> -->
 
 						</div>
-
-
-						
-						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-				<div class="same-H mg-r-10 row">
+		</div>
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm ">
+			<div class="mg-r-10 row">
 					@include('elements/home/categories')
-					<div>
-						@include('elements/home/adverstisement_half_large_recatangle')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
-
-					</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisement_half_large_recatangle')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/carouselAds')
+				</div>
+				<div class="mg-t-10">
+					@include('elements/home/adverstisementSmall')
 				</div>
 			</div>
-		<div class="col-md-9  ">
+		</div>
+		<div class="col-md-9">
 		<!--RECOMMENDED VIDEOS SECTION -->
-		<div class="row White same-H">
+		<div class="row White same-H mg-t-10">
 			<div class="top-div">
 				<h2 class=" mg-l-10">Recommended Videos</h2>
 			</div>
