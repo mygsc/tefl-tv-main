@@ -1,4 +1,4 @@
-<div class="footer1 hidden-xs">
+<div class="footer1 hidden-xs mg-t-10">
     <div class="container">
         <div class="row">
 
@@ -8,7 +8,7 @@
                         {{ link_to_route('homes.aboutus', 'Contact Us', null) }}
                         {{ link_to_route('homes.advertisements', 'Advertisement', null) }}
                         {{ link_to_route('homes.privacy', 'Privacy', null) }}
-                        {{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}
+                        {{ link_to_route('homes.termsandconditions', 'Terms and Conditions', null) }}
                         {{ link_to_route('homes.copyright', 'Copyright', null) }}
                         {{ link_to_route('partners.index', 'Partner', null) }}
                         {{ link_to_route('publishers.index', 'Publisher', null) }}

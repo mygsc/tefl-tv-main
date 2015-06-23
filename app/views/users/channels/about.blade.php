@@ -10,6 +10,7 @@
 			<div class="White channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
+
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				  		<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 							<li role="presentation" class="active">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>

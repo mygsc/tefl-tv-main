@@ -177,9 +177,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			DB::raw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) AS views'),
 			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
 		->take($limit)
+		->whereRaw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) > 0')
 		->join('users_profile', 'users_profile.user_id', '=', 'users.id')
-		->orderBy('views', 'DESC')
-		->get();
+		->orderBy('views', 'DESC')->get();
 
 		foreach($userData as $key => $user){
 			$profile_picture = $this->getUsersImages($user->id);
