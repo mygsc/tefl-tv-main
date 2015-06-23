@@ -85,7 +85,7 @@ class convertvideo extends Command {
 				$checkFilename->uploaded = 1;
 				$checkFilename->save();
 				$notifications = new Notification();
-				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready');
+				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready', $checkFilename->video_id);
 				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 

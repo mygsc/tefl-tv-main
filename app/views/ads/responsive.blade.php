@@ -17,8 +17,8 @@
         overflow:hidden;
         position:relative;
         padding:0 10px;
-		max-width: 720px;
-		margin-right: auto;
+        max-width: 720px;
+        margin-right: auto;
         margin-left: auto;
     }
     span.close-ads{
@@ -44,18 +44,19 @@
 
 </style>
 
-
    
     <!-- Responsive -->
    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <div class="ads-absolute-wrapper" id='advertisement'>
         <div class="close-ads"></div>
+
         <div class="text-center" style="position:relative;">
             <span class="close-ads">
                <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
                 <b>close ads</b>
             </span>
         </div>
+
         <div class="ads-relative-wrapper">
             <ins class="adsbygoogle"
             style="display:block;"
@@ -65,6 +66,6 @@
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
-      
+
 
 
