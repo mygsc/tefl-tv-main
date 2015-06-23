@@ -7,15 +7,14 @@
 	<title>@yield('title', 'TEFL-TV')</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
-	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
 	
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/partner.css') }}
+	{{ HTML::style('css/partnership.css') }}
 	{{ HTML::style('css/myStyle.css') }}
-	{{ HTML::style('css/vid.player.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
@@ -23,12 +22,11 @@
 </head>
 
 <body>
-	<div id="fb-root"></div>
-	{{HTML::script('js/facebook.js')}}
-	{{HTML::script('js/google.js')}}
 
-	@include('elements/partners/header')
-	@include('elements/partners/partners_nav')
+	<div class="same-H">
+		@include('elements/partners/header')
+		@include('elements/partners/partners_nav')
+	</div>
 
 		@include('elements/flash_message')
 		@yield('content')
@@ -54,16 +52,7 @@
     $('.fadeThis').delay(3000).fadeOut('slow');
 </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-53463162-2', 'auto');
-  ga('send', 'pageview');
-
-</script>
 <script>
 	wow = new WOW(
 	{
