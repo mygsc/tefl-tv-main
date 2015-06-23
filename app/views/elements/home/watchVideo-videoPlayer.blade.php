@@ -18,8 +18,18 @@
 						</div>
 						@include('ads/responsive')
 						@include('elements/videoPlayer')
+						@if($countAnnotation > 0)
+							@for($i=0;$i < $countAnnotation;$i++)
+								<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
+										<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
+										{{$annotations[$i]->content}}
+										{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
+										{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
+								</div>
+							@endfor
+						@endif
+						{{Form::hidden('count-annotation',$countAnnotation)}}
 					</div>
-				
 		</div><!--/.row-->
 	</div><!--/.col-md-7-->
 
