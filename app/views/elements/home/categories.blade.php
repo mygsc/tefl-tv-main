@@ -32,12 +32,12 @@
   </div>
   <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
-      @if(!empty($notifications))
+      @if(!$notifications->isEmpty())
         @foreach($notifications as $notification)
           <li>{{$notification->notification}}</li>
         @endforeach
       @else
-        No new notifcation
+        No notification
       @endif
       
       <div class="text-center mg-t-10">

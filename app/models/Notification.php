@@ -112,7 +112,7 @@ class Notification extends Eloquent {
 
 	public function getNotificationForSideBar(){
 		if(Auth::check()){
-			$notifications =  $this->getNotifications(Auth::user()->id, null, '10');
+			$notifications =  $this->getNotifications(Auth::user()->id, 0, null, '10');
 
 			return $notifications;
 		}
@@ -156,7 +156,7 @@ class Notification extends Eloquent {
 			}elseif(isset($limit)){
 				$result = Notification::whereUserId($id)
 				->whereDeletedAt(null)
-				->OrderBy('created_at', 'ASC')
+				->OrderBy('created_at', 'DESC')
 				->take($limit)
 				->get();
 			}else{
