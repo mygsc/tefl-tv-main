@@ -18,12 +18,12 @@ class HomeController extends BaseController {
 		$randoms = $this->Video->getFeaturedVideo('random', '9');
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
 	public function getAboutUs() { 
 		$categories = $this->Video->getCategory();
-		return View::make('homes.aboutus', compact('categories'));
+		$notifications = $this->Notification->getNotificationForSideBar();
+		return View::make('homes.aboutus', compact('categories', 'notifications'));
 	}
 
 	public function postContactUs(){
@@ -39,13 +39,33 @@ class HomeController extends BaseController {
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
 
-	public function getPrivacy() { return View::make('homes.privacy'); }
+	public function getPrivacy() {
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
 
-	public function getTermsAndConditions() { return View::make('homes.termsandconditions'); }
+		return View::make('homes.privacy', compact('categories', 'notifications')); 
+	}
 
-	public function getAdvertisements() { return View::make('homes.advertisements'); }
+	public function getTermsAndConditions() {
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+
+		return View::make('homes.termsandconditions', compact('categories','notifications'));
+	}
+
+	public function getAdvertisements() {
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+
+		return View::make('homes.advertisements', compact('categories','notifications'));
+	}
 	
-	public function getCopyright() { return View::make('homes.copyright'); }
+	public function getCopyright() { 
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+
+		return View::make('homes.copyright', compact('categories','notifications')); 
+	}
 
 	public function postPlaylist() { return View::make('homes.playlist'); }
 
