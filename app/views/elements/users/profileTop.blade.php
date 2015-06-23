@@ -94,7 +94,7 @@
 		<div class="modal-content">
 			<div class="modal-header text-center">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
+				{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true,'id' => 'upload_cover_photo_form'))}}
 				<label class="fileContainer">
 					<h3><u>Upload new channel cover</u></h3>
 					{{Form::file('coverPhoto', array('id' => 'upload_cover_photo'))}}
@@ -102,6 +102,12 @@
 			</div>
 			<div class="modal-body text-center">
 				{{HTML::image($usersImages['cover_photo'], 'alt', array('id' => 'preview_cover_photo', 'style' => 'z-index:70;', 'width' => '100%'))}}
+				<b><span id="upload-message-cover"></span></b>
+					<div id="wrapper-cover">
+						<div id="progressbar-loaded-cover" class="text-center">
+							<b><span id="percentage-cover"></span></b>
+						</div>
+					</div>
 			</div>
 			<div class="modal-footer">
 

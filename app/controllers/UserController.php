@@ -268,10 +268,10 @@ class UserController extends BaseController {
 
 					Input::file('coverPhoto')->move($save_path, 'cover_photo.jpg');
 					File::copy($save_path . '/cover_photo.jpg', $save_path.'/cover_photo_original.jpg');
-					return Redirect::route('users.channel')->withFlashGood('Successfully Updated!');
+					return Response::json(array('result' =>true, 'route' => route('users.channel')));
 				}
 			}
-			return Redirect::route('users.channel')->withFlashBad('Invalid image format. Please upload image on the following format .jpeg, .jpg, .png');
+			return Response::json(false);
 		}
 		
 	}
