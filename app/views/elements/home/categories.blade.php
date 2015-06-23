@@ -1,8 +1,8 @@
-<div class="panel-group ctgryDiv" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group ctgryDiv mg-t-10" id="accordion" role="tablist" aria-multiselectable="true">
  @if(Auth::check())
- <div class="panel panel-info">
+ <div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingTwo">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a href="">
         <i class="fa fa-user"></i> My Channel
       </a>
@@ -22,9 +22,9 @@
     </div>
   </div>
 </div>
-<div class="panel panel-info">
+<div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingNot">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a class="" id="notification">
         <span class="badge btn-danger " id="notification-counter"></span>Notifications
       </a>
@@ -32,12 +32,12 @@
   </div>
   <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
-      @if(!empty($notifications))
+      @if(!$notifications->isEmpty())
         @foreach($notifications as $notification)
           <li>{{$notification->notification}}</li>
         @endforeach
       @else
-        No new notifcation
+        No notification
       @endif
       
       <div class="text-center mg-t-10">
@@ -48,9 +48,9 @@
   </div>
 </div>
 @endif
-<div class="panel panel-info">
+<div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingOne">
-    <p class="panel-title">
+    <p class="panel-title whiteC">
       <a class="">
         <i class="fa fa-video-camera"></i> Categories
       </a>

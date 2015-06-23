@@ -3,7 +3,7 @@
 
 @section('content')
 @include('elements/flash_verify')
-<div class="row White">
+<div class="row White same-H mg-t-10">
 	<div class='container'>
 		<br/><br/>
 		<div class="row">

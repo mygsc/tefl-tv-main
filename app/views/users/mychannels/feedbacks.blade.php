@@ -33,7 +33,7 @@
 						<div class="collapse navbar-collapse" id="myNavbar">
 							<ul class="nav navbar-nav">
 								<li>{{link_to_route('users.channel', 'Home')}}</li>
-								<li>{{link_to_route('users.about', 'About')}}</li>
+								<li>{{link_to_route('users.about', 'About Me')}}</li>
 								<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
 								<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 								<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
@@ -47,7 +47,7 @@
 				<div class="feedbackSection content-padding">
 					<br/><br/>
 					@if($userFeedbacks->isEmpty())
-					<h3 class="text-center">No feedbacks yet..</h3>
+					<h3 class="text-center">No feedback yet..</h3>
 					@endif
 
 					<div class="feedbacks row">

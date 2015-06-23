@@ -4192,7 +4192,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     border: 0;
 }
 .panel-group {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 .panel-group .panel {
     margin-bottom: 0;
@@ -4268,12 +4268,12 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     border-bottom-color: #d6e9c6;
 }
 .panel-info {
-    border-color: #bce8f1;
+    border-color: rgba(188, 232, 241, 0);
 }
 .panel-info>.panel-heading {
     color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
+    background-color: #1F3359;
+    border-color: rgba(188, 232, 241, 0);
 }
 .panel-info>.panel-heading+.panel-collapse>.panel-body {
     border-top-color: #bce8f1;
@@ -4810,22 +4810,22 @@ button.close {
     opacity: .5;
 }
 .carousel-control.left {
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
+   /* background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
     background-image: -o-linear-gradient(left, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
     background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000',  endColorstr='#00000000',  GradientType=1);
-    background-repeat: repeat-x;
+    background-repeat: repeat-x;*/
 }
 .carousel-control.right {
     right: 0;
     left: auto;
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
+    /*background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
     background-image: -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
     background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',  endColorstr='#80000000',  GradientType=1);
-    background-repeat: repeat-x;
+    background-repeat: repeat-x;*/
 }
 .carousel-control:focus, .carousel-control:hover {
     color: #fff;

@@ -2,10 +2,15 @@
 
 @section('content')
 	<div class="container">
-		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
+		<div class="row">
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+
+			<div class="mg-r-10 row">
 				@include('elements/home/categories')
 				<div>
+					@include('elements/home/adverstisement_half_large_recatangle')
+				</div>
+				<div class="mg-t-10">
 					@include('elements/home/carouselAds')
 				</div>
 				<div class="mg-t-10">
@@ -14,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9 White">
+		<div class="col-md-9 White mg-t-10 same-H">
 			<h1>COPYRIGHT</h1>
 				<br/>
 					<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -98,4 +103,5 @@
 
 		</div><!--/.col-md-9 left section, writeUps-->
 	</div><!--/.container page-->
+</div>
 @stop
