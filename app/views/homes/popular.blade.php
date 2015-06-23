@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
-			<div class="same-H mg-r-10 row">
+			<div class="mg-r-10 row">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-9 col-md-8 same-H White h-minH ">
+		<div class="col-lg-9 col-md-8 same-H White h-minH mg-t-10 ">
 			<h1 class="tblue mg-b-20 mg-t-20">Popular Videos</h1>
 			@foreach($popularVideos as $key => $popularVideo)
 			<!-- 12 column / 3 column = 4 -->

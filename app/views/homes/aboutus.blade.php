@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
-			<div class="same-H mg-r-10 row">
+			<div class="mg-r-10 row">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9 White same-H">
+		<div class="col-md-9 White same-H  mg-t-10">
 		<!--<h1>About TEFL TV</h1>
 		<!--about us content
 		<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

@@ -1,5 +1,5 @@
 
-<div class="di">
+<div class="di same-H ">
   <div id="carousel-example-generic" class="carousel slide greyDark" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
