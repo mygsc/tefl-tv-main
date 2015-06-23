@@ -194,6 +194,7 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
+		//return $datas;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 
@@ -280,7 +281,7 @@ class UserController extends BaseController {
 		$userChannel = UserProfile::where('user_id', $this->Auth->id)->first();
 		if(!isset($userChannel)) {return Redirect::route('homes.post.signin')->withFlashBad('You have an empty profile.');}
 		$userWebsite = Website::where('user_id', $this->Auth->id)->first();
-		$picture = public_path('img'.DS.'user'.DS.$this->Auth->id . '.jpg');
+		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$sessionFacebook = Session::get('sessionFacebook');
 		$sessionFacebook = Cookie::forever('sessionFacebook', $sessionFacebook);
 		$sessionFacebook = $sessionFacebook->getValue();
@@ -290,7 +291,8 @@ class UserController extends BaseController {
 		$sessionGmail = Session::get('sessionGmail');
 		$sessionGmail = Cookie::forever('sessionGmail', $sessionGmail);
 		$sessionGmail = $sessionGmail->getValue();
-		return View::make('users.mychannels.editchannel', compact('userChannel','userWebsite', 'picture','sessionFacebook','sessionTwitter','sessionGmail'));	
+		$countries = Country::lists('country', 'id');;
+		return View::make('users.mychannels.editchannel', compact('countries','userChannel','userWebsite', 'usersImages','sessionFacebook','sessionTwitter','sessionGmail'));	
 	}
 
 	public function postEditUsersChannel($channel_name) {
@@ -1328,6 +1330,7 @@ class UserController extends BaseController {
 			$notifications =  $this->Notification->getNotifications(Auth::user()->id, null, '20');
 			$categories = $this->Video->getCategory();
 			$this->Notification->setStatus();
+
 			return View::make('users.notifications', compact(array('categories','notifications')));
 		}
 		app::abort(404, 'Internal Server Error please contact Administrator');	

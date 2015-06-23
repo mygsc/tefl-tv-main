@@ -4,13 +4,14 @@ class VideoController extends BaseController {
 	protected $user;
 	protected $url;
 	protected $video_;
-	public function __construct(Video $videos, User $users, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
+	public function __construct(Video $videos, User $users, Notification $notifications, Playlist $playlists,Subscribe $subscribers, UserWatchLater $watchLater, UserFavorite $userFavorite){
 		$this->Subscribe = $subscribers;
 		$this->Playlist = $playlists;
 		$this->User = $users;
 		$this->Video = $videos;
 		$this->Auth = Auth::User();
 		$this->url = URL::full();
+		$this->Notification	= $notifications;
 		define('DS', DIRECTORY_SEPARATOR); 
 		$this->UserWatchLater = $watchLater;
 		$this->UserFavorite = $userFavorite;
@@ -186,11 +187,12 @@ class VideoController extends BaseController {
 		$type = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('type'));
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
 		$searchResults = $this->Video->searchVideos($search);
+		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
 		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
-		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories')));
+		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories','notifications')));
 	}
 
 	public function counter($id){

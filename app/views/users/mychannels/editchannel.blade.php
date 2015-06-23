@@ -216,7 +216,7 @@
                                         {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
                                         <br/>
                                         {{Form::label('country', 'Country: ')}}
-                                        {{Form::text('country', $userChannel->country_id, array('placeholder' => 'Country'))}}
+                                        {{ Form::select('country', $countries) }}
                                     </div>
                                 </div>
                                 <div class="text-right col-md-12">

@@ -16,7 +16,10 @@
         max-height:90px!important;
         overflow:hidden;
         position:relative;
-
+        padding:0 10px;
+        max-width: 720px;
+        margin-right: auto;
+        margin-left: auto;
     }
     span.close-ads{
         cursor: pointer;
@@ -40,7 +43,6 @@
     }
 
 </style>
-
 
    
     <!-- Responsive -->
