@@ -62,11 +62,11 @@
 			{{Auth::User()->channel_name}}
 		</div>
 		@if(empty($usersChannel->interests))
-		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
 		<br/><br/>
 		<p class="text-justify notes center-block"></p>
 		@else
-		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Setting')}}</b></span>
+		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
 		<br/><br/>
 		<p class="black center-block italic text-center fs-12">
 			<i class="fa fa-quote-left"></i>

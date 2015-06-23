@@ -1,6 +1,6 @@
-<div class="panel-group ctgryDiv" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group ctgryDiv mg-t-10" id="accordion" role="tablist" aria-multiselectable="true">
  @if(Auth::check())
- <div class="panel panel-info">
+ <div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingTwo">
     <p class="panel-title whiteC">
       <a href="">
@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-<div class="panel panel-info">
+<div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingNot">
     <p class="panel-title whiteC">
       <a class="" id="notification">
@@ -48,7 +48,7 @@
   </div>
 </div>
 @endif
-<div class="panel panel-info">
+<div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingOne">
     <p class="panel-title whiteC">
       <a class="">

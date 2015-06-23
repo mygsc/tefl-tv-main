@@ -48,7 +48,7 @@
 				  <!-- Nav tabs -->
 				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
-				    	<li role="presentation">{{link_to_route('users.about', 'About')}}</li>
+				    	<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
