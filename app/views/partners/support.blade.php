@@ -18,8 +18,8 @@
 					<h2>TEFLTV Partner's Support</h2>
 					<p>We would be happy to help you, please submit your concerns here or send us an email at <a>support@tefltv.com</a></p>
 				
-					{{Form::open(array('route' => 'post.homes.aboutus'))}}
-				<span class="textbox-layout">
+				{{Form::open(array('route' => 'post.homes.aboutus'))}}
+					<span class="textbox-layout">
 					{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
 					@if($errors->has('name'))
 					<span class="inputError">
@@ -38,11 +38,11 @@
 						{{$errors->first('message')}}
 					</span>
 					@endif
-				</span>
-				<div class="text-right mg-b-20">
-					{{ Form::submit('Submit', array('class' => 'btn btn-primary'))}}
-					{{Form::close()}}
-				</div>
+					</span>
+					<div class="text-right mg-b-20">
+						{{ Form::submit('Submit', array('class' => 'btn btn-primary'))}}
+					</div>
+				{{Form::close()}}
 			</div>
 		</div>
 	</div>
