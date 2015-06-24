@@ -1,0 +1,23 @@
+ul#editor-annotation{
+	background:#ede8e8;
+	padding:19px;
+	list-style:none;
+	display:none;
+}
+ul li div{
+	float: right;
+}
+ul li div span{
+	background: #444242;
+	color:#fff;
+	padding: 2px;
+	cursor: pointer;
+}
+ul li div span:hover{
+	border:1px solid #2997db;
+}
+#edit-types{
+	
+	color:#063782;
+	text-shadow: 0 0 2px #000;
+}
