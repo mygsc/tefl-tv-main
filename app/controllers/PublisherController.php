@@ -11,6 +11,10 @@ class PublisherController extends Controller {
 		return View::make('publishers.learnmore');
 	}
 
+	public function getFaqs(){
+		return View::make('publishers.faqs');
+	}
+
 	public function getPrivacy(){
 		return View::make('publishers.privacy');
 	}

@@ -11,6 +11,10 @@ class PartnerController extends Controller {
 		return View::make('partners.learnmore');
 	}
 
+	public function getFaqs(){
+		return View::make('partners.faqs');
+	}
+
 	public function getPrivacy(){
 		return View::make('partners.privacy');
 	}
