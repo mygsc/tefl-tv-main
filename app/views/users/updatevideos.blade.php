@@ -1,14 +1,15 @@
 @extends('layouts.default')
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
+{{HTML::style('css/update-video.css')}}
 @stop
 @section('some_script')
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/edit.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{--HTML::script('js/angular.min.js')--}}
+
 <script type="text/javascript">
-	var annotation = document.getElementById('annotation'), checkbox, count=0, annot = 'annotation', h=0, m=0,s=0, filename = document.getElementById('filename').value,types,content,start,end,link,
+	var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, count=0, annot = 'annotation', h=0, m=0,s=0, filename = document.getElementById('filename').value,types,content,start,end,link,
 	hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length;
 	$('#char-limit').html(limitChar);
 	document.getElementById("submit-save-changes").disabled = true;
@@ -149,7 +150,7 @@
 					url.type = 'text';
 					url.id = 'url' + '-annotation-' + id + '-' + count;
 					url.name = 'url' + '-annotation-' + id + '-' + count;
-					url.setAttribute('placeholder', 'Enter url');
+					url.setAttribute('placeholder', 'Enter url e.g: www.tefltv.com');
 					url.setAttribute('style', 'display:none');
 					createDiv.appendChild(url);
 			/*
@@ -159,19 +160,19 @@
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
 			if(id=="note"){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;left:0;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;left:0;right:auto;bottom:auto;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=="title"){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;right:0;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;right:0;left:auto;bottom:auto;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=='spotlight'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;left:0;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;left:0;top:auto;right:auto;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=='label'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;right:0;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;right:0;left:auto;top:auto;background:rgba(42,42,42,0.6);');
 			}
 			annotDiv.setAttribute('id','div-annotation-' + id + '-' + count);
-			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;background:rgba(42,42,42,0.8);cursor:pointer;');
+			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
 			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			//var wrap = document.getElementById("custom-annotation");
@@ -210,8 +211,7 @@
 				
 			}
 			save.onclick = function(){
-				 var getid = this.id;
-				 var titles = this.title;
+				 var getid = this.id, titles = this.title;
 				  content = getid.replace('save','content');
 				  content = selector(content).value;
 				  types = titles.replace('Save-','');
@@ -221,16 +221,48 @@
 				  end = selector(end).value;
 				  link = getid.replace('save','url');
 				  link = selector(link).value;
+				  css =  getid.replace('save','div');
 				  filename = filename;
-				 // start = getid.replace('save','content');
-				 // var getNewId = getid.replace('save-', 'start-time-');
-				 // var time = selector(getNewId).value;
-				 // var getTime = time.split(":");
-				 // console.log(filename,types,content,start,end,link);
-				 annotations.add(filename,types,content,start,end,link);
+				 start = getid.replace('save','content');
+				 var startTimeVal = getid.replace('save-', 'start-time-');
+				 var starttime = selector(startTimeVal).value;
+				 var getStartTime = starttime.split(":");
+				 var start1 = getStartTime[0] * 3600;
+				 var start2 = getStartTime[1] * 60;
+				 var start3 = getStartTime[2] * 1;
+				 var endTimeVal = getid.replace('save-', 'end-time-');
+				 var endtime = selector(endTimeVal).value;
+				 var getEndTime = endtime.split(":");
+				 var end1 = getEndTime[0] * 3600;
+				 var end2 = getEndTime[1] * 60;
+				 var end3 = getEndTime[2] * 1;
+				 if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) return alert('Please check your start and end time.');
+				 var totalStartTimeSec = start1+start2+start3;
+				 var totalEndTimeSec = end1+end2+end3;
+				 var elements = document.getElementById(css),
+				     style = window.getComputedStyle(elements),
+				     padding = style.getPropertyValue('padding'),
+				     color = style.getPropertyValue('color'),
+				     minWidth = style.getPropertyValue('min-width'),
+				     minHeight = style.getPropertyValue('min-height'),
+				     position = style.getPropertyValue('position'),
+				     top = style.getPropertyValue('top'),
+				     right = style.getPropertyValue('right'),
+				     left = style.getPropertyValue('left'),
+				     bottom = style.getPropertyValue('bottom'),
+				     background = style.getPropertyValue('background');
+				     CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
+				     'top:' + top+';' + 'right:' + right+';' + 'bottom:' + bottom+';' + 'background:' + background+';'+'display:none;';
+					 annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,CSSstyle);
+					 // var videoElement = document.getElementById('media-video'),
+					 // vidStyle = window.getComputedStyle(videoElement),
+					 // vidWidth =  vidStyle.getPropertyValue('width'),
+					 // vidHeight =  vidStyle.getPropertyValue('height');
+					 // vidHeight = vidHeight.replace('px','');
+					 // minHeight = minHeight.replace('px','');
+					 // top = top.replace('px','');
+					 // bottom = vidHeight - minHeight - top;
 
-				 
-				
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -287,13 +319,16 @@
 			function selector(name){
 				return document.getElementById(name);
 			}
-			var annotations = function(){
+		}
+
+	});
+var annotations = function(){
 			return	{
-						add: function(filename,types,content,start,end,link){
+						add: function(filename,types,content,start,end,link,css){
 								$.ajax({
 									type: 'POST',
 									url:'/addannotation',
-									data: {filename:filename, types:types,content:content,start:start,end:end,link:link},
+									data: {filename:filename, types:types,content:content,start:start,end:end,link:link,css:CSSstyle},
 									success: function(e){
 										console.log(e.msg);
 										close.className = 'glyphicon glyphicon-trash ' + e.id;
@@ -315,12 +350,46 @@
 										console.log('OOps error while deleting annotation.');
 									}
 								});
+						 },
+						 retrieve: function(id){
+						 	$.ajax({
+									type: 'POST',
+									url:'/annotation/retrieve/'+id,
+									data: {id:id},
+									success: function(e){
+										var types = document.getElementById('edit-types');
+										if(e.types == 'note') types.className = 'glyphicon glyphicon-file';
+										if(e.types == 'title') types.className = 'glyphicon glyphicon-font';
+										if(e.types == 'spotlight') types.className = 'glyphicon glyphicon-link';
+										if(e.types == 'label') types.className = 'glyphicon glyphicon-comment';
+										//var sv = document.getElementById('sv-annot').id;
+										//sv.id = e.id;//document.getElementById('rm-annot').id = e.id;
+										document.getElementById('edit-types').innerHTML = e.types.charAt(0).toUpperCase() + e.types.slice(1);
+										document.querySelector('input[name="content"]').value = e.content;
+										document.querySelector('input[name="start"]').value = e.start;
+										document.querySelector('input[name="end"]').value = e.end;
+										document.querySelector('input[name="link"]').value = e.link;
+										console.log(e.msg);
+									},
+									error: function(){
+										console.log('OOps error while retrieving annotation.');
+									}
+								});
 						 }
 					}
 			}();
-		}
-
-	});
+$('.x-annot').bind('click', function(e){
+	e.preventDefault();
+	var id = this.id;
+	annotations.retrieve(id);
+	$('#editor-annotation').fadeIn();
+});
+$('.rm-annot').bind('click', function(e){
+	e.preventDefault();
+	var id = this.id;
+	annotations.retrieve(id);
+	$('#editor-annotation').fadeIn();
+});
 
 $('#t-1').bind('mouseover',function(){
 	var selector = this.id;
@@ -509,7 +578,6 @@ $('#upload-cancel').on('click',function(){
 												<input type="file" name="poster" id="poster" accept="image/*"/>
 												<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 											</span>
-											@if($video->publish == 0)
 											@if($errors->has('publish'))
 											<span class="inputError">
 												{{$errors->first('publish')}}
@@ -522,30 +590,36 @@ $('#upload-cancel').on('click',function(){
 												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
 													<span class="caret"></span></button>
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-														<li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
-														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-1" href="#">Title</a></li>
-														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
-														<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
+														<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
+														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
+														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
+														<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Label</a></li>
 													</ul>
-												</span>
-												@else
+											</span>
+											<span class="dropdown">
+												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
+													<span class="caret"></span></button>
+													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+														@if($countAnnotation > 0)
+															@foreach($annotations as $annotation)
+																<li role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='x-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,10)}}</a></li>
+															@endforeach
+														@else
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
+														@endif                                                                                                                                                                                                     
+													</ul>
+											</span>
 											
-												{{ Form::select('publish', ['1'=>'Publish','0'=>'Unpublish'], $video->publish,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
-
-												<span class="dropdown">
-													<button class="btn btn-default dropdown-toggle mg-l-10" type="button" id="menu1" data-toggle="dropdown"><span class='glyphicon glyphicon-comment'></span> Add Annotation
-														<span class="caret"></span></button>
-														<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-															<li role="presentation"><a id='annotation-note' role="menuitem" tabindex="-1" href="#">Note</a></li>
-															<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-1" href="#">Title</a></li>
-															<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#">Spotlight</a></li>
-															<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#">Label</a></li>
-														</ul>
-													</span>
-													@endif
 													<br>
+													<ul id='editor-annotation'>
+														<li><span id='edit-types'> </span> <div><span id'sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-remove"></span></div></li>
+														<li>Content:{{Form::text('content',null)}}</li>
+														<li>Start:{{Form::text('start',null)}}</li>
+														<li>End:{{Form::text('end',null)}}</li>
+														<li>Link:{{Form::text('link',null)}}</li>
+													</ul>
 													<div class="" id="annotation">
-														<!--ANNOTATION AREA DON'T REMOVE-->
+														<!--ANNOTATION AREA-->
 													</div>
 													<br/>
 													<div class="well">
@@ -660,12 +734,7 @@ $('#upload-cancel').on('click',function(){
 								<br/>
 							</div><!--/.containerpage row-->
 						</div><!--/.row-->
-
-
-						
-
-
-						@stop
+@stop
 
 
 

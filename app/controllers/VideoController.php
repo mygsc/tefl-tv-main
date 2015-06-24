@@ -22,12 +22,12 @@ class VideoController extends BaseController {
 		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to upload video.');
 	}
 	public function postUpload($filenameLenght = 11){
-		$fileName = str_random($filenameLenght);
+		$fileName = $this->video_->randomChar();
 		$input = Input::all();
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
-		if($checkFilenameExist->count()){$fileName = str_random($filenameLenght+1);}
+		if($checkFilenameExist->count()){$fileName = $this->video_->randomChar(12);}
 		if($validator->passes()){
 			$input['user_id'] = $this->Auth->id;
 			$ext = $input['video']->getClientOriginalExtension();
