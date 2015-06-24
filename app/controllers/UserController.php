@@ -1586,7 +1586,18 @@ class UserController extends BaseController {
 	public function postRetrieveAnnotation($id=null){
 		$result = Annotation::find($id);
 		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
-		return Response::json(array('content'=>$result->content,'start'=>$result->start,'end'=>$result->end,'link'=>$result->link,'types'=>$result->types)); 
+		return Response::json(array('content'=>$result->content,'start'=>$result->start,'end'=>$result->end,'link'=>$result->link,'types'=>$result->types, 'id'=>$result->id, 'css'=>$result->css)); 
+	}
+	public function postUpdateAnnotation($id=null){
+		$result = Annotation::find($id);
+		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
+		$result->content = Input::get('content');
+		$result->start = Input::get('start');
+		$result->end = Input::get('end');
+		$result->link = Input::get('link');
+		$result->css = Input::get('css');
+		$result->save();
+		return Response::json(array('msg'=>'success'));
 	}
 
 	public function getVerification(){

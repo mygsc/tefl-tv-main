@@ -10,10 +10,11 @@
 			margin:0;
 		}
 	</style>
+
 </head>
 <body>
 
-	<video id='mediavideo' width="100%" height="100%" poster="/img/thumbnails/v5.png" controls autoplay loop>
+	<video id='mediavideo' width="100%" height="100%" poster="/img/thumbnails/v5.png" autoplay loop>
 		<source src="/videos/tefltv.mp4" type="video/mp4">
 		<source src="/videos/tefltv.webm" type="video/webm">
 		<source src="/videos/tefltv.ogg" type="video/ogg">		
