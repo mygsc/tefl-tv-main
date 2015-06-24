@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
+{{HTML::style('css/update-video.css')}}
 @stop
 @section('some_script')
 {{HTML::script('js/subscribe.js')}}
@@ -149,7 +150,7 @@
 					url.type = 'text';
 					url.id = 'url' + '-annotation-' + id + '-' + count;
 					url.name = 'url' + '-annotation-' + id + '-' + count;
-					url.setAttribute('placeholder', 'Enter url');
+					url.setAttribute('placeholder', 'Enter url e.g: www.tefltv.com');
 					url.setAttribute('style', 'display:none');
 					createDiv.appendChild(url);
 			/*
@@ -318,7 +319,10 @@
 			function selector(name){
 				return document.getElementById(name);
 			}
-			var annotations = function(){
+		}
+
+	});
+var annotations = function(){
 			return	{
 						add: function(filename,types,content,start,end,link,css){
 								$.ajax({
@@ -346,12 +350,46 @@
 										console.log('OOps error while deleting annotation.');
 									}
 								});
+						 },
+						 retrieve: function(id){
+						 	$.ajax({
+									type: 'POST',
+									url:'/annotation/retrieve/'+id,
+									data: {id:id},
+									success: function(e){
+										var types = document.getElementById('edit-types');
+										if(e.types == 'note') types.className = 'glyphicon glyphicon-file';
+										if(e.types == 'title') types.className = 'glyphicon glyphicon-font';
+										if(e.types == 'spotlight') types.className = 'glyphicon glyphicon-link';
+										if(e.types == 'label') types.className = 'glyphicon glyphicon-comment';
+										//var sv = document.getElementById('sv-annot').id;
+										//sv.id = e.id;//document.getElementById('rm-annot').id = e.id;
+										document.getElementById('edit-types').innerHTML = e.types.charAt(0).toUpperCase() + e.types.slice(1);
+										document.querySelector('input[name="content"]').value = e.content;
+										document.querySelector('input[name="start"]').value = e.start;
+										document.querySelector('input[name="end"]').value = e.end;
+										document.querySelector('input[name="link"]').value = e.link;
+										console.log(e.msg);
+									},
+									error: function(){
+										console.log('OOps error while retrieving annotation.');
+									}
+								});
 						 }
 					}
 			}();
-		}
-
-	});
+$('.x-annot').bind('click', function(e){
+	e.preventDefault();
+	var id = this.id;
+	annotations.retrieve(id);
+	$('#editor-annotation').fadeIn();
+});
+$('.rm-annot').bind('click', function(e){
+	e.preventDefault();
+	var id = this.id;
+	annotations.retrieve(id);
+	$('#editor-annotation').fadeIn();
+});
 
 $('#t-1').bind('mouseover',function(){
 	var selector = this.id;
@@ -553,9 +591,9 @@ $('#upload-cancel').on('click',function(){
 													<span class="caret"></span></button>
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 														<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
-														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-1" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
-														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-1" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
-														<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-1" href="#"><span class='glyphicon glyphicon-comment'></span> Label</a></li>
+														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
+														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
+														<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Label</a></li>
 													</ul>
 											</span>
 											<span class="dropdown">
@@ -564,7 +602,7 @@ $('#upload-cancel').on('click',function(){
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 														@if($countAnnotation > 0)
 															@foreach($annotations as $annotation)
-																<li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,10)}} <span id='x-{{$annotation->id}}' class='x-annot glyphicon glyphicon-remove' style='float:right'></span></a></li>
+																<li role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='x-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,10)}}</a></li>
 															@endforeach
 														@else
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
@@ -573,6 +611,13 @@ $('#upload-cancel').on('click',function(){
 											</span>
 											
 													<br>
+													<ul id='editor-annotation'>
+														<li><span id='edit-types'> </span> <div><span id'sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-remove"></span></div></li>
+														<li>Content:{{Form::text('content',null)}}</li>
+														<li>Start:{{Form::text('start',null)}}</li>
+														<li>End:{{Form::text('end',null)}}</li>
+														<li>Link:{{Form::text('link',null)}}</li>
+													</ul>
 													<div class="" id="annotation">
 														<!--ANNOTATION AREA-->
 													</div>
@@ -689,12 +734,7 @@ $('#upload-cancel').on('click',function(){
 								<br/>
 							</div><!--/.containerpage row-->
 						</div><!--/.row-->
-
-
-						
-
-
-						@stop
+@stop
 
 
 

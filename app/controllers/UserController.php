@@ -1583,5 +1583,10 @@ class UserController extends BaseController {
 		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
 		$result->delete(); return Response::json(array('msg'=>'delete success.')); 
 	}
+	public function postRetrieveAnnotation($id=null){
+		$result = Annotation::find($id);
+		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
+		return Response::json(array('content'=>$result->content,'start'=>$result->start,'end'=>$result->end,'link'=>$result->link,'types'=>$result->types)); 
+	}
 
 }

@@ -22,7 +22,7 @@
 							@for($i=0;$i < $countAnnotation;$i++)
 								<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
 										<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
-										{{$annotations[$i]->content}}
+										<a href="{{$annotations[$i]->link}}" target='_blank'>{{$annotations[$i]->content}}</a>
 										{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
 										{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 								</div>

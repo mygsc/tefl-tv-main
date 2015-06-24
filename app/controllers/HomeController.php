@@ -743,4 +743,7 @@ class HomeController extends BaseController {
 			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
 		}
 	}
+	public function getViewVideo(){
+		return View::make('videoplayer');
+	}
 }
