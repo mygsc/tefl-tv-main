@@ -1,17 +1,31 @@
-@extends('layouts.partnership')
+@extends('layouts.partner')
 
-@section('title')
-	TEFLTV Publisher
+	@section('meta')
+			
+	@stop
+	@section('css')
+		{{HTML::style('css/vid.player.min.css')}}
+	@stop
+	@section('some_script')
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="container White">
+<div class="page_wrapper">
+	<div class="top-bg">
+	</div>
+</div>
+<div class="absolute-wrapper_2">
+    <div class="col-md-10 col-md-offset-1">
+    	<div class="col-md-8">
+        <div class="paper White">
+		<div class="row content-padding ">
 				<br/><br/>
 			<div class="content-padding">
-				<div class="col-md-7 text-justify">
+				<div class="col-md-12 text-justify">
 
-					<h1>What is TEFLTV Partner?</h1>
+					<h1 class="orangeC">What is TEFLTV Partner?</h1>
 					<p class="text-justify">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -31,13 +45,8 @@
 						cillum dolore eu fugiat nulla pariatur.
 					</p>
 				</div>
-				<div class="col-md-5">
-					<br/>
-					<img src="/img/thumbnails/video-big.jpg">
-					<br/><br/>
-				</div>
 				<div class="col-md-12">
-					<h3>Perks of being a TEFLTV Partner</h3>
+					<h3 class="orangeC">Perks of being a TEFLTV Partner</h3>
 					<li>
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
@@ -62,7 +71,7 @@
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 					</li>
-					<h3>How to become a TEFLTV Partner?</h3>
+					<h3 class="orangeC">How to become a TEFLTV Partner?</h3>
 					<p class="text-justify">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -116,6 +125,15 @@
 					
 					<br/><br/>
 				</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="col-md-4">
+				@include('elements/partners/video')
+				<br/>
+				
+			</div>
 		</div>
 	</div>
 @stop

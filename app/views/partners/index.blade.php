@@ -42,9 +42,10 @@ TEFLTV Publisher
                             </div>
                     </div>
                     <img src="/img/partners/lower-banner.jpg" width="100%">
-                    <div class="White">
-                        <div class="container text-center div-partners">
-                            <h1 class="orangeC">-Featured Partners-</h1>
+                    <div class="text-center div-partners">
+                        <div class="row">
+                        <h1 class="orangeC">-Featured Partners-</h1>
+
                             <div class="col-md-4">
                                 <a href="http://www.auathailand.org" target="_blank">
                                     <img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
@@ -60,6 +61,7 @@ TEFLTV Publisher
                                     <img src="/img/logos/bt.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="3s">
                                 </a>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

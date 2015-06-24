@@ -5745,6 +5745,9 @@ body {
 .pad-v-10{
     padding: 10px 0!important;
 }
+.pad-v-5{
+    padding: 2px 0!important;
+}
 .pad-10{
     padding: 20px 20px!important;
 }

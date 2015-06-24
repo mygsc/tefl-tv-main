@@ -20,7 +20,7 @@
 
 <body>
 
-	<div class="same-H">
+	<div class="same-H head-up">
 		@include('elements/partners/header')
 		@include('elements/partners/partners_nav')
 	</div>
