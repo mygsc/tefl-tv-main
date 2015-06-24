@@ -16,6 +16,8 @@ TEFLTV Publisher
         	Your browser doesn't support HTML5 video. Here's a <a href="#">link</a> to download the video.
       	</video>
 		<div id="cmn-video-demo3__content">
+			<h2>Welcome to TEFLTV Partner Program</h2>
+			<p>Where you can teach, learn and earn at the same time.</p>
 			<div class="text-center tagline" style="margin-top:70px;">
 				<a href=""><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
 				<a href=""><button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button></a>

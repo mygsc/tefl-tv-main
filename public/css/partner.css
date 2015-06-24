@@ -131,22 +131,23 @@ title {
   bottom: 0;
   left: 0;
   z-index: 2;
-  padding: 80px 20px;
+  padding: 70px 20px;
   text-align: center;
   background:rgba(255,255,255,0.7);
 }
 #cmn-video-demo3__content h2,
 #cmn-video-demo3__content p,
 #cmn-video-demo3__content a {
-  color: #fff;
   text-shadow: -1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 #cmn-video-demo3__content h2 {
-  font-family: "Roboto Slab", serif;
-  font-size: 30px;
+  font-family:"Teko";
+  font-size: 90px;
+  color: #004EAE;
 }
 #cmn-video-demo3__content p {
   margin-bottom: 40px;
+  color: #F14A00!important; 
 }
 #cmn-video-demo3__content a {
   margin: 0;
@@ -172,7 +173,7 @@ title {
     padding: 160px 20px;
   }
   #cmn-video-demo3__content h2 {
-    font-size: 42px;
+    font-size: 50px;
   }
   #cmn-video-demo3__content p,
   #cmn-video-demo3__content a {
@@ -192,7 +193,7 @@ title {
     padding: 200px 20px;
   }
   #cmn-video-demo3__content h2 {
-    font-size: 54px;
+    font-size: 70px;
   }
   #cmn-video-demo3__content p,
   #cmn-video-demo3__content a {
