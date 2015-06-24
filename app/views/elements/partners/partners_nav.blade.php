@@ -5,16 +5,16 @@
                 <div class="col-md-6 col-sm-6"> 
                     <ul class="ctgryNav">
                         <li>
-                            {{ link_to_route('homes.popular', 'Home', null, array('class' => '')) }}
+                            {{ link_to_route('partners.index', 'Home', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.latest', 'FAQs', null, array('class' => '')) }}
+                            {{ link_to_route('partners.faqs', 'FAQs', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.playlist', 'Privacy', null, array('class' => '')) }}
+                            {{ link_to_route('partners.privacy', 'Privacy', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.top-channels', 'Support', null, array('class' => '')) }}
+                            {{ link_to_route('partners.privacy', 'Support', null, array('class' => '')) }}
                         </li>
                     </ul> 
                 </div><!--/.col-md-8-->
