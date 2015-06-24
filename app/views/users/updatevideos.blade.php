@@ -191,7 +191,6 @@
 				var textbox = getid.replace('checkbox-','');
 				if(document.getElementById(getid).checked == true) $('#' + textbox).fadeIn('fast');
 				else $('#' + textbox).fadeOut('fast');
-			  	
 			};
 			close.onclick = function(){
 				var getid = this.id;
@@ -208,7 +207,6 @@
 			close.onmouseleave = function(){
 				var getid = this.id;
 				$('.'+getid).css({'border-bottom':'1px solid red'});
-				
 			}
 			save.onclick = function(){
 				 var getid = this.id, titles = this.title;
@@ -223,7 +221,7 @@
 				  link = selector(link).value;
 				  css =  getid.replace('save','div');
 				  filename = filename;
-				 start = getid.replace('save','content');
+				  start = getid.replace('save','content');
 				 var startTimeVal = getid.replace('save-', 'start-time-');
 				 var starttime = selector(startTimeVal).value;
 				 var getStartTime = starttime.split(":");
@@ -253,6 +251,8 @@
 				     background = style.getPropertyValue('background');
 				     CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
 				     'top:' + top+';' + 'right:' + right+';' + 'bottom:' + bottom+';' + 'background:' + background+';'+'display:none;';
+					 var rm = getid.replace('save-','');
+					 $('#'+rm).remove();
 					 annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,CSSstyle);
 					 // var videoElement = document.getElementById('media-video'),
 					 // vidStyle = window.getComputedStyle(videoElement),
@@ -357,28 +357,65 @@ var annotations = function(){
 									url:'/annotation/retrieve/'+id,
 									data: {id:id},
 									success: function(e){
-										var types = document.getElementById('edit-types');
-										if(e.types == 'note') types.className = 'glyphicon glyphicon-file';
-										if(e.types == 'title') types.className = 'glyphicon glyphicon-font';
-										if(e.types == 'spotlight') types.className = 'glyphicon glyphicon-link';
-										if(e.types == 'label') types.className = 'glyphicon glyphicon-comment';
-										//var sv = document.getElementById('sv-annot').id;
-										//sv.id = e.id;//document.getElementById('rm-annot').id = e.id;
+										//var types = document.getElementById('edit-types');
+										var sv = document.getElementsByClassName('sv-annot')[0];
+										var rm = document.getElementsByClassName('rm-annot')[0];
+											sv.setAttribute('id',e.id);
+											rm.setAttribute('id',e.id);
 										document.getElementById('edit-types').innerHTML = e.types.charAt(0).toUpperCase() + e.types.slice(1);
+										var start = video.duration(e.start);
+										var end = video.duration(e.end);
+										var link = e.link;
 										document.querySelector('input[name="content"]').value = e.content;
-										document.querySelector('input[name="start"]').value = e.start;
-										document.querySelector('input[name="end"]').value = e.end;
-										document.querySelector('input[name="link"]').value = e.link;
+										document.querySelector('input[name="start"]').value = start;
+										document.querySelector('input[name="end"]').value = end;
+										if(link.length > 0) {
+											document.querySelector('input[name="chk-link"]').checked = true;
+											document.querySelector('input[name="link"]').value = e.link;
+											document.getElementById('annot-link').style.display = 'block';
+										}else {
+											document.getElementById('annot-link').style.display = 'none';
+											document.querySelector('input[name="link"]').value = e.link;
+											document.querySelector('input[name="chk-link"]').checked = false;
+										}
+											var prevAnnotation = document.getElementById('preview-annotation');
+											prevAnnotation.setAttribute('style',e.css);
 										console.log(e.msg);
 									},
 									error: function(){
 										console.log('OOps error while retrieving annotation.');
 									}
 								});
+						 },
+						 update: function(id,content,start,end,link,css){
+						 	$.ajax({
+									type: 'POST',
+									url:'/annotation/update/'+id,
+									data: {content:content,start:start,end:end,link:link,css:css},
+									success: function(e){
+										console.log(e.msg);
+									},
+									error: function(){
+										console.log('OOps error while updating annotation.');
+									}
+								});
 						 }
 					}
 			}();
-$('.x-annot').bind('click', function(e){
+var video = function(){
+	return {
+		duration: function(duration){
+				curHrs = Math.floor(duration / 3600);
+				curMin = Math.floor(duration / 60);
+				curSec = Math.floor(duration - (curMin * 60));
+				if(curHrs < 10)curHrm = "0"+curHrs;
+				if(curMin < 10)curMin = "0"+curMin;
+				if(curSec < 10)curSec = "0"+curSec;
+				return curHrm + ':' + curMin + ':' +curSec;
+		   }
+	}
+}();
+$('.option-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
 	annotations.retrieve(id);
@@ -387,10 +424,23 @@ $('.x-annot').bind('click', function(e){
 $('.rm-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
-	annotations.retrieve(id);
+	var yes = confirm("Are you sure you want to delete this annotation?");
+	if(yes){
+		annotations.remove(id);
+		$('#editor-annotation').fadeOut();
+		$('#forever-remove-annot-'+id).remove();
+	}
+});
+$('.sv-annot').bind('click', function(e){
+	e.preventDefault();
+	var id = this.id;
+	annotations.update(id);
 	$('#editor-annotation').fadeIn();
 });
-
+$('#chk-link').bind('click', function(){
+	if(document.getElementById('chk-link').checked == true) $('#annot-link').fadeIn();
+	else $('#annot-link').fadeOut();
+});
 $('#t-1').bind('mouseover',function(){
 	var selector = this.id;
 	setAsThumbnail(selector);
@@ -518,9 +568,10 @@ $('#upload-cancel').on('click',function(){
 							<br/>
 
 							<div id="vid-controls" class="p-relative">
-
 								<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
-									 
+									 <div id='preview-annotation' style='z-index:300000;width:100px;height:100px;background:green;'>
+									 	
+									 </div>
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
 										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
@@ -530,11 +581,12 @@ $('#upload-cancel').on('click',function(){
 											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
 												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 													<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-													</video>
+														</video>
 													@endif
-
+													
 												</div><!--embed-responsive-->
 												@include('elements/videoPlayer')
+												
 											</div><!--vid-controls-->
 											<br/>
 											
@@ -602,7 +654,7 @@ $('#upload-cancel').on('click',function(){
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 														@if($countAnnotation > 0)
 															@foreach($annotations as $annotation)
-																<li role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='x-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,10)}}</a></li>
+																<li id='forever-remove-annot-{{$annotation->id}}' role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='option-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,10)}}</a></li>
 															@endforeach
 														@else
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
@@ -612,11 +664,12 @@ $('#upload-cancel').on('click',function(){
 											
 													<br>
 													<ul id='editor-annotation'>
-														<li><span id='edit-types'> </span> <div><span id'sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-remove"></span></div></li>
+														<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-remove"></span></div></li>
 														<li>Content:{{Form::text('content',null)}}</li>
 														<li>Start:{{Form::text('start',null)}}</li>
 														<li>End:{{Form::text('end',null)}}</li>
-														<li>Link:{{Form::text('link',null)}}</li>
+														<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
+														<li>{{Form::text('link',null,['style'=>'display:none;','id'=>'annot-link'])}}</li>
 													</ul>
 													<div class="" id="annotation">
 														<!--ANNOTATION AREA-->
