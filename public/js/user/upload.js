@@ -1,10 +1,12 @@
+
 document.getElementById("save").disabled = true;
 var firstThumbnail = document.getElementById('thumb-1-img');
 var secondThumbnail = document.getElementById('thumb-2-img');
 var thirdThumbnail = document.getElementById('thumb-3-img');
-var counter=0, min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false;
+var internet=true, counter=0, min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false, uploading=false;
 $('#char-limit').html(limitChar+'/5000');
 $(document).ready(function(){
+    window.onbeforeunload = confirmExit;
     $('#loader').fadeIn(500);
 	$('#progress').hide();
     $('#vids-upload').on('change',function(){
@@ -43,16 +45,13 @@ $(document).ready(function(){
                     $("#progressbar-loaded").width('0%');
                 },
                 uploadProgress: function (event, position, total, percentComplete){ 
+                    internet  = checkInternet();
+                    if(internet==false){$('#up-msg').html('<i class="fa fa-info-circle"></i> '+'You have no internet connection, please try again later.').css({'color':'#ed7676'});$('#progressbar-loaded').css({'background':'#cecaca'});}
                     $('#wrapper').fadeIn();
                     $("#progressbar-loaded").width(percentComplete + '%');
                     $('#percentage').html(percentComplete+'%');
-                    // counter++;
-                    // if(counter==5) {$('#percentage').html(percentComplete+'%'+'.');}
-                    // else if(counter==10) {$('#percentage').html(percentComplete+'%'+'..');}
-                    // else if(counter==15) {$('#percentage').html(percentComplete+'%'+'...');}
-                    // else if(counter > 15) {counter=0; $('#percentage').html(percentComplete+'%');}
+                    uploading=true;
                     $('#up-msg').html('<i class="fa fa-info-circle"></i> '+' Please wait a moment while the video is uploading...').css({'color':'#5ec6e8'});
-                    
                 },
                 success: function(response){
                     $('#loader-progress').fadeOut();
@@ -67,6 +66,7 @@ $(document).ready(function(){
                     //document.getElementById("save").disabled = false;
                     $('#loader-status').fadeOut(500);
                     done = true;
+                    uploading=false;
                 },
                 error: function(response, status, e){
                     console.log('Oops something went wrong please contact the admin of TEFL TV.');
@@ -131,6 +131,17 @@ function validate(){
 function errors(message){
     $('#validation-rule').modal('show');
     $('#error-msg').html(message);
+}
+
+function confirmExit(){
+    if(uploading){
+        return 'You are attempting to leave this page which is currently uploading.';
+    }
+}
+
+function checkInternet(){
+    var online = navigator.onLine;
+    return online;
 }
 
 

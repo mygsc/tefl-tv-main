@@ -11,6 +11,7 @@ class HomeController extends BaseController {
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
 	}
+	
 	public function getIndex() {
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
@@ -165,7 +166,7 @@ class HomeController extends BaseController {
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
 		$videos = Video::where('file_name', '=', $filename)->first();
-		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the page you are looking is not found.');
+		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
 		$id = $videos->id;
@@ -257,12 +258,13 @@ class HomeController extends BaseController {
 				$img = '/img/user/0.jpg';
 			}
 		}
-
+		$annotations = Annotation::where('vid_filename', $filename)->get();
+		$countAnnotation = count($annotations);
 		return View::make('homes.watch-video',
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation'
 			)
 		);
 	}
@@ -741,5 +743,8 @@ class HomeController extends BaseController {
 			$increment->save();
 			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
 		}
+	}
+	public function getViewVideo(){
+		return View::make('videoplayer');
 	}
 }

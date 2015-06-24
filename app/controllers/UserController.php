@@ -425,8 +425,11 @@ class UserController extends BaseController {
 			//}
 
 			$thumbnail = $this->threeThumbnailPath($filename, $extension);
-
-			return View::make('users.updatevideos', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','video','tags','owner','picture','hms', 'thumbnail','videoCategory'));
+			$annotations = Annotation::where('vid_filename', $file_name)->get();
+			$countAnnotation = count($annotations);
+			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
+				'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
+				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation'));
 
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
@@ -1571,6 +1574,7 @@ class UserController extends BaseController {
 		$create->start = Input::get('start');
 		$create->end = Input::get('end');
 		$create->link = Input::get('link');
+		$create->css = Input::get('css');
 		$create->save();
 		return Response::json(array('msg'=>'success','id'=>$create->id));
 	}
@@ -1578,6 +1582,11 @@ class UserController extends BaseController {
 		$result = Annotation::find($id);
 		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
 		$result->delete(); return Response::json(array('msg'=>'delete success.')); 
+	}
+	public function postRetrieveAnnotation($id=null){
+		$result = Annotation::find($id);
+		if(count($result)==0) return Response::json(array('msg'=>'Empty.')); 
+		return Response::json(array('content'=>$result->content,'start'=>$result->start,'end'=>$result->end,'link'=>$result->link,'types'=>$result->types)); 
 	}
 
 }
