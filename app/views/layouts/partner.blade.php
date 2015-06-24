@@ -1,12 +1,9 @@
-<!doctype html>
-<html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
-	<meta charset="utf-8">
-	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
-	<title>@yield('title', 'TEFL-TV')</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width">
+  <!-- title and meta -->
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1.0" name="viewport">
 	@yield('meta')
 	
 
@@ -31,7 +28,6 @@
 		@include('elements/flash_message')
 		@yield('content')
 
-	@include('elements/footer')
 
 </body>
 
@@ -66,6 +62,19 @@
 	wow.init();
 </script>
 
+<script type="text/javascript">
+	var myVideo = document.getElementById('#cmn-video-demo3__video');
+	if (typeof myVideo.loop == 'boolean') { // loop supported
+	  myVideo.loop = true;
+	} else { // loop property not supported
+	  myVideo.addEventListener('ended', function () {
+	    this.currentTime = 0;
+	    this.play();
+	  }, false);
+	}
+//...
+myVideo.play();
+</script>
 
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->

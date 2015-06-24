@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: #F1F1F1;
+    background-color: rgba(197, 202, 232, 1);
     overflow-x: hidden!important;
 }
 
@@ -74,10 +74,13 @@ title {
 }
 
 .paper{
-    background: rgba(255,255,255,0.7);
+    background:#fff;
     width: 100%;
     height: 100%;
     position: relative;
+      -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+  -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+  box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
 
 
 }
@@ -92,7 +95,8 @@ title {
    bottom:0;
    margin:auto;
    background: transparent;
-   top: 90px;
+   top: 500px;
+   z-index: 2222;
 }
 
 /*for Video*/
@@ -101,13 +105,11 @@ title {
 ============================================================ */
 #cmn-video-demo3__container {
   position: relative;
-  margin: 0 0 20px 0;
+  margin: 0 0 0 0;
   height: 500px!important;
   background-color: #282828;
   overflow: hidden;
-  -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+
 }
 
 #cmn-video-demo3__video {
@@ -134,12 +136,13 @@ title {
   padding: 70px 20px;
   text-align: center;
   background:rgba(255,255,255,0.7);
+
 }
-#cmn-video-demo3__content h2,
+/*#cmn-video-demo3__content h2,
 #cmn-video-demo3__content p,
 #cmn-video-demo3__content a {
   text-shadow: -1px 1px 4px rgba(0, 0, 0, 0.6);
-}
+}*/
 #cmn-video-demo3__content h2 {
   font-family:"Teko";
   font-size: 90px;
@@ -190,7 +193,7 @@ title {
   }
 
   #cmn-video-demo3__content {
-    padding: 200px 20px;
+    padding: 50px 20px;
   }
   #cmn-video-demo3__content h2 {
     font-size: 70px;
