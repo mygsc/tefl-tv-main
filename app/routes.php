@@ -63,8 +63,10 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('signin/google-connect', array('as' => 'homes.googleconnect', 'uses' => 'GoogleController@getGoogleConnect'));
 	Route::get('signup-with-social-media', array('as' => 'homes.signupwithsocialmedia', 'uses' => 'UserController@getSignupWithSocialMedia'));
 	Route::post('signupwithsocialmedia', array('as' => 'post.signupwithsocialmedia', 'uses' => 'UserController@postSignupWithSocialMedia'));
-	Route::post('addannotation', array('as' => 'post.add.annotation', 'uses' => 'UserController@postAddAnnotation'));
-	Route::post('deleteannotation/{id?}', array('as' => 'post.delete.annotation', 'uses' => 'UserController@postDeleteAnnotation'));
+	Route::post('addannotation', array('before'=>'auth','as' => 'post.add.annotation', 'uses' => 'UserController@postAddAnnotation'));
+	Route::post('deleteannotation/{id?}', array('before'=>'auth','as' => 'post.delete.annotation', 'uses' => 'UserController@postDeleteAnnotation'));
+	Route::post('annotation/retrieve/{id?}', array('before'=>'auth','as' => 'post.delete.annotation', 'uses' => 'UserController@postRetrieveAnnotation'));
+	Route::get('videoplayer', array('as' => 'get.view.video', 'uses' => 'HomeController@getViewVideo'));
 });
 
 
