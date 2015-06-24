@@ -3028,7 +3028,7 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     left:0;
     right:0;
     background:rgba(255,255,255,0);
-    padding:20px 20px;
+    padding:0 20px;
 }
 
 .div-Steps{

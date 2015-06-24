@@ -8,7 +8,7 @@
                             {{ link_to_route('homes.popular', 'Home', null, array('class' => '')) }}
                         </li>
                         <li>
-                            {{ link_to_route('homes.latest', 'Facts', null, array('class' => '')) }}
+                            {{ link_to_route('homes.latest', 'FAQs', null, array('class' => '')) }}
                         </li>
                         <li>
                             {{ link_to_route('homes.playlist', 'Privacy', null, array('class' => '')) }}
