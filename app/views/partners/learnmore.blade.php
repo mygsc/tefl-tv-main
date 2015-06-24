@@ -132,6 +132,7 @@
 			<div class="col-md-4">
 				@include('elements/partners/video')
 				<br/>
+				@include('elements/partners/support')
 				
 			</div>
 		</div>
