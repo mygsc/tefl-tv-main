@@ -388,9 +388,9 @@ class Video extends Eloquent{
 		$video = $ffmpeg->open($videoFile);
 		$getImage1 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb1.png';$getImage2 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb2.png';$getImage3 = $destinationPath.DS.$fileName.DS.$fileName.'_thumb3.png';
 		$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($firstSnap))->save($getImage1);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($secondSnap))->save($getImage2);$video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($thirdSnap))->save($getImage3);
-  	  	$this->convertImageToBase64($getImage1,$getImage2,$getImage3);
-  	}
-  	public function duration($path){
+		$this->convertImageToBase64($getImage1,$getImage2,$getImage3);
+	}
+	public function duration($path){
 		$ffprobe = $this->ffprobe(); 
 		$duration = $ffprobe->format($path)->get('duration');
 		return $result = floor($duration);
@@ -428,7 +428,15 @@ class Video extends Eloquent{
 			if($categories['qa']==$category[$n]) $qa=true;
 			if($categories['videoblog']==$category[$n]) $videoBlog=true;
 			if($categories['videocv']==$category[$n]) $videoCV=true;
-			}
+		}
 		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
+	}
+	public function randomChar($length = 11, $result = '') {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_|$';
+		$charactersLength = strlen($characters);
+		for ($i = 0; $i < $length; $i++) {
+			$result .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $result;
 	}
 }
