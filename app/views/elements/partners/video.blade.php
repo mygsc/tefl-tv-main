@@ -1,4 +1,5 @@
-<div class="row White same-H p">
+<div class="row White same-H">
+	<div class="pad-10">
 	<div class="vid-wrapperb p-relative same-H">
 		<div id="vid-controls">
 			<div class="embed-responsive embed-responsive-16by9 n-mg-b">
@@ -11,5 +12,9 @@
 				@include('elements/videoPlayer')
 			</div>
 		</div>
-	</div><!--/.row-->
+	</div>
+	</div>
+	<div style="margin-top:10px;">
+		<a href="" class="form-control btn btn-info">Become a Partner now <i class="fa fa-hand-o-up"></i></a>
+	</div>
 </div>

@@ -46,7 +46,7 @@
     						</p>
     					</div>
     					<div class="col-md-12">
-    						<h3 class="orangeC">Perks of being a TEFLTV Partner</h3>
+    						<h3 class="orangeC">Lorem ipsum dolor sit.</h3>
     						<li>
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
@@ -71,7 +71,7 @@
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     						</li>
-    						<h3 class="orangeC">How to become a TEFLTV Partner?</h3>
+    						<h3 class="orangeC">Lorem ipsum dolor sit.</h3>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

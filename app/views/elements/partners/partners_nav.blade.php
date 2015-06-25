@@ -13,9 +13,6 @@
                         <li>
                             {{ link_to_route('partners.privacy', 'Privacy', null, array('class' => '')) }}
                         </li>
-                        <li>
-                            {{ link_to_route('partners.privacy', 'Support', null, array('class' => '')) }}
-                        </li>
                     </ul> 
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">

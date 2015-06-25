@@ -4,7 +4,7 @@
 	</div>
 	<div class="content-padding">
 		<br/>
-		<p class="text-justify">We would be happy to help you, please submit your concerns here or send us an email at <a>support@tefltv.com</a></p>
+		<p class="text-justify">Please submit your concerns here or email us at <a>support@tefltv.com</a></p>
 		{{Form::open(array('route' => 'post.homes.aboutus'))}}
 		<span class="textbox-layout">
 			{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
@@ -26,8 +26,10 @@
 			</span>
 			@endif
 		</span>
-		<div class="text-right mg-b-20">
-			{{ Form::submit('Submit', array('class' => 'btn btn-primary'))}}
+		<div class="text-right mg-b-20 wrap">
+			<div class="btn btn-primary form-control">
+			{{ Form::submit('Submit', array('class' => 'btn-hide'))}}
+			</div>
 		</div>
 		{{Form::close()}}
 	</div>

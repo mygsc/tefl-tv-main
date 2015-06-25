@@ -17,9 +17,9 @@ TEFLTV Publisher
             <div id="cmn-video-demo3__content">
                 <h2>Welcome to TEFLTV Partner's Program</h2>
                 <p>Where you can teach, learn and earn at the same time.</p>
-                <div class="text-center tagline">
-                    <a href="{{route('users.verification')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
-                    <a href="{{route('partners.learnmore')}}"><button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button></a>
+                <div class="text-center tagline wrap">
+                    <a href="{{route('partners.learnmore')}}"><button class="btn btn-primary">Learn more</button></a>
+                    <a href="{{route('users.verification')}}"><button class="btn btn-info">Get Started</button></a>
                 </div>
             </div>
         </div>

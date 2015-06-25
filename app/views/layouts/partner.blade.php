@@ -33,7 +33,7 @@
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-
+{{HTML::script('js/ripple/jquery.ripple-js.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/main.js')}}

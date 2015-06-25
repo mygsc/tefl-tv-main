@@ -6369,7 +6369,9 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 #featured .ui-tabs-hide {
     display: none;
 }
-
+.wrap {
+  overflow: hidden; 
+}
 .well2 {
     min-height: 20px;
     padding: 10px;
@@ -6553,6 +6555,60 @@ body {
 {
     border-radius: 0!important;
 }
+.btn-hide{
+    background:transparent;
+    border:none;
+    outline: none;
+}
+.btn-hide:hover,
+.btn-hide:focus,
+.btn-hide:active{
+    background:transparent!important;
+    border:none!important;
+    outline: none!important;
+}
+
+.ripple {
+  overflow: hidden;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background: white;
+  -webkit-animation: ripple-animation 2s;
+  animation: ripple-animation 2s;
+}
+
+@-webkit-keyframes ripple-animation {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  to {
+    -webkit-transform: scale(100);
+    transform: scale(100);
+    opacity: 0;
+    }
+}
+
+
+@keyframes ripple-animation {
+    from {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 0.4;
+    }
+    to {
+      -webkit-transform: scale(100);
+              transform: scale(100);
+      opacity: 0;
+    }
+}
+
 
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
