@@ -35,8 +35,8 @@
 				</div>
 				<hr/>
 				<div class="icons_style ">
-                        <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
-                    </div>
+                      <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
+                   </div>
 			</div>
 			<!--for partner
 			<div class="text-center good">

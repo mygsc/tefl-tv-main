@@ -16,6 +16,7 @@
     <div class="top-bg">
     </div>
 </div>
+<div class="position:relative!important;">
 <div class="absolute-wrapper_2">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
@@ -188,7 +189,10 @@
                 @include('elements/publishers/support')
             </div>
         </div>
+      
+
     </div>
+</div>
 @stop
 
 
