@@ -160,16 +160,16 @@
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('span');
 			if(id=="note"){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;left:0;right:auto;bottom:auto;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=="title"){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:0;right:0;left:auto;bottom:auto;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:20px;left:20px;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=='spotlight'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;left:0;top:auto;right:auto;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=='label'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;bottom:0;right:0;left:auto;top:auto;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:40px;top:40px;background:rgba(42,42,42,0.6);');
 			}
 			annotDiv.setAttribute('id','div-annotation-' + id + '-' + count);
 			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
@@ -177,7 +177,7 @@
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			//var wrap = document.getElementById("custom-annotation");
 			//wrap.insertBefore(annotDiv, wrap.firstChild);
-			annotDiv.appendChild(annotClose);
+			//annotDiv.appendChild(annotClose);
 			var annotContent = document.createTextNode(''); 
 			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
@@ -237,33 +237,12 @@
 				 if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) return alert('Please check your start and end time.');
 				 var totalStartTimeSec = start1+start2+start3;
 				 var totalEndTimeSec = end1+end2+end3;
-				 var elements = document.getElementById(css),
-				     style = window.getComputedStyle(elements),
-				     padding = style.getPropertyValue('padding'),
-				     color = style.getPropertyValue('color'),
-				     minWidth = style.getPropertyValue('min-width'),
-				     minHeight = style.getPropertyValue('min-height'),
-				     position = style.getPropertyValue('position'),
-				     top = style.getPropertyValue('top'),
-				     right = style.getPropertyValue('right'),
-				     left = style.getPropertyValue('left'),
-				     bottom = style.getPropertyValue('bottom'),
-				     background = style.getPropertyValue('background');
-				     CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
-				     'top:' + top+';' + 'right:' + right+';' + 'bottom:' + bottom+';' + 'background:' + background+';'+'display:none;';
+				 var getstyle = annotations.css(css);
 					 var rm = getid.replace('save-','');
 					 $('#'+rm).remove();
+					 $('#div-'+rm).remove();
 					 annotations.loader();
-					 annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,CSSstyle);
-					 //annotations.response('New annotation has been added.', 'glyphicon glyphicon-saved');
-					 // var videoElement = document.getElementById('media-video'),
-					 // vidStyle = window.getComputedStyle(videoElement),
-					 // vidWidth =  vidStyle.getPropertyValue('width'),
-					 // vidHeight =  vidStyle.getPropertyValue('height');
-					 // vidHeight = vidHeight.replace('px','');
-					 // minHeight = minHeight.replace('px','');
-					 // top = top.replace('px','');
-					 // bottom = vidHeight - minHeight - top;
+					 annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,getstyle);
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -273,12 +252,21 @@
 				var getid = this.id;
 				$('#'+getid).css({'border-bottom':'1px solid red'});
 			}
-			annotClose.onclick = function(){
-				var getid = this.id;
-				var removeDiv = getid.replace('close-','');
-				$('#'+removeDiv).remove();
-				$('#div-'+removeDiv).remove();
+			// annotClose.onclick = function(){
+			// 	var getid = this.id;
+			// 	var removeDiv = getid.replace('close-','');
+			// 	$('#'+removeDiv).remove();
+			// 	$('#div-'+removeDiv).remove();
+			// }
+			annotDiv.onmousedown = function(){
+				drag.startMoving(this,'media-video',event);
+				$(this).css({'cursor':'move'});
 			}
+			annotDiv.onmouseup = function(){
+				drag.done('media-video');
+				$(this).css({'cursor':'default'});
+			}
+		
 			content.onkeyup = function(){
 				var getid = this.id;
 				var getCurrentId = getid.replace('content','div');
@@ -295,28 +283,6 @@
 				var len = selector(getid).value.length;
 				if(len>8){selector(getid).value=hms;}
 			}
-			annotDiv.onmousedown = function(e){
-				 mov(e);
-			} 
-			annotDiv.onmouseup = function(){
-				
-			} 
-			function mouseUp(){
-				document.removeEventListener('mousemove',function(e){
-					mov(e);
-				},false);
-			}
-			function mouseDown(){
-				document.addEventListener('mousemove',function(e){
-					mov(e);
-				},true);
-			}
-			function mov(e){
-			  var div = selector('div-annotation-note-1');
-			  div.style.top = e.pageY - (e.pageY - div.offsetTop) + "px";
-			  div.style.left = e.pageX - (e.pageX - div.offsetLeft) + "px";
-			}
-
 			function selector(name){
 				return document.getElementById(name);
 			}
@@ -395,8 +361,11 @@ var annotations = function(){
 											document.querySelector('input[name="chk-link"]').checked = false;
 										}
 											var prevAnnotation = document.getElementById('preview-annotation');
-											prevAnnotation.setAttribute('style',e.css);
-										console.log(e.msg);
+											var style = e.css; style = style.replace('display:none;','display:block;z-index:1111;');
+											
+											prevAnnotation.setAttribute('style',style);
+											prevAnnotation.innerHTML = e.content;
+											console.log(e.msg);
 									},
 									error: function(){
 										console.log('OOps error while retrieving annotation.');
@@ -406,16 +375,16 @@ var annotations = function(){
 									}
 								});
 						 },
-						 update: function(id,content,start,end,link){
+						 update: function(id,content,start,end,link,style){
 						 	$.ajax({
 									type: 'POST',
 									url:'/annotationupdate/'+id,
-									data: {content:content,start:start,end:end,link:link},
+									data: {content:content,start:start,end:end,link:link,style:style},
 									success: function(e){
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										console.log(e.msg);
 										annotations.response('Changes has been saved.','glyphicon glyphicon-check');
+										document.getElementById('preview-annotation').style.display = 'none';
 									},
 									error: function(){
 										console.log('OOps error while updating annotation.');
@@ -458,19 +427,31 @@ var annotations = function(){
 						 	loaderwrapper.appendChild(loader);
 						 	document.body.appendChild(loaderwrapper);
 						 },
-						 lists: function(filename){
-						 	$('#annotation-lists').load('/annotationlists/'+filename,function(responseTxt,statusTxt){
-
-						 	});
-						 }
+						 css: function getCSS(selector){
+							var elements = document.getElementById(selector),
+							     style = window.getComputedStyle(elements),
+							     padding = style.getPropertyValue('padding'),
+							     color = style.getPropertyValue('color'),
+							     minWidth = style.getPropertyValue('min-width'),
+							     minHeight = style.getPropertyValue('min-height'),
+							     position = style.getPropertyValue('position'),
+							     top = style.getPropertyValue('top'),
+							     right = style.getPropertyValue('right'),
+							     left = style.getPropertyValue('left'),
+							     bottom = style.getPropertyValue('bottom'),
+							     background = style.getPropertyValue('background');
+							     CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
+							     'top:' + top+';' + 'right:' + right+';' +'left:'+ left + ';' + 'bottom:' + bottom+';' + 'background:' + background + ';'+'z-index:1111;' +'display:none;';
+								return CSSstyle;
+						}
 
 					}
 			}();
 function addedTmpAnnotation(id,types,contents){
-	contents = contents.substring(0,15);
+	if(contents.length >= 15) {contents = contents.substring(0,15); contents = contents+'...'; }
 	var newannotation = document.createElement('li'),
 	 href = document.createElement('a'),
-	 txt = document.createTextNode(types+'-'+contents+'...');
+	 txt = document.createTextNode(types+'-'+contents);
 	newannotation.setAttribute('id','forever-remove-annot-' + id);
 	newannotation.setAttribute('role','presentation');
 	href.setAttribute('id',id);
@@ -500,12 +481,61 @@ var video = function(){
 		   }
 	}
 }();
+var drag = function(){
+	return{
+			move: function(divid,xpos,ypos){
+				  divid.style.left = xpos + 'px';
+                  divid.style.top = ypos + 'px';
+			},
+			startMoving: function(divid,container,evt){
+						evt = evt || window.event;
+                        var posX = evt.clientX,
+                            posY = evt.clientY,
+                        divTop = divid.style.top,
+                        divLeft = divid.style.left,
+                        eWi = parseInt(divid.style.width),
+                        eHe = parseInt(divid.style.height),
+                        cWi = parseInt(document.getElementById(container).style.width),
+                        cHe = parseInt(document.getElementById(container).style.height);
+                        document.getElementById(container).style.cursor='move';
+                        divTop = divTop.replace('px','');
+                        divLeft = divLeft.replace('px','');
+                        var diffX = posX - divLeft,
+                            diffY = posY - divTop;
+                        document.onmousemove = function(evt){
+                            evt = evt || window.event;
+                            var posX = evt.clientX,
+                                posY = evt.clientY,
+                                aX = posX - diffX,
+                                aY = posY - diffY;
+                                if (aX < 0) aX = 0;
+                                if (aY < 0) aY = 0;
+                                if (aX + eWi > cWi) aX = cWi - eWi;
+                                if (aY + eHe > cHe) aY = cHe - eHe;
+                            drag.move(divid,aX,aY);
+                        }
+			},
+			done: function(container){
+                  document.getElementById(container).style.cursor = 'default';   
+                  document.onmousemove = function(){}       
+			}
+	}
+}();
+$('#preview-annotation').mousedown(function(event){
+	drag.startMoving(this,'media-video',event);
+	$(this).css({'cursor':'move'});
+});
+$('#preview-annotation').mouseup(function(){
+	drag.done('media-video');
+	$(this).css({'cursor':'default'});
+});
 $('.option-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
 	annotations.loader();
 	annotations.retrieve(id);
 	$('#editor-annotation').fadeIn();
+	var prevAnnot = document.getElementById('preview-annotation');
 });
 $('.rm-annot').bind('click', function(e){
 	e.preventDefault();
@@ -529,28 +559,31 @@ $('.sv-annot').bind('click', function(e){
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
-	annotations.update(id,content,getTime[0],getTime[1],link);
+	var style = annotations.css('preview-annotation');
+	annotations.update(id,content,getTime[0],getTime[1],link,style);
+	if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
+	document.getElementById(id).innerHTML = content;
 	$('#editor-annotation').fadeOut();
 });
 var time = function(){
 	return{
-		validate: function(start,end){
+		validate: function(start_,end_){
 				   var totalTimeEndStart = new Array(),
-					  getStartTime = start.split(':'),
-					  getEndTime = end.split(':'),
+					  getStartTime = start_.split(':'),
+					  getEndTime = end_.split(':'),
 					  start1 = getStartTime[0] * 3600, start2 = getStartTime[1] * 60,start3 = getStartTime[2] * 1,
-					  //endTimeVal = getid.replace('save-', 'end-time-'),
 					  end1 = getEndTime[0] * 3600,end2 = getEndTime[1] * 60, end3 = getEndTime[2] * 1;
-					 if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) totalTimeEndStart.push('error'); return totalTimeEndStart;
+					 if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) {totalTimeEndStart.push('error'); return totalTimeEndStart;}
 					  totalTimeEndStart.push(start1+start2+start3);
 					  totalTimeEndStart.push(end1+end2+end3);
 					 return totalTimeEndStart;
-						}
+					}
 	}
 }();
-function validateTime(getid,startId,endId){
- 
-}
+$('#edit-content').keyup(function(){
+	var getContent = document.querySelector('input[name=content]').value;
+	document.getElementById('preview-annotation').innerHTML = getContent;
+});
 $('#chk-link').bind('click', function(){
 	if(document.getElementById('chk-link').checked == true) $('#annot-link').fadeIn();
 	else $('#annot-link').fadeOut();
@@ -683,24 +716,20 @@ $('#upload-cancel').on('click',function(){
 
 							<div id="vid-controls" class="p-relative">
 								<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
-									<div id='preview-annotation' style='z-index:300000;width:100px;height:100px;background:green;'>
-									 	
-									 </div>
+									<div id='preview-annotation'></div> 
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
 										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 											<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-											</video>
+											   </video>
 											@else
 											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
 												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
 													<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 														</video>
 													@endif
-													
 												</div><!--embed-responsive-->
 												@include('elements/videoPlayer')
-
 											</div><!--vid-controls-->
 											<br/>
 											
@@ -777,8 +806,8 @@ $('#upload-cancel').on('click',function(){
 											
 													<br>
 													<ul id='editor-annotation'>
-														<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-remove"></span></div></li>
-														<li>Content:{{Form::text('content',null)}}</li>
+														<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
+														<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
 														<li>Start:{{Form::text('start',null)}}</li>
 														<li>End:{{Form::text('end',null)}}</li>
 														<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>

@@ -53,7 +53,7 @@
         <div class="text-center" style="position:relative;">
             <span class="close-ads">
                <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
-                <b><i class="glyphicon glyphicon-remove"></i></b>
+                <b><i>close ads</i></b>
             </span>
         </div>
 

@@ -10,7 +10,7 @@ ul li div{
 ul li div span{
 	background: #444242;
 	color:#fff;
-	padding: 2px;
+	padding: 3px;
 	cursor: pointer;
 }
 ul li div span:hover{
