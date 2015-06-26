@@ -7,11 +7,10 @@
                     <span class="white">
                         <ul style="list-style:none;">
                             <li><h3 class="orangeC">TELFTV</h3></li>
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Popular</a></li>
-                            <li><a href="">Latest</a></li>
-                            <li><a href="">Playlist</a></li>
-                            <li><a href="">Channels</a></li>
+                            <li>{{link_to_route('homes.index','Home')}}</li>
+                            <li>{{link_to_route('homes.signin','Sign in')}}</li>
+                            <li>{{link_to_route('homes.popular','Popular Videos')}}</li>
+                            <li>{{link_to_route('homes.latest','Latest Videos')}}</li>
                         </ul>
                     </span>
                 </div>
@@ -19,9 +18,9 @@
                     <span class="white">
                         <ul style="list-style:none;">
                             <li><h3 class="orangeC">Legal Terms</h3></li>
-                            <li><a href="">Privacy</a></li>
-                            <li><a href="">Copyright</a></li>
-                            <li><a href="">Terms and Conditions</a></li>
+                            <li>{{link_to_route('homes.privacy','Privacy')}}</li>
+                            <li>{{link_to_route('homes.copyright','Copyright')}}</li>
+                            <li>{{link_to_route('homes.termsandconditions','Terms and Conditions')}}</li>
                         </ul>
                     </span>
                 </div>
@@ -29,9 +28,9 @@
                     <span class="white">
                         <ul style="list-style:none;">
                             <li><h3 class="orangeC">Programs</h3></li>
-                            <li><a href="">Advertise</a></li>
-                            <li><a href="">Partner</a></li>
-                            <li><a href="">Publisher</a></li>
+                            <li><a href="#">Advertise</a></li>
+                            <li>{{link_to_route('partners.index','Partners')}}</li>
+                            <li>{{link_to_route('publishers.index','Publishers')}}</li>
                         </ul>
                     </span>
                 </div>
