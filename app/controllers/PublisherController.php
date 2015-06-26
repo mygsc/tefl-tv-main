@@ -47,7 +47,7 @@ class PublisherController extends Controller {
 			$partnershipToken = $this->Auth->channel . rand(0,50);
 			$partnershipToken = Crypt::encrypt($partnershipToken);
 			Session::put('partnership_token', $partnershipToken);
-			return Redirect::route('publishers.success');
+			return Redirect::route('publishers.register-adsense');
 		}
 		return Redirect::route('publishers.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
