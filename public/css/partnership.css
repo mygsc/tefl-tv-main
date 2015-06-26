@@ -3079,7 +3079,21 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     margin-bottom: 30px;
 }
 
+.icons_style img{
+  max-width: 32px;
+  max-height: 32px;
+  margin-top: 10px;
+}
 
+.message-wrap{
+    padding:60px 60px;
+}
+.message-text{
+    margin-top:8%;
+}
+.message-link{
+    position:relative;margin-top:12%;
+}
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/

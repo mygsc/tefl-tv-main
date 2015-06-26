@@ -41,7 +41,7 @@ TEFLTV Publisher
                                 <h2>Earn Revenue from every advertisement.</h2>
                             </div>
                     </div>
-                    <img src="/img/partners/lower-banner.jpg" width="100%">
+                    <img src="/img/partners/lower-banner-partner.jpg" width="100%">
                     <div class="text-center div-partners">
                         <div class="row">
                         <h1 class="orangeC">-Featured Partners-</h1>

@@ -21,11 +21,15 @@
     	<div class="col-md-8">
     		<div class="paper White">
     			<div class="row content-padding ">
+                    <div class="icons_style pull-right">
+                        <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
+                    </div>
     				<br/><br/>
     				<div class="content-padding">
+                        
     					<div class="col-md-12 text-justify">
 
-    						<h1 class="orangeC">What is TEFLTV Partner?</h1>
+    						<h1 class="blueC">What is TEFLTV Partner?</h1>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -46,7 +50,7 @@
     						</p>
     					</div>
     					<div class="col-md-12">
-    						<h3 class="orangeC">Perks of being a TEFLTV Partner</h3>
+    						<h3 class="blueC">Perks of being a TEFLTV Partner</h3>
     						<li>
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
@@ -71,7 +75,7 @@
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     						</li>
-    						<h3 class="orangeC">How to become a TEFLTV Partner?</h3>
+    						<h3 class="blueC">How to become a TEFLTV Partner?</h3>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -129,13 +133,13 @@
     			</div>
     		</div>
     	</div>
-			<div class="col-md-4">
+		<div class="col-md-4">
 				@include('elements/partners/video')
 				<br/>
 				@include('elements/partners/support')
-			</div>
 		</div>
 	</div>
+</div>
 @stop
 
 

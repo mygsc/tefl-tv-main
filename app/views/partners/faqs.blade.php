@@ -21,10 +21,13 @@
         <div class="col-md-8">
             <div class="paper White">
                 <div class="row content-padding ">
+                    <div class="icons_style pull-right">
+                        <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
+                    </div>
                     <br/><br/>
                     <div class="content-padding">
                         <div class="col-md-12 text-justify">
-                            <h2 class="orangeC">Frequently Asked Questions</h2>
+                            <h2 class="blueC">Frequently Asked Questions</h2>
                         <div class="bs-example">
                             <div class="panel-group" id="accordion">
                                 <div class="panel panel-primary">
