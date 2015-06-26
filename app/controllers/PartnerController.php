@@ -48,7 +48,7 @@ class PartnerController extends Controller {
 			$partnershipToken = $this->Auth->channel . rand(0,50);
 			$partnershipToken = Crypt::encrypt($partnershipToken);
 			Session::put('partnership_token', $partnershipToken);
-			return Redirect::route('partners.success');
+			return Redirect::route('partners.register-adsense');
 		}
 		return Redirect::route('partners.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
