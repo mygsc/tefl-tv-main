@@ -1196,7 +1196,7 @@ center;     margin: 0 auto; }
 }
 
 .footer1 {
-    background: #181B2E;
+    background: #252c44;
     width: 100%;
     text-align: left;
     height: auto;
@@ -1213,10 +1213,10 @@ center;     margin: 0 auto; }
 }
 
 .footer2 {
-    background: #1C2035;
+    background: #1f253b;
     width: 100%;
-    min-height: 30px;
-    height: auto;
+    height: 200px;
+
     text-align: center;
     padding: 5px 5px;
 }
@@ -4548,10 +4548,10 @@ center;     margin: 0 auto; }
 }
 
 .footer1 {
-    background: #181B2E;
+    background: #252c44;
     width: 100%;
     text-align: left;
-    height: auto;
+    height:200px;
 }
 
 .footer1 a {
@@ -4565,7 +4565,7 @@ center;     margin: 0 auto; }
 }
 
 .footer2 {
-    background: #1C2035;
+    background: #1f253b;
     width: 100%;
     min-height: 30px;
     height: auto;

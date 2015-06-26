@@ -1,8 +1,53 @@
 <div class="footer1 hidden-xs mg-t-10">
     <div class="container">
         <div class="row">
+            <div class="col-md-2">
+                <span class="white">
+                    <ul style="list-style:none;">
+                        <li><h3 class="orangeC">TELFTV</h3></li>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Popular</a></li>
+                        <li><a href="">Latest</a></li>
+                        <li><a href="">Playlist</a></li>
+                        <li><a href="">Channels</a></li>
+                    </ul>
+                </span>
+            </div>
+            <div class="col-md-2">
+                <span class="white">
+                    <ul style="list-style:none;">
+                        <li><h3 class="orangeC">Legal Terms</h3></li>
+                        <li><a href="">Privacy</a></li>
+                        <li><a href="">Copyright</a></li>
+                        <li><a href="">Terms and Conditions</a></li>
+                    </ul>
+                </span>
+            </div>
+            <div class="col-md-2">
+                <span class="white">
+                    <ul style="list-style:none;">
+                        <li><h3 class="orangeC">Programs</h3></li>
+                        <li><a href="">Advertise</a></li>
+                        <li><a href="">Partner</a></li>
+                        <li><a href="">Publisher</a></li>
+                    </ul>
+                </span>
+            </div>
+            <div class="col-md-2">
+                <span class="white">
+                    <ul style="list-style:none;">
+                        <li><h3 class="orangeC">Help</h3></li>
+                        <li><a href="">Contact Us</a></li>
+                        <li><a href="">Partner</a></li>
+                        <li><a href="">Publisher</a></li>
+                    </ul>
+                </span>
+            </div>
 
-            <div class="col-lg-9 col-md-9 col-xs-12 col-sm-10" style="padding:15px 0 0 0;">
+
+
+            <!--  <div class="col-lg-9 col-md-9 col-xs-12 col-sm-10" style="padding:15px 0 0 0;">
+
                     <span class="ctgryNav-f">
                         {{ link_to_route('homes.index', 'Home', null) }}
                         {{ link_to_route('homes.aboutus', 'Contact Us', null) }}
@@ -14,6 +59,7 @@
                         {{ link_to_route('publishers.index', 'Publisher', null) }}
                       
                     </span><!--/.ctgryNav-f-->
+
             </div><!--/.col-md-7 col-xs-12-->
 
             <div class="col-lg-3 col-md-4">
