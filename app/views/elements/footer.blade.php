@@ -1,7 +1,23 @@
-<div class="footer1 hidden-xs mg-t-10">
+<div class="footer2 same-H">
+    <div class="row text-center">
+   
+                    <span class="ctgryNav-f">
+                        {{ link_to_route('homes.index', 'Home', null) }}
+                        {{ link_to_route('homes.aboutus', 'Popular', null) }}
+                        {{ link_to_route('homes.advertisements', 'Latest', null) }}
+                        {{ link_to_route('homes.privacy', 'Playlists', null) }}
+                        {{ link_to_route('homes.termsandconditions', 'Channels', null) }}
+                        {{ link_to_route('homes.copyright', 'My Channel', null) }}
+
+                      
+                    </span><!--/.ctgryNav-f-->
+    </div>
+</div>
+
+<div class="footer1 hidden-xs">
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2    ">
                 <span class="white">
                     <ul style="list-style:none;">
                         <li><h3 class="orangeC">TELFTV</h3></li>
@@ -33,13 +49,48 @@
                     </ul>
                 </span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
+                <h3 class="orangeC">Contact Us</h3>
                 <span class="white">
+                    {{Form::open(array('route' => 'post.homes.aboutus'))}}
+                <span class="textbox-layout">
+                    <div class="row">
+                        <div class="col-md-6" >
+                    {{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
+                    @if($errors->has('name'))
+                    <span class="inputError">
+                        {{$errors->first('name')}}
+                    </span>
+                    @endif
+                    </div>
+                      <div class="col-md-6" >
+                    {{ Form::text('email', '', array('placeholder' => 'Email' , 'class' => 'form-control')); }}
+                    @if($errors->has('email'))
+                    <span class="inputError">
+                        {{$errors->first('email')}}
+                    </span>
+                    @endif
+                    </div>
+                    </div>
+                    {{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact form-control')); }}
+                    @if($errors->has('message'))
+                    <span class="inputError">
+                        {{$errors->first('message')}}
+                    </span>
+                    @endif
+                </span>
+                <div class="text-right">
+                    {{ Form::submit('Submit', array('class' => 'btn btn-warning form-control'))}}
+                    {{Form::close()}}
+                </div>
                     <ul style="list-style:none;">
-                        <li><h3 class="orangeC">Help</h3></li>
-                        <li><a href="">Contact Us</a></li>
-                        <li><a href="">Partner</a></li>
-                        <li><a href="">Publisher</a></li>
+
+                      <span class="text-right">
+                            <a href="https://www.facebook.com/tefltv1"><i class="socialMedia socialMedia-facebook pull-right"></i></a>
+                            <a href="https://plus.google.com/u/0/100501287408141782277/about"><i class="socialMedia socialMedia-googlePlus pull-right"></i></a>
+                            <a href="https://twitter.com/TEFLtv"><i class="socialMedia socialMedia-twitter pull-right"></i></a>
+                            <!--<a href=""><i class="socialMedia socialMedia-skype pull-right"></i></a>-->
+                    </span><!--/.text-right-->
                     </ul>
                 </span>
             </div>
@@ -64,12 +115,7 @@
 
             <div class="col-lg-3 col-md-4">
                 <div class="col-lg-12 col-xs-12 hidden-sm" style="padding:5px 0 0 0;">
-                    <span class="text-right">
-                            <a href="https://www.facebook.com/tefltv1"><i class="socialMedia socialMedia-facebook pull-right"></i></a>
-                            <a href="https://plus.google.com/u/0/100501287408141782277/about"><i class="socialMedia socialMedia-googlePlus pull-right"></i></a>
-                            <a href="https://twitter.com/TEFLtv"><i class="socialMedia socialMedia-twitter pull-right"></i></a>
-                            <!--<a href=""><i class="socialMedia socialMedia-skype pull-right"></i></a>-->
-                    </span><!--/.text-right-->
+                    
 
                 </div><!--/.col-md-10 col-xs-12 col-sm-9-->
 
@@ -94,7 +140,7 @@
 
 
 
-<div class="footer2">
-      <span class="blueC">TEFL TV BETA VERSION 1.0</span>
+<div class="same-H text-center"  style="background:#ff6e40!important;">
+      <span class="white">TEFL TV BETA VERSION 1.0</span>
       
 </div>

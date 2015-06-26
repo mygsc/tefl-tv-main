@@ -1224,7 +1224,7 @@ center;     margin: 0 auto; }
 .footer2 span {
     color: #fff;
     font-weight: normal;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .f-pad {
@@ -4551,7 +4551,7 @@ center;     margin: 0 auto; }
     background: #252c44;
     width: 100%;
     text-align: left;
-    height:200px;
+    height:auto;
 }
 
 .footer1 a {
@@ -4576,7 +4576,8 @@ center;     margin: 0 auto; }
 .footer2 span {
     color: #fff;
     font-weight: normal;
-    font-size: 10px;
+    font-size: 12px;
+    
 }
 
 .f-pad {

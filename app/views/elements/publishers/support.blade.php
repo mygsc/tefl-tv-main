@@ -1,6 +1,6 @@
 <div class="row White same-H">
 	<div class="Orange-bg support_head">
-		Partner's Support
+		Publisher's Support
 	</div>
 	<div class="content-padding">
 		<br/>

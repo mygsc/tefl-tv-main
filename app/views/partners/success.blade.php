@@ -31,7 +31,7 @@
 					We are excited for you! Go upload, share or embed your videos and start earning now!
 				</h2>
 				<div class="message-link">
-				<a href="{{route('homes.index')}}">TEFLTV Home</a> | <a href="{{route('homes.index')}}">Upload</a> | <a href="{{route('homes.index')}}">My Channel</a> | <a href="{{route('homes.index')}}">Contact Us</a> | <a href="{{route('homes.index')}}">FAQs</a> | <a href="{{route('homes.index')}}">Contact Us</a>
+				<a href="{{route('homes.index')}}">TEFLTV Home</a> | <a href="{{route('get.upload')}}">Upload</a> | <a href="{{route('partners.faqs')}}">FAQs</a> | <a href="{{route('homes.aboutus')}}">Contact Us</a>
 				</div>
 				<hr/>
 				<div class="icons_style ">

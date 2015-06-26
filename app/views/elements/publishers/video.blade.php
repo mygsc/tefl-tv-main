@@ -15,6 +15,6 @@
 	</div>
 	</div>
 	<div style="margin-top:10px;">
-		<a href="" class="form-control btn btn-info">Become a Partner now <i class="fa fa-hand-o-up"></i></a>
+		<a href="{{route('publishers.verification')}}" class="form-control btn btn-info">Become a Publisher now <i class="fa fa-hand-o-up"></i></a>
 	</div>
 </div>

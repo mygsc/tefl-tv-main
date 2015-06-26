@@ -25,7 +25,7 @@
 				<div class="mg-t-20">
 					<div class="col-md-10 col-md-offset-1 pub-infoDiv mg-t-20 textbox-layout">
 
-						{{Form::open(array('route' => 'post.partners.verification'))}}
+						{{Form::open(array('route' => 'post.publishers.verification'))}}
 						{{Form::label('channel_name')}}
 						{{Form::text('channel_name', Auth::User()->channel_name, array('class' => 'form-control', 'disabled'))}}
 						{{Form::label('password')}}

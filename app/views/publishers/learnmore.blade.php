@@ -30,7 +30,7 @@
     				<div class="content-padding">
     					<div class="col-md-12 text-justify">
 
-    						<h1 class="blueC">What is TEFLTV Publisher?</h1>
+    						<h1 class="orangeC">What is TEFLTV Publisher?</h1>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -51,7 +51,7 @@
     						</p>
     					</div>
     					<div class="col-md-12">
-    						<h3 class="blueC">Perks of being a TEFLTV Publisher</h3>
+    						<h3 class="orangeC">Perks of being a TEFLTV Publisher</h3>
     						<li>
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
@@ -76,7 +76,7 @@
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     						</li>
-    						<h3 class="blueC">How to become a TEFLTV Publisher?</h3>
+    						<h3 class="orangeC">How to become a TEFLTV Publisher?</h3>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
