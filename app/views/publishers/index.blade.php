@@ -20,7 +20,7 @@ TEFLTV Publisher
                 <p class="t-bBlue">Where you can teach, learn and earn at the same time.</p>
                 <div class="text-center tagline wrap">
                     <a href="{{route('publishers.learnmore')}}"><button class="btn btn-primary">Learn more</button></a>
-                    <a href="{{route('users.verification')}}"><button class="btn btn-warning">Get Started</button></a>
+                    <a href="{{route('publishers.verification')}}"><button class="btn btn-warning">Get Started</button></a>
                 </div>
             </div>
         </div>

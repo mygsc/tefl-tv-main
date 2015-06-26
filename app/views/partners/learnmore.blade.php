@@ -125,7 +125,7 @@
     						</li>
     						<br/>
     						<hr/>
-    						<h3>Start earning money. <a href="">Become a Partner Now!</a></h3>
+    						<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
     						
     						<br/><br/>
     					</div>

@@ -12,7 +12,7 @@
 			<br/><br/>
 			<div class="col-md-6 col-md-offset-3 pub-infoDiv mg-t-20 textbox-layout">
 				<p class="notes">For additional security purposes we would like to verify your account. </p>
-				{{Form::open(array('route' => 'post.users.verification'))}}
+				{{Form::open(array('route' => 'post.publishers.verification'))}}
 				{{Form::label('channel_name')}}
 				{{Form::text('channel_name', Auth::User()->channel_name, array('class' => 'form-control', 'disabled'))}}
 				{{Form::label('password')}}

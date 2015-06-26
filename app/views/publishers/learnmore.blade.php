@@ -126,7 +126,7 @@
     						</li>
     						<br/>
     						<hr/>
-    						<h3>Start earning money. <a href="">Become a Publisher Now!</a></h3>
+    						<h3>Start earning money. <a href="{{route('publishers.verification')}}">Become a Publisher Now!</a></h3>
     						
     						<br/><br/>
     					</div>

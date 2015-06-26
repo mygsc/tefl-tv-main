@@ -1,9 +1,12 @@
 <?php
 
 class PartnerController extends Controller {
+	public function __construct(){
+		$this->Auth = Auth::User();
+	}
+	
 	
 	public function getIndex(){
-		Session::put('url.intended', URL::route('partners.register-adsense'));
 		return View::make('partners.index');
 	}
 
@@ -28,9 +31,25 @@ class PartnerController extends Controller {
 	}
 
 	public function getSuccess(){
-		Session::forget('url');
 		Session::forget('partnership_token');
 		//return Session::all();
 		return View::make('partners.success');
+	}
+
+	public function getVerification(){
+		Session::forget('partnership_token');
+		return View::make('partners.verification');
+	}
+
+	public function postVerification(){
+		$input = Input::all();
+		if (Hash::check($input['password'],$this->Auth->password))
+		{
+			$partnershipToken = $this->Auth->channel . rand(0,50);
+			$partnershipToken = Crypt::encrypt($partnershipToken);
+			Session::put('partnership_token', $partnershipToken);
+			return Redirect::route('partners.success');
+		}
+		return Redirect::route('partners.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
 }
