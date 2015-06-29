@@ -112,18 +112,10 @@ Route::filter('csrf', function()
 |
 */
 
-Route::filter('partners', function()
-{
-	if(!Auth::check()){
-		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to proceed');
-	}
-	
-});
-
-Route::filter('partnerships.verification', function()
+Route::filter('users.verification', function()
 	{
 	if(!Session::has('partnership_token')){
-		return Redirect::route('partnerships.verification');
+		return Redirect::route('homes.signin');
 	}
 	
 });

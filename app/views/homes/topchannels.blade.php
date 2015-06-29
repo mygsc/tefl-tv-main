@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="container h-minH ">
-	<div class="row">
-		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-			<div class="mg-r-10 row">
+<div class="container">
+	<div class="row mg-t-10">
+		<div class="row-same-height">
+			<div class="col-md-3 col-md-height hidden-xs hidden-sm col-top">
+				<div class="mg-r-10 row mg-t--10">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
@@ -19,13 +19,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-9 col-md-8 White same-H mg-t-10 ">
+		<div class="col-md-8 White same-H col-md-height col-top">
 			@include('elements.home.channel')
 			<div class="text-center row mg-b-10" style="">
 				<a href="{{route('homes.more-top-channels')}}"><b>Click here to view top 50 channels</b></a>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 @stop
 

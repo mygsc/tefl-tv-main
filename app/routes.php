@@ -191,16 +191,37 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 
 
 //**********Partners**********//
-Route::get('partnerships', array('as' => 'partnerships.index', 'uses' => 'PartnershipController@getIndex'));
-Route::get('partners/learnmore', array('before' => 'partners','as' => 'partners.learnmore', 'uses' => 'PartnershipController@getPartnerLearnMore'));
-Route::get('partners/adsense', array('before' => 'partnerships.verification', 'as' => 'partners.adsense', 'uses' => 'PartnershipController@getPartnersAdsense'));
-Route::get('partners/partners_program', array('as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPartnersProgram'));
-Route::get('publishers/learnmore', array('before' => 'partners','as' => 'publishers.learnmore', 'uses' => 'PartnershipController@getPublisherLearnMore'));
-Route::get('publishers/adsense', array('before' => 'partnerships.verification', 'as' => 'publishers.adsense', 'uses' => 'PartnershipController@getPublisherAdsense'));
-Route::group(array('prefix' => 'partnerships',), function() {
-	Route::get('verification', array('as' => 'partnerships.verification', 'uses' => 'PartnershipController@getVerification'));
-	Route::post('verification', array('as' => 'post.partnerships.verification', 'uses' => 'PartnershipController@postVerification'));
-	Route::get('success', array('as' => 'partnerships.success', 'uses' => 'PartnershipController@getSuccess'));	
+Route::group(array('prefix' => 'partners'), function(){
+	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
+	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
+	Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
+	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
+	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
+	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
+	Route::post('register-adsense', array('as' => 'post.partners.register-adsense', 'uses' => 'PartnerController@postRegisterAdsense'));
+	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
+	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
+	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
 });
 
+//**********Partners**********//
+Route::group(array('prefix' => 'publishers'), function(){
+	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
+	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
+	Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
+	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
+	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
+	Route::get('register-adsense', array('as' => 'publishers.register-adsense', 'uses' => 'PublisherController@getRegisterAdsense'));
+	Route::get('success', array('before' => 'publishers.success', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));
+	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
+	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
+});
+
+//********Partners and Publishers account verification*************//
+
+
+
+
+
+//********Error page***********//
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));

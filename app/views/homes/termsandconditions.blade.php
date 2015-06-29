@@ -23,7 +23,8 @@
 				</div>
 			</div>
 			<div class="col-md-9 White mg-t-10">
-				<div class="">
+				<br/>
+				<div class="content-padding">
 					<div class="">
 						<div class="tab-content">
 							<div class="tab-pane active text-justify" id="users">

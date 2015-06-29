@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<div class="row ">
+<div class="row mg-b-20">
 	<div class="container pageH">
 		<br/>
 		<div class="row">
@@ -150,48 +150,52 @@
 					@if(empty($usersChannel->address))
 
 					@else
-					<div class="col-md-12 top-div_t">
-					<h3 class="orangeC text-center">-Address-</h3>
+					<div class="col-md-12 top-div_t mg-t-20">
+						<h3 class="whiteC text-center">-Address-</h3>
 					</div>
-					<div class="col-md-12 same-H whiteC">
-						<table class="tableLayout">
-							<tr>
-								<td width="20%"><small><label>Address</label></small></td>
-								<td width="5%"><b>:</b></td>
-								<td width="75%">{{$usersChannel->address}}</td>
-								@endif
-							</tr>
-							<tr>
-								@if(empty($usersChannel->city))
+					<div class="col-md-12 White same-H">
+						<div class="pad-10">
+							<table class="tableLayout">
+								<tr>
+									<td width="20%"><small><label>Address</label></small></td>
+									<td width="5%"><b>:</b></td>
+									<td width="75%">{{$usersChannel->address}}</td>
+									@endif
+								</tr>
+								<tr>
+									@if(empty($usersChannel->city))
 
-								@else
-								<td><small><label>City</label></small> </td>
-								<td><b>:</b></td>
-								<td>{{$usersChannel->city}}</td>
-								@endif
-							</tr>
-							<tr>
-								@if(empty($usersChannel->state))
+									@else
+									<td><small><label>City</label></small> </td>
+									<td><b>:</b></td>
+									<td>{{$usersChannel->city}}</td>
+									@endif
+								</tr>
+								<tr>
+									@if(empty($usersChannel->state))
 
-								@else
-								<td><small><label>State</label></small></td>
-								<td><b>:</b></td>
-								<td>{{$usersChannel->state}}</td>
-								@endif
-							</tr>
+									@else
+									<td><small><label>State</label></small></td>
+									<td><b>:</b></td>
+									<td>{{$usersChannel->state}}</td>
+									@endif
+								</tr>
 
-							<tr>
-								@if(empty($usersChannel->country_id))
+								<tr>
+									@if(empty($usersChannel->country_id))
 
-								@else
-								<td><small><label>Country</label></small></td>
-								<td><b>:</b></td>
-								<td>{{$usersChannel->country_id}}</td>
-								@endif
-							</tr>
-						</table>
+									@else
+									<td><small><label>Country</label></small></td>
+									<td><b>:</b></td>
+									<td>{{$usersChannel->country_id}}</td>
+									@endif
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
+			</div>
+
 		</div>
 	</div>
 

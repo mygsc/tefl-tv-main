@@ -1,65 +1,137 @@
-@extends('layouts.partnership')
+@extends('layouts.partner')
 
-@section('title')
-	TEFLTV Publisher
+	@section('meta')
+			
+	@stop
+	@section('css')
+		{{HTML::style('css/vid.player.min.css')}}
+	@stop
+	@section('some_script')
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 
 @section('content')
-	<div class="row">
-		<img src="/img/partner-banner.png" class="center-block visible-lg visible-md visible-sm" width="100%">
-		<img src="/img/v-bg_sm.png" class="center-block visible-xs" width="100%">
+
+<div class="top-bg"></div>
+
+<div class="paper_wrap">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-8">
+            <div class="paper">
+                <div class="content-padding">
+                    <div class="icons_style pull-right">
+                        <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
+                    </div>
+    				<div class="row text-justify">
+                        <h1 class="blueC">What is TEFLTV Partner?</h1>
+    						<p class="text-justify">
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    							proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam,
+    							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo. Lorem ipsum dolor sit amet, consectetur adipisicing elit
+    							consequat.
+    						</p>
+    						<br/>
+    						<p class="text-justify">
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    							cillum dolore eu fugiat nulla pariatur.
+    						</p>
+    					
+    						<h3 class="blueC">Perks of being a TEFLTV Partner</h3>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua ut labore et dolore magna aliqua..
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    						</li>
+    						<h3 class="blueC">How to become a TEFLTV Partner?</h3>
+    						<p class="text-justify">
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    						</p>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
+    							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
+
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
+    							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
+    							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    						</li>
+    						<br/>
+    						<li>
+    							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    							tempor incididunt ut labore et dolore magna aliqua.
+    						</li>
+    						<br/>
+    						<hr/>
+    						<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
+
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+		<div class="col-md-4">
+				@include('elements/partners/video')
+				<br/>
+				@include('elements/partners/support')
+		</div>
 	</div>
-	<div class="">
-		<div class="container">
-			<div class="text-center tagline">
-				<a href="{{route('partners/partners_program')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
-				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
-			</div>
-		</div>
-		<br/>
-		<div class="visible-xs">
-			<br/><br/>
-		</div>
-		<div class="container">
-			<div class="row text-center div-Steps">
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-upload.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
-					<h2>Upload your own videos.</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-share.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
-					<h2>Embed video to your website or share to your social media accounts.</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-earn.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-					<h2>Earn Revenue from every advertisement.</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row White">
-			<div class="container text-center div-partners">
-				<h1 class="orangeC">-Featured Partners-</h1>
-
-
-				<div class="col-md-4">
-					<a href="http://www.auathailand.org" target="_blank">
-						<img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.teflEducators.com" target="_blank" >
-						<img src="/img/logos/te.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="2s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.britishteachers.org.uk" target="_blank">
-						<img src="/img/logos/bt.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="3s">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+</div>
 @stop
 
 

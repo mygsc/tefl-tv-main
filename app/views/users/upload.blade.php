@@ -127,7 +127,7 @@
 												<small class="mg-t-10">or browse your own thumbnail:</small><br><br/>
 												<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 												<br>
-												<div class="file-upload2 btn btn-primary">
+												<div class="file-upload2 btn btn-primary ripple-slow" data-color="rgba(255,255,255,0.3)">
 													<span>Browse thumbnail</span>
 													{{Form::file('poster', array('id'=>'poster','accept'=>"image/*"))}} 
 												</div>

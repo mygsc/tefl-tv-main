@@ -274,4 +274,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		return true;
 	}
+
+	/**
+	*@param $adsense_id    	adsense id of the user
+	*@return boolean true
+	*@throws boolean false
+	*/
+	public function validateAdsensePublisherID($adsense_id = null){
+
+		$split_adsense_id = explode('-', $adsense_id);
+		if(count($split_adsense_id) == 2){
+			if($split_adsense_id[0] == 'pub' && strlen($split_adsense_id[1]) == 16){
+			return true;
+			}
+		}
+		return false;
+	}
 }
