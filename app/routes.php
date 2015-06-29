@@ -198,6 +198,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
 	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
+	Route::post('register-adsense', array('as' => 'post.partners.register-adsense', 'uses' => 'PartnerController@postRegisterAdsense'));
 	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));

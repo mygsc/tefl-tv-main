@@ -1,8 +1,10 @@
 <?php
 
 class PartnerController extends Controller {
-	public function __construct(){
+	public function __construct(User $users, Partner $partners){
 		$this->Auth = Auth::User();
+		$this->User = $users;
+		$this->Partner = $partners;
 	}
 	
 	
@@ -27,7 +29,27 @@ class PartnerController extends Controller {
 	}
 
 	public function getRegisterAdsense(){
-		return View::make('partners.register-adsense');
+		if(Auth::User()->role != '3' && Auth::User()->role != '5'){
+			return View::make('partners.register-adsense');
+		}
+		return Redirect::route('partners.index')->withFlashWarning('You are already a TEFL TV partner');
+	}
+
+	public function postRegisterAdsense(){
+		$user_id = Auth::User()->id;
+		$adsense_id = strtolower(Input::get('adsense'));
+		$validator = $this->User->validateAdsensePublisherID($adsense_id);
+		if($validator == true){
+			if($this->Partner->savePartner($adsense_id) === true){
+				return Redirect::route('partners.success');
+			}
+			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
+			Mail::send('emails.partners.register', $data, function($message) {
+				$message->to(Input::get('email'))->subject('You just became a TEFL TV partner');
+			});
+		}
+		return Redirect::route('partners.register-adsense')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs');
+
 	}
 
 	public function getSuccess(){
@@ -52,4 +74,5 @@ class PartnerController extends Controller {
 		}
 		return Redirect::route('partners.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
+
 }

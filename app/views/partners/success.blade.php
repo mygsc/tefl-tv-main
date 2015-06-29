@@ -23,7 +23,7 @@
 			<!--for publisher-->
 			<div class="message-wrap">
 
-				<h1 class="blueC message-text">Hi User!</h1>
+				<h1 class="blueC message-text">Hi {{Auth::User()->channel_name}}!</h1>
 				<h2>
 					Congratulations you just became a TEFLTV partner.
 					<!--{{Session::get('partnership_type')}}-->

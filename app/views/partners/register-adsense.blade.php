@@ -26,9 +26,12 @@
                               <h1 class="text-center blueC mg-t-20">Partner's Account Setup</h1>
                               <div class="pub-infoDiv mg-t-20 textbox-layout">
                                   <div class="well">
-                                        <span>Please enter your adsense account</span>
-                                        {{Form::text('adsense')}}
-                                        <span class="notes"> Don't know how to retrieve your adsense ID? <a href="#">click here</a></span>	
+                                  {{Form::open(array('route' => 'post.partners.register-adsense'))}}
+                                        <span>Please enter your Adsense publisher ID</span><br />
+                                        <span class="notes"> *Please take note that you should only enter a valid adsense publisher ID otherwise your ads will not be displayed</span> 
+                                        {{Form::text('adsense', null, array('placeholder' => 'pub-xxxxxxxxxxxxxxx'))}}
+                                        <span class="notes"> Don't know how to retrieve your adsense ID? <a href="#">click here</a></span><br />
+                                        	
                                    </div>
                                    <div class="well" style="height:350px; overflow:auto;">
                                       <div id="pub-H"></div> 
@@ -296,7 +299,9 @@
                                    <div class="text-right mg-b-20">
                                         <br />
                                         <p class="notes">Please read terms and condition and click the checkbox at the bottom of the contex if you agree with it.</p>
-                                        <a href="{{route('partners.success')}}">{{Form::button('Submit Application', array('class' => 'btn btn-primary'))}}</a>
+                                        <!--<a href="{{route('partners.success')}}">{{Form::button('Submit Application', array('class' => 'btn btn-primary'))}}</a>-->
+                                        {{Form::submit('Agree and Submit Application', array('class' => 'btn btn-primary')   )}}
+                                        {{Form::close()}}
                                    </div>
                               </div>
                          </div>
