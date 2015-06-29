@@ -706,13 +706,6 @@ class HomeController extends BaseController {
 		}
 	}
 
-	public function getComplaintForm() {
-		$categories = $this->Video->getCategory();
-		$notifications = $this->Notification->getNotificationForSideBar();
-
-		return View::make('homes.complaintform', compact('categories','notifications'));
-	}
-
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');
 	}

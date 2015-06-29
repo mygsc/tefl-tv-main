@@ -52,7 +52,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('deletecomment', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteComment'));
 	Route::post('deletereply', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteReply'));
 	Route::post('addreport', array('as' => 'post.addreport', 'uses' => 'HomeController@addReport'));
-	Route::get('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'HomeController@getComplaintForm'));
+	Route::get('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'ReportController@getComplaintForm'));
+	Route::post('addcomplaint', array('as' => 'post.addreport', 'uses' => 'ReportController@getComplaintForm'));
 	//r3mmel
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
