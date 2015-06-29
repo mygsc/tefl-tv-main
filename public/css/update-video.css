@@ -12,6 +12,7 @@ ul li div span{
 	color:#fff;
 	padding: 3px;
 	cursor: pointer;
+	
 }
 ul li div span:hover{
 	border:1px solid #2997db;

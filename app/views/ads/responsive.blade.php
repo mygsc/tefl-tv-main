@@ -3,7 +3,7 @@
     .ads-absolute-wrapper{
         position:absolute;
         width:100%;
-        height:auto;
+        height:60px;
         left: 0;
         right: 0;
         display: block;
