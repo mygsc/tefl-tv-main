@@ -29,6 +29,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 {{HTML::script('js/homes/comment.js')}}
+{{HTML::script('js/report.js')}}
 
 <script type="text/javascript">
     document.getElementById('advertisement').style.display = 'none';
@@ -75,8 +76,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div>
+                                <div class="col-md-12"><div>
                                     <br/>
                                         <div class="row">
                                             <div class="col-md-9">
@@ -165,6 +165,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a>
                                             </div>
                                             <div class="col-md-6 text-right">
                                                  <span class="">
@@ -267,7 +269,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         </div><!--/.info-->
                     </div><!--well-->
                 </div> <!--/.ui-tabs-panel-->
-        
+                
                 <!-- COMMENTS AREA -->
                 <div class="row mg-t-10">
                     

@@ -687,6 +687,31 @@ class HomeController extends BaseController {
 		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
 	}
 
+	public function addReport() {
+		$reported_id = Crypt::decrypt(Input::get('reported_id'));
+		$user_id = Crypt::decrypt(Input::get('user_id'));
+		$reasons = Input::get('reasons');
+		$comment = Input::get('comment');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty($reply)){
+			$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			$userInfo = User::find($user_id);
+		}
+	}
+
+	public function getComplaintForm() {
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+
+		return View::make('homes.complaintform', compact('categories','notifications'));
+	}
 
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');
