@@ -68,6 +68,9 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addannotation', array('before'=>'auth','as' => 'post.add.annotation', 'uses' => 'UserController@postAddAnnotation'));
 	Route::post('deleteannotation/{id?}', array('before'=>'auth','as' => 'post.delete.annotation', 'uses' => 'UserController@postDeleteAnnotation'));
 	Route::post('annotation/retrieve/{id?}', array('before'=>'auth','as' => 'post.delete.annotation', 'uses' => 'UserController@postRetrieveAnnotation'));
+	Route::post('annotationupdate/{id?}', array('before'=>'auth','as' => 'post.update.annotation', 'uses' => 'UserController@postUpdateAnnotation'));
+	Route::get('annotationlists/{filename?}', array('before'=>'auth','as' => 'post.lists.annotation', 'uses' => 'UserController@postListAnnotation'));
+	
 	Route::get('videoplayer', array('as' => 'get.view.video', 'uses' => 'HomeController@getViewVideo'));
 });
 

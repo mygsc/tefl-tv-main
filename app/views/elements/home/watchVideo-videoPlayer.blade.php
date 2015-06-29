@@ -20,12 +20,21 @@
 						@include('elements/videoPlayer')
 						@if($countAnnotation > 0)
 							@for($i=0;$i < $countAnnotation;$i++)
-								<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
+								@if(strlen($annotations[$i]->link)>0)
+									<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
+											<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
+											<a href="{{$annotations[$i]->link}}" target='_blank'>{{$annotations[$i]->content}}</a>
+											{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
+											{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
+									</div>
+								@else
+									<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
 										<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
-										<a href="{{$annotations[$i]->link}}" target='_blank'>{{$annotations[$i]->content}}</a>
+										{{$annotations[$i]->content}}
 										{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
 										{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 								</div>
+								@endif
 							@endfor
 						@endif
 						{{Form::hidden('count-annotation',$countAnnotation)}}

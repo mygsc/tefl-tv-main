@@ -1576,7 +1576,7 @@ class UserController extends BaseController {
 		$create->link = Input::get('link');
 		$create->css = Input::get('css');
 		$create->save();
-		return Response::json(array('msg'=>'success','id'=>$create->id));
+		return Response::json(array('msg'=>'success','id'=>$create->id, 'content'=>$create->content, 'types'=>$create->types));
 	}
 	public function postDeleteAnnotation($id=null){
 		$result = Annotation::find($id);
@@ -1595,9 +1595,19 @@ class UserController extends BaseController {
 		$result->start = Input::get('start');
 		$result->end = Input::get('end');
 		$result->link = Input::get('link');
-		$result->css = Input::get('css');
+		$result->css = Input::get('style');
 		$result->save();
 		return Response::json(array('msg'=>'success'));
+	}
+	public function postListAnnotation($id=null,$result = array()){
+		$annotations = Annotation::where('vid_filename',$id)->get();
+		if(count($annotations)==0) return Response::json(array('msg'=>'Empty.')); 
+		foreach($annotations as $annotation){
+			$result []= "<li id='forever-remove-annot-$annotation->id' role='presentation'>".
+							"<a id='$annotation->id'role='menuitem' class='option-annot' tabindex='-1' href='#'>$annotation->types-.str_limit($annotation->content,15)</a>".
+						"</li>";
+		}
+		return $result;
 	}
 
 }
