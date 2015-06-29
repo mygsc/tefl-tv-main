@@ -1,3 +1,4 @@
+
 <div class="same-H div_footer">
     <div class="col-md-7 f_links_div">
         <div class="row">
@@ -29,13 +30,12 @@
                         <span class="white">
                             <ul class="list-n">
                                 <li><h3 class="whiteC">Programs</h3></li>
-                                <li><a href="">Advertise</a></li>
-                                <li><a href="">Partner</a></li>
-                                <li><a href="">Publisher</a></li>
+                                <li><a href="#">Advertise</a></li>
+                                <li>{{link_to_route('partners.index','Partners')}}</li>
+                                <li>{{link_to_route('publishers.index','Publishers')}}</li>
                             </ul>
                         </span>
                     </div>
-
                 </div>
             </div>
         </div>
