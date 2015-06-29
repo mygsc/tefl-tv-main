@@ -1,5 +1,6 @@
-<div class="row">
-	<div class="mg-20">
+<div class="White same-H mg-t-10">
+
+	<div class="row mg-20">
 		<br/>
 		@if(empty($recentUpload))
 		<div class="row">
@@ -69,4 +70,3 @@
 		</div><!--/.col-md-6-->
 	</div>
 </div>
-<br/>

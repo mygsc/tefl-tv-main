@@ -66,6 +66,11 @@ title {
 .capitalize {
     text-transform: capitalize;
 }
+.same-H {
+   -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+}
 @media (max-width: 991px) {
     .navbar-header {
         float: none;
@@ -408,10 +413,7 @@ span .ad {
 
 }
 .good{
-   border-top:1px solid #376d2e;
-   border-left:1px solid #376d2e;
-   border-right:1px solid #376d2e;
-   border-bottom:1px solid #376d2e;
+
    background: #daeacf;  
    padding: 20px 20px 20px 20px;
 }
@@ -420,7 +422,7 @@ span .ad {
     font-size: 16px;
 }
 .bad{
-    border:1px solid #8d313d;
+
     background: #f1dddd;  
     padding: 20px 20px 20px 20px;
 
@@ -430,7 +432,6 @@ span .ad {
        font-size: 16px;
 }
 .warn{
-    border:1px solid #715c19;
     background: #fef0c1;  
     padding: 20px 20px 20px 20px;
 }
@@ -773,7 +774,7 @@ img.user {
     width: 100%!important;
     font-size: 16px;
     color: #fff;
-    background: #d9edf7;
+    background:#4B5B7C;
     padding: 10px 10px;
     text-align: center;
     margin-top: 0;
@@ -956,6 +957,13 @@ center;     margin: 0 auto; }
      color: #fff!important;
      margin-bottom: 20px;
 }
+.top-div_t{
+     background: #4B5B7C!important;
+     width: 100%;
+     padding: 3px 5px;
+     color: #fff!important;
+}
+
 
 .c-userBg{
     background: #4B5B7C;
@@ -2082,7 +2090,7 @@ div.crop-square img {
     margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #cecece;
-    border: 1px solid #333;
+    border: 1px solid #cecece;
     display: block;
     width: 100%;
     position: relative;
@@ -2376,8 +2384,9 @@ body {
 }
 
 .div-coverDp {
-    height: 224px;
+    height: 300px;
     overflow: hidden;
+    background-color: #636ea6;
 }
 
 .div-coverP {
@@ -3654,7 +3663,8 @@ p.description_content {
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
-}
+
+
 .plist-desc{
     height: 95px!important;
 }
@@ -3763,6 +3773,12 @@ span .ad {
 .v-latestUp {
     height: 300px!important;
 }
+.shadow_3{
+      -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+  -moz-box-shadow:0 10px 20px rgba(0,0,0,0.19);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+
+}
 .flash{
     z-index: 9999999999;
     margin-left: auto!important;
@@ -3772,15 +3788,11 @@ span .ad {
     height: 100px;
     left: 0;
     right: 0;
-
-
-
+       -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
 }
 .good{
-   border-top:1px solid #376d2e;
-   border-left:1px solid #376d2e;
-   border-right:1px solid #376d2e;
-   border-bottom:1px solid #376d2e;
    background: #daeacf;  
    padding: 20px 20px 20px 20px;
 }
@@ -3789,7 +3801,6 @@ span .ad {
     font-size: 16px;
 }
 .bad{
-    border:1px solid #8d313d;
     background: #f1dddd;  
     padding: 20px 20px 20px 20px;
 
@@ -3799,7 +3810,6 @@ span .ad {
        font-size: 16px;
 }
 .warn{
-    border:1px solid #715c19;
     background: #fef0c1;  
     padding: 20px 20px 20px 20px;
 }
@@ -4075,12 +4085,7 @@ div.archiveLinks {
     border-bottom: 1px solid #eee;
 }
 
-.same-H {
- 
-   border: 1px solid #e2e2e2    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-}
+
 
 .archiveLinks li {
     border-bottom: 1px solid #B0AEAE;
@@ -4134,18 +4139,7 @@ img.user {
 .h-minH{
     min-height: 740px;
 }
-.h-title {
-    width: 100%!important;
-    font-size: 16px;
-    color: #fff;
-    background: #1F3359;
-    padding: 10px 10px;
-    text-align: center;
-    margin-top: 0;
-    border: 1px solid #bce8f1;
-    color: #FFFFFF;
-    font-weight: bold;
-}
+
 
 .a-title {
     width: 100%!important;

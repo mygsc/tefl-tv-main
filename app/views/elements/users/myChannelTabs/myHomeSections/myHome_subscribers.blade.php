@@ -1,9 +1,9 @@
-<div class="col-md-6 greyDark col-md-height col-top">
+<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
 	<div class="row">
-		<div class="h-title grey orangeC">
+		<div class="h-title whiteC">
 			<span><b>SUBSCRIBERS</b></span>&nbsp;
 		</div>
-		<div class="Div-channelSubSection" id="subscriberWrapper">
+		<div class="Div-channelSubSection White same-H " id="subscriberWrapper">
 			<br/><br/>
 			<div class="row-same-height">
 				@if($subscriberProfile->isEmpty())

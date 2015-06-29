@@ -46,14 +46,15 @@
 @section('content')
 <div class="row">
 	<br/>
-	<div class="container White same-H">
+	<div class="container">
 		<div class="row ">
-			@include('elements.users.profileTop')		
+			@include('elements.users.profileTop')	
+
 			<div class="channel-content">
 				<div>
 				
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs hidden-sm hidden-xs" role="tablist">
+				 	<ul class="nav nav-tabs hidden-sm hidden-xs White same-H" role="tablist">
 				    	<li role="presentation" class="active">{{link_to_route('users.channel', 'Home')}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -95,7 +96,7 @@
 							@include('elements/users/myChannelTabs/myHomeSections/myHome_playlists')
 							<div class="col-md-12">
 								<div class="row">
-									<div class="row-same-height">
+									<div class="row-same-height mg-t-20">
 										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscribers')
 										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscriptions')
 									</div>
