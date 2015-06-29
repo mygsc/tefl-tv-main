@@ -45,7 +45,7 @@ class PartnerController extends Controller {
 			}
 			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
 			Mail::send('emails.partners.register', $data, function($message) {
-				$message->to(Input::get('email'))->subject('You just became a TEFL TV partner');
+				$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
 			});
 		}
 		return Redirect::route('partners.register-adsense')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs');
