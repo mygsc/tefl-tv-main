@@ -20,7 +20,8 @@
 			</div>
 		</div>
 		<div class="col-md-9 White sameH-h text-justify mg-t-10 same-H">
-			<div class="pad-10">
+			<br/>
+			<div class="content-padding">
 				<h1>PRIVACY POLICY</h1>
 				<br/>
 				<p> 

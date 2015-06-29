@@ -5,11 +5,11 @@
 @stop
 
 @section('content')
-<div class="container h-minH ">
-	<div class="row">
-		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-				<div class=" mg-r-10 row">
+<div class="container">
+	<div class="row mg-t-10">
+		<div class="row-same-height">
+			<div class="col-md-3 col-md-height hidden-xs hidden-sm col-top">
+				<div class="mg-r-10 row mg-t--10">
 					@include('elements/home/categories')
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')
@@ -23,12 +23,12 @@
 					</div>
 				</div>
 			</div>
-		<div class="col-lg-9 col-md-8 White same-H  mg-t-10">
+		<div class="col-md-8 col-md-height col-top White same-H">
 			<h1 class="tblue mg-b-20 mg-t-20"> TOP 50 Channels</h1>
 			@include('elements.home.channel')
 		</div>
 	
-		
+	</div>
 	</div>
 </div>
 @stop

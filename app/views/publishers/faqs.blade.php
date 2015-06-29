@@ -1,34 +1,28 @@
 @extends('layouts.publisher')
 
-    @section('meta')
-            
-    @stop
-    @section('css')
-        {{HTML::style('css/vid.player.min.css')}}
-    @stop
-    @section('some_script')
-    {{HTML::script('js/video-player/media.player.min.js')}}
-    {{HTML::script('js/video-player/fullscreen.min.js')}}
+@section('meta')
+
+@stop
+@section('css')
+{{HTML::style('css/vid.player.min.css')}}
+@stop
+@section('some_script')
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 
 @section('content')
-<div class="page_wrapper">
-    <div class="top-bg">
-    </div>
-</div>
-<div class="position:relative!important;">
-<div class="absolute-wrapper_2">
+<div  class="top-bg"></div>
+<div class="paper_wrap">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
-            <div class="paper White">
-                <div class="row content-padding ">
+            <div class="paper">
+                <div class="content-padding">
                     <div class="icons_style pull-right">
                         <img src="/img/icons/select-ico.png"><img src="/img/icons/share-ico.png"><img src="/img/icons/earn-ico.png">
                     </div>
-                    <br/><br/>
-                    <div class="content-padding">
-                        <div class="col-md-12 text-justify">
-                            <h2 class="orangeC">Frequently Asked Questions</h2>
+                    <div class="row text-justify">
+                        <h2 class="orangeC">Frequently Asked Questions</h2>
                         <div class="bs-example">
                             <div class="panel-group" id="accordion">
                                 <div class="panel panel-warning">
@@ -78,7 +72,7 @@
                                     <div class="panel-heading">
                                         <p class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                            2. How to be a Partner?
+                                                2. How to be a Partner?
                                             </a>
                                         </p>
                                     </div>
@@ -134,7 +128,7 @@
                                     <div class="panel-heading">
                                         <p class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                            4. Can I generate revenues from previous my videos I uploaded?
+                                                4. Can I generate revenues from previous my videos I uploaded?
                                             </a>
                                         </p>
                                     </div>
@@ -157,7 +151,7 @@
                                     <div class="panel-heading">
                                         <p class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                                            5. How can I connect my AdSense?
+                                                5. How can I connect my AdSense?
                                             </a>
                                         </p>
                                     </div>
@@ -179,20 +173,18 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
-            <div class="col-md-4">
-                @include('elements/publishers/video')
-                <br/>
-                @include('elements/publishers/support')
-            </div>
+        <div class="col-md-4">
+            @include('elements/publishers/video')
+            <br/>
+            @include('elements/publishers/support')
         </div>
-      
 
     </div>
 </div>
+
 @stop
 
 

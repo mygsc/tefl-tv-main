@@ -12,22 +12,17 @@
 @stop
 
 @section('content')
-<div class="page_wrapper">
-    <div class="top-bg">
-    </div>
-</div>
-<div class="absolute-wrapper_2">
+<div  class="top-bg"></div>
+<div class="paper_wrap">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
-            <div class="paper White">
-                <div class="row content-padding ">
+            <div class="paper">
+                <div class="content-padding">
                     <div class="icons_style pull-right">
                         <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
                     </div>
-                    <br/><br/>
-                    <div class="content-padding">
-                        <div class="col-md-12 text-justify">
-                            <h2 class="blueC">Frequently Asked Questions</h2>
+                    <div class="row text-justify">
+                        <h2 class="blueC">Frequently Asked Questions</h2>
                         <div class="bs-example">
                             <div class="panel-group" id="accordion">
                                 <div class="panel panel-primary">
@@ -177,7 +172,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>

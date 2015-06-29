@@ -30,6 +30,36 @@
     padding: 5px 5px;
     width: 198px;
 }
+.paper_wrap_h{
+    margin-top:-80px;margin-bottom:20px;z-index:222!important;
+}
+.paper_wrap{
+    margin-top:-250px;margin-bottom:20px;
+}
+.paper{
+    min-height: 700px;
+    background: #fff;
+    width: 100%;
+      -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  height: auto!important;
+  margin-bottom: 30px;
+  padding: 40px 40px 40px 40px;
+
+}
+.paper_2{
+    min-height: 700px;
+    background: #fff;
+    width: 100%;
+      -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  height: auto!important;
+  margin-bottom: 30px;
+
+
+}
 
 div.wrapper {
     float: left;
@@ -2034,7 +2064,7 @@ only screen and (min--moz-device-pixel-ratio:0),
 only screen and (-o-device-pixel-ratio: 0)
 {
     .tagline{
-        top: 350px;
+        top: 450px;
         }
 }
 

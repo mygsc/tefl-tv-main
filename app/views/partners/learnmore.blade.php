@@ -12,24 +12,19 @@
 @stop
 
 @section('content')
-<div class="page_wrapper">
-	<div class="top-bg">
-	</div>
-</div>
-<div class="absolute-wrapper_2">
+
+<div class="top-bg"></div>
+
+<div class="paper_wrap">
     <div class="col-md-10 col-md-offset-1">
-    	<div class="col-md-8">
-    		<div class="paper White">
-    			<div class="row content-padding ">
+        <div class="col-md-8">
+            <div class="paper">
+                <div class="content-padding">
                     <div class="icons_style pull-right">
                         <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
                     </div>
-    				<br/><br/>
-    				<div class="content-padding">
-                        
-    					<div class="col-md-12 text-justify">
-
-    						<h1 class="blueC">What is TEFLTV Partner?</h1>
+    				<div class="row text-justify">
+                        <h1 class="blueC">What is TEFLTV Partner?</h1>
     						<p class="text-justify">
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -48,8 +43,7 @@
     							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
     							cillum dolore eu fugiat nulla pariatur.
     						</p>
-    					</div>
-    					<div class="col-md-12">
+    					
     						<h3 class="blueC">Perks of being a TEFLTV Partner</h3>
     						<li>
     							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -126,9 +120,7 @@
     						<br/>
     						<hr/>
     						<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
-    						
-    						<br/><br/>
-    					</div>
+
     				</div>
     			</div>
     		</div>

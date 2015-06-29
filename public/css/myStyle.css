@@ -626,11 +626,17 @@ img.logo-sm {
     color: #f1b922;
     text-decoration: none!important;
 }
-.f_social{
-    background-color: #d15e39;
-    border: 2px solid #d15e39;display:inline-block;
-}
+.f_links_div{
+    background:#252c44;height:210px;
 
+}
+.f_social{
+    background-color: #636ea6;
+    border: 2px solid #636ea6;display:inline-block;
+}
+.f_version{
+    background:#636ea6!important;height:20px;
+}
 .f-icon {
     margin-top: 7px;
 }
@@ -642,7 +648,8 @@ img.logo-sm {
     padding:10px 20px
 }
 .f_contact-wrap{
-   background:#20263c;height:210px;
+    background:#20263c;
+    height:210px;
 
 }
 /* Float */
@@ -4112,7 +4119,8 @@ div.archiveLinks {
 
 .same-H {
  
-   border: 1px solid #e2e2e2    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+ 
+   -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
 }
@@ -4184,7 +4192,9 @@ img.user {
     color: #FFFFFF;
     font-weight: bold;
 }
-
+ul.list-n{
+    list-style: none;
+}
 .a-title {
     width: 100%!important;
     font-size: 16px;
@@ -4584,7 +4594,9 @@ center;     margin: 0 auto; }
 .span-tags label {
     font-weight: normal!important;
 }
-
+.div_footer{
+    margin-top: 20px;
+}
 .footer1 {
     background: #252c44;
     width: 100%;

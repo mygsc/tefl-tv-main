@@ -12,23 +12,18 @@
 @stop
 
 @section('content')
-<div class="page_wrapper">
-     <div class="top-bg">
-     </div>
-</div>
-<div class="absolute-wrapper_2">
+<div class="top-bg"></div>
+
+<div class="paper_wrap">
      <div class="col-md-10 col-md-offset-1">
           <div class="col-md-8">
-               <div class="paper White">
-                    <div class="row content-padding ">
+               <div class="paper">
+                    <div class="content-padding">
                          <div class="icons_style pull-right">
                              <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
-                        </div>
-                        <br/><br/>
-
-                        <div class="content-padding">
+                         </div>
+                         <div class="row ">
                               <h1 class="text-center blueC mg-t-20">Partner's Account Setup</h1>
-                          
                               <div class="pub-infoDiv mg-t-20 textbox-layout">
                                   <div class="well">
                                         <span>Please enter your adsense account</span>
@@ -37,8 +32,8 @@
                                    </div>
                                    <div class="well" style="height:350px; overflow:auto;">
                                       <div id="pub-H"></div> 
-                                      <div class="content-padding">                    
-                                         <h1 class="blueC">Partner Program Terms and Conditions</h1>
+                                      <div class="">                    
+                                         <h2 class="blueC">Partner Program Terms and Conditions</h2>
                                          <p class="text-justify">
                                              Graphic Studio Central Ltd operates a free video-hosting worldwide website available at www.tefltv.com,  which enables users to access, stream, upload, store, share and comment on videos on the internet, and from any other technical, communication or transmission protocols or platforms now known or hereafter devised, discovered, or developed including, without limitation, mobile phones, tablets, IPTV platforms and other devices (the "Site"). 
                                         </p>
@@ -289,9 +284,9 @@
                                          </p>
 
                                          <hr/>
+                                     
                                          <br/><br/>
-                                         <a href="#part-H"><i class="fa fa-arrow-up"></i> Back to top.</a>
-                                         <br/><br/>
+                                         <input type="checkbox" > <span><b>I have read and agreed to the tems and conditions stated above.</b></span>
                                    </div>
                               </div>
 

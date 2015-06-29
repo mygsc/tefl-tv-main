@@ -20,6 +20,8 @@
 			</div>
 		</div>
 		<div class="col-md-9 White mg-t-10 same-H">
+			<br/>
+			<div class="content-padding">
 			<h1>COPYRIGHT</h1>
 				<br/>
 					<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -100,7 +102,7 @@
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			<br/>
 
-
+			</div>
 		</div><!--/.col-md-9 left section, writeUps-->
 	</div><!--/.container page-->
 </div>

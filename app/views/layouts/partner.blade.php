@@ -27,6 +27,8 @@
 
 		@include('elements/flash_message')
 		@yield('content')
+		
+		@include('elements/footer')
 
 
 </body>
