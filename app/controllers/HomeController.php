@@ -2,7 +2,7 @@
 
 class HomeController extends BaseController {
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -10,6 +10,7 @@ class HomeController extends BaseController {
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
+		$this->Partner = $partners;
 	}
 	
 	public function getIndex() {
@@ -173,6 +174,8 @@ class HomeController extends BaseController {
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
 		$profile_picture = $this->User->getUsersImages($owner->id);
+		$adsense_publisher_id = $this->Partner->getPublisherID($videos->user_id);
+
 		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
@@ -263,7 +266,7 @@ class HomeController extends BaseController {
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation','adsense_publisher_id'
 			)
 		);
 	}

@@ -60,7 +60,7 @@
         <div class="ads-relative-wrapper">
             <ins class="adsbygoogle"
             style="display:block;"
-            data-ad-client="ca-pub-3138986188138771"
+            data-ad-client='{{$adsense_publisher_id}}'
             data-ad-slot="6814231249"
             data-ad-format="auto"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>

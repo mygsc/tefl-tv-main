@@ -39,4 +39,19 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		return true;
 	}
 
+	public function getPublisherID($user_id = null){
+		$adsense_id = 'pub-3138986188138771';
+		if(!empty($user_id)){
+			$user = User::find($user_id);
+		}
+
+		if($user->role == '3' || $user->role == '5'){
+			$adsense_id = Partner::where('user_id', $user_id)->first();
+			$adsense_id = $adsense_id['adsense_id'];
+		}
+
+		return 'ca-'.$adsense_id;
+
+	}
+
 }
