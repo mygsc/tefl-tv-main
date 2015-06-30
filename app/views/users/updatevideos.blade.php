@@ -678,7 +678,7 @@ $('#upload-cancel').on('click',function(){
 						<!--upload update Video modal-->
 						{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
 
-						<div class="col-md-5">
+						<div class="col-md-8">
 							<br/>
 
 							<div id="vid-controls" class="p-relative">
@@ -687,16 +687,16 @@ $('#upload-cancel').on('click',function(){
 									 	
 									 </div>
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
-										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-											<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
-											@else
+									@else
 											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
 												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-													<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-														</video>
-													@endif
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											</video>
+									@endif
 													
 												</div><!--embed-responsive-->
 												@include('elements/videoPlayer')
@@ -704,45 +704,55 @@ $('#upload-cancel').on('click',function(){
 											</div><!--vid-controls-->
 											<br/>
 											
+											
+
+										</div><!--/.col-md-8-->
+										<div class="col-md-4 text-center">
+											
 											@if(file_exists($thumbnail))
-											<h3>Available thumbnails:</h3>
-												<div id='t-1' style='position:relative;display:inline-block;'>
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+											<h3 class="text-center">Available thumbnails:</h3>
+												<div class="col-md-6 col-md-offset-3">
+												<div id='t-1' style='position:relative;display:block' class="center-block">
+												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail thumbnail-2' width="150" height="100" >
 												<label class='caption-t-1'></label>
 												</div>
-												<div id='t-2' style='position:relative;display:inline-block;'>
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+												<div id='t-2' style='position:relative;display:block' class="center-block">
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail thumbnail-2' width="150" height="100" >
 													<label class='caption-t-2'></label>
 												</div>
-												<div id='t-3' style='position:relative;display:inline-block;'>
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+												<div id='t-3' style='position:relative;display:block' class="center-block">
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail thumbnail-2' width="150" height="100" >
 													<label class='caption-t-3'></label>
 												</div>
+												</div>
 											@else
-											<h3>No available thumbnail:</h3>
-												<div id='t-1' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/125x125.jpg" id='thumb-1' class='img-thumbnail' width="150" height="100" >
+											<h3 class="text-center">No available thumbnail:</h3>
+												<div id='t-1' style='position:relative;display:block' class="center-block">
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-1' class='img-thumbnail thumbnail-2' width="150" height="100" >
 													<label class='caption-t-1'></label>
 												</div>
-												<div id='t-2' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/125x125.jpg" id='thumb-2' class='img-thumbnail' width="150" height="100" >
+												<br/>
+												<div id='t-2' style='position:relative;display:block' class="center-block">
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-2' class='img-thumbnail thumbnail-2' width="150" height="100" >
 													<label class='caption-t-2'></label>
 												</div>
-												<div id='t-3' style='position:relative;display:inline-block'>
-													<img src="/img/thumbnails/125x125.jpg" id='thumb-3' class='img-thumbnail' width="150" height="100" >
+												<br/>
+												<div id='t-3' style='position:relative;display:block' class="center-block">
+													<img src="/img/thumbnails/125x125.jpg" id='thumb-3' class='img-thumbnail thumbnail-2' width="150" height="100" >
 													<label class='caption-t-3'></label>
 												</div>
 											@endif
-											
-
-										</div><!--/.col-md-5-->
-
-										<div class="col-md-7 content-padding">
-											<span class="file-upload mg-l--2">
-												<span class="btn btn-default"><i class="fa fa-arrow-up"></i> Change Video Cover</span>
+											<span class="file-upload mg-t-10">
+												<span class="btn btn-primary"><i class="fa fa-arrow-up"></i> Upload Video Cover</span>
 												<input type="file" name="poster" id="poster" accept="image/*"/>
 												<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 											</span>
+											
+											
+										</div>
+
+										<div class="col-md-12 content-padding">
+											
 											@if($errors->has('publish'))
 											<span class="inputError">
 												{{$errors->first('publish')}}
