@@ -89,3 +89,35 @@ ul li div span:hover{
   }
 
 }
+
+div.speech{
+	position: absolute;
+	width: 200px;
+	height: 70px;
+	text-align: left;
+	background-color: rgba(42,42,42,0.6);
+	border: 8px solid transparent;
+	color:#fff;
+	left:20px;
+	top:20px;
+}
+div.speech:before{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 30px;
+	top: 62px;
+	border: 20px solid;
+	border-color: transparent transparent transparent transparent;
+}
+div.speech:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 38px;
+	top: 62px;
+	border: 10px solid;
+	border-color: rgba(42,42,42,0.6) transparent transparent rgba(42,42,42,0.6);
+}

@@ -16,9 +16,6 @@
 {{-- */$tagDelete = 1;/* --}}
 {{-- */$explodeRemove = 0;/* --}}
 
-
-
-
 <div class="row">
 	<div class="container page">
 		<br/>
@@ -121,7 +118,7 @@
 														<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
 														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
 														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
-														<li role="presentation"><a id='annotation-label' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Label</a></li>
+														<li role="presentation"><a id='annotation-speech' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Speech</a></li>
 													</ul>
 											</span>
 											<span class="dropdown">
@@ -145,7 +142,7 @@
 														<li>Start:{{Form::text('start',null)}}</li>
 														<li>End:{{Form::text('end',null)}}</li>
 														<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
-														<li>{{Form::text('link',null,['style'=>'display:none;','id'=>'annot-link'])}}</li>
+														<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
 													</ul>
 													<div class="" id="annotation">
 														<!--ANNOTATION AREA-->
