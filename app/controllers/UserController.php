@@ -1595,6 +1595,7 @@ class UserController extends BaseController {
 		$result->start = Input::get('start');
 		$result->end = Input::get('end');
 		$result->link = Input::get('link');
+		$result->css = Input::get('style');
 		$result->save();
 		return Response::json(array('msg'=>'success'));
 	}
@@ -1624,6 +1625,15 @@ class UserController extends BaseController {
 			return Redirect::intended('/');
 		}
 		return Redirect::route('users.verification')->with('flash_bad','Invalid credentials')->withInput();
+	}
+	public function getPublishVideo($filename){
+		$vidFilename = Video::where('file_name','=',$filename);
+		if($vidFilename->count()){
+			$vidFilename = $vidFilename->first();
+			$vidOwner = User::find($vidFilename->user_id);
+			return View::make('users.publishvideo', compact('vidFilename','vidOwner'));
+		}
+		return app::abort(404, 'Page not available.');
 	}
 
 }

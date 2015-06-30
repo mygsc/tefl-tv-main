@@ -18,3 +18,21 @@ function setCorrectTimezone(current_time, users_GMT){
 		});
 	}
 };
+
+$('.annotation').hover(function(){
+	var id = this.id;
+	$('#annotation-'+id).css({'display':'block','border-left':'1px solid #fff','border-bottom':'1px solid #fff','color':'#fff'});
+});
+$('.annotation').mouseleave(function(){
+	var id = this.id;
+	$('#annotation-'+id).css({'display':'none','border-left':'0px solid #fff','border-bottom':'0px solid #fff','color':'#fff'});
+});
+$('.speech').hover(function(){
+	var id = this.id;
+	$('#annotation-'+id).css({'display':'block','border-left':'1px solid #fff','border-bottom':'1px solid #fff','color':'#fff'});
+});
+$('.speech').mouseleave(function(){
+	var id = this.id;
+	$('#annotation-'+id).css({'display':'none','border-left':'0px solid #fff','border-bottom':'0px solid #fff','color':'#fff'});
+});
+

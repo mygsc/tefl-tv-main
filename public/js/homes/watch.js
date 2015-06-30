@@ -372,3 +372,22 @@ $(document).ready(function(){
 	dislike();
 	removeDislike();
 });
+
+// $('#publishvideos').bind(function(e){
+// 	e.preventDefault()
+// 	var txt = document.querySelector('input[name="publishvideo"]').value;
+// 	$('#publishvideos').clone();
+// });
+
+$('#copy-video').click(function(e){
+	e.preventDefault();
+	// var copyclip = document.getElementById('publishvideos').createTextRange();
+	// copyclip.select();
+	// copyclip.execCommand("Copy");
+	var txt =  document.querySelector('input[name="publishvideo"]').value;
+	var holdtext = document.getElementById("publishvideos").innerText;
+	holdtext.innerText = txt;
+	Copied = holdtext.createTextRange();
+	Copied.execCommand("Copy");
+});
+
