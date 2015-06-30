@@ -43,10 +43,10 @@ class PublisherController extends Controller {
 		if($validator == true){
 			if($this->Publisher->savePublisher($adsense_id) === true){
 
-				$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				Mail::send('emails.publishers.register', $data, function($message) {
-					$message->to($this->Auth->email)->subject('You just became a TEFL TV partner');
-				});
+				// $data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
+				// Mail::send('emails.publishers.register', $data, function($message) {
+				// 	$message->to($this->Auth->email)->subject('You just became a TEFL TV partner');
+				// });
 
 				return Redirect::route('publishers.success');
 			}

@@ -42,9 +42,9 @@ class PartnerController extends Controller {
 		if($validator == true){
 			if($this->Partner->savePartner($adsense_id) === true){
 				$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				Mail::send('emails.partners.register', $data, function($message) {
-					$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
-				});
+				// Mail::send('emails.partners.register', $data, function($message) {
+				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
+				// });
 				
 				return Redirect::route('partners.success');
 			}
