@@ -10,7 +10,7 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'partners';
 	protected $softDeletes = true;
 
-	public function savePartner($adsense_id){
+	public function savePartner($adsense_id, $ad_slot_id){
 
 		$role = Auth::User()->role;
 		if($role == '3' || $role == '5'){
@@ -30,6 +30,7 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		
 		$partners->user_id = Auth::user()->id;
 		$partners->adsense_id = $adsense_id;
+		$partners->ad_slot_id = $ad_slot_id;
 		$partners->save();
 
 		$users = User::find(Auth::User()->id);
@@ -39,18 +40,20 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		return true;
 	}
 
-	public function getPublisherID($user_id = null){
-		$adsense_id = 'pub-3138986188138771';
+	public function getAdsenseID($user_id = null){
+		$adsense['adsense_id'] = 'pub-3138986188138771';
+		$adsense['ad_slot_id'] = 'slot="6814231249"';
 		if(!empty($user_id)){
 			$user = User::find($user_id);
 		}
 
 		if($user->role == '3' || $user->role == '5'){
 			$adsense_id = Partner::where('user_id', $user_id)->first();
-			$adsense_id = $adsense_id['adsense_id'];
+			$adsense['adsense_id'] = 'ca-'.$adsense_id['adsense_id'];
+			$adsense['ad_slot_id'] = $adsense_id['ad_slot_id'];
 		}
 
-		return 'ca-'.$adsense_id;
+		return $adsense;
 
 	}
 

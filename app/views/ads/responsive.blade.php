@@ -60,8 +60,8 @@
         <div class="ads-relative-wrapper">
             <ins class="adsbygoogle"
             style="display:block;"
-            data-ad-client='{{$adsense_publisher_id}}'
-            data-ad-slot="6814231249"
+            data-ad-client="{{$adsense['adsense_id']}}"
+            data-ad-slot="{{$adsense['ad_slot_id']}}"
             data-ad-format="auto"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
