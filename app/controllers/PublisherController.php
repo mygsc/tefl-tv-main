@@ -36,25 +36,31 @@ class PublisherController extends Controller {
 	}
 
 	public function postRegisterAdsense(){
-		$getUserData = User::where('channel_name', 'TEFLtv')->first();
 		$user_id = Auth::User()->id;
 		$adsense_id = strtolower(Input::get('adsense'));
-		$validator = $this->User->validateAdsensePublisherID($adsense_id);
-		if($validator == true){
-			if($this->Publisher->savePublisher($adsense_id) === true){
-
-				// $data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				// Mail::send('emails.publishers.register', $data, function($message) {
-				// 	$message->to($this->Auth->email)->subject('You just became a TEFL TV partner');
-				// });
-
-				return Redirect::route('publishers.success');
-			}
+		$ad_slot_id = Input::get('ad_slot_id');
+		$validate_adsense_id = $this->User->validateAdsensePublisherID($adsense_id);
+		$validate_ad_slot_id = Validator::make(
+			array('ad_slot_id' => Input::get('ad_slot_id')),
+			array('ad_slot_id' => 'required|digits:10|numeric'));
+		if($validate_adsense_id !== true){
+			return Redirect::route('publishers.register-adsense')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs');
 		}
-		return Redirect::route('publishers.register-adsense')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs');
+
+		if(!$validate_ad_slot_id->passes()){
+			return Redirect::route('publishers.register-adsense')->withFlashBad('Invalid Ad Slot ID format. Please check your inputs');
+		}
+
+		if($this->Publisher->savePublisher($adsense_id, $ad_slot_id) === true){
+			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
+				// Mail::send('emails.publishers.register', $data, function($message) {
+				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
+				// });
+			return Redirect::route('publishers.success');
+		}
+		
 
 	}
-
 	public function getSuccess(){
 		Session::forget('partnership_token');
 		return View::make('publishers.success');
