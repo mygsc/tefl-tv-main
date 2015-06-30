@@ -41,12 +41,12 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
 			<div class="channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -80,40 +80,41 @@
 						</div>
 					</div>
 				</nav>
-				<br/>
+				<div class="top-div col-md-12 mg-t-20" style="padding:20px 0;">
 					<div class="col-md-6 col-sm-6">
+						
 						{{Form::open(array('route' => 'search','method' => 'GET'))}}
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+							<span class="input-group-btn ">
+								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info mg-t--10 ')) }}
 							</span>
 							{{Form::close()}}
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6">
-						<!--<label>Sort by:</label>
-						<button id="sort" class="btn btn-default btn-sm">Likes</button>
-						<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
-							<option value="" selected disabled>Sort By</option>
-							<option>Recent</option>
-							<option>Likes</option>
-							<option>Views</option>
-							<option>Unpublished</option>
-						</select>
-						&nbsp;&nbsp;
-					
+							<!--<label>Sort by:</label>
+							<button id="sort" class="btn btn-default btn-sm">Likes</button>
+							<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+							<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
+								<option value="" selected disabled>Sort By</option>
+								<option>Recent</option>
+								<option>Likes</option>
+								<option>Views</option>
+								<option>Unpublished</option>
+							</select>
+							&nbsp;&nbsp;
 
-						<div class="buttons pull-right inline">
-							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
-						</div>
-						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+
+							<div class="buttons pull-right inline">
+								<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+								<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+							</div>
+							<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
-					
-					<br/><br/><hr class=""/>
-
+				</div>
+				<div class="col-md-12 White same-H mg-t--20">
+					<br/>
 					<div id="videosContainer" class='container'>
 						<div class="col-md-12 ">
 							@if($usersVideos->isEmpty())
@@ -176,12 +177,11 @@
 						@endif
 					</div>
 				</div>
-
-				</div>
 			</div>
 		</div>
-		<br/>
 	</div>
+</div>
+<br/>
 
 	<div class="modal fade" id="delete-vid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
