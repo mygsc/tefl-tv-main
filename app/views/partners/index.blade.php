@@ -17,7 +17,7 @@ TEFLTV Publisher
             Your browser doesn't support HTML5 video. Here's a <a href="#">link</a> to download the video.
         </video>
         <div id="cmn-video-demo3__content" >
-            <h2 class="orangeC">Welcome to TEFLTV Publisher's Program</h2>
+            <h2 class="orangeC">Welcome to TEFLtv’s partners program page.</h2>
             <p class="t-bBlue">Where you can teach, learn and earn at the same time.</p>
             
         </div>
