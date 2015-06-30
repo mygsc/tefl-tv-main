@@ -71,18 +71,18 @@
 										<div class="col-md-4 text-center">
 											
 											@if(file_exists($thumbnail))
-											<h3 class="text-center">Available thumbnails:</h3>
-												<div class="col-md-6 col-md-offset-3">
-												<div id='t-1' style='position:relative;display:block' class="center-block">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail thumbnail-2' width="150" height="100" >
+											
+												<div class="col-md-6 text-left">
+												<div id='t-1' style='position:relative;display:block'>
+												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail thumbnail-2' >
 												<label class='caption-t-1'></label>
 												</div>
-												<div id='t-2' style='position:relative;display:block' class="center-block">
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail thumbnail-2' width="150" height="100" >
+												<div id='t-2' style='position:relative;display:block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail thumbnail-2' >
 													<label class='caption-t-2'></label>
 												</div>
-												<div id='t-3' style='position:relative;display:block' class="center-block">
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail thumbnail-2' width="150" height="100" >
+												<div id='t-3' style='position:relative;display:block'>
+													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail thumbnail-2'  >
 													<label class='caption-t-3'></label>
 												</div>
 												</div>
@@ -103,11 +103,7 @@
 													<label class='caption-t-3'></label>
 												</div>
 											@endif
-											<span class="file-upload mg-t-10">
-												<span class="btn btn-primary"><i class="fa fa-arrow-up"></i> Upload Video Cover</span>
-												<input type="file" name="poster" id="poster" accept="image/*"/>
-												<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
-											</span>
+
 											
 											
 										</div>
@@ -119,6 +115,11 @@
 												{{$errors->first('publish')}}
 											</span>
 											@endif
+											<span class="file-upload mg-t-10">
+												<span class="btn btn-primary"><i class="fa fa-arrow-up"></i> Upload Video Cover</span>
+												<input type="file" name="poster" id="poster" accept="image/*"/>
+												<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
+											</span>
 											
 											{{ Form::select('publish', ['1'=>'Publish','0'=>'Unpublish'], $video->publish,array('class'=>"form-control",'style'=>"width:auto;margin-top:10px;margin-bottom:10px"))}}
 
