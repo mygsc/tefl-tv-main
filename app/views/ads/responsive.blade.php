@@ -3,7 +3,7 @@
     .ads-absolute-wrapper{
         position:absolute;
         width:100%;
-        height:auto;
+        height:60px;
         left: 0;
         right: 0;
         display: block;
@@ -53,7 +53,7 @@
         <div class="text-center" style="position:relative;">
             <span class="close-ads">
                <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
-                <b><i class="glyphicon glyphicon-remove"></i></b>
+                <b><i>close ads</i></b>
             </span>
         </div>
 

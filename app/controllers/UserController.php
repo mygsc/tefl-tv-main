@@ -1595,6 +1595,7 @@ class UserController extends BaseController {
 		$result->start = Input::get('start');
 		$result->end = Input::get('end');
 		$result->link = Input::get('link');
+		$result->css = Input::get('style');
 		$result->save();
 		return Response::json(array('msg'=>'success'));
 	}
