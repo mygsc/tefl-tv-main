@@ -39,16 +39,16 @@
 							</div><!--/.row-->
 						</div>
 					</div><!--/.col-md-6-->
-					{{--<div class="col-md-6">
+					<div class="col-md-6">
 							<!-- <div class="center-block text-center same-H" style="background: rgba(255,255,255,0.7);width:100%; padding:5px 5px;margin:0 auto; border:4px solid #f36523;">
 								<h3 class="text-center">Hi User! Do you know that you can earn money by upgrading your channel for FREE?</h3>
 
 								<a href="#"><button class="btn btn-primary btn-sm">Learn more</button>
 							</div> -->
 
-
-								<a href="{{ route('partnerships.index')}}"><button class="btn btn-primary btn-sm">Learn more</button>
-								</div> --}}
+						
+								{{--<a href="{{ route('partnerships.index')}}"><button class="btn btn-primary btn-sm">Learn more</button></a>--}}
+								</div> 
 
 
 							</div>

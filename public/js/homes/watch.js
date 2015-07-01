@@ -373,12 +373,6 @@ $(document).ready(function(){
 	removeDislike();
 });
 
-// $('#publishvideos').bind(function(e){
-// 	e.preventDefault()
-// 	var txt = document.querySelector('input[name="publishvideo"]').value;
-// 	$('#publishvideos').clone();
-// });
-
 $('#copy-video').click(function(e){
 	e.preventDefault();
 	// var copyclip = document.getElementById('publishvideos').createTextRange();
