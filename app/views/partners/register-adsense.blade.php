@@ -28,9 +28,12 @@
                                   <div class="well">
                                   {{Form::open(array('route' => 'post.partners.register-adsense'))}}
                                         <span>Please enter your Adsense publisher ID</span><br />
-                                        <span class="notes"> *Please take note that you should only enter a valid adsense publisher ID otherwise your ads will not be displayed</span> 
+                                        <span class="notes"> *Please take note that you should only enter a valid adsense publisher ID and Ad slot ID otherwise your ads will not be displayed</span> <br />
+                                        {{Form::label('adsense', 'Adsense Publisher ID')}}
                                         {{Form::text('adsense', null, array('placeholder' => 'pub-xxxxxxxxxxxxxxx'))}}
-                                        <span class="notes"> Don't know how to retrieve your adsense ID? <a href="#">click here</a></span><br />
+                                        {{Form::label('ad_slot_id', 'Ad Slot ID')}}
+                                        {{Form::text('ad_slot_id', null, array('placeholder' => 'xxxxxxxxxx'))}}
+                                        <span class="notes"> Don't know how to retrieve your adsense ID and Ad Slot ID? <a href="#">click here</a></span><br />
                                         	
                                    </div>
                                    <div class="well" style="height:350px; overflow:auto;">
@@ -287,8 +290,7 @@
                                          </p>
 
                                          <hr/>
-                                     
-                                         <br/><br/>
+                              
                                          <input type="checkbox" > <span><b>I have read and agreed to the tems and conditions stated above.</b></span>
                                    </div>
                               </div>

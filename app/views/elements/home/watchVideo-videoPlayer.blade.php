@@ -28,13 +28,23 @@
 											{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 									</div>
 								@else
+									@if($annotations[$i]->types == 'speech')
+										<div id='close-{{$i}}' class='speech' style='{{$annotations[$i]->css}}'>
+											<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
+											{{$annotations[$i]->content}}
+											{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
+											{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
+										</div>
+									@else
 									<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
 										<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
 										{{$annotations[$i]->content}}
 										{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
 										{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
-								</div>
+									</div>
+									@endif
 								@endif
+
 							@endfor
 						@endif
 						{{Form::hidden('count-annotation',$countAnnotation)}}

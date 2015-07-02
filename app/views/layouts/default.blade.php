@@ -43,9 +43,8 @@
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{{HTML::script('js/ripple/jquery.ripple.js')}}
-{{HTML::script('js/ripple/jquery.ripple-js.js')}}
 
+{{HTML::script('js/sticky-scroll')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
@@ -85,6 +84,21 @@
   ga('create', 'UA-53463162-2', 'auto');
   ga('send', 'pageview');
 
+</script>
+<script type="text/javascript">
+	var $scrollingDiv = $(".float-div");
+ 
+	$(window).scroll(function(){      
+	    var y = $(this).scrollTop(),
+	        $postEntry = $('.post-entry'),
+	        maxY = $postEntry.offset().top + $postEntry.height(),
+	        scrollHeight = $scrollingDiv.height();
+	    if(y< maxY-scrollHeight ){
+	        $scrollingDiv
+	        .stop()
+	        .animate({"marginTop": ($(window).scrollTop()) + "px"}, "slow" );        
+	    }    
+	});
 </script>
 
 

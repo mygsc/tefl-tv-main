@@ -10,17 +10,19 @@
 			<div class="col-lg-3 col-md-4">
 				<div class="mg-r-10 row">
 					@include('elements/home/categories')
-					<div>
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
-						
+					<div id="ad_sidebar">
+						<div>
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
+							
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-9 White same-H h-minH mg-t-10">
-				<div class="">
+				<div class="" id="floatboxanchor">
 					
 					@if($searchResults->isEmpty())
 						<br/><br/><br/>

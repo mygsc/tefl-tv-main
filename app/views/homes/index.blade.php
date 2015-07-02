@@ -17,58 +17,60 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 ">	
+		<div class="col-md-12 ">
+			<div class="row">	
+				<div class="ad-bg same-H mg-t-10">
+					<div class="row">
+						<div class="col-md-6" style="">
+							<div class="mg-l-10  mg-b-10">
+								<div class="vid-wrapperb p-relative">
+									<div id="vid-controls">
+										<div class="embed-responsive embed-responsive-16by9 n-mg-b">
+											<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+												<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+												<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+											</video>	
+										</div><!--/embed-responsive-->
+										<div class="n-mg-b">
 
-			<div class="ad-bg same-H mg-t-10">
-				<div class="row">
-					<div class="col-md-6" style="">
-						<div class="mg-l-10  mg-b-10">
-							<div class="vid-wrapperb p-relative">
-								<div id="vid-controls">
-									<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-										<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-											<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
-											<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
-										</video>	
-									</div><!--/embed-responsive-->
-									<div class="n-mg-b">
+											@include('elements/videoPlayer')
 
-										@include('elements/videoPlayer')
-
+										</div>
 									</div>
+								</div><!--/.row-->
+							</div>
+						</div><!--/.col-md-6-->
+						<div class="col-md-6	">
+
+
 								</div>
-							</div><!--/.row-->
-						</div>
-					</div><!--/.col-md-6-->
-					<div class="col-md-6	">
-							<!-- <div class="center-block text-center same-H" style="background: rgba(255,255,255,0.7);width:100%; padding:5px 5px;margin:0 auto; border:4px solid #f36523;">
-								<h3 class="text-center">Hi User! Do you know that you can earn money by upgrading your channel for FREE?</h3>
-
-								{{--<a href="{{ route('partnerships.index')}}"><button class="btn btn-primary btn-sm">Learn more</button>
-								</div> --}}-->
-
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm ">
+			<div class="row">
+			<div class="col-md-3 hidden-xs hidden-sm" >
+
 				<div class="mg-r-10 row">
 					@include('elements/home/categories')
+					
 					<div class="mg-t-10">
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
+					<div id="ad_sidebar">
+						<div class="mg-t-10">
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<!--RECOMMENDED VIDEOS SECTION -->
-				<div class="row White same-H mg-t-10">
+				<div class="row White same-H mg-t-10" id="floatboxanchor">
 					<div class="top-div">
 						<h2 class=" mg-l-10">Recommended Videos</h2>
 					</div>
@@ -200,6 +202,7 @@
 			</div>
 		</div>
 		@endforeach
+		
 	</div>
 		<!-- {{Form::hidden('autoplay',0,['id'=>'autoplay'])}}
 		{{Form::hidden('duration',41,['id'=>'duration'])}} -->
@@ -207,6 +210,6 @@
 	</div><!--first row-->
 
 </div><!--/.container page-->
-
+</div>
 
 @stop

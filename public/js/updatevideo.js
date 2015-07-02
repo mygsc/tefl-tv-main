@@ -58,9 +58,9 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			e.preventDefault();
 			createAnnotation('Spotlight:','spotlight');     
 		});
-		$('#annotation-label').on('click',function(e){
+		$('#annotation-speech').on('click',function(e){
 			e.preventDefault();
-			createAnnotation('Label:','label');     
+			createAnnotation('Speech:','speech');     
 		});
 
 		function createAnnotation(title,id){
@@ -69,7 +69,7 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			if(id=='note'){annotationTypeTag.className = 'glyphicon glyphicon-file';}
 			else if(id=='title'){annotationTypeTag.className = 'glyphicon glyphicon-font';}
 			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-link';}
-			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
+			else if(id=='speech'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			var annotationTypeCaption = document.createTextNode(title);
 			var types = document.createTextNode(title);
 			var createDiv = document.createElement('div');
@@ -147,30 +147,32 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
-			var annotClose = document.createElement('span');
+			var annotClose = document.createElement('div');
+				annotClose.className = 'speech';
 			if(id=="note"){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;color:#fff;width:200px;height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=="title"){
-				annotDiv.setAttribute('style','border:1px solid #000;font-style:normal;font-size:30px;padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:20px;left:20px;background:transparent;text-shadow: 0 0 2px #000;');
+				annotDiv.setAttribute('style','resize:both;overflow:hidden;border:1px solid #000;font-style:normal;font-size:30px;padding:3px;color:#fff;width:200px;height:25px;position:absolute;top:20px;left:20px;background:transparent;text-shadow: 0 0 2px #000;');
 			}
 			else if(id=='spotlight'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;color:#fff;width:200px;height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
+
 			}
-			else if(id=='label'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:40px;top:40px;background:rgba(42,42,42,0.6);');
+			else if(id=='speech'){
+				//annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:40px;top:40px;background:rgba(42,42,42,0.6);');
+				annotDiv.className = 'speech';
 			}
 			annotDiv.setAttribute('id','div-annotation-' + id + '-' + count);
-			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
-			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			//annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
+			//annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			//var wrap = document.getElementById("custom-annotation");
 			//wrap.insertBefore(annotDiv, wrap.firstChild);
 			//annotDiv.appendChild(annotClose);
 			var annotContent = document.createTextNode(''); 
-			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
-			annotClose.appendChild(x);
+			
 			/*
 			* Event listener of annotation builder 
 			*/
@@ -291,7 +293,7 @@ var annotations = function(){
 										console.log('OOps error while adding annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 										
 									}
 								});
@@ -311,7 +313,7 @@ var annotations = function(){
 										console.log('OOps error while deleting annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -343,19 +345,14 @@ var annotations = function(){
 											document.querySelector('input[name="link"]').value = e.link;
 											document.querySelector('input[name="chk-link"]').checked = false;
 										}
-											var prevAnnotation = document.getElementById('preview-annotation');
-											var style = e.css; style = style.replace('display:none;','display:block;');
-											
-											prevAnnotation.setAttribute('style',style);
-											prevAnnotation.innerHTML = e.content;
-											$('#editor-annotation').fadeIn();
+											singleAnnotation(e.types,e.css,e.content);	
 											console.log(e.msg);
 									},
 									error: function(){
 										console.log('OOps error while retrieving annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -374,7 +371,7 @@ var annotations = function(){
 										console.log('OOps error while updating annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -385,7 +382,7 @@ var annotations = function(){
 						 		icon.className = glyphicon;
 						 		notifier.setAttribute('id','notifier');
 						 		icon.setAttribute('style','margin-right:5px;color:#f18200;');
-						 		notifier.setAttribute('style','text-align:center;width:400px;height:45px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:rgb(184, 202, 239);color:#063782;text-shadow: 0 0 2px #000;box-shadow: 5px 5px 5px #888888;');
+						 		notifier.setAttribute('style','text-align:center;width:350px;height:45px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:rgb(184, 202, 239);color:#063782;text-shadow: 0 0 2px #000;box-shadow: 5px 5px 5px #888888;');
 						 		notifier.appendChild(icon);
 						 		notifier.appendChild(txt);
 						 		document.body.appendChild(notifier);
@@ -411,7 +408,7 @@ var annotations = function(){
 						 	loaderwrapper.appendChild(loader);
 						 	document.body.appendChild(loaderwrapper);
 						 },
-						 css: function getCSS(selector){
+						 css: function(selector){
 							var elements = document.getElementById(selector),
 							     style = window.getComputedStyle(elements),
 							     padding = style.getPropertyValue('padding'),
@@ -421,17 +418,15 @@ var annotations = function(){
 							     position = style.getPropertyValue('position'),
 							     top = style.getPropertyValue('top'),
 							     left = style.getPropertyValue('left'),
-							     //left = left.replace('px','');
-							     //lefts = (left*100)/videoPlayer.videoWidth;
 							     background = style.getPropertyValue('background'),
 							     CSSstyle = '';
 							     if(selector.indexOf('title') > 0){
 							     	var fontStyle = style.getPropertyValue('font-style'),
 								     	fontSize = style.getPropertyValue('font-size');
-								     	CSSstyle = 'font-style:'+fontStyle+';' +'font-size:'+fontSize+';'+ 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
+								     	CSSstyle = 'font-style:'+fontStyle+';' +'font-size:'+fontSize+';'+ 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + minWidth+';' + 'height:' + minHeight+';' + 'position:' + position+';' +
 								     	'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 							     }else{
-							     		CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
+							     		CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + minWidth+';' + 'height:' + minHeight+';' + 'position:' + position+';' +
 							     		'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 								}
 								return CSSstyle;
@@ -487,8 +482,8 @@ var drag = function(){
                         divLeft = id.style.left,
                         eWi = parseInt(id.style.width),
                         eHe = parseInt(id.style.height),
-                        cWi = parseInt(document.getElementById(container).style.width),
-                        cHe = parseInt(document.getElementById(container).style.height);
+                        cWi = parseInt($('#media-video').width()),
+                        cHe = parseInt($('#media-video').height());
                         document.getElementById(container).style.cursor='move';
                         divTop = divTop.replace('px','');
                         divLeft = divLeft.replace('px','');
@@ -513,22 +508,81 @@ var drag = function(){
 			}
 	}
 }();
-$('#preview-annotation').mousedown(function(event){
-	drag.startMoving(this,'media-video',event);
-	$(this).css({'cursor':'move'});
-});
-$('#preview-annotation').mouseup(function(){
-	drag.done('media-video');
-	$(this).css({'cursor':'default'});
-});
+var css = function(){
+	return{
+		note: function(id){
+			var elem = document.getElementById(id),
+			    style = window.getComputedStyle(elem),
+			    padding = style.getPropertyValue('padding'),
+			    color = style.getPropertyValue('color'),
+			    width = style.getPropertyValue('width'),
+			    height = style.getPropertyValue('height'),
+			    position = style.getPropertyValue('position'),
+			    top = style.getPropertyValue('top'),
+			    left = style.getPropertyValue('left'),
+			    background = style.getPropertyValue('background'),
+			    cssstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + Width+';' + 'height:' + height+';' + 'position:' + position+';' +
+						    'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
+				    		return cssstyle;
+		},
+		title: fucntion(id){
+			var elem = document.getElementById(id),
+			    style = window.getComputedStyle(elem),
+			    padding = style.getPropertyValue('padding'),
+			    color = style.getPropertyValue('color'),
+			    width = style.getPropertyValue('width'),
+			    height = style.getPropertyValue('height'),
+			    position = style.getPropertyValue('position'),
+			    top = style.getPropertyValue('top'),
+			    left = style.getPropertyValue('left'),
+			    background = style.getPropertyValue('background'),
+				fontStyle = style.getPropertyValue('font-style'),
+			    fontSize = style.getPropertyValue('font-size'),
+			    cssstyle = 'font-style:'+fontStyle+';' +'font-size:'+fontSize+';'+ 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + width+';' + 'height:' + height+';' + 'position:' + position+';' +
+			     		   'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
+			    		    return cssstyle;
+		},
+		spotlight: function(id){
+			var elem = document.getElementById(id),
+			    style = window.getComputedStyle(elem),
+			    padding = style.getPropertyValue('padding'),
+			    color = style.getPropertyValue('color'),
+			    width = style.getPropertyValue('width'),
+			    height = style.getPropertyValue('height'),
+			    position = style.getPropertyValue('position'),
+			    top = style.getPropertyValue('top'),
+			    left = style.getPropertyValue('left'),
+			    background = style.getPropertyValue('background'),
+			    cssstyle = 'padding:' + padding + ';' + 'color:' + color + ';' + 'width:' + width + ';' + 'height:' + height + ';' + 'position:' + position +';' +
+						   'top:' + top+';' + 'left:' + left + ';' + 'background:' + background + ';' + 'z-index:2147483647;' + 'display:none;';
+				    	   return cssstyle;
+		},
+		speech: function(id){
+			var elem = document.getElementById(id),
+			    style = window.getComputedStyle(elem),
+			    position = style.getPropertyValue('position'),
+			    width = style.getPropertyValue('width'),
+			    height = style.getPropertyValue('height'),
+			    textAlign = style.getPropertyValue('text-align'),
+			    background = style.getPropertyValue('background'),
+			    border = style.getPropertyValue('border'),
+			    color = style.getPropertyValue('color'),
+			    top = style.getPropertyValue('top'),
+			    left = style.getPropertyValue('left'),
+			    cssstyle = 'position:' + position + ';' + 'width:' + width + ';' + 'height:' + height + ';' + 
+			    		   'text-align:' + textAlign + ';' + 'background:' + background + ';' + 'border:' + border + ';' +
+			    		   'color:' + color + ';' + 'top:' + top ';' + 'left:' + left + ';';
+			    		   return cssstyle;
+		}
+	}
+}();
 $('.option-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
 	annotations.loader();
 	annotations.retrieve(id);
-	
-	var prevAnnot = document.getElementById('preview-annotation');
 });
+
 $('.rm-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
@@ -544,11 +598,12 @@ $('.rm-annot').bind('click', function(e){
 $('.sv-annot').bind('click', function(e){
 	e.preventDefault();
 	annotations.loader();
-	var id = this.id;
-	var content = document.querySelector('input[name="content"]').value;
-	var start = document.querySelector('input[name="start"]').value;
-	var end = document.querySelector('input[name="end"]').value;
-	var getTime = time.validate(start,end);
+	var id = this.id,
+		content = document.querySelector('input[name="content"]').value,
+		start = document.querySelector('input[name="start"]').value,
+		end = document.querySelector('input[name="end"]').value,
+		getTime = time.validate(start,end),
+		annotTypes = document.getElementById('edit-types').innerHTML;
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
@@ -661,7 +716,33 @@ function checkLimit(limit){
    	var charLen = document.getElementById('description').value.length;
    	$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
    	}
-   	
+}
+function  singleAnnotation(types,style,content){
+		$("#preview-annotation").remove();
+	var annotationEditor = document.createElement('div'),
+		style = style.replace('display:none;','display:block;');
+		annotationEditor.setAttribute('id','preview-annotation');
+		if(types=='note'){
+			annotationEditor.setAttribute('style',style);
+		}else if(types=='title'){
+			annotationEditor.setAttribute('style',style);
+		}else if(types=='spotlight'){
+			annotationEditor.setAttribute('style',style);
+		}else if(types=='speech'){
+			annotationEditor.className = 'speech';
+			annotationEditor.setAttribute('style',style);
+		}
+		document.getElementById('custom-annotation').appendChild(annotationEditor);
+		annotationEditor.innerHTML = content;
+		$('#editor-annotation').fadeIn();
+		annotationEditor.onmousedown = function(event){
+			drag.startMoving(this,'media-video',event);
+			$(this).css({'cursor':'move'});
+		}
+		annotationEditor.onmouseup = function(){
+			drag.done('media-video');
+			$(this).css({'cursor':'default'});
+		}
 }
 $('#upload-cancel').on('click',function(){
         $('#cancel-upload-vid').modal('show');

@@ -10,18 +10,20 @@
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
 				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
+				<div id="ad_sidebar">
+					<div class="mg-t-10">
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
 
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9 White mg-t-10 same-H">
+		<div class="col-md-8 White mg-t-10 same-H">
 			<br/>
-			<div class="content-padding">
+			<div class="content-padding" id="floatboxanchor">
 			<h1>COPYRIGHT</h1>
 				<br/>
 					<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

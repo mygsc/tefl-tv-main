@@ -2,7 +2,7 @@
 
 class HomeController extends BaseController {
 
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -10,6 +10,7 @@ class HomeController extends BaseController {
 		$this->Subscribe = $subscribes;
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
+		$this->Partner = $partners;
 	}
 	
 	public function getIndex() {
@@ -173,6 +174,8 @@ class HomeController extends BaseController {
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
 		$profile_picture = $this->User->getUsersImages($owner->id);
+		$adsense = $this->Partner->getAdsenseID($videos->user_id);
+
 		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
@@ -263,7 +266,7 @@ class HomeController extends BaseController {
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation','adsense'
 			)
 		);
 	}
@@ -704,35 +707,29 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
+		$adsense = $this->Partner->getPublisherID(2);
 
-		switch (true) {
-				case ($getTime >= 6143):
-				$getTime = round($getTime / 6144);
-				$getTime = ($getTime > 1 ? $getTime.' years ago' : $getTime.' year ago');
-				break;
-				case ($getTime >= 719):
-				$getTime = round($getTime / 720);
-				$getTime = ($getTime > 1 ? $getTime.' months ago' : $getTime.' month ago');
-				break;
-				case ($getTime >= 167):
-				$getTime = round($getTime / 168);
-				$getTime = ($getTime > 1 ? $getTime.' weeks ago' : $getTime.' week ago');
-				break;
-				case ($getTime >= 24):
-				$getTime = round($getTime / 24);
-				$getTime = ($getTime > 1 ? $getTime.' days ago' : $getTime.' day ago');
-				break;
-				case ($getTime >= 1 and $getTime <= 23):
-				$getTime = round($getTime);
-				$getTime = ($getTime > 1 ? $getTime.' hours ago' : $getTime.' hour ago');
-				break;
+		echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div class="ads-absolute-wrapper" id="advertisement">
+        <div class="close-ads"></div>
 
-				default:
-				$getTime = 'a few minutes ago';
-				break;
-			}
+        <div class="text-center" style="position:relative;">
+            <span class="close-ads">
+               <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
+                <b><i class="glyphicon glyphicon-remove"></i></b>
+            </span>
+        </div>
 
-			return $getTime;
+        <div class="ads-relative-wrapper">
+            <ins class="adsbygoogle"
+            style="display:block;"
+            data-ad-client="'.$adsense['adsense_id'].'"
+            data-ad-slot="'.$adsense['ad_slot_id'].'"
+
+            data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>';
 	}	
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();

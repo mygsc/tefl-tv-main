@@ -212,6 +212,7 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
 	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
 	Route::get('register-adsense', array('as' => 'publishers.register-adsense', 'uses' => 'PublisherController@getRegisterAdsense'));
+	Route::post('register-adsense', array('as' => 'post.publishers.register-adsense', 'uses' => 'PublisherController@postRegisterAdsense'));
 	Route::get('success', array('before' => 'publishers.success', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
