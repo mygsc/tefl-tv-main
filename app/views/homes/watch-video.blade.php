@@ -11,7 +11,7 @@
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
         <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
         <meta property="og:type" content="video">
-        <meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
@@ -165,6 +165,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                                @if(Auth::check())
+                                                    @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
+                                                       <a href="#publish-video" data-toggle="modal" class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Video</p></a>
+                                                    @endif
+                                                @endif
                                             </div>
                                             <div class="col-md-6 text-right">
                                                  <span class="">
@@ -354,5 +359,22 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
   </div>
 </div>
 
+<div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Publish Video</h4>
+      </div>
+      <div class="modal-body">
+      <p>Copy and paste this to your site:</p>
+            <input id='publishvideos' name='publishvideo' type="text" class="form-control" value="<iframe width='640' height='360' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+      </div>
+      <div class="modal-footer">
+        <button id='copy-video' type="button" class="btn btn-default">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
 @stop
 
