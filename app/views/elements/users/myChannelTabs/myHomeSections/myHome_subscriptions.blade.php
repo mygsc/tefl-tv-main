@@ -1,7 +1,7 @@
 <!--Subscriptions-->
 
 <div class="col-md-6 col-md-height col-top" >
-	<div class="row " style="padding-left:20px!important;"	>
+	<div class="row " style="padding-left:20px!important;">
 		<div class="top-div_t whiteC">
 			<h3 class="text-center">SUBSCRIPTIONS</h3>
 		</div>

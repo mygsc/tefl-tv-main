@@ -633,6 +633,9 @@ img.logo-sm {
     color: #f1b922;
     text-decoration: none!important;
 }
+.div_footer{
+    margin-top: 20px;
+}
 .f_links_div{
     background:#252c44;height:210px;
 
@@ -1918,10 +1921,10 @@ div .video-info:hover{
     margin: 7px;
     width: 150px;
     height: 150px;
-    background: #ededed;
+    /* background: #ededed; */
     position: absolute;
     left: 0;
-    padding: 2px 2px 5px 2px;
+    /* padding: 2px 2px 5px 2px; */
     overflow: hidden;
 }
 
@@ -3424,7 +3427,36 @@ body {
     }
 }
 
- 
+
+.form-control,
+.btn,
+.well,
+.panel
+{
+    border-radius: 0!important;
+}
+.btn-hide{
+    background:transparent;
+    border:none;
+    outline: none;
+}
+.btn-hide:hover,
+.btn-hide:focus,
+.btn-hide:active{
+    background:transparent!important;
+    border:none!important;
+    outline: none!important;
+}
+.tab-pane{
+    min-height: 200px;
+}
+
+.btn-default{
+    background:#dedede!important;
+}
+ .btn-xs{
+    padding: 4px 6px!important;
+ }
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/
