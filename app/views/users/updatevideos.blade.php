@@ -39,6 +39,7 @@
 				<br/>
 
 				<div id="videosContainer" class='container'>
+
 					<div class="col-md-8">
 						<div id="vid-controls" class="p-relative">
 							<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
@@ -97,6 +98,7 @@
 											@if($errors->has('title'))
 											<span class="inputError">
 												{{$errors->first('title')}}
+
 											</span>
 											@endif
 											{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
@@ -107,6 +109,7 @@
 											<span class="inputError">
 												{{$errors->first('description')}}
 											</span>
+
 											@endif
 											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
 											<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
@@ -135,6 +138,7 @@
 										<div class="well">
 											{{Form::label('Category:')}}<br/>
 											<span class="v-category">
+
 												{{Form::checkbox('cat[]','Advice',$videoCategory[0],['id'=>'advice'])}}
 												<label for='advice'>Advice</label>
 											</span>

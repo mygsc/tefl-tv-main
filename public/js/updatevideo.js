@@ -58,9 +58,9 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			e.preventDefault();
 			createAnnotation('Spotlight:','spotlight');     
 		});
-		$('#annotation-label').on('click',function(e){
+		$('#annotation-speech').on('click',function(e){
 			e.preventDefault();
-			createAnnotation('Label:','label');     
+			createAnnotation('Speech:','speech');     
 		});
 
 		function createAnnotation(title,id){
@@ -69,7 +69,7 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			if(id=='note'){annotationTypeTag.className = 'glyphicon glyphicon-file';}
 			else if(id=='title'){annotationTypeTag.className = 'glyphicon glyphicon-font';}
 			else if(id=='spotlight'){annotationTypeTag.className = 'glyphicon glyphicon-link';}
-			else if(id=='label'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
+			else if(id=='speech'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			var annotationTypeCaption = document.createTextNode(title);
 			var types = document.createTextNode(title);
 			var createDiv = document.createElement('div');
@@ -147,7 +147,8 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
-			var annotClose = document.createElement('span');
+			var annotClose = document.createElement('div');
+				annotClose.className = 'speech';
 			if(id=="note"){
 				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
 			}
@@ -157,20 +158,21 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 			else if(id=='spotlight'){
 				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
 			}
-			else if(id=='label'){
-				annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:40px;top:40px;background:rgba(42,42,42,0.6);');
+			else if(id=='speech'){
+				//annotDiv.setAttribute('style','padding:3px;color:#fff;min-width:200px;min-height:25px;position:absolute;left:40px;top:40px;background:rgba(42,42,42,0.6);');
+				annotDiv.className = 'speech';
+			
 			}
 			annotDiv.setAttribute('id','div-annotation-' + id + '-' + count);
-			annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
-			annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
+			//annotClose.setAttribute('style','padding:2px;color:#fff;border-radius:0px 0px 0px 5px;position:absolute;top:0;right:0;bottom:auto;left:auto;background:rgba(42,42,42,0.8);cursor:pointer;');
+			//annotClose.setAttribute('id', 'close-annotation-' + id + '-' + count);
 			document.getElementById("custom-annotation").appendChild(annotDiv);
 			//var wrap = document.getElementById("custom-annotation");
 			//wrap.insertBefore(annotDiv, wrap.firstChild);
 			//annotDiv.appendChild(annotClose);
 			var annotContent = document.createTextNode(''); 
-			var x = document.createTextNode('x');
 			annotDiv.appendChild(annotContent);
-			annotClose.appendChild(x);
+			
 			/*
 			* Event listener of annotation builder 
 			*/
@@ -291,7 +293,7 @@ var annotations = function(){
 										console.log('OOps error while adding annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 										
 									}
 								});
@@ -311,7 +313,7 @@ var annotations = function(){
 										console.log('OOps error while deleting annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -355,7 +357,7 @@ var annotations = function(){
 										console.log('OOps error while retrieving annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -374,7 +376,7 @@ var annotations = function(){
 										console.log('OOps error while updating annotation.');
 										$('#loader-wrapper').fadeOut();
 										$('#loader-wrapper').remove();
-										annotations.response('Oops error occured.','glyphicon glyphicon-remove');
+										annotations.response('Oops error occured, please check your connection.','glyphicon glyphicon-remove');
 									}
 								});
 						 },
@@ -385,7 +387,7 @@ var annotations = function(){
 						 		icon.className = glyphicon;
 						 		notifier.setAttribute('id','notifier');
 						 		icon.setAttribute('style','margin-right:5px;color:#f18200;');
-						 		notifier.setAttribute('style','text-align:center;width:400px;height:45px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:rgb(184, 202, 239);color:#063782;text-shadow: 0 0 2px #000;box-shadow: 5px 5px 5px #888888;');
+						 		notifier.setAttribute('style','text-align:center;width:350px;height:45px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:rgb(184, 202, 239);color:#063782;text-shadow: 0 0 2px #000;box-shadow: 5px 5px 5px #888888;');
 						 		notifier.appendChild(icon);
 						 		notifier.appendChild(txt);
 						 		document.body.appendChild(notifier);
@@ -421,15 +423,15 @@ var annotations = function(){
 							     position = style.getPropertyValue('position'),
 							     top = style.getPropertyValue('top'),
 							     left = style.getPropertyValue('left'),
-							     //left = left.replace('px','');
-							     //lefts = (left*100)/videoPlayer.videoWidth;
+							     left = left.replace('px',''),
+							     lefts = Math.round((left*100)/(videoPlayer.videoWidth)),
 							     background = style.getPropertyValue('background'),
 							     CSSstyle = '';
 							     if(selector.indexOf('title') > 0){
 							     	var fontStyle = style.getPropertyValue('font-style'),
 								     	fontSize = style.getPropertyValue('font-size');
 								     	CSSstyle = 'font-style:'+fontStyle+';' +'font-size:'+fontSize+';'+ 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
-								     	'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
+								     	'top:' + top+';' +'left:'+ lefts + '%;' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 							     }else{
 							     		CSSstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'min-width:' + minWidth+';' + 'min-height:' + minHeight+';' + 'position:' + position+';' +
 							     		'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
