@@ -341,11 +341,9 @@
                                    Graphic Studio Central Ltd. reserves the right to terminate any Publisher's relationship with the Graphic Studio Central Ltd. platform at any time, with or without cause. Termination notice may be provided via email or any other public means and will be effective immediately. Upon receipt of such termination notice, Publisher agrees to immediately remove from his/her website Graphic Studio Central Ltd's html code for serving Creative from Graphic Studio Central Ltd. Publisher will be paid, in the next scheduled payment cycle, all legitimate earnings due up to the time of termination.
                               </p>
                               <hr/>
-                              <br/><br/>
-
-                              <a href="#pub-H"><i class="fa fa-arrow-up"></i> Back to top.</a>
-                              <br/><br/>
+  
                          </div>
+                         <input type="checkbox" > <span><b>I have read and agreed to the tems and conditions stated above.</b></span>
                     </div>
                </div>
                <div class="text-right mg-b-20">

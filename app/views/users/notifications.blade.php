@@ -12,8 +12,25 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
-		<div class="col-md-9 same-H h-minH White">
+	<div class="row mg-t-10">
+		<div class="row-same-height">
+			<div class="col-md-3 col-md-height hidden-xs hidden-sm col-top">
+				<div class="mg-r-10 row mg-t--10">
+						@include('elements/home/categories')
+					<div>
+						@include('elements/home/adverstisement_half_large_recatangle')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
+
+					</div>
+				</div>
+			</div>
+
+		<div class="col-md-9 same-H h-minH White col-md-height col-top">
 			<div class="">
 			<h3>Notifications</h3>
 			@if($notifications == null)
@@ -52,19 +69,8 @@
 			{{$notifications->links()}}
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-			<div class="same-H grey pad-s-10">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-						
-				</div>
-			</div>
 		</div>
-
+	</div>
 </div>
 @stop
 
