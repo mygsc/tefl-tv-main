@@ -48,6 +48,7 @@
 			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" >
 				<div class="mg-r-10 row">
 					@include('elements/home/categories')
+					
 					<div class="mg-t-10">
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>

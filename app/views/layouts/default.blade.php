@@ -43,9 +43,8 @@
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{{HTML::script('js/ripple/jquery.ripple.js')}}
-{{HTML::script('js/ripple/jquery.ripple-js.js')}}
 
+{{HTML::script('js/sticky-scroll')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
