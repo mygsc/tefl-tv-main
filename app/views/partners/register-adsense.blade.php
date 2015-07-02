@@ -290,8 +290,7 @@
                                          </p>
 
                                          <hr/>
-                                     
-                                         <br/><br/>
+                              
                                          <input type="checkbox" > <span><b>I have read and agreed to the tems and conditions stated above.</b></span>
                                    </div>
                               </div>
