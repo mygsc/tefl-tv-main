@@ -47,7 +47,7 @@
 
 							<div id="vid-controls" class="p-relative">
 								<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
-									<div id='preview-annotation'></div> 
+									<!-- <div id='preview-annotation'></div>  -->
 									@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
 											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
 												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
