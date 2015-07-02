@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: rgba(197, 202, 232, 1);
+    background-color: #fff;
     overflow-x: hidden!important;
 }
 
@@ -3424,7 +3424,7 @@ body {
 body {
     width: 100%;
     height: 100%;
-    background-color: #B8CAEF;
+
     overflow-x: hidden!important;
 }
 
@@ -4428,7 +4428,7 @@ center;     margin: 0 auto; }
 }
 
 .White {
-    background: #fff!important;
+    background: #f1f1f1!important;
 }
 
 .White-2 {
@@ -6601,6 +6601,7 @@ body {
   z-index: 999999999999999999999;
 }
 /*============OVERRIDE Bootstap=======*/
+
 .form-control,
 .btn,
 .well,
@@ -6620,7 +6621,13 @@ body {
     border:none!important;
     outline: none!important;
 }
+.tab-pane{
+	min-height: 200px;
+}
 
+.btn-default{
+	background:#dedede!important;
+}
 .ripple {
   overflow: hidden;
 }
