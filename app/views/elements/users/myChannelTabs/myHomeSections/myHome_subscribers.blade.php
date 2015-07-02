@@ -1,7 +1,7 @@
 <div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
 	<div class="row">
-		<div class="h-title whiteC">
-			<span><b>SUBSCRIBERS</b></span>&nbsp;
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIBERS</h3>
 		</div>
 		<div class="Div-channelSubSection White same-H " id="subscriberWrapper">
 			<br/><br/>

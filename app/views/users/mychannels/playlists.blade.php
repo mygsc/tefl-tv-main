@@ -4,13 +4,13 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 
 			@include('elements/users/profileTop')
-			<div class=" White channel-content">
+			<div class=" channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -43,8 +43,7 @@
 					  </div>
 					</nav>
 
-				<div class="">
-					<br/>
+				<div class="top-div_t col-md-12 mg-t-20 pad20t">
 					<div class="col-md-6 col-sm-6 mg-t-10">
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
@@ -53,8 +52,6 @@
 							</span>
 						</div>
 					</div>
-				
-
 					<div class="col-md-6 col-sm-6  mg-t-10">
 						{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
 						<div class="input-group" style="">
@@ -66,6 +63,7 @@
 						</div>
 						{{Form::close()}}
 					</div>
+				</div>
 
 					<!--<div class="col-md-1 text-right">
 						<div class="buttons">
@@ -75,7 +73,7 @@
 					</div>-->
 
 
-
+				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">

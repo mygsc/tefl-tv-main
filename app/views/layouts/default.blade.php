@@ -85,21 +85,7 @@
   ga('send', 'pageview');
 
 </script>
-<script type="text/javascript">
-	var $scrollingDiv = $(".float-div");
- 
-	$(window).scroll(function(){      
-	    var y = $(this).scrollTop(),
-	        $postEntry = $('.post-entry'),
-	        maxY = $postEntry.offset().top + $postEntry.height(),
-	        scrollHeight = $scrollingDiv.height();
-	    if(y< maxY-scrollHeight ){
-	        $scrollingDiv
-	        .stop()
-	        .animate({"marginTop": ($(window).scrollTop()) + "px"}, "slow" );        
-	    }    
-	});
-</script>
+
 
 
 @yield('script') 

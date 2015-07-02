@@ -87,7 +87,7 @@
 						<div class="input-group" style="margin-bottom:10px;">
 							{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn ">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info mg-t--10 ')) }}
+								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
 							</span>
 							{{Form::close()}}
 						</div>

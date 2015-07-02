@@ -10,7 +10,7 @@
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
 
-					<div class="float-div">
+					<div class="">
 						<div class="mg-t-10">
 							@include('elements/home/carouselAds')
 						</div>

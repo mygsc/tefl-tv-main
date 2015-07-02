@@ -23,7 +23,7 @@ Category: {{$category}} - TEFL-tv
 				</div>
 			</div>
 		</div>
-		<div class="col-md-8 same-H White h-minH  mg-t-10 ">
+		<div class="col-md-9 same-H White h-minH  mg-t-10 ">
 			<div id="floatboxanchor">
 				<h1 class="mg-t-20 mg-b-20 capitalize">{{$category}}</h1>
 				<div class="col-md-12">

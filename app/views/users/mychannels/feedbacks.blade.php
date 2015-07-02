@@ -4,13 +4,13 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
 
-			<div class="White channel-content">
+			<div class="">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
@@ -44,7 +44,7 @@
 					</div>
 				</nav>
 
-				<div class="feedbackSection content-padding">
+				<div class="feedbackSection content-padding mg-t-20  channel-content White same-H">
 					<br/><br/>
 					@if($userFeedbacks->isEmpty())
 					<h3 class="text-center">No feedback yet..</h3>
