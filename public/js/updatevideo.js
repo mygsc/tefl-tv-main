@@ -153,10 +153,10 @@ var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, 
 				annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;color:#fff;width:200px;height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
 			}
 			else if(id=="title"){
-				annotDiv.setAttribute('style','resize:both;overflow:hidden;border:1px solid #000;font-style:normal;font-size:30px;padding:3px;color:#fff;width:200px;height:25px;position:absolute;top:20px;left:20px;background:transparent;text-shadow: 0 0 2px #000;');
+				annotDiv.setAttribute('style','resize:both;overflow:hidden;border:1px solid #000;font-style:normal;font-size:30px;padding:3px;color:#fff;width:200px;height:50px;position:absolute;top:20px;left:20px;background:transparent;text-shadow: 0 0 2px #000;');
 			}
 			else if(id=='spotlight'){
-				annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;color:#fff;width:200px;height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
+				annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;border:1px solid #f18200;color:#fff;width:200px;height:25px;position:absolute;left:30px;top:30px;background:rgba(42,42,42,0.6);');
 
 			}
 			else if(id=='speech'){
@@ -525,7 +525,7 @@ var css = function(){
 						    'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 				    		return cssstyle;
 		},
-		title: fucntion(id){
+		Title: function(id){
 			var elem = document.getElementById(id),
 			    style = window.getComputedStyle(elem),
 			    padding = style.getPropertyValue('padding'),
@@ -538,8 +538,8 @@ var css = function(){
 			    background = style.getPropertyValue('background'),
 				fontStyle = style.getPropertyValue('font-style'),
 			    fontSize = style.getPropertyValue('font-size'),
-			    cssstyle = 'font-style:'+fontStyle+';' +'font-size:'+fontSize+';'+ 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + width+';' + 'height:' + height+';' + 'position:' + position+';' +
-			     		   'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
+			    cssstyle = 'font-style:' + fontStyle + ';' + 'font-size:' + fontSize + ';' + 'padding:'+padding+';' + 'color:' + color + ';' + 'width:' + width + ';' + 'height:' + height + ';' + 'position:' + position + ';' +
+			     		   'top:' + top + ';' + 'left:' + left + ';' + 'background:' + background + ';' + 'z-index:2147483647;' +'display:none;';
 			    		    return cssstyle;
 		},
 		spotlight: function(id){
@@ -571,7 +571,7 @@ var css = function(){
 			    left = style.getPropertyValue('left'),
 			    cssstyle = 'position:' + position + ';' + 'width:' + width + ';' + 'height:' + height + ';' + 
 			    		   'text-align:' + textAlign + ';' + 'background:' + background + ';' + 'border:' + border + ';' +
-			    		   'color:' + color + ';' + 'top:' + top ';' + 'left:' + left + ';';
+			    		   'color:' + color + ';' + 'top:' + top + ';' + 'left:' + left + ';';
 			    		   return cssstyle;
 		}
 	}
@@ -607,7 +607,9 @@ $('.sv-annot').bind('click', function(e){
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
-	var style = annotations.css('preview-annotation');
+	if(annotTypes=='Title'){
+		var style = css.Title('preview-annotation');
+	}
 	annotations.update(id,content,getTime[0],getTime[1],link,style);
 	if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
 	document.getElementById(id).innerHTML = content;
@@ -725,7 +727,7 @@ function  singleAnnotation(types,style,content){
 		if(types=='note'){
 			annotationEditor.setAttribute('style',style);
 		}else if(types=='title'){
-			annotationEditor.setAttribute('style',style);
+			annotationEditor.setAttribute('style',style+'border:1px solid #f18200;');
 		}else if(types=='spotlight'){
 			annotationEditor.setAttribute('style',style);
 		}else if(types=='speech'){
