@@ -10,43 +10,57 @@
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
 	
-
-	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
-	{{ HTML::style('css/partnership.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
-	@yield('css')
+
 </head>
 
 <body>
 	<div id="fb-root"></div>
-	{{HTML::script('js/facebook.js')}}
-	{{HTML::script('js/google.js')}}
-
+	<div class="same-H">
 	@include('elements/header')
 	@include('elements/home/headerNav')
-		@include('elements/flash_message')
+	</div>
+	<div class="container">
+		@include('elements.flash_message')
 		@yield('content')
-
+		<div class="clear"></div>
+	</div>
+	<div id="footer_s">
 	@include('elements/footer')
+	</div>
 
 </body>
-
-<!-- scripts -->
-{{HTML::script('js/jquery.min.js')}}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
+{{HTML::script('js/overlaytext.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
-{{HTML::script('js/wow.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
 <!--list and gri display for my channel-->
+<script type="text/javascript">
+	setCorrectTimezone();
 
+	$('.grid').click(function() {
+		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
+		$('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
+		$('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
+		$('.desc').addClass('hide');
+	});
+	$('.list').click(function() {
+		$('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
+		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
+		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
+		$('.desc').removeClass('hide');
+	});
+</script>
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
@@ -62,19 +76,29 @@
   ga('send', 'pageview');
 
 </script>
-<script>
-	wow = new WOW(
-	{
-			      boxClass:     'wow',      // default
-			      animateClass: 'animated', // default
-			      offset:       0,          // default
-			      mobile:       true,       // default
-			      live:         true        // default
-			  }
-			  )
-	wow.init();
-</script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	var s = $("#sticker");
+	var pos = s.position();	
+	var stickermax = $(document).outerHeight() - $("#footer_s").outerHeight() - s.outerHeight() - 150; //40 value is the total of the top and bottom margin
+	$(window).scroll(function() {
+		var windowpos = $(window).scrollTop();
+		
+		if (windowpos >= pos.top && windowpos < stickermax) {
+			s.attr("style", ""); //kill absolute positioning
+			s.addClass("stick"); //stick it
+		} else if (windowpos >= stickermax) {
+			s.removeClass(); //un-stick
+			s.css({position: "absolute", top: stickermax + "px"}); //set sticker right above the footer
+			
+		} else {
+			s.removeClass(); //top of page
+		}
+	});
+	//alert(stickermax); //uncomment to show max sticker postition value on doc.ready
+});
+</script>
 
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
