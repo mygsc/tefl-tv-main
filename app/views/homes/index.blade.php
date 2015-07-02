@@ -29,7 +29,8 @@
 											<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
 												<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
 												<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
-											</video>	
+											</video>
+											
 										</div><!--/embed-responsive-->
 										<div class="n-mg-b">
 
@@ -46,11 +47,10 @@
 
 
 					</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
+		</div>
+			
 
 			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" >
 
