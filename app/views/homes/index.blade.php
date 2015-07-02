@@ -37,20 +37,22 @@
 
 										</div>
 									</div>
-								</div><!--/.row-->
-							</div>
-						</div><!--/.col-md-6-->
-						<div class="col-md-6	">
-
 
 								</div>
+							</div><!--/.row-->
+						</div>
+					</div><!--/.col-md-6-->
+					<div class="col-md-6">
+
+
+					</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-			<div class="col-md-3 hidden-xs hidden-sm" >
+
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" >
 
 				<div class="mg-r-10 row">
 					@include('elements/home/categories')
