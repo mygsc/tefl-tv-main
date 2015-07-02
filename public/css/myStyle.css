@@ -6601,7 +6601,9 @@ body {
   z-index: 999999999999999999999;
 }
 /*============OVERRIDE Bootstap=======*/
-
+.panel{
+    background: #f1f1f1;
+}
 .form-control,
 .btn,
 .well,
