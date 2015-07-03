@@ -110,6 +110,10 @@
 									<label for='job-ad'>Job AD</label>
 								</span>
 								<span class="span-tags">
+									{{Form::checkbox('cat[]','For Schools',false,['id'=>'vid-blog'])}}
+									<label for='vid-blog'>For Schools</label>
+								</span>
+								<span class="span-tags">
 									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}
 									<label for='music'>Music</label>
 								</span>
