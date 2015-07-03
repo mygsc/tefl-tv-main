@@ -20,7 +20,7 @@
 	
 </div>
 <br/><br/><br/><br/>-->
-<div class="White mg-b-10 same-H">
+<div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="div-coverDp ">

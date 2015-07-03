@@ -1,11 +1,12 @@
 <!--Subscriptions-->
-<div class="col-md-6 col-md-6 col-md-height greyDark">
-	<div class="row">
-		<div class="h-title grey orangeC">
-			<span><b>Subscriptions</b></span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+<div class="col-md-6 col-md-height col-top" >
+	<div class="row " style="padding-left:20px!important;">
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIPTIONS</h3>
 		</div>
-		<br/>
-		<div class="row">
+		<div class="Div-channelSubSection White same-H " id="subscriberWrapper" >
+			<br/><br/>
+			<div class="row-same-height">
 			@if(empty($subscriptions))
 				<p class="text-center fs-12">No subscription yet</p>
 			@else
@@ -51,3 +52,4 @@
 		</div><!--subscription /.row-->
 	</div><!--/.well2 Div-channelSubSection-->
 </div><!--/.4th column 6 Subscription-->
+</div>

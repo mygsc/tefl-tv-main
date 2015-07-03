@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color:#fff;
+    background-color:#f1f1f1;
     overflow-x: hidden!important;
 }
 
@@ -104,8 +104,6 @@ title {
     }
 }
 .same-H {
- 
- 
    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
@@ -634,10 +632,11 @@ img.logo-sm {
     text-decoration: none!important;
 }
 .div_footer{
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .f_links_div{
-    background:#252c44;height:210px;
+    background:#252c44;
+    height:210px;
 
 }
 .f_social{
@@ -1026,6 +1025,9 @@ center;     margin: 0 auto; }
 .c-userBg{
     background: #4B5B7C;
 }
+.grey{
+   background: #E0E0E0;
+}
 .greyDark{
     background: #d5d5d5;
 }
@@ -1095,7 +1097,7 @@ center;     margin: 0 auto; }
 
 .White,
 .panel {
-    background: #f1f1f1!important;
+    background: #fff!important;
 }
 
 .White-2 {

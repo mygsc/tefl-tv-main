@@ -1,16 +1,11 @@
 <!--videos-->
 	<div class="whiteC text-center top-div_t mg-t-10">
-			<div class="row">
-			<h2>VIDEOS 
-				<small class="whiteC">({{link_to_route('users.myvideos', 'Show All')}})</small>
-			</h2>
-			</div>
+		<div class="row">
+			<h2>VIDEOS</h2>
+		</div>
 	</div>
 	<div class="col-md-12 White same-H">
-		
-		<br/>
-		
-		<br/>
+		<br/><br/>
 		<div class="">
 			@if($usersVideos->isEmpty())
 				<p class="text-center">No Videos Uploaded yet..</p>
