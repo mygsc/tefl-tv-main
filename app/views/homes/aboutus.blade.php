@@ -53,7 +53,7 @@
 		<div class="col-md-12">
 			<hr/>
 			<h1>Contact Us <br/>
-				<small>We would like to hear from you, connect and communicate with us through the following information</small>
+				{{--<small>Connect and communicate with us through the following information</small>--}}
 			</h1>
 			<br/>
 			<div class="row">
