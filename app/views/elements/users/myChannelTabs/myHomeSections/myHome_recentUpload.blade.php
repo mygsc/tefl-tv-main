@@ -14,6 +14,7 @@
 		<div class="col-md-6">
 			 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 			 <div id="vid-wrapper">
+
 				 <div id="vid-controls" class="p-relative">
 					<div class="embed-responsive embed-responsive-16by9">
 					 	<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
@@ -33,6 +34,7 @@
 
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		@endif

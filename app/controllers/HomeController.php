@@ -14,6 +14,7 @@ class HomeController extends BaseController {
 	}
 	
 	public function getIndex() {
+		//return Auth::User();
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');

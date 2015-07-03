@@ -60,7 +60,7 @@
 					<div class="mg-t-20 content-padding">
 						<div class="row">
 							<h3 id="up-msg" class="text-center"></h3>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<div class="row">
 
 								<div id="wrapper">
@@ -70,12 +70,11 @@
 									</div>
 								</div>
 								<p id="msg-status"></p>
-
 								</div>
 							</div>
-							<div class="col-md-2 text-right">
+							<div class="col-md-3 text-right">
 								<div class="row">
-								{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
+								{{Form::open(array('route' => 'post.add.description','class' => 'inline', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								</div>

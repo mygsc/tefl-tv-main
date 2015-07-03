@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 	<meta charset="utf-8">
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title', 'TEFL-TV')</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
