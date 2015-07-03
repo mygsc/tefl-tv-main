@@ -14,9 +14,6 @@ class HomeController extends BaseController {
 	}
 	
 	public function getIndex() {
-if(Auth::check()){
-	$usersImages = $this->User->getUsersImages($owner->id);
-}
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
 		$populars = $this->Video->getFeaturedVideo('popular', '9');
 		$latests = $this->Video->getFeaturedVideo('latest', '9');

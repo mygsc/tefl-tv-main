@@ -1,4 +1,5 @@
 
+
 @extends('layouts.default')
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -21,12 +22,12 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
-			<div class="Div-channel-border">
+			<div class="">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs hidden-sm hidden-xs White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
@@ -37,49 +38,56 @@
 
 					</ul>
 				</div><!--tabpanel-->
-				<br/>
-
-				<div id="videosContainer" class='container'>
-					<div class="col-md-8">
-						<div id="vid-controls" class="p-relative">
-							<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
-								<div id='preview-annotation'></div> 
-								@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
-										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-										<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									</video>
-								@else
-									<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-										<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									</video>
-								@endif
-							</div><!--embed-responsive-->
-							@include('elements/videoPlayer')
+	
+				<div id="videosContainer" class=''>
+					<div class="same-H White mg-t-20 container ">
+						<div class="row">
+					<br/>
+						<div class="col-md-8">
+							<div class="p-relative">
+								<div id="vid-controls">
+									<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
+										<div id='preview-annotation'></div> 
+										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											</video>
+										@else
+											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											</video>
+										@endif
+									</div><!--embed-responsive-->
+									@include('elements/videoPlayer')
+								</div>
+							</div>
+							<br/><br/>
+						</div>
+						<div class="col-md-4">
+							<h4>Video Information</h4>
+							<p><b>Title :</b> </p>
+							<p><b>Date and Time Uploaded:</b> </p>
+							<p><b>Video URL</b></p>
+							<p><b>Duration :</b> </p>
+							<p><b>Raw File :</b> </p>
+							<p><b>Likes :</b> </p>
+							<p><b>Comments :</b></p>
+	
+						</div>
+						<br/>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<h4>Video Information</h4>
-						<p><b>Title :</b> </p>
-						<p><b>Date and Time Uploaded:</b> </p>
-						<p><b>Video URL</b></p>
-						<p><b>Duration :</b> </p>
-						<p><b>Raw File :</b> </p>
-						<p><b>Likes :</b> </p>
-						<p><b>Comments :</b></p>
-
-					</div>
-					
 					<div class="col-md-12 mg-t-20">
 						<!-- Nav tabs -->
-		                <ul class="nav nav-tabs" role="tablist">
+		                <ul class="nav nav-tabs grey2 same-H row" role="tablist">
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                </ul>
 
-		                <div class="tab-content">
+		                <div class="tab-content row White same-H mg-t-20">
 
 					    	<div role="tabpanel" class="tab-pane active" id="update_info">
 					    		<div class="col-md-12 content-padding">
@@ -322,6 +330,7 @@
 
 
 @stop
+
 
 
 

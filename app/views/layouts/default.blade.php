@@ -25,6 +25,7 @@
 </head>
 
 <body>
+	
 	<div id="fb-root"></div>
 	<div class="same-H">
 	@include('elements/header')
@@ -45,12 +46,13 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-{{HTML::script('js/sticky-scroll')}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
+{{HTML::script('js/scroll-onpage.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -86,6 +88,8 @@
   ga('send', 'pageview');
 
 </script>
+
+
 
 
 @yield('script') 

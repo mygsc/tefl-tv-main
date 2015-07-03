@@ -1,11 +1,11 @@
 <!--Subscriptions-->
 
-<div class="col-md-6 col-md-height col-top">
-	<div class="row grey">
-		<div class="h-title greyDark orangeC">
-			<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+<div class="col-md-6 col-md-height col-top" >
+	<div class="row " style="padding-left:20px!important;">
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIPTIONS</h3>
 		</div>
-		<div class="Div-channelSubSection" id="subscriberWrapper">
+		<div class="Div-channelSubSection White same-H " id="subscriberWrapper" >
 			<br/><br/>
 			<div class="row-same-height">
 				@if($subscriptionProfile->isEmpty())

@@ -13,18 +13,21 @@
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
 
+					<div id="ad_sidebar">
+						<div class="mg-t-10">
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
+
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-9 White mg-t-10">
 				<br/>
-				<div class="content-padding">
+				<div class="content-padding" id="floatboxanchor">
 					<div class="">
 						<div class="tab-content">
 							<div class="tab-pane active text-justify" id="users">

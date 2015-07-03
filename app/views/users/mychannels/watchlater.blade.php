@@ -2,16 +2,15 @@
 
 @section('content')
 <div class="row">
-
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 
 			@include('elements/users/profileTop')
-			<div class="White channel-content">
+			<div class="channel-content">
 				<div role="tabpanel">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -47,8 +46,7 @@
 				</div>
 
 
-				<div class="row mg-l--20">
-					<br/>
+				<div class="top-div_t col-md-12 mg-t-20 pad20t">
 					<div class="content-padding">
 						<div class="col-md-6 col-sm-8 col-xs-8">
 							{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}	
@@ -61,25 +59,26 @@
 							</div>
 						</div>
 
-					<!--<div class="col-md-5">
-				
-						<select class="form-control" style="width:auto!important;">
-							<option value="" selected disabled>Sort By</option>
-							<option>Likes</option>
-							<option>Recent</option>
-						</select>
-						&nbsp;&nbsp;
-						<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
-					</div>-->
+						<!--<div class="col-md-5">
+					
+							<select class="form-control" style="width:auto!important;">
+								<option value="" selected disabled>Sort By</option>
+								<option>Likes</option>
+								<option>Recent</option>
+							</select>
+							&nbsp;&nbsp;
+							<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
+						</div>-->
 
-					<div class="col-md-6 col-sm-4 col-xs-4 text-right">
-						<div class="buttons pull-right">
-							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+						<div class="col-md-6 col-sm-4 col-xs-4 text-right">
+							<div class="buttons pull-right">
+								<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+								<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+							</div>
 						</div>
 					</div>
-					<br/><hr/>
-					</div>
+				</div>
+				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if($usersWatchLater->isEmpty())
@@ -143,6 +142,7 @@
 						@endforeach
 						@endif
 					</div><!--videoContainer-->
+					</div>
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->

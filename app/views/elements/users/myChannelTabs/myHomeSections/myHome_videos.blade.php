@@ -1,11 +1,15 @@
 <!--videos-->
-	<div class="col-md-12 grey">
-		<br/>
-		<div class="orangeC text-center">
+	<div class="whiteC text-center top-div_t mg-t-10">
+			<div class="row">
 			<h2>VIDEOS 
-				<small class="">({{link_to_route('users.myvideos', 'Show All')}})</small>
+				<small class="whiteC">({{link_to_route('users.myvideos', 'Show All')}})</small>
 			</h2>
-		</div>
+			</div>
+	</div>
+	<div class="col-md-12 White same-H">
+		
+		<br/>
+		
 		<br/>
 		<div class="">
 			@if($usersVideos->isEmpty())
@@ -39,3 +43,4 @@
 		</div>
 	</div><!--well-->
 </div><!--1st 6 column Videos-->
+<br/>

@@ -4,13 +4,13 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
 
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -47,12 +47,13 @@
 				<div class="col-md-12 ">
 					<div class="row">
 						<div class="row-same-height">
-							<div class="col-md-6 greyDark col-md-height col-top">
-								<div class="row">
-									<div class="h-title grey lightBlueC">
-										<span><b>SUBSCRIBERS</b></span>&nbsp;
-									</div>
-									<div class="Div-channelSubSection" id="subscriberWrapper">
+						<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
+							<div class="row">
+								<div class="top-div_t whiteC">
+									<h3 class="text-center">SUBSCRIBERS</h3>
+								</div>
+						
+									<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
 										<br/>
 										<div class="searchPanel">
 											<!--<div class="input-group">
@@ -104,12 +105,11 @@
 							</div>
 				
 						<div class="col-md-6 grey  col-md-height col-top">
-							<div class="row ">
-								<div class="h-title greyDark lightBlueC">
-									<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+							<div class="row " style="padding-left:20px!important;">
+								<div class="top-div_t whiteC">
+									<h3 class="text-center">SUBSCRIPTIONS</h3>
 								</div>
-
-								<div class="Div-channelSubSection" id="subscriberWrapper">
+								<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
 									<br/><br/>
 									<div class="subscribers">
 										@if($subscriptionProfile->isEmpty())

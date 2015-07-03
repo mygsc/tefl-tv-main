@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row White same-H" style="">
 	<div class="mg-20">
 		<h1>ito yun</h1>
 		<br/>

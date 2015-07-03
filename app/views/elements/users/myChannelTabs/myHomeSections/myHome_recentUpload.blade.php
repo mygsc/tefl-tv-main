@@ -1,5 +1,6 @@
-<div class="row">
-	<div class="mg-20">
+<div class="White same-H mg-t-10">
+
+	<div class="row mg-20">
 		<br/>
 		@if(empty($recentUpload))
 		<div class="row">
@@ -15,7 +16,7 @@
 
 			 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 			 <div id="vid-wrapper">
-				 <div id="vid-controls" class="p-relative">
+				 <div id="vid-controls" class="p-relative mg-b-20">
 					 <div class="embed-responsive embed-responsive-16by9">
 					 <a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')))
@@ -34,6 +35,7 @@
 
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		@endif
@@ -69,4 +71,3 @@
 		</div><!--/.col-md-6-->
 	</div>
 </div>
-<br/>

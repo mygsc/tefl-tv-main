@@ -2,26 +2,29 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
-		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
 
-			<div class="mg-r-10 row">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
+	<div class="row mg-t-10">
+			<div class="col-md-3 col-md-height col-top hidden-xs hidden-sm ">
+				<div class="mg-r-10 row mg-t--10">
+					@include('elements/home/categories')
+					<div>
+						@include('elements/home/adverstisement_half_large_recatangle')
+					</div>
 
+					<div class="">
+						<div class="mg-t-10">
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
+						</div>
+					</div>
 				</div>
+
 			</div>
-		</div>
-		<div class="col-md-9 White sameH-h text-justify mg-t-10 same-H">
+		<div class="col-md-8 White sameH-h text-justify mg-t-10 same-H col-md-height col-top ">
 			<br/>
-			<div class="content-padding">
+			<div class="content-padding post-entry">
 				<h1>PRIVACY POLICY</h1>
 				<br/>
 				<p> 
