@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -321,7 +322,6 @@
 
 
 @stop
-
 
 
 

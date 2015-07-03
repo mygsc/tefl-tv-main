@@ -11,7 +11,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color:#fff;
     overflow-x: hidden!important;
 }
 
@@ -1069,8 +1069,9 @@ center;     margin: 0 auto; }
     border: 1px solid #e3e3e3;
 }
 
-.White {
-    background: #fff!important;
+.White,
+.panel {
+    background: #f1f1f1!important;
 }
 
 .White-2 {
@@ -3411,6 +3412,7 @@ body {
 /*=========== note:some of the codes are copied in open source stylesheets ================*/
 /*=================================-----------------------=================================*/
 
+<<<<<<< HEAD
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -3516,6 +3518,8 @@ title {
         overflow: hidden!important;
     }
 }
+=======
+>>>>>>> c53ff51809aa22979070e03948764b9a96d6a04b
 .ad-bg{
    background:url(/img/ads/ad-bg.jpg);
    background-size: 100%;
@@ -4336,111 +4340,7 @@ center;     margin: 0 auto; }
     border: 4px solid #fff;
 }
 
-.blogContent {
-    max-height: 900px;
-    overflow-y: auto;
-}
 
-.blogContentList {
-    max-height: 250px;
-    overflow: hidden;
-}
-
-.blogContent p {
-    text-align: justify;
-}
-
-.blogComment {
-    padding-left: 80px;
-}
-.pad-r-40{
-    padding-right: 60px;
-}
-.grey2{
-    background: #d6d8d9;
-}
-.grey{
-    background: #E0E0E0;
-}
-.greyDark{
-    background: #d5d5d5;
-}
-.darkestBlue{
-    background: #31384b;
-}
-.BlueSemiLight {
-    background: #1f3359!important;
-}
-
-.LighterBlue {
-    background: #8b9dc1!important;
-}
-
-.LightestBlue {
-    background: #d1dff9!important;
-}
-
-.Blue {
-    background: #181b2e;
-}
-
-.Light2 {
-    background: #e1dcd6;
-}
-
-.tBlue {
-    color: #167ac6!important;
-}
-
-.infoC {
-    color: #666!important;
-}
-
-.blueC {
-    color: #1870dc!important;
-}
-
-.redC {
-    color: #ca2027!important;
-}
-.greyC{
-    color: #E0E0E0!important;
-}
-.darkBlueC {
-    color: #3b5a9b!important;
-}
-
-.modalbg {
-    background: rgba(24, 27, 48, 0.8);
-}
-
-.bgImg {
-    background-image: url(/img/cubes.png);
-}
-
-.LightBlue {
-    background: #bbcbe2;
-}
-
-.gray {
-    background-color: #f5f5f5;
-    border: 1px solid #e3e3e3;
-}
-
-.White {
-    background: #f1f1f1!important;
-}
-
-.White-2 {
-    background: #f4f4f4;
-}
-
-.whiteC {
-    color: #fff!important;
-}
-.lightBlueC{
-    color: #3ea9cb!important;
-}
 .orangeC {
     color: #f18200!important;
 }

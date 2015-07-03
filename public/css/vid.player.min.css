@@ -183,7 +183,7 @@ div#controls{
   right: 0;
   width: 100%;
   z-index: 2147483647;
-  background: rgba(42,42,42,0.8);
+  background: rgba(42,42,42,0.7);
 }
 #controls-fullscreen{
   position: absolute;
