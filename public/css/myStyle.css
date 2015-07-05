@@ -2916,7 +2916,10 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     background-position: -172px -2px;
 }
 
+.list-n{
+    list-style: none;
 
+}
 
 .player {
     background-image: url('/img/icons/player.png');
