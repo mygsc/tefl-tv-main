@@ -3,7 +3,7 @@
 
 @section('content')
 <div class='container'>
-	<div class="row">
+	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<!-- tabs left -->
 		<div class="tabbable">
 			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
@@ -14,7 +14,7 @@
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
 
-					<div id="ad_sidebar">
+					<div data-sticky_column="">
 						<div class="mg-t-10">
 							@include('elements/home/carouselAds')
 						</div>
@@ -25,7 +25,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 White mg-t-10">
+			<div class="col-md-9 White mg-t-10 same-H">
 				<br/>
 				<div class="content-padding" id="floatboxanchor">
 					<div class="">

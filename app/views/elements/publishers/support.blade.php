@@ -1,4 +1,4 @@
-<div class="row White same-H">
+<div class="row White same-H side-bottom">
 	<div class="Orange-bg support_head">
 		Publisher's Support
 	</div>
@@ -27,7 +27,7 @@
 			@endif
 		</span>
 		<div class="text-right mg-b-20 wrap">
-			<div class="btn btn-warning form-control">
+			<div class="btn btn-warning form-control side-bottom">
 			{{ Form::submit('Submit', array('class' => 'btn-hide'))}}
 			</div>
 		</div>

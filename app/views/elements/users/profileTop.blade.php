@@ -20,7 +20,7 @@
 	
 </div>
 <br/><br/><br/><br/>-->
-<div class="White mg-b-10 same-H">
+<div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="div-coverDp ">
@@ -35,9 +35,6 @@
 
 				</div>
 				<div class="div-coverP">
-
-					<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
-
 					<div class="overlay-cover">
 
 						<span class="infoCounts">
@@ -75,6 +72,10 @@
 							</span> 
 						</span>	
 					</div>
+
+					<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
+
+					
 				</div>
 			</div>
 		</div>

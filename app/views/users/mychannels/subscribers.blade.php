@@ -42,9 +42,7 @@
 						</div>
 					</div>
 				</nav>
-
-				<br/>
-				<div class="col-md-12 ">
+				<div class="col-md-12 mg-t-20">
 					<div class="row">
 						<div class="row-same-height">
 						<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
@@ -53,21 +51,21 @@
 									<h3 class="text-center">SUBSCRIBERS</h3>
 								</div>
 						
-									<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
-										<br/>
-										<div class="searchPanel">
+								<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
+									<br/>
+									<div class="searchPanel">
 											<!--<div class="input-group">
 												{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
 												<span class="input-group-btn">
 													{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 												</span>
 											</div>-->
-										</div>
-										<br/><br/>
-										@if($subscriberProfile->isEmpty())
-											<p class="text-center">No Subscribers</p>
-										@else
-											@foreach($subscriberProfile as $key => $profile)
+									</div>
+									<br/><br/>
+									@if($subscriberProfile->isEmpty())
+										<p class="text-center">No Subscribers</p>
+									@else
+										@foreach($subscriberProfile as $key => $profile)
 											<div class="subscribers">
 												<div class="col-md-6 col-sm-12 col-xs-12">
 													{{HTML::image($profile['profile_picture'], 'alt', array('class' => 'userRep2'))}}
@@ -75,7 +73,7 @@
 
 													<span><b><a href="{{route('view.users.channel', $profile->channel_name)}}">{{$profile->channel_name}}</a></b></span>&nbsp;
 													<br/>&nbsp;
-													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;</b> Subscribers</span>&nbsp;
+													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
 													@if(isset(Auth::User()->id))
 														<?php
 															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -98,13 +96,13 @@
 													@endif
 												</div>
 											</div>
-											@endforeach
-										@endif
-									</div>
+										@endforeach
+									@endif
 								</div>
 							</div>
+						</div>
 				
-						<div class="col-md-6 grey  col-md-height col-top">
+						<div class="col-md-6 col-md-height col-top">
 							<div class="row " style="padding-left:20px!important;">
 								<div class="top-div_t whiteC">
 									<h3 class="text-center">SUBSCRIPTIONS</h3>

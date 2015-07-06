@@ -2457,6 +2457,15 @@ td.w-75per {
     min-height: 570px;
     padding:10px 15px;
 }
+
+.side_top{
+    z-index: 555555555555555555!important;
+}
+
+.side-bottom{
+    z-index: 222;
+    position: static!important;
+}
 /*==============VIDEO UPLOAD==============*/
 canvas.thumb-1,  canvas.thumb-2,  canvas.thumb-3 {
     width: 180px;

@@ -71,9 +71,7 @@
 <div class="col-md-12 grey">
 	<br/>
 	<div class="orangeC text-center">
-		<h2>VIDEOS 
-			<small class="">({{link_to_route('users.myvideos', 'Show All')}})</small>
-		</h2>
+		<h2>VIDEOS</h2>
 	</div>
 	<br/>
 	<div class="">
@@ -116,9 +114,7 @@
 	<div class="">
 		<div class="orangeC text-center">
 			<br/>
-			<h2>PLAYLISTS 
-				<small class="">({{link_to_route('users.playlists', 'Show All')}})</small>
-			</h2>
+			<h2>PLAYLISTS</h2>
 			<br/>
 		</div>
 		<div class="row">

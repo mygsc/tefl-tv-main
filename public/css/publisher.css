@@ -231,6 +231,17 @@ title {
   color: #fff;
   background:#4165AA!important;
 }
+.become{
+  padding: 5px 0;
+  font-family: "Teko";
+  text-align: center;
+  font-size: 26px;
+  color: #fff;
+  background:#71a3df!important;
+}
+.become a{
+  color:#fff;
+}
 
 html,
 body {

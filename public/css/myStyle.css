@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -104,8 +105,6 @@ title {
     }
 }
 .same-H {
- 
- 
    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
@@ -634,10 +633,11 @@ img.logo-sm {
     text-decoration: none!important;
 }
 .div_footer{
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .f_links_div{
-    background:#252c44;height:210px;
+    background:#252c44;
+    height:210px;
 
 }
 .f_social{
@@ -825,12 +825,12 @@ img.user {
     width: 100%!important;
     font-size: 16px;
     color: #fff;
-    background: #1F3359;
+    background: #d9edf7;
     padding: 10px 10px;
     text-align: center;
     margin-top: 0;
-    /* border: 1px solid rgba(188, 232, 241, 0); */
-    /* color: #474747; */
+    border: 1px solid rgba(188, 232, 241, 0);
+    color: #474747;
     font-weight: bold;
 }
 
@@ -1026,6 +1026,9 @@ center;     margin: 0 auto; }
 .c-userBg{
     background: #4B5B7C;
 }
+.grey{
+   background: #E0E0E0;
+}
 .greyDark{
     background: #d5d5d5;
 }
@@ -1111,7 +1114,9 @@ center;     margin: 0 auto; }
 .orangeC {
     color: #f18200!important;
 }
-
+.tefltvName{
+    color: #A5C4FF!important;
+}
 .Orange-bg{
     background:#f18200;
 }
@@ -2913,7 +2918,10 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     background-position: -172px -2px;
 }
 
+.list-n{
+    list-style: none;
 
+}
 
 .player {
     background-image: url('/img/icons/player.png');
@@ -3013,12 +3021,16 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     background: #fff;
     top: 0;
     list-style: none;
-    /* padding-top: 20px; */
+    padding: 0;
     margin: 0;
     width: 100%;
     height: 650px;
     overflow: auto;
     overflow-x: hidden;
+    border-bottom: 5px solid #e3e3e3;
+    border-left: 5px solid #e3e3e3;
+    border-right: 5px solid #e3e3e3;
+    border-top: 5px solid #e3e3e3;
 }
 
 #featured ul.ui-tabs-nav li {
