@@ -10,8 +10,13 @@
                         {{ link_to_route('homes.privacy', 'Privacy', null) }}
                         {{ link_to_route('homes.termsandconditions', 'Terms and Conditions', null) }}
                         {{ link_to_route('homes.copyright', 'Copyright', null) }}
+<<<<<<< HEAD
+                        {{ link_to_route('pagenotfound', 'Partner', null) }}
+                        {{ link_to_route('pagenotfound', 'Publisher', null) }}
+=======
                         {{ link_to_route('error', 'Partner', null) }}
                         {{ link_to_route('error', 'Publisher', null) }}
+>>>>>>> development
                       
                     </span><!--/.ctgryNav-f-->
             </div><!--/.col-md-7 col-xs-12-->

@@ -164,4 +164,13 @@ class convertvideo extends Command {
 		$video->save($mp4, $destinationPath.DS.$fileName.'_low.mp4')
 		->save($webm, $destinationPath.DS.$fileName.'_low.webm');	
 	}
+	public function ffmpeg(){
+		return $ffmpeg = FFMpeg\FFMpeg::create([
+			'ffmpeg.binaries'=>$this->ffmpegPath,
+			'ffprobe.binaries'=>$this->ffprobePath,
+			'timeout'=>0,
+			'ffmpeg.threads'=>12
+			]);
+	}
 }
+
