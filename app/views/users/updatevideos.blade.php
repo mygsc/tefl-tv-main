@@ -103,8 +103,6 @@
 													<label class='caption-t-3'></label>
 												</div>
 											@endif
-
-											
 											
 										</div>
 
