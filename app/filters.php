@@ -13,7 +13,7 @@
 
 App::before(function($request){
     if( ! Request::secure()){
-        return Redirect::secure(Request::path());
+        // return Redirect::secure(Request::path());
     }
     /* kahit ano siguro dito
 	if(!Request::secure() && array_get($_SERVER, 'SERVER_PORT') != 443){
