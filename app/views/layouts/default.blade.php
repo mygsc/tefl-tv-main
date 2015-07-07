@@ -14,8 +14,6 @@
 
 	<!-- CSS -->
 
-	{{ HTML::style('css/material/ripples.css') }}
-	{{ HTML::style('css/material/roboto.css') }}
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
@@ -91,14 +89,7 @@
   ga('send', 'pageview');
 
 </script>
-<script type="text/javascript">
-	var contentHeight = jQuery('.content').height();
-	var sidebarHeight = jQuery('.sidebar').height();
-	if (contentHeight > sidebarHeight) {
-	jQuery('.sidebar').height(contentHeight);
-	jQuery(".sidebar .enews-widget").stick_in_parent();
-	}
-</script>
+
 
 
 

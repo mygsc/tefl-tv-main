@@ -15,10 +15,10 @@ class HomeController extends BaseController {
 	
 	public function getIndex() {
 		//return Auth::User();
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
-		$populars = $this->Video->getFeaturedVideo('popular', '9');
-		$latests = $this->Video->getFeaturedVideo('latest', '9');
-		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '12');
+		$populars = $this->Video->getFeaturedVideo('popular', '12');
+		$latests = $this->Video->getFeaturedVideo('latest', '12');
+		$randoms = $this->Video->getFeaturedVideo('random', '12');
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));

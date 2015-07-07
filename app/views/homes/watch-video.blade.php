@@ -211,9 +211,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             
                                         </div>
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
-                                        	<span> Share Video</span>
-                                        	<br/>
-                                        	<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <span> Share Video</span>
+                                            <br/>
+                                            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
@@ -229,8 +229,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="row">
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row">
-                                            	<div class="" style="padding-left:10px;">
-                                                	<img src="{{$profile_picture['profile_picture']}}" class="user">
+                                                <div class="" style="padding-left:10px;">
+                                                    <img src="{{$profile_picture['profile_picture']}}" class="user">
                                                 </div>
                                             </div>
                                         </div>
@@ -308,19 +308,21 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-4">
-                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
-                                        @else
-                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
-                                        @endif
-                                    </div>
-                                    <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
-                                        <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($relation['views'])}} view/s</span>
+                                    <div class="row">
+                                        <div class="row-same-height">
+                                        <div class="col-md-5 col-xs-4 col-md-height col-middle">
+                                            @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                                <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
+                                            @else
+                                                <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                                            @endif
+                                        </div>
+                                        <div class="col-md-7 col-sm-8 col-xs-4 col-md-height col-middle">
+                                            <div><span class="v-list text-justify">{{ Str::limit($relation['title'],40) }}</span></div>
+                                            <span>by: {{$relation['channel_name']}}</span><br/>
+                                            <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
+                                            <span>{{number_format($relation['views'])}} view/s</span>
+                                        </div>
                                     </div>
                                 </div>
                                 </a>

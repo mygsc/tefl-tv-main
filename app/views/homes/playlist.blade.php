@@ -30,7 +30,7 @@
 				<div id="floatboxanchor">
 					<h1 class="tblue mg-b-20 mg-t-20">Playlists</h1>
 						@foreach($playlists as $key=>$playlist)
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="p-relative">
 								<div class="playlist-info" >		
 									<br/>
