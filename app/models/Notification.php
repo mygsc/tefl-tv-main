@@ -24,6 +24,7 @@ class Notification extends Eloquent {
 			$notifications = new Notification();
 			$notifications->user_id = $user_id;
 			$notifications->notifier_id = $notifier_id;
+$notifications->video_id = $video_id;
 			$notifications->type = $type;
 			$notifications->read = '0';
 			$notifications->save();
