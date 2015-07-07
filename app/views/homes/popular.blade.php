@@ -28,7 +28,7 @@
 					@foreach($popularVideos as $key => $popularVideo)
 					<!-- 12 column / 3 column = 4 -->
 					<a href="{{route('homes.watch-video', array('v=' .$popularVideo->file_name))}}">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="p-relative">
 								<span class="v-time inline">{{$popularVideo->total_time}}</span>
 								<div class="thumbnail-2"> 
@@ -38,17 +38,21 @@
 
 							<div class="video-info">
 								<div class="v-Info">
-									<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">{{$popularVideo->title}}</a>
+									<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
+										<span class="visible-lg">{{ Str::limit($popularVideo['title'],50)}}</span>
+										<span class="visible-md">{{ Str::limit($popularVideo['title'],40)}}</span>
+										<span class="visible-xs visible-sm">{{ Str::limit($popularVideo['title'],30)}}</span>
+									</a>
+									
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
-									<!--<br />
-									<i class="fa fa-eye"></i> {{number_format($popularVideo->views)}} | <i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} | {{date('F d, Y',strtotime($popularVideo->created_at))}}
-									-->
+									<br />
+									{{number_format($popularVideo->views)}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} |--> {{date('F d, Y',strtotime($popularVideo->created_at))}}
+									
 								</div>
 							</div>
 							</div>
-							<BR/>
 						</div>
 					</a>
 					@endforeach

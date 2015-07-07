@@ -36,7 +36,7 @@
 	</div>
 	
 	
-	<div class="vd" style="margin-top:-7px;">
+	<div class="vd" style="">
 		<div class="wrapper" id="controls">
 			<div id="progressbar">
 				<div id="progress-ads-line"  class="prog-ads-line">		

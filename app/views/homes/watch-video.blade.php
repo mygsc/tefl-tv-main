@@ -60,7 +60,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 </script>
  <script src="https://apis.google.com/js/platform.js" async defer></script> 
 @stop
-
 @section('content')
 
 <div class="row">
@@ -69,8 +68,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
         <div class="row mg-t-10">
             <div id="featured" > 
                 <div class="col-md-8">
-                    <div class="row">
-                        <div id="" class="ui-tabs-panel White pad-s-10 same-H" tyle="">
+                    <div class="">
+                        <div id="" class="ui-tabs-panel White pad-s-20 same-H" style="">
                             <!--video paler-->
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
@@ -284,7 +283,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 </div> <!--/.ui-tabs-panel-->
         
                 <!-- COMMENTS AREA -->
-                <div class="row mg-t-10">
+                <div class="mg-t-10">
                     
                     @include('elements/home/videoComments')
         
@@ -299,31 +298,46 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 
             <div class="col-md-4 visible-md visible-lg">
-                <div class="">
+                <div class="row">
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
          
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                     @foreach($newRelation as $relation)
-                            <li class="ui-tabs-nav-item" id="">
+                            <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-4">
-                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
-                                        @else
-                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
-                                        @endif
-                                    </div>
-                                    <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
-                                        <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($relation['views'])}} view/s</span>
-                                    </div>
+                                	
+	                                <div class="row p-relative">
+	                                	<div class="show_wrapp">
+	                                	<div class="showme col-middle">
+                                		{{ ($relation['title']) }}
+                                	</div>
+                                	</div>
+	                                	<div class="row-same-height" title="">
+	                                		
+	                                    <div class="col-md-5 col-xs-4 col-md-height col-middle">
+	                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+	                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
+	                                        @else
+	                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
+	                                        @endif
+	                                    </div>
+	                                    <div class="col-md-7 col-sm-8 col-xs-4 col-md-height col-middle">
+	                                    	<div class="hide_h">
+		                                    	<div class="visible-lg"><span class="v-list text-justify">{{ Str::limit($relation['title'],68) }}</span></div>
+		                                        <div class="visible-md"><span class="v-list text-justify">{{ Str::limit($relation['title'],45) }}</span></div>
+		                                        <div class="visible-sm"><span class="v-list text-justify">{{ Str::limit($relation['title'],30) }}</span></div>
+	                                        </div>
+	                                        <span>by: {{$relation['channel_name']}}</span><br/>
+	                                        <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
+	                                        <span>{{number_format($relation['views'])}} view/s</span>
+	                                    </div>
+	                                </div>
+	                                 
                                 </div>
                                 </a>
+                               
                             </li>
                     @endforeach
                 </ul><!--video list-->
