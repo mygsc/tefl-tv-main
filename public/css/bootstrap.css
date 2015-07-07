@@ -4090,8 +4090,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 }
 .panel {
     margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    border: 1px solid rgba(255, 255, 255, 0);
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
@@ -4962,6 +4962,7 @@ button.close {
 }
 .affix {
     position: fixed;
+
 }
 @-ms-viewport {
     width: device-width;

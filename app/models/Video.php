@@ -229,7 +229,7 @@ class Video extends Eloquent{
 	}
 
 	public function getCategory(){
-		$categoryList = array('For Teachers','For Students','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		$categoryList = array('For Teachers','For Students','For Schools','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		$categories = array();
 		foreach ($categoryList as $key => $category) {
 			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
@@ -432,7 +432,7 @@ class Video extends Eloquent{
 		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
 	}
 	public function randomChar($length = 11, $result = '') {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_|$';
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$charactersLength = strlen($characters);
 		for ($i = 0; $i < $length; $i++) {
 			$result .= $characters[rand(0, $charactersLength - 1)];

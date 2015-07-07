@@ -4,19 +4,34 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-			<div class="mg-r-10 row">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-
-				</div>
+			<div class="row" style="margin: 10px; padding: 10px;">
+				<ul class="nav nav-stacked navfaq affix-top" id="faqbar" data-spy="affix" data-offset-top="10" data-offset-bottom="">
+				  <li>
+				   <div class="contentbox" style="background:rgba(255,255,255,0.6)!important;">
+				      <div class="panel">
+				        <div class="panel-heading ">
+				        </div>
+				         <div>
+				            <ul id="faqbar" class="faqlist" style="list-style-type:none;">
+				               <li><a href="#sect1">What is the difference between TESOL/ TESL and TEFL courses?</a></li>
+				               <li><a href="#sect2">Are your courses accredited?</a></li>
+				               <li><a href="#sect3">What qualifications do I need to do a TEFL course? </a></li>
+				               <li><a href="#sect4">What qualifications do employers look for in English teachers?</a></li>
+				               <li><a href="#sect5">Do I need to do a TEFL course if I’m already a teacher?</a></li>
+				               <li><a href="#sect6">Will your school offer any career support? </a></li>
+				               <li><a href="#sect7">Which course should I take?</a></li>
+				               <li><a href="#sect8">Can I study TEFL and teach English even if I am a non-native English speaker ? </a></li>
+				               <li><a href="#sect9">I took the 60 hour course. How do I contact my tutor?</a></li>
+				               <li><a href="#sect10">Which course should I take?</a></li>
+				               <li><a href="#sect11">How long will it take me to complete a course?</a></li>
+				               <li><a href="#sect12">What kind of certificate will I receive at the end of my course? What information will it provide future employers?</a></li>
+				               <li><br><a href="#sect13">More...</a></li>
+				            </ul>
+				         </div>
+				      </div>
+				    </div>
+				  </li>
+				      </ul>
 			</div>
 		</div>
 		<div class="col-md-9 White sameH-h text-justify mg-t-10 same-H">

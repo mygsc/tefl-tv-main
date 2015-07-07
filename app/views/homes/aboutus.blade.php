@@ -7,16 +7,7 @@
 
 			<div class="mg-r-10 row">
 				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
 
-				</div>
 			</div>
 		</div>
 		<div class="col-md-9 White same-H  mg-t-10">
@@ -51,9 +42,8 @@
 
 		<!--contact us section-->
 		<div class="col-md-12">
-			<hr/>
+
 			<h1>Contact Us <br/>
-				{{--<small>Connect and communicate with us through the following information</small>--}}
 			</h1>
 			<br/>
 			<div class="row">
