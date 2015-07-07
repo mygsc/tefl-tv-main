@@ -1,17 +1,17 @@
 <!--Playlists-->
-<div class="col-md-12 White">
+
+
+<div class="whiteC text-center top-div_t mg-t-20 col-md-12 ">
+	<div class="row">
+		<h2>PLAYLISTS</h2>
+	</div>
+</div>
+<div class="col-md-12 White same-H">
 	<div class="">
-		<div class="orangeC text-center">
-			<br/>
-			<h2>PLAYLISTS 
-				<small class="">({{link_to_route('users.playlists', 'Show All')}})</small>
-			</h2>
-			<br/>
-		</div>
 		<div class="row">
 		
 			@if($usersPlaylists->isEmpty())
-				<p class="text-center">No Playlists yet</p>
+				<p class="text-center mg-t-20 mg-b-20 ">No Playlists yet</p>
 			@else
 				@foreach($usersPlaylists as $key=>$playlist)
 					<div class="col-lg-3 col-md-3 col-sm-2">

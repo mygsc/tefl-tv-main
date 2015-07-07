@@ -15,7 +15,7 @@
 
 <div class="top-bg"></div>
 
-<div class="paper_wrap">
+<div class="paper_wrap" data-sticky_parent="" style="position: relative;">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
             <div class="paper">
@@ -126,9 +126,12 @@
     		</div>
     	</div>
 		<div class="col-md-4">
+            <div class="sidebar" data-sticky_column="">
 				@include('elements/partners/video')
 				<br/>
+            </div>
 				@include('elements/partners/support')
+
 		</div>
 	</div>
 </div>

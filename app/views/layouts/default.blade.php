@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 	<meta charset="utf-8">
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title', 'TEFL-TV')</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -24,6 +25,7 @@
 </head>
 
 <body>
+	
 	<div id="fb-root"></div>
 	<div class="same-H">
 	@include('elements/header')
@@ -44,12 +46,16 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-{{HTML::script('js/sticky-scroll')}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{{HTML::script('js/jquery.sticky-kit.min.js')}}
+{{HTML::script('js/sticky.js')}}
+
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
+{{HTML::script('js/scroll-onpage.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -85,6 +91,17 @@
   ga('send', 'pageview');
 
 </script>
+<script type="text/javascript">
+	var contentHeight = jQuery('.content').height();
+	var sidebarHeight = jQuery('.sidebar').height();
+	if (contentHeight > sidebarHeight) {
+	jQuery('.sidebar').height(contentHeight);
+	jQuery(".sidebar .enews-widget").stick_in_parent();
+	}
+</script>
+
+
+
 
 
 @yield('script') 

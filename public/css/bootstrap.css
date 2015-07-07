@@ -1,4 +1,4 @@
-/*!
+ /*!
  * Bootstrap v3.3.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter,  Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -2302,8 +2302,8 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
     background-image: none;
 }
 .btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color: #2c436c;
+    /* border-color: #2e6da4; */
 }
 .btn-primary .badge {
     color: #337ab7;
@@ -2902,7 +2902,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     max-width: none;
 }
 .nav-tabs {
-    border-bottom: 1px solid #ddd;
+    border:0;
 }
 .nav-tabs>li {
     float: left;
@@ -2912,16 +2912,15 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     margin-right: 2px;
     line-height: 1.42857143;
     border: 1px solid transparent;
-    border-radius: 4px 4px 0 0;
+    border-radius: 0;
 }
 .nav-tabs>li>a:hover {
     border-color: #eee #eee #ddd;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: #555;
+    color: #fff;
     cursor: default;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #4B5B7C;
     border-bottom-color: transparent;
 }
 .nav-tabs.nav-justified {
@@ -4093,8 +4092,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 }
 .panel {
     margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    border: 1px solid rgba(255, 255, 255, 0);
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
@@ -4967,6 +4966,7 @@ button.close {
 }
 .affix {
     position: fixed;
+
 }
 @-ms-viewport {
     width: device-width;

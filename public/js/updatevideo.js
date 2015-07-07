@@ -401,7 +401,7 @@ $(document).ready(function() {
 				
 			}
 			endPlus.onclick = function(){
-				var timeDuration = startTime.value;//document.querySelector('input[name=hms]').value,
+				var timeDuration = document.querySelector('input[name=hms]').value,
 				timeDuration = timeDuration.split(':'),
 				et = endTime.value,
 				startTimeDuration = et.split(':'),
@@ -414,7 +414,7 @@ $(document).ready(function() {
 				timeDurationMin = timeDuration[1]*60,
 				timeDurationHrs = timeDuration[0]*3600,
 				totalDuration = timeDurationSec + timeDurationMin + timeDurationHrs;
-				if(totalDuration >= startTotalTimeDuration){
+				if(totalDuration > startTotalTimeDuration){
 					sec++;
 					if(sec > 59){
 						sec = 0; 
@@ -435,7 +435,7 @@ $(document).ready(function() {
 
 			}
 			endMinus.onclick = function(){
-				var timeDuration = startTime.value;//document.querySelector('input[name=hms]').value,
+				var timeDuration = document.querySelector('input[name=hms]').value,
 				timeDuration = timeDuration.split(':'),
 				et = endTime.value,
 				startTimeDuration = et.split(':'),
@@ -468,72 +468,7 @@ $(document).ready(function() {
 			startTime.onmouseup = function(){
 				//timeHighlightSelected();
 			}
-			var time = function(){
-				return{
-					increment: function(starttime){
-						var timeDuration = document.querySelector('input[name=hms]').value,
-						timeDuration = timeDuration.split(':'),
-						startTimeDuration = starttime.split(':'),
-						hrs = startTimeDuration[0],
-						min = startTimeDuration[1],
-						sec = startTimeDuration[2], 
-						startTotalTimeDuration = ((hrs*3600) + (min*60) + (sec*1));
-
-						var timeDurationSec = timeDuration[2]*1,
-						timeDurationMin = timeDuration[1]*60,
-						timeDurationHrs = timeDuration[0]*3600,
-						totalDuration = timeDurationSec + timeDurationMin + timeDurationHrs;
-						if(totalDuration > startTotalTimeDuration){
-							sec++;
-							if(sec > 59){
-								sec = 0; 
-								min++;	
-							}
-							if(min > 59){
-								min=0;
-								hrs++;
-							}
-							if(sec<10) sec = '0' + sec * 1; 
-							if(min<10) min = '0' + min * 1;
-							if(hrs<10) hrs = '0' + hrs * 1; 
-							endTime.value = hrs + ':' + min + ':' + sec;
-							endTime.focus();
-						}else{
-							startTime.value = document.querySelector('input[name=hms]').value;
-						}
-
-
-
-					},
-					decrement: function(startTime){
-						var timeDuration = document.querySelector('input[name=hms]').value,
-						timeDuration = timeDuration.split(':'),
-						startTimeDuration = startTime, startTimeDuration = startTimeDuration.split(':'),
-						hrs = startTimeDuration[0],
-						min = startTimeDuration[1],
-						sec = startTimeDuration[2], 
-						startTotalTimeDuration = (hrs*3600 + min*60 + sec*1);
-
-						var timeDurationSec = timeDuration[2]*1,
-						timeDurationMin = timeDuration[1]*60,
-						timeDurationHrs = timeDuration[0]*3600,
-						totalDuration = timeDurationSec + timeDurationMin + timeDurationHrs;
-						if(startTotalTimeDuration < totalDuration && startTotalTimeDuration !=0){
-							sec--;
-							if(sec<10) sec = '0' + sec * 1; 
-							if(min<10) min = '0' + min * 1;
-							if(hrs<10) hrs = '0' + hrs * 1; 
-							if(sec==0){
-								if(min>0) {sec=59;min--;}		
-							}
-							if(min==0){
-								if(hrs>0) {min=59;hrs--;}
-							}
-						}
-
-					}
-				}
-			}();
+			
 			function getSelectedText() {
 				var text = "";
 				if (typeof window.getSelection != "undefined") {
@@ -858,6 +793,78 @@ var css = function(){
 		}
 	}
 }();
+var time = function(){
+	return{
+		validate: function(start_,end_){
+			var totalTimeEndStart = new Array(),
+			getStartTime = start_.split(':'),
+			getEndTime = end_.split(':'),
+			start1 = getStartTime[0] * 3600, start2 = getStartTime[1] * 60,start3 = getStartTime[2] * 1,
+			end1 = getEndTime[0] * 3600,end2 = getEndTime[1] * 60, end3 = getEndTime[2] * 1;
+			if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) {totalTimeEndStart.push('error'); return totalTimeEndStart;}
+			totalTimeEndStart.push(start1+start2+start3);
+			totalTimeEndStart.push(end1+end2+end3);
+			return totalTimeEndStart;
+		},
+		increment: function(st,timeDuration){
+			getHMS = new Array();
+			var timeDuration = timeDuration.split(':'),
+			startTimeDuration = st.split(':'),
+			hour = startTimeDuration[0],
+			minute = startTimeDuration[1],
+			second = startTimeDuration[2], 
+			startTotalTimeDuration = ((hour*3600) + (minute*60) + (second*1));
+
+			var timeDurationSec = timeDuration[2]*1,
+			timeDurationMin = timeDuration[1]*60,
+			timeDurationHrs = timeDuration[0]*3600,
+			totalDuration = timeDurationSec + timeDurationMin + timeDurationHrs;
+			if(totalDuration > startTotalTimeDuration){
+				second++;
+				if(second > 59){
+					second = 0; 
+					minute++;	
+				}
+				if(minute > 59){
+					minute=0;
+					hour++;
+				}
+				if(second<10) second = '0' + second * 1; 
+				if(minute<10) minute = '0' + minute * 1;
+				if(hour<10) hour = '0' + hour * 1; 
+			 }
+			 return hour+':'+minute+':'+second;
+			 
+		},
+		decrement: function(st,duration){
+			var timeDuration = duration,
+				timeDuration = timeDuration.split(':'),
+				startTimeDuration = st.split(':'),
+				hour = startTimeDuration[0],
+				minute = startTimeDuration[1],
+				second = startTimeDuration[2], 
+				startTotalTimeDuration = ((hour*3600) + (minute*60) + (second*1)); 
+				var timeDurationSec = timeDuration[2]*1,
+				timeDurationMin = timeDuration[1]*60,
+				timeDurationHrs = timeDuration[0]*3600,
+				totalDuration = timeDurationSec + timeDurationMin + timeDurationHrs;
+				if(startTotalTimeDuration <= totalDuration){
+					if(second==0){
+						if(minute>0) {second=59;minute--;}		
+					}else{
+						second--;
+					}
+					if(minute==0){
+						if(hour>0) {minute=59;hour--;}
+					}
+					if(second<10) second = '0' + second * 1; 
+					if(minute<10) minute = '0' + minute * 1;
+					if(hour<10) hour = '0' + hour * 1; 
+				}
+				 return hour+':'+minute+':'+second;
+		}
+	}
+}();
 $('.option-annot').bind('click', function(e){
 	e.preventDefault();
 	var id = this.id;
@@ -897,21 +904,58 @@ $('.sv-annot').bind('click', function(e){
 	document.getElementById(id).innerHTML = content;
 	$('#editor-annotation').fadeOut();
 });
-var time = function(){
-	return{
-		validate: function(start_,end_){
-			var totalTimeEndStart = new Array(),
-			getStartTime = start_.split(':'),
-			getEndTime = end_.split(':'),
-			start1 = getStartTime[0] * 3600, start2 = getStartTime[1] * 60,start3 = getStartTime[2] * 1,
-			end1 = getEndTime[0] * 3600,end2 = getEndTime[1] * 60, end3 = getEndTime[2] * 1;
-			if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) {totalTimeEndStart.push('error'); return totalTimeEndStart;}
-			totalTimeEndStart.push(start1+start2+start3);
-			totalTimeEndStart.push(end1+end2+end3);
-			return totalTimeEndStart;
-		}
+$('#edit-start-inc').click(function(){
+	var st = document.querySelector('input[name=start]').value,
+	 duration = document.querySelector('input[name=hms]').value,
+	 getHMS = time.increment(st,duration);
+	 document.querySelector('input[name=start]').value = getHMS;
+	 document.querySelector('input[name=start]').focus();
+});
+$('#edit-start-dec').click(function(){
+	var st = document.querySelector('input[name=start]').value,
+	 duration = document.querySelector('input[name=hms]').value,
+	 getHMS = time.decrement(st,duration);
+	 document.querySelector('input[name=start]').value = getHMS;
+	 document.querySelector('input[name=start]').focus();
+});
+$('#edit-end-inc').click(function(){
+	var st = document.querySelector('input[name=end]').value,
+	 duration = document.querySelector('input[name=hms]').value,
+	 getHMS = time.increment(st,duration);
+	 document.querySelector('input[name=end]').value = getHMS;
+	 document.querySelector('input[name=end]').focus();
+});
+$('#edit-end-dec').click(function(){
+	var st = document.querySelector('input[name=end]').value,
+	 duration = document.querySelector('input[name=hms]').value,
+	 getHMS = time.decrement(st,duration);
+	 document.querySelector('input[name=end]').value = getHMS;
+	 document.querySelector('input[name=end]').focus();
+});
+$('#').keypress(function(evt){
+	evt = (evt) ? evt : window.event;
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		return false;
 	}
-}();
+	return true;
+});
+$('#edit-start-time').keypress(function(evt){
+	evt = (evt) ? evt : window.event;
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		return false;
+	}
+	return true;
+});
+$('#edit-end-time').keypress(function(){
+	evt = (evt) ? evt : window.event;
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		return false;
+	}
+	return true;
+});
 $('#edit-content').keyup(function(){
 	var getContent = document.querySelector('input[name=content]').value;
 	document.getElementById('preview-annotation').innerHTML = getContent;

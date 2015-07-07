@@ -15,52 +15,60 @@
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
-<div class="container">
+<div class="container content"  data-sticky_parent="">
 	<div class="row">
-		<div class="col-md-12 ">	
-			<div class="ad-bg same-H mg-t-10">
-				<div class="row">
-					<div class="col-md-6" style="">
-						<div class="mg-l-10  mg-b-10">
-							<div class="vid-wrapperb p-relative">
-								<div id="vid-controls">
-									<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-										<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-											<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
-											<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
-										</video>	
-									</div><!--/embed-responsive-->
-									<div class="n-mg-b">
+		<div class="col-md-12 ">
+			<div class="row">	
+				<div class="ad-bg same-H mg-t-10">
+					<div class="row">
+						<div class="col-md-6" style="">
+							<div class="mg-l-10  mg-b-10">
+								<div class="vid-wrapperb p-relative">
+									<div id="vid-controls">
+										<div class="embed-responsive embed-responsive-16by9 n-mg-b">
+											<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+												<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+												<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+											</video>
+											
+										</div><!--/embed-responsive-->
+										<div class="n-mg-b">
 
-										@include('elements/videoPlayer')
+											@include('elements/videoPlayer')
+
+										</div>
 									</div>
+
 								</div>
 							</div><!--/.row-->
 						</div>
 					</div><!--/.col-md-6-->
-					<div class="col-md-6	">
+					<div class="col-md-6">
 
-							</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+			
+		<div class="sidebar" data-sticky_parent="" style="position: relative;">
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm ">
+				<div class="mg-r-10 row ">
+					@include('elements/home/categories')
+					<div class="mg-t-10">
+						@include('elements/home/adverstisement_half_large_recatangle')
+					</div>
+					<div data-sticky_column="">
+						<div class="mg-t-10">
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" >
-				<div class="mg-r-10 row">
-					@include('elements/home/categories')
-					
-					<div class="mg-t-10">
-						@include('elements/home/adverstisement_half_large_recatangle')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
-					</div>
-				</div>
-			</div>
-			<div class="col-md-9">
+			<div class="col-md-9" >
 				<!--RECOMMENDED VIDEOS SECTION -->
 				<div class="row White same-H mg-t-10">
 					<div class="top-div">
@@ -202,6 +210,7 @@
 	</div><!--first row-->
 
 </div><!--/.container page-->
-
+</div>
+</div>
 
 @stop

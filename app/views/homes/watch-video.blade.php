@@ -79,18 +79,18 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div>
                                     <br/>
                                         <div class="row">
-                                            <div class="col-md-9">
+                                            <div class="col-md-9 col-sm-9 col-xs-8">
                                                 <p class="black wv-title">
                                                     {{$videos->title}}
                                                 </p>
                                             </div>
-                                            <div class="col-md-3 text-right">
+                                            <div class="col-md-3 col-xs-4 col-sm-3 text-right">
                                                 <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
                                             </div>
 
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
                                                
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
                                             {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
@@ -150,7 +150,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 <p style="display:inline;"><i class="fa fa-plus hand"></i>&nbsp;&nbsp;Add to</p>
                                             </a>
                                             @endif
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                           <!-- &nbsp;&nbsp;|&nbsp;&nbsp;
                                              <span class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                                     <p style="display:inline;"><i class="fa fa-share-alt hand"></i>&nbsp;&nbsp;Share</p>
@@ -160,7 +160,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                                </span><!--/.dropdown-menu pull-right White-->
+                                                </span><!--/.dropdown-menu pull-right White
                                             </span><!--/.dropdown share-->
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -171,7 +171,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     @endif
                                                 @endif
                                             </div>
-                                            <div class="col-md-6 text-right">
+                                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
             
                                                    
@@ -209,7 +209,15 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 </span><!--/links-->
                                             </div>
                                             
-                                        </div>  
+                                        </div>
+                                        <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
+                                        	<span> Share Video</span>
+                                        	<br/>
+                                        	<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+                                            <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+                                         
+                                        </div>
                                         </div>
                                        
                                 </div><!--/.col-md-5-->
@@ -220,8 +228,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 <div class="well2 ">
                                     <div class="row">
                                         <div class="col-md-1 col-sm-2">
-                                            <div class="row text-right">
-                                                <img src="{{$profile_picture['profile_picture']}}" class="user">
+                                            <div class="row">
+                                            	<div class="" style="padding-left:10px;">
+                                                	<img src="{{$profile_picture['profile_picture']}}" class="user">
+                                                </div>
                                             </div>
                                         </div>
                                     <div class="col-md-11 col-sm-10">

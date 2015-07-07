@@ -1,14 +1,15 @@
 <!--Subscribers-->
-<div class="col-md-6 col-md-height grey">
+<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
 	<div class="row">
-		<div class="h-title greyDark orangeC">
-			<span><b>Subscribers</b></span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscribers" class="text-center" aria-controls="Subscribers" role="tab" data-toggle="tab">Show All</a></small>
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIBERS</h3>
 		</div>
-		<br/>
-		<div class="">
-			@if($subscribers->isEmpty())
-				<p class="text-center fs-12">No Subscriber yet</p>
-			@else
+		<div class="Div-channelSubSection White same-H " id="subscriberWrapper">
+			<br/><br/>
+			<div class="row-same-height">
+				@if($subscribers->isEmpty())
+					<p class="text-center fs-12">No Subscriber yet</p>
+				@else
 				@foreach($subscribers as $subscriber)
 					<div class="col-md-6">
 						<div class="row user-padding">
@@ -49,4 +50,5 @@
 			@endif				
 		</div>
 	</div>
+</div>
 </div>
