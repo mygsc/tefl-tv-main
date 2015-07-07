@@ -204,7 +204,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
 });
 
-//**********Partners**********//
+//**********publishers**********//
 Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
 	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
@@ -218,11 +218,4 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
 });
 
-//********Partners and Publishers account verification*************//
-
-
-
-
-
-//********Error page***********//
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));

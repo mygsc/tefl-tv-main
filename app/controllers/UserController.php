@@ -2,6 +2,7 @@
 
 class UserController extends BaseController {
 	protected $video_;
+	protected $comment_;
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -28,6 +29,7 @@ class UserController extends BaseController {
 		$this->UserFavorite = $userFavorite;
 		$this->Hybrid_Auth = $hybridauth;	
 		$this->video_ = new Video;
+		$this->comment_ = new Comment;
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -297,6 +299,7 @@ class UserController extends BaseController {
 
 	public function postEditUsersChannel($channel_name) {
 		$input = Input::all();
+		return $input;
 		$validate = Validator::make($input, User::$userEditRules);
 		if($validate->passes()){
 			$user = User::find(Auth::User()->id);
@@ -411,12 +414,14 @@ class UserController extends BaseController {
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
+
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
 			$id = $video->id;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
+			$countCommentAndLikes = $this->comment_->countLikesAndComments($video->id);
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
 			//if($video->category != ""){
 			    $category = explode(',',$video->category);
@@ -426,9 +431,11 @@ class UserController extends BaseController {
 			$thumbnail = $this->threeThumbnailPath($filename, $extension);
 			$annotations = Annotation::where('vid_filename', $file_name)->get();
 			$countAnnotation = count($annotations);
+			
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 				'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
-				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation'));
+				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
+				'countCommentAndLikes'));
 
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
@@ -464,7 +471,6 @@ class UserController extends BaseController {
 				$selectedThumb =  Input::get('selected-thumbnail');
 				if(strlen($selectedThumb)>1){  
 					$getDomain = asset('/');
-					
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
 					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
