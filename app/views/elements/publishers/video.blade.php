@@ -1,4 +1,4 @@
-<div class="row White same-H">
+<div class="row White same-H side_top">
 	<div class="pad-10">
 	<div class="vid-wrapperb p-relative same-H">
 		<div id="vid-controls">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	</div>
-	<div style="margin-top:10px;">
-		<a href="{{route('publishers.verification')}}" class="form-control btn btn-info">Become a Publisher now <i class="fa fa-hand-o-up"></i></a>
+	<div style="margin-top:10px;" class="become">
+		<a href="{{route('publishers.verification')}}" class="">Become a Publisher now <i class="fa fa-hand-o-up"></i></a>
 	</div>
 </div>

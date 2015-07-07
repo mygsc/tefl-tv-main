@@ -15,7 +15,7 @@
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
-<div class="container">
+<div class="container content"  data-sticky_parent="">
 	<div class="row">
 		<div class="col-md-12 ">
 			<div class="row">	
@@ -51,16 +51,14 @@
 			</div>
 		</div>
 			
-
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm" >
-
-				<div class="mg-r-10 row">
+		<div class="sidebar" data-sticky_parent="" style="position: relative;">
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm ">
+				<div class="mg-r-10 row ">
 					@include('elements/home/categories')
-					
 					<div class="mg-t-10">
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
-					<div id="ad_sidebar">
+					<div data-sticky_column="">
 						<div class="mg-t-10">
 							@include('elements/home/carouselAds')
 						</div>
@@ -70,9 +68,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-9" >
 				<!--RECOMMENDED VIDEOS SECTION -->
-				<div class="row White same-H mg-t-10" id="floatboxanchor">
+				<div class="row White same-H mg-t-10">
 					<div class="top-div">
 						<h2 class=" mg-l-10">Recommended Videos</h2>
 					</div>
@@ -212,6 +210,7 @@
 	</div><!--first row-->
 
 </div><!--/.container page-->
+</div>
 </div>
 
 @stop

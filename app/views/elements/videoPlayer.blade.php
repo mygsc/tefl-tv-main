@@ -92,7 +92,6 @@
 						<!--<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
 						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
-
 					</ul>							
 				</div><!--/.share-video-->
 				<i id='hd-setting' title='Video Quality' class='player setting'></i>

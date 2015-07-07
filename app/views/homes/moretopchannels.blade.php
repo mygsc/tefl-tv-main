@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-	<div class="row mg-t-10">
+	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<div class="row-same-height">
 			<div class="col-md-3 col-md-height hidden-xs hidden-sm col-top">
 				<div class="mg-r-10 row mg-t--10">
@@ -15,7 +15,7 @@
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
 
-					<div id="ad_sidebar">
+					<div class="sidebar" data-sticky_column="">
 						<div class="mg-t-10">
 							@include('elements/home/carouselAds')
 						</div>
