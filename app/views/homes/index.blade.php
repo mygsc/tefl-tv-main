@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 @section('meta')
 <head>
@@ -88,7 +89,11 @@
 										</div>
 										<div class="video-info">
 											<div class="v-Info">
-												<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>{{$recommended->title}}</a>
+												<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
+													<span class="visible-lg">{{ Str::limit($recommended['title'],50)}}</span>
+													<span class="visible-md">{{ Str::limit($recommended['title'],40)}}</span>
+													<span class="visible-xs visible-sm">{{ Str::limit($recommended['title'],30)}}</span>
+												</a>
 											</div>
 											<div class="count">
 												by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
@@ -123,7 +128,11 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' .$popular->file_name))}}'>{{$popular->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' .$popular->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($popular['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($popular['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($popular['title'],30)}}</span>
+							</a>
 						</div>
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($popular->channel_name))}}">{{$popular->channel_name}}</a>
@@ -157,7 +166,11 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>{{$latest->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($latest['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($latest['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($latest['title'],30)}}</span>
+							</a>
 						</div>
 
 						<div class="count">
@@ -188,7 +201,11 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' . $random->file_name))}}'>{{$random->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' . $random->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($random['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($random['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($random['title'],30)}}</span>
+							</a>
 						</div>
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
@@ -213,3 +230,4 @@
 </div>
 
 @stop
+

@@ -185,11 +185,14 @@
         </div>
         <div class="col-md-12 White same-H">
             <div class="pad-10 textbox-layout">
-                {{Form::label('zip_code', 'Zip Code: ')}}
-                {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
-                <br/>
+                {{Form::label('address', 'Address: ')}}
+                {{Form::text('address', $userChannel->address, array('placeholder' => 'Address'))}}
+                <br />
                 {{Form::label('country', 'Country: ')}}
                 {{ Form::select('country', $countries) }}
+                <br/>
+                {{Form::label('zip_code', 'Zip Code: ')}}
+                {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
             </div>
         </div>
 

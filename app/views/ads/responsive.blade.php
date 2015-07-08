@@ -7,8 +7,8 @@
         left: 0;
         right: 0;
         display: block;
-        /*bottom:10px!important;*/
-        bottom:0;
+        bottom:10px!important;
+        /*bottom:0;*/
         margin:auto;
         background: transparent;
     }

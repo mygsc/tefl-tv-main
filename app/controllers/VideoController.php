@@ -219,7 +219,7 @@ class VideoController extends BaseController {
 			$vidOwner = User::find($vidFilename->user_id);
 			return View::make('homes.embedvideo', compact('vidFilename','vidOwner'));
 		}
-		return app::abort(404, 'Page not available');
+		return app::abort(404, 'Page not available.');
 	}
 	public function getSearch() {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));

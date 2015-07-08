@@ -7,7 +7,7 @@
 @section('some_script')
 	{{--HTML::style('css/vid.player.min.css')--}}
 	{{HTML::script('js/subscribe.js')}}
-	{--{HTML::script('js/video-player/media.player.min.js')--}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/homes/convert_specialString.js')}}
 	{{--HTML::style('css/upload.min.css')--}}
 	<script type="text/javascript">

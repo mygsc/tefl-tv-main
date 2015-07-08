@@ -51,7 +51,7 @@
 							<div class="count">
 								<a href="/channels/{{$playlist->channel_name}}">{{$playlist->channel_name}}</a>
 							</div>
-					</div>
+						</div>
 					@endforeach
 				</div>
 			</div>

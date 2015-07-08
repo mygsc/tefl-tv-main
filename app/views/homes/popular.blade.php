@@ -38,7 +38,12 @@
 
 							<div class="video-info">
 								<div class="v-Info">
-									<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">{{$popularVideo->title}}</a>
+									<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
+										<span class="visible-lg">{{ Str::limit($popularVideo['title'],50)}}</span>
+										<span class="visible-md">{{ Str::limit($popularVideo['title'],40)}}</span>
+										<span class="visible-xs visible-sm">{{ Str::limit($popularVideo['title'],30)}}</span>
+									</a>
+									
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
