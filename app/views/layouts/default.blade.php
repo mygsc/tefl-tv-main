@@ -14,8 +14,6 @@
 
 	<!-- CSS -->
 
-	{{ HTML::style('css/material/ripples.css') }}
-	{{ HTML::style('css/material/roboto.css') }}
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}

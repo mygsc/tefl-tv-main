@@ -1646,4 +1646,12 @@ class UserController extends BaseController {
 		return app::abort(404, 'Page not available.');
 	}
 
+	public function getEarningsSettings(){
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
+		}
+
+		return View::make('users.mychannels.accountsettings.earnings-settings');
+	}
+
 }

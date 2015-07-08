@@ -83,4 +83,8 @@ class PublisherController extends Controller {
 		return Redirect::route('publishers.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
 
+	public function getEditPublisher(){
+		return View::make('publishers.edit-publisher');
+	}
+
 }

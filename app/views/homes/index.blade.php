@@ -15,8 +15,8 @@
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 @section('content')
-<div class="container content"  data-sticky_parent="">
-	<div class="row">
+<div class="container">
+	<div class="row" data-sticky_parent="" style="position: relative;">
 		<div class="col-md-12 ">
 			<div class="row">	
 				<div class="ad-bg same-H mg-t-10">
@@ -77,7 +77,7 @@
 					<div class="col-md-12">
 						<div class="row ">
 							@foreach($recommendeds as $recommended)
-							<div class="col-lg-4 col-md-4 col-sm-6">
+							<div class="col-lg-3 col-md-3 col-sm-6">
 								<div class="p-relative">
 
 									<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
@@ -88,13 +88,17 @@
 										</div>
 										<div class="video-info">
 											<div class="v-Info">
-												<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>{{$recommended->title}}</a>
+												<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
+													<span class="visible-lg">{{ Str::limit($recommended['title'],50)}}</span>
+													<span class="visible-md">{{ Str::limit($recommended['title'],40)}}</span>
+													<span class="visible-xs visible-sm">{{ Str::limit($recommended['title'],30)}}</span>
+												</a>
 											</div>
 											<div class="count">
 												by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
-										<!--<br />
-										<i class="fa fa-eye"></i> {{number_format($recommended->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$recommended->likes}} | {{date('F d, Y',strtotime($recommended->created_at))}}
-									-->
+										<br />
+										<i class="fa fa-eye"></i>{{number_format($recommended->views,0,null,',')}} Views <!--| <i class="fa fa-thumbs-up"></i> {{$recommended->likes}}--> | {{date('F d, Y',strtotime($recommended->created_at))}}
+									
 								</div>
 							</div>
 						</a>
@@ -112,7 +116,7 @@
 			<h2 class="mg-l-10">Popular Videos</h2>
 		</div>
 		@foreach($populars as $popular)
-		<div class="col-lg-4 col-md-4 col-sm-6">
+		<div class="col-lg-3 col-md-3 col-sm-6">
 			<div class="p-relative">
 				<span class="v-time inline">{{$popular->total_time}}</span>
 				<a href='{{route('homes.watch-video', array('v=' . $popular->file_name))}}' class="thumbnail-h">
@@ -123,13 +127,17 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' .$popular->file_name))}}'>{{$popular->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' .$popular->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($popular['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($popular['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($popular['title'],30)}}</span>
+							</a>
 						</div>
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($popular->channel_name))}}">{{$popular->channel_name}}</a>
-								<!--<br />
-								<i class="fa fa-eye"></i> {{number_format($popular->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$popular->likes}} | {{date('F d, Y',strtotime($popular->created_at))}}
-							-->
+								<br />
+								<i class="fa fa-eye"></i>{{number_format($popular->views,0,null,',')}} Views <!--| <i class="fa fa-thumbs-up"></i> {{$popular->likes}}--> | {{date('F d, Y',strtotime($popular->created_at))}}
+					
 						</div>
 					</div>
 				</a>
@@ -146,7 +154,7 @@
 		</div>
 
 		@foreach($latests as $latest)
-		<div class="col-lg-4 col-md-4 col-sm-6">
+		<div class="col-lg-3 col-md-3 col-sm-6">
 			<div class="p-relative">
 				<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}' class="thumbnail-h">
 
@@ -157,14 +165,17 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>{{$latest->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($latest['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($latest['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($latest['title'],30)}}</span>
+							</a>
 						</div>
 
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
-								<!--<br />
-								<i class="fa fa-eye"></i> {{number_format($latest->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$latest->likes}} | {{date('F d, Y',strtotime($latest->created_at))}}
-							-->
+								<br />
+								<i class="fa fa-eye"></i>{{number_format($latest->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
 						</div>
 					</div>
 				</a>
@@ -179,7 +190,7 @@
 			<h2 class="mg-l-10">Random Videos</h2>
 		</div>
 		@foreach($randoms as $random)
-		<div class="col-lg-4 col-md-4 col-sm-6">
+		<div class="col-lg-3 col-md-3 col-sm-6">
 			<div class="p-relative">
 				<a href='{{route('homes.watch-video', array( 'v=' . $popular->file_name))}}' class="thumbnail-h">
 					<span class="v-time inline">{{$random->total_time}}</span>
@@ -189,13 +200,17 @@
 					</div>
 					<div class="video-info">
 						<div class="v-Info">
-							<a href='{{route('homes.watch-video', array('v=' . $random->file_name))}}'>{{$random->title}}</a>
+							<a href='{{route('homes.watch-video', array('v=' . $random->file_name))}}'>
+								<span class="visible-lg">{{ Str::limit($random['title'],50)}}</span>
+								<span class="visible-md">{{ Str::limit($random['title'],40)}}</span>
+								<span class="visible-xs visible-sm">{{ Str::limit($random['title'],30)}}</span>
+							</a>
 						</div>
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
-								<!--<br />
-								<i class="fa fa-eye"></i> {{number_format($random->views,0,null,',')}} | <i class="fa fa-thumbs-up"></i> {{$random->likes}} | {{date('F d, Y',strtotime($random->created_at))}}
-							-->
+								<br />
+								<i class="fa fa-eye"></i> {{number_format($random->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$random->likes}} |--> {{date('F d, Y',strtotime($random->created_at))}}
+							
 						</div>
 					</div>
 				</a>

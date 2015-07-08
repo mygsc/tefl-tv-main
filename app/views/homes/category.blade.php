@@ -28,7 +28,7 @@ Category: {{$category}} - TEFL-tv
 					<h1 class="mg-t-20 mg-b-20 capitalize">{{$category}}</h1>
 					<div class="col-md-12">
 						@foreach($videos as $video)
-						<div class="col-lg-4 col-md-4 col-sm-6 hidden-xs ">
+						<div class="col-lg-3 col-md-4 col-sm-6 hidden-xs ">
 							<div class="p-relative">
 								<a href="{{route('homes.watch-video', array('v=' .$video->file_name))}}" class="thumbnail-h">
 									<div class="thumbnail-2"> 
@@ -37,13 +37,16 @@ Category: {{$category}} - TEFL-tv
 									</div>
 									<div class="video-info">
 										<div class="v-Info">
-											<a href="{{route('homes.watch-video', array('v=' .$video->file_name))}}">{{$video->title}}</a>
+											<a href="{{route('homes.watch-video', array('v=' .$video->file_name))}}">
+												<span class="visible-lg">{{ Str::limit($video['title'],50)}}</span>
+												<span class="visible-md">{{ Str::limit($video['title'],40)}}</span>
+												<span class="visible-xs visible-sm">{{ Str::limit($video['title'],30)}}</span>
+											</a>
 										</div>
 										<div class="count">
 											by: <a href="{{route('view.users.channel', array($video->channel_name))}}">{{$video->channel_name}}</a>
 											<br />
-											<!--<i class="fa fa-eye"></i> {{number_format($video->views)}} | <i class="fa fa-thumbs-up"></i>  {{$video->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($video->created_at))}}
-											-->
+											{{number_format($video->views)}} Views | <!--<i class="fa fa-thumbs-up"></i>  {{$video->likes}} | --> {{date('F d, Y',strtotime($video->created_at))}}
 										</div>
 									</div>
 
