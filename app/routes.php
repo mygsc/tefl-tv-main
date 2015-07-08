@@ -203,7 +203,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
-	Route::post('update-partners', array('as' => 'post.update.partners', 'uses' => 'PartnerController@postUpdatePartner'));
+	Route::get('edit-partners', array('as' => 'edit.partners', 'uses' => 'PartnerController@getEditPartner'));
 });
 
 //**********publishers**********//
@@ -218,6 +218,7 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('success', array('before' => 'publishers.success', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
+	Route::get('edit-publisher', array('as' => 'edit.publishers', 'uses' => 'PublisherController@getEditPublisher'));
 });
 
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));

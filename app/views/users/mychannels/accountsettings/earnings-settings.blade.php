@@ -20,31 +20,22 @@
         <div class="mg-t-20 same-H">
             <div class="White div-change">
                 <div class="row">
-                    <div class="col-md-3">
-                        @if(Auth::User()->role == '3' || Auth::User()->role == '5')
-                            <a href="#"><h2>Partners Settings</h2></a>
-                        @endif
-                        @if(Auth::User()->role == '5' || Auth::User()->role == '5')
-                            <a href="#"><h2>Publisher Settings</h2></a>
-                        @endif
-                    </div><!--/.tabbable tabs-left-->
-                    <div class="col-md-9">
-                        {{Form::open(array())}}
-                            {{Form::label('adsense_id', 'Adsense Publisher ID')}}
-                            {{Form::text('adsense_id')}}
-                            {{Form::label('ad_slot_id', 'Adsense Publisher ID')}}
-                            {{Form::text('ad_slot_id')}}
-                            {{Form::label('password', 'Account Password')}}
-                            {{Form::text('password')}}
-                            {{Form::label('re-password', 'Verify Account Password')}}
-                            {{Form::text('re-password')}}
-                            {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
-                        {{Form::close()}}
+                    <h1 class="text-center">Please select an option</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Please select this option to update your adsense credentials</h2>
+                        <a href="{{route('edit.partners')}}">{{Form::button('Partners', array('class' => 'btn btn-primary'))}}</a>
                     </div>
-                </div><!--/.row-->
-            </div><!--/.well-->
-        </div>
+                    <div class="col-md-6">
+                        <h2>Please select this option to update your adsense credentials</h2>
+                        <a href="{{route('edit.publishers')}}">{{Form::button('Publishers', array('class' => 'btn btn-primary'))}}</a>
+                    </div>
+                </div>
+            </div><!--/.row-->
+        </div><!--/.well-->
     </div>
+</div>
 </div>
 <br/>
 @stop
