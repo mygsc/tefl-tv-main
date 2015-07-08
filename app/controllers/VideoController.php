@@ -189,7 +189,6 @@ class VideoController extends BaseController {
 		$searchResults = $this->Video->searchVideos($search);
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
-		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories','notifications')));
