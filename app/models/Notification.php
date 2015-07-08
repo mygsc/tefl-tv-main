@@ -36,7 +36,7 @@ $notifications->video_id = $video_id;
 
 	public function constructNotificationMessage($user_id, $notifier_id = null, $type, $video_id = null, $callback = null){
 		if($type == 'video-is-ready'){
-			$videos = Video::find($video_id);
+			$videos = Video::where('id', $video_id)->where('deleted_at', null)->first();
 			$video_link = link_to_route('homes.watch-video', 'video', 'v='. $videos->file_name);
 			$return['notification'] = 'Your '.$video_link. ' is ready';
 			$return['profile_picture'] = User::getUsersImages($user_id)['profile_picture'];

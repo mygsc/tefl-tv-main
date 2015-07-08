@@ -67,13 +67,15 @@
 						</div>
 						<div class="col-md-4">
 							<h4>Video Information</h4>
-							<p><b>Title :</b> </p>
-							<p><b>Date and Time Uploaded:</b> </p>
-							<p><b>Video URL</b></p>
-							<p><b>Duration :</b> </p>
-							<p><b>Raw File :</b> </p>
-							<p><b>Likes :</b> </p>
-							<p><b>Comments :</b></p>
+							<p><b>Title :</b> {{str_limit($video->title,20)}}</p>
+							<p><b>Date and Time Uploaded:</b> {{ date("F d, Y H:i a",strtotime($video->created_at)) }}</p>
+							<p><b>Video URL</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
+							<p><b>Duration :</b> {{$video->total_time}}</p>
+							<p><b>Raw File :</b> {{$video->extension}}</p>
+							<p><b>Likes :</b> {{$countCommentAndLikes['likes']}}</p>
+							<p><b>Dislikes :</b> {{$countCommentAndLikes['dislikes']}}</p>
+							<p><b>Comments :</b> {{$countCommentAndLikes['comment']}}</p>
+							<p><b>Views :</b> {{$video->views}}</p>
 	
 						</div>
 						<br/>
@@ -84,7 +86,7 @@
 		                <ul class="nav nav-tabs grey2 same-H row" role="tablist">
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
-		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Update Video Cover</a></li>
+		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
 		                </ul>
 
 		                <div class="tab-content row White same-H mg-t-20">
@@ -92,6 +94,7 @@
 					    	<div role="tabpanel" class="tab-pane active" id="update_info">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
+
 
 										@if($errors->has('publish'))
 											<span class="inputError">
@@ -304,8 +307,8 @@
 											<ul id='editor-annotation'>
 												<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
 												<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
-												<li>Start:{{Form::text('start',null)}}</li>
-												<li>End:{{Form::text('end',null)}}</li>
+												<li>Start:{{Form::text('start',null,['maxlength'=>8,'id'=>'edit-start-time'])}}<button id='edit-start-inc'>+</button><button id='edit-start-dec'>-</button></li>
+												<li>End:{{Form::text('end',null,['maxlength'=>8,'id'=>'edit-end-time'])}}<button id='edit-end-inc'>+</button><button id='edit-end-dec'>-</button></li>
 												<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
 												<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
 											</ul>
