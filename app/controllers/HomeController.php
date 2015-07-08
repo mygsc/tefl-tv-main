@@ -241,6 +241,7 @@ class HomeController extends BaseController {
 		if(isset(Auth::User()->id)) {
 			$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id,'subscriber_id' => Auth::User()->id))->first();
 		}
+		$report_url = $this->getURL();
 		//////////////////////r3mmel////////////////////////////
 
 		$datas = $this->User->getTopChannels(4);
@@ -264,7 +265,7 @@ class HomeController extends BaseController {
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url'
 			)
 		);
 	}

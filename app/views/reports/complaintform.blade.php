@@ -30,7 +30,11 @@
 				<div class="form-group">
 					<div class="input-group">
 				      	<div class="input-group-addon">{{Request::root()}}/watch?v=</div>
-				      	{{Form::text('copyrighted_video_url', null, array('class'=> 'form-control', 'placeholder' => 'ex: LO1ibxHmYvL', 'required'))}}
+				      	@if(isset($report_url))
+				      		{{Form::text('copyrighted_video_url', $report_url, array('class'=> 'form-control', 'placeholder' => 'ex: LO1ibxHmYvL', 'required'))}}
+				    	@else
+				    		{{Form::text('copyrighted_video_url', null, array('class'=> 'form-control', 'placeholder' => 'ex: LO1ibxHmYvL', 'required'))}}
+				    	@endif
 				    	<span class="inputError">
 							{{$errors->first('copyrighted_video_url')}}
 						</span>

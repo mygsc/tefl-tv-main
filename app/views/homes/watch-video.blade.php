@@ -63,7 +63,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 @stop
 
 @section('content')
-
 <div class="row">
 <div class="container ">
     <div class="">
@@ -166,7 +165,17 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a>
+                                            
+                                            <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
+                                            
+                                            {{Form::open(array('route' => array('get.complaint_form')))}}&nbsp;
+                                                {{Form::hidden('report_url',$report_url)}}
+                                                <span title="Report This Video">
+                                                    <i class='fa fa-flag'></i>&nbsp;&nbsp;
+                                                    <input value="Report" type="submit" class='reportLink'>
+                                                </span>
+                                            {{Form::close()}}
+
                                             </div>
                                             <div class="col-md-6 text-right">
                                                  <span class="">

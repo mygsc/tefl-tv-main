@@ -18,10 +18,11 @@ class ReportController extends BaseController {
 			Session::put('url.intended', URL::full());
 			return Redirect::route('homes.signin')->with('flash_bad', 'You need to signin first.');
 		}
+		if (Request::isMethod('post')) $report_url = Input::get('report_url');
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$allcountries = $this->Country->getAllCountries();
-		return View::make('reports.complaintform', compact('categories','notifications', 'allcountries'));
+		return View::make('reports.complaintform', compact('categories','notifications', 'allcountries', 'report_url'));
 	}
 
 	public function addComplaint() {
