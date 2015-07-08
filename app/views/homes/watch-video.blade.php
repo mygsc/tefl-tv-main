@@ -176,10 +176,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                 <hr>
                                                                 <div style="display:none" id='embed-pub'>
                                                                 <p>Copy and paste this code to your website:</p>
-                                                                 <p>   <input   type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                                 <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
                                                                </p>
                                                                 </div>
-                                                                <button id='embed-own-ads' type="button" class="btn btn-default">Embed video with your ads</button>
+                                                                <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
                                                                 <button type="button" class="btn btn-default">Proceed</button>
                                                          </div>
                                                          
@@ -187,7 +187,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 @endif
                                                <div style='margin-top:5px;display:none;' class="embed-frame">
                                                     <p>
-                                                        <input  type="text" class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                        <input  type="text" id='code-embed' class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
                                                     </p>
                                                 </div>
                                             </div>

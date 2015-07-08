@@ -29,7 +29,7 @@
 							<source id="webm" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$get->file_name.'/'.$get->file_name}}.webm" type="video/webm">
 						</video> 
 					</div>
-					@include('ads.publisher');
+					@include('ads.publisher')
 					@include('elements/videoPlayer') 
 				</div>
 			</div>

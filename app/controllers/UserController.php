@@ -1634,14 +1634,15 @@ class UserController extends BaseController {
 		}
 		return Redirect::route('users.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
-	public function getPublishVideo($filename, $autoplay=0){
+	public function getPublishVideo($id, $filename, $autoplay=0){
 		$get = Video::where('file_name','=',$filename);
 
 		if($get->count()){
 			$get = $get->first();
 			$vidOwner = User::find($get->user_id);
-			$adsense = $this->publisher_->getAdsenseID($get->user_id);
-			return View::make('users.publishvideo', compact('get','vidOwner','adsense','autoplay'));
+			$id = Crypt::decrypt($id);
+			$adsense = $this->publisher_->getAdsenseID($id);
+			return View::make('users.publishvideo', compact('id','get','vidOwner','adsense','autoplay'));
 		}
 		return app::abort(404, 'Page not available.');
 	}

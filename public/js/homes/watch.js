@@ -381,9 +381,11 @@ $('#publish-video').click(function(e){
 $('#embed-video').click(function(e){
 	e.preventDefault();
 	$('.embed-frame').slideToggle(1000);
+	document.getElementById('code-embed').focus();
 });
 $('#embed-own-ads').click(function(e){
 	e.preventDefault();
 	$('#embed-pub').toggle();
+	document.getElementById('embed-pub').focus();
 });
 
