@@ -203,6 +203,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
+	Route::post('update-partners', array('as' => 'post.update.partners', 'uses' => 'PartnerController@postUpdatePartner'));
 });
 
 //**********publishers**********//
