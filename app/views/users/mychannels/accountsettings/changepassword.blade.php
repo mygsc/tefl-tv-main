@@ -10,10 +10,11 @@
                 <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
                 <li role="presentation" >{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
                 <li role="presentation" class="active">{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-                <li role="presentation">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
-
+                <li role="presentation" >{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+                @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+                <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
+                @endif
             </ul><!--tabNav-->
-
         </div>
            <div class="mg-t-20 same-H">
                 <div class="White div-change">

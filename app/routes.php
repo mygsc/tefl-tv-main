@@ -136,6 +136,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
 	Route::post('upload-image', array('as' => 'users.upload.image', 'uses' => 'UserController@postUploadUsersProfilePicture'));
+	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
 });
 //*********End of Channels************//
 
