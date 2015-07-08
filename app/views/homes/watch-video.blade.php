@@ -17,7 +17,7 @@
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
-{{HTML::style('css/vid.player.min.css')}}
+    {{HTML::style('css/vid.player.min.css')}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -164,12 +164,33 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             </span><!--/.dropdown share-->
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                            <a href="#" id='embed-video' class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                                
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
-                                                       <a href="#publish-video" data-toggle="modal" class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Video</p></a>
+                                                       <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
+                                                         <div class='pub-ads'>
+                                                            <h4>Your Ads Preview</h4>
+                                                             <p>Click proceed to place your own ads to this video.</p>
+                                                                <hr>
+                                                                     @include('ads/adspreview')
+                                                                <hr>
+                                                                <div style="display:none" id='embed-pub'>
+                                                                <p>Copy and paste this code to your website:</p>
+                                                                 <p>   <input   type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                               </p>
+                                                                </div>
+                                                                <button id='embed-own-ads' type="button" class="btn btn-default">Embed video with your ads</button>
+                                                                <button type="button" class="btn btn-default">Proceed</button>
+                                                         </div>
+                                                         
                                                     @endif
                                                 @endif
+                                               <div style='margin-top:5px;display:none;' class="embed-frame">
+                                                    <p>
+                                                        <input  type="text" class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                    </p>
+                                                </div>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
@@ -351,7 +372,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 </div>
 
 <!--MODAL FOR EMBED VIDEO-->
-<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{{--<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -367,24 +388,28 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
       </div> -->
     </div>
   </div>
-</div>
+</div>--}}
 
-<div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{{-- <div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Publish Video</h4>
+        <h4 class="modal-title" id="myModalLabel">Your Ads Preview</h4>
       </div>
-      <div class="modal-body">
-      <p>Copy and paste this to your site:</p>
-            <input id='publishvideos' name='publishvideo' type="text" class="form-control" value="<iframe width='640' height='360' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-      </div>
+      <div align='center' class="modal-body">
+      <p align='center' >Click proceed to place your own ads.</p>
+        @include('ads/adspreview')
+        <p>Copy and paste it to  your site.</p>
+        <input type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>"> 
+       </div>
       <div class="modal-footer">
-        <button id='copy-video' type="button" class="btn btn-default">Copy</button>
+     <!--  <div align='left'>Click proceed to place your ads.</div> -->
+       <button type="button" class="btn btn-default">Embed video to your site with your ads</button>
+       <button type="button" class="btn btn-default">Proceed</button>
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 @stop
 

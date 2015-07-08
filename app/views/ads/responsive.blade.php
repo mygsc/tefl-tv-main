@@ -42,9 +42,7 @@
         border: 1px solid #fff;
     }
 
-</style>
-
-   
+</style>   
     <!-- Responsive -->
    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <div class="ads-absolute-wrapper" id='advertisement'>

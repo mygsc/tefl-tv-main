@@ -106,7 +106,7 @@ $(document).ready(function() {
 		else if(id=='speech'){annotationTypeTag.className = 'glyphicon glyphicon-comment';}
 			//close.id = 'close-annotation-' + id + '-' + count;
 			close.title = 'Delete';
-			close.className = 'glyphicon glyphicon-trash';
+			close.className = 'glyphicon glyphicon-remove';
 			save.className = 'glyphicon glyphicon-floppy-save';
 			save.title = 'Save-' + id;
 			checkbox.type = 'checkbox';  
@@ -253,7 +253,7 @@ $(document).ready(function() {
 			}
 			close.onmouseleave = function(){
 				var getid = this.id;
-				$('.'+getid).css({'border-bottom':'1px solid red'});
+				$('#'+getid).css({'border-bottom':'1px solid red'});
 			}
 			save.onclick = function(){
 				var getid = this.id, titles = this.title;
@@ -727,7 +727,7 @@ var drag = function(){
 }();
 var css = function(){
 	return{
-		note: function(id){
+		Note: function(id){
 			var elem = document.getElementById(id),
 			style = window.getComputedStyle(elem),
 			padding = style.getPropertyValue('padding'),
@@ -738,7 +738,7 @@ var css = function(){
 			top = style.getPropertyValue('top'),
 			left = style.getPropertyValue('left'),
 			background = style.getPropertyValue('background'),
-			cssstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + Width+';' + 'height:' + height+';' + 'position:' + position+';' +
+			cssstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + width+';' + 'height:' + height+';' + 'position:' + position + ';' +
 			'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 			return cssstyle;
 		},
@@ -896,9 +896,11 @@ $('.sv-annot').bind('click', function(e){
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
-	if(annotTypes=='Title'){
-		var style = css.Title('preview-annotation');
-	}
+	if(annotTypes=='Title')var style = css.Title('preview-annotation');
+	else if(annotTypes=='Note') var style = css.Note('preview-annotation');
+	else if(annotTypes=='Spotlight') var style = css.spotlight('preview-annotation');
+	else if(annotTypes=='Speech') var style = css.speech('preview-annotation');
+	
 	annotations.update(id,content,getTime[0],getTime[1],link,style);
 	if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
 	document.getElementById(id).innerHTML = content;
@@ -948,7 +950,7 @@ $('#edit-start-time').keypress(function(evt){
 	}
 	return true;
 });
-$('#edit-end-time').keypress(function(){
+$('#edit-end-time').keypress(function(evt){
 	evt = (evt) ? evt : window.event;
 	var charCode = (evt.which) ? evt.which : evt.keyCode;
 	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
