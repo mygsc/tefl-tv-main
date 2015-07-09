@@ -41,10 +41,15 @@
                             {{Form::text('password')}}
                              <br/><br/>
                             {{Form::label('re-password', 'Verify Account Password')}}
+<<<<<<< HEAD
                             {{Form::text('re-password')}}
                             <div class="text-right mg-t-20"> 
                                 {{Form::submit('Save', array('class' => 'btn btn-info'))}}
                             </div>
+=======
+                            {{Form::text('re-password')}}   
+                            {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
+>>>>>>> e4ba99a2a150e152998a96af89f04909058877e5
                         {{Form::close()}}
                     </div>
                 </div><!--/.row-->
