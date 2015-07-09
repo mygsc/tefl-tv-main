@@ -39,7 +39,7 @@
                             {{Form::label('password', 'Account Password')}}
                             {{Form::text('password')}}
                             {{Form::label('re-password', 'Verify Account Password')}}
-                            {{Form::text('re-password')}}
+                            {{Form::text('re-password')}}   
                             {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
                         {{Form::close()}}
                     </div>
