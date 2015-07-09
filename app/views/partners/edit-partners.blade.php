@@ -19,34 +19,40 @@
 
         <div class="mg-t-20 same-H">
             <div class="White div-change">
-                <div class="row">
-                    <div class="col-md-3">
-                        @if(Auth::User()->role == '3' || Auth::User()->role == '5')
-                            <a href="#" class="active"><h2>Partners Settings</h2></a>
+                <div class="row mg-t-20">
+                    <br/><br/>
+                    <div class="col-md-8 col-md-offset-2">
+                    @if(Auth::User()->role == '3' || Auth::User()->role == '5')
+                            <h2 class="blueC inline">Partners Settings</h2>
                         @endif
                         @if(Auth::User()->role == '5' || Auth::User()->role == '5')
-                            <a href="{{route('edit.publishers')}}" class="active"><h2>Publisher Settings</h2></a>
+                            <a href="{{route('edit.publishers')}}" class="orangeC"> &nbsp; | &nbsp; Publishers Settings</a>
                         @endif
-                    </div><!--/.tabbable tabs-left-->
-                    <div class="col-md-9">
-                    <h1>Partners Settings</h1>
+                        <hr/>
+                        <div class="mg-t-20">
 
                         {{Form::open(array())}}
                             {{Form::label('adsense_id', 'Adsense Publisher ID')}}
                             {{Form::text('adsense_id')}}
+                            <br/><br/>
                             {{Form::label('ad_slot_id', 'Adsense Publisher ID')}}
                             {{Form::text('ad_slot_id')}}
+                            <br/><br/>
                             {{Form::label('password', 'Account Password')}}
                             {{Form::text('password')}}
+                            <br/><br/>
                             {{Form::label('re-password', 'Verify Account Password')}}
                             {{Form::text('re-password')}}
-                            {{Form::submit('Save', array('class' => 'btn btn-primary'))}}
+                            <div class="text-right mg-t-20"> 
+                                {{Form::submit('Save', array('class' => 'btn btn-info'))}}
+                            </div>
                         {{Form::close()}}
                     </div>
                 </div><!--/.row-->
             </div><!--/.well-->
         </div>
     </div>
+</div>
 </div>
 <br/>
 @stop

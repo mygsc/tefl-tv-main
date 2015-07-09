@@ -19,17 +19,15 @@
 
         <div class="mg-t-20 same-H">
             <div class="White div-change">
-                <div class="row">
-                    <h1 class="text-center">Please select an option</h1>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>Please select this option to update your adsense credentials</h2>
-                        <a href="{{route('edit.partners')}}">{{Form::button('Partners', array('class' => 'btn btn-primary'))}}</a>
-                    </div>
-                    <div class="col-md-6">
-                        <h2>Please select this option to update your adsense credentials</h2>
-                        <a href="{{route('edit.publishers')}}">{{Form::button('Publishers', array('class' => 'btn btn-primary'))}}</a>
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="row text-center mg-t-20">
+                        <br/><br/><br/>
+                        <h3 class="text-center ">Select which account you want to update your adsense credentials.</h3>
+                            <br/>
+                            <a href="{{route('edit.partners')}}">{{Form::button('Partners', array('class' => 'btn btn-partner mg-r-20'))}}</a>
+                            
+                            <a href="{{route('edit.publishers')}}">{{Form::button('Publishers', array('class' => 'btn btn-publisher'))}}</a>
+
                     </div>
                 </div>
             </div><!--/.row-->

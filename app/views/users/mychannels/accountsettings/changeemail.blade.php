@@ -19,12 +19,15 @@
 
         <div class="mg-t-20 same-H">
             <div class="White div-change">
-                <div class="row">
+                <div class="row mg-t-20">
                     <div class="col-md-12">
                         <div class="col-md-12 white">
                             <div class=""> 
+                                <br/><br/>
                                 <h3 class="orangeC text-center">-Your new email will be your primary contact-</h3>
+                                
                                 <div class="col-md-8 col-md-offset-2">
+                                    <hr/>
                                    {{Form::open(array('route' => 'users.post.change-email'))}}
                                        {{Form::label('email', '*Email: ')}}
                                        {{Form::text('email', null, array('placeholder' => 'Current Email Address'))}}

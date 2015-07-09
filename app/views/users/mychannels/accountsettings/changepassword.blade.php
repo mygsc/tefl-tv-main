@@ -18,11 +18,14 @@
         </div>
            <div class="mg-t-20 same-H">
                 <div class="White div-change">
-                    <div class="row">
+                    <div class="row mg-t-20">
                         <div class="col-md-12">
-                            <div class=""> 
+                            <div class="">
+                                <br/><br/>
                                 <h3 class="orangeC text-center">-For a stronger password mix characters and numbers-</h3>
+                               
                                 <div class="col-md-8 col-md-offset-2">
+                                     <hr/>
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
                                     
                                     {{Form::label('currentPassword', ' Current Password: ')}}
