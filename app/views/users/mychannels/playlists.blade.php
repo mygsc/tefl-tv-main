@@ -45,15 +45,17 @@
 
 				<div class="top-div_t col-md-12 mg-t-20 pad20t">
 					<div class="col-md-6 col-sm-6 mg-t-10">
+					{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
 						<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">
 								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 							</span>
 						</div>
+						{{Form::close()}}
 					</div>
 					<div class="col-md-6 col-sm-6  mg-t-10">
-						{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
+						
 						<div class="input-group" style="">
 							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
 							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
@@ -61,7 +63,7 @@
 								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
 							</span>
 						</div>
-						{{Form::close()}}
+						
 					</div>
 				</div>
 
@@ -141,12 +143,12 @@
 
 
 @section('script')
-{{HTML::script('js/user/playlist.js')}}
-{{HTML::script('js/subscribe.js')}}
-{{HTML::script('js/media.player.js')}}
-
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}}
+@stop
 <script type="text/javascript">
 	$('.grid').click(function() {
 		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
