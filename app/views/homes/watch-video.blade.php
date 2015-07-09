@@ -180,7 +180,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                </p>
                                                                 </div>
                                                                 <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
-                                                                <button type="button" class="btn btn-default">Proceed</button>
+                                                                <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button>
                                                          </div>
                                                          
                                                     @endif

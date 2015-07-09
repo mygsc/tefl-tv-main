@@ -186,7 +186,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 
 //Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 Route::get('embed/{id}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
-Route::get('publish-video/{id}/{filename}', array('as'=>'publish.video', 'uses'=>'UserController@getPublishVideo'));
+Route::get('publish-video/{id}/{filename}', array('as'=>'publish.video', 'uses'=>'HomeController@getPublishVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
 Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);

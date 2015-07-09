@@ -1,7 +1,7 @@
 <?php
 
 class HomeController extends BaseController {
-
+		protected $publisher_;
 	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
@@ -11,6 +11,7 @@ class HomeController extends BaseController {
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
 		$this->Partner = $partners;
+		$this->publisher_ = new Publisher;
 	}
 	
 	public function getIndex() {
@@ -740,5 +741,19 @@ class HomeController extends BaseController {
 	}
 	public function getViewVideo(){
 		return View::make('videoplayer');
+	}
+	public function getPublishVideo($id, $filename, $autoplay=0){
+		$get = Video::where('file_name','=',$filename);
+
+		if($get->count()){
+			$get = $get->first();
+			$vidOwner = User::find($get->user_id);
+			$id = Crypt::decrypt($id);
+			$adsense = $this->publisher_->getAdsenseID($id);
+			$totalTime = $get->total_time;
+			$duration = $this->duration($totalTime);
+			return View::make('users.publishvideo', compact('id','get','vidOwner','adsense','autoplay','duration'));
+		}
+		return app::abort(404, 'Page not available.');
 	}
 }
