@@ -158,7 +158,12 @@
 </div><!--/.row-->
 @stop
 
-@section('some_script')
+@section('script')
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/media.player.js')}}
 {{HTML::script('js/homes/convert_specialString.js')}}

@@ -32,27 +32,22 @@
                         <div class="mg-t-20">
                             <div class="col-md-3">
                                 <div class="list-group">
-                                <a href="{{route('edit.partners')}}" class="list-group-item active">
+                                <a href="{{route('edit.partners')}}" class="list-group-item" >
                                     Edit Adsense Credentials
                                 </a>
-                                <a href="{{route('deactivate.partners')}}" class="list-group-item">Deactivate Partner Account</a>
+                                <a href="{{route('deactivate.partners')}}" class="list-group-item active">Deactivate Partner Account</a>
                             </div>
                         </div>
                         <div class="col-md-9">
                             {{Form::open(array())}}
-                            {{Form::label('adsense_id', 'Adsense Publisher ID')}}
-                            {{Form::text('adsense_id')}}
-                            <br/><br/>
-                            {{Form::label('ad_slot_id', 'Adsense Publisher ID')}}
-                            {{Form::text('ad_slot_id')}}
-                            <br/><br/>
+                            <span> Please enter your password to proceed</span>
                             {{Form::label('password', 'Account Password')}}
                             {{Form::text('password')}}
                             <br/><br/>
                             {{Form::label('re-password', 'Verify Account Password')}}
                             {{Form::text('re-password')}}
                             <div class="text-right mg-t-20"> 
-                                {{Form::submit('Save', array('class' => 'btn btn-info'))}}
+                                {{Form::submit('Deactivate Partner Account', array('class' => 'btn btn-info'))}}
                             </div>
                             {{Form::close()}}
                         </div>

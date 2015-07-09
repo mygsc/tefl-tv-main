@@ -10,11 +10,11 @@
                 <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
                 <li role="presentation" >{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
                 <li role="presentation" >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-                <li role="presentation" class="active">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+                <li role="presentation">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
                 @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
                 <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
                 @endif
-                <li role="presentation">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
+                <li role="presentation" class="active">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
             </ul><!--tabNav-->
         </div>
 
@@ -25,23 +25,11 @@
                         <div class="col-md-12 white">
                             <div class=""> 
                                 <br/><br/>
-                                <h3 class="orangeC text-center">-Your new email will be your primary contact-</h3>
+                                <h3 class="orangeC text-center">To proceed deactivating your acccount we must verify that you are the account owner</h3>
                                 
                                 <div class="col-md-8 col-md-offset-2">
                                     <hr/>
-                                   {{Form::open(array('route' => 'users.post.change-email'))}}
-                                       {{Form::label('email', '*Email: ')}}
-                                       {{Form::text('email', null, array('placeholder' => 'Current Email Address'))}}
-                                        <span class="inputError">
-                                            {{$errors->first('email')}}
-                                        </span>
-                                        <br/><br/>
-                                        {{Form::label('newEmail', '*New Email: ')}}
-                                        {{Form::text('newEmail', null, array('placeholder' => 'New Email Address'))}}
-                                        <span class="inputError">
-                                            {{$errors->first('newEmail')}}
-                                        </span>
-                                        <br/><br/>
+                                   {{Form::open(array())}}
                                         {{Form::label('password', '*Password: ')}}
                                         {{Form::password('password', null, array('placeholder' => 'Password'))}}
                                         <span class="inputError">
@@ -55,7 +43,7 @@
                                         </span>
                                         <br/><br/>
                                         <div class="text-right">
-                                            {{Form::submit('Submit',array('class' => 'btn btn-info'))}}
+                                            {{Form::submit('Deactivate',array('class' => 'btn btn-info'))}}
                                         </div>
                                     {{Form::close()}}
                                 </div>

@@ -14,15 +14,19 @@
                 @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
                 <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
                 @endif
+                <li role="presentation">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
             </ul><!--tabNav-->
         </div>
            <div class="mg-t-20 same-H">
                 <div class="White div-change">
-                    <div class="row">
+                    <div class="row mg-t-20">
                         <div class="col-md-12">
-                            <div class=""> 
+                            <div class="">
+                                <br/><br/>
                                 <h3 class="orangeC text-center">-For a stronger password mix characters and numbers-</h3>
+                               
                                 <div class="col-md-8 col-md-offset-2">
+                                     <hr/>
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
                                     
                                     {{Form::label('currentPassword', ' Current Password: ')}}

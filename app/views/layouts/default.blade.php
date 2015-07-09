@@ -33,7 +33,9 @@
 		@include('elements.flash_message')
 		@yield('content')
 	</div>
+	<div class="footer-s">
 	@include('elements/footer')
+	</div>
 
 </body>
 
@@ -87,7 +89,14 @@
 </script>
 
 
-
+<script type="text/javascript">
+	var contentHeight = jQuery('.content').height();
+	var sidebarHeight = jQuery('.sidebar').height();
+	if (contentHeight > sidebarHeight) {
+	jQuery('.sidebar').height(contentHeight);
+	jQuery(".sidebar .footer_s").stick_in_parent();
+	}
+</script>
 
 
 

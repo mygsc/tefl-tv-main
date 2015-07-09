@@ -89,4 +89,8 @@ class PartnerController extends Controller {
 		return View::make('partners.edit-partners');
 	}
 
+	public function getDeactivatePartner(){
+		return View::make('partners.deactivate');
+	}
+
 }

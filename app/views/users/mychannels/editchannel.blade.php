@@ -5,44 +5,45 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="row">
-        <div class="container">
-            <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center" role="tablist">
-                <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
-                <li role="presentation" class="active">{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
-                <li role="presentation" >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-                <li role="presentation" >{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
-                @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
-                <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
-                @endif
-            </ul><!--tabNav-->
+    <div class="container">
+        <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center" role="tablist">
+            <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
+            <li role="presentation" class="active">{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
+            <li role="presentation" >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
+            <li role="presentation" >{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+            @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+            <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
+            @endif
+            <li role="presentation">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
+        </ul><!--tabNav-->
         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}
-            <div class="col-md-12 top-div_t mg-t-20">
-                <h3 class="whiteC text-center">-Interests-</h3>
+        <div class="col-md-12 top-div_t mg-t-20">
+            <h3 class="whiteC text-center">-Interests-</h3>
+        </div>
+        <div class="col-md-12 White same-H">
+            <div class="pad-10">
+                {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:150px;'))}}          
             </div>
-            <div class="col-md-12 White same-H">
-                <div class="pad-10">
-                    {{Form::textarea('interests',$userChannel->interests, array('placeholder' => 'Interests', 'style' => 'min-height:150px;'))}}          
-                </div>
-            </div>
+        </div>
 
-            <div class="col-md-12 top-div_t mg-t-20">
-                <h3 class="whiteC text-center">-Personal Information-</h3>
-            </div>
-            <div class="col-md-12 White same-H">
-                <div class="pad-10 textbox-layout">
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{Form::label('first_name', '*Firstname: ')}}
-                            <span class="inputError">{{$errors->first('first_name')}}</span>
-                            {{ Form::text('first_name',$userChannel->first_name, array('placeholder' => 'Firstname'))}}
-                        </div>
-                        <div class="col-md-6">
-
-                            {{Form::label('last_name', '*Lastname: ')}}
-                            <span class="inputError">{{$errors->first('last_name')}}</span>
-                            {{ Form::text('last_name', $userChannel->last_name, array('placeholder' => 'Lastname'))}}
-                        </div>
+        <div class="col-md-12 top-div_t mg-t-20">
+            <h3 class="whiteC text-center">-Personal Information-</h3>
+        </div>
+        <div class="col-md-12 White same-H">
+            <div class="pad-10 textbox-layout">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{Form::label('first_name', '*Firstname: ')}}
+                        <span class="inputError">{{$errors->first('first_name')}}</span>
+                        {{ Form::text('first_name',$userChannel->first_name, array('placeholder' => 'Firstname'))}}
                     </div>
+                    <div class="col-md-6">
+
+                        {{Form::label('last_name', '*Lastname: ')}}
+                        <span class="inputError">{{$errors->first('last_name')}}</span>
+                        {{ Form::text('last_name', $userChannel->last_name, array('placeholder' => 'Lastname'))}}
+                    </div>
+                </div>
 
                 {{Form::label('birthdate', '*Birthdate: ')}}
                 <span class='inputError'>{{$errors->first('birthdate')}}</span>
@@ -148,7 +149,7 @@
                 <div class="row">
                     @if(empty($userWebsite->google))
                     <div class="col-md-2">
-                     <div class="text-left connectTo c-gp">
+                       <div class="text-left connectTo c-gp">
                         <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                     </div>
 
@@ -184,86 +185,90 @@
     </div>
 
     <div class="col-md-12 top-div_t mg-t-20">
-            <h3 class="whiteC text-center">-Contact Information-</h3>
+        <h3 class="whiteC text-center">-Contact Information-</h3>
+    </div>
+    <div class="col-md-12 White same-H">
+        <div class="pad-10 textbox-layout">
+            {{Form::label('address', 'Address: ')}}
+            {{Form::text('address', $userChannel->address, array('placeholder' => 'Address'))}}
+            <br />
+            {{Form::label('country', 'Country: ')}}
+            {{ Form::select('country', $countries) }}
+            <br/>
+            {{Form::label('zip_code', 'Zip Code: ')}}
+            {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
         </div>
-        <div class="col-md-12 White same-H">
-            <div class="pad-10 textbox-layout">
-                {{Form::label('address', 'Address: ')}}
-                {{Form::text('address', $userChannel->address, array('placeholder' => 'Address'))}}
-                <br />
-                {{Form::label('country', 'Country: ')}}
-                {{ Form::select('country', $countries) }}
-                <br/>
-                {{Form::label('zip_code', 'Zip Code: ')}}
-                {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
+    </div>
+
+    <div class="col-md-12 White same-H mg-t-20">
+        <div class="pad-10 textbox-layout">
+            <div class="text-center col-md-12">
+                <br/><br/>
+                {{Form::submit('Save Changes', array('class' => 'btn btn-info mg-b-20'))}}
             </div>
+
+            {{ Form::close()}}
         </div>
+    </div>
 
-        <div class="col-md-12 White same-H mg-t-20">
-            <div class="pad-10 textbox-layout">
-                <div class="text-center col-md-12">
-                    <br/><br/>
-                    {{Form::submit('Save Changes', array('class' => 'btn btn-info mg-b-20'))}}
-                </div>
-
-                {{ Form::close()}}
-            </div>
-        </div>
-
-  </div><!--/.container row-->
+</div><!--/.container row-->
 </div>
-    @stop
+@stop
 
 
-    @section('script')
-    {{HTML::script('js/user/upload_image.js')}}
-    {{HTML::script('js/user/modalclearing.js')}}
-    {{HTML::script('http://code.jquery.com/ui/1.11.4/jquery-ui.js')}}
-    {{HTML::script('js/facebook.js')}}
-    {{HTML::script('js/google.js')}}
+@section('script')
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
+{{HTML::script('http://code.jquery.com/ui/1.11.4/jquery-ui.js')}}
+{{HTML::script('js/facebook.js')}}
+{{HTML::script('js/google.js')}}
 
-    <!-- Facebook Login -->
-    <div id="fb-root"></div>
-    <script type="text/javascript">
-        window.fbAsyncInit = function() {
-            FB.init({appId: '834644693287300', status: true, cookie: true, xfbml: true});
-            
-            /* All the events registered */
-            FB.Event.subscribe('auth.login', function(response) {
+
+<!-- Facebook Login -->
+<div id="fb-root"></div>
+<script type="text/javascript">
+    window.fbAsyncInit = function() {
+        FB.init({appId: '834644693287300', status: true, cookie: true, xfbml: true});
+        
+        /* All the events registered */
+        FB.Event.subscribe('auth.login', function(response) {
                     // do something with response
                     login();
                 });
-            FB.Event.subscribe('auth.logout', function(response) {
+        FB.Event.subscribe('auth.logout', function(response) {
                     // do something with response
                     logout();
                 });
-            
-            FB.getLoginStatus(function(response) {
-                if (response.session) {
+        
+        FB.getLoginStatus(function(response) {
+            if (response.session) {
                         // logged in and connected user, someone you know
                         login();
                     }
                 });
-        };
-        (function() {
-            var e = document.createElement('script');
-            e.type = 'text/javascript';
-            e.src = document.location.protocol +
-            '//connect.facebook.net/en_US/all.js';
-            e.async = true;
-            document.getElementById('fb-root').appendChild(e);
-        }());
-        
-        function login(){
-            FB.api('/me', function(response) {
-                document.getElementById('login').style.display = "block";
-                document.getElementById('login').innerHTML = response.name + " succsessfully logged in!";
-            });
-        }
-        function logout(){
-            document.getElementById('login').style.display = "none";
-        }
-        
+    };
+    (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol +
+        '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+    }());
+    
+    function login(){
+        FB.api('/me', function(response) {
+            document.getElementById('login').style.display = "block";
+            document.getElementById('login').innerHTML = response.name + " succsessfully logged in!";
+        });
+    }
+    function logout(){
+        document.getElementById('login').style.display = "none";
+    }
+    
             //stream publish method
             function streamPublish(name, description, hrefTitle, hrefLink, userPrompt){
                 FB.ui(
@@ -282,7 +287,7 @@
                     user_prompt_message: userPrompt
                 },
                 function(response) {
-                   
+                 
                 });
                 
             }
@@ -315,14 +320,14 @@
             
             function fqlQuery(){
                 FB.api('/me', function(response) {
-                   var query = FB.Data.query('select name, hometown_location, sex, pic_square from user where uid={0}', response.id);
-                   query.wait(function(rows) {
-                       
-                     document.getElementById('name').innerHTML =
-                     'Your name: ' + rows[0].name + "<br />" +
-                     '<img src="' + rows[0].pic_square + '" alt="" />' + "<br />";
-                 });
+                 var query = FB.Data.query('select name, hometown_location, sex, pic_square from user where uid={0}', response.id);
+                 query.wait(function(rows) {
+                     
+                   document.getElementById('name').innerHTML =
+                   'Your name: ' + rows[0].name + "<br />" +
+                   '<img src="' + rows[0].pic_square + '" alt="" />' + "<br />";
                });
+             });
             }
             
             function setStatus(){
