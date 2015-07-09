@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+	My Feedbacks - {{Auth::User()->channel_name}}
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
@@ -189,9 +193,8 @@
 @stop
 
 
-@section('some_script')
+@section('script')
 {{HTML::script('js/video-player/jquery.form.min.js')}}
-{{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/user/modalclearing.js')}}
@@ -200,3 +203,4 @@
 {{HTML::script('js/mention.js')}}
 {{HTML::script('js/showHideToggle.js')}}
 {{HTML::script('js/user/reply.js')}}
+@stop

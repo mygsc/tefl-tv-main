@@ -816,6 +816,10 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		if(Auth::User()->id == $userChannel->id){
+			return Redirect::route('users.feedbacks');
+		}
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 		//return $userFeedbacks;
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
