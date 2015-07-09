@@ -17,7 +17,7 @@
 @stop
 @section('content')
 <div class="container">
-	<div class="row" data-sticky_parent="" style="position: relative;">
+	<div class="row" data-sticky_parent="" style="position:relative;">
 		<div class="col-md-12 ">
 			<div class="row">	
 				<div class="ad-bg same-H mg-t-10">
@@ -45,22 +45,21 @@
 						</div>
 					</div><!--/.col-md-6-->
 					<div class="col-md-6">
-
-
 					</div>
 				</div>
 			</div>
 		</div>
 			
-		<div class="sidebar" data-sticky_parent="" style="position: relative;">
+	
 			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm ">
 				<div class="mg-r-10 row ">
+					<div data-sticky_column="" class="sidebar">
+						@include('elements/home/categories')
 					
-					@include('elements/home/categories')
 					<div class="mg-t-10">
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
-						<div data-sticky_column="">
+						
 						<div class="mg-t-10">
 							@include('elements/home/carouselAds')
 						</div>
@@ -71,6 +70,7 @@
 				</div>
 			</div>
 			<div class="col-md-9" >
+				<div class="main" data-sticky_column="">
 				<!--RECOMMENDED VIDEOS SECTION -->
 				<div class="row White same-H mg-t-10">
 					<div class="top-div">
@@ -231,7 +231,7 @@
 		{{Form::hidden('duration',41,['id'=>'duration'])}} -->
 		<br/>
 	</div><!--first row-->
-
+	</div>
 </div><!--/.container page-->
 </div>
 </div>
