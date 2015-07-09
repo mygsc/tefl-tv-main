@@ -1647,4 +1647,11 @@ class UserController extends BaseController {
 		return View::make('users.mychannels.accountsettings.earnings-settings');
 	}
 
+	public function getDeactivate(){
+		if(Auth::check()){
+			return View::make('users.mychannels.accountsettings.deactivate');
+		}
+		return View::make('homes.signin');
+	}
+
 }

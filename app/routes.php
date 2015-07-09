@@ -141,6 +141,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
 	Route::post('upload-image', array('as' => 'users.upload.image', 'uses' => 'UserController@postUploadUsersProfilePicture'));
 	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
+	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
 });
 //*********End of Channels************//
 
@@ -213,7 +214,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
 	Route::get('edit-partners', array('as' => 'edit.partners', 'uses' => 'PartnerController@getEditPartner'));
-	Route::get('deacitvate-partners', array('as' => 'deactivate.partners', 'uses' => 'PartnerController@getDeactivatePartner'));
+	Route::get('deactivate-partners', array('as' => 'deactivate.partners', 'uses' => 'PartnerController@getDeactivatePartner'));
 });
 
 //**********publishers**********//
