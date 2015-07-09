@@ -241,6 +241,7 @@ class HomeController extends BaseController {
 		if(isset(Auth::User()->id)) {
 			$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id,'subscriber_id' => Auth::User()->id))->first();
 		}
+		$report_url = $this->getURL();
 		//////////////////////r3mmel////////////////////////////
 
 		$datas = $this->User->getTopChannels(4);
@@ -264,7 +265,7 @@ class HomeController extends BaseController {
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation','adsense'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url', 'adsense'
 			)
 		);
 	}
@@ -688,6 +689,24 @@ class HomeController extends BaseController {
 		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
 	}
 
+	public function addReport() {
+		$reported_id = Crypt::decrypt(Input::get('reported_id'));
+		$user_id = Crypt::decrypt(Input::get('user_id'));
+		$reasons = Input::get('reasons');
+		$comment = Input::get('comment');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty($reply)){
+			$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			$userInfo = User::find($user_id);
+		}
+	}
 
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');
@@ -698,10 +717,6 @@ class HomeController extends BaseController {
 		$convert_time = date("d-m-Y H:i:s", strtotime($inputs['current_time']));
 		$time = date('F d, Y', strtotime($convert_time. '+'. $inputs['users_GMT'].' hours'));
 		return $time;
-	}
-
-	public function error(){
-		return View::make('errors.maintenance');
 	}
 
 	public function testingpage(){ 

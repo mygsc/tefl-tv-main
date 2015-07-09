@@ -51,6 +51,10 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('adddislikedreply', array('as' => 'post.addliked', 'uses' => 'HomeController@addDisLikedReply'));
 	Route::post('deletecomment', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteComment'));
 	Route::post('deletereply', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteReply'));
+	Route::post('addreport', array('as' => 'post.addreport', 'uses' => 'HomeController@addReport'));
+	
+	Route::any('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'ReportController@getComplaintForm'));
+	Route::post('addcomplaint', array('as' => 'post.addreport', 'uses' => 'ReportController@addComplaint'));
 	//r3mmel
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
@@ -181,6 +185,10 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
 	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
+	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReports'));
+	Route::get('reports/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortreports', 'uses' => 'AdminController@getSortReports'));
+	Route::post('deletereports/{id}', array('as' => 'post.admin.deletereports', 'uses' => 'AdminController@postDeleteReport'));
+	Route::get('viewreports/{id}', array('as' => 'get.admin.viewreports', 'uses' => 'AdminController@viewReports'));
 });
 //**********ADMIN**********//
 

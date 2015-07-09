@@ -29,6 +29,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 {{HTML::script('js/homes/comment.js')}}
+{{HTML::script('js/report.js')}}
 
 <script type="text/javascript">
     document.getElementById('advertisement').style.display = 'none';
@@ -61,7 +62,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
  <script src="https://apis.google.com/js/platform.js" async defer></script> 
 @stop
 @section('content')
-
 <div class="row">
 <div class="container ">
     <div class="">
@@ -74,8 +74,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div>
+                                <div class="col-md-12"><div>
                                     <br/>
                                         <div class="row">
                                             <div class="col-md-9 col-sm-9 col-xs-8">
@@ -190,6 +189,16 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         <input  type="text" id='code-embed' class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
                                                     </p>
                                                 </div>
+                                            
+                                            <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
+                                            
+                                            {{Form::open(array('route' => array('get.complaint_form')))}}&nbsp;
+                                                {{Form::hidden('report_url',$report_url)}}
+                                                <span title="Report This Video">
+                                                    <i class='fa fa-flag'></i>&nbsp;&nbsp;
+                                                    <input value="Report" type="submit" class='reportLink'>
+                                                </span>
+                                            {{Form::close()}}
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
@@ -302,7 +311,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         </div><!--/.info-->
                     </div><!--well-->
                 </div> <!--/.ui-tabs-panel-->
-        
+                
                 <!-- COMMENTS AREA -->
                 <div class="mg-t-10">
                     
