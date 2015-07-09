@@ -26,6 +26,7 @@
 			<div>
 				<h1 class="tblue mg-b-20 mg-t-20">Latest Videos</h1>
 				@foreach($latestVideos as $latestVideo)
+
 				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
 					<div class="p-relative">
 						<span class="v-time inline">{{$latestVideo->total_time}}</span>

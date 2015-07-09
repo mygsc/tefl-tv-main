@@ -1,6 +1,18 @@
 <?php
 
 class AdminController extends BaseController {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments, Country $countries, Report $reports) {
+		$this->User = $user;
+		$this->Video = $video;
+		$this->Notification = $notification;
+		$this->Auth = Auth::User();
+		$this->Subscribe = $subscribes;
+		$this->Playlist = $playlists;
+		$this->Comment = $comments;
+		$this->Country = $countries;
+		$this->Report = $reports;
+	}
+
 	public function getIndex() {
 		if(isset(Auth::User()->role)){
 			if(Auth::User()->role == 2) return View::make('admins.index');
@@ -134,5 +146,50 @@ class AdminController extends BaseController {
 		$user->delete();
 
 		return Redirect::route('get.admin.users')->withFlashGood('Successfully deleted the user.');
+	}
+	public function getReports(){
+		$reports = $this->Report->select(
+			'reports.id',
+			'case_number',
+			'complainant_id',
+			'user_id',
+			DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
+			DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
+			DB::raw('(SELECT vid.title from videos vid where vid.id = reports.video_id) as video_title'),
+			DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = reports.video_id) as video_url'),
+			'copyrighted_description',
+			'legal_name',
+			'authority_position',
+			'signature',
+			'reports.deleted_at',
+			'reports.updated_at')
+		->where('reports.deleted_at','=','')
+		->orderBy('reports.updated_at')
+		->get();
+		return View::make('admins.reports', compact('reports'));
+	}
+	public function getSortReports($sort = NULL){
+		if(!isset($sort)) $sort = 'all';
+		$reports = $this->Report->getReports($sort);
+		if(!$reports) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
+		return View::make('admins.reports', compact('reports'));
+	}
+
+	public function postDeleteReport($id){
+		$id = Crypt::decrypt($id);
+		$report = Report::find($id);
+		$report->deleted_at = date('Y-m-d H:i:s');
+		$report->save();
+
+		return Redirect::route('get.admin.reports')->withFlashGood('Successfully deleted the report.');
+	}
+	
+	public function viewReports($id){
+		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
+		
+		$report = DB::table('reports')->where('id', $id)->first();
+		if(!isset($report->id)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
+
+		return View::make('admins.viewreports', compact('report'));
 	}
 }

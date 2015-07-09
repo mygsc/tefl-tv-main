@@ -85,14 +85,7 @@
   ga('send', 'pageview');
 
 </script>
-<script type="text/javascript">
-	var contentHeight = jQuery('.content').height();
-	var sidebarHeight = jQuery('.sidebar').height();
-	if (contentHeight > sidebarHeight) {
-	jQuery('.sidebar').height(contentHeight);
-	jQuery(".sidebar .enews-widget").stick_in_parent();
-	}
-</script>
+
 
 
 

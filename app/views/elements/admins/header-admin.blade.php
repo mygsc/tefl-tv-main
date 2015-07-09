@@ -43,15 +43,16 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                                <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Admin Setting  <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => '')) }}</li>
-                                    <li>{{ link_to_route('get.admin.resetpassword', 'Reset Password', null, array('class' => '')) }}</li>
-                                    <li>{{ link_to_route('get.admin.createadminlink', 'Admin Registration Code', null, array('class' => '')) }}</li>
-                                </ul>
+                            <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Admin Setting  <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>{{ link_to_route('get.admin.changepassword', 'Change Password', null, array('class' => '')) }}</li>
+                                <li>{{ link_to_route('get.admin.resetpassword', 'Reset Password', null, array('class' => '')) }}</li>
+                                <li>{{ link_to_route('get.admin.createadminlink', 'Admin Registration Code', null, array('class' => '')) }}</li>
+                            </ul>
                         </li>
+                        <li>{{ link_to_route('get.admin.reports', 'Reports', null, array('class' => '')) }}</li>
                         <li class="pull-right">{{ link_to_route('admin.logout', 'Logout', null, array('class' => '')) }}</li>
                        
                         
