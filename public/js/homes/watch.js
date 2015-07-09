@@ -388,4 +388,27 @@ $('#embed-own-ads').click(function(e){
 	$('#embed-pub').toggle();
 	document.getElementById('embed-pub').focus();
 });
+$('button[name=ads-proceed]').click(function(){
+	$('.video-spinner').remove();
+	var loader = document.createElement('div');
+	loader.className = 'video-spinner';
+	$('.pub-ads').append(loader);
+	setTimeout(function(){
+		adsResponse('Your ads was successfully inserted.');
+		$('.pub-ads').slideToggle(5000);
+	},5000);
+});
+
+function adsResponse(status){
+	var resDiv = document.createElement('div'),
+		msg = document.createTextNode(status);
+	resDiv.setAttribute('style','outline:1px solid #fc8b02;position:absolute;top:0;bottom:0;right:0;left:0;margin:auto;text-align:center;height:30px;width:300px;padding:5px;background:#f1f1f1;color:#fc8b02;');
+	resDiv.className = 'ads-response';
+	resDiv.appendChild(msg);
+	$('.pub-ads').append(resDiv);
+	$('.video-spinner').remove();
+	setTimeout(function(){
+		$('.ads-response').remove();
+	},4000);
+}
 

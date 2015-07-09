@@ -3484,7 +3484,6 @@ body {
     display: none;
 }
 
-
 .showhim:hover .showme{
  display : table-cell;
   text-align: center;

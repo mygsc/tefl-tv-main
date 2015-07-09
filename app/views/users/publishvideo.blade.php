@@ -29,6 +29,8 @@
 							<source id="webm" src="/videos/{{$vidOwner->id.'-'.$vidOwner->channel_name}}/{{$get->file_name.'/'.$get->file_name}}.webm" type="video/webm">
 						</video> 
 					</div>
+					{{Form::hidden('duration', $duration, ['id'=>'duration'])}}
+					{{Form::hidden('autoplay',$autoplay,['id'=>'autoplay'])}}
 					@include('ads.publisher')
 					@include('elements/videoPlayer') 
 				</div>
@@ -39,4 +41,7 @@
 	{{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
 	{{HTML::script('js/video-player/fullscreen.min.js')}}
+	<script>
+		document.getElementById('advertisement').style.display = 'none';
+	</script>
 </html>

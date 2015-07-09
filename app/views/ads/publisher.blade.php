@@ -17,6 +17,5 @@
             data-ad-slot="{{$adsense['adSlotID']}}"
             data-ad-format="auto"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            {{Form::hidden('autoplay',$autoplay,['id'=>'autoplay'])}}
         </div>
     </div>

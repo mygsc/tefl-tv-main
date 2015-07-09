@@ -26,7 +26,7 @@
                             <h2 class="orangeC inline">Publishers Settings</h2>
                         @endif
                         @if(Auth::User()->role == '3' || Auth::User()->role == '5')
-                            <a href="{{route('edit.partners')}}"> | Partners Settings</a>
+                            <a href="{{route('edit.partners')}}"> &nbsp; | &nbsp; Partners Settings</a>
                         @endif
                         <hr/>
                         <div class="mg-t-20">
