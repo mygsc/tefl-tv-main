@@ -213,6 +213,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
 	Route::get('edit-partners', array('as' => 'edit.partners', 'uses' => 'PartnerController@getEditPartner'));
+	Route::get('deacitvate-partners', array('as' => 'deactivate.partners', 'uses' => 'PartnerController@getDeactivatePartner'));
 });
 
 //**********publishers**********//
@@ -228,6 +229,7 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
 	Route::get('edit-publisher', array('as' => 'edit.publishers', 'uses' => 'PublisherController@getEditPublisher'));
+	Route::get('deactivate-publishers', array('as' => 'deactivate.publishers', 'uses' => 'PublisherController@getDeactivatePublisher'));
 });
 
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));
