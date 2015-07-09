@@ -6,12 +6,15 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="row">
         <div class="container">
-        <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center mg-t-20" role="tablist">
-            <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
-            <li role="presentation" class="active">{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
-            <li role="presentation">{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
-            <li role="presentation">{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
-        </ul><!--tabNav-->
+            <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center" role="tablist">
+                <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
+                <li role="presentation" class="active">{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
+                <li role="presentation" >{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
+                <li role="presentation" >{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+                @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+                <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
+                @endif
+            </ul><!--tabNav-->
         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}
             <div class="col-md-12 top-div_t mg-t-20">
                 <h3 class="whiteC text-center">-Interests-</h3>

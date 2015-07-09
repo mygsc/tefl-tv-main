@@ -98,7 +98,9 @@
 											<div class="count">
 												by: <a href="{{route('view.users.channel', array($recommended->channel_name))}}">{{$recommended->channel_name}}</a>
 										<br />
+
 										{{number_format($recommended->views,0,null,',')}} Views <!--| <i class="fa fa-thumbs-up"></i> {{$recommended->likes}}--> | {{date('F d, Y',strtotime($recommended->created_at))}}
+
 									
 								</div>
 							</div>
@@ -137,7 +139,9 @@
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($popular->channel_name))}}">{{$popular->channel_name}}</a>
 								<br />
+
 								{{number_format($popular->views,0,null,',')}} Views <!--| <i class="fa fa-thumbs-up"></i> {{$popular->likes}}--> | {{date('F d, Y',strtotime($popular->created_at))}}
+
 					
 						</div>
 					</div>
@@ -176,7 +180,9 @@
 						<div class="count">
 							by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
 								<br />
+
 								{{number_format($latest->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
+
 						</div>
 					</div>
 				</a>

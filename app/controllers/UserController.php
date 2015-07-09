@@ -3,6 +3,7 @@
 class UserController extends BaseController {
 	protected $video_;
 	protected $comment_;
+	protected $publisher_;
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -30,6 +31,7 @@ class UserController extends BaseController {
 		$this->Hybrid_Auth = $hybridauth;	
 		$this->video_ = new Video;
 		$this->comment_ = new Comment;
+		$this->publisher_ = new Publisher;
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -1632,14 +1634,25 @@ class UserController extends BaseController {
 		}
 		return Redirect::route('users.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
-	public function getPublishVideo($filename){
-		$vidFilename = Video::where('file_name','=',$filename);
-		if($vidFilename->count()){
-			$vidFilename = $vidFilename->first();
-			$vidOwner = User::find($vidFilename->user_id);
-			return View::make('users.publishvideo', compact('vidFilename','vidOwner'));
+	public function getPublishVideo($id, $filename, $autoplay=0){
+		$get = Video::where('file_name','=',$filename);
+
+		if($get->count()){
+			$get = $get->first();
+			$vidOwner = User::find($get->user_id);
+			$id = Crypt::decrypt($id);
+			$adsense = $this->publisher_->getAdsenseID($id);
+			return View::make('users.publishvideo', compact('id','get','vidOwner','adsense','autoplay'));
 		}
 		return app::abort(404, 'Page not available.');
+	}
+
+	public function getEarningsSettings(){
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
+		}
+
+		return View::make('users.mychannels.accountsettings.earnings-settings');
 	}
 
 }

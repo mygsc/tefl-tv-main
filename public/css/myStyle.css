@@ -1,5 +1,8 @@
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 785ab62ab7bd36eeca0d4b664c97cd79ab449cfe
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -3473,6 +3476,15 @@ body {
  .btn-xs{
     padding: 4px 6px!important;
  }
+<<<<<<< HEAD
+=======
+ .pub-ads{
+    padding:5px;
+    margin-top: 5px;
+    display: none;
+}
+
+>>>>>>> 785ab62ab7bd36eeca0d4b664c97cd79ab449cfe
 
 .showhim:hover .showme{
  display : table-cell;
@@ -3504,6 +3516,10 @@ body {
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
  }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 785ab62ab7bd36eeca0d4b664c97cd79ab449cfe
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/
@@ -3511,4 +3527,7 @@ body {
 /*===== FRONT END DEVELOPER / WEB DESIGNER and GRAPHICS PROVIDER :: PRiNCESS A. REBAULA ===*/
 /*=========== note:some of the codes are copied in open source stylesheets ================*/
 /*=================================-----------------------=================================*/
+<<<<<<< HEAD
 
+=======
+>>>>>>> 785ab62ab7bd36eeca0d4b664c97cd79ab449cfe

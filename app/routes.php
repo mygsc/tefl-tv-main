@@ -136,6 +136,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('social/{action?}', array('as' => 'hybridauth', 'uses' => 'UserController@social'));
 	Route::get('logout/{action?}', array('as' => 'logoutHybridauth', 'uses' => 'UserController@logoutSocial'));
 	Route::post('upload-image', array('as' => 'users.upload.image', 'uses' => 'UserController@postUploadUsersProfilePicture'));
+	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
 });
 //*********End of Channels************//
 
@@ -185,6 +186,7 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 
 //Route::get('watch', array('as'=>'video.player', 'uses'=>'VideoController@getViewVideoPlayer'));
 Route::get('embed/{id}', array('as'=>'embed.video', 'uses'=>'VideoController@getEmbedVideo'));
+Route::get('publish-video/{id}/{filename}', array('as'=>'publish.video', 'uses'=>'UserController@getPublishVideo'));
 Route::get('testingpage', array('as'=>'testing', 'uses'=>'HomeController@testingpage'));
 Route::get('convert-video/{filename?}/{ext?}', array('as'=>'convert.video', 'uses'=>'VideoController@getconvertVideo'));
 Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'HomeController@postincrementView']);
@@ -202,6 +204,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
+	Route::get('edit-partners', array('as' => 'edit.partners', 'uses' => 'PartnerController@getEditPartner'));
 });
 
 //**********publishers**********//
@@ -216,6 +219,7 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('success', array('before' => 'publishers.success', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));
 	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
+	Route::get('edit-publisher', array('as' => 'edit.publishers', 'uses' => 'PublisherController@getEditPublisher'));
 });
 
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));
