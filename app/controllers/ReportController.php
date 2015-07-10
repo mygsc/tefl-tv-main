@@ -26,8 +26,10 @@ class ReportController extends BaseController {
 	}
 
 	public function addComplaint() {
+		$input = Input::all();
 		$complainant_id = Crypt::decrypt(Input::get('complainant_id'));
 		$country_id = Input::get('country_id');
+		$issue = Input::get('issue');
 		$copyrighted_video_url = Input::get('copyrighted_video_url');
 		$copyrighted_description = Input::get('copyrighted_description');
 		$copyrighted_additional_info = Input::get('copyrighted_additional_info');
@@ -65,7 +67,7 @@ class ReportController extends BaseController {
 		}
 
 		Report::create(array('case_number'=> $case_number, 'complainant_id'=>$complainant_id, 
-			'user_id'=>$reported_video->user_id, 'country_id'=> $country_id,
+			'user_id'=>$reported_video->user_id, 'country_id'=> $country_id, 'issue' => $issue,
 		 	'video_id'=>$reported_video->id,'copyrighted_description' => $copyrighted_description,
 		 	'copyrighted_additional_info' => $copyrighted_additional_info, 'legal_name'=> $legal_name,
 			'authority_position'=>$authority_position, 'contact_number'=> $contact_number,
@@ -75,7 +77,7 @@ class ReportController extends BaseController {
 
 		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number);
 		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number);
-
+		
 		Mail::send('emails.reports.complainant_report', $data1, function($message) {
 			$message->to($reported_info->email)->subject('Complaint Email');
 		});
