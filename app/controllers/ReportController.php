@@ -86,11 +86,11 @@ class ReportController extends BaseController {
 		$uploader_email = $uploader_info->email;
 		$uploader_channel = $uploader_info->channel_name;
 
-		Mail::send('emails.reports.complainant_report', $data1, function($message) use($complainant_email, complainant_channel) {
-			$message->to($complainant_email, $complainant_channel)->subject('Complaint Email');
+		Mail::send('emails.reports.complainant_report', $data1, function($message) {
+			$message->to($complainant_email)->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message) use($uploader_email, uploader_channel) {
-			$message->to($uploader_email, $uploader_channel)->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message){
+			$message->to($uploader_email)->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
