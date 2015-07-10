@@ -1,27 +1,25 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="container">
-		<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
-			<div class="col-md-3 hidden-xs hidden-sm">
-
-				<div class="mg-r-10 row">
+<div class="container">
+	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
+		<div class="row-sam-height">
+			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top">
+				<div class="mg-r-10 row"  data-sticky_column="">
 					@include('elements/home/categories')
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
-					<div data-sticky_column="">
-						<div class="mg-t-10">
-							@include('elements/home/carouselAds')
-						</div>
-						<div class="mg-t-10">
-							@include('elements/home/adverstisementSmall')
+					<div class="mg-t-10">
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
 
-						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 White mg-t-10 same-H">
+			<div class="col-md-9 White mg-t-10 same-H col-md-height col-top">
 				<br/>
 				<div class="content-padding">
 				<h1>COPYRIGHT</h1>
@@ -106,6 +104,7 @@
 
 				</div>
 			</div><!--/.col-md-9 left section, writeUps-->
+		</div>
 	</div><!--/.container page-->
 </div>
 @stop

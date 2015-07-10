@@ -208,6 +208,7 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
 	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
+	Route::get('termsandconditions', array('as' => 'partners.termsandconditions', 'uses' => 'PartnerController@getTermsAndConditions'));
 	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
 	Route::post('register-adsense', array('as' => 'post.partners.register-adsense', 'uses' => 'PartnerController@postRegisterAdsense'));
 	Route::get('success', array('before' => 'partners.success', 'as' => 'partners.success', 'uses' => 'PartnerController@getSuccess'));
@@ -224,6 +225,7 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
 	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
 	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
+	Route::get('termsandconditions', array('as' => 'publishers.termsandconditions', 'uses' => 'PublisherController@getTermsAndConditions'));
 	Route::get('register-adsense', array('as' => 'publishers.register-adsense', 'uses' => 'PublisherController@getRegisterAdsense'));
 	Route::post('register-adsense', array('as' => 'post.publishers.register-adsense', 'uses' => 'PublisherController@postRegisterAdsense'));
 	Route::get('success', array('before' => 'publishers.success', 'as' => 'publishers.success', 'uses' => 'PublisherController@getSuccess'));

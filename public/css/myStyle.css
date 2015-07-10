@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -516,7 +515,12 @@ img.logo-sm {
     text-align: right;
     padding: 0 10px 20px 10px;
 }
-
+.btn-partner{
+    background: #4165AA;
+}
+.btn-publisher{
+    background: #ff6e40;
+}
 .brandingName {
     font-size: 6.4em;
 }
@@ -1002,19 +1006,12 @@ center;     margin: 0 auto; }
 .blueBg{
      background: #4D6080!important;
 }
-/*.top-div{
-     background: #4B5B7C!important;
-     width: 100%;
-     padding: 3px 5px;
-     color: #fff!important;
-     margin-bottom: 20px;
-}*/
 .top-div{
      background: #4B5B7C!important;
      width: 100%;
      padding: 5px 5px;
      color: #fff!important;
-     margin-bottom: 20px;
+
 }
 .top-div_t{
      background: #4B5B7C!important;
@@ -1543,13 +1540,12 @@ span.commentLink {
 }
 
 .signDivH {
-    background: #E0E0E0;
-    padding: 20px 20px;
-    min-height: 520px;
-    max-height: auto;'
+    /* background: #E0E0E0; */
+    padding: 0 20px;
+    height: auto;
     padding: 19px;
     margin-bottom: 20px;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
     border: 1px solid #e3e3e3;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
@@ -2162,7 +2158,6 @@ div.crop-square img {
 
 .thumbnail-2 {
     margin-bottom: 20px;
-    margin-top: 10px;
     line-height: 1.42857143;
     background-color: #cecece;
     border: 1px solid #cecece;
@@ -2523,9 +2518,7 @@ body {
 .pad-10{
     padding: 20px 20px!important;
 }
-.pad-b-20{
-	padding-bottom:20px!important;
-}
+
 .div-search {
     background: #eee;
     padding: 3px 3px;
@@ -2597,9 +2590,11 @@ td.w-75per {
 .mg-r-30 {
     margin-right: 30px;
 }
-
+.mg-t--30{
+    margin-top: -30px!important;
+}
 .mg-t-10 {
-    margin-top: 10px;
+    margin-top: 10px!important;
 }
 .mg-t--10 {
     margin-top: -10px;
@@ -3086,7 +3081,6 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
-  
 }
 
 #featured li.ui-tabs-nav-item a > span {
@@ -3485,7 +3479,7 @@ body {
     padding: 4px 6px!important;
  }
 
- .pub-ads{
+.pub-ads{
     padding:5px;
     margin-top: 5px;
     display: none;
@@ -3560,6 +3554,14 @@ body {
 	font-size:14px;
 	font-weight:bold;
 }
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: #d1dff9!important;
+  background-image: none;
+  color: rgb(0, 0, 0);
+}
+
+
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/
