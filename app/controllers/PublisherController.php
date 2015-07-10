@@ -24,6 +24,10 @@ class PublisherController extends Controller {
 		return View::make('publishers.privacy');
 	}
 
+	public function getTermsAndConditions(){
+		return View::make('publishers.termsandconditions');
+	}
+
 	public function getSupport(){
 		return View::make('publishers.support');
 	}
