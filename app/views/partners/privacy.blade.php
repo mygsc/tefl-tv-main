@@ -118,18 +118,16 @@
     						</li>
     						<br/>
     						<hr/>
-    						<h3>Start earning money. <a href="">Become a Partner Now!</a></h3>
+    						<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
     				</div>
     			</div>
     		</div>
     	</div>
-			<div class="col-md-4">
-                <div class="sidebar" data-sticky_column="">
-				    @include('elements/partners/video')
-                </div>
-				<br/>
-				@include('elements/partners/support')
-			</div>
+		<div class="col-md-4">
+			@include('elements/partners/video')
+			<br/>
+			@include('elements/partners/support')
+	
 		</div>
 	</div>
 @stop

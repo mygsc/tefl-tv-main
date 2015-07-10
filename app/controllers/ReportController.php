@@ -26,8 +26,10 @@ class ReportController extends BaseController {
 	}
 
 	public function addComplaint() {
+		$input = Input::all();
 		$complainant_id = Crypt::decrypt(Input::get('complainant_id'));
 		$country_id = Input::get('country_id');
+		$issue = Input::get('issue');
 		$copyrighted_video_url = Input::get('copyrighted_video_url');
 		$copyrighted_description = Input::get('copyrighted_description');
 		$copyrighted_additional_info = Input::get('copyrighted_additional_info');
@@ -50,6 +52,8 @@ class ReportController extends BaseController {
 		$reported_info = User::find($complainant_id);
 		$reported_video = Video::where('file_name',$copyrighted_video_url)->first();
 
+		$uploader_info = User::find($reported_video->user_id);
+
 		$ifVideoIsExisting = Video::where('file_name',$copyrighted_video_url)->count();
 		if($ifVideoIsExisting == 0){
 			return Redirect::route('get.complaint_form')->withFlashBad('Invalid video url. Please try again.')->withInput();
@@ -65,7 +69,7 @@ class ReportController extends BaseController {
 		}
 
 		Report::create(array('case_number'=> $case_number, 'complainant_id'=>$complainant_id, 
-			'user_id'=>$reported_video->user_id, 'country_id'=> $country_id,
+			'user_id'=>$reported_video->user_id, 'country_id'=> $country_id, 'issue' => $issue,
 		 	'video_id'=>$reported_video->id,'copyrighted_description' => $copyrighted_description,
 		 	'copyrighted_additional_info' => $copyrighted_additional_info, 'legal_name'=> $legal_name,
 			'authority_position'=>$authority_position, 'contact_number'=> $contact_number,
@@ -73,14 +77,17 @@ class ReportController extends BaseController {
 			'city'=>$city, 'state_province'=> $state_province,'zip_postal'=>$zip_postal, 'signature'=> $signature
 		));
 
-		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number);
-		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number);
+		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number, 'complainant_email' =>  $reported_info->email);
+		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number, 'uploader_email' =>  $uploader_info->email);
 
-		Mail::send('emails.reports.complainant_report', $data1, function($message) {
-			$message->to($reported_info->email)->subject('Complaint Email');
+		$complainant_channel = $reported_info->channel_name;
+		$uploader_channel = $uploader_info->channel_name;
+
+		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($data1) {
+			$message1->to($data1['complainant_emails'])->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message) {
-			$message->to($reported_info->email)->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message2){
+			$message2->to($data1['uploader_email'])->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');

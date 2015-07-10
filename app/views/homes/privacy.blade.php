@@ -2,16 +2,17 @@
 
 @section('content')
 <div class="container">
-
 	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
+		<div class="row-sam-height">
 		<div class="col-md-3 col-md-height col-top hidden-xs hidden-sm ">
 			<div class="mg-r-10 row mg-t--10">
+				<div data-sticky_column="">
 				@include('elements/home/categories')
 				<div>
 					@include('elements/home/adverstisement_half_large_recatangle')
 				</div>
 
-				<div data-sticky_column="">
+				
 					<div class="mg-t-10">
 						@include('elements/home/carouselAds')
 					</div>
@@ -121,6 +122,7 @@
 				</p>
 			</div>
 		</div><!--/.col-md-9 left section, writeUps-->
+		</div>
 	</div><!--/.container page-->
 </div>
 	@stop
