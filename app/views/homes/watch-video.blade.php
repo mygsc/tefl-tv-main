@@ -169,7 +169,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                        <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
                                                          <div class='pub-ads'>
                                                             <h4>Your Ads Preview</h4>
-                                                             <p>Click proceed to place your own ads to this video.</p>
+                                                             <!-- <p>Click proceed to place your own ads to this video.</p> -->
                                                                 <hr>
                                                                      @include('ads/adspreview')
                                                                 <hr>
@@ -179,7 +179,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                </p>
                                                                 </div>
                                                                 <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
-                                                                <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button>
+                                                                <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
                                                          </div>
                                                          
                                                     @endif

@@ -816,6 +816,10 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		if(Auth::User()->id == $userChannel->id){
+			return Redirect::route('users.feedbacks');
+		}
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 		//return $userFeedbacks;
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1641,6 +1645,13 @@ class UserController extends BaseController {
 		}
 
 		return View::make('users.mychannels.accountsettings.earnings-settings');
+	}
+
+	public function getDeactivate(){
+		if(Auth::check()){
+			return View::make('users.mychannels.accountsettings.deactivate');
+		}
+		return View::make('homes.signin');
 	}
 
 }
