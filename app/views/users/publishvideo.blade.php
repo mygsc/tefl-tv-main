@@ -16,7 +16,7 @@
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::style('css/publisher.css')}}
 	{{HTML::style('css/myStyle.css')}}
-	{{HTML::style('css/bootstrap.css') }}
+	{{HTML::style('css/bootstrap.css')}}
 </head>
 <body>
 	<div class="row">

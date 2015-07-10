@@ -2,7 +2,7 @@
 
 @section('script')
 {{HTML::script('js/video-player/jquery.form.min.js')}}
-{{HTML::script('js/video-player/media.player.min.js')}}
+{{--HTML::script('js/video-player/media.player.min.js')--}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/user/modalclearing.js')}}
