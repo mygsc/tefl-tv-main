@@ -70,12 +70,12 @@
 							<p><b>Title :</b> {{str_limit($video->title,20)}}</p>
 							<p><b>Date and Time Uploaded:</b> {{ date("F d, Y H:i a",strtotime($video->created_at)) }}</p>
 							<p><b>Video URL</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
-							<p><b>Duration :</b> {{$video->total_time}}</p>
+							<p><b>Duration :</b> <span class="label label-primary">{{$video->total_time}}</span></p>
 							<p><b>Raw File :</b> {{$video->extension}}</p>
-							<p><b>Likes :</b> {{$countCommentAndLikes['likes']}}</p>
-							<p><b>Dislikes :</b> {{$countCommentAndLikes['dislikes']}}</p>
-							<p><b>Comments :</b> {{$countCommentAndLikes['comment']}}</p>
-							<p><b>Views :</b> {{$video->views}}</p>
+							<p><b>Likes :</b> <span class="label label-primary">{{$countCommentAndLikes['likes']}}</span></p>
+							<p><b>Dislikes :</b> <span class="label label-primary">{{$countCommentAndLikes['dislikes']}}</span></p>
+							<p><b>Comments :</b> <span class="label label-primary">{{$countCommentAndLikes['comment']}}</span></p>
+							<p><b>Views :</b> <span class="label label-primary">{{$video->views}}</span></p>
 	
 						</div>
 						<br/>

@@ -12,14 +12,25 @@ class CreateReportsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('annotations', function(Blueprint $table)
+		Schema::create('reports', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->bigInteger('reporter_id');
-			$table->bigInteger('owner_id');
-			$table->char('report_type', 100);
-			$table->longText('reasons');
-			$table->longText('comment');
+			$table->char('case_number', 100);
+			$table->bigInteger('complainant_id');
+			$table->bigInteger('user_id');
+			$table->bigInteger('video_id');
+			$table->bigInteger('country_id');
+			$table->longText('issue');
+			$table->longText('copyrighted_description');
+			$table->longText('copyrighted_additional_info');
+			$table->char('legal_name', 255);
+			$table->char('authority_position', 255);
+			$table->char('contact_number', 255);
+			$table->char('fax', 255);
+			$table->longText('street_address');
+			$table->char('city', 150);
+			$table->char('state_province', 150);
+			$table->char('signature', 150);
 			$table->softDeletes();
 			$table->timestamps();
 		});
@@ -32,10 +43,6 @@ class CreateReportsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('users', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::drop('reports');
 	}
-
 }
