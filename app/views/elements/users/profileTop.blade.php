@@ -102,15 +102,6 @@
 	</div>
 </div>
 
-
-
-@section('script')
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/modalclearing.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
-{{HTML::script('js/video-player/jquery.form.min.js')}}
-@stop
-
 @section('modal')
 <div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">

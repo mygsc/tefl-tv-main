@@ -3,8 +3,8 @@
 		<div class="triangle-icon"></div>
 	</div>
 
-	<div class="load-video" id="loader">
-		<div class="spinner2" id='spinner'>
+	<div class="video-spinner" id="loader">
+		<!--  <div class="spinner2" id='spinner'>
 			<div class="spinner2-containerb containerb1">
 				<div class="circle1"></div>
 				<div class="circle2"></div>
@@ -23,8 +23,9 @@
 				<div class="circle3"></div>
 				<div class="circle4"></div>
 			</div>
-		</div>
+		</div> --> 
 	</div>
+
 	<div class="error-video" id="error-video">
 		<small>
 			Video not available this time please try later. <a href="#" id="retry-error">Retry.</a> 

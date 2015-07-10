@@ -85,4 +85,12 @@ class PartnerController extends Controller {
 		return Redirect::route('partners.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
 
+	public function getEditPartner(){
+		return View::make('partners.edit-partners');
+	}
+
+	public function getDeactivatePartner(){
+		return View::make('partners.deactivate');
+	}
+
 }

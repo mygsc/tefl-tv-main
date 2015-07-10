@@ -33,17 +33,15 @@
 		@include('elements.flash_message')
 		@yield('content')
 	</div>
+	<div class="footer-s">
 	@include('elements/footer')
+	</div>
 
 </body>
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-
-
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{HTML::script('js/jquery.sticky-kit.min.js')}}
 {{HTML::script('js/sticky.js')}}
@@ -89,16 +87,16 @@
   ga('send', 'pageview');
 
 </script>
+
+
 <script type="text/javascript">
 	var contentHeight = jQuery('.content').height();
 	var sidebarHeight = jQuery('.sidebar').height();
 	if (contentHeight > sidebarHeight) {
 	jQuery('.sidebar').height(contentHeight);
-	jQuery(".sidebar .enews-widget").stick_in_parent();
+	jQuery(".sidebar .footer_s").stick_in_parent();
 	}
 </script>
-
-
 
 
 

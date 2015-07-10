@@ -1,40 +1,6 @@
 
 <div class="panel-group ctgryDiv mg-t-10" id="accordion" role="tablist" aria-multiselectable="true">
  @if(Auth::check())
- @if(Auth::User()->role == '3' || Auth::User()->role == '5')
- <div class="panel panel-info same-H ">
-  <div class="panel-heading" role="tab" id="headingTwo">
-    <p class="panel-title whiteC">
-      <a href="">
-        <i class="fa fa-user"></i> Partners
-      </a>
-    </p>
-  </div>
-  
-  <div id="partners" >
-    <div class="panel-body">
-      <li role="presentation">{{link_to_route('homes.index', 'Settings')}}</li>
-    </div>
-  </div>
-</div>
-@endif
- @if(Auth::User()->role == '4' || Auth::User()->role == '5')
- <div class="panel panel-info same-H ">
-  <div class="panel-heading" role="tab" id="headingTwo">
-    <p class="panel-title whiteC">
-      <a href="">
-        <i class="fa fa-user"></i> Publisher
-      </a>
-    </p>
-  </div>
-  
-  <div id="publishers" >
-    <div class="panel-body">
-      <li role="presentation">{{link_to_route('homes.index', 'Settings')}}</li>
-    </div>
-  </div>
-</div>
-@endif
 <div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingTwo">
     <p class="panel-title whiteC">
@@ -53,7 +19,9 @@
       <li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
       <li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
       <li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-
+      @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+      <li role="presentation">{{link_to_route('users.earnings.settings', 'Earnings Settings')}}</li>
+      @endif
     </div>
   </div>
 </div>

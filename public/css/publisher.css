@@ -268,3 +268,48 @@ body {
   bottom:0;
   left:0;
 }
+
+/*****
+** ADS css
+*****/
+
+    .ads-absolute-wrapper{
+        position:absolute;
+        width:100%;
+        height:60px;
+        left: 0;
+        right: 0;
+        display: block;
+        bottom:0;
+        margin:auto;
+        background: transparent;
+    }
+    .ads-relative-wrapper{
+        max-height:90px!important;
+        overflow:hidden;
+        position:relative;
+        padding:0 10px;
+        max-width: 720px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    span.close-ads{
+        cursor: pointer;
+        background: rgba(0,0,0,0.6);
+        /*border: 1px solid #fff;*/
+        padding: 2px 3px;
+        width:auto;
+        margin:0 auto;
+        font-size: 10px;
+        height: 18px;
+        /*border-radius: 5px 5px 0 0 ;*/
+        color: #fff;
+        position: absolute;
+       /* right: 85px;
+        top:1px;*/
+        right: 0;
+        z-index: 1111;
+    }
+     span.close-ads:hover{
+        border: 1px solid #fff;
+    }

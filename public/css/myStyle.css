@@ -1,4 +1,5 @@
 
+
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -3484,6 +3485,12 @@ body {
     padding: 4px 6px!important;
  }
 
+ .pub-ads{
+    padding:5px;
+    margin-top: 5px;
+    display: none;
+}
+
 .showhim:hover .showme{
  display : block;
   text-align: center;
@@ -3560,3 +3567,4 @@ body {
 /*===== FRONT END DEVELOPER / WEB DESIGNER and GRAPHICS PROVIDER :: PRiNCESS A. REBAULA ===*/
 /*=========== note:some of the codes are copied in open source stylesheets ================*/
 /*=================================-----------------------=================================*/
+

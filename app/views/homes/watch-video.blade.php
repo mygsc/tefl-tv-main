@@ -17,7 +17,7 @@
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
 @stop
 @section('css')
-{{HTML::style('css/vid.player.min.css')}}
+    {{HTML::style('css/vid.player.min.css')}}
 @stop
 
 {{-- */$videourl = 1;/* --}}
@@ -29,6 +29,7 @@
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 {{HTML::script('js/homes/comment.js')}}
+{{HTML::script('js/report.js')}}
 
 <script type="text/javascript">
     document.getElementById('advertisement').style.display = 'none';
@@ -61,7 +62,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
  <script src="https://apis.google.com/js/platform.js" async defer></script> 
 @stop
 @section('content')
-
 <div class="row">
 <div class="container ">
     <div class="">
@@ -74,8 +74,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div>
+                                <div class="col-md-12"><div>
                                     <br/>
                                         <div class="row">
                                             <div class="col-md-9 col-sm-9 col-xs-8">
@@ -163,12 +162,43 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             </span><!--/.dropdown share-->
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <a href="#embed" data-toggle="modal" class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                            <a href="#" id='embed-video' class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
+                                                
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
-                                                       <a href="#publish-video" data-toggle="modal" class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Video</p></a>
+                                                       <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
+                                                         <div class='pub-ads'>
+                                                            <h4>Your Ads Preview</h4>
+                                                             <!-- <p>Click proceed to place your own ads to this video.</p> -->
+                                                                <hr>
+                                                                     @include('ads/adspreview')
+                                                                <hr>
+                                                                <div style="display:none" id='embed-pub'>
+                                                                <p>Copy and paste this code to your website:</p>
+                                                                 <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                               </p>
+                                                                </div>
+                                                                <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
+                                                                <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
+                                                         </div>
+                                                         
                                                     @endif
                                                 @endif
+                                               <div style='margin-top:5px;display:none;' class="embed-frame">
+                                                    <p>
+                                                        <input  type="text" id='code-embed' class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                    </p>
+                                                </div>
+                                            
+                                            <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
+                                            
+                                            {{Form::open(array('route' => array('get.complaint_form')))}}&nbsp;
+                                                {{Form::hidden('report_url',$report_url)}}
+                                                <span title="Report This Video">
+                                                    <i class='fa fa-flag'></i>&nbsp;&nbsp;
+                                                    <input value="Report" type="submit" class='reportLink'>
+                                                </span>
+                                            {{Form::close()}}
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
@@ -210,9 +240,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             
                                         </div>
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
-                                        	<span> Share Video</span>
-                                        	<br/>
-                                        	<a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <span> Share Video</span>
+                                            <br/>
+                                            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
@@ -228,8 +258,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="row">
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row">
-                                            	<div class="" style="padding-left:10px;">
-                                                	<img src="{{$profile_picture['profile_picture']}}" class="user">
+                                                <div class="" style="padding-left:10px;">
+                                                    <img src="{{$profile_picture['profile_picture']}}" class="user">
                                                 </div>
                                             </div>
                                         </div>
@@ -281,7 +311,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                         </div><!--/.info-->
                     </div><!--well-->
                 </div> <!--/.ui-tabs-panel-->
-        
+                
                 <!-- COMMENTS AREA -->
                 <div class="mg-t-10">
                     
@@ -349,8 +379,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 	                                        <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
 	                                        <span>{{number_format($relation['views'])}} view/s</span>
 	                                    </div>
-	                                    </div>
+                         </div>
 	                            
+
                                 </div>
                                 </a>
                                
@@ -381,7 +412,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 </div>
 
 <!--MODAL FOR EMBED VIDEO-->
-<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{{--<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -397,24 +428,28 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
       </div> -->
     </div>
   </div>
-</div>
+</div>--}}
 
-<div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{{-- <div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Publish Video</h4>
+        <h4 class="modal-title" id="myModalLabel">Your Ads Preview</h4>
       </div>
-      <div class="modal-body">
-      <p>Copy and paste this to your site:</p>
-            <input id='publishvideos' name='publishvideo' type="text" class="form-control" value="<iframe width='640' height='360' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-      </div>
+      <div align='center' class="modal-body">
+      <p align='center' >Click proceed to place your own ads.</p>
+        @include('ads/adspreview')
+        <p>Copy and paste it to  your site.</p>
+        <input type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>"> 
+       </div>
       <div class="modal-footer">
-        <button id='copy-video' type="button" class="btn btn-default">Copy</button>
+     <!--  <div align='left'>Click proceed to place your ads.</div> -->
+       <button type="button" class="btn btn-default">Embed video to your site with your ads</button>
+       <button type="button" class="btn btn-default">Proceed</button>
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 @stop
 
