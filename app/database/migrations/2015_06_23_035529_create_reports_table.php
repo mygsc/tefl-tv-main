@@ -27,9 +27,10 @@ class CreateReportsTable extends Migration {
 			$table->char('authority_position', 255);
 			$table->char('contact_number', 255);
 			$table->char('fax', 255);
-			$table->longText('street_address');
+			$table->longText('streetaddress');
 			$table->char('city', 150);
 			$table->char('state_province', 150);
+			$table->char('zip_postal', 150);
 			$table->char('signature', 150);
 			$table->softDeletes();
 			$table->timestamps();
