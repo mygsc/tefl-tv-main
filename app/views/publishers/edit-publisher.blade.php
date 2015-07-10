@@ -29,6 +29,16 @@
                         @endif
                         <hr/>
                         <div class="mg-t-20">
+                         <div class="mg-t-20">
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                <a href="{{route('edit.publishers')}}" class="list-group-item active" >
+                                    Edit Adsense Credentials
+                                </a>
+                                <a href="{{route('deactivate.publishers')}}" class="list-group-item">Deactivate Partner Account</a>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
                         {{Form::open(array())}}
                             {{Form::label('adsense_id', 'Adsense Publisher ID')}}
                             {{Form::text('adsense_id')}}
@@ -46,6 +56,7 @@
                             </div>
 
                         {{Form::close()}}
+                        </div>
                     </div>
                 </div><!--/.row-->
             </div><!--/.well-->

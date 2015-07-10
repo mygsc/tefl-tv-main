@@ -612,7 +612,7 @@ response: function(msg, glyphicon){
 loader: function(){
 	var loaderwrapper = document.createElement('div');
 	var loader = document.createElement('div');
-	var	loaderTxt = document.createTextNode('Please wait...'); 
+	var	loaderTxt = document.createTextNode('');//Please wait... 
 	loader.setAttribute('class','video-spinner');//annotation-loader
 	loaderwrapper.setAttribute('id','loader-wrapper');
 	loaderwrapper.setAttribute('style','text-align:center;width:200px;height:10px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:transparent;color:#063782;text-shadow: 0 0 2px #000;');

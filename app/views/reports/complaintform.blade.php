@@ -26,6 +26,20 @@
 			{{Form::open(array('route'=>'post.addreport', 'id' =>'video-addReply', 'class' => 'inline'))}}
 				{{Form::hidden('complainant_id', Crypt::encrypt(Auth::User()->id))}}
 
+				<b>* What is the issue?</b>
+
+				<select name="issue" class="form-control">
+					<option value="Inappropriate content (Nudity, violence, etc.)">Inappropriate content (Nudity, violence, etc.)</option>
+					<option value="I appear in this video without permission">I appear in this video without permission</option>
+					<option value="Abuse/Harassment (Someone is attacking me)">Abuse/Harassment (Someone is attacking me)</option>
+					<option value="Privacy (Someone is using my image)">Privacy (Someone is using my image)</option>
+					<option value="Trademark infringement (Someone is using my trademark)">Trademark infringement (Someone is using my trademark)</option>
+					<option value="Copyright infringement (Someone copied my creation)">Copyright infringement (Someone copied my creation)</option>
+					<option value="Other legal issue (including the circumvention of technological measures, such as providing keygens or serial numbers)">Other legal issue (including the circumvention of technological measures, such as providing keygens or serial numbers)</option>
+				</select>
+
+				<br/><br/>
+
 				<b>* URL of allegedly infringing video to be removed:</b> <br/>
 				<div class="form-group">
 					<div class="input-group">

@@ -91,4 +91,8 @@ class PublisherController extends Controller {
 		return View::make('publishers.edit-publisher');
 	}
 
+	public function getDeactivatePublisher(){
+		return View::make('publishers.deactivate');
+	}
+
 }
