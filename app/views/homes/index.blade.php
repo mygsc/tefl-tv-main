@@ -70,9 +70,9 @@
 			</div>
 			<div class="col-md-9" >
 				<!--RECOMMENDED VIDEOS SECTION -->
-				<div class="row White same-H mg-t-10">
+				<div class="row White same-H mg-t-10 pad-b-20">
 					<div class="top-div">
-						<h2 class=" mg-l-10">Recommended Videos</h2>
+						<h2 class=" mg-l-10 inline">Recommended Videos</h2>
 					</div>
 					<div class="col-md-12">
 						<div class="row ">
@@ -105,15 +105,16 @@
 					</div>
 				</div>
 				@endforeach
+				<br/>
 			</div>
 
 		</div><!--/.col-md-12-->
 		
 	</div><!--/.row for recommended videos-->
 	<br/>
-	<div class="row White same-H">
+	<div class="row White same-H pad-b-20">
 		<div class="top-div">
-			<h2 class="mg-l-10">Popular Videos</h2>
+			<h2 class="mg-l-10 inline">Popular Videos</h2>
 		</div>
 		@foreach($populars as $popular)
 		<div class="col-lg-3 col-md-3 col-sm-6">
@@ -144,13 +145,13 @@
 			</div>
 		</div>
 		@endforeach
-
+		<br/><br/>
 	</div>
 	<br/>
 
-	<div class="row White same-H">
+	<div class="row White same-H pad-b-20">
 		<div class="top-div">
-			<h2 class="mg-l-10">Latest Videos</h2>
+			<h2 class="mg-l-10 inline">Latest Videos</h2>
 		</div>
 
 		@foreach($latests as $latest)
@@ -182,12 +183,12 @@
 			</div>
 		</div>
 		@endforeach
-
+		<br/><br/>
 	</div>
 	<br/>
-	<div class="row White same-H">
+	<div class="row White same-H pad-b-20">
 		<div class="top-div">
-			<h2 class="mg-l-10">Random Videos</h2>
+			<h2 class="mg-l-10 inline">Random Videos</h2>
 		</div>
 		@foreach($randoms as $random)
 		<div class="col-lg-3 col-md-3 col-sm-6">
@@ -217,7 +218,7 @@
 			</div>
 		</div>
 		@endforeach
-		
+		<br/>
 	</div>
 		<!-- {{Form::hidden('autoplay',0,['id'=>'autoplay'])}}
 		{{Form::hidden('duration',41,['id'=>'duration'])}} -->
