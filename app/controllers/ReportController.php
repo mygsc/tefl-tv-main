@@ -52,6 +52,8 @@ class ReportController extends BaseController {
 		$reported_info = User::find($complainant_id);
 		$reported_video = Video::where('file_name',$copyrighted_video_url)->first();
 
+		$uploader_info = User::find($reported_video->user_id);
+
 		$ifVideoIsExisting = Video::where('file_name',$copyrighted_video_url)->count();
 		if($ifVideoIsExisting == 0){
 			return Redirect::route('get.complaint_form')->withFlashBad('Invalid video url. Please try again.')->withInput();
@@ -77,12 +79,18 @@ class ReportController extends BaseController {
 
 		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number);
 		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number);
-		
-		Mail::send('emails.reports.complainant_report', $data1, function($message) {
-			$message->to($reported_info->email)->subject('Complaint Email');
+
+		$complainant_email = $reported_info->email;
+		$complainant_channel = $reported_info->channel_name;
+
+		$uploader_email = $uploader_info->email;
+		$uploader_channel = $uploader_info->channel_name;
+
+		Mail::send('emails.reports.complainant_report', $data1, function($message) use($complainant_email, complainant_channel) {
+			$message->to($complainant_email, $complainant_channel)->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message) {
-			$message->to($reported_info->email)->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message) use($uploader_email, uploader_channel) {
+			$message->to($uploader_email, $uploader_channel)->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
