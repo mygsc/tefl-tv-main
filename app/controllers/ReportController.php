@@ -77,20 +77,17 @@ class ReportController extends BaseController {
 			'city'=>$city, 'state_province'=> $state_province,'zip_postal'=>$zip_postal, 'signature'=> $signature
 		));
 
-		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number);
-		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number);
+		$data1 = array('legal_name' => $legal_name, 'case_number' => $case_number, 'complainant_email' =>  $reported_info->email);
+		$data2 = array('legal_name' => $legal_name, 'case_number' => $case_number, 'uploader_email' =>  $uploader_info->email);
 
-		$complainant_email = $reported_info->email;
 		$complainant_channel = $reported_info->channel_name;
-
-		$uploader_email = $uploader_info->email;
 		$uploader_channel = $uploader_info->channel_name;
 
-		Mail::send('emails.reports.complainant_report', $data1, function($message) {
-			$message->to($complainant_email)->subject('Complaint Email');
+		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($data1) {
+			$message1->to($data1['complainant_emails'])->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message){
-			$message->to($uploader_email)->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message2){
+			$message2->to($data1['uploader_email'])->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
