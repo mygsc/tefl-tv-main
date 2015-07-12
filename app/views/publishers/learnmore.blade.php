@@ -64,9 +64,9 @@
     		</div>
     	</div>
         <div class="col-md-4">
-                @include('elements/Publishers/video')
+                @include('elements/publishers/video')
             <br/>
-            @include('elements/Publishers/support')
+            @include('elements/publishers/support')
         </div>
     </div>
 </div>

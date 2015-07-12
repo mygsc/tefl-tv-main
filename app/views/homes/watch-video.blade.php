@@ -340,10 +340,26 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 	
 	                                <div class="row p-relative">
 	                                	<div class="show_wrapp">
-	                                	<div class="showme col-middle">
-                                		{{ ($relation['title']) }}
-                                	</div>
-                                	</div>
+		                                	<div class=" col-middle">
+		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
+	                                       				
+	                                        @else
+	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+	                                        @endif
+	                                        
+	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
+	                                        		<div class="showInfo-wrapp ">
+	                                        			<div class="showInfo-div">
+			                                        		<span class="info-title">{{ ($relation['title']) }}</span><br/>
+			                                        		by: {{$relation['channel_name']}}<br/>
+			                                        		{{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
+	                                       			</div>
+	                                       			</div>
+	                                            </div>
+	                                		
+	                                		</div>
+                                		</div>
 	                                	<div class="row-same-height" title="">
 	                                		
 	                                    <div class="col-md-5 col-xs-4 col-md-height col-middle">
@@ -363,14 +379,16 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 	                                        <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
 	                                        <span>{{number_format($relation['views'])}} view/s</span>
 	                                    </div>
-	                                </div>
+                         </div>
+	                            
+
                                 </div>
                                 </a>
                                
                             </li>
                     @endforeach
                 </ul><!--video list-->
-
+					
                     <div class="mg-t-10 same-H">
                       <div class="h-title">
                         <div class="row">

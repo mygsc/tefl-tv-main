@@ -8,6 +8,7 @@
 </div>
 <div class="col-md-12 White same-H">
 	<div class="">
+		<br/>
 		<div class="row">
 		
 			@if($usersPlaylists->isEmpty())
@@ -26,7 +27,7 @@
 											<br/>
 											<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
 										</div>
-										<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
+										<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg" width="100%">
 									@else	
 										<div class="playlist-info" >
 											{{count($thumbnail_playlists[$key])}}

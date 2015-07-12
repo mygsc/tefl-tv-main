@@ -3479,42 +3479,82 @@ body {
     padding: 4px 6px!important;
  }
 
- .pub-ads{
+.pub-ads{
     padding:5px;
     margin-top: 5px;
     display: none;
 }
 
 .showhim:hover .showme{
- display : table-cell;
+ display : block;
   text-align: center;
   vertical-align: middle;
-  
+
+}
+.showbg{
+	display:none;
+	height:100%;
+	width:100%;
+	background-size:100% auto;
+	overflow: hidden;
+	position: absolute;
+	z-index: 55555555;
+}
+.showhim:hover .showbg{
+	display:block;
+	
 }
 .showhim:hover .hide_h{
-    display: none;
+	display: none;
 }
 .show_wrapp{
   display: table;
   width: 100%;
 }
- .showme{
-    display: none;
-    position:relative;
-    top:0;
-    height:auto;
-    width:100%; 
-    padding:5px 10px; 
-    font-size:12px; 
-    text-align:center;
-    background: rgba(31, 51, 89, 0.72);
-    /*background:#4B5B7C;*/
-    color:#ffffff;
-    z-index:88888888;
-     -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+.showme{
+ 	display: none;
+ 	top:0;
+    position: absolute;
+ 	height:100%;
+ 	width:100%; 
+ 	font-size:12px; 
+ 	text-align:center;
+ 	/*background:#4B5B7C;*/
+ 	color:#ffffff;
+ 	 -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
     box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    z-index: 5555555555555555;
+  
  }
+.showInfo{
+    width:100%;
+    height:100%;
+    background:#000!important;
+    color:#fff;
+    padding: 10px 20px;
+    text-align:center;
+}
+.showInfo-wrapp {
+    display: table;
+    width:100%;
+    height:100%;
+    table-layout: fixed;
+}
+
+.showInfo-div{
+    display: table-cell;
+    float: none !important;
+    width:100%;
+    height:100%;
+    vertical-align: middle;
+    padding:0 30px;
+}
+.info-title{
+	font-size:14px;
+	font-weight:bold;
+}
+
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   background-color: #d1dff9!important;
   background-image: none;
@@ -3529,3 +3569,4 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 /*===== FRONT END DEVELOPER / WEB DESIGNER and GRAPHICS PROVIDER :: PRiNCESS A. REBAULA ===*/
 /*=========== note:some of the codes are copied in open source stylesheets ================*/
 /*=================================-----------------------=================================*/
+
