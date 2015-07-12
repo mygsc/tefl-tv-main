@@ -11,6 +11,7 @@
         /*bottom:0;*/
         margin:auto;
         background: transparent;
+        visibility: hidden;
     }
     .ads-relative-wrapper{
         max-height:90px!important;
