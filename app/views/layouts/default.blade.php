@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title', 'TEFL-TV')</title>
+	<meta name="robots" content="NOODP">
+	<meta name="googlebot" content="NOODP">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>

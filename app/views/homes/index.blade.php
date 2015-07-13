@@ -1,9 +1,12 @@
 @extends('layouts.default')
+@section('title')
+	TEFL TV
+@stop
 @section('meta')
 <head>
 	<meta charset="UTF-8">
-	<meta name="description" content="TEFL TV your number one ESL provider">
-	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, English, tefltv">
+	<meta name="description" content="Tefltv is a video-hosting website that only concentrates on all facets of teaching English as a foreign language ESL">
+	<meta name="keywords" content="TEFL TV, ESL, TESOL, English learning, Studying English, English students,">
 	<meta name="author" content="TEFL tv">
 </head>
 @stop
