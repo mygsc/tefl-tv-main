@@ -510,7 +510,11 @@ img.logo-sm {
     top: 0;
     z-index: 99999;
 }
-
+.btn-clear{
+  border: 0;
+  outline: none;
+  background: transparent;
+}
 .btn-pos {
     text-align: right;
     padding: 0 10px 20px 10px;

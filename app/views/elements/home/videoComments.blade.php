@@ -24,7 +24,7 @@
 		</div>
 	</div>
 
-	<div class="White same-H pad-v-10">
+	<div class="White same-H pad-v-10 mg-t-10">
 		<div class="row">
 			<div class="content-padding">
 				<h3>All Comments ({{$getVideoCommentsCounts}}) </h3>

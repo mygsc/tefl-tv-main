@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="row">
     <div class="container">
+    	<br/>
         <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center" role="tablist">
             <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
             <li role="presentation" class="active">{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
