@@ -289,7 +289,9 @@ $(document).ready(function() {
 				$('#'+rm).remove();
 				$('#div-'+rm).remove();
 				annotations.loader();
-				annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,getstyle);
+				setTimeout(function(){
+					annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,getstyle);
+				},3000);
 			}
 			save.onmouseover = function(){
 				var getid = this.id;
@@ -299,8 +301,8 @@ $(document).ready(function() {
 				var getid = this.id;
 				$('#'+getid).css({'border-bottom':'1px solid red'});
 			}
-			annotDiv.onmousedown = function(){
-				drag.startMoving(this,'media-video',event);
+			annotDiv.onmousedown = function(evt){
+				drag.startMoving(this,'media-video',evt);
 				$(this).css({'cursor':'move'});
 			}
 			annotDiv.onmouseup = function(){
@@ -503,7 +505,7 @@ var annotations = function(){
 					$('#loader-wrapper').fadeOut();
 					$('#loader-wrapper').remove();
 					close.className = 'glyphicon glyphicon-trash ' + e.id;
-					annotations.response('New annotation has been added.', 'glyphicon glyphicon-saved');
+					annotations.response('New annotation has been successfully added.', 'glyphicon glyphicon-saved');
 					addedTmpAnnotation(e.id,e.types,e.content);
 				},
 				error: function(){
@@ -524,7 +526,7 @@ var annotations = function(){
 					console.log(e.msg);
 					$('#loader-wrapper').fadeOut();
 					$('#loader-wrapper').remove();
-					annotations.response('Annotation has been removed.', 'glyphicon glyphicon-trash');
+					annotations.response('Annotation has been successfully removed.', 'glyphicon glyphicon-trash');
 				},
 				error: function(){
 					console.log('OOps error while deleting annotation.');
@@ -581,7 +583,7 @@ update: function(id,content,start,end,link,style){
 		success: function(e){
 			$('#loader-wrapper').fadeOut();
 			$('#loader-wrapper').remove();
-			annotations.response('Changes has been saved.','glyphicon glyphicon-check');
+			annotations.response('Changes has been successfully saved.','glyphicon glyphicon-check');
 			document.getElementById('preview-annotation').style.display = 'none';
 		},
 		error: function(){
@@ -878,10 +880,13 @@ $('.rm-annot').bind('click', function(e){
 	var yes = confirm("Are you sure you want to delete this annotation?");
 	if(yes){
 		annotations.loader();
-		annotations.remove(id);
-		$('#editor-annotation').fadeOut();
-		$('#preview-annotation').fadeOut();
-		$('#forever-remove-annot-'+id).remove();
+		setTimeout(function(){
+			annotations.remove(id);
+			$('#editor-annotation').fadeOut();
+			$('#preview-annotation').fadeOut();
+			$('#forever-remove-annot-'+id).remove();
+		},3000);
+		
 	}
 });
 $('.sv-annot').bind('click', function(e){
@@ -900,11 +905,13 @@ $('.sv-annot').bind('click', function(e){
 	else if(annotTypes=='Note') var style = css.Note('preview-annotation');
 	else if(annotTypes=='Spotlight') var style = css.spotlight('preview-annotation');
 	else if(annotTypes=='Speech') var style = css.speech('preview-annotation');
+	setTimeout(function(){
+		annotations.update(id,content,getTime[0],getTime[1],link,style);
+		if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
+		document.getElementById(id).innerHTML = content;
+		$('#editor-annotation').fadeOut();
+	},3000);
 	
-	annotations.update(id,content,getTime[0],getTime[1],link,style);
-	if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
-	document.getElementById(id).innerHTML = content;
-	$('#editor-annotation').fadeOut();
 });
 $('#edit-start-inc').click(function(){
 	var st = document.querySelector('input[name=start]').value,

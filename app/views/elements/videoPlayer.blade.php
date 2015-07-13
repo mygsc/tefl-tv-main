@@ -41,7 +41,7 @@
 		<div class="wrapper" id="controls">
 			<div id="progressbar">
 				<div id="progress-ads-line"  class="prog-ads-line">		
-					<input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
+					<!-- <input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0">  -->	
 					<div id="buffered"></div>
 					<div  id="current-progress">	
 						<div id="button-progress" class="progress-button">
@@ -64,8 +64,8 @@
 						<!-- <input id="volume" type="range" min="0" max="100" value="100"> -->
 						<div class="volume-static-holder">
 							<div id="volume-vertical">
-								<div id="volume-button"> 
-								</div>
+								<button id="volume-button"> 
+								</button>
 							</div>
 						</div>
 									

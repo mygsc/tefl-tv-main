@@ -101,7 +101,6 @@ div#buffered{
 	width:100%;
 	height:100%;
 	background: #fc8b02;
-	border-radius:2px;
 	position: absolute;
 	bottom: 0;
 	cursor: default;
@@ -112,15 +111,15 @@ div#buffered{
 	background: #fff;
 	cursor: pointer;
 	margin-left: -6px;
-	outline:1px solid #fc8b02;
+	position: absolute;
 }
 div.volume div.volume-static-holder{
-	border:1px solid #fff;
-	background: transparent;
+	background: rgba(44, 44, 44, 0.94);
 	width:7px;
 	height: 100%;
 	position: relative;
 	cursor: default;
+
 }
 
  /*Special styling for WebKit/Blink */

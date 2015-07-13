@@ -1,4 +1,39 @@
-
+@extends('layouts.default')
+@section('title')
+	TEFL TV
+@stop
+@section('meta')
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tefltv is a video-hosting website that only concentrates on all facets of teaching English as a foreign language ESL">
+	<meta name="keywords" content="TEFL TV, ESL, TESOL, English learning, Studying English, English students,">
+	<meta name="author" content="TEFL tv">
+</head>
+@stop
+@section('css')
+{{HTML::style('css/vid.player.min.css')}}
+@stop
+@section('some_script')
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/video-player/fullscreen.min.js')}}
+@stop
+@section('content')
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 ">	
+			<div class="ad-bg same-H mg-t-10">
+				<div class="row">
+					<div class="col-md-6" style="">
+						<div class="mg-l-10  mg-b-10">
+							<div class="vid-wrapperb p-relative">
+								<div id="vid-controls">
+									<div class="embed-responsive embed-responsive-16by9 n-mg-b">
+										<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+											<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+											<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+										</video>	
+									</div><!--/embed-responsive-->
+									<div class="n-mg-b">
 	@extends('layouts.default')
 	@section('meta')
 	<head>
