@@ -10,11 +10,12 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements.users.profileTop2')
-				<div role="tabpanel">
+
+				<div class="">
 				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+				 	<ul class="nav nav-tabs hidden-sm hidden-xs White same-H" role="tablist">
 				    	<li role="presentation" class="active">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.videos2','Videos', $userChannel->channel_name)}}</li>
@@ -22,7 +23,7 @@
 				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 				  	</ul><!--tabNav-->
-				  	<br/>
+		
 				  	<nav class="navbar navbar-default visible-sm visible-xs">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
@@ -53,7 +54,7 @@
 							@include('elements/users/viewUser/homeSections/viewUser_homeSec_playlists')
 							<div class="col-md-12">
 								<div class="row">
-									<div class="row-same-height">
+									<div class="row-same-height mg-t-20">
 										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscribers')
 										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscriptions')
 						  			</div>

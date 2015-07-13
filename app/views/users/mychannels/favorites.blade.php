@@ -4,13 +4,13 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 
 			@include('elements/users/profileTop')
 		
-			<div class="White channel-content">
+			<div class="channel-content">
 				<div role="tabpanel">
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+				 	<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 				    	<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -43,8 +43,8 @@
 				  </div>
 				</nav>
 
-				<div class="White">
-					<br/>
+
+				<div class="top-div_t col-md-12 mg-t-20 pad20t">
 					<div class="col-md-6 col-sm-8 col-xs-8">
 						{{Form::open(array('route' => 'searchFavorites', 'method' => 'GET'))}}	
 						<div class="input-group">
@@ -63,13 +63,12 @@
 							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 						</div>
 					</div>
-
-					<br/><br/><hr class="" />
-
+				</div>
+				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/>
 						@if($findUsersVideos->isEmpty())
-							<p class="text-center">You don't have favorites yet.</p>
+							<p class="text-center mg-t-20">You don't have favorites yet.</p>
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
@@ -120,5 +119,9 @@
 
 
 @section('script')
-	{{HTML::script('js/jquery.min.js')}}
+	{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
 @stop

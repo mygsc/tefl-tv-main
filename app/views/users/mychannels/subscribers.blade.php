@@ -4,13 +4,13 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
 
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -42,31 +42,30 @@
 						</div>
 					</div>
 				</nav>
-
-				<br/>
-				<div class="col-md-12 ">
+				<div class="col-md-12 mg-t-20">
 					<div class="row">
 						<div class="row-same-height">
-							<div class="col-md-6 greyDark col-md-height col-top">
-								<div class="row">
-									<div class="h-title grey lightBlueC">
-										<span><b>SUBSCRIBERS</b></span>&nbsp;
-									</div>
-									<div class="Div-channelSubSection" id="subscriberWrapper">
-										<br/>
-										<div class="searchPanel">
+						<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
+							<div class="row">
+								<div class="top-div_t whiteC">
+									<h3 class="text-center">SUBSCRIBERS</h3>
+								</div>
+						
+								<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
+									<br/>
+									<div class="searchPanel">
 											<!--<div class="input-group">
 												{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
 												<span class="input-group-btn">
 													{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 												</span>
 											</div>-->
-										</div>
-										<br/><br/>
-										@if($subscriberProfile->isEmpty())
-											<p class="text-center">No Subscribers</p>
-										@else
-											@foreach($subscriberProfile as $key => $profile)
+									</div>
+									<br/><br/>
+									@if($subscriberProfile->isEmpty())
+										<p class="text-center">No Subscribers</p>
+									@else
+										@foreach($subscriberProfile as $key => $profile)
 											<div class="subscribers">
 												<div class="col-md-6 col-sm-12 col-xs-12">
 													{{HTML::image($profile['profile_picture'], 'alt', array('class' => 'userRep2'))}}
@@ -74,7 +73,7 @@
 
 													<span><b><a href="{{route('view.users.channel', $profile->channel_name)}}">{{$profile->channel_name}}</a></b></span>&nbsp;
 													<br/>&nbsp;
-													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;</b> Subscribers</span>&nbsp;
+													<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
 													@if(isset(Auth::User()->id))
 														<?php
 															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -97,19 +96,18 @@
 													@endif
 												</div>
 											</div>
-											@endforeach
-										@endif
-									</div>
+										@endforeach
+									@endif
 								</div>
 							</div>
+						</div>
 				
-						<div class="col-md-6 grey  col-md-height col-top">
-							<div class="row ">
-								<div class="h-title greyDark lightBlueC">
-									<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+						<div class="col-md-6 col-md-height col-top">
+							<div class="row " style="padding-left:20px!important;">
+								<div class="top-div_t whiteC">
+									<h3 class="text-center">SUBSCRIPTIONS</h3>
 								</div>
-
-								<div class="Div-channelSubSection" id="subscriberWrapper">
+								<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
 									<br/><br/>
 									<div class="subscribers">
 										@if($subscriptionProfile->isEmpty())
@@ -160,7 +158,12 @@
 </div><!--/.row-->
 @stop
 
-@section('some_script')
+@section('script')
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/media.player.js')}}
 {{HTML::script('js/homes/convert_specialString.js')}}

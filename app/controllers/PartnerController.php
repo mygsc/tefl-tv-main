@@ -24,6 +24,9 @@ class PartnerController extends Controller {
 		return View::make('partners.privacy');
 	}
 
+	public function getTermsAndConditions(){
+		return View::make('partners.termsandconditions');
+	}
 	public function getSupport(){
 		return View::make('partners.support');
 	}
@@ -83,6 +86,14 @@ class PartnerController extends Controller {
 			return Redirect::route('partners.register-adsense');
 		}
 		return Redirect::route('partners.verification')->with('flash_bad','Invalid credentials')->withInput();
+	}
+
+	public function getEditPartner(){
+		return View::make('partners.edit-partners');
+	}
+
+	public function getDeactivatePartner(){
+		return View::make('partners.deactivate');
 	}
 
 }

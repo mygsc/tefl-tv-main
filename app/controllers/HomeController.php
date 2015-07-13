@@ -1,7 +1,7 @@
 <?php
 
 class HomeController extends BaseController {
-
+		protected $publisher_;
 	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
 		$this->User = $user;
 		$this->Video = $video;
@@ -11,13 +11,15 @@ class HomeController extends BaseController {
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
 		$this->Partner = $partners;
+		$this->publisher_ = new Publisher;
 	}
 	
 	public function getIndex() {
-		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
-		$populars = $this->Video->getFeaturedVideo('popular', '9');
-		$latests = $this->Video->getFeaturedVideo('latest', '9');
-		$randoms = $this->Video->getFeaturedVideo('random', '9');
+		//return Auth::User();
+		$recommendeds = $this->Video->getFeaturedVideo('recommended', '12');
+		$populars = $this->Video->getFeaturedVideo('popular', '12');
+		$latests = $this->Video->getFeaturedVideo('latest', '12');
+		$randoms = $this->Video->getFeaturedVideo('random', '12');
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
@@ -74,10 +76,6 @@ class HomeController extends BaseController {
 	public function getChannels() { return View::make('homes.channels'); }
 
 	public function partnership(){ return View::make('homes.partnership'); }
-
-	public function getPartnershipVerification(){ return View::make('homes.partnership'); }
-
-	public function getSignIn() { return View::make('homes.signin'); }
 
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
@@ -202,6 +200,7 @@ class HomeController extends BaseController {
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
 					$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
+					
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
@@ -243,6 +242,7 @@ class HomeController extends BaseController {
 		if(isset(Auth::User()->id)) {
 			$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $owner->id,'subscriber_id' => Auth::User()->id))->first();
 		}
+		$report_url = $this->getURL();
 		//////////////////////r3mmel////////////////////////////
 
 		$datas = $this->User->getTopChannels(4);
@@ -266,7 +266,7 @@ class HomeController extends BaseController {
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
 				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation','adsense'
+				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url', 'adsense'
 			)
 		);
 	}
@@ -690,6 +690,24 @@ class HomeController extends BaseController {
 		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
 	}
 
+	public function addReport() {
+		$reported_id = Crypt::decrypt(Input::get('reported_id'));
+		$user_id = Crypt::decrypt(Input::get('user_id'));
+		$reasons = Input::get('reasons');
+		$comment = Input::get('comment');
+
+		if(empty($reply)){
+			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+		}
+		if(!empty($reply)){
+			$replies = new CommentReply;
+			$replies->comment_id = $comment_id;
+			$replies->user_id = $user_id;
+			$replies->reply = $reply;
+			$replies->save();
+			$userInfo = User::find($user_id);
+		}
+	}
 
 	public function getChangeLogs() {
 		return View::make('homes.changelogs');
@@ -700,10 +718,6 @@ class HomeController extends BaseController {
 		$convert_time = date("d-m-Y H:i:s", strtotime($inputs['current_time']));
 		$time = date('F d, Y', strtotime($convert_time. '+'. $inputs['users_GMT'].' hours'));
 		return $time;
-	}
-
-	public function error(){
-		return View::make('errors.maintenance');
 	}
 
 	public function testingpage(){ 
@@ -742,5 +756,19 @@ class HomeController extends BaseController {
 	}
 	public function getViewVideo(){
 		return View::make('videoplayer');
+	}
+	public function getPublishVideo($id, $filename, $autoplay=0){
+		$get = Video::where('file_name','=',$filename);
+
+		if($get->count()){
+			$get = $get->first();
+			$vidOwner = User::find($get->user_id);
+			$id = Crypt::decrypt($id);
+			$adsense = $this->publisher_->getAdsenseID($id);
+			$totalTime = $get->total_time;
+			$duration = $this->duration($totalTime);
+			return View::make('users.publishvideo', compact('id','get','vidOwner','adsense','autoplay','duration'));
+		}
+		return app::abort(404, 'Page not available.');
 	}
 }

@@ -4,27 +4,29 @@
  @section('content')
 
 <div class="row">
-    <div class="container pageH">
-        <br/>
-        <div class="same-H">
-           <div class="Div-channel-border">
-                <div class="well White div-change">
-                    <div class="row">
-                        <br/>
-                        <div class="text-center">
-                            <span class=""><i class="fa fa-arrow-left blueC"></i> {{link_to_route('users.channel', 'Channel Home')}}</span>
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <span class="active">{{link_to_route('users.edit.channel', 'Update Profile', Auth::User()->channel_name)}}</span>
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <span><b>{{ link_to_route('users.change-password', 'Change Password', null) }}</b></span>
-                            &nbsp;&nbsp;|&nbsp;&nbsp;
-                            <span class="">{{ link_to_route('users.change-email', 'Change Email', null) }}</span>
-                        </div>
-                        <br/>
+    <div class="container pageH">
+        <div class="text-center whiteC">
+            <ul class="nav nav-tabs hidden-sm hidden-xs White same-H text-center" role="tablist">
+                <li role="presentation"> {{link_to_route('users.channel', 'Back to Channel Home')}}</li>
+                <li role="presentation" >{{link_to_route('users.edit.channel', 'Update Profile')}}</li>
+                <li role="presentation" class="active">{{ link_to_route('users.change-password', 'Change Password', null) }}</li>
+                <li role="presentation" >{{ link_to_route('users.change-email', 'Change Email', null) }}</li>
+                @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+                <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
+                @endif
+                <li role="presentation">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
+            </ul><!--tabNav-->
+        </div>
+           <div class="mg-t-20 same-H">
+                <div class="White div-change">
+                    <div class="row mg-t-20">
                         <div class="col-md-12">
-                            <div class=""> 
+                            <div class="">
+                                <br/><br/>
                                 <h3 class="orangeC text-center">-For a stronger password mix characters and numbers-</h3>
-                                <div class="well2">
+                               
+                                <div class="col-md-8 col-md-offset-2">
+                                     <hr/>
                                     {{Form::open(array('route' => 'users.post.change-password'))}}
                                     
                                     {{Form::label('currentPassword', ' Current Password: ')}}

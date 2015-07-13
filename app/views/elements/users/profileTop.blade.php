@@ -1,7 +1,29 @@
-<div class="White">
+<!--<div class="container" style="margin-bottom:200px;">
+	<div class="row">
+		<div class="row-same-height">
+		<div class="col-md-3 col-md-height White same-H" >
+			<div class="row" style="border:1px solid purple;" >
+					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => 'center-block', 'style' => 'margin:0 auto;border-radius:85px 85px;width:150px;height:150px;'))}}
+
+					<button data-target="#change_profile_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
+
+				</div>
+		</div>
+
+		<div class="col-md-9 col-md-height">
+			<div class="" style="border:1px solid violet;" >
+				{{HTML::image($usersImages['cover_photo'], 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+			</div>
+		</div>
+	</div>
+	</div>
+	
+</div>
+<br/><br/><br/><br/>-->
+<div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="div-coverDp">
+			<div class="div-coverDp ">
 				<div class="uploaded_img pic-Dp">
 					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => 'pic-Dp'))}}
 
@@ -13,9 +35,6 @@
 
 				</div>
 				<div class="div-coverP">
-
-					<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
-
 					<div class="overlay-cover">
 
 						<span class="infoCounts">
@@ -53,6 +72,10 @@
 							</span> 
 						</span>	
 					</div>
+
+					<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
+
+					
 				</div>
 			</div>
 		</div>
@@ -78,15 +101,6 @@
 
 	</div>
 </div>
-
-
-
-@section('script')
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/modalclearing.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
-{{HTML::script('js/video-player/jquery.form.min.js')}}
-@stop
 
 @section('modal')
 <div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

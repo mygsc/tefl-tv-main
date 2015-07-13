@@ -2,6 +2,8 @@
 
 class UserController extends BaseController {
 	protected $video_;
+	protected $comment_;
+	protected $publisher_;
 	public function __construct(
 		User $user,
 		Subscribe $subscribes,
@@ -28,6 +30,8 @@ class UserController extends BaseController {
 		$this->UserFavorite = $userFavorite;
 		$this->Hybrid_Auth = $hybridauth;	
 		$this->video_ = new Video;
+		$this->comment_ = new Comment;
+		$this->publisher_ = new Publisher;
 		define('DS', DIRECTORY_SEPARATOR);
 	}
 
@@ -297,6 +301,7 @@ class UserController extends BaseController {
 
 	public function postEditUsersChannel($channel_name) {
 		$input = Input::all();
+		return $input;
 		$validate = Validator::make($input, User::$userEditRules);
 		if($validate->passes()){
 			$user = User::find(Auth::User()->id);
@@ -411,12 +416,14 @@ class UserController extends BaseController {
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
+
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
 			$id = $video->id;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
+			$countCommentAndLikes = $this->comment_->countLikesAndComments($video->id);
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
 			//if($video->category != ""){
 			    $category = explode(',',$video->category);
@@ -426,9 +433,11 @@ class UserController extends BaseController {
 			$thumbnail = $this->threeThumbnailPath($filename, $extension);
 			$annotations = Annotation::where('vid_filename', $file_name)->get();
 			$countAnnotation = count($annotations);
+			
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 				'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
-				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation'));
+				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
+				'countCommentAndLikes'));
 
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
@@ -464,7 +473,6 @@ class UserController extends BaseController {
 				$selectedThumb =  Input::get('selected-thumbnail');
 				if(strlen($selectedThumb)>1){  
 					$getDomain = asset('/');
-					
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
 					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
@@ -808,6 +816,10 @@ class UserController extends BaseController {
 	public function getViewUsersFeedbacks($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
+
+		if(Auth::User()->id == $userChannel->id){
+			return Redirect::route('users.feedbacks');
+		}
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
 		//return $userFeedbacks;
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1626,14 +1638,20 @@ class UserController extends BaseController {
 		}
 		return Redirect::route('users.verification')->with('flash_bad','Invalid credentials')->withInput();
 	}
-	public function getPublishVideo($filename){
-		$vidFilename = Video::where('file_name','=',$filename);
-		if($vidFilename->count()){
-			$vidFilename = $vidFilename->first();
-			$vidOwner = User::find($vidFilename->user_id);
-			return View::make('users.publishvideo', compact('vidFilename','vidOwner'));
+
+	public function getEarningsSettings(){
+		if(!Auth::check()){
+			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
 		}
-		return app::abort(404, 'Page not available.');
+
+		return View::make('users.mychannels.accountsettings.earnings-settings');
+	}
+
+	public function getDeactivate(){
+		if(Auth::check()){
+			return View::make('users.mychannels.accountsettings.deactivate');
+		}
+		return View::make('homes.signin');
 	}
 
 }

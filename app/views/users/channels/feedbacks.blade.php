@@ -8,13 +8,13 @@
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements.users.profileTop2')
-			<br/>
-			<div class=" channel-content">
+
+			<div class="">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 						<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 						<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
@@ -45,7 +45,7 @@
 					</nav>
 				</div>
 
-				<div class="feedbackSection content-padding">
+				<div class="feedbackSection content-padding mg-t-20 channel-content White same-H">
 					<br/><br/>
 					<div class="mg-t-20">
 						{{ Form::open(array('route' => 'post.users.feedbacks'))}}
@@ -62,6 +62,7 @@
 						{{Form::hidden('feedbackSender', Crypt::encrypt(Auth::User()->id), array('id' => 'feedbackUser'))}}
 						{{Form::hidden('feedbackReceiver', Crypt::encrypt($userChannel->id), array('id' => 'feedbackOwner'))}}
 						{{Form::hidden('channel_name', $userChannel->channel_name)}}
+						<br/>
 						{{Form::submit('Post Feedback', array('class' => 'btn btn-info'))}}
 						{{Form::close()}}
 						@endif

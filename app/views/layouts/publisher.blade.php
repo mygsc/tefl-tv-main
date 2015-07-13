@@ -37,11 +37,12 @@
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-{{HTML::script('js/ripple/jquery.ripple-js.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/wow.js')}}
+{{HTML::script('js/jquery.sticky-kit.min.js')}}
+{{HTML::script('js/sticky.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -78,6 +79,15 @@
 	}
 //...
 myVideo.play();
+</script>
+
+<script type="text/javascript">
+	var contentHeight = jQuery('.content').height();
+	var sidebarHeight = jQuery('.sidebar').height();
+	if (contentHeight > sidebarHeight) {
+	jQuery('.sidebar').height(contentHeight);
+	jQuery(".sidebar .enews-widget").stick_in_parent();
+	}
 </script>
 
 @yield('script') 

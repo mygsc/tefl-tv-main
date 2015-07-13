@@ -15,7 +15,7 @@
 <div  class="top-bg">
 
 </div>
-<div class="paper_wrap">
+<div class="paper_wrap" data-sticky_parent="" style="position: relative;">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
             <div class="paper">
@@ -25,112 +25,48 @@
                     </div>
                     <div class="row text-justify">
 
-                      <h1 class="orangeC">What is TEFLTV Publisher?</h1>
-                      <p class="text-justify">
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam,
-                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo. Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                         consequat.
-                     </p>
-                     <br/>
-                     <p class="text-justify">
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                         cillum dolore eu fugiat nulla pariatur.
-                     </p>
+                        <h2 class="orangeC">Introduction:</h2>
 
-                     <h3 class="orangeC">Perks of being a TEFLTV Publisher</h3>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua, ut labore et dolore magna aliqua.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua ut labore et dolore magna aliqua..
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     </li>
-                     <h3 class="orangeC">How to become a TEFLTV Publisher?</h3>
-                     <p class="text-justify">
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                     </p>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
-                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
+                        <p>
+                        If you don’t own the copyright rights but still like to monetize video, you can become a tefltv publisher. For more information about copyright, please follow this <a href="{{route('homes.copyright')}}"> link.</a> 
+                        </p>
+                        <p>
+                        If you own copyrights of videos and want the possibility to monetize them, please follow this link to our <a href="{{route('partners.index')}}"> partner page</a>.
+                        </p>
+                        <br/>
+                        <h2 class="orangeC">How can I become a publisher?</h2>
+                        <p>
+                        To become a TEFLtv publisher, you need to sign up as a “Publisher”. You can <a href="{{route('publishers.verification')}}">signup here</a>.
+                        </p>
+                        <p>
+                        You will also need an AdSense account.
+                        </p>
+                        <br/>
 
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
-                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.Excepteur sint occaecat cupidatat non
-                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                     </li>
-                     <br/>
-                     <li>
-                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                         tempor incididunt ut labore et dolore magna aliqua.
-                     </li>
-                     <br/>
-                     <hr/>
-                     <h3>Start earning money. <a href="{{route('publishers.verification')}}">Become a Publisher Now!</a></h3>
+                        <h2 class="orangeC">Why do I need an AdSense account?</h2>
+                        <p>
+                        There are a few reasons why you need an AdSense account before you can become a Publisher. The tools that come with AdSense are important to keep track of your revenue, and of course Google AdSense has a proven track record of being a reliable partner.  You will have the tools that give you reports you can trust. This way, there is never any confusion about your earnings from advertisements on our website.  
+                        </p>
+                        <br/>
 
-                     <br/><br/>
+                        <h2 class="orangeC">More information about our program.</h2>
+                        <p>
+                        We like our publishers to inform themselves about the many facets of our program. Therefore, we encourage current and prospective publishers to read our <a href="{{route('publishers.termsandconditions')}}">Terms and conditions</a>, <a href="{{route('publishers.faqs')}}">FAQ</a>, and <a href="{{route('publishers.privacy')}}">privacy</a> statements. This way, you know what we expect from you and what you can expect from us.
+                        </p>
+
+                        <br/>
+                        <hr/>
+                        <h3>Start earning money. <a href="{{route('publishers.verification')}}">Become a Publisher Now!</a></h3>
+
+                        <br/><br/>
                  </div>
     			</div>
     		</div>
     	</div>
         <div class="col-md-4">
-            @include('elements/Publishers/video')
+                @include('elements/publishers/video')
             <br/>
-            @include('elements/Publishers/support')
+            @include('elements/publishers/support')
         </div>
     </div>
 </div>

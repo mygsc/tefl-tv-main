@@ -190,8 +190,7 @@ class Video extends Eloquent{
 				->paginate(5);
 			}
 
-			$videoData = $this->addThumbnail($videoData);
-			return $this->addVideoTags($videoData);
+			return $this->addVideoTagsandThumbnails($videoData);
 		}
 		return false;
 	}
@@ -210,10 +209,19 @@ class Video extends Eloquent{
 		return $data;
 	}
 
-	public function addVideoTags($videoData){
+	public function addVideoTagsandThumbnails($videoData){
 		foreach($videoData as $key => $video){
 			$getTags = explode(',',$video->tags);
 			$videoData[$key]->tags = $getTags;;
+
+			$folderName = $video->user_id. '-'. $video->channel_name;
+			$fileName = $video->file_name;
+			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$videoData[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnailPath))){
+				$videoData[$key]->thumbnail = $thumbnailPath;
+			}
+			
 		}
 		return $videoData;
 	}
@@ -229,7 +237,7 @@ class Video extends Eloquent{
 	}
 
 	public function getCategory(){
-		$categoryList = array('For Teachers','For Students','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
+		$categoryList = array('For Teachers','For Students','For Schools','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		$categories = array();
 		foreach ($categoryList as $key => $category) {
 			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
@@ -432,7 +440,7 @@ class Video extends Eloquent{
 		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
 	}
 	public function randomChar($length = 11, $result = '') {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_|$';
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_';
 		$charactersLength = strlen($characters);
 		for ($i = 0; $i < $length; $i++) {
 			$result .= $characters[rand(0, $charactersLength - 1)];

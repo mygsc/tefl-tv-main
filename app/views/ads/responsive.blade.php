@@ -7,10 +7,11 @@
         left: 0;
         right: 0;
         display: block;
-        /*bottom:10px!important;*/
-        bottom:0;
+        bottom:10px!important;
+        /*bottom:0;*/
         margin:auto;
         background: transparent;
+        visibility: hidden;
     }
     .ads-relative-wrapper{
         max-height:90px!important;
@@ -42,9 +43,7 @@
         border: 1px solid #fff;
     }
 
-</style>
-
-   
+</style>   
     <!-- Responsive -->
    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <div class="ads-absolute-wrapper" id='advertisement'>
@@ -52,7 +51,6 @@
 
         <div class="text-center" style="position:relative;">
             <span class="close-ads">
-               <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
                 <b><i>close ads</i></b>
             </span>
         </div>

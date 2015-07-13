@@ -189,7 +189,6 @@ class VideoController extends BaseController {
 		$searchResults = $this->Video->searchVideos($search);
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
-		//return $searchResults;
 
 		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories','notifications')));
@@ -219,7 +218,7 @@ class VideoController extends BaseController {
 			$vidOwner = User::find($vidFilename->user_id);
 			return View::make('homes.embedvideo', compact('vidFilename','vidOwner'));
 		}
-		return app::abort(404, 'Page not available');
+		return app::abort(404, 'Page not available.');
 	}
 	public function getSearch() {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));

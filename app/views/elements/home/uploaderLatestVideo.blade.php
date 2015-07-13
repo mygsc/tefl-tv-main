@@ -1,4 +1,4 @@
-  <div class="row grey mg-t-10 same-H">
+  <div class="White mg-t-10 same-H">
         
             <div class="h-title dark"><!--From highest number of folloers-->
 

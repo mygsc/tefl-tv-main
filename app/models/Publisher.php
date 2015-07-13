@@ -39,5 +39,14 @@ class Publisher extends Eloquent implements UserInterface, RemindableInterface {
 
 		return true;
 	}
+	public function getAdsenseID($id=null){
+		$get = Publisher::where('user_id',$id);
+		if($get->count()){
+			$get = $get->first();
+			return array('adsenseID'=>$get->adsense_id,'adSlotID'=>$get->ad_slot_id);
+		}
+		return app::abort('404','Page not found.');
+
+	}
 
 }

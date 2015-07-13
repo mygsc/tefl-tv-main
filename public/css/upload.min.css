@@ -50,12 +50,14 @@ img:hover{
 }
 span.v-category{
 	padding: 4px 4px;
-	border: 1px solid #BCE8F1;
-	background:#D9EDF7;
+	border: 1px solid #FFFFFF;
+	background: #FFFFFF;
 	margin-right: 8px;
 	margin-bottom: 10px;
 	display: inline-block;
-
+	-webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
 }
 .v-category label{
 	font-weight: normal!important;

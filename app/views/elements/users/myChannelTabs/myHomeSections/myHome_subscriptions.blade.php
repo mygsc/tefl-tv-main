@@ -1,11 +1,11 @@
 <!--Subscriptions-->
 
-<div class="col-md-6 col-md-height col-top">
-	<div class="row grey">
-		<div class="h-title greyDark orangeC">
-			<span><b>SUBSCRIPTIONS</b></span>&nbsp;
+<div class="col-md-6 col-md-height col-top" >
+	<div class="row " style="padding-left:20px!important;">
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIPTIONS</h3>
 		</div>
-		<div class="Div-channelSubSection" id="subscriberWrapper">
+		<div class="Div-channelSubSection White same-H " id="subscriberWrapper" >
 			<br/><br/>
 			<div class="row-same-height">
 				@if($subscriptionProfile->isEmpty())
@@ -15,11 +15,7 @@
 						<div class="col-md-6" >
 							<div class="user-padding" id="subscriberLists">
 								<a href="{{route('view.users.channel', $profile1->channel_name)}}">
-									@if(file_exists(public_path('img/user/'.$profile1->user_id.'.jpg')))
-										{{HTML::image('img/user/'.$profile1->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-									@else
-										{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-									@endif
+										{{HTML::image($profile1->profile_picture, 'alt', array('class' => 'userRep2'))}}
 									&nbsp;
 									<span><b>{{$profile1->channel_name}}</b></span>
 								</a>

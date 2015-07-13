@@ -1,5 +1,5 @@
 
-<div class="same-H div_footer">
+<div class="same-H div_footer footer">
     <div class="col-md-7 f_links_div">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -104,4 +104,3 @@
     </div>
 
 </div>
-

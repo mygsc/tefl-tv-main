@@ -1,5 +1,5 @@
-<div class="row White same-H">
-	<div class="Orange-bg support_head">
+<div class="row White same-H" id="support">
+	<div class="support_head">
 		Partner's Support
 	</div>
 	<div class="content-padding">
@@ -27,7 +27,7 @@
 			@endif
 		</span>
 		<div class="text-right mg-b-20 wrap">
-			<div class="btn btn-primary form-control">
+			<div class="btn btn-primary form-control side-bottom">
 			{{ Form::submit('Submit', array('class' => 'btn-hide'))}}
 			</div>
 		</div>

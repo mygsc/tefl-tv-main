@@ -24,6 +24,10 @@ class PublisherController extends Controller {
 		return View::make('publishers.privacy');
 	}
 
+	public function getTermsAndConditions(){
+		return View::make('publishers.termsandconditions');
+	}
+
 	public function getSupport(){
 		return View::make('publishers.support');
 	}
@@ -81,6 +85,14 @@ class PublisherController extends Controller {
 			return Redirect::route('publishers.register-adsense');
 		}
 		return Redirect::route('publishers.verification')->with('flash_bad','Invalid credentials')->withInput();
+	}
+
+	public function getEditPublisher(){
+		return View::make('publishers.edit-publisher');
+	}
+
+	public function getDeactivatePublisher(){
+		return View::make('publishers.deactivate');
 	}
 
 }

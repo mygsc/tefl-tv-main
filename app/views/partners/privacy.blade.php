@@ -15,7 +15,7 @@
 
 <div class="top-bg"></div>
 
-<div class="paper_wrap">
+<div class="paper_wrap" data-sticky_parent="" style="position: relative;">
     <div class="col-md-10 col-md-offset-1">
         <div class="col-md-8">
             <div class="paper">
@@ -118,16 +118,16 @@
     						</li>
     						<br/>
     						<hr/>
-    						<h3>Start earning money. <a href="">Become a Partner Now!</a></h3>
+    						<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
     				</div>
     			</div>
     		</div>
     	</div>
-			<div class="col-md-4">
-				@include('elements/partners/video')
-				<br/>
-				@include('elements/partners/support')
-			</div>
+		<div class="col-md-4">
+			@include('elements/partners/video')
+			<br/>
+			@include('elements/partners/support')
+	
 		</div>
 	</div>
 @stop

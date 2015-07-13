@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 	<meta charset="utf-8">
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title', 'TEFL-TV')</title>
 	<meta name="robots" content="NOODP">
@@ -15,8 +16,6 @@
 
 	<!-- CSS -->
 
-	{{ HTML::style('css/material/ripples.css') }}
-	{{ HTML::style('css/material/roboto.css') }}
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
@@ -26,6 +25,7 @@
 </head>
 
 <body>
+	
 	<div id="fb-root"></div>
 	<div class="same-H">
 	@include('elements/header')
@@ -35,23 +35,25 @@
 		@include('elements.flash_message')
 		@yield('content')
 	</div>
+	<div class="footer-s">
 	@include('elements/footer')
+	</div>
 
 </body>
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-
-
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+{{HTML::script('js/jquery.sticky-kit.min.js')}}
+{{HTML::script('js/sticky.js')}}
 
-{{HTML::script('js/sticky-scroll')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
+{{HTML::script('js/scroll-onpage.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -87,6 +89,7 @@
   ga('send', 'pageview');
 
 </script>
+
 
 
 @yield('script') 

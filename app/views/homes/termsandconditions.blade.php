@@ -3,12 +3,11 @@
 
 @section('content')
 <div class='container'>
-	<div class="row">
+	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<!-- tabs left -->
-		<div class="tabbable">
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-				<div class="mg-r-10 row">
+		<div class="row-same-height">
+			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm col-md-height col-top">
+				<div class="mg-r-10 row" data-sticky_column="">
 					@include('elements/home/categories')
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')
@@ -18,13 +17,12 @@
 					</div>
 					<div class="mg-t-10">
 						@include('elements/home/adverstisementSmall')
-
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 White mg-t-10">
+			<div class="col-md-9 White mg-t-10 same-H col-md-height col-top">
 				<br/>
-				<div class="content-padding">
+				<div class="content-padding" id="floatboxanchor">
 					<div class="">
 						<div class="tab-content">
 							<div class="tab-pane active text-justify" id="users">
