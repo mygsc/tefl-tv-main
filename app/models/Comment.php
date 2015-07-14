@@ -52,7 +52,7 @@ class Comment extends Eloquent {
 					)->first();
 					$comments[$key]->getCommentReplies[$key1]->ifAlreadyDisliked = DB::table('comments_reply_likesdislikes')->where(array(
 						'comments_reply_id' => $comment->id, 'user_id' => Auth::User()->id,'status' => 'disliked')
-					->first();
+					)->first();
 				}
 			}
 			/***Comment Replies Section***/
