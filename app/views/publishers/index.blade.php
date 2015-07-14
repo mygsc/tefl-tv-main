@@ -32,8 +32,9 @@ TEFLTV Publisher
                 <div class="row text-center div-Steps">
                    <div class="col-sm-4 col-md-4">
                         <img src="/img/icons/select-ico.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
-                        <h2>Upload your own videos.</h2>
+                        <h2>Select from all videos on tefltv</h2>
                     </div>
+               
                     <div class="col-sm-4 col-md-4">
                         <img src="/img/icons/share-ico.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
                         <h2>Embed video to your website or share to your social media accounts.</h2>

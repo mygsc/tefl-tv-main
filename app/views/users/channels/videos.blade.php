@@ -129,14 +129,19 @@
 												@else
 													{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 												@endif
-												<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>						
+												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>						
 											</div>
 										</a>
 									</div>
 
 									<div class="inlineInfo ">
 										<div class="v-Info">
-											{{$usersVideo->title}}
+											
+											<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
+												<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
+												<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
+												<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
+											</a>
 										</div>
 										<div class="text-justify desc hide">
 											<p>{{$usersVideo->description}}</p>

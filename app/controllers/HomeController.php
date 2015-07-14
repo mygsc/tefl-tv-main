@@ -721,30 +721,9 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$adsense = $this->Partner->getPublisherID(2);
-
-		echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <div class="ads-absolute-wrapper" id="advertisement">
-        <div class="close-ads"></div>
-
-        <div class="text-center" style="position:relative;">
-            <span class="close-ads">
-               <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
-                <b><i class="glyphicon glyphicon-remove"></i></b>
-            </span>
-        </div>
-
-        <div class="ads-relative-wrapper">
-            <ins class="adsbygoogle"
-            style="display:block;"
-            data-ad-client="'.$adsense['adsense_id'].'"
-            data-ad-slot="'.$adsense['ad_slot_id'].'"
-
-            data-ad-format="auto"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-    </div>';
+	echo phpinfo();
 	}	
+
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){

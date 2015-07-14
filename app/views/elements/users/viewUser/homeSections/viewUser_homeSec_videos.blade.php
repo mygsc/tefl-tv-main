@@ -21,16 +21,24 @@
 								@else
 									{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 								@endif
-								<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
+								<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 							</div>
 						</div>
-						<div class="v-Info">
-							<a href="{{route('homes.watch-video', array('v='.$findVideo->file_name))}}" target="_blank">{{$findVideo->title}}</a>
-						</div>
 					</a>
-					<div class="count">
-						{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
-					</div>
+						<div class="inlineInfo ">	
+							<div class="v-Info">
+								<a href="{{route('homes.watch-video', array('v='.$findVideo->file_name))}}" target="_blank">
+									<span class="visible-lg">{{ Str::limit($findVideo['title'],65)}}</span>
+									<span class="visible-md">{{ Str::limit($findVideo['title'],45)}}</span>
+									<span class="visible-xs visible-sm">{{ Str::limit($findVideo['title'],30)}}</span>
+								</a>
+							</div>
+							<div class="count">
+								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+							</div>
+						</div>
+					
+					
 				</div>
 			@endforeach
 		@endif
