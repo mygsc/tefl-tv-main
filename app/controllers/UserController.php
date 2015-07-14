@@ -855,8 +855,8 @@ class UserController extends BaseController {
 				'feedback_id' => $feedbacks->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
 			$userInfo = User::find($user_id);
 
-			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
-				$temp = 'img/user/'.$userInfo->id . '.jpg';
+			if(file_exists(public_path('img/user/'. $userInfo->id . '/profile_picture.jpg'))){
+				$temp = 'img/user/'.$userInfo->id . '/profile_picture.jpg';
 			}else {
 				$temp = 'img/user/0.jpg';
 			}
@@ -928,8 +928,8 @@ class UserController extends BaseController {
 			$replies->save();
 
 			$userInfo = User::find($user_id);
-			if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
-				$temp = 'img/user/'. $user_id . '.jpg';
+			if(file_exists(public_path('img/user/'. $user_id . '/profile_picture.jpg'))){
+				$temp = 'img/user/'. $user_id . '/profile_picture.jpg';
 			} else{
 				$temp = 'img/user/0.jpg';
 			}

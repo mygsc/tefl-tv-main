@@ -24,7 +24,7 @@
 		</div>
 	</div>
 
-	<div class="White same-H pad-v-10">
+	<div class="White same-H pad-v-10 mg-t-10">
 		<div class="row">
 			<div class="content-padding">
 				<h3>All Comments ({{$getVideoCommentsCounts}}) </h3>
@@ -33,8 +33,8 @@
 					@foreach($getVideoComments as $getVideoComment)
 					<div class="commentsarea row commentDeleteArea">
 						<?php
-						if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
-							$temp = 'img/user/'.$getVideoComment->user_id . '.jpg';
+						if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '/profile_picture.jpg'))){
+							$temp = 'img/user/'.$getVideoComment->user_id . '/profile_picture.jpg';
 						} else{
 							$temp = 'img/user/0.jpg';
 						}
@@ -136,8 +136,8 @@
 									<div id="replysection" class="panelReply">
 										<?php
 										foreach($getCommentReplies as $getCommentReply):
-											if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '.jpg'))){
-												$temp = 'img/user/'.$getCommentReply->user_id . '.jpg';
+											if(file_exists(public_path('img/user/'.$getVideoComment->user_id . '/profile_picture.jpg'))){
+												$temp = 'img/user/'.$getCommentReply->user_id . '/profile_picture.jpg';
 											} else{
 												$temp = 'img/user/0.jpg';
 											}

@@ -248,7 +248,7 @@ class HomeController extends BaseController {
 		$datas = $this->User->getTopChannels(4);
   		//Insert additional data to $datas
 		foreach($datas as $key => $channel){
-			$img = 'img/user/'. $channel->id. '.jpg';
+			$img = 'img/user/'. $channel->id. '/profile_picture.jpg';
 			if(Auth::check()){
 				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
 				$datas[$key]->ifsubscribe = 'No';

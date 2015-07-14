@@ -84,7 +84,7 @@ class ReportController extends BaseController {
 		$uploader_channel = $uploader_info->channel_name;
 
 		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($data1) {
-			$message1->to($data1['complainant_emails'])->subject('Complaint Email');
+			$message1->to($data1['complainant_email'])->subject('Complaint Email');
 		});
 		Mail::send('emails.reports.uploaders_report', $data2, function($message2){
 			$message2->to($data1['uploader_email'])->subject('Complaint Email');
