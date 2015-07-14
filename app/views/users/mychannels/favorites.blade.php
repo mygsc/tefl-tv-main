@@ -83,7 +83,7 @@
 									@else
 										{{HTML::image('img/thumbnails/video.png', 'alt', array('class' => 'hvr-grow-rotate') )}}
 									@endif
-									<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
+									<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" width="100%"/> </div>
 								</a>
 								</div>
 							</div>

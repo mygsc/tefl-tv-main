@@ -1,38 +1,52 @@
-@extends('layouts.default')
+@extends('layouts.signin')
 
 
 @section('content')
 @include('elements/flash_verify')
-<div class="row White same-H mg-t-10">
-	<div class='container'>
-		<br/><br/>
-		<div class="row">
-			<div class="col-md-8 col-sm-7">
 
-				<div class="row sign-upLinks text-center ">
+<div class="row" >
+    <div id="cmn-video-demo3__container" style="z-index:-1;">
+        <video id="cmn-video-demo3__video" autoplay muted="muted" loop="true">
+            <source src="/videos/tefltv.mp4" type="video/mp4">
+            <source src="/videos/tefltv.webm" type="video/webm">
+            <source src="/videos/tefltv.ogg" type="video/ogg">
+            Your browser doesn't support HTML5 video. Here's a <a href="#">link</a> to download the video.
+        </video>
+        <div id="cmn-video-demo3__content" >
+        </div>
+    </div>
+    <div class="absolute-wrap">
+	    <div class="container" >
+			<div class="row" style="">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="sign-log-wrapp2 box-shadow">
 					<h1 class="text-center">
-						Create an account for FREE!
-						<br/>
-						<small>Choose where to sign up</small>
-					</h1>
-					<a href = "{{route('homes.googleconnect',array('action' => 'signup'))}}"><img src="/img/icons/google.png" class="social-roll google"></a>
-					<a href="{{route('homes.signin', array('signup' => 'signup'))}}"><img src="/img/icons/tefltv.png" class="social-roll tefltv signBtn"></a>
-					<a href="{{route('homes.facebookconnect',array('action' => 'signup'))}}"><img src="/img/icons/fb.png" class="social-roll fb "></a>
+							Create an account for FREE!
+							<br/>
+							<small>Choose where to sign up</small>
+						</h1>
+						<a href = "{{route('homes.googleconnect',array('action' => 'signup'))}}"><img src="/img/icons/google.png" class="social-roll google"></a>
+						<a href="{{route('homes.signin', array('signup' => 'signup'))}}"><img src="/img/icons/tefltv.png" class="social-roll tefltv signBtn"></a>
+						<a href="{{route('homes.facebookconnect',array('action' => 'signup'))}}"><img src="/img/icons/fb.png" class="social-roll fb "></a>
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-2 text-center">
+
+					@if(Input::has('signup'))
+						@include('elements.home.signin.signupform')
+					@else
+						@include('elements.home.signin.loginform')
+					@endif
 				</div>
 
-			</div>
-			<div class="col-md-4 col-sm-5">
-				@if(Input::has('signup'))
-					@include('elements.home.signin.signupform')
-				@else
-					@include('elements.home.signin.loginform')
-				@endif
-			</div>
+
 
 		</div>
-		<br/><br/>
 	</div><!--/.container page-->
+
 </div>
+</div>
+
 @stop
 
 @section('modal')

@@ -6,8 +6,6 @@
 	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title', 'TEFL-TV')</title>
-	<meta name="robots" content="NOODP">
-	<meta name="googlebot" content="NOODP">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
@@ -18,6 +16,7 @@
 
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
+	{{ HTML::style('css/signin.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
@@ -31,11 +30,11 @@
 	@include('elements/header')
 	@include('elements/home/headerNav')
 	</div>
-	<div class="container">
+
 		@include('elements.flash_message')
 		@yield('content')
-	</div>
-	<div class="footer-s">
+
+	<div class="footer-s mg-t--30">
 	@include('elements/footer')
 	</div>
 
@@ -44,9 +43,8 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-{{HTML::script('js/jquery.sticky-kit.min.js')}}
-{{HTML::script('js/sticky.js')}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
@@ -58,22 +56,7 @@
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
 <!--list and gri display for my channel-->
-<script type="text/javascript">
-	setCorrectTimezone();
 
-	$('.grid').click(function() {
-		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3 col-sm-4 col-xs-6');
-		$('.inlineVid').removeClass('col-md-4 col-sm-5 col-xs-6');
-		$('.inlineInfo').removeClass('col-md-8 col-sm-7 col-xs-6');
-		$('.desc').addClass('hide');
-	});
-	$('.list').click(function() {
-		$('#videosContainer #list').removeClass('col-md-3 col-sm-4 col-xs-6').addClass('col-md-12');
-		$('.inlineVid').addClass('col-md-4 col-sm-5 col-xs-6');
-		$('.inlineInfo').addClass('col-md-8 col-sm-7 col-xs-6');
-		$('.desc').removeClass('hide');
-	});
-</script>
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
@@ -88,6 +71,20 @@
   ga('create', 'UA-53463162-2', 'auto');
   ga('send', 'pageview');
 
+</script>
+
+<script type="text/javascript">
+	var myVideo = document.getElementById('#cmn-video-demo3__video');
+	if (typeof myVideo.loop == 'boolean') { // loop supported
+	  myVideo.loop = true;
+	} else { // loop property not supported
+	  myVideo.addEventListener('ended', function () {
+	    this.currentTime = 0;
+	    this.play();
+	  }, false);
+	}
+//...
+myVideo.play();
 </script>
 
 

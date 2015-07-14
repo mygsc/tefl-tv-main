@@ -163,42 +163,49 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             <a href="#" id='embed-video' class="black"><p class="inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i>&nbsp;&nbsp;Embed</p></a>
-                                                
+                                             <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
+                                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                                            
+                                             {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
+                                                {{Form::hidden('report_url',$report_url)}}
+                                                <span title="Report This Video">
+                                                    
+                                                    <!--<input value="Report" type="submit" class='reportLink'>-->
+                                                    <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
+                                                    
+                                                </span>
+                                           		 {{Form::close()}}
+                                           		 &nbsp;&nbsp;|&nbsp;&nbsp;
+                                             
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
                                                        <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
                                                          <div class='pub-ads'>
                                                             <h4>Your Ads Preview</h4>
-                                                             <p>Click proceed to place your own ads to this video.</p>
+                                                             <!-- <p>Click proceed to place your own ads to this video.</p> -->
                                                                 <hr>
                                                                      @include('ads/adspreview')
                                                                 <hr>
-                                                                <div style="display:none" id='embed-pub'>
+                                                                <div style="" id='embed-pub'>
                                                                 <p>Copy and paste this code to your website:</p>
                                                                  <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-                                                               </p>
+                                                               	</p>
                                                                 </div>
-                                                                <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
-                                                                <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button>
+                                                               <!-- <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
+                                                                <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
                                                          </div>
                                                          
                                                     @endif
                                                 @endif
+                                                
+                                               
                                                <div style='margin-top:5px;display:none;' class="embed-frame">
                                                     <p>
                                                         <input  type="text" id='code-embed' class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
                                                     </p>
                                                 </div>
-                                            
-                                            <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
-                                            
-                                            {{Form::open(array('route' => array('get.complaint_form')))}}&nbsp;
-                                                {{Form::hidden('report_url',$report_url)}}
-                                                <span title="Report This Video">
-                                                    <i class='fa fa-flag'></i>&nbsp;&nbsp;
-                                                    <input value="Report" type="submit" class='reportLink'>
-                                                </span>
-                                            {{Form::close()}}
+                                                
+                                           
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
@@ -340,10 +347,26 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 	
 	                                <div class="row p-relative">
 	                                	<div class="show_wrapp">
-	                                	<div class="showme col-middle">
-                                		{{ ($relation['title']) }}
-                                	</div>
-                                	</div>
+		                                	<div class=" col-middle">
+		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
+	                                       				
+	                                        @else
+	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+	                                        @endif
+	                                        
+	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
+	                                        		<div class="showInfo-wrapp ">
+	                                        			<div class="showInfo-div">
+			                                        		<span class="info-title">{{ ($relation['title']) }}</span><br/>
+			                                        		by: {{$relation['channel_name']}}<br/>
+			                                        		{{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
+	                                       			</div>
+	                                       			</div>
+	                                            </div>
+	                                		
+	                                		</div>
+                                		</div>
 	                                	<div class="row-same-height" title="">
 	                                		
 	                                    <div class="col-md-5 col-xs-4 col-md-height col-middle">
@@ -363,14 +386,16 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 	                                        <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
 	                                        <span>{{number_format($relation['views'])}} view/s</span>
 	                                    </div>
-	                                </div>
+                         </div>
+	                            
+
                                 </div>
                                 </a>
                                
                             </li>
                     @endforeach
                 </ul><!--video list-->
-
+					
                     <div class="mg-t-10 same-H">
                       <div class="h-title">
                         <div class="row">

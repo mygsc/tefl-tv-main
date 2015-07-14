@@ -24,6 +24,9 @@ class PartnerController extends Controller {
 		return View::make('partners.privacy');
 	}
 
+	public function getTermsAndConditions(){
+		return View::make('partners.termsandconditions');
+	}
 	public function getSupport(){
 		return View::make('partners.support');
 	}

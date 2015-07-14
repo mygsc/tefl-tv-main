@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	var publishVideo = false;
 	function counter(){
 		var count = 0;
 		$('#play-pause,.play-icon').click(function(e){

@@ -41,7 +41,7 @@
 		<div class="wrapper" id="controls">
 			<div id="progressbar">
 				<div id="progress-ads-line"  class="prog-ads-line">		
-					<input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0"> 	
+					<!-- <input style="display:none" id="seek-slider" type="range" min="0" max="100" step="1" value="0">  -->	
 					<div id="buffered"></div>
 					<div  id="current-progress">	
 						<div id="button-progress" class="progress-button">
@@ -58,21 +58,21 @@
 			<span class="pull-right">
 				<span id="time" class="ctime time" >{{--TIME DISPLAY HERE--}}</span> 
 				<span class="sound" title="Volume">
-				<i id='mute-icon' class='player sound-on'></i>
-					<div class="volume" style="display:none">
-						<input id="volume" type="range" min="0" max="100" value="100">
-						{{-- <div onclick='changeVolume("+")' id="plus-vol">+</div>
+					<i id='mute-icon' class='player sound-on'></i>
+						
+					<div class="volume">
+						<!-- <input id="volume" type="range" min="0" max="100" value="100"> -->
 						<div class="volume-static-holder">
 							<div id="volume-vertical">
-								<div id="volume-button"> 
-								</div>
+								<button id="volume-button"> 
+								</button>
 							</div>
 						</div>
-						<div onclick='changeVolume("-")' id="minus-vol" >-</div> --}}				
+									
 					</div>
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
-				<div class="hd-setting" style='display:none'>
+				<div class="hd-setting">
 					<small class="vp-text">Video Quality</small>
 					<ul>
 						<li> <a title='HD mode' id="high-quality" href="#">High</a></li>
@@ -83,7 +83,7 @@
 						<li> <a href="#">240p</a></li> --}}
 					</ul>						
 				</div><!--/.hd-setting-->
-				<div class="share-video" style="display:none">
+				<div class="share-video">
 					<small class="vp-text">Share to:</small>
 					<ul>
 						<a target="_blank" href="http://www.facebook.com/share.php?u={{URL::asset('/')}}watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
