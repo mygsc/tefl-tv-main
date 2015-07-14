@@ -286,11 +286,12 @@ $(document).ready(function() {
 				var totalEndTimeSec = end1+end2+end3;
 				var getstyle = annotations.css(css);
 				var rm = getid.replace('save-','');
-				$('#'+rm).remove();
-				$('#div-'+rm).remove();
+				
 				annotations.loader();
 				setTimeout(function(){
 					annotations.add(filename,types,content,totalStartTimeSec,totalEndTimeSec,link,getstyle);
+					$('#'+rm).remove();
+					$('#div-'+rm).remove();
 				},3000);
 			}
 			save.onmouseover = function(){
@@ -679,11 +680,12 @@ var video = function(){
 		duration: function(duration){
 			curHrs = Math.floor(duration / 3600);
 			curMin = Math.floor(duration / 60);
+			curMinutes = Math.floor(curMin - (curHrs * 60));
 			curSec = Math.floor(duration - (curMin * 60));
 			if(curHrs < 10)curHrm = "0"+curHrs;
 			if(curMin < 10)curMin = "0"+curMin;
 			if(curSec < 10)curSec = "0"+curSec;
-			return curHrm + ':' + curMin + ':' +curSec;
+			return curHrs + ':' + curMinutes + ':' +curSec;
 		}
 	}
 }();
@@ -729,7 +731,7 @@ var drag = function(){
 }();
 var css = function(){
 	return{
-		Note: function(id){
+		note: function(id){
 			var elem = document.getElementById(id),
 			style = window.getComputedStyle(elem),
 			padding = style.getPropertyValue('padding'),
@@ -741,7 +743,7 @@ var css = function(){
 			left = style.getPropertyValue('left'),
 			background = style.getPropertyValue('background'),
 			cssstyle = 'padding:'+padding+';' + 'color:' + color+';' + 'width:' + width+';' + 'height:' + height+';' + 'position:' + position + ';' +
-			'top:' + top+';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
+			'top:' + top + ';' +'left:'+ left + ';' + 'background:' + background + ';'+'z-index:2147483647;' +'display:none;';
 			return cssstyle;
 		},
 		Title: function(id){
@@ -804,8 +806,8 @@ var time = function(){
 			start1 = getStartTime[0] * 3600, start2 = getStartTime[1] * 60,start3 = getStartTime[2] * 1,
 			end1 = getEndTime[0] * 3600,end2 = getEndTime[1] * 60, end3 = getEndTime[2] * 1;
 			if(getStartTime[0]>60 || getStartTime[1]>60 || getStartTime[2]>60 || getEndTime[0]>60 || getEndTime[1]>60 || getEndTime[2]>60) {totalTimeEndStart.push('error'); return totalTimeEndStart;}
-			totalTimeEndStart.push(start1+start2+start3);
-			totalTimeEndStart.push(end1+end2+end3);
+			totalTimeEndStart[0] = (start1+start2+start3);
+			totalTimeEndStart[1] = (end1+end2+end3);
 			return totalTimeEndStart;
 		},
 		increment: function(st,timeDuration){
@@ -901,10 +903,10 @@ $('.sv-annot').bind('click', function(e){
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
-	if(annotTypes=='Title')var style = css.Title('preview-annotation');
-	else if(annotTypes=='Note') var style = css.Note('preview-annotation');
-	else if(annotTypes=='Spotlight') var style = css.spotlight('preview-annotation');
-	else if(annotTypes=='Speech') var style = css.speech('preview-annotation');
+	if(annotTypes=='Title'){var style = css.Title('preview-annotation');}
+	else if(annotTypes=='Note'){var style = css.note('preview-annotation');}
+	else if(annotTypes=='Spotlight'){var style = css.spotlight('preview-annotation');}
+	else if(annotTypes=='Speech'){var style = css.speech('preview-annotation');}
 	setTimeout(function(){
 		annotations.update(id,content,getTime[0],getTime[1],link,style);
 		if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }

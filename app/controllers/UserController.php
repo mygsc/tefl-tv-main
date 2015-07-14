@@ -124,7 +124,7 @@ class UserController extends BaseController {
 		$validator = Validator::make(
 			array('password' => $input['password'],'password_confirmation' => $input['password_confirmation']),
 			array('password' => 'required|min:6','password_confirmation' => 'same:password')
-		);
+			);
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
 				return Redirect::route('homes.signin')->with('flash_good', 'Password has been re-newed');
@@ -301,7 +301,6 @@ class UserController extends BaseController {
 
 	public function postEditUsersChannel($channel_name) {
 		$input = Input::all();
-		return $input;
 		$validate = Validator::make($input, User::$userEditRules);
 		if($validate->passes()){
 			$user = User::find(Auth::User()->id);
@@ -426,8 +425,8 @@ class UserController extends BaseController {
 			$countCommentAndLikes = $this->comment_->countLikesAndComments($video->id);
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
 			//if($video->category != ""){
-			    $category = explode(',',$video->category);
-				$videoCategory = $this->video_->categorySelected($category);
+			$category = explode(',',$video->category);
+			$videoCategory = $this->video_->categorySelected($category);
 			//}
 
 			$thumbnail = $this->threeThumbnailPath($filename, $extension);
@@ -908,7 +907,7 @@ class UserController extends BaseController {
 				'feedback' => $feedback,
 				'user_id' => $user_id,
 				'feedback' => $newFeedback
-			));
+				));
 		}
 	}
 
@@ -983,8 +982,8 @@ class UserController extends BaseController {
 				array('feedback_id' => $dislikeFeedbackId,
 					'user_id'    => $dislikeUserId,
 					'status' 	   => 'disliked'
-				)
-			);
+					)
+				);
 			$dislikesCount = DB::table('feedbacks_likesdislikes')->where(array('feedback_id' => $dislikeFeedbackId, 'status' => 'disliked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked'));
 		} elseif($statuss == 'undisliked'){
@@ -1616,8 +1615,8 @@ class UserController extends BaseController {
 		if(count($annotations)==0) return Response::json(array('msg'=>'Empty.')); 
 		foreach($annotations as $annotation){
 			$result []= "<li id='forever-remove-annot-$annotation->id' role='presentation'>".
-							"<a id='$annotation->id'role='menuitem' class='option-annot' tabindex='-1' href='#'>$annotation->types-.str_limit($annotation->content,15)</a>".
-						"</li>";
+			"<a id='$annotation->id'role='menuitem' class='option-annot' tabindex='-1' href='#'>$annotation->types-.str_limit($annotation->content,15)</a>".
+			"</li>";
 		}
 		return $result;
 	}
@@ -1649,9 +1648,45 @@ class UserController extends BaseController {
 
 	public function getDeactivate(){
 		if(Auth::check()){
-			return View::make('users.mychannels.accountsettings.deactivate');
+			$submit_text = 'Deactivate Account';
+			$set_status = '0';
+			$keyword = 'deactivate';
+			if($this->Auth->status == '0'){
+				$submit_text = 'Activate Account';
+				$set_status = '1';
+				$keyword = 'activate';
+			}
+			return View::make('users.mychannels.accountsettings.deactivate', compact('submit_text','set_status', 'keyword'));
 		}
 		return View::make('homes.signin');
+	}
+
+	public function postDeactivate(){
+		$input = Input::all();
+		$status = Crypt::decrypt($input['key']);
+		$validator = Validator::make(
+			array(
+				'password' => $input['password'],
+				'password_confirmation' => $input['password_confirmation']
+				),
+			array(
+				'password' => 'required|min:5|confirmed',
+				'password_confirmation' => 'required|min:5'
+				));
+		
+		if($validator->fails()){
+			return Redirect::route('users.deactivate')->withErrors($validator);
+		}
+
+		if (Hash::check($input['password'],$this->Auth->password)){
+			$users = User::find($this->Auth->id);
+			$users->status = $status;
+			$users->save();
+
+			return Redirect::route('users.deactivate')->withFlashGood('Your account was '. $input['keyword'].'d');
+		}
+
+		return Redirect::route('users.deactivate')->withFlashBad('Your password was incorrect!');
 	}
 
 }

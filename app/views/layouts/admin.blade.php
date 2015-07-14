@@ -7,6 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	@yield('meta')
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+	<meta name="robots" content="NOODP">
+	<meta name="googlebot" content="NOODP">
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}

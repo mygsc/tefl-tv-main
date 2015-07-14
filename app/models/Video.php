@@ -440,7 +440,7 @@ class Video extends Eloquent{
 		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
 	}
 	public function randomChar($length = 11, $result = '') {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_';
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
 		$charactersLength = strlen($characters);
 		for ($i = 0; $i < $length; $i++) {
 			$result .= $characters[rand(0, $charactersLength - 1)];

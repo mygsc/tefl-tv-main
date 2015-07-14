@@ -142,6 +142,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('upload-image', array('as' => 'users.upload.image', 'uses' => 'UserController@postUploadUsersProfilePicture'));
 	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
 	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
+	Route::post('deactivate', array('as' => 'post.users.deactivate', 'uses' => 'UserController@postDeactivate'));
 });
 //*********End of Channels************//
 
@@ -215,7 +216,9 @@ Route::group(array('prefix' => 'partners'), function(){
 	Route::get('verification', array('before' => 'auth', 'as' => 'partners.verification', 'uses' => 'PartnerController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.partners.verification', 'uses' => 'PartnerController@postVerification'));
 	Route::get('edit-partners', array('as' => 'edit.partners', 'uses' => 'PartnerController@getEditPartner'));
-	Route::get('deactivate-partners', array('as' => 'deactivate.partners', 'uses' => 'PartnerController@getDeactivatePartner'));
+	Route::post('edit-partners', array('as' => 'post.edit.partners', 'uses' => 'PartnerController@postEditPartner'));
+	Route::get('cancel-partners', array('as' => 'cancel.partners', 'uses' => 'PartnerController@getCancelPartner'));
+	Route::post('cancel-partners', array('as' => 'post.cancel.partners', 'uses' => 'PartnerController@postCancelPartner'));
 });
 
 //**********publishers**********//
@@ -232,7 +235,9 @@ Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('verification', array('before' => 'auth', 'as' => 'publishers.verification', 'uses' => 'PublisherController@getVerification'));
 	Route::post('verification', array('before' => 'auth','as' => 'post.publishers.verification', 'uses' => 'PublisherController@postVerification'));
 	Route::get('edit-publisher', array('as' => 'edit.publishers', 'uses' => 'PublisherController@getEditPublisher'));
-	Route::get('deactivate-publishers', array('as' => 'deactivate.publishers', 'uses' => 'PublisherController@getDeactivatePublisher'));
+	Route::post('edit-publisher', array('as' => 'post.edit.publishers', 'uses' => 'PublisherController@postEditPublisher'));
+	Route::get('cancel-publishers', array('as' => 'cancel.publishers', 'uses' => 'PublisherController@getCancelPublisher'));
+	Route::post('cancel-publishers', array('as' => 'post.cancel.publishers', 'uses' => 'PublisherController@postCancelPublisher'));
 });
 
 Route::get('errors', array('as' =>'error', 'uses' => 'HomeController@error'));
