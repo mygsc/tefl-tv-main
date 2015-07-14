@@ -25,8 +25,25 @@
                         <div class="col-md-12 white">
                             <div class=""> 
                                 <br/><br/>
+                                @if(Auth::User()->status == '0')
+                                    <h2 class="text-center">Your account is <span class="orangeC">inactive</span></h2>
+                                @else
+                                    <h2 class="text-center">Your account is <span class="orangeC">active</span></h2>
+                                @endif
+                                <p> *Please take note that deactivating will not result to deletion of account rather it will disable you from using TEFLtv's features such as:</p>
+                                <ul>
+                                    <li>Uploading a video</li>
+                                    <li>Leaving comment/feedbacks to videos and users</li>
+                                    <li>Liking other users/channels comments and video</li>
+                                    <li>Your activites will be hidden from the public</li>
+                                    <li>You're VIDEO will not be available to the audiences</li>
+                                    <li>You CHANNEL will not be available to the audiences</li>
+                                    <li>If you are a partner/publisher of TEFLtv then your account will also be disabled</li>                              
+                                </ul>
+                                <p>*Once your account is deactivated you will be given an option to activate it again. Just go back to this page and you will be given an option to activate.</p>
+
                                 <h3 class="orangeC text-center">To {{$keyword}} your acccount we must verify that you are the account owner</h3>
-                                
+
                                 <div class="col-md-8 col-md-offset-2">
                                     <hr/>
                                    {{Form::open(array('route' => 'post.users.deactivate'))}}
