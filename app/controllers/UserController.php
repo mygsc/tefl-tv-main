@@ -301,7 +301,6 @@ class UserController extends BaseController {
 
 	public function postEditUsersChannel($channel_name) {
 		$input = Input::all();
-		return $input;
 		$validate = Validator::make($input, User::$userEditRules);
 		if($validate->passes()){
 			$user = User::find(Auth::User()->id);
