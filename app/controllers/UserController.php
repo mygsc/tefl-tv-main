@@ -1654,4 +1654,9 @@ class UserController extends BaseController {
 		return View::make('homes.signin');
 	}
 
+	public function postDeactivate(){
+		$input = Input::all();
+		
+	}
+
 }
