@@ -69,7 +69,7 @@
 							<h4>Video Information</h4>
 							<p><b>Title :</b> {{str_limit($video->title,20)}}</p>
 							<p><b>Date and Time Uploaded:</b> {{ date("F d, Y H:i a",strtotime($video->created_at)) }}</p>
-							<p><b>Video URL</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
+							<p><b>Video URL:</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
 							<p><b>Duration :</b> <span class="label label-primary">{{$video->total_time}}</span></p>
 							<p><b>Raw File :</b> {{$video->extension}}</p>
 							<p><b>Likes :</b> <span class="label label-primary">{{$countCommentAndLikes['likes']}}</span></p>
