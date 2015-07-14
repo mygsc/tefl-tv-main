@@ -10,6 +10,20 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'partners';
 	protected $softDeletes = true;
 
+	public static function getValidation($rules){
+		if($rules == 'update'){
+			return array(
+				'password' => 'required|confirmed',
+				'password_confirmation' =>'required',
+				'adsense_id' => 'required',
+				'ad_slot_id' => 'required|digits:10|numeric');
+		}else{
+			return array(
+				'password' => 'required|confirmed',
+				'password_confirmation' =>'required');
+		}
+	} 
+
 	public function savePartner($adsense_id, $ad_slot_id){
 
 		$role = Auth::User()->role;
@@ -55,6 +69,25 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 
 		return $adsense;
 
+	}
+
+	public function cancelPartner($user_id = null){
+		if(!empty($user_id)){
+			$publishsers = Partner::where('user_id', $user_id);
+			$publishsers->delete();
+
+			$users = User::find($user_id);
+
+			$role = '1';
+			if($users->role == '5'){
+				$role = '4';
+			}
+			$users->role = $role;
+			$users->save();
+
+			return true;
+		}
+		return false;
 	}
 
 }

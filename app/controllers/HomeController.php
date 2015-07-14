@@ -721,29 +721,10 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		$adsense = $this->Partner->getPublisherID(2);
 
-		echo '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <div class="ads-absolute-wrapper" id="advertisement">
-        <div class="close-ads"></div>
+		echo "<iframe width='500' height='315' src='http://www.test.tefltv.com/publish-video/eyJpdiI6ImxpeURCTWFUVEF6RU9RU2czQ2grQ2c9PSIsInZhbHVlIjoiTUdreFI1QVg3U0dDNHdURVZBbGJodz09IiwibWFjIjoiMmZmZTgzN2M2ODcxMjg0MWQ4M2VhZmU5NGM3OWQxNzlmMjdhNWZmZDVmZjZkMzI0YjA2Y2I1OWM3NTA0MTY4ZSJ9/nbGnZ88UX1P' frameborder='0' allowfullscreen></iframe>";
 
-        <div class="text-center" style="position:relative;">
-            <span class="close-ads">
-               <!-- <b><i class="glyphicon glyphicon-chevron-down"></i></b>   -->
-                <b><i class="glyphicon glyphicon-remove"></i></b>
-            </span>
-        </div>
-
-        <div class="ads-relative-wrapper">
-            <ins class="adsbygoogle"
-            style="display:block;"
-            data-ad-client="'.$adsense['adsense_id'].'"
-            data-ad-slot="'.$adsense['ad_slot_id'].'"
-
-            data-ad-format="auto"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-    </div>';
+		echo "<iframe width='500' height='315' src='http://www.test.tefltv.com/publish-video/eyJpdiI6ImhKc2pjaERJYURXMDFwa05zalpGQ3c9PSIsInZhbHVlIjoic0pjQUZDTG85VVBBd1didTFsMmI1Zz09IiwibWFjIjoiMWM4YjI3YTY0NzhkMGJhMGJjZThjOGJiMDMyZGYzNWYwOTU3ZGI5MmExOGIzMThmZTRmNmEzOWQ1NGFmODc4NiJ9/nbGnZ88UX1P' frameborder='0' allowfullscreen></iframe>";
 	}	
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
