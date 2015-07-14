@@ -112,7 +112,6 @@ class convertvideo extends Command {
 		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libvpx -acodec libvorbis '$normalwebm'");
 		print("\r \r \n WEBM Normal version of video is done converting...\r\n\n");
 		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libvpx -acodec libvorbis '$lowwebm'");	
-		//print("\r \r \n WEBM Low version of video is done converting...\r\n\n");
 	}
 	/**
 	 * Get the console command arguments.
