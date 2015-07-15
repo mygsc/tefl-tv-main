@@ -133,6 +133,11 @@ class PublisherController extends Controller {
 		if(Hash::check($input['password'],$this->Auth->password)){
 			$this->Publisher->cancelPublisher($this->Auth->id);
 
+			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
+			Mail::send('emails.publishers.cancel', $data, function($message) {
+				$message->to(Input::get('email'))->subject('TEFLtv Publishers account cancellation');
+			});
+
 			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Publisher account was cancelled');
 		}
 		return Redirect::route('cancel.publishers')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);

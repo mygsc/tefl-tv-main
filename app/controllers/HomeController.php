@@ -47,7 +47,7 @@ class HomeController extends BaseController {
 		$data = array('email' => $input['email'], 'name' => $input['name'], 'message' => $input['message']);
 		Mail::send('emails.welcome', $data, function($message)
 		{
-			$message->to('kevwiththec@yahoo.com')->subject('Support request from '. Input::get('email'));
+			$message->to('support@tefltv.com')->subject('Support request from '. Input::get('email'));
 		});
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}

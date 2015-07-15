@@ -134,6 +134,10 @@ class PartnerController extends Controller {
 		if(Hash::check($input['password'],$this->Auth->password)){
 			$this->Partner->cancelPartner($this->Auth->id);
 
+			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
+			Mail::send('emails.partners.cancel', $data, function($message) {
+				$message->to(Input::get('email'))->subject('TEFLtv Partners account cancellation');
+			});
 			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Partner account was cancelled');
 		}
 		return Redirect::route('cancel.partners')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);
