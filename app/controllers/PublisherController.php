@@ -88,11 +88,53 @@ class PublisherController extends Controller {
 	}
 
 	public function getEditPublisher(){
-		return View::make('publishers.edit-publisher');
+		$credentials = Publisher::where('user_id', $this->Auth->id)->first();
+		return View::make('publishers.edit-publisher', compact('credentials'));
 	}
 
-	public function getDeactivatePublisher(){
-		return View::make('publishers.deactivate');
+	public function postEditPublisher(){
+		$input = Input::all();
+		$input['adsense_id'] = strtolower($input['adsense_id']);
+		$validate_adsense_id = $this->User->validateAdsensePublisherID($input['adsense_id']);
+		$validator = Validator::make($input, Publisher::getValidation('update'));
+
+		if($validate_adsense_id === false){
+			return Redirect::route('edit.publishers')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs')->withInput();
+		}
+
+		if($validator->fails()){
+			return Redirect::route('edit.publishers')->withFlashBad('Please check your inputs')->withInput()->withErrors($validator);
+		}
+
+		if(Hash::check($input['password'],$this->Auth->password)){
+			$users = Publisher::where('user_id',$this->Auth->id)->first();
+			$users->adsense_id = $input['adsense_id'];
+			$users->ad_slot_id = $input['ad_slot_id'];
+			$users->save();
+
+			return Redirect::route('edit.publishers')->withFlashGood('Your TEFLtv Publisher account was updated');
+		}
+
+		return Redirect::route('edit.publishers')->withFlashBad('Your password was incorrect!');
+	}
+
+	public function getCancelPublisher(){
+		return View::make('publishers.cancel');
+	}
+
+	public function postCancelPublisher(){
+		$input = Input::all();
+		$validator = Validator::make($input, Publisher::getValidation('cancel'));
+
+		if($validator->fails()){
+			return Redirect::route('cancel.publishers')->withFlashBad('Please check your inputs')->withErrors($validator);
+		}
+		if(Hash::check($input['password'],$this->Auth->password)){
+			$this->Publisher->cancelPublisher($this->Auth->id);
+
+			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Publisher account was cancelled');
+		}
+		return Redirect::route('cancel.publishers')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);
 	}
 
 }

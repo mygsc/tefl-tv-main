@@ -14,7 +14,7 @@
                 @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
                 <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
                 @endif
-                <li role="presentation" class="active">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
+                <li role="presentation" class="active">{{ link_to_route('users.deactivate', 'Activate/Deactivate account', null) }}</li>
             </ul><!--tabNav-->
         </div>
 
@@ -25,25 +25,44 @@
                         <div class="col-md-12 white">
                             <div class=""> 
                                 <br/><br/>
-                                <h3 class="orangeC text-center">To proceed deactivating your acccount we must verify that you are the account owner</h3>
-                                
+                                @if(Auth::User()->status == '0')
+                                    <h2 class="text-center">Your account is <span class="orangeC">inactive</span></h2>
+                                @else
+                                    <h2 class="text-center">Your account is <span class="orangeC">active</span></h2>
+                                @endif
+                                <p> *Please take note that deactivating will not result to deletion of account rather it will disable you from using TEFLtv's features such as:</p>
+                                <ul>
+                                    <li>Uploading a video</li>
+                                    <li>Leaving comment/feedbacks to videos and users</li>
+                                    <li>Liking other users/channels comments and video</li>
+                                    <li>Your activites will be hidden from the public</li>
+                                    <li>You're VIDEO will not be available to the audiences</li>
+                                    <li>You CHANNEL will not be available to the audiences</li>
+                                    <li>If you are a partner/publisher of TEFLtv then your account will also be disabled</li>                              
+                                </ul>
+                                <p>*Once your account is deactivated you will be given an option to activate it again. Just go back to this page and you will be given an option to activate.</p>
+
+                                <h3 class="orangeC text-center">To {{$keyword}} your acccount we must verify that you are the account owner</h3>
+
                                 <div class="col-md-8 col-md-offset-2">
                                     <hr/>
-                                   {{Form::open(array())}}
+                                   {{Form::open(array('route' => 'post.users.deactivate'))}}
+                                        {{Form::hidden('key', Crypt::encrypt($set_status))}}
+                                        {{Form::hidden('keyword', $keyword)}}
                                         {{Form::label('password', '*Password: ')}}
                                         {{Form::password('password', null, array('placeholder' => 'Password'))}}
                                         <span class="inputError">
                                             {{$errors->first('password')}}
                                         </span>
                                         <br/><br/>
-                                        {{Form::label('confirmPassword', '*Confirm Password: ')}}
-                                        {{Form::password('confirmPassword', null, array('placeholder' => 'Confirm Password'))}}
+                                        {{Form::label('password_confirmation', '*Confirm Password: ')}}
+                                        {{Form::password('password_confirmation', null, array('placeholder' => 'Confirm Password'))}}
                                         <span class="inputError">
                                             {{$errors->first('confirmPassword')}}
                                         </span>
                                         <br/><br/>
                                         <div class="text-right">
-                                            {{Form::submit('Deactivate',array('class' => 'btn btn-info'))}}
+                                            {{Form::submit($submit_text,array('class' => 'btn btn-primary'))}}
                                         </div>
                                     {{Form::close()}}
                                 </div>

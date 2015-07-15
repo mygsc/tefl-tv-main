@@ -89,11 +89,53 @@ class PartnerController extends Controller {
 	}
 
 	public function getEditPartner(){
-		return View::make('partners.edit-partners');
+		$credentials = Partner::where('user_id', $this->Auth->id)->first();
+		return View::make('partners.edit-partners', compact('credentials'));
 	}
 
-	public function getDeactivatePartner(){
-		return View::make('partners.deactivate');
+	public function postEditPartner(){
+		$input = Input::all();
+		$input['adsense_id'] = strtolower($input['adsense_id']);
+		$validate_adsense_id = $this->User->validateAdsensePublisherID($input['adsense_id']);
+		$validator = Validator::make($input, Partner::getValidation('update'));
+
+		if($validate_adsense_id === false){
+			return Redirect::route('edit.partners')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs')->withInput();
+		}
+
+		if($validator->fails()){
+			return Redirect::route('edit.partners')->withFlashBad('Please check your inputs')->withInput()->withErrors($validator);
+		}
+
+		if(Hash::check($input['password'],$this->Auth->password)){
+			$users = Partner::where('user_id',$this->Auth->id)->first();
+			$users->adsense_id = $input['adsense_id'];
+			$users->ad_slot_id = $input['ad_slot_id'];
+			$users->save();
+
+			return Redirect::route('edit.partners')->withFlashGood('Your TEFLtv Partner account was updated');
+		}
+
+		return Redirect::route('edit.partners')->withFlashBad('Your password was incorrect!');
+	}
+
+	public function getCancelPartner(){
+		return View::make('partners.cancel');
+	}
+
+	public function postCancelPartner(){
+		$input = Input::all();
+		$validator = Validator::make($input, Publisher::getValidation('cancel'));
+
+		if($validator->fails()){
+			return Redirect::route('cancel.partners')->withFlashBad('Please check your inputs')->withErrors($validator);
+		}
+		if(Hash::check($input['password'],$this->Auth->password)){
+			$this->Partner->cancelPartner($this->Auth->id);
+
+			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Partner account was cancelled');
+		}
+		return Redirect::route('cancel.partners')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);
 	}
 
 }

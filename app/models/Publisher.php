@@ -10,6 +10,20 @@ class Publisher extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'publishers';
 	protected $softDeletes = true;
 
+	public static function getValidation($rules){
+		if($rules == 'update'){
+			return array(
+				'password' => 'required|confirmed',
+				'password_confirmation' =>'required',
+				'adsense_id' => 'required',
+				'ad_slot_id' => 'required|digits:10|numeric');
+		}else{
+			return array(
+				'password' => 'required|confirmed',
+				'password_confirmation' =>'required');
+		}
+	} 
+
 	public function savePublisher($adsense_id, $ad_slot_id){
 
 		$role = Auth::User()->role;
@@ -47,6 +61,25 @@ class Publisher extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		return app::abort('404','Page not found.');
 
+	}
+
+	public function cancelPublisher($user_id = null){
+		if(!empty($user_id)){
+			$publishsers = Publisher::where('user_id', $user_id);
+			$publishsers->delete();
+
+			$users = User::find($user_id);
+
+			$role = '1';
+			if($users->role == '5'){
+				$role = '3';
+			}
+			$users->role = $role;
+			$users->save();
+
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -14,6 +14,7 @@
                 @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
                 <li role="presentation" class="active">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
                 @endif
+                <li role="presentation" >{{ link_to_route('users.deactivate', 'Activate/Deactivate account', null) }}</li>
             </ul><!--tabNav-->
         </div>
 
@@ -35,22 +36,31 @@
                                 <a href="{{route('edit.partners')}}" class="list-group-item active">
                                     Edit Adsense Credentials
                                 </a>
-                                <a href="{{route('deactivate.partners')}}" class="list-group-item">Deactivate Partner Account</a>
+                                <a href="{{route('cancel.partners')}}" class="list-group-item">Cancel Partner Account</a>
                             </div>
                         </div>
                         <div class="col-md-9">
-                            {{Form::open(array())}}
+                            {{Form::model($credentials,array('route' => 'post.edit.partners'))}}
                             {{Form::label('adsense_id', 'Adsense Publisher ID')}}
-                            {{Form::text('adsense_id')}}
+                            {{Form::text('adsense_id',  Input::old('adsense_id'), array('placeholder' => ''))}}
                             <br/><br/>
-                            {{Form::label('ad_slot_id', 'Adsense Publisher ID')}}
-                            {{Form::text('ad_slot_id')}}
+                            {{Form::label('ad_slot_id', 'Ad Slot ID')}}
+                            {{Form::text('ad_slot_id', Input::old('ad_slot_id'))}}
+                             <span class="inputError">
+                                            {{$errors->first('ad_slot_id')}}
+                                        </span>
                             <br/><br/>
                             {{Form::label('password', 'Account Password')}}
-                            {{Form::text('password')}}
+                            {{Form::password('password')}}
+                             <span class="inputError">
+                                            {{$errors->first('password')}}
+                                        </span>
                             <br/><br/>
-                            {{Form::label('re-password', 'Verify Account Password')}}
-                            {{Form::text('re-password')}}
+                            {{Form::label('password_confirmation', 'Verify Account Password')}}
+                            {{Form::password('password_confirmation')}}
+                             <span class="inputError">
+                                            {{$errors->first('confirm_password')}}
+                                        </span>
                             <div class="text-right mg-t-20"> 
                                 {{Form::submit('Save', array('class' => 'btn btn-info'))}}
                             </div>
