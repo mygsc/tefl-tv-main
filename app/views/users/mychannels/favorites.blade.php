@@ -75,15 +75,15 @@
 						<div id="list" class="col-md-3 col-sm-6 mg-b-10">
 							
 							<div class="inlineVid ">
-								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
+								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn-ico btn-default')) }}</span>
 								<div class="thumbnail-2">
 								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
 									<img src="/videos/{{$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 									@else
-										{{HTML::image('img/thumbnails/video.png', 'alt', array('class' => 'hvr-grow-rotate') )}}
+										{{HTML::image('img/thumbnails/video.png', 'alt', array('class' => 'hvr-grow-rotate ', 'style' => 'width:100%') )}}
 									@endif
-									<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" width="100%"/> </div>
+									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</a>
 								</div>
 							</div>
@@ -91,7 +91,10 @@
 							<div class="inlineInfo ">
 								<a href="{{route('homes.watch-video', array($showFavoriteVideo->file_name))}}" target="_blank">	
 									<div class="v-Info">
-										{{$showFavoriteVideo->title}}
+										
+										<span class="visible-lg">{{ Str::limit($showFavoriteVideo['title'],65)}}</span>
+										<span class="visible-md">{{ Str::limit($showFavoriteVideo['title'],45)}}</span>
+										<span class="visible-xs visible-sm">{{ Str::limit($showFavoriteVideo['title'],30)}}</span>
 									</div>
 								</a>
 								<div class="text-justify desc hide">

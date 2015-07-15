@@ -110,37 +110,45 @@
 									<div class="thumbnail-2">
 										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 											@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-											<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
-												<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
-													<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
+											
+												<img src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
+													
+												<!--<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
+														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
+														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-														</video>
-														@else
-														{{HTML::image('img/thumbnails/video-sm.jpg')}}
-														@endif
-														<div class="play-hover mg-t--20"><img src="/img/icons/play-btn.png" /> </div>
-													</a>
-												</div>
-											</div>
-											<br/>		
+												</video>-->
+												@else
+												<img src="/img/thumbnails/video-sm.jpg" width="100%"/>
+															
+											@endif
+											<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+										</a>
+									</div>
+								</div>
+											
+							</div>
+							<div class="inlineInfo ">
+								<div class="v-Info">
+									<a href='{{route('homes.watch-video', array('v=' . $watchLater->file_name))}}' target="_blank">
+									<span class="visible-lg">{{ Str::limit($watchLater['title'],65)}}</span>
+									<span class="visible-md">{{ Str::limit($watchLater['title'],45)}}</span>
+									<span class="visible-xs visible-sm">{{ Str::limit($watchLater['title'],30)}}</span>
+									</a>
+								</div>
+								<div class="text-justify desc hide">
+											<p>{{$watchLater->description}}</p>
+											<br/>
 										</div>
-										
-
-										<div class="inlineInfo ">
-											<div class="count">
-												<div class="v-Info">
-													<!-- <a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank"> -->
-													{{$watchLater->title}}
-													<!-- </a> -->
-												</div>
-												by: <a href="{{route('view.users.channel', array($watchLater->uploaders_channel_name))}}">{{$watchLater->uploaders_channel_name}}</a><br/>
-												<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
-												<br/>
-											</div>
-										</div>
-									</div><!--/#list-->
-									@endforeach
-									@endif
+										<div class="count">
+									by: <a href="{{route('view.users.channel', array($watchLater->uploaders_channel_name))}}">{{$watchLater->uploaders_channel_name}}</a><br/>
+									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+									<br/>
+								</div>
+							</div>
+						</div><!--/#list-->
+					@endforeach
+				@endif
 								</div><!--videoContainer-->
 							</div>
 						</div>
