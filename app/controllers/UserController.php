@@ -76,10 +76,11 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userRules);
 		if($validate->passes()){
 			//--------------Email Start-----------------//
-			$generateToken = Crypt::encrypt($input['email'] + rand(10,100));
+			$random = $this->Video->randomChar();
+			$generateToken =  $random. rand(10,100);
 			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
 			Mail::send('emails.users.verify', $data, function($message) {
-				$message->to(Input::get('email'))->subject('TEFL-TV account activation');
+				$message->to(Input::get('email'))->subject('TEFLtv account activation');
 			});
 			//--------------Email Done----------------------//
 			$input['token'] = $generateToken;
@@ -105,7 +106,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 
-		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
+		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => $findUser->first()->channel_name);
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
 			$getUserInfo = User::where('email', Input::get('email'))->first();
 			$message->to($getUserInfo->email)->subject('TEFL-TV forgot password');
@@ -1283,7 +1284,7 @@ class UserController extends BaseController {
 		}			
 	}
 	public function likeVideo($id){
-		 $id = Crypt::decrypt($id);
+		$id = Crypt::decrypt($id);
 		 // $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)
 		 //  			->where('video_id',$id);
 		 // if($result->count){
@@ -1690,6 +1691,12 @@ class UserController extends BaseController {
 			$users = User::find($this->Auth->id);
 			$users->status = $status;
 			$users->save();
+
+			$data = array('channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.users.deactivate', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('Deactivate TEFLtv Account');
+			});
 
 			return Redirect::route('users.deactivate')->withFlashGood('Your account was '. $input['keyword'].'d');
 		}

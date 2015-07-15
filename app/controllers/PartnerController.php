@@ -55,10 +55,11 @@ class PartnerController extends Controller {
 		}
 
 		if($this->Partner->savePartner($adsense_id, $ad_slot_id) === true){
-			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				// Mail::send('emails.partners.register', $data, function($message) {
-				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
-				// });
+			$data = array('adsense_id' => $adsense_id,'channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.partners.register', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('TEFLtv Partner account');
+			});
 			return Redirect::route('partners.success');
 		}
 		

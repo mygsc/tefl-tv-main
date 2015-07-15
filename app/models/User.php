@@ -178,6 +178,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
 		->take($limit)
 		->whereRaw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) > 0')
+		->where('status', 1)
 		->join('users_profile', 'users_profile.user_id', '=', 'users.id')
 		->orderBy('views', 'DESC')->get();
 
