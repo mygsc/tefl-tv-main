@@ -1,0 +1,1 @@
+{{$channel_name}} was deactivated

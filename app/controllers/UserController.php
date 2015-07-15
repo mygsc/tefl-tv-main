@@ -79,12 +79,12 @@ class UserController extends BaseController {
 			$generateToken = Crypt::encrypt($input['email'] + rand(10,100));
 			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
 			Mail::send('emails.users.verify', $data, function($message) {
-				$message->to(Input::get('email'))->subject('TEFL-TV account verification');
+				$message->to(Input::get('email'))->subject('TEFL-TV account activation');
 			});
 			//--------------Email Done----------------------//
 			$input['token'] = $generateToken;
 			$this->User->signup($input); //save
-			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email!");
+			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
 		}
 		return Redirect::route('homes.signin', array('signup' => 'signup'))->withErrors($validate)->withInput();
 	}

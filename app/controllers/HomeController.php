@@ -721,11 +721,13 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){
-	echo phpinfo();
-		echo "<iframe width='500' height='315' src='http://www.test.tefltv.com/publish-video/eyJpdiI6ImxpeURCTWFUVEF6RU9RU2czQ2grQ2c9PSIsInZhbHVlIjoiTUdreFI1QVg3U0dDNHdURVZBbGJodz09IiwibWFjIjoiMmZmZTgzN2M2ODcxMjg0MWQ4M2VhZmU5NGM3OWQxNzlmMjdhNWZmZDVmZjZkMzI0YjA2Y2I1OWM3NTA0MTY4ZSJ9/nbGnZ88UX1P' frameborder='0' allowfullscreen></iframe>";
 
-		echo "<iframe width='500' height='315' src='http://www.test.tefltv.com/publish-video/eyJpdiI6ImhKc2pjaERJYURXMDFwa05zalpGQ3c9PSIsInZhbHVlIjoic0pjQUZDTG85VVBBd1didTFsMmI1Zz09IiwibWFjIjoiMWM4YjI3YTY0NzhkMGJhMGJjZThjOGJiMDMyZGYzNWYwOTU3ZGI5MmExOGIzMThmZTRmNmEzOWQ1NGFmODc4NiJ9/nbGnZ88UX1P' frameborder='0' allowfullscreen></iframe>";	}	
-
+		$data = array('channel_name' => $this->Auth->id);
+		Mail::send('emails.users.deactivate', $data, function($message) {
+			$getUserInfo = User::where('channel_name', $data['channel_name'])->first();
+			$message->to($getUserInfo->email)->subject('Deactivate TEFLtv Account');
+		});
+	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){
