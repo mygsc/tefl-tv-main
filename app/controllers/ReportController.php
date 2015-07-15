@@ -97,7 +97,7 @@ class ReportController extends BaseController {
 		});
 		Mail::send('emails.reports.uploaders_report', $data2, function($message2){
 			$message2->from('report@tefltv.com', 'Report | TEFL TV');
-			$message2->to($data1['uploader_email'])->subject('Complaint Email');
+			$message2->to($data2['uploader_email'])->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
