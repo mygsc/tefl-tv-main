@@ -32,6 +32,9 @@ class HomeController extends BaseController {
 
 	public function postContactUs(){
 		$input = Input::all();
+
+		$input['message'] = preg_replace('/[^A-Za-z0-9\-]/', ' ',$input['message']);
+		$input['name'] = preg_replace('/[^A-Za-z0-9\-]/', ' ',$input['name']);
 		$validate = $validator = Validator::make(
 			array('name' => $input['name'], 'email' => $input['email'], 'message' => $input{'message'}),
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
@@ -41,13 +44,10 @@ class HomeController extends BaseController {
 			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 		}
 
+		$data = array('email' => $input['email'], 'name' => $input['name'], 'message' => $input['message']);
 		Mail::send('emails.welcome', $data, function($message)
 		{
-			$message->from('us@example.com', 'Laravel');
-
-			$message->to('foo@example.com')->cc('bar@example.com');
-
-			$message->attach($pathToFile);
+			$message->to('kevwiththec@yahoo.com')->subject('Support request from '. Input::get('email'));
 		});
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
