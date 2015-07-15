@@ -106,7 +106,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 
-		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
+		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => $findUser->first()->channel_name);
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
 			$getUserInfo = User::where('email', Input::get('email'))->first();
 			$message->to($getUserInfo->email)->subject('TEFL-TV forgot password');
