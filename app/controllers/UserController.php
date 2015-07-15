@@ -787,7 +787,7 @@ class UserController extends BaseController {
 		}
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
-		if(empty($userChannel)) return View::make('users.channelnotexist');
+		if(empty($userChannel) || $userChannel->status == '0' || $userChannel->status == '2') return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
