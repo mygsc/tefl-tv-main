@@ -78,15 +78,16 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userRules);
 		if($validate->passes()){
 			//--------------Email Start-----------------//
-			$generateToken = Crypt::encrypt($input['email'] + rand(10,100));
+			$random = $this->Video->randomChar();
+			$generateToken =  $random. rand(10,100);
 			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
 			Mail::send('emails.users.verify', $data, function($message) {
-				$message->to(Input::get('email'))->subject('TEFL-TV account verification');
+				$message->to(Input::get('email'))->subject('TEFLtv account activation');
 			});
 			//--------------Email Done----------------------//
 			$input['token'] = $generateToken;
 			$this->User->signup($input); //save
-			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email!");
+			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
 		}
 		return Redirect::route('homes.signin', array('signup' => 'signup'))->withErrors($validate)->withInput();
 	}
@@ -107,7 +108,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 
-		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
+		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => $findUser->first()->channel_name);
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
 			$getUserInfo = User::where('email', Input::get('email'))->first();
 			$message->to($getUserInfo->email)->subject('TEFL-TV forgot password');
@@ -789,7 +790,7 @@ class UserController extends BaseController {
 		}
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
-		if(empty($userChannel)) return View::make('users.channelnotexist');
+		if(empty($userChannel) || $userChannel->status == '0' || $userChannel->status == '2') return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
@@ -1677,7 +1678,10 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
 		}
 
-		return View::make('users.mychannels.accountsettings.earnings-settings');
+		if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5'){
+			return View::make('users.mychannels.accountsettings.earnings-settings');
+		}
+		return Redirect::route('homes.index')->withFlashWarning('Page was not found');
 	}
 
 	public function getDeactivate(){
@@ -1716,6 +1720,12 @@ class UserController extends BaseController {
 			$users = User::find($this->Auth->id);
 			$users->status = $status;
 			$users->save();
+
+			$data = array('channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.users.deactivate', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('Deactivate TEFLtv Account');
+			});
 
 			return Redirect::route('users.deactivate')->withFlashGood('Your account was '. $input['keyword'].'d');
 		}

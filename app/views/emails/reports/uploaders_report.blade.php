@@ -11,8 +11,16 @@
 				<div style="width:720px; height:auto; padding:20px 20px;">
 					Hi {{$legal_name}}!
 					<br>
-					Someone reported that you copy
+					Someone reported that your video - (Type of Report here)
 					<br>
+					both parties should settle the case outside tefl tv to support claim... When trial is over or is finish in talks you can email us the result to decide what to do with your videos
+					<br>
+
+					<b>Email Address</b>
+					<br/>
+					Complainant's email address: {{$complainant_email}}<br/>
+					Uploaders's email address: {{$uploader_email}}<br/>
+
 					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
 					standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make 
 					a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 

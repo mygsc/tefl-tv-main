@@ -21,22 +21,26 @@
 		<tr>
 			<td style="background:#fff;height:400px;">
 				<div style="padding:40px 40px;">
-					<h2 style="text-align:center;color:#f18200;font-weight:normal;">TEFLtv Password Reset</h2>
+					<h2 style="text-align:center;color:#f18200;font-weight:normal;">TEFLtv deactivate account</h2>
 					<hr/>
 					<br/>
-					<p style="font-size:18px;color:#4B5B7C;">Dear {{$first_name}},</p>
+					<p style="font-size:18px;color:#4B5B7C;">Dear {{$channel_name}},</p>
 					<br>
 					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">
-						We recently received a request to reset your password on TEFLtv.
+						Your TEFLtv account {{$channel_name}} has been deactivated. 
 					</p>
 					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">
-					To reset your password, please click the link below:
+					If you did not personally deactivate your account, your account might have been compromised. Please report this to support@tefltv.com.
 					</p>
-					<p>
-						<a href="{{$url}}">{{$url}}</a>
+					<p style="font-size:16px;color:#3C3C3C!important;">
+						You can reactivate your account within 30 days after deactivation:
 					</p>
-					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">If clicking the link doesn’t work, you can copy and paste the link into your browser’s address window or retype it there. Please note that the link above is only valid for 24 hours.</p>
-					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">If you didn't perform this request, please ignore this email. Rest assured your account is safe with us.</p>
+						<ul style="list-style: none;">
+							<li>1. Login to TEFLtv using your login email and password.</li>
+							<li>2. Go to Home > Account Settings > Activate/Deactivate Account.</li>
+							<li>3. Type your password then click Activate Account.</li>
+						</ul>
+					</p>
 					<br/>
 					<p style="font-size:18px;color:#4B5B7C;">Regards,<br/>
 						<b>TEFLtv Customer Support Team</b>
@@ -54,5 +58,3 @@
 	</tbody>
 </table>
 </div>
-
-

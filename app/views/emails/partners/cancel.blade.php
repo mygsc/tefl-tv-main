@@ -29,28 +29,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', end
 		<tr>
 			<td style="background:#fff;height:400px;">
 				<div style="padding:40px 40px;">
-					<h2 style="text-align:center;color:rgba(65, 101, 170, 1);font-weight:normal;">Partners Program</h2>
+					<h2 style="text-align:center;color:rgba(65, 101, 170, 1);font-weight:normal;">Partners cancellation</h2>
 					<hr/>
 					<br/>
 					<p style="font-size:18px;color:#4B5B7C;">Dear {{$channel_name}},</p>
 					<br>
 					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">
-						Congratulations, you are now a TEFLtv Partner!
+						You have cancelled your TEFLtv Partner’s account.
 					</p>
 					<p style="font-size:16px;color:#3C3C3C!important;text-align:justify;">
-						You can now start earning from advertisements on your TEFLtv videos.
+						If you did not personally cancel, your account might have been compromised. Please contact us at support@tefltv.com as soon as possible. We will restore your account and reset your password. 
 					</p>
-					<p style="font-size:16px;color:#3C3C3C!important;">
-						Click <a href="https://www.tefltv.com/signin" style="color:#15c;">login</a> to get started.
-					</p>
-					<p style="font-size:16px;color:#3C3C3C!important;">
-						We are excited to have you as a partner and we’re looking forward to all your great videos.
-						If you have any questions, feel free to email us at support@tefltv.com. Thank you for being part of TEFLtv!
-
-					</p>
+					
 					<br/>
 					<p style="font-size:18px;color:#4B5B7C;">Regards,<br/>
 						<b>TEFLtv Customer Support Team</b>
+					</p>
+					<br/><hr/>
+					<p style="font-size:18px;color:#4B5B7C;">
+					This is a system-generated email. Please do not reply to this email address, it will not be read.
 					</p>
 			 	</div>
 			</td>

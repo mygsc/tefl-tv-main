@@ -63,7 +63,7 @@
                                         {{$errors->first('confirm_password')}}
                                     </span>
                                     <div class="text-right mg-t-20"> 
-                                        {{Form::submit('Cancel Publisher Account', array('class' => 'btn btn-info'))}}
+                                        {{Form::submit('Cancel Partner Account', array('class' => 'btn btn-info'))}}
                                     </div>
                                 {{Form::close()}}
                             </div>

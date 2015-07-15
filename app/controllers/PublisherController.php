@@ -56,10 +56,11 @@ class PublisherController extends Controller {
 		}
 
 		if($this->Publisher->savePublisher($adsense_id, $ad_slot_id) === true){
-			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				// Mail::send('emails.publishers.register', $data, function($message) {
-				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
-				// });
+			$data = array('adsense_id' => $adsense_id,'channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.publishers.register', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('TEFLtv Publisher account');
+			});
 			return Redirect::route('publishers.success');
 		}
 		
@@ -88,8 +89,13 @@ class PublisherController extends Controller {
 	}
 
 	public function getEditPublisher(){
-		$credentials = Publisher::where('user_id', $this->Auth->id)->first();
-		return View::make('publishers.edit-publisher', compact('credentials'));
+		if(Auth::User()->role == '4' || Auth::User()->role == '5'){
+			$credentials = Publisher::where('user_id', $this->Auth->id)->first();
+			return View::make('publishers.edit-publisher', compact('credentials'));
+			
+		}
+		return Redirect::route('homes')->withFlashWarning('page not found');
+
 	}
 
 	public function postEditPublisher(){
@@ -119,7 +125,11 @@ class PublisherController extends Controller {
 	}
 
 	public function getCancelPublisher(){
-		return View::make('publishers.cancel');
+		if(Auth::User()->role == '4' || Auth::User()->role == '5'){
+			return View::make('publishers.cancel');
+			
+		}
+		return Redirect::route('homes')->withFlashWarning('page not found');
 	}
 
 	public function postCancelPublisher(){
@@ -131,6 +141,11 @@ class PublisherController extends Controller {
 		}
 		if(Hash::check($input['password'],$this->Auth->password)){
 			$this->Publisher->cancelPublisher($this->Auth->id);
+
+			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
+			Mail::send('emails.publishers.cancel', $data, function($message) {
+				$message->to(Input::get('email'))->subject('TEFLtv Publishers account cancellation');
+			});
 
 			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Publisher account was cancelled');
 		}
