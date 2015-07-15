@@ -11,10 +11,17 @@
                 <div style="width:720px; height:auto; padding:20px 20px;">
                     Dear {{$first_name}},<br>
                     <br>
-                    <p>Thank you for registering with tefltv.com.</p>
+                    <p>Thank you for registering with <a href="https://tefltv.com">tefltv.com</a>.</p>
                     <p><b> JUST ONE MORE STEP. </b> </p>
                     <a href='{{$url}}'><button style="color:#ffffff;background-color: #2c436c; padding: 7px 30px;border: 0; outline: none !important;margin-bottom: 0;
         font-size: 14px;">Activate your account.</button></a><br/>
+        <br />
+
+        can't click the link? <br />
+        please try to copy and paste the following link into your browser <br />
+        {{$url}}
+        <br/>
+        <br/>
 
                     <p><b>IMPORTANT!</b> This activation is valid for 7 days only.  Please activate your login promptly! </p>
                     <br/>

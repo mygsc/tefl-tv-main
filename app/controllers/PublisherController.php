@@ -56,10 +56,11 @@ class PublisherController extends Controller {
 		}
 
 		if($this->Publisher->savePublisher($adsense_id, $ad_slot_id) === true){
-			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				// Mail::send('emails.publishers.register', $data, function($message) {
-				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
-				// });
+			$data = array('adsense_id' => $adsense_id,'channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.publishers.register', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('TEFLtv Publisher account');
+			});
 			return Redirect::route('publishers.success');
 		}
 		
