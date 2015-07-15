@@ -1284,7 +1284,15 @@ class UserController extends BaseController {
 		}			
 	}
 	public function likeVideo($id){
-		$id = Crypt::decrypt($id);
+		 $id = Crypt::decrypt($id);
+		 // $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)
+		 //  			->where('video_id',$id);
+		 // if($result->count){
+		 // 	$result = $result->first();
+		 // 	if($result->likes == 0) {
+		 // 		$result->likes += 1;
+		 // 	}
+		 // }
 		$counter = UserLike::where('user_id','=',Auth::User()->id)
 		->where('video_id','=',$id);
 
@@ -1298,7 +1306,7 @@ class UserController extends BaseController {
 
 	public function dislikeVideo($id){
 		$id = Crypt::decrypt($id);
-		$counter = UserDislike::where('user_id','=',Auth::User()->id)->where('video_id','=',$id);
+		$counter = UserDislike::where('user_id','=',$this->Auth->id)->where('video_id','=',$id);
 
 		if(!$counter->count()){
 			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));

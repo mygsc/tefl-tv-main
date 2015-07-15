@@ -70,6 +70,9 @@ class Video extends Eloquent{
 	public function notifications(){
 		return $this->hasMany('notifications');
 	}
+	public function videoLikesDislikes(){
+		return $this->hasOne('VideoLikesDislike');
+	}
 	
 	public function getFeaturedVideo($type = null, $limit = null){
 		if(!empty($type)){

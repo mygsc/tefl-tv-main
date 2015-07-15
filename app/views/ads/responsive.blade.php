@@ -22,7 +22,7 @@
         margin-right: auto;
         margin-left: auto;
     }
-    span.close-ads{
+    button.close-ads{
         cursor: pointer;
         background: rgba(0,0,0,0.6);
         /*border: 1px solid #fff;*/
@@ -38,8 +38,9 @@
         top:1px;*/
         right: 0;
         z-index: 1111;
+        border:none;
     }
-     span.close-ads:hover{
+     button.close-ads:hover{
         border: 1px solid #fff;
     }
 
@@ -50,9 +51,9 @@
         <div class="close-ads"></div>
 
         <div class="text-center" style="position:relative;">
-            <span class="close-ads">
+            <button class="close-ads">
                 <b><i>close ads</i></b>
-            </span>
+            </button>
         </div>
 
         <div class="ads-relative-wrapper">
