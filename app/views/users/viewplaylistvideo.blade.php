@@ -47,7 +47,7 @@
 
 				<div class="top-div col-md-12 mg-t-20">
 					<div class="col-md-5">
-						<h3 class="whiteC">{{$playlist->name}}</h3>
+						<h3 class="whiteC">{{$playlist->name}} | {{count($videos)}}</h3>
 						<!--<div class="input-group">
 							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
 							<span class="input-group-btn">

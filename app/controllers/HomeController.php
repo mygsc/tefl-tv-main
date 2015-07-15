@@ -733,8 +733,7 @@ public function addReply(){
 		$data = array('message' => 'tesst');
 		Mail::send('emails.homes.forward', $data, function($message)
 		{
-			$message->from('kevwiththec@yahoo.com', 'Laravel');
-			$message->to('kevwiththec@yahoo.com@')->cc('kevwiththec@yahoo.com');
+			$message->to('kevwiththec@yahoo.com')->cc('kevwiththec@yahoo.com');
 		});
 	}
 	public function postincrementView($filename=null, $autoplay=1){
