@@ -1,3 +1,4 @@
+var dislike = false, like = false, liked = 0, disliked = 0;
 $(document).ready(function(){
 	function counter(){
 		var count = 0;
@@ -205,9 +206,9 @@ $(document).ready(function(){
 		$('#like').click(function(e){
 			count++;
 			if(count<2){
-				var text1 = $('#text1').val();
+				var videoID = $('#text1').val();
 				e.preventDefault();
-					$.post('/mychannels/likeVideo/'+text1,function(data){
+					$.post('/mychannels/likeVideo/'+videoID,function(data){
 						if(data['dislikeResult'] !== 0){
 							$.post('/mychannels/removeDislikeVideo/'+text1,function(data){
 								$('body').find('span#dislike-counter').text(data['dislikeResult']);
@@ -372,7 +373,110 @@ $(document).ready(function(){
 	dislike();
 	removeDislike();
 });
+function adsResponse(status){
+	var resDiv = document.createElement('div'),
+		msg = document.createTextNode(status);
+	resDiv.setAttribute('style','outline:1px solid #fc8b02;position:absolute;top:0;bottom:0;right:0;left:0;margin:auto;text-align:center;height:30px;width:300px;padding:5px;background:#f1f1f1;color:#fc8b02;');
+	resDiv.className = 'ads-response';
+	resDiv.appendChild(msg);
+	$('.pub-ads').append(resDiv);
+	$('.video-spinner').remove();
+	setTimeout(function(){
+		$('.ads-response').remove();
+	},4000);
+}
+var video = function(){
+	return{
+		like: function(id){
+			$.ajax({
+				type: 'POST',
+				url : '/mychannels/likeVideo/'+id,
+				data:{token:'gb'},
+				cache: false,
+				dataType: 'json',
+				success: function(e){
+					$('#notifier').remove();
+					if(e.login==0)return video.response('You must login.','glyphicon glyphicon-log-in');
+					liked = 0;
+					liked = e.liked;
+					like = true;
+					video.totalLikedDisliked(id);
+					if(liked == 1) {
+						video.response('You already liked this video.', 'glyphicon glyphicon-thumbs-up');
+					}
+					else {
+						video.response('You liked this video.', 'glyphicon glyphicon-thumbs-up');
+					}
+				},
+				error: function(e){
+					console.log('error found');
+				}
+			});
+		},
+		dislike: function(id){
+			$.ajax({
+				type: 'POST',
+				url : '/mychannels/dislikeVideo/'+id,
+				data:{token:'gb'},
+				cache: false,
+				dataType: 'json',
+				success: function(e){
+					$('#notifier').remove();
+					if(e.login==0)return video.response('You must login.','glyphicon glyphicon-log-in');
+					disliked = 0;
+					disliked = e.disliked;
+					like = true;
+					video.totalLikedDisliked(id);
+					if(disliked==1) {
+						video.response('You already disliked this video.', 'glyphicon glyphicon-thumbs-down');
+					}
+					else {
+						video.response('You disliked this video.', 'glyphicon glyphicon-thumbs-down');
+					}
+				},
+				error: function(e){
+					console.log('error found');
+				}
+			});
+		},
+		totalLikedDisliked: function(id){
+			if(like){
+				setTimeout(function(){
+				$.ajax({
+					type: 'POST',
+					url: '/mychannels/total-liked-disliked/'+id,
+					cache: false,
+					success: function(e){
+						$('#total-like').html(e.totalLiked);
+					    $('#total-dislike').html(e.totalDisliked);
+					    like=false;
+					},
+					error: function(){
+						console.log('error');
+					}
+				});
+			 },500);
 
+			}
+		},
+		response: function(msg, glyphicon){
+			var notifier = document.createElement('div'),
+			icon = document.createElement('span'),
+			txt = document.createTextNode(msg);
+			icon.className = glyphicon;
+			notifier.setAttribute('id','notifier');
+			icon.setAttribute('style','margin-right:5px;color:#063782;');
+			notifier.setAttribute('style','text-align:center;width:350px;height:45px;padding:10px;position:fixed;margin:auto;top:0;bottom:0;right:0;left:0;background:rgb(184, 202, 239);color:#063782;text-shadow: 0 0 2px #000;box-shadow: 5px 5px 5px #888888;');
+			notifier.appendChild(icon);
+			notifier.appendChild(txt);
+			document.body.appendChild(notifier);
+			setTimeout(function(){
+				$('#notifier').fadeOut(500);
+				$('#notifier').remove();
+			},4000);
+		}
+	}
+}();
 $('#publish-video').click(function(e){
 	e.preventDefault();
 	$('.pub-ads').slideToggle(1000);
@@ -397,17 +501,19 @@ $('button[name=ads-proceed]').click(function(){
 		$('.pub-ads').slideToggle(5000);
 	},5000);
 });
+$('#video-like').click(function(){
+	var id = document.querySelector('input[name=video-token]').value;
+	video.like(id);
+	$(this).css({'color':'#fff'});
+	$('#video-dislike').css({'color':'#3f3d3d'});
+});
+$('#video-dislike').click(function(){
+	var id = document.querySelector('input[name=video-token]').value;
+	video.dislike(id);
+	$(this).css({'color':'#fff'});
+	$('#video-like').css({'color':'#3f3d3d'});
+	
+});
 
-function adsResponse(status){
-	var resDiv = document.createElement('div'),
-		msg = document.createTextNode(status);
-	resDiv.setAttribute('style','outline:1px solid #fc8b02;position:absolute;top:0;bottom:0;right:0;left:0;margin:auto;text-align:center;height:30px;width:300px;padding:5px;background:#f1f1f1;color:#fc8b02;');
-	resDiv.className = 'ads-response';
-	resDiv.appendChild(msg);
-	$('.pub-ads').append(resDiv);
-	$('.video-spinner').remove();
-	setTimeout(function(){
-		$('.ads-response').remove();
-	},4000);
-}
+
 

@@ -2,7 +2,7 @@
 
 class HomeController extends BaseController {
 		protected $publisher_;
-	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments) {
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -11,6 +11,7 @@ class HomeController extends BaseController {
 		$this->Playlist = $playlists;
 		$this->Comment = $comments;
 		$this->Partner = $partners;
+		$this->VideoLikesDislike = $videoLikesDislike;
 		$this->publisher_ = new Publisher;
 	}
 	
@@ -228,10 +229,7 @@ class HomeController extends BaseController {
 			$like = null;
 			$dislike = null;
 		}
-
-		$likeCounter = UserLike::where('video_id','=',$id)->count();
-		$dislikeCounter = UserDislike::where('video_id','=',$id)->count();		
-
+		$totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($id);
 		//////////////////////r3mmel////////////////////////////
 		if(!Auth::check()) Session::put('url.intended', URL::full());
 		$getVideoComments = $this->Comment->getComments($videoId);
@@ -264,8 +262,8 @@ class HomeController extends BaseController {
 		$countAnnotation = count($annotations);
 		return View::make('homes.watch-video',
 			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
-				'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos',
-				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter',
+				'videoId','like','totalLikesDislikes','watchLater','newRelation','countSubscribers','ownerVideos',
+				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe',
 				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url', 'adsense'
 			)
 		);
