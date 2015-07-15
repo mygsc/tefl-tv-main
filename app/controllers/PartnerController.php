@@ -90,8 +90,13 @@ class PartnerController extends Controller {
 	}
 
 	public function getEditPartner(){
-		$credentials = Partner::where('user_id', $this->Auth->id)->first();
-		return View::make('partners.edit-partners', compact('credentials'));
+		if(Auth::User()->role == '3' || Auth::User()->role == '5'){
+			$credentials = Partner::where('user_id', $this->Auth->id)->first();
+			return View::make('partners.edit-partners', compact('credentials'));
+		}
+
+		return Redirect::route('homes')->withFlashWarning('page not found');
+		
 	}
 
 	public function postEditPartner(){
@@ -121,7 +126,12 @@ class PartnerController extends Controller {
 	}
 
 	public function getCancelPartner(){
-		return View::make('partners.cancel');
+		if(Auth::User()->role == '3' || Auth::User()->role == '5'){
+			return View::make('partners.cancel');
+		}
+
+		return Redirect::route('homes')->withFlashWarning('page not found');
+
 	}
 
 	public function postCancelPartner(){

@@ -89,8 +89,13 @@ class PublisherController extends Controller {
 	}
 
 	public function getEditPublisher(){
-		$credentials = Publisher::where('user_id', $this->Auth->id)->first();
-		return View::make('publishers.edit-publisher', compact('credentials'));
+		if(Auth::User()->role == '4' || Auth::User()->role == '5'){
+			$credentials = Publisher::where('user_id', $this->Auth->id)->first();
+			return View::make('publishers.edit-publisher', compact('credentials'));
+			
+		}
+		return Redirect::route('homes')->withFlashWarning('page not found');
+
 	}
 
 	public function postEditPublisher(){
@@ -120,7 +125,11 @@ class PublisherController extends Controller {
 	}
 
 	public function getCancelPublisher(){
-		return View::make('publishers.cancel');
+		if(Auth::User()->role == '4' || Auth::User()->role == '5'){
+			return View::make('publishers.cancel');
+			
+		}
+		return Redirect::route('homes')->withFlashWarning('page not found');
 	}
 
 	public function postCancelPublisher(){

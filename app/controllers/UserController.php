@@ -1652,7 +1652,10 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
 		}
 
-		return View::make('users.mychannels.accountsettings.earnings-settings');
+		if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5'){
+			return View::make('users.mychannels.accountsettings.earnings-settings');
+		}
+		return Redirect::route('homes.index')->withFlashWarning('Page was not found');
 	}
 
 	public function getDeactivate(){
