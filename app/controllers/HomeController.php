@@ -721,11 +721,12 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){
+$data = '132131';
+		Mail::send(array('text' => 'view'), $data, function($message)
+		{
+			$message->from('kevwiththec@yahoo.com', 'Laravel');
 
-		$data = array('channel_name' => $this->Auth->id);
-		Mail::send('emails.users.deactivate', $data, function($message) {
-			$getUserInfo = User::where('channel_name', $data['channel_name'])->first();
-			$message->to($getUserInfo->email)->subject('Deactivate TEFLtv Account');
+			$message->to('kevwiththec@yahoo.com@')->cc('kevwiththec@yahoo.com');
 		});
 	}
 	public function postincrementView($filename=null, $autoplay=1){

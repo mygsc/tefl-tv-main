@@ -1,5 +1,6 @@
 
 <div style="background:#f1f1f1;padding:20px 20px;">
+	<img src="http://www.test.tefltv.com/img/email/header.jpg" />
 	<table>
 		<tr>
 			<td width="30%" style="background:#FFF;padding:10px 20px;border-radius:10px 0 0 10px;">
