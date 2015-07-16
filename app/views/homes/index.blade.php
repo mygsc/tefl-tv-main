@@ -1,5 +1,8 @@
-
 @extends('layouts.default')
+
+@section('title')
+TEFLtv
+@stop
 @section('meta')
 <head>
 	<meta charset="UTF-8">
