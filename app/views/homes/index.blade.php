@@ -200,7 +200,7 @@
 										<div class="count">
 											by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
 											<br />
-											{{number_format($latest->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
+											{{number_format($latest->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
 										</div>
 									</div>
 								</a>
@@ -236,7 +236,7 @@
 										<div class="count">
 											by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
 											<br />
-											<i class="fa fa-eye"></i> {{number_format($random->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$random->likes}} |--> {{date('F d, Y',strtotime($random->created_at))}}
+											{{number_format($random->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$random->likes}} |--> {{date('F d, Y',strtotime($random->created_at))}}
 										</div>
 									</div>
 								</a>
