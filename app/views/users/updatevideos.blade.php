@@ -131,6 +131,7 @@
 											{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 											{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
 											{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
+											{{ Form::hidden('token-id',$video->file_name)}}
 											<p class="notes">*Double click the existing tag to edit.</p>
 											<div id="wrapper">
 												@if($tags == null)
@@ -207,7 +208,7 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
-										{{Form::close()}}
+										
 					    		</div><!--content-padding-->
 					    	</div><!--col-md-12-->
 
@@ -243,6 +244,8 @@
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
+
+										<button type="button" class='btn btn-primary btn-sm' id='save-cover-photo' >Save poster</button><br>
 									@else
 										<div class="row text-center">
 											<div class="pad-10">
@@ -272,6 +275,7 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
+										{{Form::close()}}
 									@endif
 									<br/>
 					    		</div><!--content-padding-->

@@ -1086,3 +1086,19 @@ function  singleAnnotation(types,style,content){
 $('#upload-cancel').on('click',function(){
 	$('#cancel-upload-vid').modal('show');
 });
+$('#save-cover-photo').on('click',function(id){
+	var id = document.querySelector('input[name=token-id]').value;
+	$.ajax({
+		type  : 'POST',
+		url   : '/mychannels/edit/'+id,
+		cache : false,
+		data  : $('form').serialize(),
+		success: function(){
+			annotations.response('Changes of poster has been saved.', 'glyphicon glyphicon-saved');
+		},
+		error: function(){
+			annotations.response('Error while saving poster.', 'glyphicon glyphicon-saved');
+		}
+
+	});
+});

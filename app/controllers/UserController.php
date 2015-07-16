@@ -418,7 +418,6 @@ class UserController extends BaseController {
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
-
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
@@ -471,6 +470,7 @@ class UserController extends BaseController {
 				}
 				Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 				Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
+
 			}
 			else{
 				$selectedThumb =  Input::get('selected-thumbnail');
@@ -480,6 +480,7 @@ class UserController extends BaseController {
 					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
+					
 				}	
 			}
 			
