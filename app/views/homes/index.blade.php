@@ -4,7 +4,6 @@
 TEFLtv
 @stop
 @section('meta')
-<head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
 
@@ -29,9 +28,8 @@ TEFLtv
 
 	There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
 	">
-	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, English, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
+	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
 	<meta name="author" content="TEFL tv">
-</head>
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}

@@ -37,11 +37,11 @@ TEFLTV Publisher
                
                     <div class="col-sm-4 col-md-4">
                         <img src="/img/icons/share-ico.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
-                        <h2>Embed video to your website or share to your social media accounts</h2>
+                        <h2>Embed videos in your website or share them on your social media accounts</h2>
                     </div>
                     <div class="col-sm-4 col-md-4">
                         <img src="/img/icons/earn-ico.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-                        <h2>Earn Revenue from every advertisement</h2>
+                        <h2>Earn revenue on every ad impression</h2>
                     </div>
                 </div>
             </div>
