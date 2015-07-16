@@ -1,5 +1,9 @@
 
 @extends('layouts.default')
+@section('title')
+	Watch TEFL tv
+@stop
+
 @section('meta')
 	<meta charset="UTF-8">
 	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
