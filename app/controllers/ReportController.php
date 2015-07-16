@@ -80,24 +80,36 @@ class ReportController extends BaseController {
 		$data1 = array('legal_name' => $legal_name, 
 			'case_number' => $case_number, 
 			'complainant_email' =>  $reported_info->email,
+			'channel_name' =>  $reported_info->channel_name,
 			'uploader_email' =>  $uploader_info->email
 		);
 		$data2 = array('legal_name' => $legal_name, 
 			'case_number' => $case_number, 
 			'uploader_email' =>  $uploader_info->email,
+			'channel_name' =>  $uploader_info->channel_name,
 			'complainant_email' =>  $reported_info->email
 		);
 
 		$complainant_channel = $reported_info->channel_name;
 		$uploader_channel = $uploader_info->channel_name;
+		
+		$reportedemail = $reported_info->email;
+		$uploaderemail = $uploader_info->email;
+		
+		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($reported_info) {
+			// $message1->from('report@tefltv.com', 'Report | TEFL TV');
+			$message1->to('r3mmel023@gmail.com')->subject('Complaint Email');
+		});//test
 
-		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($data1) {
-			$message1->from('report@tefltv.com', 'Report | TEFL TV');
-			$message1->to($data1['complainant_email'])->subject('Complaint Email');
+		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($reported_info) {
+			// $message1->from('report@tefltv.com', 'Report | TEFL TV');
+			// $message1->to('r3mmel023@gmail.com')->subject('Complaint Email');
+			$message1->to($reported_info->email)->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message2) use($data2) {
-			$message2->from('report@tefltv.com', 'Report | TEFL TV');
-			$message2->to($data2['uploader_email'])->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message2) use($uploader_info) {
+			// $message2->from('report@tefltv.com', 'Report | TEFL TV');
+			// $message2->to($data2['uploader_email'])->subject('Complaint Email');
+			$message2->to($uploader_info->email)->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
