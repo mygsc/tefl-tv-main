@@ -5,7 +5,7 @@
 	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<div class="row-sam-height">
 			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top">
-				<div class="mg-r-10 row"  data-sticky_column="">
+				<div class="mg-r-10 row mg-t--10"  data-sticky_column="">
 					@include('elements/home/categories')
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')

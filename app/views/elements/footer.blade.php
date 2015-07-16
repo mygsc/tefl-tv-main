@@ -21,7 +21,7 @@
                             <ul class="list-n">
                                 <li><h3 class="whiteC ">Legal Terms</h3></li>
                                 <li>{{ link_to_route('homes.privacy', 'Privacy', null, array('class' => '')) }}</li>
-                                <li>{{ link_to_route('homes.copyright', 'Copyright', null, array('class' => '')) }}</li>
+                                <!--<li>{{ link_to_route('homes.copyright', 'Copyright', null, array('class' => '')) }}</li>-->
                                 <li>{{ link_to_route('homes.termsandconditions', 'Terms and Conditions', null, array('class' => '')) }}</li>
                             </ul>
                         </span>
@@ -30,7 +30,7 @@
                         <span class="white">
                             <ul class="list-n">
                                 <li><h3 class="whiteC">Programs</h3></li>
-                                <li><a href="#">Advertise</a></li>
+                                <!--<li><a href="#">Advertise</a></li>-->
                                 <li>{{link_to_route('partners.index','Partners')}}</li>
                                 <li>{{link_to_route('publishers.index','Publishers')}}</li>
                             </ul>
@@ -39,7 +39,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="col-md-5 f_contact-wrap" >
 

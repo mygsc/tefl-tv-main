@@ -90,14 +90,21 @@ class ReportController extends BaseController {
 
 		$complainant_channel = $reported_info->channel_name;
 		$uploader_channel = $uploader_info->channel_name;
+		
+		// dd($data1['complainant_email']);
+		
+		$reportedemail = $reported_info->email;
+		$uploaderemail = $uploader_info->email;
 
-		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($data1) {
-			$message1->from('report@tefltv.com', 'Report | TEFL TV');
-			$message1->to($data1['complainant_email'])->subject('Complaint Email');
+		Mail::send('emails.reports.complainant_report', $data1, function($message1) use($reportedemail) {
+			// $message1->from('report@tefltv.com', 'Report | TEFL TV');
+			// $message1->to($data1['complainant_email'])->subject('Complaint Email');
+			$message1->to($reportedemail)->subject('Complaint Email');
 		});
-		Mail::send('emails.reports.uploaders_report', $data2, function($message2) use($data2) {
-			$message2->from('report@tefltv.com', 'Report | TEFL TV');
-			$message2->to($data2['uploader_email'])->subject('Complaint Email');
+		Mail::send('emails.reports.uploaders_report', $data2, function($message2) use($uploaderemail) {
+			// $message2->from('report@tefltv.com', 'Report | TEFL TV');
+			// $message2->to($data2['uploader_email'])->subject('Complaint Email');
+			$message2->to($uploaderemail)->subject('Complaint Email');
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');

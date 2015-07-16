@@ -15,6 +15,7 @@ class UserController extends BaseController {
 		Playlist $playlist,
 		ReportedFeedback $reportedFeedback,
 		UserFavorite $userFavorite,
+		VideoLikesDislike $videoLikesDislike,
 		Hybrid_Auth $hybridauth)
 	{
 		$this->Notification = $notification;
@@ -29,6 +30,7 @@ class UserController extends BaseController {
 		$this->ReportedFeedback = $reportedFeedback;
 		$this->UserFavorite = $userFavorite;
 		$this->Hybrid_Auth = $hybridauth;	
+		$this->VideoLikesDislike = $videoLikesDislike;
 		$this->video_ = new Video;
 		$this->comment_ = new Comment;
 		$this->publisher_ = new Publisher;
@@ -423,7 +425,8 @@ class UserController extends BaseController {
 			$id = $video->id;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
-			$countCommentAndLikes = $this->comment_->countLikesAndComments($video->id);
+			$totalComment = $this->comment_->totalComment($video->id);
+			$totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($video->id);
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
 			//if($video->category != ""){
 			$category = explode(',',$video->category);
@@ -437,7 +440,7 @@ class UserController extends BaseController {
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 				'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
 				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
-				'countCommentAndLikes'));
+				'totalComment','totalLikesDislikes'));
 
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
@@ -1284,36 +1287,59 @@ class UserController extends BaseController {
 		}			
 	}
 	public function likeVideo($id){
-		$id = Crypt::decrypt($id);
-		 // $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)
-		 //  			->where('video_id',$id);
-		 // if($result->count){
-		 // 	$result = $result->first();
-		 // 	if($result->likes == 0) {
-		 // 		$result->likes += 1;
-		 // 	}
-		 // }
-		$counter = UserLike::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id);
-
-		if(!$counter->count()){
-			$like = UserLike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$likeResult = UserLike::where('video_id',$id)->count();
-			$dislikeResult = UserDislike::where('video_id',$id)->count();
-			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-		}
+		if(!Auth::check()) {return Response::json(['login'=>0]);}
+		 $id = Crypt::decrypt($id);
+		 $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)->where('video_id',$id);
+		 $totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($id);
+		 if(!$result->count()){
+		 	$result = new VideoLikesDislike;
+		 	$result->user_id = $this->Auth->id;
+		 	$result->video_id = $id;
+		 	$result->likes =  1;
+		 	$result->dislikes = 0;
+		 	$result->save();
+		 }else{
+		 	$result = $result->first();
+		 	if($result->likes == 1){
+		 	   return  Response::json(['liked'=>1,'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+		 	}else{
+		 		$result->likes = 1;
+			    $result->dislikes = 0;
+			    $result->save();
+		 	}
+		 }
+		 return Response::json(['liked'=>0, 'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
 	}
 
 	public function dislikeVideo($id){
+		if(!Auth::check()) {return Response::json(['login'=>0]);}
 		$id = Crypt::decrypt($id);
-		$counter = UserDislike::where('user_id','=',$this->Auth->id)->where('video_id','=',$id);
+		$result = VideoLikesDislike::where('user_id','=',$this->Auth->id)->where('video_id',$id);
+		$totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($id);
+		 if(!$result->count()){
+		 	$result = new VideoLikesDislike;
+		 	$result->user_id = $this->Auth->id;
+		 	$result->video_id = $id;
+		 	$result->likes =  0;
+		 	$result->dislikes = 1;
+		 	$result->save();
+		 }else{
+		 	$result = $result->first();
+	 		if($result->dislikes == 1){
+		 	   return  Response::json(['disliked'=>1,'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+		 	}else{
+		 		$result->likes = 0;
+			    $result->dislikes = 1;
+			    $result->save();
+		 	}
+		 }
+		 return Response::json(['disliked'=>0, 'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+	}
 
-		if(!$counter->count()){
-			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$dislikeResult = UserDislike::where('video_id',$id)->count();
-			$likeResult = UserLike::where('video_id',$id)->count();
-			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-		}
+	public function postTotalLikedDisliked($id){
+		$id = Crypt::decrypt($id);
+		$totalDisliked = $this->VideoLikesDislike->totalLikesDislikes($id);
+		return Response::json(['totalLiked'=>$totalDisliked['likes'], 'totalDisliked'=>$totalDisliked['dislikes']]);
 	}
 
 	public function unlikeVideo($id){
