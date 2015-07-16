@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$videos->title}}
+    {{$videos->title}} - TEFL tv Videos
 @stop
 
 @section('meta')
@@ -15,6 +15,10 @@
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
+
+        <meta name="description" content="{{$videos->description}} Our goal is to provide the best tefl videos for the very best esl community">
+    <meta name="keywords" content="{{$videos->tags}}">
+    <meta name="author" content="{{$owner->channel_name}}">
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}

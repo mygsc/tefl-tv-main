@@ -60,7 +60,7 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		if($user->role == '3' || $user->role == '5'){
-			$adsense['adsense_id'] = 'pub-3138986188138771';
+			$adsense['adsense_id'] = 'pub-3138986188138771';	//our adsense id
 			$adsense['ad_slot_id'] = 'slot="6814231249"';
 			$rand = rand(0,9);
 			if($rand >= 5){
