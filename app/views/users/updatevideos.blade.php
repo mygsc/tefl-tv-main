@@ -72,10 +72,10 @@
 							<p><b>Video URL:</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
 							<p><b>Duration :</b> <span class="label label-primary">{{$video->total_time}}</span></p>
 							<p><b>Raw File :</b> <span class="label label-primary">{{$video->extension}}</span></p>
-							<p><b>Likes    :</b> <span class="label label-primary">{{$countCommentAndLikes['likes']}} <span class='glyphicon glyphicon-thumbs-up'></span></span></p>
-							<p><b>Dislikes :</b> <span class="label label-primary">{{$countCommentAndLikes['dislikes']}} <span class='glyphicon glyphicon-thumbs-down'></span></span></p>
-							<p><b>Comments :</b> <span class="label label-primary">{{$countCommentAndLikes['comment']}} <span class='glyphicon glyphicon-comment'></span></span></p>
-							<p><b>Views    :</b> <span class="label label-primary">{{$video->views}} <span class='glyphicon glyphicon-eye-open'></span></span></p>
+							<p><b>Likes    :</b> <span class="label label-primary">{{$totalLikesDislikes['likes']}} </span></p>
+							<p><b>Dislikes :</b> <span class="label label-primary">{{$totalLikesDislikes['dislikes']}} </span></p>
+							<p><b>Comments :</b> <span class="label label-primary">{{$totalComment['comment']}} </span></p>
+							<p><b>Views    :</b> <span class="label label-primary">{{$video->views}}</p>
 	
 						</div>
 						<br/>

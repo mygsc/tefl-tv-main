@@ -91,6 +91,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
+                                            {{Form::hidden('video-token',Crypt::encrypt($id))}}
+                                            {{Form::hidden('likes',$totalLikesDislikes['likes'])}}
+                                            {{Form::hidden('dislikes',$totalLikesDislikes['dislikes'])}}
                                             {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
                                             {{Form::hidden('autoplay', $autoplay, ['id'=>'autoplay'])}}
                                             {{Form::hidden('duration', $duration, ['id'=>'duration'])}}
@@ -209,9 +212,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
-            
+                                                    <span class='label label-primary hand' title='Like' id='video-like'><i  class="fa fa-thumbs-up hand"></i> <span id='total-like'>&nbsp;{{$totalLikesDislikes['likes']}}</span></span>
+                                                    <span class='label label-danger hand' title='Dislike' id='video-dislike'><i class="fa fa-thumbs-down hand"></i> <span id='total-dislike'>&nbsp;{{$totalLikesDislikes['dislikes']}}</span></span>
                                                    
-                                                    @if(isset(Auth::User()->id))
+                                                    {{--@if(isset(Auth::User()->id))
                                                         @if(!empty($like))
                                                         <span id = "like-span">
                                                             <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
@@ -225,7 +229,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     @else
                                                       <i class="fa fa-thumbs-up hand"></i>
                                                     @endif 
-                                                    &nbsp;<span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    &nbsp;
+                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                     @if(isset(Auth::User()->id))
                                                         @if(!empty($dislike))
@@ -242,6 +247,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                       <i class="fa fa-thumbs-down hand"></i>
                                                     @endif 
                                                     &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
+                                                --}}
                                                 </span><!--/links-->
                                             </div>
                                             
