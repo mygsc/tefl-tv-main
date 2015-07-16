@@ -1,7 +1,7 @@
 
 @extends('layouts.default')
 @section('title')
-	Watch TEFL tv
+	Welcome to TEFL tv
 @stop
 
 @section('meta')

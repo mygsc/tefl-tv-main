@@ -45,6 +45,7 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		$partners->user_id = Auth::user()->id;
 		$partners->adsense_id = $adsense_id;
 		$partners->ad_slot_id = $ad_slot_id;
+		$partners->deleted_at = null;
 		$partners->save();
 
 		$users = User::find(Auth::User()->id);
