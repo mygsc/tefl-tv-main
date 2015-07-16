@@ -125,7 +125,7 @@
 							<div class="col-md-6 mg-t-10">
 		
 								<b>* Zip/Postal Code:</b>
-								{{Form::text('zip_postal', null, array('class'=> 'form-control', 'required'))}}
+								{{Form::text('zip_postal', null, array('class'=> 'form-control'))}}
 							</div>
 							<div class="col-md-6 mg-t-10">
 		
