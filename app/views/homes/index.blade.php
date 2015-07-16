@@ -1,7 +1,10 @@
 
 @extends('layouts.default')
+@section('title')
+	Watch TEFL tv
+@stop
+
 @section('meta')
-<head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
 
@@ -26,9 +29,8 @@
 
 	There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
 	">
-	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, English, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
+	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
 	<meta name="author" content="TEFL tv">
-</head>
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -200,7 +202,7 @@
 										<div class="count">
 											by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
 											<br />
-											{{number_format($latest->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
+											{{number_format($latest->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
 										</div>
 									</div>
 								</a>
@@ -236,7 +238,7 @@
 										<div class="count">
 											by: <a href="{{route('view.users.channel', array($random->channel_name))}}">{{$random->channel_name}}</a>
 											<br />
-											<i class="fa fa-eye"></i> {{number_format($random->views,0,null,',')}} | <!--<i class="fa fa-thumbs-up"></i> {{$random->likes}} |--> {{date('F d, Y',strtotime($random->created_at))}}
+											{{number_format($random->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$random->likes}} |--> {{date('F d, Y',strtotime($random->created_at))}}
 										</div>
 									</div>
 								</a>

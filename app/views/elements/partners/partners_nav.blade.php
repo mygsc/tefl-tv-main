@@ -7,12 +7,12 @@
                         <li>
                             {{ link_to_route('partners.index', 'Home', null, array('class' => '')) }}
                         </li>
-                        <li>
+                        <!--<li>
                             {{ link_to_route('partners.faqs', 'FAQs', null, array('class' => '')) }}
                         </li>
                         <li>
                             {{ link_to_route('partners.privacy', 'Privacy', null, array('class' => '')) }}
-                        </li>
+                        </li>-->
                     </ul> 
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">
