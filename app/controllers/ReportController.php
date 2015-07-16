@@ -51,13 +51,13 @@ class ReportController extends BaseController {
 
 		$reported_info = User::find($complainant_id);
 		$reported_video = Video::where('file_name',$copyrighted_video_url)->first();
-
-		$uploader_info = User::find($reported_video->user_id);
-
+		
 		$ifVideoIsExisting = Video::where('file_name',$copyrighted_video_url)->count();
 		if($ifVideoIsExisting == 0){
 			return Redirect::route('get.complaint_form')->withFlashBad('Invalid video url. Please try again.')->withInput();
 		}
+
+		$uploader_info = User::find($reported_video->user_id);
 
 		$getLastTicketNumber = Report::orderby('id', 'DESC')->first();
 		$splitTicketNumber = explode('-', $getLastTicketNumber->case_number);

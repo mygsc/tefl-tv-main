@@ -8,7 +8,7 @@
             </td>
 			<td style="width:70%; background:#D1DFF9;border-left:20px solid #1F3359;border-radius:0 10px 10px 0;">
 				<div style="width:720px; height:auto; padding:20px 20px;">
-					Hi {{$legal_name}}!
+					Hi {{$channel_name}}!
 					<br>
 					Case Number: {{$case_number}}
 					<br>
@@ -21,7 +21,7 @@
 					Complainant's email address: {{$complainant_email}}<br/>
 					Uploaders's email address: {{$uploader_email}}<br/>
 
-					"some text here for the uploaders"
+					"some text here for the complainant"
 				</div>
 			</td>
 		</tr>

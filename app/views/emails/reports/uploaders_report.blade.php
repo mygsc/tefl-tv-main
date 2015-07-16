@@ -9,7 +9,7 @@
             </td>
 			<td style="width:70%; background:#D1DFF9;border-left:20px solid #1F3359;border-radius:0 10px 10px 0;">
 				<div style="width:720px; height:auto; padding:20px 20px;">
-					Hi {{$legal_name}}!
+					Hi {{$channel_name}}!
 					<br>
 					Someone reported that your video - (Type of Report here)
 					<br>
