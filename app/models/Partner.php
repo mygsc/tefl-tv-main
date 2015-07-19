@@ -55,13 +55,13 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function getAdsenseID($user_id = null){
+		$adsense['adsense_id'] = 'ca-pub-3138986188138771';	//our adsense id
+		$adsense['ad_slot_id'] = 'slot="6814231249"';
 		if(!empty($user_id)){
 			$user = User::find($user_id);
 		}
 
 		if($user->role == '3' || $user->role == '5'){
-			$adsense['adsense_id'] = 'pub-3138986188138771';	//our adsense id
-			$adsense['ad_slot_id'] = 'slot="6814231249"';
 			$rand = rand(0,9);
 			if($rand >= 5){
 				$adsense_id = Partner::where('user_id', $user_id)->first();
