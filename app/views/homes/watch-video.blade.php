@@ -355,7 +355,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!--/advertisement-->
          
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
-                <h4 align='center' id='next-video-autoplay'>Up next - Autoplay On</h4>
+                <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
@@ -365,11 +365,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 		                                	<div class=" col-middle">
 		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
-	                                       				
-	                                        @else
-	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
-	                                        @endif
+    	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >		
+    	                                        @else
+    	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+    	                                        @endif
 	                                        
 	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
 	                                        		 

@@ -83,7 +83,7 @@
 				<div class='video-speed'>
 					<small class='back-to-setting vp-text'><span class='glyphicon glyphicon-arrow-left'></span> Speed</small>
 					<ul>
-						<li id='speed-high' class='speed-high'>High <span>2</span></li>
+						<li id='speed-high' class='speed-high'>Fast <span>2</span></li>
 						<li id='speed-normal' class='speed-normal'>Normal <span>1</span></li>
 						<li id='speed-low' class='speed-low'>Slow <span>0.5</span></li>
 						<li id='speed-v-low' class='speed-v-low'>V-slow <span>0.2</span></li>
