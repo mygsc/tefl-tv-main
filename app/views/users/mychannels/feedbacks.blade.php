@@ -49,8 +49,9 @@
 				</nav>
 
 				<div class="feedbackSection content-padding mg-t-20  channel-content White same-H">
-					<br/><br/>
+					<br/>
 					@if($userFeedbacks->isEmpty())
+					<br/>
 					<h3 class="text-center">No feedback yet..</h3>
 					@endif
 

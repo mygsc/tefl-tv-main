@@ -42,20 +42,20 @@
 				<div class="col-md-12 mg-t-20">
 					<div class="row">
 						<div class="row-same-height">
-							<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
+							<div class="col-md-6 col-md-height col-top White same-H">
 								<div class="row">
 									<div class="top-div_t whiteC">
 										<h3 class="text-center">SUBSCRIBERS</h3>
 									</div>
-									<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
-										<div class="searchPanel">
-											<!--<div class="input-group">
-												{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
-												<span class="input-group-btn">
-													{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-												</span>
-											</div>-->
-										</div>
+									<div class="Div-channelSubSection" id="subscriberWrapper">
+										<!--<div class="searchPanel">
+												<div class="input-group">
+													{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
+													<span class="input-group-btn">
+														{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+													</span>
+												</div>
+										</div>-->
 										<br/><br/>
 										@if($subscriberProfile->isEmpty())
 											<p class="text-center">No Subscribers</p>
@@ -96,28 +96,28 @@
 							</div>
 
 
-							<div class="col-md-6 col-md-height col-top">
-								<div class="row " style="padding-left:20px!important;">
+							<div class="col-md-6 col-md-height col-top  White same-H">
+								<div class="row " >
 									<div class="top-div_t whiteC">
 										<h3 class="text-center">SUBSCRIPTIONS</h3>
 									</div>
-									<div class="Div-channelSubSection White same-H" id="subscriberWrapper">
+									<div class="Div-channelSubSection" id="subscriberWrapper">
 										<br/><br/>
-											<div class="searchPanel">
+											<!--<div class="searchPanel">
 												<!--<div class="input-group">
 													{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Subscriber', 'class' => 'form-control c-input ')) }}
 													<span class="input-group-btn">
 														{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
 													</span>
-												</div>-->
-											</div>
-											<br/><br/>
+												</div>
+											</div>-->
+										
 											@if($subscriptionProfile->isEmpty())
 												<p class="text-center">No Subscription</p>
 											@else
 												@foreach($subscriptionProfile as $key => $profile1)
 													<div class="subscribers">
-														<div class="col-md-6 col-sm-6 col-xs-12">
+														<div class="col-md-6 col-sm-12 col-xs-12">
 															{{HTML::image($profile1['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 											
 															&nbsp;

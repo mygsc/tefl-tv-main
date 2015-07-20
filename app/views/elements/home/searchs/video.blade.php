@@ -15,7 +15,7 @@
 		By: <a href="/channels/{{$result->channel_name}}">{{$result->channel_name}}</a><br />
 		
 		<p class="text-justify">{{str_limit($result->description, $limit = 100, $end = '...')}}</p>
-		<i class="fa fa-eye"></i> {{$result->views}} | <i class="fa fa-thumbs-up"></i> {{$result->likes}} | <i class="fa fa-calendar"></i> {{date('F d, Y',strtotime($result->created_at))}}
+		{{$result->views}} Views | {{$result->likes}} Likes | {{date('F d, Y',strtotime($result->created_at))}}
 		<br/>
 		<small><b>Tags:</b></small>
 		@foreach($result->tags as $tag)
