@@ -178,6 +178,11 @@
 											<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
 									</div>
+									<br/>
+									
+									<div style="color:red">
+
+									</div>
 								</div>
 								@endforeach	
 							</div>

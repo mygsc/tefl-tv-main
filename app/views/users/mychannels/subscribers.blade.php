@@ -114,6 +114,7 @@
 											<p class="text-center">No Subscriptions</p>
 										@else
 										@foreach($subscriptionProfile as $key => $profile1)
+										{{$profile1->subscriber_id}}
 											<div class="col-md-6 col-sm-6 col-xs-12">
 								                	{{HTML::image($profile1['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 												&nbsp;
@@ -121,9 +122,9 @@
 												<br/>&nbsp;
 												<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
 												@if(isset($profile1->id))
-													@if(isset(Auth::User()->id))
+													@if(isset(Auth::User()->id != $profile1->subscriber_id))
 														<?php
-															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
+															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->user_id, 'subscriber_id' => Auth::User()->id))->first();
 														?>
 														{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 											    			{{Form::hidden('user_id', $profile1->id)}}
