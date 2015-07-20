@@ -14,12 +14,15 @@
 					Someone reported that your video - (Type of Report here)
 					<br>
 					both parties should settle the case outside tefl tv to support claim... When trial is over or is finish in talks you can email us the result to decide what to do with your videos
+					
+					<br>
+					Case Number: {{$case_number}}
 					<br>
 
 					<b>Email Address</b>
 					<br/>
 					Complainant's email address: {{$complainant_email}}<br/>
-					Uploaders's email address: {{$uploader_email}}<br/>
+					Complainant's channel: {{$complainant_channel}}<br/>
 
 					"some text here for the uploaders"
 				</div>

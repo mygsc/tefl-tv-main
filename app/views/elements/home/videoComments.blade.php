@@ -85,8 +85,8 @@
 										@endif&nbsp;
 									</div>&nbsp;
 									@else
-										<span class="likescount thumbUpC" id="likescount">{{$getVideoComment->getVideoComment->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
-										<span class="dislikescount thumbDownC" id="dislikescounts">{{$getVideoComment->getVideoComment->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+										<span class="likescount thumbUpC" id="likescount">{{$getVideoComment->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+										<span class="dislikescount thumbDownC" id="dislikescounts">{{$getVideoComment->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 										
 										<!--end updated by cess 3/26/15-->
 									@endif<!--auth user-->
