@@ -115,4 +115,8 @@ class ReportController extends BaseController {
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
 	}
+
+	public function getFileDispute() {
+		return View::make('reports.filedispute');
+	}
 }
