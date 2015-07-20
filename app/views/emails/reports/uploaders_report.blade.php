@@ -9,24 +9,22 @@
             </td>
 			<td style="width:70%; background:#D1DFF9;border-left:20px solid #1F3359;border-radius:0 10px 10px 0;">
 				<div style="width:720px; height:auto; padding:20px 20px;">
-					Hi {{$legal_name}}!
+					Hi {{$channel_name}}!
 					<br>
 					Someone reported that your video - (Type of Report here)
 					<br>
 					both parties should settle the case outside tefl tv to support claim... When trial is over or is finish in talks you can email us the result to decide what to do with your videos
+					
+					<br>
+					Case Number: {{$case_number}}
 					<br>
 
 					<b>Email Address</b>
 					<br/>
 					Complainant's email address: {{$complainant_email}}<br/>
-					Uploaders's email address: {{$uploader_email}}<br/>
+					Complainant's channel: {{$complainant_channel}}<br/>
 
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
-					standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make 
-					a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-					remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing 
-					Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions 
-					of Lorem Ipsum.
+					"some text here for the uploaders"
 				</div>
 			</td>
 		</tr>
