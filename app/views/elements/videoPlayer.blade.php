@@ -72,8 +72,25 @@
 					</div>
 				</span><!--/.sound-->
 				<i id='fullscreen' class='player fullscreen' title='Fullscreen'></i>
+				<div class='settings'>
+					<ul>
+						<li class='autoplay-toggle'>Autoplay <span class='label label-default'>Off</span></li>
+						<li class='annot-toggle'>Annotation <span class='label label-primary'>On</span></li>
+						<li class='speed'>Speed <span class='glyphicon glyphicon-circle-arrow-right'></span></li>
+						<li class='quality'>Quality <span class='glyphicon glyphicon-circle-arrow-right'></span></li>
+					</ul>
+				</div>
+				<div class='video-speed'>
+					<small class='back-to-setting vp-text'><span class='glyphicon glyphicon-arrow-left'></span> Speed</small>
+					<ul>
+						<li id='speed-high' class='speed-high'>Fast <span>2</span></li>
+						<li id='speed-normal' class='speed-normal'>Normal <span>1</span></li>
+						<li id='speed-low' class='speed-low'>Slow <span>0.5</span></li>
+						<li id='speed-v-low' class='speed-v-low'>V-slow <span>0.2</span></li>
+					</ul>
+				</div>
 				<div class="hd-setting">
-					<small class="vp-text">Video Quality</small>
+					<small class='back-to-setting vp-text'><span class='glyphicon glyphicon-arrow-left'></span> Quality</small>
 					<ul>
 						<li> <a title='HD mode' id="high-quality" href="#">High</a></li>
 						<li> <a title='Normal mode' id="normal-quality" href="#">Normal</a></li>
@@ -95,7 +112,7 @@
 						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
 					</ul>							
 				</div><!--/.share-video-->
-				<i id='hd-setting' title='Video Quality' class='player setting'></i>
+				<i id='hd-setting' title='Setting' class='player setting'></i>
 				<i id='share-video' title='Share video' class='player share'></i>
 				{{-- <i id='cc' title='Subtitle' style='color:#fff;cursor:pointer'>CC</i> --}}
 				<img src="/img/logos/teflTv.png" class="playerLogo">

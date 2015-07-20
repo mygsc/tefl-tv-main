@@ -72,10 +72,10 @@
 												<br/>&nbsp;
 												@if(isset(Auth::User()->id))
 												<?php
-												$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->id, 'subscriber_id' => Auth::User()->id))->first();
+												$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 'subscriber_id' => Auth::User()->id))->first();
 												?>
 												@if(isset($profile->id))
-												@if(Auth::User()->id != $profile->id)
+												@if(Auth::User()->id != $profile->subscriber_id)
 												{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 												{{Form::hidden('user_id', $profile->id)}}
 												{{Form::hidden('subscriber_id', Auth::User()->id)}}
@@ -129,10 +129,10 @@
 															<br/>&nbsp;
 															@if(isset(Auth::User()->id))
 															<?php
-															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->id, 'subscriber_id' => Auth::User()->id))->first();
+															$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->user_id, 'subscriber_id' => Auth::User()->id))->first();
 															?>
 															@if(isset($profile1->id))
-															@if(Auth::User()->id != $profile1->id)
+															@if(Auth::User()->id != $profile1->user_id)
 															{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 															{{Form::hidden('user_id', $profile1->id)}}
 															{{Form::hidden('subscriber_id', Auth::User()->id)}}
