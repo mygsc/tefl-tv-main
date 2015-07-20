@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$videos->title}}
+    {{$videos->title}} - TEFL tv Videos
 @stop
 
 @section('meta')
@@ -15,6 +15,10 @@
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
+
+        <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
+    <meta name="keywords" content="{{$videos->tags}}">
+    <meta name="author" content="{{$owner->channel_name}}">
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}
@@ -27,7 +31,7 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
+{{--HTML::script('js/video-player/fullscreen.min.js')--}}
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 
@@ -83,7 +87,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 </p>
                                             </div>
                                             <div class="col-md-3 col-xs-4 col-sm-3 text-right">
-                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
+                                            @if($videos->views > 1)
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} Views</p>
+                                                @else
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View</p>
+                                            @endif
                                             </div>
 
                                         </div>
@@ -91,6 +99,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
+                                            {{Form::hidden('video-token',Crypt::encrypt($id))}}
+                                            {{Form::hidden('likes',$totalLikesDislikes['likes'])}}
+                                            {{Form::hidden('dislikes',$totalLikesDislikes['dislikes'])}}
                                             {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
                                             {{Form::hidden('autoplay', $autoplay, ['id'=>'autoplay'])}}
                                             {{Form::hidden('duration', $duration, ['id'=>'duration'])}}
@@ -209,9 +220,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
-            
+                                                    <span class='label label-primary hand' title='Like' id='video-like'><i  class="fa fa-thumbs-up hand"></i> <span id='total-like'>&nbsp;{{$totalLikesDislikes['likes']}}</span></span>
+                                                    <span class='label label-danger hand' title='Dislike' id='video-dislike'><i class="fa fa-thumbs-down hand"></i> <span id='total-dislike'>&nbsp;{{$totalLikesDislikes['dislikes']}}</span></span>
                                                    
-                                                    @if(isset(Auth::User()->id))
+                                                    {{--@if(isset(Auth::User()->id))
                                                         @if(!empty($like))
                                                         <span id = "like-span">
                                                             <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
@@ -225,7 +237,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     @else
                                                       <i class="fa fa-thumbs-up hand"></i>
                                                     @endif 
-                                                    &nbsp;<span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    &nbsp;
+                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                     @if(isset(Auth::User()->id))
                                                         @if(!empty($dislike))
@@ -242,6 +255,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                       <i class="fa fa-thumbs-down hand"></i>
                                                     @endif 
                                                     &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
+                                                --}}
                                                 </span><!--/links-->
                                             </div>
                                             
@@ -341,23 +355,26 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!--/advertisement-->
          
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
+                <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 	
 	                                <div class="row p-relative">
 	                                	<div class="show_wrapp">
+
 		                                	<div class=" col-middle">
 		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
-	                                       				
-	                                        @else
-	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
-	                                        @endif
+    	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >		
+    	                                        @else
+    	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+    	                                        @endif
 	                                        
 	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
-	                                        		<div class="showInfo-wrapp ">
+	                                        		 
+                                                    <div class="showInfo-wrapp ">
 	                                        			<div class="showInfo-div">
+
 			                                        		<span class="info-title">{{ ($relation['title']) }}</span><br/>
 			                                        		by: {{$relation['channel_name']}}<br/>
 			                                        		{{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s

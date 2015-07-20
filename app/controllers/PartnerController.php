@@ -55,10 +55,11 @@ class PartnerController extends Controller {
 		}
 
 		if($this->Partner->savePartner($adsense_id, $ad_slot_id) === true){
-			$data = array('adsense_id' => $adsense_id,'channel_name' => Auth::User()->channel_name);
-				// Mail::send('emails.partners.register', $data, function($message) {
-				// 	$message->to(Auth::User()->email)->subject('You just became a TEFL TV partner');
-				// });
+			$data = array('adsense_id' => $adsense_id,'channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.partners.register', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('TEFLtv Partner account');
+			});
 			return Redirect::route('partners.success');
 		}
 		
@@ -89,8 +90,13 @@ class PartnerController extends Controller {
 	}
 
 	public function getEditPartner(){
-		$credentials = Partner::where('user_id', $this->Auth->id)->first();
-		return View::make('partners.edit-partners', compact('credentials'));
+		if(Auth::User()->role == '3' || Auth::User()->role == '5'){
+			$credentials = Partner::where('user_id', $this->Auth->id)->first();
+			return View::make('partners.edit-partners', compact('credentials'));
+		}
+
+		return Redirect::route('homes')->withFlashWarning('page not found');
+		
 	}
 
 	public function postEditPartner(){
@@ -120,7 +126,12 @@ class PartnerController extends Controller {
 	}
 
 	public function getCancelPartner(){
-		return View::make('partners.cancel');
+		if(Auth::User()->role == '3' || Auth::User()->role == '5'){
+			return View::make('partners.cancel');
+		}
+
+		return Redirect::route('homes')->withFlashWarning('page not found');
+
 	}
 
 	public function postCancelPartner(){
@@ -133,6 +144,10 @@ class PartnerController extends Controller {
 		if(Hash::check($input['password'],$this->Auth->password)){
 			$this->Partner->cancelPartner($this->Auth->id);
 
+			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
+			Mail::send('emails.partners.cancel', $data, function($message) {
+				$message->to(Input::get('email'))->subject('TEFLtv Partners account cancellation');
+			});
 			return Redirect::route('users.earnings.settings')->withFlashWarning('Your TEFLtv Partner account was cancelled');
 		}
 		return Redirect::route('cancel.partners')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);

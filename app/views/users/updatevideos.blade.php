@@ -72,10 +72,10 @@
 							<p><b>Video URL:</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
 							<p><b>Duration :</b> <span class="label label-primary">{{$video->total_time}}</span></p>
 							<p><b>Raw File :</b> <span class="label label-primary">{{$video->extension}}</span></p>
-							<p><b>Likes    :</b> <span class="label label-primary">{{$countCommentAndLikes['likes']}} <span class='glyphicon glyphicon-thumbs-up'></span></span></p>
-							<p><b>Dislikes :</b> <span class="label label-primary">{{$countCommentAndLikes['dislikes']}} <span class='glyphicon glyphicon-thumbs-down'></span></span></p>
-							<p><b>Comments :</b> <span class="label label-primary">{{$countCommentAndLikes['comment']}} <span class='glyphicon glyphicon-comment'></span></span></p>
-							<p><b>Views    :</b> <span class="label label-primary">{{$video->views}} <span class='glyphicon glyphicon-eye-open'></span></span></p>
+							<p><b>Likes    :</b> <span class="label label-primary">{{$totalLikesDislikes['likes']}} </span></p>
+							<p><b>Dislikes :</b> <span class="label label-primary">{{$totalLikesDislikes['dislikes']}} </span></p>
+							<p><b>Comments :</b> <span class="label label-primary">{{$totalComment['comment']}} </span></p>
+							<p><b>Views    :</b> <span class="label label-primary">{{$video->views}}</p>
 	
 						</div>
 						<br/>
@@ -131,6 +131,7 @@
 											{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 											{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
 											{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
+											{{ Form::hidden('token-id',$video->file_name)}}
 											<p class="notes">*Double click the existing tag to edit.</p>
 											<div id="wrapper">
 												@if($tags == null)
@@ -207,7 +208,7 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
-										{{Form::close()}}
+										
 					    		</div><!--content-padding-->
 					    	</div><!--col-md-12-->
 
@@ -243,6 +244,8 @@
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
+
+										<button type="button" class='btn btn-primary btn-sm' id='save-cover-photo' >Save poster</button><br>
 									@else
 										<div class="row text-center">
 											<div class="pad-10">
@@ -272,6 +275,7 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
+										{{Form::close()}}
 									@endif
 									<br/>
 					    		</div><!--content-padding-->

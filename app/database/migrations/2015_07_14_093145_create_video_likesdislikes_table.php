@@ -16,8 +16,9 @@ class CreateVideoLikesdislikesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('video_id');
-			$table->integer('likes');
-			$table->integer('dislikes');
+			$table->integer('user_id');
+			$table->tinyInteger('likes');
+			$table->tinyInteger('dislikes');
 			$table->timestamps();
 		});
 	}

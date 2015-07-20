@@ -11,16 +11,16 @@
 				
 			</div>
 			<div class="col-md-8 col-md-offset-2">
-					{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name'))}}
+					{{Form::text('channel_name1',null,array('placeholder' => 'Channel Name', 'tabindex' => '1'))}}
 					<div class="text-right">
 					<a href="#" id="forgotpw" data-toggle="modal" data-target="#forgot-password">forgot password?</a> 
 					</div>
-					{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true))}}
+					{{Form::password('password',array('class' => 'txt_password' , 'placeholder' => 'Password','required' => true, 'tabindex' => '2'))}}
 					<div class="text-right">
 			<br/>
 			{{Form::checkbox('remember_me')}}	{{Form::label('remember_me', 'Remember Me')}}
 			&nbsp;&nbsp;
-			{{Form::submit('Sign In',array('class'=>'btn btn-primary'))}}
+			{{Form::submit('Sign In',array('class'=>'btn btn-primary', 'tabindex' => '3'))}}
 			{{Form::close()}}
 		</div>
 			</div>

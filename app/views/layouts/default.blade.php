@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
-	<title>@yield('title', 'TEFL-TV')</title>
+	<title>@yield('title')</title>
 	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 	<meta name="robots" content="NOODP">
 	<meta name="googlebot" content="NOODP">

@@ -15,6 +15,7 @@ class UserController extends BaseController {
 		Playlist $playlist,
 		ReportedFeedback $reportedFeedback,
 		UserFavorite $userFavorite,
+		VideoLikesDislike $videoLikesDislike,
 		Hybrid_Auth $hybridauth)
 	{
 		$this->Notification = $notification;
@@ -29,6 +30,7 @@ class UserController extends BaseController {
 		$this->ReportedFeedback = $reportedFeedback;
 		$this->UserFavorite = $userFavorite;
 		$this->Hybrid_Auth = $hybridauth;	
+		$this->VideoLikesDislike = $videoLikesDislike;
 		$this->video_ = new Video;
 		$this->comment_ = new Comment;
 		$this->publisher_ = new Publisher;
@@ -76,10 +78,11 @@ class UserController extends BaseController {
 		$validate = Validator::make($input, User::$userRules);
 		if($validate->passes()){
 			//--------------Email Start-----------------//
-			$generateToken = Crypt::encrypt($input['email'] + rand(10,100));
+			$random = $this->Video->randomChar();
+			$generateToken =  $random. rand(10,100);
 			$data = array('url' => route('homes.get.verify', $generateToken),'first_name' => $input['first_name']);
 			Mail::send('emails.users.verify', $data, function($message) {
-				$message->to(Input::get('email'))->subject('TEFL-TV account activation');
+				$message->to(Input::get('email'))->subject('TEFLtv account activation');
 			});
 			//--------------Email Done----------------------//
 			$input['token'] = $generateToken;
@@ -105,7 +108,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->with('flash_bad', 'Please enter a valid E-mail address');
 		}
 
-		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => Input::get('first_name'));
+		$data = array('url' => route('homes.resetpassword', $generateToken),'first_name' => $findUser->first()->channel_name);
 		Mail::send('emails.users.forgotpassword', $data, function($message) {
 			$getUserInfo = User::where('email', Input::get('email'))->first();
 			$message->to($getUserInfo->email)->subject('TEFL-TV forgot password');
@@ -415,14 +418,14 @@ class UserController extends BaseController {
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
-
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
 			$id = $video->id;
 			$hms = $this->duration($video->total_time);
 			$filename = $video->file_name; $extension = $video->extension;
-			$countCommentAndLikes = $this->comment_->countLikesAndComments($video->id);
+			$totalComment = $this->comment_->totalComment($video->id);
+			$totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($video->id);
 			if($video->tags != ""){$tags = explode(',',$video->tags);}
 			//if($video->category != ""){
 			$category = explode(',',$video->category);
@@ -436,7 +439,7 @@ class UserController extends BaseController {
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 				'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
 				'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
-				'countCommentAndLikes'));
+				'totalComment','totalLikesDislikes'));
 
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
@@ -467,6 +470,7 @@ class UserController extends BaseController {
 				}
 				Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 				Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
+
 			}
 			else{
 				$selectedThumb =  Input::get('selected-thumbnail');
@@ -476,6 +480,7 @@ class UserController extends BaseController {
 					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
+					
 				}	
 			}
 			
@@ -786,7 +791,7 @@ class UserController extends BaseController {
 		}
 		if(Auth::check()) $user_id = Auth::User()->id;
 		if(!Auth::check()) Session::put('url.intended', URL::full());
-		if(empty($userChannel)) return View::make('users.channelnotexist');
+		if(empty($userChannel) || $userChannel->status == '0' || $userChannel->status == '2') return View::make('users.channelnotexist');
 
 		$usersVideos = User::where('channel_name',$channel_name)->first();
 		$findVideos = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,6);
@@ -1283,36 +1288,59 @@ class UserController extends BaseController {
 		}			
 	}
 	public function likeVideo($id){
+		if(!Auth::check()) {return Response::json(['login'=>0]);}
 		 $id = Crypt::decrypt($id);
-		 // $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)
-		 //  			->where('video_id',$id);
-		 // if($result->count){
-		 // 	$result = $result->first();
-		 // 	if($result->likes == 0) {
-		 // 		$result->likes += 1;
-		 // 	}
-		 // }
-		$counter = UserLike::where('user_id','=',Auth::User()->id)
-		->where('video_id','=',$id);
-
-		if(!$counter->count()){
-			$like = UserLike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$likeResult = UserLike::where('video_id',$id)->count();
-			$dislikeResult = UserDislike::where('video_id',$id)->count();
-			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-		}
+		 $result = VideoLikesDislike::where('user_id','=',$this->Auth->id)->where('video_id',$id);
+		 $totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($id);
+		 if(!$result->count()){
+		 	$result = new VideoLikesDislike;
+		 	$result->user_id = $this->Auth->id;
+		 	$result->video_id = $id;
+		 	$result->likes =  1;
+		 	$result->dislikes = 0;
+		 	$result->save();
+		 }else{
+		 	$result = $result->first();
+		 	if($result->likes == 1){
+		 	   return  Response::json(['liked'=>1,'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+		 	}else{
+		 		$result->likes = 1;
+			    $result->dislikes = 0;
+			    $result->save();
+		 	}
+		 }
+		 return Response::json(['liked'=>0, 'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
 	}
 
 	public function dislikeVideo($id){
+		if(!Auth::check()) {return Response::json(['login'=>0]);}
 		$id = Crypt::decrypt($id);
-		$counter = UserDislike::where('user_id','=',$this->Auth->id)->where('video_id','=',$id);
+		$result = VideoLikesDislike::where('user_id','=',$this->Auth->id)->where('video_id',$id);
+		$totalLikesDislikes = $this->VideoLikesDislike->totalLikesDislikes($id);
+		 if(!$result->count()){
+		 	$result = new VideoLikesDislike;
+		 	$result->user_id = $this->Auth->id;
+		 	$result->video_id = $id;
+		 	$result->likes =  0;
+		 	$result->dislikes = 1;
+		 	$result->save();
+		 }else{
+		 	$result = $result->first();
+	 		if($result->dislikes == 1){
+		 	   return  Response::json(['disliked'=>1,'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+		 	}else{
+		 		$result->likes = 0;
+			    $result->dislikes = 1;
+			    $result->save();
+		 	}
+		 }
+		 return Response::json(['disliked'=>0, 'totalLikes'=>$totalLikesDislikes['likes'],'totalDislikes'=>$totalLikesDislikes['dislikes']]);
+	}
 
-		if(!$counter->count()){
-			$dislike = UserDislike::create(array('user_id'=>Auth::User()->id,'video_id'=>$id));
-			$dislikeResult = UserDislike::where('video_id',$id)->count();
-			$likeResult = UserLike::where('video_id',$id)->count();
-			return Response::json(array('likeResult'=>$likeResult,'dislikeResult'=>$dislikeResult));
-		}
+	public function postTotalLikedDisliked($id){
+		$id = Crypt::decrypt($id);
+		$totalDisliked = $this->VideoLikesDislike->totalLikesDislikes($id);
+		return Response::json(['totalLiked'=>$totalDisliked['likes'], 'totalDisliked'=>$totalDisliked['dislikes']]);
 	}
 
 	public function unlikeVideo($id){
@@ -1651,7 +1679,10 @@ class UserController extends BaseController {
 			return Redirect::route('homes.signin')->withFlashWarning('Please sign in');
 		}
 
-		return View::make('users.mychannels.accountsettings.earnings-settings');
+		if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5'){
+			return View::make('users.mychannels.accountsettings.earnings-settings');
+		}
+		return Redirect::route('homes.index')->withFlashWarning('Page was not found');
 	}
 
 	public function getDeactivate(){
@@ -1690,6 +1721,12 @@ class UserController extends BaseController {
 			$users = User::find($this->Auth->id);
 			$users->status = $status;
 			$users->save();
+
+			$data = array('channel_name' => $this->Auth->channel_name);
+			Mail::send('emails.users.deactivate', $data, function($message) {
+				$getUserInfo = User::where('channel_name', $this->Auth->channel_name)->first();
+				$message->to($getUserInfo->email)->subject('Deactivate TEFLtv Account');
+			});
 
 			return Redirect::route('users.deactivate')->withFlashGood('Your account was '. $input['keyword'].'d');
 		}
