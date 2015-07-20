@@ -42,8 +42,8 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 mg-b-10">
-			<div class="row">	
+		<div class="mg-b-10">
+			<div class="">	
 				<div class="ad-bg same-H mg-t-10">
 					<div class="row">
 						<div class="col-md-6" style="">

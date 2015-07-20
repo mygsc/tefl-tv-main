@@ -1400,6 +1400,21 @@ img.userRep2 {
     width: 51px;
     margin-bottom: 10px;
 }
+img.subs-img {
+    float: left;
+    border: #eee 2px solid;
+    height: 65px;
+    width: 61px;
+    margin-bottom: 10px;
+}
+
+.subs-wrap{
+    border-bottom: 1px solid #cecece;
+    margin-bottom: 10px;
+}
+.subs-btn-size{
+    width: 100px;
+}
 
 .followers {
     padding: 0 10px;
@@ -2334,7 +2349,12 @@ body {
     max-height:293px;
     overflow:auto;
 }
-
+.lg-md-margin-l{
+ padding-left:20px!important;
+}
+.lg-md-margin-r{
+ padding-right:20px!important;
+}
 
 }
 
@@ -2350,8 +2370,12 @@ body {
     height: 150px;
 }
 
-
-
+.lg-md-margin-l{
+ padding-left:20px!important;
+}
+.lg-md-margin-r{
+ padding-right:20px!important;
+}
 
 .user-Dp {
     margin: 10;

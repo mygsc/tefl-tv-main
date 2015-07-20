@@ -101,8 +101,12 @@ My Channel
 							<div class="col-md-12">
 								<div class="row">
 									<div class="row-same-height mg-t-20">
-										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscribers')
-										@include('elements/users/myChannelTabs/myHomeSections/myHome_subscriptions')
+										<div class="col-md-6 col-md-height col-top White same-H ">
+											@include('elements/users/myChannelTabs/myHomeSections/myHome_subscribers')
+										</div>
+										<div class="col-md-6 col-md-height col-top White same-H ">
+											@include('elements/users/myChannelTabs/myHomeSections/myHome_subscriptions')
+										</div>
 									</div>
 									
 								</div>
