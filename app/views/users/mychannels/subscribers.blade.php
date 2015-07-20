@@ -120,7 +120,7 @@
 										@else
 										@foreach($subscriptionProfile as $key => $profile1)
 
-										{{$profile1->subscriber_id}}
+										
 											<div class="col-md-6 col-sm-6 col-xs-12">
 								                	{{HTML::image($profile1['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 												&nbsp;
