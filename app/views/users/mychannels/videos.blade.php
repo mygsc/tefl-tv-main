@@ -118,12 +118,13 @@
 							<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 						</div>
 					</div>
-					<div class="col-md-12 White same-H mg-t--20">
+					<div class="col-md-12 White same-H mg-t--20 channel-content">
 						<br/>
 						<div id="videosContainer" class='container'>
 							<div class="col-md-12 ">
 								@if($usersVideos->isEmpty())
-								<p class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</p>
+								<br/>
+								<h3 class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
 								@else
 								@foreach($usersVideos as $usersVideo)
 								<div id='list' class="col-md-3 col-sm-6 mg-b-10">
@@ -175,7 +176,7 @@
 											<br/>
 										</div>
 										<div class="count">
-											<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$usersVideo->likes}} | <i class="fa fa-calendar"></i> {{date('M d Y',strtotime($usersVideo->created_at))}}
+											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
 									</div>
 									<br/>
@@ -185,8 +186,9 @@
 									</div>
 								</div>
 								@endforeach	
-							</div>
+							
 							@endif
+							</div>
 						</div>
 					</div>
 				</div>
