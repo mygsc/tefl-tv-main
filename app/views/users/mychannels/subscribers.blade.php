@@ -142,6 +142,7 @@
 															    @endif
 															{{Form::close()}}
 														@endif
+													@endif
 													</div>
 												</div>
 											@endforeach
