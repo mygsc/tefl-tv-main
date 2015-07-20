@@ -179,6 +179,11 @@
 											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
 									</div>
+									<br/>
+									
+									<div style="color:red">
+
+									</div>
 								</div>
 								@endforeach	
 							
