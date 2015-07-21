@@ -22,7 +22,7 @@
 		<tr>
 			<td style="background:#fff;height:400px;">
 				<div style="padding:40px 40px;">
-					<h2 style="text-align:center;color:#f18200;font-weight:normal;">TEFLtv Password Reset</h2>
+					<h2 style="text-align:center;color:#f18200;font-weight:normal;">TEFLtv Account Activation</h2>
 					<hr/>
 					<br/>
 					<p style="font-size:18px;color:#4B5B7C;">Dear {{$first_name}},</p>
