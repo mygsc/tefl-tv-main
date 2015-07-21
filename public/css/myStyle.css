@@ -1979,7 +1979,7 @@ div .video-info:hover{
     margin: 7px;
     width: 150px;
     height: 150px;
-    /* background: #ededed; */
+    background: #ededed;
     position: absolute;
     left: 0;
     /* padding: 2px 2px 5px 2px; */
@@ -2538,6 +2538,7 @@ body {
 .div-coverDp {
     height: 300px;
     overflow: hidden;
+    background:#c5cae8;
 }
 
 .sub-div-coverDp {
