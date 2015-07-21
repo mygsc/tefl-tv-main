@@ -70,7 +70,7 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 									<div class="visible-lg visible-md">
 										<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 									    <!-- Left-Box -->
-									    <div class="ads-relative-wrapper-box">
+									    <div class="ads-relative-wrapper-box" target="_blank">
 									        <ins class="adsbygoogle"
 									             style="display:block"
 									             data-ad-client="ca-pub-3138986188138771"

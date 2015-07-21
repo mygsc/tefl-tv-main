@@ -3661,12 +3661,25 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 #next-video-autoplay{
     display: none;
 }
-
 .ads-relative-wrapper-top{
     max-height:90px!important;
     overflow:hidden;
     position:relative;
     max-width: 720px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.watch-top-ad{
+    width: 100%;
+    height:auto;
+    padding: 10px 5px;
+    background:#d5d5d5;
+}
+.ads-relative-wrapper-watch{
+
+    overflow:hidden;
+    position:relative;
+
     margin-right: auto;
     margin-left: auto;
 }
@@ -3693,7 +3706,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background: transparent;
     visibility: hidden;
 }
-
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/
