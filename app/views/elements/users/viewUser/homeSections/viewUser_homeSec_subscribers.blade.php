@@ -1,18 +1,18 @@
 <!--Subscribers-->
-<div class="col-md-6 col-md-height col-top" style="padding-right:20px;">
+
 	<div class="row">
 		<div class="top-div_t whiteC">
 			<h3 class="text-center">SUBSCRIBERS</h3>
 		</div>
-		<div class="Div-channelSubSection White same-H " id="subscriberWrapper">
+		<div class="Div-channelSubSection" id="subscriberWrapper">
 			<br/><br/>
-			<div class="row-same-height">
+			<div class="content-padding">
 				@if($subscribers->isEmpty())
 					<p class="text-center fs-12">No Subscriber yet</p>
 				@else
 				@foreach($subscribers as $subscriber)
-					<div class="col-md-6">
-						<div class="row user-padding">
+					<div class="col-md-12" >
+						<div class="row user-padding subs-wrap">
 							<a href="{{route('view.users.channel', $subscriber->channel_name)}}">
 								{{HTML::image($subscriber['profile_picture'], 'alt', array('class' => 'userRep2'))}}
 								<span><b>{{$subscriber->channel_name}}</b></span>
@@ -50,5 +50,4 @@
 			@endif				
 		</div>
 	</div>
-</div>
 </div>
