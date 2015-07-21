@@ -2353,7 +2353,9 @@ body {
 .lg-md-margin-r{
  padding-right:20px!important;
 }
-
+.annotation-wrap{
+    border-right: 2px solid #cecece;
+}
 }
 
 /*=================LG==================*/
@@ -2387,8 +2389,11 @@ body {
     height: 340px;
 }
 
-
+.annotation-wrap{
+    border-right: 2px solid #cecece;
 }
+}
+/*end of lg*/
 .caption {
     position: absolute;
     display: none;
