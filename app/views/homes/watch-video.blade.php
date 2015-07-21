@@ -355,7 +355,20 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-         
+                <div class="watch-top-ad same-H">
+         		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Home page banner -->
+				 <div class="ads-relative-wrapper-watch">
+					<ins class="adsbygoogle"
+					     style="display:block"
+					     data-ad-client="ca-pub-3138986188138771"
+					     data-ad-slot="6642873645"
+					     data-ad-format="auto"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+				</div>
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                 <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
