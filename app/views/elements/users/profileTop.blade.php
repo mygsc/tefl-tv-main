@@ -100,7 +100,7 @@
 		
 		<p class="black italic text-center fs-12 mg-t-20">
 			<i class="fa fa-quote-left"></i>
-			To promote your channel to subscribers, add your interests or description about your channel. <span class="" style="padding:2px 5px!important;"><small>{{link_to_route('users.edit.channel', 'Edit')}}<i class="fa fa-pencil"></i></small></span>
+			To promote your channel to subscribers, add your interests or description of your channel. <span class="" style="padding:2px 5px!important;"><small>{{link_to_route('users.edit.channel', 'Edit')}}<i class="fa fa-pencil"></i></small></span>
 			<i class="fa fa-quote-right"></i>
 		</p>
 		<br/>

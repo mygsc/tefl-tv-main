@@ -1,131 +1,81 @@
 @extends('layouts.default')
-<style type="text/css">
-	#sidebar.fixed>div{position:fixed;top:0}
-	#sidebar{float:left;width:100px;}
 
-#sidebar>div{background:green;height:100px;width:100px}
-#sidebar.fixed>div{position:fixed;top:0}
+@section('css')
+{{HTML::style('css/vid.player.min.css')}}
+@stop
+@section('some_script')
+{{HTML::script('js/video-player/media.player.min.js')}}
+{{HTML::script('js/video-player/fullscreen.min.js')}}
+@stop
 
-#box.fixed {
-    position: fixed;
-}
-</style>
 @section('content')
+    <br/>
+    <div class="col-md-6 col-md-offset-3">
 
+        <div id="carousel-2" class="carousel slide greyDark" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
 
-<!--<div id="wrapper">
-	<div id="mainContent">
-    	<h1>Main Content</h1>
-    	<p>Here's some content, but that's not really important. The sidebar has a div a few lines down with an ID of &quot;sticker&quot;. Once this div gets to the top of the page, it will stick there. This is a great way to show advertisements without worrying that your audience may quickly scroll past them.  Could also play nicely as navigation helpers.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+                <div class="vid-wrapperb p-relative">
+                    <div id="vid-controls">
+                        <div class="embed-responsive embed-responsive-16by9 n-mg-b">
+                            <video class="video-1" preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+                                <source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+                                <source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+                            </video>
+                        </div><!--/embed-responsive-->
+                        <div class="n-mg-b">
+                          @include('elements/videoPlayer')
+                      </div>
+                  </div>
+              </div>
+          </div>  
+          <div class="item">
+            <div class="vid-wrapperb p-relative">
+                <div id="vid-controls">
+                    <div class="embed-responsive embed-responsive-16by9 n-mg-b">
+                        <video class="video-2" preload="auto"  id="media-video" poster="/img/thumbnails/v10.jpg">
+                            <source  src='/videos/publishers-id.mp4' id="mp4" type='video/mp4'/>
+
+                        </video>
+                    </div><!--/embed-responsive-->
+                    <div class="n-mg-b">
+                      @include('elements/videoPlayer')
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+        </div>
+
+    <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-2" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-2" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
     </div>
-    <div id="sideBar">
-    	<h2>Sidebar</h2>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum.</p>
-        <div id="sticker">...start scrolling to watch me stick</div>
-    </div>
-    <div class="clear"></div>
-</div><!--/wrapper-->
 
-<div class="container ">
-	<div class="col-md-3">
-		<!--<div class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="200">-->
-			<div id="box">
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-				</div>   
-         </div>
 
-	</div>
-	<div class="col-md-9 White same-H" style="padding-left:20px;">
-
-    	<h1>Main Content</h1>
-    	<p>Here's some content, but that's not really important. The sidebar has a div a few lines down with an ID of &quot;sticker&quot;. Once this div gets to the top of the page, it will stick there. This is a great way to show advertisements without worrying that your audience may quickly scroll past them.  Could also play nicely as navigation helpers.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-    
-
-        <p>Here's some content, but that's not really important. The sidebar has a div a few lines down with an ID of &quot;sticker&quot;. Once this div gets to the top of the page, it will stick there. This is a great way to show advertisements without worrying that your audience may quickly scroll past them.  Could also play nicely as navigation helpers.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        
-        <p>Here's some content, but that's not really important. The sidebar has a div a few lines down with an ID of &quot;sticker&quot;. Once this div gets to the top of the page, it will stick there. This is a great way to show advertisements without worrying that your audience may quickly scroll past them.  Could also play nicely as navigation helpers.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        
-        <p>Here's some content, but that's not really important. The sidebar has a div a few lines down with an ID of &quot;sticker&quot;. Once this div gets to the top of the page, it will stick there. This is a great way to show advertisements without worrying that your audience may quickly scroll past them.  Could also play nicely as navigation helpers.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        <p>Fusce fringilla venenatis enim. Etiam vel risus vitae orci aliquet pharetra. Suspendisse vel eros a tortor ultrices luctus eget et ante. Integer nec odio ipsum. Duis eu felis ut elit cursus pellentesque. Etiam elementum eleifend molestie. Aenean pretium dolor sit amet massa iaculis ultrices congue mauris molestie. Aenean elit metus, facilisis non semper sed, lobortis eget mauris. Quisque molestie ultrices odio eget lobortis. Fusce a ultrices nulla. In hac habitasse platea dictumst. Sed elementum magna lorem. Vestibulum arcu nibh, rutrum porttitor pretium at, laoreet sed mi. Integer eu lacus lorem, vitae euismod felis. Vivamus sit amet orci vel tortor adipiscing hendrerit vel id nunc.</p>
-        
-	</div>
 </div>
 
 
-<!--<div class="container White h-minH">
-
-	<div class="col-md-8 col-md-offset-2">
-
-		
-		<br/><br/><br/><br/><br/><br/>
-		<div class="row">
-
-			<div class="well text-center">
-				<h1>Page under construction.</h1>
-			</div>
-		</div>
-
-		
-	</div>
-
-</div>-->
-<script type="text/javascript">
-	$(function () {
-
-  var msie6 = $.browser == 'msie' && $.browser.version < 7;
-  if (!msie6) {
-    var top = $('#box').offset().top;
-    $(window).scroll(function (event) {
-      var y = $(this).scrollTop();
-      if (y >= top) { $('#box').addClass('fixed'); }
-	  else { $('#box').removeClass('fixed'); }
-    });
-  }
-});
-</script>
-
-
-
-
-
 @stop
+
+<script type="text/javascript">
+    $('#carousel-2').carousel({
+        interval: 1000 * 10;
+    });
+    $(.item .active).carousel({
+        vid.play(); 
+    })
+</script>

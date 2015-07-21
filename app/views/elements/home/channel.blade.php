@@ -1,12 +1,11 @@
 	<br/>
 	<div class="row ">
 	@foreach($datas as $channel)
-
 	<div class="col-md-12" >
 		<div class="grey mg-b-10">
 			<div class="row">
 				<div class="col-lg-2 col-md-3 col-xs-4">
-						{{HTML::image($channel['profile_picture'], 'alt', array('class' => 'user-Dp'))}}
+					{{HTML::image($channel['profile_picture'], 'alt', array('class' => 'user-Dp'))}}
 				</div>
 				<div class="col-lg-10 col-md-9 col-xs-8">
 					<div class="row">

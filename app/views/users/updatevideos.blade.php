@@ -216,7 +216,7 @@
 					    		<div class="col-md-12 content-padding">
 								
 									@if(file_exists($thumbnail))
-										<div class="row text-center">
+										<div class="row ">
 											<div class="pad-10">
 												<span class="file-upload mg-l--2">
 													<h3 class="inline blueC"><i class="fa fa-arrow-up"></i>Upload Video Cover</h3>
@@ -224,7 +224,9 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save poster</button><br>
 											</div>
+											<hr/>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
@@ -245,7 +247,7 @@
 											</div>
 										</div>
 
-										<button type="button" class='btn btn-primary btn-sm' id='save-cover-photo' >Save poster</button><br>
+										
 									@else
 										<div class="row text-center">
 											<div class="pad-10">
