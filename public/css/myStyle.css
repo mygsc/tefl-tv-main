@@ -2355,7 +2355,10 @@ body {
 .lg-md-margin-r{
  padding-right:20px!important;
 }
-
+.annotation-wrap{
+	border-right: 1px solid #cecece;
+	min-height:200px;
+}
 }
 
 /*=================LG==================*/
@@ -2389,7 +2392,10 @@ body {
     height: 340px;
 }
 
-
+.annotation-wrap{
+	border-right: 1px solid #cecece;
+	min-height:200px;
+}
 }
 .caption {
     position: absolute;
