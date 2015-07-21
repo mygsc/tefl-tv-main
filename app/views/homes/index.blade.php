@@ -67,7 +67,7 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 							</div>
 							<div class="col-md-5 col-md-height col-middle">
 								<div class="content-padding">
-									<div class="visible-lg visible-md">
+									<div class="visible-lg visible-md hidden-sm hidden-xs">
 										<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 									    <!-- Left-Box -->
 									    <div class="ads-relative-wrapper-box" target="_blank">
@@ -81,7 +81,7 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 									        </script>
 									    </div>
 								    </div>
-								    <div class="visible-sm visible-xs">
+								    <div class="visible-sm visible-xs hidden-md hidden-lg">
 								    	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 										    <!-- Home page banner -->
 										<div class="ads-relative-wrapper-top">
