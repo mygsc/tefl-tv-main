@@ -67,6 +67,7 @@
 														&nbsp;
 														<a href="{{route('view.users.channel', $profile->channel_name)}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 														<br/>&nbsp;
+														<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
 														@if(isset(Auth::User()->id))
 															<?php
 																$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 'subscriber_id' => Auth::User()->id))->first();
@@ -78,10 +79,10 @@
 																	{{Form::hidden('subscriber_id', Auth::User()->id)}}
 																	@if(!$ifAlreadySubscribe)
 																		{{Form::hidden('status','subscribeOn')}}
-																		{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+																		{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right  subs-btn-size', 'id'=>'subscribebutton'))}}
 																	@else
 																		{{Form::hidden('status','subscribeOff')}}
-																		{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+																		{{Form::submit('Unsubscribe', array('class'=> 'btn btn-info btn-xs pull-right', 'id'=>'subscribebutton'))}}
 																	@endif
 																	{{Form::close()}}
 																@endif
@@ -124,6 +125,7 @@
 
 															<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 															<br/>&nbsp;
+															<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
 															@if(isset(Auth::User()->id))
 																<?php
 																	$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->user_id, 'subscriber_id' => Auth::User()->id))->first();
@@ -135,10 +137,10 @@
 																		{{Form::hidden('subscriber_id', Auth::User()->id)}}
 																		@if(!$ifAlreadySubscribe)
 																			{{Form::hidden('status','subscribeOn')}}
-																			{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+																			{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right  subs-btn-size', 'id'=>'subscribebutton'))}}
 																		@else
 																			{{Form::hidden('status','subscribeOff')}}
-																			{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-xs', 'id'=>'subscribebutton'))}}
+																			{{Form::submit('Unsubscribe', array('class'=> 'btn btn-info btn-xs pull-right', 'id'=>'subscribebutton'))}}
 																		@endif
 																		{{Form::close()}}
 																	@endif

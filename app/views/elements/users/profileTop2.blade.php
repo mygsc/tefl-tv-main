@@ -87,9 +87,7 @@
 		@if(empty($usersChannel->interests))
 		
 		<p class="black italic text-center fs-12 mg-t-20">
-			<i class="fa fa-quote-left"></i>
-			To promote your channel to subscribers, add your interests or description about your channel.
-			<i class="fa fa-quote-right"></i>
+		
 		</p>
 		<br/>
 		@else
