@@ -3673,17 +3673,24 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .watch-top-ad{
     width: 100%;
-    height:auto;
-    padding: 10px 5px;
-    background:#d5d5d5;
+    height:100px;
+    padding: 10px 10px;
+    background:#ffffff;
+
 }
 .ads-relative-wrapper-watch{
-
     overflow:hidden;
     position:relative;
-
+	max-height: 200px;
+	max-width:320px;
     margin-right: auto;
     margin-left: auto;
+    bottom:0;
+    
+}
+.ads-relative-wrapper-watch img{
+	width: 100%!important;
+	vertical-align:center;
 }
 
 .ads-relative-wrapper-box{
