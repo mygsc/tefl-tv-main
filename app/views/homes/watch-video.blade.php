@@ -6,7 +6,7 @@
 
 @section('meta')
         <meta property="fb:app_id" content="1557901494477250"/>
-    `   <meta property="og:title" content="{{$videos->title}}"/>
+       <meta property="og:title" content="{{$videos->title}}"/>
         <meta property="og:site_name" content="{{asset('/')}}"/>
         <!-- <meta property="og:description" content="{{$videos->description}}"/> -->
         <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}"/>
@@ -356,6 +356,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!-- advertisment small -->
                 <!--/advertisement-->
                 <div class="watch-top-ad same-H">
+
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- Home page banner -->
                  <div class="ads-relative-wrapper-watch">
@@ -371,6 +372,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
             
                 <p class="text-center orangeC mg-t-10">Teach, Learn and Earn. Become a TEFLTV {{link_to_route('partners.index','Partner')}} or {{link_to_route('publishers.index','Publisher')}}</p>
                 </div>
+
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                 <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
