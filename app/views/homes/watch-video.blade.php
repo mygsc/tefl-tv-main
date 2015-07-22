@@ -368,6 +368,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 					(adsbygoogle = window.adsbygoogle || []).push({});
 					</script>
 				</div>
+			
+				<p class="text-center orangeC mg-t-10">Teach, Learn and Earn. Become a TEFLTV {{link_to_route('partners.index','Partner')}} or {{link_to_route('publishers.index','Publisher')}}</p>
 				</div>
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                 <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
