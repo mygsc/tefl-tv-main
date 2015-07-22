@@ -862,7 +862,7 @@ img.user {
     display: inline!important;
 }
 .inlineInfo {
-	min-height:61px;
+    min-height:61px;
 }
 .content-padding {
     padding: 0 30px 0 30px!important;
@@ -1912,8 +1912,8 @@ html * {
     font-family: Teko;
 }
 .playlist-item{
-	border-bottom: 1px solid #cecece;
-	padding:10px 0;
+    border-bottom: 1px solid #cecece;
+    padding:10px 0;
 }
 .playlist-info {
     text-align: center;
@@ -2355,8 +2355,8 @@ body {
  padding-right:20px!important;
 }
 .annotation-wrap{
-	border-right: 1px solid #cecece;
-	min-height:200px;
+    border-right: 1px solid #cecece;
+    min-height:200px;
 }
 }
 
@@ -2392,8 +2392,8 @@ body {
 }
 
 .annotation-wrap{
-	border-right: 1px solid #cecece;
-	min-height:200px;
+    border-right: 1px solid #cecece;
+    min-height:200px;
 }
 }
 .caption {
@@ -3673,17 +3673,24 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .watch-top-ad{
     width: 100%;
-    height:auto;
-    padding: 10px 5px;
-    background:#d5d5d5;
+    height:100px;
+    padding: 10px 10px;
+    background:#ffffff;
+
 }
 .ads-relative-wrapper-watch{
-
     overflow:hidden;
     position:relative;
-
+    max-height: 200px;
+    max-width:320px;
     margin-right: auto;
     margin-left: auto;
+    bottom:0;
+    
+}
+.ads-relative-wrapper-watch img{
+    width: 100%!important;
+    vertical-align:center;
 }
 
 .ads-relative-wrapper-box{
@@ -3716,4 +3723,3 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 /*===== FRONT END DEVELOPER / WEB DESIGNER and GRAPHICS PROVIDER :: PRiNCESS A. REBAULA ===*/
 /*=========== note:some of the codes are copied in open source stylesheets ================*/
 /*=================================-----------------------=================================*/
-
