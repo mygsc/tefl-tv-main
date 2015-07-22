@@ -7,7 +7,7 @@
 	<button type='button' class="skip-ads">Skip Ads</button>
 	<div class="error-video" id="error-video">
 		<small>
-			Video not available this time please try later. <a href="#" id="retry-error">learn more.</a> 
+			{{--Video not available this time please try later. <a href="#" id="retry-error">learn more.</a> --}}
 		</small>
 	</div>
 
