@@ -80,7 +80,8 @@
 						<br/><br/><br/>
 						<div class="row">
 							@if($playlists->isEmpty())
-							<p class="text-center">You don't have playlist yet.</p>
+					
+							<h3 class="text-center">You don't have playlist yet.</h3>
 							@else
 							@foreach($playlists as $key=>$playlist)
 							<div id="playlists" class="col-md-3 col-sm-6">

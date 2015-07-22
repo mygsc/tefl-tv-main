@@ -1,20 +1,26 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$videos->title}}
+    {{$videos->title}} - TEFL tv Videos
 @stop
 
 @section('meta')
-    <!--<meta property="og:title" content="{{$videos->title}}">
-        <meta property="og:site_name" content="{{asset('/')}}">
-        <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
-        <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
+        <meta property="fb:app_id" content="1557901494477250"/>
+    `   <meta property="og:title" content="{{$videos->title}}"/>
+        <meta property="og:site_name" content="{{asset('/')}}"/>
+        <!-- <meta property="og:description" content="{{$videos->description}}"/> -->
+        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}"/>
+        <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
         <meta property="og:type" content="video">
-        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+       <!-- <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
-        <meta property="og:video:tag" content="{{$videos->tags}}"> 
+        <meta property="og:video:tag" content="{{$videos->tags}}">  -->
+        <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
+        <meta name="keywords" content="{{$videos->tags}}"/>
+        <meta name="author" content="{{$owner->channel_name}}"/>
+        <meta property="article:author" content="{{$owner->channel_name}}"/>
+        <meta property="article:publisher" content="{{$owner->channel_name}}"/>
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}
@@ -27,7 +33,7 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
+{{--HTML::script('js/video-player/fullscreen.min.js')--}}
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 
@@ -83,7 +89,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 </p>
                                             </div>
                                             <div class="col-md-3 col-xs-4 col-sm-3 text-right">
-                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
+                                            @if($videos->views > 1)
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} Views</p>
+                                                @else
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View</p>
+                                            @endif
                                             </div>
 
                                         </div>
@@ -347,23 +357,26 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <!--/advertisement-->
          
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
+                <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                 	
 	                                <div class="row p-relative">
 	                                	<div class="show_wrapp">
+
 		                                	<div class=" col-middle">
 		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
-	                                       				
-	                                        @else
-	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
-	                                        @endif
+    	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >		
+    	                                        @else
+    	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+    	                                        @endif
 	                                        
 	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
-	                                        		<div class="showInfo-wrapp ">
+	                                        		 
+                                                    <div class="showInfo-wrapp ">
 	                                        			<div class="showInfo-div">
+
 			                                        		<span class="info-title">{{ ($relation['title']) }}</span><br/>
 			                                        		by: {{$relation['channel_name']}}<br/>
 			                                        		{{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s

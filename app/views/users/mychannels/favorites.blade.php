@@ -66,9 +66,9 @@
 				</div>
 				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
-						<br/>
+						<br/><br/>
 						@if($findUsersVideos->isEmpty())
-							<p class="text-center mg-t-20">You don't have favorites yet.</p>
+							<h3 class="text-center">You don't have favorites yet.</h3>
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
@@ -103,7 +103,7 @@
 								</div>
 								<div class="count">
 									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->uploaders_channel_name))}}">{{$showFavoriteVideo->uploaders_channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$showFavoriteVideo->views}} | <i class="fa fa-thumbs-up"></i> {{$showFavoriteVideo->likes}} | <i class="fa fa-calendar"></i> {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
+									{{$showFavoriteVideo->views}} Views | {{$showFavoriteVideo->likes}} Likes | {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
 									<br/>
 								</div>

@@ -1,35 +1,35 @@
 @extends('layouts.default')
-
 @section('title')
-TEFLtv
+Watch TEFL tv videos
 @stop
+
 @section('meta')
-	<meta charset="UTF-8">
-	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
+<meta charset="UTF-8">
+<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
 
-	Teachers, students and schools a like, can watch or actively participate by uploading videos in the following categories:
+Teachers, students and schools a like, can watch or actively participate by uploading videos in the following categories:
 
-	For Teachers  
-	For Students  
-	For Schools 
-	Video Blog 
-	Music 
-	Animated Video 
-	Animated Music Video 
-	Advice 
-	Podcast 
-	Interviews 
-	Documentaries 
-	Video CV 
-	Job AD 
-	Miscellaneous
+For Teachers  
+For Students  
+For Schools 
+Video Blog 
+Music 
+Animated Video 
+Animated Music Video 
+Advice 
+Podcast 
+Interviews 
+Documentaries 
+Video CV 
+Job AD 
+Miscellaneous
 
-	Tefltv welcomes all videos that might be interesting for the ESL community. This could range from instructionals for teachers and students, to video blogs about life as an ESL professional or student. 
+Tefltv welcomes all videos that might be interesting for the ESL community. This could range from instructionals for teachers and students, to video blogs about life as an ESL professional or student. 
 
-	There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
-	">
-	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
-	<meta name="author" content="TEFL tv">
+There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
+">
+<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
+<meta name="author" content="TEFL tv">
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -41,33 +41,62 @@ TEFLtv
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 mg-b-10">
-			<div class="row">	
-				<div class="ad-bg same-H mg-t-10">
+		<div class="mg-b-10">
+			<div class="">	
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>	    
+				<div class="ad-bg same-H mg-t-10 White">
 					<div class="row">
-						<div class="col-md-6" style="">
-							<div class="mg-l-10  mg-b-10">
-								<div class="vid-wrapperb p-relative">
-									<div id="vid-controls">
-										<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-											<video preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-												<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
-												<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
-											</video>
-
-										</div><!--/embed-responsive-->
-										<div class="n-mg-b">
-
-											@include('elements/videoPlayer')
-
+						<div class="row-same-height">
+							<div class="col-md-7 col-md-height col-middle" style="">
+								<div class="mg-l-10  mg-b-10">
+									<div class="vid-wrapperb p-relative">
+										<div id="vid-controls">
+											<div class="embed-responsive embed-responsive-16by9 n-mg-b">
+												<video class="video-1" preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+													<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
+													<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+												</video>
+											</div><!--/embed-responsive-->
+											<div class="n-mg-b">
+												@include('elements/videoPlayer')
+											</div>
 										</div>
 									</div>
-
+								</div><!--/.row-->
+							</div>
+							<div class="col-md-5 col-md-height col-middle">
+								<div class="content-padding">
+									<div class="visible-lg visible-md">
+										<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+									    <!-- Left-Box -->
+									    <div class="ads-relative-wrapper-box">
+									        <ins class="adsbygoogle"
+									             style="display:block"
+									             data-ad-client="ca-pub-3138986188138771"
+									             data-ad-slot="8119606848"
+									             data-ad-format="auto"></ins>
+									        <script>
+									        (adsbygoogle = window.adsbygoogle || []).push({});
+									        </script>
+									    </div>
+								    </div>
+								    <div class="visible-sm visible-xs">
+								    	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+										    <!-- Home page banner -->
+										<div class="ads-relative-wrapper-top">
+										   	<ins class="adsbygoogle"
+										    	style="display:block"
+										    	data-ad-client="ca-pub-3138986188138771"
+										    	data-ad-slot="6642873645"
+										    	data-ad-format="auto"></ins>
+										    <script>
+										    	(adsbygoogle = window.adsbygoogle || []).push({});
+										    </script>
+										</div>
+								    </div>
 								</div>
-							</div><!--/.row-->
+							</div>
 						</div>
-					</div><!--/.col-md-6-->
-					<div class="col-md-6">
 					</div>
 				</div>
 			</div>
@@ -253,5 +282,7 @@ TEFLtv
 		</div>
 	</div>
 	@stop
+
+
 
 

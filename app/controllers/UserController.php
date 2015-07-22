@@ -345,20 +345,18 @@ class UserController extends BaseController {
 	}
 
 	public function getMyVideos() {
-		if(!Auth::check()){
-			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
-		} else{
-			$usersImages = $this->User->getUsersImages($this->Auth->id, true);
-			$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
-			$usersChannel = UserProfile::find(Auth::User()->id);
-			$usersVideos = $this->Video->getVideos($this->Auth->id, 'videos.created_at', 1);
-			$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
-			$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
-			$countAllViews = $this->Video->convertToShortNumbers($allViews);
-			$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-			return View::make('users.mychannels.videos', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite'));
-		}
-		
+		if(!Auth::check()) return Redirect::route('homes.post.signin')
+			->with('flash_warning','Please Sign-in to view your channel');
+
+		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
+		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$usersChannel = UserProfile::find(Auth::User()->id);
+		$usersVideos = $this->Video->getVideoswithDispute($this->Auth->id, 'videos.created_at', 1);
+		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
+		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
+		$countAllViews = $this->Video->convertToShortNumbers($allViews);
+		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
+		return View::make('users.mychannels.videos', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite'));
 	}
 
 	public function getMyFavorites() {
@@ -418,7 +416,6 @@ class UserController extends BaseController {
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
-
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
 			$owner = User::find($video->user_id);
@@ -471,6 +468,7 @@ class UserController extends BaseController {
 				}
 				Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
 				Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
+
 			}
 			else{
 				$selectedThumb =  Input::get('selected-thumbnail');
@@ -480,6 +478,7 @@ class UserController extends BaseController {
 					$removeSpace = str_replace('%20',' ', $thumbnail);
 					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
 					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
+					
 				}	
 			}
 			

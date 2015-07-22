@@ -40,7 +40,7 @@
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
-				<p style="margin-left:30px;">No recent Activity</p>
+				<p style="margin-left:30px;display:none;">No recent Activity</p>
 			@else
 			<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank"><h3><b>Title: {{$recentUpload->title}}</b></h3></a>
 			<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>

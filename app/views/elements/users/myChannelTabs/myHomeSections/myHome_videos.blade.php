@@ -6,7 +6,7 @@
 	</div>
 	<div class="col-md-12 White same-H">
 		<br/><br/>
-		<div class="">
+		<div class="row">
 			@if($usersVideos->isEmpty())
 				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
@@ -31,7 +31,7 @@
 								</div>
 							</a>
 							<div class="count">
-								<i class="fa fa-eye"></i> {{$usersVideo->views}} | <i class="fa fa-thumbs-up"></i>  {{$usersVideo->likes}} | {{date('F d, Y',strtotime($usersVideo->created_at))}}
+								</i> {{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('F d, Y',strtotime($usersVideo->created_at))}}
 							</div>
 						</div>
 						<br/>

@@ -87,7 +87,8 @@ class ReportController extends BaseController {
 			'case_number' => $case_number, 
 			'uploader_email' =>  $uploader_info->email,
 			'channel_name' =>  $uploader_info->channel_name,
-			'complainant_email' =>  $reported_info->email
+			'complainant_email' =>  $reported_info->email,
+			'complainant_channel' =>  $reported_info->channel_name
 		);
 
 		$complainant_channel = $reported_info->channel_name;
@@ -113,5 +114,9 @@ class ReportController extends BaseController {
 		});
 
 		return Redirect::route('get.complaint_form')->withFlashGood('Complaint was submitted');
+	}
+
+	public function getFileDispute() {
+		return View::make('reports.filedispute');
 	}
 }
