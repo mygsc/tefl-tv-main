@@ -26,9 +26,9 @@
                 <div class="vid-wrapperb p-relative">
                     <div id="vid-controls">
                         <div class="embed-responsive embed-responsive-16by9 n-mg-b">
-                            <video controls class="video-1" preload="none" id="media-video-1" poster="/img/thumbnails/v1.png">
-                                <source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
-                                <source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+                            <video controls class="video-1" preload="none" id="media-video-1" poster="/img/thumbnails/tefltv_publisher.jpg">
+                                <source  src='/videos/tefltv_publishers.mp4' id="mp4" type='video/mp4'/>
+                                <source  src='/videos/tefltv_publishers.webm' id="webm" type='video/webm'/>
                             </video>
                         </div><!--/embed-responsive-->
                       
@@ -39,9 +39,9 @@
             <div class="vid-wrapperb p-relative">
                 <div id="vid-controls">
                     <div class="embed-responsive embed-responsive-16by9 n-mg-b">
-                        <video controls class="video-2" preload="none" id="media-video-2" poster="/img/thumbnails/v10.jpg">
-                            <source  src='/videos/2-test me/WUYxoVFAeC2/WUYxoVFAeC2.mp4' id="mp4" type='video/mp4'/>
-                            <source  src='/videos/2-test me/WUYxoVFAeC2/WUYxoVFAeC2.webm' id="webm" type='video/webm'/>
+                        <video controls class="video-2" preload="none" id="media-video-2" poster="/img/thumbnails/tefltv_partner.jpg">
+                            <source  src='/videos/tefltv_partners.mp4' id="mp4" type='video/mp4'/>
+                            <source  src='/videos/tefltv_partners.webm' id="webm" type='video/webm'/>
                         </video>
                     </div><!--/embed-responsive-->
                    
