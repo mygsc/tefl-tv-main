@@ -55,8 +55,12 @@
 							<div class="col-md-12">
 								<div class="row">
 									<div class="row-same-height mg-t-20">
-										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscribers')
-										@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscriptions')
+										<div class="col-md-6 col-md-height col-top  White same-H">
+											@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscribers')
+										</div>
+										<div class="col-md-6 col-md-height col-top  White same-H">
+											@include('elements/users/viewUser/homeSections/viewUser_homeSec_subscriptions')
+										</div>
 						  			</div>
 						  		</div>
 						  	</div>
