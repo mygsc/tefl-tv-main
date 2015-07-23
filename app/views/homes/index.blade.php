@@ -38,6 +38,28 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 @section('some_script')
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/video-player/fullscreen.min.js')}}
+<script>
+    // this line executes the entire code once page is loaded
+    window.onload = function(){
+    
+    setTimeout(function() {
+ 
+    // here we are searching for first adsense code available on page
+    var ad = document.querySelector("ins.adsbygoogle");
+ 
+    // If ad contains no innerHTML, adblocker is working
+    if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
+ 
+    ad.style.cssText = 'display:block !important';
+ 
+    // here you can put any html code to show as alternative
+    $(".adsbygoogle").after('Your html alternative content here');
+    
+    }
+    }, 1000);
+    };
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 @stop
 @section('content')
 <div class="container">

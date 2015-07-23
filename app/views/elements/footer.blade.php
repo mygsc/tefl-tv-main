@@ -39,7 +39,7 @@
                  </div>
 
             </div>
-             <p class="text-center" style="color:#fff!important;">Email us at <a class="whiteC"> support@tefltv.com </a></p>
+             <p class="text-center hidden-lg hidden-md" style="color:#fff!important;">Email us at <a class="whiteC"> support@tefltv.com </a></p>
                
         </div>
     </div>
