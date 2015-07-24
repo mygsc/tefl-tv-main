@@ -1,49 +1,56 @@
-
 @extends('layouts.default')
 @section('title')
-Watch TEFL tv
+	Watch TEFL tv
 @stop
 
 @section('meta')
-<meta charset="UTF-8">
-<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
+	<meta charset="UTF-8">
+	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
 
-Teachers, students and schools a like, can watch or actively participate by uploading videos in the following categories:
+	Teachers, students and schools a like, can watch or actively participate by uploading videos in the following categories:
 
-For Teachers  
-For Students  
-For Schools 
-Video Blog 
-Music 
-Animated Video 
-Animated Music Video 
-Advice 
-Podcast 
-Interviews 
-Documentaries 
-Video CV 
-Job AD 
-Miscellaneous
+	For Teachers  
+	For Students  
+	For Schools 
+	Video Blog 
+	Music 
+	Animated Video 
+	Animated Music Video 
+	Advice 
+	Podcast 
+	Interviews 
+	Documentaries 
+	Video CV 
+	Job AD 
+	Miscellaneous
 
-Tefltv welcomes all videos that might be interesting for the ESL community. This could range from instructionals for teachers and students, to video blogs about life as an ESL professional or student. 
+	Tefltv welcomes all videos that might be interesting for the ESL community. This could range from instructionals for teachers and students, to video blogs about life as an ESL professional or student. 
 
-There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
-">
-<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
-<meta name="author" content="TEFL tv">
+	There are various ways to monetize your videos with Tefltv as a “partner” or “publisher.” For more information, please visit our website at Tefltv.com
+	">
+	<meta name="keywords" content="TEFL TV, TEFL, ESL TV, Teaching English, English language, Videos, TESOL VIDEO, TEFL Videos, For Teachers, For Students, Video Blog, Documentaries Interviews,Advice">
+	<meta name="author" content="TEFL tv">
 @stop
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
 @stop
 @section('some_script')
 {{HTML::script('js/video-player/media.player.min.js')}}
+
+{{HTML::script('js/video-player/fullscreen.min.js')}}
+{{HTML::script('js/adsbygoogle.js')}}
+<script>
+if(window.isAdsDisplayed === undefined ) {
+	$('.antiablock').removeClass('hidden');
+}
+</script>
+
 @stop
 @section('content')
 <div class="container">
 	<div class="row">
 		<div class="mg-b-10">
 			<div class="">	
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>	    
 				<div class="ad-bg same-H mg-t-10 White">
 					<div class="row">
 						<div class="row-same-height">
@@ -101,8 +108,21 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 				</div>
 			</div>
 		</div>
-
-		
+		<div class="container">
+			<div class="row  White same-H mg-t-10">
+						<div class=" ">
+							<div class="col-md-6 col-md-offset-3">
+							<div class="antiablock hidden text-center">
+								<BR/>
+					
+								<img src="/img/adblock_player.png" width="100%">
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			<br/>
+				
 		<div class="row" data-sticky_parent="" style="position:relative;">
 			<div class="row-same-height">
 				<div class="col-lg-3 col-md-3 hidden-xs hidden-sm col-md-height col-top ">
@@ -285,8 +305,14 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 			</div><!--/.container page-->
 		</div>
 	</div>
-	@stop
 
+	
+	@stop
+<script>
+	function addClassByClick(button){
+  		$(button).addClass("active")
+		}
+</script>
 
 
 
