@@ -76,7 +76,7 @@ if(window.isAdsDisplayed === undefined ) {
 			</div>
 		</div>
 		<div class="antiablock hidden">
-			Please disable AdBlock (or any ads blocking) to watch anime on KissAnime. You can Go Premium to disable ads.<br/>
+			Please disable AdBlock (or any ads blocking) to watch anime on TEFL TV.<br/>
 			<img src="/img/adblock.jpg">
 		</div>
 		

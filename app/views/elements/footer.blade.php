@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
-                    <div class="col-md-4   ">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <span class="white">
                             <ul class="list-n">
                                 <li><h3 class="whiteC">TELFTV</h3></li>
@@ -16,7 +16,7 @@
                             </ul>
                         </span>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <span class="white">
                             <ul class="list-n">
                                 <li><h3 class="whiteC ">Legal Terms</h3></li>
@@ -26,7 +26,7 @@
                             </ul>
                         </span>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <span class="white">
                             <ul class="list-n">
                                 <li><h3 class="whiteC">Programs</h3></li>
@@ -36,11 +36,16 @@
                             </ul>
                         </span>
                     </div>
-                </div>
+                 </div>
+
             </div>
+            <div class="visible-sm visible-xs hidden-lg hidden-md">
+                <p class="text-center" style="color:#fff!important;">Email us at <a class="whiteC"> support@tefltv.com </a></p>
+            </div>
+               
         </div>
     </div>
-    <div class="col-md-5 f_contact-wrap" >
+    <div class="col-md-5 f_contact-wrap hidden-xs hidden-sm">
 
        <div class="row">
            <div class="col-md-10 col-md-push-1 f_contact">

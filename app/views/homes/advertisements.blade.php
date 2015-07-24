@@ -1,11 +1,12 @@
 @extends('layouts.default')
 
 @section('css')
-{{HTML::style('css/vid.player.min.css')}}
+{{--HTML::style('css/vid.player.min.css')--}}
 @stop
 @section('some_script')
-{{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
+  
+  {{--HTML::script('js/video-player/media.player.min.js')--}}
+
 @stop
 
 @section('content')
@@ -14,10 +15,9 @@
 
         <div id="carousel-2" class="carousel slide greyDark" data-ride="carousel">
             <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-
+          <ol class="carousel-indicators">
+              <li id='active1' data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li id='active2' data-target="#carousel-example-generic" data-slide-to="1"></li>
           </ol>
 
           <!-- Wrapper for slides -->
@@ -26,34 +26,29 @@
                 <div class="vid-wrapperb p-relative">
                     <div id="vid-controls">
                         <div class="embed-responsive embed-responsive-16by9 n-mg-b">
-                            <video class="video-1" preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
-                                <source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
-                                <source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
+                            <video controls class="video-1" preload="none" id="media-video-1" poster="/img/thumbnails/tefltv_publisher.jpg">
+                                <source  src='/videos/tefltv_publishers.mp4' id="mp4" type='video/mp4'/>
+                                <source  src='/videos/tefltv_publishers.webm' id="webm" type='video/webm'/>
                             </video>
                         </div><!--/embed-responsive-->
-                        <div class="n-mg-b">
-                          @include('elements/videoPlayer')
-                      </div>
+                      
                   </div>
               </div>
           </div>  
-          <div class="item">
+           <div class="item">
             <div class="vid-wrapperb p-relative">
                 <div id="vid-controls">
                     <div class="embed-responsive embed-responsive-16by9 n-mg-b">
-                        <video class="video-2" preload="auto"  id="media-video" poster="/img/thumbnails/v10.jpg">
-                            <source  src='/videos/publishers-id.mp4' id="mp4" type='video/mp4'/>
-
+                        <video controls class="video-2" preload="none" id="media-video-2" poster="/img/thumbnails/tefltv_partner.jpg">
+                            <source  src='/videos/tefltv_partners.mp4' id="mp4" type='video/mp4'/>
+                            <source  src='/videos/tefltv_partners.webm' id="webm" type='video/webm'/>
                         </video>
                     </div><!--/embed-responsive-->
-                    <div class="n-mg-b">
-                      @include('elements/videoPlayer')
-                  </div>
+                   
               </div>
           </div>
-
-        </div>
-
+        </div> 
+         {{--  @include('elements/videoPlayer') --}}
         </div>
 
     <!-- Controls -->
@@ -70,12 +65,24 @@
 
 
 @stop
-
-<script type="text/javascript">
-    $('#carousel-2').carousel({
-        interval: 1000 * 10;
+{{HTML::script('js/jquery.min.js')}}
+ <script type="text/javascript">
+    $(document).ready(function(){
+      document.getElementById('media-video-1').play();
+        $('#carousel-2').carousel({
+            interval: 100000
+        });
+        setInterval(function(){
+          var currentSlide = $('#active1').attr('class');
+           if(currentSlide == 'active'){
+              document.getElementById('media-video-2').pause();
+              document.getElementById('media-video-2').currentTime=0;
+              document.getElementById('media-video-1').play();
+          }else{
+            document.getElementById('media-video-1').pause(); 
+            document.getElementById('media-video-1').currentTime=0;
+            document.getElementById('media-video-2').play();
+          }
+        },10000);
     });
-    $(.item .active).carousel({
-        vid.play(); 
-    })
-</script>
+ </script> 
