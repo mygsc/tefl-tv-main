@@ -1,4 +1,3 @@
-
 @extends('layouts.default')
 @section('title')
 Watch TEFL tv
@@ -37,7 +36,7 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 @stop
 @section('some_script')
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
+
 <script>
     // this line executes the entire code once page is loaded
     window.onload = function(){
@@ -75,7 +74,7 @@ There are various ways to monetize your videos with Tefltv as a “partner” or
 									<div class="vid-wrapperb p-relative">
 										<div id="vid-controls">
 											<div class="embed-responsive embed-responsive-16by9 n-mg-b">
-												<video class="video-1" preload="auto" id="media-video" poster="/img/thumbnails/v1.png">
+												<video class="video-1" preload="none" id="media-video" poster="/img/thumbnails/v1.png">
 													<source  src='/videos/tefltv.mp4' id="mp4" type='video/mp4'/>
 													<source  src='/videos/tefltv.webm' id="webm" type='video/webm'/>
 												</video>
