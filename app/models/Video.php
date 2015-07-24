@@ -340,6 +340,9 @@ class Video extends Eloquent{
 					'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
 				))->first();
 			}
+			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
+				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
+			))->first();
 		}
 
 		return $getVideos->take($limit)->get();

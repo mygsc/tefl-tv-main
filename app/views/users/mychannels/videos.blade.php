@@ -179,14 +179,15 @@
 											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
 									</div>
-									<br/>
-									
-									<div style="color:red">
-
-									</div>
+									@if(!$usersVideo->ifReported)
+										<div>
+											<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" style="color:red">
+												*Please settle legal issue. Click here.
+											</a>
+										</div>
+									@endif
 								</div>
 								@endforeach	
-							
 							@endif
 							</div>
 						</div>

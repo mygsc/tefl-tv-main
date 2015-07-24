@@ -12,6 +12,13 @@ class Report extends Eloquent {
 		'contact_number' => 'required',
 		'signature' => 'required'
 	);
+	public static $disputeRules = array(
+		'dispute_description' => 'required',
+		'legal_name' => 'required',
+		'authority_position' =>'required',
+		'contact_number' => 'required',
+		'signature' => 'required'
+	);
 
 	public function getReports($sort){
 		if($sort == 'all'){
