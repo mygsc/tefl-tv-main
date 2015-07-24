@@ -208,8 +208,8 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::group(array('prefix' => 'partners'), function(){
 	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
 	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
-	Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
-	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
+	//Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
+	//Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'partners.termsandconditions', 'uses' => 'PartnerController@getTermsAndConditions'));
 	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
@@ -227,7 +227,7 @@ Route::group(array('prefix' => 'partners'), function(){
 Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
 	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
-	Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
+	//Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
 	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
 	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'publishers.termsandconditions', 'uses' => 'PublisherController@getTermsAndConditions'));
