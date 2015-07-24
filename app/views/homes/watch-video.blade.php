@@ -37,6 +37,14 @@
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 
+{{HTML::script('js/adsbygoogle.js')}}
+<script>
+if(window.isAdsDisplayed === undefined ) {
+    $('#vid-controls').remove();
+    $('#ablockVideoPlayer').prepend('<img id="ablockplayer_img" src="/img/adblock_player.png" />');
+}
+</script>
+
 <script type="text/javascript">
     document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
@@ -79,6 +87,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <!--video paler-->
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
+                            <div id='ablockVideoPlayer'>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12"><div>
                                     <br/>
@@ -180,17 +190,12 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                              <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             
-                                             {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
+                                            {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
                                                 {{Form::hidden('report_url',$report_url)}}
                                                 <span title="Report This Video">
-                                                    
-                                                    <!--<input value="Report" type="submit" class='reportLink'>-->
                                                     <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
-                                                    
                                                 </span>
-                                                 {{Form::close()}}
-                                                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                                             
+                                           	{{Form::close()}}                                            
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
                                                        <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
@@ -351,28 +356,28 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
             </div><!--column 8-->
 
 
-            <div class="col-md-4 visible-md visible-lg">
+            <div class="col-md-4 visible-md visible-lg ">
                 <div class="row">
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-                <div class="watch-top-ad same-H">
-
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Home page banner -->
-                 <div class="ads-relative-wrapper-watch">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-3138986188138771"
-                         data-ad-slot="6642873645"
-                         data-ad-format="auto"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
             
-                <p class="text-center orangeC mg-t-10">Teach, Learn and Earn. Become a TEFLTV {{link_to_route('partners.index','Partner')}} or {{link_to_route('publishers.index','Publisher')}}</p>
+                <div class="watch-top-ad same-H d-table">
+                    <br/>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- Home page banner -->
+                     <div class="ads-relative-wrapper-watch d-cell">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-3138986188138771"
+                             data-ad-slot="6642873645"
+                             data-ad-format="auto"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </div>
+
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                 <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)

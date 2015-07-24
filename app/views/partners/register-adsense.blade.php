@@ -28,10 +28,10 @@
                                   <div class="well">
                                   {{Form::open(array('route' => 'post.partners.register-adsense'))}}
                                         <span>Please enter your Adsense publisher ID</span><br />
-                                        <span class="notes"> *Please take note that you should only enter a valid adsense publisher ID and Ad slot ID otherwise your ads will not be displayed</span> <br />
-                                        {{Form::label('adsense', 'Adsense Publisher ID ')}} <small><a href="#">click here</a></small> to find your Publisher ID
+                                        <span class="notes"> *Please take note that you should only enter a valid adsense publisher ID and Ad slot ID otherwise your ads will not be visible</span> <br />
+                                        {{Form::label('adsense', 'Adsense Publisher ID ')}} <small><a target ="_blank" href="{{route('homes.watch-video', array( 'v=' . 'NMlVjGukbaT'))}}">click here</a></small> to find your Publisher ID
                                         {{Form::text('adsense', null, array('placeholder' => 'pub-xxxxxxxxxxxxxxx'))}}
-                                        {{Form::label('ad_slot_id', 'Ad Slot ID')}} <small><a href="#">click here</a></small> to find your Ad Slot ID
+                                        {{Form::label('ad_slot_id', 'Ad Slot ID')}} <small><a target ="_blank" href="{{route('homes.watch-video', array( 'v=' . 'rZePd7JeQHL'))}}">click here</a></small> to find your Ad Slot ID
                                         {{Form::text('ad_slot_id', null, array('placeholder' => 'xxxxxxxxxx'))}}
                                        <br />
                                         	
