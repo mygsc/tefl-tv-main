@@ -179,15 +179,12 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                              <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             
-                                             {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
+                                            {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
                                                 {{Form::hidden('report_url',$report_url)}}
                                                 <span title="Report This Video">
-                                                    
-                                                    <!--<input value="Report" type="submit" class='reportLink'>-->
                                                     <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
-                                                    
                                                 </span>
-                                           		 {{Form::close()}}
+                                           	{{Form::close()}}
                                            		 &nbsp;&nbsp;|&nbsp;&nbsp;
                                              
                                                 @if(Auth::check())

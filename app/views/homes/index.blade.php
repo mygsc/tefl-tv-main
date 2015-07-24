@@ -38,6 +38,12 @@
 @section('some_script')
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/video-player/fullscreen.min.js')}}
+{{HTML::script('js/adsbygoogle.js')}}
+<script>
+if(window.isAdsDisplayed === undefined ) {
+	$('.antiablock').removeClass('hidden');
+}
+</script>
 @stop
 @section('content')
 <div class="container">
@@ -68,6 +74,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="antiablock hidden">
+			Please disable AdBlock (or any ads blocking) to watch anime on KissAnime. You can Go Premium to disable ads.<br/>
+			<img src="/img/adblock.jpg">
 		</div>
 		
 		<div class="row" data-sticky_parent="" style="position:relative;">
