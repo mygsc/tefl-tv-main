@@ -37,6 +37,14 @@
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 
+{{HTML::script('js/adsbygoogle.js')}}
+<script>
+if(window.isAdsDisplayed === undefined ) {
+    $('#vid-controls').remove();
+    $('#ablockVideoPlayer').prepend('<img id="ablockplayer_img" src="/img/adblock_player.png" />');
+}
+</script>
+
 <script type="text/javascript">
     document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
@@ -79,6 +87,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <!--video paler-->
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
+                            <div id='ablockVideoPlayer'>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12"><div>
                                     <br/>
