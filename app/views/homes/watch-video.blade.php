@@ -18,7 +18,7 @@
         <meta property="og:video:tag" content="{{$videos->tags}}">  -->
         <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
         <meta name="keywords" content="{{$videos->tags}}"/>
-        <meta name="author" content="{{$owner->channel_name}}"/>
+       <!--  <meta name="author" content="{{$owner->channel_name}}"/> -->
         <meta property="article:author" content="{{$owner->channel_name}}"/>
         <meta property="article:publisher" content="{{$owner->channel_name}}"/>
 @stop
@@ -107,6 +107,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
                                             {{Form::hidden('autoplay', $autoplay, ['id'=>'autoplay'])}}
                                             {{Form::hidden('duration', $duration, ['id'=>'duration'])}}
+                                            {{Form::hidden('role', $role)}}
                                             @if(isset(Auth::User()->id))
 
                                             <span class="dropdown" id="dropdown">

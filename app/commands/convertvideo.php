@@ -86,12 +86,21 @@ class convertvideo extends Command {
 				$checkFilename->save();
 				$notifications = new Notification();
 				$notifications->sendNotification($checkFilename->user_id,null,'video-is-ready', $checkFilename->id);
+				$this->sendEmailNotification($checkFilename->user_id,$checkFilename->title, asset('/').'watch?v='.$checkFilename->filename);
 				print("\r \r \n ---------Conversion is done successfully--------- \r \r \n\n Developed by:GSC Team \r \n\n");
 			}
 
 			return true;
 		}
 		return false;
+	}
+	public function sendEmailNotification($id, $title = null , $link = null){
+		$get = User::find($id);
+		$email = $get->email;
+		$channel = $get->channel_name;
+		Mail::send('emails.homes.video-notification', array('user' => $channel, 'title' => $title, 'link'=> $link), function($message) use($get){
+		    $message->to($get->email)->subject('TEFL TV');
+		});
 	}
 	public function convertVideoToDiffFormat($source, $destination, $filename){
 		$hdmp4 = "$destination".DS."$filename"."_hd.mp4";
@@ -101,7 +110,7 @@ class convertvideo extends Command {
 		$normalwebm = "$destination".DS."$filename".".webm";
 		$lowwebm = "$destination".DS."$filename"."_low.webm";
 		$path = new Video;
-		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV'  -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame '$hdmp4'");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame '$hdmp4'");
 		print("\r \r \n MP4 HD version of video is done converting...\r\n\n");
 		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame '$normalmp4'");
 		print("\r \r \n MP4 Normal version of video is done converting...\r\n\n");
