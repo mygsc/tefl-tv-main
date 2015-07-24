@@ -94,7 +94,7 @@ class convertvideo extends Command {
 		}
 		return false;
 	}
-	public function sendEmailNotification($id, $title = null , $link = null){
+	private function sendEmailNotification($id, $title = null , $link = null){
 		$get = User::find($id);
 		$email = $get->email;
 		$channel = $get->channel_name;

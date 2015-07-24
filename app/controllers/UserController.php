@@ -87,9 +87,16 @@ class UserController extends BaseController {
 			//--------------Email Done----------------------//
 			$input['token'] = $generateToken;
 			$this->User->signup($input); //save
+			$this->adminNotification(array('username'=>$input['channel_name'], 'email'=>Input::get('email'),'fname'=>$input['first_name'], 'lname'=>$input['last_name']));
 			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
 		}
 		return Redirect::route('homes.signin', array('signup' => 'signup'))->withErrors($validate)->withInput();
+	}
+
+	private function adminNotification($data){
+		Mail::send('emails.homes.admin-notification', $data, function($message){
+		    $message->to('info@teflv.com')->subject('New Registered User');
+		});
 	}
 
 	public function getResetPassword($token = null){
