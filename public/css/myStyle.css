@@ -3676,7 +3676,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     height:100px;
     padding: 10px 10px;
     background:#ffffff;
-
 }
 .ads-relative-wrapper-watch{
     overflow:hidden;
@@ -3694,10 +3693,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 .ads-relative-wrapper-box{
-    max-height:280px!important;
+    max-height:340px!important;
     overflow:hidden;
     position:relative;
-    max-width: 336px;
+    max-width: 386px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -3715,7 +3714,26 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background: transparent;
     visibility: hidden;
 }
+.ads-box{
+    vertical-align: middle;
+    width: auto;
+    padding: 40px 40px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    -webkit-box-shadow: inset -1px 2px 6px -2px rgba(0,0,0,0.22);
+    -moz-box-shadow: inset -1px 2px 6px -2px rgba(0,0,0,0.22);
+    box-shadow: inset -1px 2px 6px -2px rgba(0,0,0,0.22);
+}
+.d-table{
+    display: table;
+    width: 100%;
+}
 
+.d-cell{
+    vertical-align: middle;
+    width: auto;
+
+}
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/
