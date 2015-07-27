@@ -5,7 +5,7 @@
 		<h2>Reports</h2>
 		<br/>
 		Id: {{$report->id}} <br/>
-		Id: {{$report->copyrighted_description}} <br/>
+		Description: {{$report->copyrighted_description}} <br/>
 		Contact Number: {{$report->contact_number}} <br/>
 		Fax: {{$report->fax}} <br/>
 		Street Address: Id: {{$report->streetaddress}} <br/>
