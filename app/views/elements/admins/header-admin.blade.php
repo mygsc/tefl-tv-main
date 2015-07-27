@@ -53,6 +53,7 @@
                             </ul>
                         </li>
                         <li>{{ link_to_route('get.admin.reports', 'Reports', null, array('class' => '')) }}</li>
+                        <li>{{ link_to_route('get.admin.disputes', 'Disputes', null, array('class' => '')) }}</li>
                         <li class="pull-right">{{ link_to_route('admin.logout', 'Logout', null, array('class' => '')) }}</li>
                        
                         
