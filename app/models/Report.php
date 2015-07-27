@@ -19,7 +19,7 @@ class Report extends Eloquent {
 		'contact_number' => 'required',
 		'signature' => 'required'
 	);
-	public function getReports($reportid = null, $sort = null){	
+	public function getReports($sort = null, $reportid = null){	
 		if($sort == 'all'){
 			return Report::all();
 		}
@@ -63,7 +63,7 @@ class Report extends Eloquent {
 			->orderBy('reports.updated_at')
 			->get();
 		}
-		if(isset($reportid)){
+		if($sort == NULL and isset($reportid)){
 			return Report::select(
 				'reports.id',
 				'case_number',
