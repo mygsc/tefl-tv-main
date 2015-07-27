@@ -54,7 +54,10 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addreport', array('as' => 'post.addreport', 'uses' => 'HomeController@addReport'));
 	Route::any('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'ReportController@getComplaintForm'));
 	Route::post('addcomplaint', array('as' => 'post.addreport', 'uses' => 'ReportController@addComplaint'));
-	Route::post('filedispute', array('as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
+	// Route::any('filedispute', array('as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
+	Route::get('filedispute/{id?}', array('before'=>'auth', 'as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
+	Route::get('listofreports/{id?}', array('before'=>'auth', 'as' => 'get.listofreports', 'uses' => 'ReportController@getListOfReportsPerVideos'));
+	Route::post('adddispute', array('as' => 'post.adddispute', 'uses' => 'ReportController@addDispute'));
 	//r3mmel
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
@@ -208,8 +211,8 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::group(array('prefix' => 'partners'), function(){
 	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
 	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
-	Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
-	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
+	//Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
+	//Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'partners.termsandconditions', 'uses' => 'PartnerController@getTermsAndConditions'));
 	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
@@ -227,7 +230,7 @@ Route::group(array('prefix' => 'partners'), function(){
 Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
 	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
-	Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
+	//Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
 	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
 	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'publishers.termsandconditions', 'uses' => 'PublisherController@getTermsAndConditions'));

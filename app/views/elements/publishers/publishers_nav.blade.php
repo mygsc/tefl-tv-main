@@ -7,12 +7,6 @@
                         <li>
                             {{ link_to_route('publishers.index', 'Home', null, array('class' => '')) }}
                         </li>
-                        <!--<li>
-                            {{ link_to_route('publishers.faqs', 'FAQs', null, array('class' => '')) }}
-                        </li>
-                        <li>
-                            {{ link_to_route('publishers.privacy', 'Privacy', null, array('class' => '')) }}
-                        </li>-->
                     </ul> 
                 </div><!--/.col-md-8-->
                 <div class="col-md-6 col-sm-6">

@@ -51,7 +51,7 @@
 
                         <h2 class="orangeC">More information about our program.</h2>
                         <p>
-                        We like our publishers to inform themselves about the many facets of our program. Therefore, we encourage current and prospective publishers to read our <a href="{{route('publishers.termsandconditions')}}">Terms and conditions</a>, <a href="{{route('publishers.faqs')}}">FAQ</a>, and <a href="{{route('publishers.privacy')}}">privacy</a> statements. This way, you know what we expect from you and what you can expect from us.
+                        We like our publishers to inform themselves about the many facets of our program. Therefore, we encourage current and prospective publishers to read our <a href="{{route('publishers.termsandconditions')}}">Terms and conditions</a> and <a href="{{route('homes.privacy')}}">Privacy</a> statements-. This way, you know what we expect from you and what you can expect from us.
                         </p>
 
                         <br/>
