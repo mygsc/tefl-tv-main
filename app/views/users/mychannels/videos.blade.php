@@ -179,8 +179,8 @@
 											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
 									</div>
-									@if(!$usersVideo->ifReported)
-										<div>
+									@if($usersVideo->ifReported)
+										<div class="legal-issue-link">
 											<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" style="color:red">
 												*Please settle legal issue. Click here.
 											</a>
