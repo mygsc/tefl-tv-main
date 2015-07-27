@@ -95,7 +95,7 @@ class UserController extends BaseController {
 
 	private function adminNotification($data){
 		Mail::send('emails.homes.admin-notification', $data, function($message){
-		    $message->to('info@teflv.com')->subject('New Registered User');
+		    $message->to('info@teflv.com')->subject('New Registered User');//info@teflv.com
 		});
 	}
 

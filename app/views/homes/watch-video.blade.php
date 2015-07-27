@@ -6,19 +6,17 @@
 
 @section('meta')
         <meta property="fb:app_id" content="1557901494477250"/>
-       <meta property="og:title" content="{{$videos->title}}"/>
-        <meta property="og:site_name" content="{{asset('/')}}"/>
-        <!-- <meta property="og:description" content="{{$videos->description}}"/> -->
-        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}"/>
-        <meta property="og:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
-        <meta property="og:type" content="video">
-       <!-- <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:type" content="video"> 
+        <meta property="og:title" content="{{$videos->title}}"/>
+        <meta property="og:description" content="{{$videos->description}}"/>
+        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}"/>
+        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
-        <meta property="og:video:tag" content="{{$videos->tags}}">  -->
+        <meta property="og:video:tag" content="{{$videos->tags}}"> 
         <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
         <meta name="keywords" content="{{$videos->tags}}"/>
-       <!--  <meta name="author" content="{{$owner->channel_name}}"/> -->
         <meta property="article:author" content="{{$owner->channel_name}}"/>
         <meta property="article:publisher" content="{{$owner->channel_name}}"/>
 @stop

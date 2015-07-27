@@ -153,4 +153,17 @@ class PartnerController extends Controller {
 		return Redirect::route('cancel.partners')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);
 	}
 
+	public function postPartnerConcern(){
+		$input = Input::all();
+		$validator = Validator::make($input, Partner::validateConcern());
+		if($validator->fails()){
+			return Response::json(array('msg'=>'validate failed'));
+		}
+		$data = array('name' => $input['name'], 'email' => $input['email'], 'missus' => $input['message']);
+		Mail::send('emails.reports.concern',$data, function($message){
+		    $message->to('support@teflv.com')->subject('User Concern');
+		});
+		return Response::json(array('msg'=>'success'));
+	}
+
 }
