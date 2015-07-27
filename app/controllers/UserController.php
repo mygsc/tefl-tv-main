@@ -88,7 +88,7 @@ class UserController extends BaseController {
 			$input['token'] = $generateToken;
 			$this->User->signup($input); //save
 			$this->adminNotification(array('username'=>$input['channel_name'], 'email'=>Input::get('email'),'fname'=>$input['first_name'], 'lname'=>$input['last_name']));
-			return Redirect::route('homes.signin')->withFlashGood("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
+			return Redirect::route('homes.signin')->withFlashGoodWithoutHide("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
 		}
 		return Redirect::route('homes.signin', array('signup' => 'signup'))->withErrors($validate)->withInput();
 	}
@@ -125,7 +125,7 @@ class UserController extends BaseController {
 		$user->token = $generateToken;
 		$user->save();
 
-		return Redirect::route('homes.signin')->with('flash_good', 'An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
+		return Redirect::route('homes.signin')->withFlashGoodWithoutHide('An email was sent to your email address '. Input::get('email'). '. Please check both your Inbox and Spam.');
 	}
 
 	public function postResetPassword(){
@@ -137,7 +137,7 @@ class UserController extends BaseController {
 			);
 		if(!$validator->fails()){
 			if($this->User->renewPassword($input['password'], $user_id) === true){
-				return Redirect::route('homes.signin')->with('flash_good', 'Password has been re-newed');
+				return Redirect::route('homes.signin')->withFlashGoodWithoutHide('Password has been re-newed');
 			}
 		}
 		return Redirect::route('homes.resetpassword', $input['token'])->withErrors($validator)->withInput();
@@ -148,7 +148,7 @@ class UserController extends BaseController {
 			$findUser = User::where('token', $token)->get();
 			if(!$findUser->isEmpty()){
 				$this->User->setVerifyStatus(1, $findUser->first()->id);
-				return Redirect::route('homes.signin')->with('flash_good', 'Your account has been verfied. You may now sign in your account');
+				return Redirect::route('homes.signin')->withFlashGoodWithoutHide('Your account has been verfied. You may now sign in your account');
 			}
 		}
 		return Redirect::route('homes.index')->with('flash_warning', 'Invalid request');
