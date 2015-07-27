@@ -24,6 +24,14 @@ class Partner extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	} 
 
+	public static function validateConcern(){
+		return array(
+			'name' => 'required',
+			'email' => 'required|email',
+			'message' => 'required'
+		);
+	} 
+
 	public function savePartner($adsense_id, $ad_slot_id){
 
 		$role = Auth::User()->role;
