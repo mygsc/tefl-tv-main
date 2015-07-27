@@ -33,6 +33,7 @@ class Comment extends Eloquent {
 			$comments[$key]->getCommentReplies = CommentReply::select('comments_reply.id', 'user_id', 'reply', 'comment_id',
 				'comments_reply.created_at', 'comments_reply.updated_at', 'channel_name')
 			->join('users', 'users.id', '=', 'comments_reply.user_id')
+			->where('comment_id', $comment->id)
 			->get();	
 
 			/***Comment Replies Section***/

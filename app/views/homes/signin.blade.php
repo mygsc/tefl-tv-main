@@ -41,7 +41,7 @@ window._fbq.push(['track', '6031900894263', {'value':'0.00','currency':'PHP'}]);
 					<h1 class="text-center">
 							Create an account for FREE!
 							<br/>
-							<small>Choose where to sign up</small>
+							<small class="blackC">Choose how to sign up</small>
 						</h1>
 						<a href = "{{route('homes.googleconnect',array('action' => 'signup'))}}"><img src="/img/icons/google.png" class="social-roll google"></a>
 						<a href="{{route('homes.signin', array('signup' => 'signup'))}}"><img src="/img/icons/tefltv.png" class="social-roll tefltv signBtn"></a>
