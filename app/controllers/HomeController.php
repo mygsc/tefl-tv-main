@@ -55,6 +55,8 @@ class HomeController extends BaseController {
 		});
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
+	
+	public function getReportSupport() { return View::make('errors.fatal'); }
 	public function postReportSupport(){
 		$input = Input::all();
 		$validate = $validator = Validator::make(
@@ -62,7 +64,10 @@ class HomeController extends BaseController {
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
 		);
 
-		if($validate->fails()) return Response::json(array('status'=>'error','label' => 'The fill-up the form.'));
+		// if($validate->fails()) return Response::json(array('status'=>'error','label' => 'The fill-up the form.'));
+		if($validate->fails()){
+			return Redirect::route('get.homes.supportreport')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+		}
 
 		DB::table('report_supports')->insert(
 			array('name' => $input['name'],'email' => $input['email'],'message' => $input['message'])
@@ -74,9 +79,6 @@ class HomeController extends BaseController {
 		});
 		// return Response::json(array('status'=>'success','label' => 'The fill-up the form.'));
 		return Redirect::route('homes.index')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
-	}
-	public function getReportSupport() {
-		return View::make('errors.fatal'); 
 	}
 
 	public function getPrivacy() {

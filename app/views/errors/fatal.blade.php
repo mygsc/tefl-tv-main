@@ -35,19 +35,19 @@
 		            <div class="">
 		            	<span class="textbox-layout">
 		            	{{Form::open(array('route' => 'post.homes.supportreport', 'id'=>'reportsubmit'))}}
-							{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control')); }}
+							{{ Form::text('name', '', array('placeholder' => 'Name' , 'class' => 'form-control', 'required')); }}
 							@if($errors->has('name'))
 							<span class="inputError">
 								{{$errors->first('name')}}
 							</span>
 							@endif
-							{{ Form::text('email', '', array('placeholder' => 'Email' , 'class' => 'form-control')); }}
+							{{ Form::text('email', '', array('placeholder' => 'Email' , 'class' => 'form-control', 'required')); }}
 							@if($errors->has('email'))
 							<span class="inputError">
 								{{$errors->first('email')}}
 							</span>
 							@endif
-							{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact' , 'class' => 'form-control t-mess')); }}
+							{{ Form::textarea('message', '', array('placeholder' => 'Message', 'class' => 'textAreaContact' , 'class' => 'form-control t-mess', 'required')); }}
 							@if($errors->has('message'))
 							<span class="inputError">
 								{{$errors->first('message')}}
