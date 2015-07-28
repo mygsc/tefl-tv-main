@@ -3,11 +3,10 @@
 @section('content')
 	<div class="container page">
         <div class="row">
-        	<h1>Reports</h1>
+        	<h1>Disputes</h1>
        		<div class="dropdown">
 				<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			    	Sort
-			    	
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dLabel">
 					<li><a href="{{route('get.admin.reports')}}">Latest</a></li>

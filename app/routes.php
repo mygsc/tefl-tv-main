@@ -192,10 +192,12 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
 	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
-	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReports'));
+	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReport'));
 	Route::get('reports/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortreports', 'uses' => 'AdminController@getSortReports'));
 	Route::post('deletereports/{id}', array('as' => 'post.admin.deletereports', 'uses' => 'AdminController@postDeleteReport'));
 	Route::get('viewreports/{id}', array('as' => 'get.admin.viewreports', 'uses' => 'AdminController@viewReports'));
+	Route::get('disputes', array('before' => 'auth.admin', 'as' => 'get.admin.disputes', 'uses' => 'AdminController@getDisputes'));
+	Route::get('disputes/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortdisputes', 'uses' => 'AdminController@getSortDisputes'));
 });
 //**********ADMIN**********//
 

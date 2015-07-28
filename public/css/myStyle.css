@@ -148,9 +148,11 @@ title {
     padding: 5px 5px;
     width: 198px;
 }
-.thumbnail-2:hover .play-hover{display:block}
+.thumbnail-2:hover .play-hover{
+    display:block;
+}
 .play-hover{
-  position : absolute;
+    position : absolute;
     display:none;
     top:35%; 
     width:65px;
@@ -170,6 +172,30 @@ title {
 } 
 .loader-ico{
     width: 100%; height: 100%; margin: 0px auto; left: 0px; right: 0px; z-index: 100; position: absolute; top: 40%; text-align: center;
+}
+.legal-issue{
+    position : absolute;
+    top:0; 
+    width:100%;
+    height: 100%;
+    margin:0 auto;
+    left:0px;
+    right:0px;
+    z-index:100;
+    background:rgba(0,0,0,0.7);
+    text-align: center;
+}
+.legal-issue-link{
+    background: #fff;
+    padding: 10px 10px;
+    width: 100%;
+    height: auto;
+    color: red;
+       margin:0 auto;
+    left:0px;
+    right:0px;
+    margin-top: 20%;
+
 }
 div.wrapper {
     float: left;
@@ -1088,7 +1114,9 @@ center;     margin: 0 auto; }
 .darkBlueC {
     color: #3b5a9b!important;
 }
-
+.blackC{
+    color: #333!important;
+}
 .modalbg {
     background: rgba(24, 27, 48, 0.8);
 }
@@ -1481,7 +1509,7 @@ span.commentLink {
 }
 
 .fb{
-    background: #686868;
+    background: #597BB6;
 
 }
 .fb:hover{
@@ -1489,13 +1517,13 @@ span.commentLink {
 }
 
 .google{
-    background: #686868;
+    background: #FF7239;
 }
 .google:hover{
     background: #f3592b;
 }
 .tefltv{
-    background: #686868;
+    background: #FFFFFF;
     
 }
 .tefltv:hover{

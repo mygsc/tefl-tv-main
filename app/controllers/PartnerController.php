@@ -161,7 +161,7 @@ class PartnerController extends Controller {
 		}
 		$data = array('name' => $input['name'], 'email' => $input['email'], 'missus' => $input['message']);
 		Mail::send('emails.reports.concern',$data, function($message){
-		    $message->to('support@teflv.com')->subject('User Concern');
+		    $message->to('support@tefltv.com')->subject('User Concern');
 		});
 		return Response::json(array('msg'=>'success'));
 	}
