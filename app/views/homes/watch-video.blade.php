@@ -275,7 +275,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
                                             <span> Share Video</span>
                                             <br/>
-                                            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <a target="_blank" href="http://www.facebook.com/dialog/feed?app_id=1557901494477250&link={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
