@@ -6,12 +6,15 @@
 
 @section('meta')
         <meta property="fb:app_id" content="1557901494477250"/>
-        <meta property="og:type" content="video"> 
+        <meta property="og:type" content="video.other"> 
         <meta property="og:title" content="{{$videos->title}}"/>
         <meta property="og:description" content="{{$videos->description}}"/>
-        <meta property="og:video" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4"/>
+        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm"/>
+        <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
+        <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm" />
         <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}"/>
-        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:video:image" content="{{asset('/')}}/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
