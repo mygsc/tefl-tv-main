@@ -18,9 +18,11 @@
         <meta property="og:video:type" content="text/html">
         <meta property="og:video:width" content="600"> 
         <meta property="og:video:height" content="360"> 
-        <meta property="og:video:tag" content="{{$videos->tags}}"> 
+        
         <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
-        <!-- <meta name="keywords" content="{{$videos->tags}}">
+        <!-- 
+        <meta property="og:video:tag" content="{{$videos->tags}}"> 
+        <meta name="keywords" content="{{$videos->tags}}">
         <meta property="article:author" content="{{$owner->channel_name}}">
         <meta property="article:publisher" content="{{$owner->channel_name}}"/> -->
     
