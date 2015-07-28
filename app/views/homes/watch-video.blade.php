@@ -24,8 +24,8 @@
         <meta name="keywords" content="{{$videos->tags}}"/>
         <meta property="article:author" content="{{$owner->channel_name}}"/>
         <meta property="article:publisher" content="{{$owner->channel_name}}"/> -->
-        <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}?autohide=1&amp;version=3">
-        <meta property="og:title" content="True Music">
+        <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}">
+        <meta property="og:title" content="{{$videos->title}}">
         <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:type" content="video">
