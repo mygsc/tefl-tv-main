@@ -275,7 +275,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
                                             <div class="fb-share-button" data-href="{{asset('/')}}watch?v={{$videos->file_name}}" data-layout="button_count"></div>
                                             <!-- <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> -->
-                                            <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri={{asset('/')}}facebook_redirect"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri=https://www.facebook.com"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
