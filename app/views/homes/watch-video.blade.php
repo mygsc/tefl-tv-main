@@ -14,7 +14,7 @@
         <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
         <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm" />
         <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}"/>
-        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:video:image" content="{{asset('/')}}/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:video:width" content="640"> 
         <meta property="og:video:height" content="360"> 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
