@@ -13,18 +13,20 @@ class AdminController extends BaseController {
 		$this->Report = $reports;
 	}
 
+	public function getCreateAdminLink(){ return View::make('admins.createadminlink'); }
+	public function getChangePassword(){ return View::make('admins.changepassword'); }
+
 	public function getIndex() {
 		if(isset(Auth::User()->role)){
 			if(Auth::User()->role == 2) return View::make('admins.index');
 		}
 		return View::make('admins.login');
 	}
+
 	public function postIndex(){
 		$input = Input::all();
 		$validate = Validator::make($input, array('channel_name' => 'required','password' => 'required'));
-
 		if($validate->fails()) return Redirect::route('admin.index')->withInput()->withErrors($validate);
-		
 		$attempt = Admin::getAuthLogin($input['channel_name'], $input['password']);
 		if($attempt){
 			$verified = Auth::User()->verified;
@@ -35,6 +37,7 @@ class AdminController extends BaseController {
 		}
 		return Redirect::route('admin.index')->withInput()->withFlashBad('Invalid Credentials!');
 	}	
+
 	public function logout(){
 		Auth::logout();
 		Session::flush();
@@ -44,6 +47,7 @@ class AdminController extends BaseController {
 	public function getResetPassword(){
 		return View::make('admins.resetpassword');
 	}
+
 	public function postResetPassword(){
 		$validate = Validator::make(Input::all(), array('email' => 'required|email'));
 		if($validate->fails()) {
@@ -60,6 +64,7 @@ class AdminController extends BaseController {
 		if(isset($adminInfo)) return View::make('admins.pwdreset', compact('adminInfo'));
 		return Redirect::route('get.admin.resetpassword')->withFlashBad('Invalid URL. please try to reset your password again!'); //else
 	}
+
 	public function postPwdReset(){
 		$input = Input::all();
 		$validate = Validator::make($input, Admin::$pwdResetValidator);
@@ -68,9 +73,6 @@ class AdminController extends BaseController {
 		return Redirect::route('admin.index')->withFlashGood('Password successfully changed!');
 	}
 
-	public function getChangePassword(){
-		return View::make('admins.changepassword');
-	}
 	public function postChangePassword(){
 		$input = Input::all();
 		$validate = Validator::make($input, Admin::$changepassword);
@@ -98,9 +100,6 @@ class AdminController extends BaseController {
 		return Redirect::route('get.admin.recommendedvideos')->withInput()->withFlashGood('Successfully updated!');
 	}
 
-	public function getCreateAdminLink(){
-		return View::make('admins.createadminlink');
-	}
 	public function postCreateAdminLink(){
 		$validate = Validator::make(Input::all(), array('email' => 'required|email|unique:users,email'));
 		if($validate->fails()) {
@@ -108,19 +107,14 @@ class AdminController extends BaseController {
 		}
 		$encrypt = Crypt::encrypt(Input::get('email') . rand(1,9999));
 		$data = array('code' => $encrypt, 'email' => Input::get('email'));
-
 		$id = DB::table('users_code')->insert(array('code' => $data['code'], 'email' => $data['email'], 'used' => 0));
-
 		if(Admin::sendCreateAdminLink($data)) return Redirect::route('admin.index')->withFlashGood('Done! Please check your email.');
 	}
 	public function getAdminSignup($code){
 		if(!isset($code)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
-		
 		$userCode = DB::table('users_code')->where('code', $code)->first();
 		if(!isset($userCode)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please contact the TEFLTV administrator.');
-
 		if($userCode->used == 1) return Redirect::route('admin.index')->withFlashBad('The registration link is already used.');
-
 		if(isset($userCode)) return View::make('admins.adminsignup', compact('userCode'));
 	}
 	public function postAdminSignup(){
@@ -131,10 +125,12 @@ class AdminController extends BaseController {
 		DB::table('users_code')->where('code', $input['code'])->update(array('used' => 1));
 		return Redirect::route('admin.index')->withInput()->withFlashGood('Successfully registered!');
 	}
+
 	public function getReportedVideos(){
 		$videos = Video::where('report_count', '>=', 5)->get();
 		return View::make('admins.reportedvideos', compact('videos'));
 	}
+
 	public function getUsers(){
 		$users = User::all();
 		return View::make('admins.users', compact('users'));
@@ -147,27 +143,11 @@ class AdminController extends BaseController {
 
 		return Redirect::route('get.admin.users')->withFlashGood('Successfully deleted the user.');
 	}
-	public function getReports(){
-		$reports = $this->Report->select(
-			'reports.id',
-			'case_number',
-			'complainant_id',
-			'user_id',
-			DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
-			DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
-			DB::raw('(SELECT vid.title from videos vid where vid.id = reports.video_id) as video_title'),
-			DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = reports.video_id) as video_url'),
-			'copyrighted_description',
-			'legal_name',
-			'authority_position',
-			'signature',
-			'reports.deleted_at',
-			'reports.updated_at')
-		->where('reports.deleted_at','=','')
-		->orderBy('reports.updated_at')
-		->get();
+	public function getReport(){
+		$reports = $this->Report->getReports('active');
 		return View::make('admins.reports', compact('reports'));
 	}
+
 	public function getSortReports($sort = NULL){
 		if(!isset($sort)) $sort = 'all';
 		$reports = $this->Report->getReports($sort);
@@ -180,16 +160,29 @@ class AdminController extends BaseController {
 		$report = Report::find($id);
 		$report->deleted_at = date('Y-m-d H:i:s');
 		$report->save();
-
 		return Redirect::route('get.admin.reports')->withFlashGood('Successfully deleted the report.');
+	}
+
+	public function getReports(){
+		$reports = $this->Report->getReports('active');
+		return View::make('admins.reports', compact('reports'));
 	}
 	
 	public function viewReports($id){
 		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
-		
 		$report = DB::table('reports')->where('id', $id)->first();
 		if(!isset($report->id)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
+		return View::make('admins.viewreports', compact('report'));
+	}
 
+	public function getDisputes(){
+		$reports = $this->Report->getReports('active');
+		return View::make('admins.disputes', compact('reports'));
+	}
+	public function viewDisputes($id){
+		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
+		$report = DB::table('reports')->where('id', $id)->first();
+		if(!isset($report->id)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
 		return View::make('admins.viewreports', compact('report'));
 	}
 }

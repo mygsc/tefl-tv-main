@@ -192,10 +192,12 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
 	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
-	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReports'));
+	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReport'));
 	Route::get('reports/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortreports', 'uses' => 'AdminController@getSortReports'));
 	Route::post('deletereports/{id}', array('as' => 'post.admin.deletereports', 'uses' => 'AdminController@postDeleteReport'));
 	Route::get('viewreports/{id}', array('as' => 'get.admin.viewreports', 'uses' => 'AdminController@viewReports'));
+	Route::get('disputes', array('before' => 'auth.admin', 'as' => 'get.admin.disputes', 'uses' => 'AdminController@getDisputes'));
+	Route::get('disputes/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortdisputes', 'uses' => 'AdminController@getSortDisputes'));
 });
 //**********ADMIN**********//
 
@@ -211,6 +213,7 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::group(array('prefix' => 'partners'), function(){
 	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
 	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
+	Route::post('submit-partner-concern', array('as' => 'post.partner.concern', 'uses' => 'PartnerController@postPartnerConcern'));
 	//Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
 	//Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));

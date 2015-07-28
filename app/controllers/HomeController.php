@@ -193,6 +193,7 @@ class HomeController extends BaseController {
 		$tags = $videos->tags;
 		$description = preg_replace('/[^\p{L}\p{N}_]+/u', ' ', $description);
 		$query = "MATCH(videos.title,videos.description,videos.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)";
+		// dd($description);
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
