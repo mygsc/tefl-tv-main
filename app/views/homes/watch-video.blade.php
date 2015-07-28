@@ -5,25 +5,24 @@
 @stop
 
 @section('meta')
-        <meta property="fb:app_id" content="1557901494477250"/>
-        <meta property="og:site_name" content="TEFL-TV"/>
-        <meta property="og:type" content="website"/> 
-        <meta property="og:title" content="{{$videos->title}}"/>
-        <meta property="og:description" content="{{$videos->description}}"/>
-        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4"/>
-        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm"/>
-        <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
-        <meta property="og:video:secure_url" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.webm" />
-        <meta property="og:video:type" content="application/x-shockwave-flash" />
-        <meta property="og:video:url" content="{{asset('/')}}watch?v={{$videos->file_name}}"/>
-        <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg"/>
-        <meta property="og:video:width" content="480"/> 
-        <meta property="og:video:height" content="360"/> 
-        <meta property="og:video:tag" content="{{$videos->tags}}"/> 
-        <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
-        <meta name="keywords" content="{{$videos->tags}}"/>
-        <meta property="article:author" content="{{$owner->channel_name}}"/>
-        <meta property="article:publisher" content="{{$owner->channel_name}}"/> 
+        <meta property="fb:app_id" content="1557901494477250">
+        <meta property="og:site_name" content="TEFL-TV">
+        <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+        <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
+        <meta property="og:title" content="{{$videos->title}}">
+        <meta property="og:description" content="{{$videos->description}}">
+        <meta property="og:type" content="video"> 
+        <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
+        <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
+        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
+        <meta property="og:video:type" content="text/html">
+        <meta property="og:video:width" content="600"> 
+        <meta property="og:video:height" content="360"> 
+        <meta property="og:video:tag" content="{{$videos->tags}}"> 
+        <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
+        <meta name="keywords" content="{{$videos->tags}}">
+        <meta property="article:author" content="{{$owner->channel_name}}">
+        <meta property="article:publisher" content="{{$owner->channel_name}}"/>
     
 @stop
 @section('css')
@@ -275,7 +274,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
                                             <span> Share Video</span>
                                             <br/>
-                                            <a target="_blank" href="http://www.facebook.com/dialog/feed?app_id=1557901494477250&link={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+                                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
