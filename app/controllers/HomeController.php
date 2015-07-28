@@ -55,12 +55,11 @@ class HomeController extends BaseController {
 		});
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
-	
+
 	public function getReportSupport() { return View::make('errors.fatal'); }
 	public function postReportSupport(){
 		$input = Input::all();
-		$validate = $validator = Validator::make(
-			array('name' => $input['name'], 'email' => $input['email'], 'message' => $input{'message'}),
+		$validate = $validator = Validator::make($input,
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
 		);
 
