@@ -7,8 +7,9 @@
 		{{HTML::style('css/vid.player.min.css')}}
 	@stop
 	@section('some_script')
+    {{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
-	{{HTML::script('js/video-player/fullscreen.min.js')}}
+	{{HTML::script('js/partner/learnmore.js')}}
 @stop
 
 @section('content')

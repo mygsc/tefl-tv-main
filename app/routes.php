@@ -211,6 +211,7 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::group(array('prefix' => 'partners'), function(){
 	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
 	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
+	Route::post('submit-partner-concern', array('as' => 'post.partner.concern', 'uses' => 'PartnerController@postPartnerConcern'));
 	//Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
 	//Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));

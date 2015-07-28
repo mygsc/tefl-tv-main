@@ -156,6 +156,16 @@
 												{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 												@endif
 												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+												
+												@if($usersVideo->ifReported)
+													<div class="legal-issue">
+														<div class="legal-issue-link">
+															<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" class="legal-link redC">
+																<i class="fa fa-close redC"></i> Please settle legal issue. Click here.
+															</a>
+														</div>
+													</div>
+												@endif
 											</div>
 										</a>
 									</div>

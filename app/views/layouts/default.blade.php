@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
+	@yield('header_script')
 	
 
 	<!-- CSS -->
