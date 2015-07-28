@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-        <meta property="fb:app_id" content="1557901494477250"/>
+        
         <meta property="og:site_name" content="TEFL-TV">
         <!-- <meta property="og:type" content="video"> 
         <meta property="og:title" content="{{$videos->title}}"/>
@@ -29,12 +29,12 @@
         <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:type" content="video">
-        <meta property="og:video:url" content="{{asset('/')}}watch?v={{$videos->file_name}}?autohide=1&amp;version=3">
-        <meta property="og:video:secure_url" content="{{asset('/')}}embed/{{$videos->file_name}}?autohide=1&amp;version=3">
+        <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
+        <meta property="og:video:secure_url" content="{{asset('/')}}embed/{{$videos->file_name}}">
         <meta property="og:video:type" content="text/html">
         <meta property="og:video:width" content="480">
         <meta property="og:video:height" content="360">
-       
+        <meta property="fb:app_id" content="1557901494477250"/>
 
 
 
