@@ -61,6 +61,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('supportreport', array('as' => 'post.homes.supportreport', 'uses' => 'HomeController@postReportSupport'));
 	Route::get('supportreport', array('as' => 'get.homes.supportreport', 'uses' => 'HomeController@getReportSupport'));
 	//r3mmel
+
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
