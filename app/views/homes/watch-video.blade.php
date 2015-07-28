@@ -18,7 +18,6 @@
         <meta property="og:video:type" content="text/html">
         <meta property="og:video:width" content="600"> 
         <meta property="og:video:height" content="360"> 
-        
         <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
         <!-- 
         <meta property="og:video:tag" content="{{$videos->tags}}"> 
@@ -277,7 +276,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <span> Share Video</span>
                                             <br/>
 
-                                            <div class="fb-share-button" data-href="{{asset('/')}}watch?v={{$videos->file_name}}" data-layout="button_count"></div>
+                                            <!-- <div class="fb-share-button" data-href="{{asset('/')}}watch?v={{$videos->file_name}}" data-layout="button_count"></div> -->
                                             <!-- <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> -->
                                             <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri=https://www.facebook.com"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
@@ -467,13 +466,13 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 </div>
 
-<div id="fb-root"></div>
+{{--<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));</script>--}}
 @stop
 
