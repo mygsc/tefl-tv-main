@@ -5,7 +5,13 @@
 
 @section('meta')
 	<meta charset="UTF-8">
-	<meta name="description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:url" content="{{URL::full()}}">
+	<meta property="og:title" content="Watch TEFL Tv">
+	<meta property="og:site_name" content="TEFL Tv"/>
+	<meta property="og:image" content="{{URL::full()}}/img/thumbnails/v1.png">
+	<meta property="og:type" content="website">
+	<meta name="og:description" content="Tefltv is a video-hosting website that concentrates on all facets of teaching English as a foreign language.
 
 	Teachers, students and schools a like, can watch or actively participate by uploading videos in the following categories:
 
