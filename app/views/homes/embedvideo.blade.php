@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Embed Video</title>
+	<title>Embed Videos | TEFL Tv</title>
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::style('css/myStyle.css')}}
 	{{HTML::style('css/bootstrap.css') }}

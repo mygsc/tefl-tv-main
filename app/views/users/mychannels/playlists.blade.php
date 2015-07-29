@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}}'s Playlist | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
