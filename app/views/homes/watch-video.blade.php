@@ -18,7 +18,7 @@
         <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"> -->
         <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
         <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
-        <!-- <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" /> -->
+        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
         <meta property="og:video:type" content="video/mp4">
         <meta property="og:video:width" content="600"> 
         <meta property="og:video:height" content="360"> 
