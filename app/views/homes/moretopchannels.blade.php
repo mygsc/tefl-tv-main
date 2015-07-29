@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	TOP 50 Channels
+	TOP 50 Channels | TEFL Tv
 @stop
 
 @section('content')

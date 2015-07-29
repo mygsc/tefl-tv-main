@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('some_script')
 	{{HTML::script('js/subscribe.js')}}
 	{{HTML::script('js/media.player.js')}}

@@ -7,7 +7,7 @@
 @section('meta')
     <meta property="fb:app_id" content="1557901494477250">
     <meta property="og:site_name" content="TEFL-TV">
-    <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}">
+    <meta property="og:url" content="{{URL::full()}}">
     <meta property="og:title" content="{{$videos->title}}">
     <?php
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);

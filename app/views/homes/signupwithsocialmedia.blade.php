@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Sign up with {{strtoupper(Session::get('social_media'))}}
+	Sign up with {{strtoupper(Session::get('social_media'))}}
 @stop
 @section('content')
 <div class="row White">

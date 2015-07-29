@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    Change Logs | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container White same-H">

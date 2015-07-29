@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    Privacy Policy | TEFL Tv
+@stop
+
 @section('content')
 <div class="container">
 	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">

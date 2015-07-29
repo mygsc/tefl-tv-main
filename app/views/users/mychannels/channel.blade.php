@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-My Channel
+    {{Auth::User()->channel_name}} | TEFL Tv
 @stop
 
 @section('script')
@@ -94,7 +94,7 @@ My Channel
 
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="home">
+						<div id="home">
 							@include('elements/users/myChannelTabs/myHomeSections/myHome_recentUpload')
 							@include('elements/users/myChannelTabs/myHomeSections/myHome_videos')
 							@include('elements/users/myChannelTabs/myHomeSections/myHome_playlists')
