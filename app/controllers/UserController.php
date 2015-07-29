@@ -826,11 +826,15 @@ class UserController extends BaseController {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 
+		if(!Auth::check()){
+			Session::put('url.intended', URL::full());
+			return Redirect::route('homes.signin')->with('flash_bad', 'You need to signin first.');
+		}
 		if(Auth::User()->id == $userChannel->id){
 			return Redirect::route('users.feedbacks');
 		}
+
 		$userFeedbacks = $this->Feedback->getFeedbacks($userChannel->id);
-		//return $userFeedbacks;
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->count();
