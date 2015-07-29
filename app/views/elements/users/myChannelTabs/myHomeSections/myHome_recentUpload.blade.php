@@ -19,16 +19,10 @@
 					<div class="embed-responsive embed-responsive-16by9">
 					 	<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')))
-						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" >
-						 		<source id= 'mp4' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source id= 'webm' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-							</video>
+					 		<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" />
 					 	@else
 					 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-					 		<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
-						 		<source id= 'mp4' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source id= 'webm' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-							</video>
+					 		<img src="/img/thumbnails/video.png" width="100%">
 					 	@endif	
 						</a>
 
