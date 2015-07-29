@@ -2,8 +2,7 @@
 
 class HomeController extends BaseController {
 	protected $publisher_;
-	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike) {
-
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, ReportSupport $reportSupport) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -14,6 +13,7 @@ class HomeController extends BaseController {
 		$this->Partner = $partners;
 		$this->VideoLikesDislike = $videoLikesDislike;
 		$this->publisher_ = new Publisher;
+		$this->ReportSupport = $reportSupport;
 	}
 	
 	public function getIndex() {
@@ -34,24 +34,50 @@ class HomeController extends BaseController {
 
 	public function postContactUs(){
 		$input = Input::all();
-
 		$input['message'] = preg_replace('/[^A-Za-z0-9\-]/', ' ',$input['message']);
 		$input['name'] = preg_replace('/[^A-Za-z0-9\-]/', ' ',$input['name']);
 		$validate = $validator = Validator::make(
 			array('name' => $input['name'], 'email' => $input['email'], 'message' => $input{'message'}),
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
-			);
+		);
 
 		if($validate->fails()){
 			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 		}
 
-		$data = array('email' => $input['email'], 'name' => $input['name'], 'message' => $input['message']);
+		$data = array('email'=>$input['email'], 'name'=>$input['name'], 'message'=>$input['message']);
 		Mail::send('emails.welcome', $data, function($message)
 		{
 			$message->to('support@tefltv.com')->subject('Support request from '. Input::get('email'));
 		});
+		Mail::send('emails.reports.thankyou_support', $data, function($message){
+			$message->to('support@tefltv.com')->subject('TEFLtv Support Team');
+		});
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
+	}
+
+	public function getReportSupport() { return View::make('errors.fatal'); }
+	public function postReportSupport(){
+		$input = Input::all();
+		$validate = $validator = Validator::make($input,
+			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
+		);
+
+		// if($validate->fails()) return Response::json(array('status'=>'error','label' => 'The fill-up the form.'));
+		if($validate->fails()){
+			return Redirect::route('get.homes.supportreport')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
+		}
+
+		DB::table('report_supports')->insert(
+			array('name' => $input['name'],'email' => $input['email'],'message' => $input['message'])
+		);
+
+		$data = array('email'=>$input['email'], 'name'=>$input['name'], 'message'=>$input['message']);
+		Mail::send('emails.reports.thankyou_support', $data, function($message) use($input) {
+			$message->to($input['email'])->subject('TEFLtv Support Team');
+		});
+		// return Response::json(array('status'=>'success','label' => 'The fill-up the form.'));
+		return Redirect::route('homes.index')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
 
 	public function getPrivacy() {
@@ -191,7 +217,9 @@ class HomeController extends BaseController {
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);
 		$description = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->description);
 		$tags = $videos->tags;
+		$description = preg_replace('/[^\p{L}\p{N}_]+/u', ' ', $description);
 		$query = "MATCH(videos.title,videos.description,videos.tags) AGAINST ('".$title.','.$description.','.$tags."' IN BOOLEAN MODE)";
+		// dd($description);
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)

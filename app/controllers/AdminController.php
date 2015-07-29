@@ -143,7 +143,7 @@ class AdminController extends BaseController {
 
 		return Redirect::route('get.admin.users')->withFlashGood('Successfully deleted the user.');
 	}
-	public function getReports(){
+	public function getReport(){
 		$reports = $this->Report->getReports('active');
 		return View::make('admins.reports', compact('reports'));
 	}
@@ -162,8 +162,24 @@ class AdminController extends BaseController {
 		$report->save();
 		return Redirect::route('get.admin.reports')->withFlashGood('Successfully deleted the report.');
 	}
+
+	public function getReports(){
+		$reports = $this->Report->getReports('active');
+		return View::make('admins.reports', compact('reports'));
+	}
 	
 	public function viewReports($id){
+		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
+		$report = DB::table('reports')->where('id', $id)->first();
+		if(!isset($report->id)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
+		return View::make('admins.viewreports', compact('report'));
+	}
+
+	public function getDisputes(){
+		$reports = $this->Report->getReports('active');
+		return View::make('admins.disputes', compact('reports'));
+	}
+	public function viewDisputes($id){
 		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
 		$report = DB::table('reports')->where('id', $id)->first();
 		if(!isset($report->id)) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
