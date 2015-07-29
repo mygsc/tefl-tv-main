@@ -10,7 +10,7 @@
         <meta property="og:url" content="{{asset('/')}}watch?v={{$videos->file_name}}">
         <meta property="og:title" content="{{$videos->title}}">
         <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
-        
+        <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
         <meta property="og:description" content="{{$videos->description}}">
         <meta property="og:type" content="video"> 
         
@@ -18,14 +18,11 @@
         <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"> -->
         <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
         <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
-        <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
+        <!-- <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" /> -->
         <meta property="og:video:type" content="video/mp4">
-        <meta property="og:video" content="{{asset('/')}}embed/{{$videos->file_name}}">
-        <meta property="og:video:type" content="text/html">
         <meta property="og:video:width" content="600"> 
         <meta property="og:video:height" content="360"> 
         <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
-        <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
         <meta name="keywords" content="{{$videos->tags}}">     
     
 @stop
