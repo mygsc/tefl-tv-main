@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	My Feedbacks - {{Auth::User()->channel_name}}
+	{{Auth::User()->channel_name}} - Feedbacks | TEFL Tv
 @stop
 
 @section('content')

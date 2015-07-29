@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}}'s Favorite Videos | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>

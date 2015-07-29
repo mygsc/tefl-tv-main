@@ -6,6 +6,11 @@
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::script('js/subscribe.js')}}
 @stop
+
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
