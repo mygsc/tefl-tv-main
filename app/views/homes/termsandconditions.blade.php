@@ -1,5 +1,8 @@
 @extends('layouts.default')
 
+@section('title')
+    Terms and Conditions | TEFL Tv
+@stop
 
 @section('content')
 <div class='container'>

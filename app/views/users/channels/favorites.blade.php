@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container pageH White">

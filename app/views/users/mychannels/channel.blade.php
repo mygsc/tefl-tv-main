@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-My Channel
+    {{Auth::User()->channel_name}} | TEFL Tv
 @stop
 
 @section('script')

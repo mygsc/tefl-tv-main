@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}}'s Videos | TEFL Tv
+@stop
+
 @section('script')
 {{HTML::script('js/video-player/jquery.form.min.js')}}
 {{--HTML::script('js/video-player/media.player.min.js')--}}

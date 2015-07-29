@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    Advertisements | TEFL Tv
+@stop
+
 @section('css')
 {{--HTML::style('css/vid.player.min.css')--}}
 @stop

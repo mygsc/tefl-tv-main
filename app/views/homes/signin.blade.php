@@ -1,5 +1,9 @@
 @extends('layouts.signin')
 
+@section('title')
+    Login | TEFL Tv
+@stop
+
 @section('header_script')
 <!-- Facebook Conversion Code for Registrations - tefltv partner video ad call to action sign in -->
 <script>(function() {
