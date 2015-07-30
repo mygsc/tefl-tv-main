@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	TEFL TV publishers's Support
+    Support | TEFLTV Publisher
 @stop
 
 @section('content')

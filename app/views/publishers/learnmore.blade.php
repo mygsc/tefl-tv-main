@@ -1,5 +1,9 @@
 @extends('layouts.publisher')
 
+    @section('title')
+        Learn More | TEFLTV Publisher
+    @stop
+
 	@section('meta')
 			
 	@stop
