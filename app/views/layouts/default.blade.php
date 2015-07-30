@@ -52,8 +52,6 @@
 
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/scroll-onpage.js')}}
 @if(Auth::check())
