@@ -422,6 +422,8 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
+		// $ifMonetize 
+
 
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
@@ -437,7 +439,8 @@ class UserController extends BaseController {
 			$videoCategory = $this->video_->categorySelected($category);
 			//}
 
-			$thumbnail = $this->threeThumbnailPath($filename, $extension);
+			$thumbnail = '';
+			// $thumbnail = $this->threeThumbnailPath($filename, $extension);
 			$annotations = Annotation::where('vid_filename', $file_name)->get();
 			$countAnnotation = count($annotations);
 			
@@ -514,8 +517,21 @@ class UserController extends BaseController {
 			return Redirect::route('users.myvideos','v='.$id.'&edit=successfull')->withFlashGood('Changes has been successfully saved.');
 		}
 		return Redirect::route('video.edit.get',$id)->withErrors($validator)->withFlashWarning('Fill up the required fields');
-
 	}
+
+	public function postEditMonetize($id){
+		$input = Input::all();
+		$video = Video::where('file_name',$id)->first();
+		if($video->count() == 0){
+			return Redirect::route('users.myvideos','v='.$id.'&edit=failed')->withFlashBad('Invalid video URL. Please try again.');
+		}
+		$monetize = '0';
+		if (!empty(Input::get('monetize'))) $monetize = '1';
+		$video->monetize = $monetize;
+		$video->save();
+		return Redirect::route('users.myvideos','v='.$id.'&edit=successfull')->withFlashGood('Changes has been successfully saved.');
+	}
+
 	public function posteditTag($id){
 		$id = Crypt::decrypt($id);
 		$name = Input::get('name');

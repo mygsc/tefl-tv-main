@@ -87,15 +87,15 @@
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
+		                    @if(Auth::User()->role != '3' or Auth::User()->role != '5')
+		                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
+		                	@endif
 		                </ul>
 
 		                <div class="tab-content row White same-H mg-t-20">
-
 					    	<div role="tabpanel" class="tab-pane active" id="update_info">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
-
-
 										@if($errors->has('publish'))
 											<span class="inputError">
 												{{$errors->first('publish')}}
@@ -214,7 +214,6 @@
 
 					    	<div role="tabpanel" class="tab-pane" id="update_cover">
 					    		<div class="col-md-12 content-padding">
-								
 									@if(file_exists($thumbnail))
 										<div class="row ">
 											<div class="pad-10">
@@ -246,8 +245,6 @@
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
-
-										
 									@else
 										<div class="row text-center">
 											<div class="pad-10">
@@ -344,6 +341,22 @@
 					    		</div><!--content-padding-->
 					    	</div><!--anotation-tab-->
 
+					    	<div role="tabpanel" class="tab-pane active" id="monetization-tab">
+					    		<div class="col-md-12 content-padding">
+					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
+										<div class="well">
+											{{Form::label('Monetize this video:')}}<br/>
+											<span class="v-category">
+												{{Form::checkbox('monetize', ($video->monetize ? 'Yes' : 'No'), $video->monetize,['id'=>'monetize'])}}
+												<label for='advice'>Monetize</label>
+											</span>
+										</div>	
+										<br/>
+										<div class="text-right mg-b-10"> 
+											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
+										</div>
+					    		</div><!--content-padding-->
+					    	</div><!--monetization-tab-->
 					    </div><!--/tab-content-->
 					</div><!--col-md-12-->
 				</div><!--#videoContainer-->
@@ -351,11 +364,6 @@
 		</div><!--row same-H white-->
 	</div><!--container-page-->
 </div><!--/row 1st-->
-
-
-
-
-
 @stop
 
 
