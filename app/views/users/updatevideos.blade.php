@@ -87,7 +87,7 @@
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
-		                    @if(Auth::User()->role != '3' or Auth::User()->role != '5')
+		                    @if(Auth::User()->role == '3' or Auth::User()->role == '5')
 		                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
 		                	@endif
 		                </ul>
