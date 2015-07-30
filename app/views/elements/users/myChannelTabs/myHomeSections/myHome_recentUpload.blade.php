@@ -19,16 +19,10 @@
 					<div class="embed-responsive embed-responsive-16by9">
 					 	<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')))
-						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" >
-						 		<source id= 'mp4' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source id= 'webm' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-							</video>
+					 		<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" />
 					 	@else
 					 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-					 		<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
-						 		<source id= 'mp4' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source id= 'webm' src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-							</video>
+					 		<img src="/img/thumbnails/video.png" width="100%">
 					 	@endif	
 						</a>
 
@@ -40,7 +34,7 @@
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
-				<p style="margin-left:30px;">No recent Activity</p>
+				<p style="margin-left:30px;display:none;">No recent Activity</p>
 			@else
 			<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank"><h3><b>Title: {{$recentUpload->title}}</b></h3></a>
 			<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>

@@ -1,6 +1,5 @@
 <!--Playlists-->
 
-
 <div class="whiteC text-center top-div_t mg-t-20 col-md-12 ">
 	<div class="row">
 		<h2>PLAYLISTS</h2>

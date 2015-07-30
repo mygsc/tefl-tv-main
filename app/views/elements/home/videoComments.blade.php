@@ -39,7 +39,7 @@
 							<div class="col-md-11 col-md-height">
 								<div class="row content-padding">
 									<b>{{ link_to_route('view.users.channel', $getVideoComment->channel_name, $parameters = array($getVideoComment->channel_name), $attributes = array('id' => 'channel_name')) }}</b>
-									| &nbsp;<small><?php echo date('M m, Y h:i A', strtotime($getVideoComment->created_at)); ?></small> 
+									| &nbsp;<small>{{$getVideoComment->time_difference}}</small> 
 									<br/>
 									<p class="text-justify">{{$getVideoComment->comment}}</p>
 
@@ -85,8 +85,8 @@
 										@endif&nbsp;
 									</div>&nbsp;
 									@else
-										<span class="likescount thumbUpC" id="likescount">{{$getVideoComment->getVideoComment->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
-										<span class="dislikescount thumbDownC" id="dislikescounts">{{$getVideoComment->getVideoComment->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
+										<span class="likescount thumbUpC" id="likescount">{{$getVideoComment->likesCount}} <i class="fa fa-thumbs-up"></i></span> &nbsp;
+										<span class="dislikescount thumbDownC" id="dislikescounts">{{$getVideoComment->dislikeCount}} <i class="fa fa-thumbs-down"></i></span> &nbsp;
 										
 										<!--end updated by cess 3/26/15-->
 									@endif<!--auth user-->
@@ -101,7 +101,7 @@
 											<div class="col-md-11 text-left">
 												<div class="">
 													{{link_to_route('view.users.channel', $getCommentReply->channel_name, $parameters = array($getCommentReply->channel_name), $attributes = array('id' => 'channel_name'))}} aw&nbsp;|&nbsp;
-													<small> {{date('M m, Y h:i A',strtotime($getCommentReply->commentreplycreated_at))}} </small><br/> 
+													<small> {{$getCommentReply->time_difference}} </small><br/> 
 													<p class='text-justify'>{{$getCommentReply->reply}} <br/></p></hr>
 												</div>
 												<div class='tooltipDelete inline hand'>

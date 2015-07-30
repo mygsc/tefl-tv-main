@@ -6,12 +6,12 @@
 </div>
 <div class="col-md-12 White same-H">
 	<br/><br/>
-	<div class="">
+	<div class="row">
 		@if($findVideos->isEmpty())
 			<p class="text-center">No videos yet..</p>
 		@else
 			@foreach($findVideos as $key => $findVideo)
-				<div class="col-md-3">
+				<div class="col-md-3 col-sm-6">
 					<a href="{{route('homes.watch-video', array('v='. $findVideo->file_name))}}" target="_blank">	
 						<div id="findVid">
 							<div class="thumbnail-2"> 
@@ -34,7 +34,7 @@
 								</a>
 							</div>
 							<div class="count">
-								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes
+								{{$findVideo->views}} Views, {{$findVideo->likes}} Likes | {{date('F d, Y',strtotime($findVideo->created_at))}}
 							</div>
 						</div>
 					

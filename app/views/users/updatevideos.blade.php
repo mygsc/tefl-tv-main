@@ -87,15 +87,15 @@
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
+		                    @if(Auth::User()->role == '3' or Auth::User()->role == '5')
+		                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
+		                	@endif
 		                </ul>
 
 		                <div class="tab-content row White same-H mg-t-20">
-
 					    	<div role="tabpanel" class="tab-pane active" id="update_info">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
-
-
 										@if($errors->has('publish'))
 											<span class="inputError">
 												{{$errors->first('publish')}}
@@ -131,6 +131,7 @@
 											{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 											{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
 											{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
+											{{ Form::hidden('token-id',$video->file_name)}}
 											<p class="notes">*Double click the existing tag to edit.</p>
 											<div id="wrapper">
 												@if($tags == null)
@@ -207,15 +208,14 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
-										{{Form::close()}}
+										
 					    		</div><!--content-padding-->
 					    	</div><!--col-md-12-->
 
 					    	<div role="tabpanel" class="tab-pane" id="update_cover">
 					    		<div class="col-md-12 content-padding">
-								
 									@if(file_exists($thumbnail))
-										<div class="row text-center">
+										<div class="row ">
 											<div class="pad-10">
 												<span class="file-upload mg-l--2">
 													<h3 class="inline blueC"><i class="fa fa-arrow-up"></i>Upload Video Cover</h3>
@@ -223,7 +223,9 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save poster</button><br>
 											</div>
+											<hr/>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
@@ -272,54 +274,89 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
+										{{Form::close()}}
 									@endif
 									<br/>
 					    		</div><!--content-padding-->
 					    	</div><!--update-cover-->
 					    	
 					    	<div role="tabpanel" class="tab-pane" id="anotation-tab">
-					    		<div class="col-md-12 content-padding">
-									<div class="pad-10">
-										<span class="dropdown">
-											<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
-													<span class="caret"></span></button>
-													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-														<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
-														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
-														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
-														<li role="presentation"><a id='annotation-speech' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Speech</a></li>
-													</ul>
-											</span>
-											<span class="dropdown">
-												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
-													<span class="caret"></span></button>
+					    		<br/>
+					    		<div class="row-same-height">
+					    			<div class="col-md-6 col-md-height col-top">
+					    				<div class="annotation-wrap row ">
+					    					<div class="content-padding">
+							    				<div class="text-center">
+								    				<span class="dropdown">
+														<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
+															<span class="caret"></span>
+														</button>
+														<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+															<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
+															<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
+															<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
+															<li role="presentation"><a id='annotation-speech' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Speech</a></li>
+														</ul>
+													</span>
+												</div>
+												<div class="mg-t-20">
+													<div class="" id="annotation">
+														<!--ANNOTATION AREA-->
+													</div>
+												</div>
+											</div>
+										</div>
+					    			</div>
+					    			<div class="col-md-6 col-md-height col-top">
+					    				<div class="content-padding row">
+						    				<div class="text-center">
+							    				<span class="dropdown">
+													<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
+														<span class="caret"></span>
+													</button>
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id='annotation-lists'>
 														@if($countAnnotation > 0)
 															@foreach($annotations as $annotation)
 																<li id='forever-remove-annot-{{$annotation->id}}' role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='option-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,15)}}</a></li>
 															@endforeach
 														@else
-																<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
 														@endif             
 													</ul>
-											</span>
-											<br>
-											<ul id='editor-annotation'>
-												<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
-												<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
-												<li>Start:{{Form::text('start',null,['maxlength'=>8,'id'=>'edit-start-time'])}}<button id='edit-start-inc'>+</button><button id='edit-start-dec'>-</button></li>
-												<li>End:{{Form::text('end',null,['maxlength'=>8,'id'=>'edit-end-time'])}}<button id='edit-end-inc'>+</button><button id='edit-end-dec'>-</button></li>
-												<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
-												<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
-											</ul>
-											<br/>
-											<div class="" id="annotation">
-												<!--ANNOTATION AREA-->
+												</span>
 											</div>
-										</div><!---->
+											<div class="mg-t-20">
+												
+												<ul id='editor-annotation'>
+													<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
+													<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
+													<li>Start:{{Form::text('start',null,['maxlength'=>8,'id'=>'edit-start-time'])}}<button id='edit-start-inc'>+</button><button id='edit-start-dec'>-</button></li>
+													<li>End:{{Form::text('end',null,['maxlength'=>8,'id'=>'edit-end-time'])}}<button id='edit-end-inc'>+</button><button id='edit-end-dec'>-</button></li>
+													<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
+													<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
+												</ul>
+											</div>
+										</div>
+					    			</div>
 					    		</div><!--content-padding-->
 					    	</div><!--anotation-tab-->
 
+					    	<div role="tabpanel" class="tab-pane active" id="monetization-tab">
+					    		<div class="col-md-12 content-padding">
+					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
+										<div class="well">
+											{{Form::label('Monetize this video:')}}<br/>
+											<span class="v-category">
+												{{Form::checkbox('monetize', ($video->monetize ? 'Yes' : 'No'), $video->monetize,['id'=>'monetize'])}}
+												<label for='advice'>Monetize</label>
+											</span>
+										</div>	
+										<br/>
+										<div class="text-right mg-b-10"> 
+											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
+										</div>
+					    		</div><!--content-padding-->
+					    	</div><!--monetization-tab-->
 					    </div><!--/tab-content-->
 					</div><!--col-md-12-->
 				</div><!--#videoContainer-->
@@ -327,11 +364,6 @@
 		</div><!--row same-H white-->
 	</div><!--container-page-->
 </div><!--/row 1st-->
-
-
-
-
-
 @stop
 
 

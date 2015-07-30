@@ -1,16 +1,15 @@
 @extends('layouts.publisher')
 
 @section('title')
-TEFLTV Publisher
+    TEFLTV Publisher | TEFL TV
 @stop
 
 @section('content')
 <div class="" >
     <div id="cmn-video-demo3__container" style="z-index:-1;">
         <video id="cmn-video-demo3__video" autoplay muted="muted" loop="true">
-            <source src="/videos/tefltv.mp4" type="video/mp4">
-            <source src="/videos/tefltv.webm" type="video/webm">
-            <source src="/videos/tefltv.ogg" type="video/ogg">
+            <source src="/videos/tefltv_publishers.mp4" type="video/mp4">
+            <source src="/videos/tefltv_publishers.webm" type="video/webm">
             Your browser doesn't support HTML5 video. Here's a <a href="#">link</a> to download the video.
         </video>
         <div id="cmn-video-demo3__content" >

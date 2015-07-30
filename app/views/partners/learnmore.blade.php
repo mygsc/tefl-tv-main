@@ -1,5 +1,9 @@
 @extends('layouts.partner')
 
+    @section('title')
+        Learn More | TEFLTV Partners
+    @stop
+
 	@section('meta')
 			
 	@stop
@@ -7,8 +11,9 @@
 		{{HTML::style('css/vid.player.min.css')}}
 	@stop
 	@section('some_script')
+    {{HTML::script('js/jquery.min.js')}}
 	{{HTML::script('js/video-player/media.player.min.js')}}
-	{{HTML::script('js/video-player/fullscreen.min.js')}}
+	{{HTML::script('js/partner/learnmore.js')}}
 @stop
 
 @section('content')
@@ -47,7 +52,7 @@
                         <br/>
                         <h2 class="blueC">More information about our program. </h2>
                         <p>
-                        We like our partners to inform themselves about the many facets of our program. Therefore, we encourage current and prospective partners to read our <a href="{{route('partners.termsandconditions')}}">Terms and conditions</a>,<a href="{{route('partners.faqs')}}"> FAQ</a>, and <a href="{{route('partners.privacy')}}">privacy </a> statements. This way, you know what we expect from you and what you can expect from us.
+                        We like our partners to inform themselves about the many facets of our program. Therefore, we encourage current and prospective partners to read our <a href="{{route('partners.termsandconditions')}}">Terms and conditions</a> and <a href="{{route('homes.privacy')}}">Privacy </a> statements. This way, you know what we expect from you and what you can expect from us.
                         </p>
 
 

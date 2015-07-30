@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	My Feedbacks - {{Auth::User()->channel_name}}
+	{{Auth::User()->channel_name}} - Feedbacks | TEFL Tv
 @stop
 
 @section('content')
@@ -49,8 +49,9 @@
 				</nav>
 
 				<div class="feedbackSection content-padding mg-t-20  channel-content White same-H">
-					<br/><br/>
+					<br/>
 					@if($userFeedbacks->isEmpty())
+					<br/>
 					<h3 class="text-center">No feedback yet..</h3>
 					@endif
 

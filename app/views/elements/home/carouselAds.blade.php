@@ -11,14 +11,14 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="/img/logos/te.jpg" alt="..." class="center-block">
+        <a href="http://tefleducators.com/" target="_blank"><img src="/img/logos/te.jpg" alt="..." class="center-block"></a>
       </div>  
       <div class="item">
-        <img src="/img/logos/aua.jpg" alt="..."  class="center-block">
+        <a href="http://www.auathailand.org/" target="_blank"><img src="/img/logos/aua.jpg" alt="..."  class="center-block"></a>
         
       </div>
       <div class="item">
-        <img src="/img/logos/at.png" alt="..."  class="center-block">
+        <a href="http://accreditefl.org/?" target="_blank"><img src="/img/logos/at.png" alt="..."  class="center-block"></a>
       </div>
     </div>
     

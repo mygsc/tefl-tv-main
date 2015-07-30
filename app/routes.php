@@ -52,10 +52,16 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('deletecomment', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteComment'));
 	Route::post('deletereply', array('as' => 'post.deletecomment', 'uses' => 'HomeController@deleteReply'));
 	Route::post('addreport', array('as' => 'post.addreport', 'uses' => 'HomeController@addReport'));
-	
 	Route::any('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'ReportController@getComplaintForm'));
 	Route::post('addcomplaint', array('as' => 'post.addreport', 'uses' => 'ReportController@addComplaint'));
+	// Route::any('filedispute', array('as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
+	Route::get('filedispute/{id?}', array('before'=>'auth', 'as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
+	Route::get('listofreports/{id?}', array('before'=>'auth', 'as' => 'get.listofreports', 'uses' => 'ReportController@getListOfReportsPerVideos'));
+	Route::post('adddispute', array('as' => 'post.adddispute', 'uses' => 'ReportController@addDispute'));
+	Route::post('supportreport', array('as' => 'post.homes.supportreport', 'uses' => 'HomeController@postReportSupport'));
+	Route::get('supportreport', array('as' => 'get.homes.supportreport', 'uses' => 'HomeController@getReportSupport'));
 	//r3mmel
+
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));
 	Route::get('resetpassword/{url?}', array('as' => 'homes.resetpassword', 'uses' => 'UserController@getResetPassword'));
 	Route::post('resetpassword', array('as' => 'post.resetpassword', 'uses' => 'UserController@postResetPassword'));
@@ -145,12 +151,12 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
 	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
 	Route::post('deactivate', array('as' => 'post.users.deactivate', 'uses' => 'UserController@postDeactivate'));
+	Route::post('editmonetize/{id}', array('as'=>'video.post.editmonetize', 'uses'=>'UserController@postEditMonetize'));
 });
 //*********End of Channels************//
 
 Route::get('channels/{channel_name}', array('before' => 'auth.channels','as' => 'view.users.channel', 'uses' => 'UserController@getViewUsersChannel'));
 Route::get('channels/{channel_name}/feedbacks', array('before' => 'auth.channels', 'as' => 'view.users.feedbacks2', 'uses' => 'UserController@getViewUsersFeedbacks'));
-Route::post('channels/post/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersFeedbacks'));
 Route::get('channels/{channel_name}/videos', array('before' => 'auth.channels', 'as' => 'view.users.videos2', 'uses' => 'UserController@getViewUsersVideos'));
 Route::get('channels/{channel_name}/favorites', array('before' => 'auth.channels', 'as' => 'view.users.favorites2', 'uses' => 'UserController@getViewUsersFavorites'));
 Route::get('channels/{channel_name}/watchlater', array('before' => 'auth.channels', 'as' => 'view.users.watchLater2', 'uses' => 'UserController@getViewUsersWatchLater'));
@@ -158,6 +164,7 @@ Route::get('channels/{channel_name}/about', array('before' => 'auth.channels', '
 Route::get('channels/{channel_name}/playlists', array('before' => 'auth.channels', 'as' => 'view.users.playlists2', 'uses' => 'UserController@getViewUsersPlaylists'));
 Route::get('channels/{channel_name}/videoplaylist={playlistid}', array('before' => 'auth.channels', 'as' => 'view.users.videoplaylist', 'uses' => 'UserController@getViewVideoPlaylist'));
 Route::get('channels/{channel_name}/subscribers', array('before' => 'auth.channels', 'as' => 'view.users.subscribers2', 'uses' => 'UserController@getViewUsersSubscribers'));
+Route::post('channels/post/feedbacks', array('before' => 'auth.channels', 'as' => 'post.view.users.comments', 'uses' => 'UserController@postViewUsersFeedbacks'));
 Route::post('channels/feedback-add-liked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddLiked'));
 Route::post('channels/feedback-add-disliked', array('as' => 'post.viewusers.addliked', 'uses' => 'UserController@postAddDisLiked'));
 Route::post('channels/addfeedback', array('as' => 'post.viewusers.addreply-feedback', 'uses' => 'UserController@postAddReplyFeedback'));
@@ -189,10 +196,12 @@ Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('reportedvideos', array('before' => 'auth.admin', 'as' => 'get.admin.reportedvideos', 'uses' => 'AdminController@getReportedVideos'));
 	Route::get('users', array('before' => 'auth.admin', 'as' => 'get.admin.users', 'uses' => 'AdminController@getUsers'));
 	Route::post('deleteusers/{id}', array('as' => 'post.admin.deleteusers', 'uses' => 'AdminController@postDeleteUser'));
-	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReports'));
+	Route::get('reports', array('before' => 'auth.admin', 'as' => 'get.admin.reports', 'uses' => 'AdminController@getReport'));
 	Route::get('reports/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortreports', 'uses' => 'AdminController@getSortReports'));
 	Route::post('deletereports/{id}', array('as' => 'post.admin.deletereports', 'uses' => 'AdminController@postDeleteReport'));
 	Route::get('viewreports/{id}', array('as' => 'get.admin.viewreports', 'uses' => 'AdminController@viewReports'));
+	Route::get('disputes', array('before' => 'auth.admin', 'as' => 'get.admin.disputes', 'uses' => 'AdminController@getDisputes'));
+	Route::get('disputes/sort/{sort}', array('before' => 'auth.admin', 'as' => 'get.admin.sortdisputes', 'uses' => 'AdminController@getSortDisputes'));
 });
 //**********ADMIN**********//
 
@@ -208,8 +217,9 @@ Route::post('v/increment-view/{filename?}', ['as'=>'increment.view', 'uses'=>'Ho
 Route::group(array('prefix' => 'partners'), function(){
 	Route::get('/', array('as' => 'partners.index', 'uses' => 'PartnerController@getIndex'));
 	Route::get('learnmore', array('as' => 'partners.learnmore', 'uses' => 'PartnerController@getLearnMore'));
-	Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
-	Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
+	Route::post('submit-partner-concern', array('as' => 'post.partner.concern', 'uses' => 'PartnerController@postPartnerConcern'));
+	//Route::get('faqs', array('as' => 'partners.faqs', 'uses' => 'PartnerController@getFaqs'));
+	//Route::get('support', array('as' => 'partners.support', 'uses' => 'PartnerController@getSupport'));
 	Route::get('privacy', array('as' => 'partners.privacy', 'uses' => 'PartnerController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'partners.termsandconditions', 'uses' => 'PartnerController@getTermsAndConditions'));
 	Route::get('register-adsense', array('as' => 'partners.register-adsense', 'uses' => 'PartnerController@getRegisterAdsense'));
@@ -227,7 +237,7 @@ Route::group(array('prefix' => 'partners'), function(){
 Route::group(array('prefix' => 'publishers'), function(){
 	Route::get('/', array('as' => 'publishers.index', 'uses' => 'PublisherController@getIndex'));
 	Route::get('learnmore', array('before' => 'publishers','as' => 'publishers.learnmore', 'uses' => 'PublisherController@getLearnMore'));
-	Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
+	//Route::get('faqs', array('before' => 'publishers','as' => 'publishers.faqs', 'uses' => 'PublisherController@getFaqs'));
 	Route::get('support', array('as' => 'publishers.support', 'uses' => 'PublisherController@getSupport'));
 	Route::get('privacy', array('as' => 'publishers.privacy', 'uses' => 'PublisherController@getPrivacy'));
 	Route::get('termsandconditions', array('as' => 'publishers.termsandconditions', 'uses' => 'PublisherController@getTermsAndConditions'));

@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container page">
@@ -105,7 +109,7 @@
 										<!-- </a> -->
 									</div>
 									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+										{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
 									<br/>
 								</div>
 							</div>

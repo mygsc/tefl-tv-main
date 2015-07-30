@@ -84,17 +84,20 @@
 	</div>
 	<div class="user-info container">
 		<br/>
-		@if(empty($userChannel->interests))
+		@if(empty($usersChannel->interests))
+		
 		<p class="black italic text-center fs-12 mg-t-20">
-			
+		
 		</p>
 		<br/>
 		@else
+		<br/><br/>
 		<p class="black center-block italic text-center fs-12">
 			<i class="fa fa-quote-left"></i>
-			{{ Str::limit($userChannel->interests, 200) }}
+			{{ Str::limit($usersChannel->interests,300) }}
 			<i class="fa fa-quote-right"></i>
 		</p>
+		<br/>
 		@endif
 	</div>
 </div>

@@ -26,7 +26,6 @@
 						<th>Complainant's Channel</th>
 						<th>Uploader's Channel</th>
 						<th>Video Title</th>
-						<th>Description</th>
 						<th>Legal Name</th>
 						<th>Title / Job Position</th>
 						<!-- 		
@@ -49,7 +48,6 @@
 							<td><a href="{{route('view.users.channel', $report->complainants_channel)}}" target="_blank">{{$report->complainants_channel}}</a></td> 
 							<td><a href="{{route('view.users.channel', $report->uploaders_channel)}}" target="_blank">{{$report->uploaders_channel}}</a></td> 
 							<td><a href="{{route('homes.watch-video', array('v='.$report->video_url))}}">{{$report->video_title}}</a></td>
-							<td>{{$report->copyrighted_description}}</td>
 							<td>{{$report->legal_name}}</td>
 							<td>{{$report->authority_position}}</td>
 							<td>{{$report->signature}}</td>

@@ -5,20 +5,36 @@
 @stop
 
 @section('meta')
-    <!--<meta property="og:title" content="{{$videos->title}}">
-        <meta property="og:site_name" content="{{asset('/')}}">
-        <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
-        <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
-        <meta property="og:type" content="video">
-        <meta property="og:video:image" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
-        <meta property="og:video:width" content="640"> 
-        <meta property="og:video:height" content="360"> 
-        <meta property="og:video:tag" content="{{$videos->tags}}"> 
-
-        <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
+    <meta property="fb:app_id" content="1557901494477250">
+    <meta property="og:site_name" content="TEFL-TV">
+    <meta property="og:url" content="{{URL::full()}}">
+    <meta property="og:title" content="{{$videos->title}}">
+    <?php
+        $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
+    ?>
+    <meta property="og:image" content="{{$image}}.jpg">
+    <meta property="og:image" content="{{$image}}_600x338.jpg"><meta property="og:description" content="{{$videos->description}}">
+    <meta property="og:type" content="video"> 
+    
+    <!-- <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"> -->
+    <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
+    <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:width" content="600"> 
+    <meta property="og:video:height" content="360"> 
+    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
+    <meta name="keywords" content="{{$videos->tags}}">     
+    <meta property="article:published_time" content="{{$videos->created_at}}" />
+    <meta property="article:modified_time" content="{{$videos->updated_at}}" />
+    <meta property="og:updated_time" content="{{$videos->created_at}}"/>
+    <!-- 
+    <meta property="og:video:tag" content="{{$videos->tags}}"> 
     <meta name="keywords" content="{{$videos->tags}}">
-    <meta name="author" content="{{$owner->channel_name}}">
+    <meta property="article:author" content="{{$owner->channel_name}}">
+    <meta property="article:publisher" content="{{$owner->channel_name}}"/> -->
+
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}
@@ -31,12 +47,19 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{HTML::script('js/video-player/fullscreen.min.js')}}
+{{--HTML::script('js/video-player/fullscreen.min.js')--}}
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 
+{{HTML::script('js/adsbygoogle.js')}}
+<script>
+if(window.isAdsDisplayed === undefined ) {
+    $('#vid-controls').remove();
+    $('#ablockVideoPlayer').prepend('<img id="ablockplayer_img" src="/img/adblock_player.png" />');
+}
+</script>
+
 <script type="text/javascript">
-    document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
             if($(".linkReadMore span").html() == 'READ MORE'){
@@ -77,6 +100,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <!--video paler-->
                             <br/>
                             @include('elements/home/watchVideo-videoPlayer')
+                            <div id='ablockVideoPlayer'>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12"><div>
                                     <br/>
@@ -87,7 +112,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 </p>
                                             </div>
                                             <div class="col-md-3 col-xs-4 col-sm-3 text-right">
-                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View(s)</p>
+                                            @if($videos->views > 1)
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} Views</p>
+                                                @else
+                                                <p class="black wv-views" id="views-counter">{{$videos->views}} View</p>
+                                            @endif
                                             </div>
 
                                         </div>
@@ -101,6 +130,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             {{Form::hidden('filename', $videos->file_name,['id'=>'filename'])}}
                                             {{Form::hidden('autoplay', $autoplay, ['id'=>'autoplay'])}}
                                             {{Form::hidden('duration', $duration, ['id'=>'duration'])}}
+                                            {{Form::hidden('role', $role)}}
                                             @if(isset(Auth::User()->id))
 
                                             <span class="dropdown" id="dropdown">
@@ -173,17 +203,12 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                              <!-- <a href="{{URL::route('get.complaint_form')}}" class="black"><p class="inline"><i class="fa fa-flag"></i>&nbsp;&nbsp;Report</p></a> -->
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
                                             
-                                             {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
+                                            {{Form::open(array('route' => array('get.complaint_form'),'class' => 'inline'))}}
                                                 {{Form::hidden('report_url',$report_url)}}
                                                 <span title="Report This Video">
-                                                    
-                                                    <!--<input value="Report" type="submit" class='reportLink'>-->
                                                     <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
-                                                    
                                                 </span>
-                                           		 {{Form::close()}}
-                                           		 &nbsp;&nbsp;|&nbsp;&nbsp;
-                                             
+                                           	{{Form::close()}}                                            
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
                                                        <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
@@ -196,7 +221,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                 <div style="" id='embed-pub'>
                                                                 <p>Copy and paste this code to your website:</p>
                                                                  <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-                                                               	</p>
+                                                                </p>
                                                                 </div>
                                                                <!-- <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
                                                                 <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
@@ -259,7 +284,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
                                             <span> Share Video</span>
                                             <br/>
-                                            <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+
+                                            <!-- <div class="fb-share-button" data-href="{{asset('/')}}watch?v={{$videos->file_name}}" data-layout="button_count"></div> -->
+                                            <!-- <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a> -->
+                                            <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri=https://www.facebook.com"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
                                          
@@ -344,60 +372,79 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
             </div><!--column 8-->
 
 
-            <div class="col-md-4 visible-md visible-lg">
+            <div class="col-md-4 visible-md visible-lg ">
                 <div class="row">
                 <!--advertisement-->
                 <!-- advertisment small -->
                 <!--/advertisement-->
-         
+            
+                <div class="watch-top-ad same-H d-table">
+                    <br/>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- Home page banner -->
+                     <div class="ads-relative-wrapper-watch d-cell">
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-3138986188138771"
+                             data-ad-slot="6642873645"
+                             data-ad-format="auto"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
+                <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
                             <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
-                                	
-	                                <div class="row p-relative">
-	                                	<div class="show_wrapp">
-		                                	<div class=" col-middle">
-		                                		@if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-	                                            <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >
-	                                       				
-	                                        @else
-	                                            <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
-	                                        @endif
-	                                        
-	                                        	<div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
-	                                        		<div class="showInfo-wrapp ">
-	                                        			<div class="showInfo-div">
-			                                        		<span class="info-title">{{ ($relation['title']) }}</span><br/>
-			                                        		by: {{$relation['channel_name']}}<br/>
-			                                        		{{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
-	                                       			</div>
-	                                       			</div>
-	                                            </div>
-	                                		
-	                                		</div>
-                                		</div>
-	                                	<div class="row-same-height" title="">
-	                                		
-	                                    <div class="col-md-5 col-xs-4 col-md-height col-middle">
-	                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-	                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
-	                                        @else
-	                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
-	                                        @endif
-	                                    </div>
-	                                    <div class="col-md-7 col-sm-8 col-xs-4 col-md-height col-middle">
-	                                    	<div class="hide_h">
-		                                    	<div class="visible-lg"><span class="v-list text-justify">{{ Str::limit($relation['title'],68) }}</span></div>
-		                                        <div class="visible-md"><span class="v-list text-justify">{{ Str::limit($relation['title'],45) }}</span></div>
-		                                        <div class="visible-sm"><span class="v-list text-justify">{{ Str::limit($relation['title'],30) }}</span></div>
-	                                        </div>
-	                                        <span>by: {{$relation['channel_name']}}</span><br/>
-	                                        <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
-	                                        <span>{{number_format($relation['views'])}} view/s</span>
-	                                    </div>
+                                    
+                                    <div class="row p-relative">
+                                        <div class="show_wrapp">
+
+                                            <div class=" col-middle">
+                                                @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                                    <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
+                                                @else
+                                                    <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+                                                @endif
+                                            
+                                                <div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
+                                                     
+                                                    <div class="showInfo-wrapp ">
+                                                        <div class="showInfo-div">
+
+                                                            <span class="info-title">{{ ($relation['title']) }}</span><br/>
+                                                            by: {{$relation['channel_name']}}<br/>
+                                                            {{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="row-same-height" title="">
+                                            
+                                        <div class="col-md-5 col-xs-4 col-md-height col-middle">
+                                            @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                                <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
+                                            @else
+                                                <img src="/img/thumbnails/video.png" alt="" width="100%" />
+                                            @endif
+                                        </div>
+                                        <div class="col-md-7 col-sm-8 col-xs-4 col-md-height col-middle">
+                                            <div class="hide_h">
+                                                <div class="visible-lg"><span class="v-list text-justify">{{ Str::limit($relation['title'],68) }}</span></div>
+                                                <div class="visible-md"><span class="v-list text-justify">{{ Str::limit($relation['title'],45) }}</span></div>
+                                                <div class="visible-sm"><span class="v-list text-justify">{{ Str::limit($relation['title'],30) }}</span></div>
+                                            </div>
+                                            <span>by: {{$relation['channel_name']}}</span><br/>
+                                            <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
+                                            <span>{{number_format($relation['views'])}} view/s</span>
+                                        </div>
                          </div>
-	                            
+                                
 
                                 </div>
                                 </a>
@@ -405,7 +452,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             </li>
                     @endforeach
                 </ul><!--video list-->
-					
+                    
                     <div class="mg-t-10 same-H">
                       <div class="h-title">
                         <div class="row">
@@ -428,45 +475,13 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 </div>
 
-<!--MODAL FOR EMBED VIDEO-->
-{{--<div class="modal fade overlay" id="embed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Embed Video</h4>
-      </div>
-      <div class="modal-body">
-            <input type="text" class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-      </div>
-     <!--  <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-        <a href="{{route('user.upload.video.cancel',"v=". $videos->file_name)}}" class="btn btn-primary">Yes</a>
-      </div> -->
-    </div>
-  </div>
-</div>--}}
-
-{{-- <div class="modal fade overlay" id="publish-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Your Ads Preview</h4>
-      </div>
-      <div align='center' class="modal-body">
-      <p align='center' >Click proceed to place your own ads.</p>
-        @include('ads/adspreview')
-        <p>Copy and paste it to  your site.</p>
-        <input type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>"> 
-       </div>
-      <div class="modal-footer">
-     <!--  <div align='left'>Click proceed to place your ads.</div> -->
-       <button type="button" class="btn btn-default">Embed video to your site with your ads</button>
-       <button type="button" class="btn btn-default">Proceed</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
+{{--<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>--}}
 @stop
 

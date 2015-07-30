@@ -247,8 +247,54 @@ input#volume::-moz-range-thumb {
 }
 
 /* setting area*/
+.settings{
+	border-radius:5px;min-height:5px;width:150px;position:absolute;bottom:50px;right:10px;
+	background:rgba(42,42,42,0.9);padding: 5px;cursor: default;display: none;
+}
+.settings ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.settings ul li{
+	padding:2px;
+	color:#e2d9d9;
+	text-decoration: none;
+	border-bottom:1px solid #665e5e;
+	cursor: pointer;
+}
+.settings ul li span{
+	float:right;
+}
+.settings ul li:hover{
+	color:#fc8b02;
+}
+
+.video-speed{
+	border-radius:5px;min-height:5px;width:100px;position:absolute;bottom:50px;right:10px;
+	background:rgba(42,42,42,0.9);padding: 5px;cursor: default;display: none;
+}
+.video-speed ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.video-speed ul li{
+	padding:2px;
+	color:#e2d9d9;
+	text-decoration: none;
+	border-bottom:1px solid #665e5e;
+	cursor: pointer;
+}
+.video-speed ul li span{
+	float:right;
+}
+.video-speed ul li:hover{
+	color:#fc8b02;
+}
+
 .hd-setting{
-	border-radius:5px;min-height:5px;min-width:5px;position:absolute;bottom:50px;right:10px;
+	border-radius:5px;min-height:5px;width:90px;position:absolute;bottom:50px;right:10px;
 	background:rgba(42,42,42,0.9);padding: 5px;cursor: default;display: none;
 }
 .hd-setting ul {
@@ -258,6 +304,13 @@ input#volume::-moz-range-thumb {
 }
 .hd-setting ul li{
 	padding:2px;
+	color:#e2d9d9;
+	text-decoration: none;
+	border-bottom:1px solid #665e5e;
+	cursor: pointer;
+}
+.hd-setting ul li a:hover{
+	color:#fc8b02;
 }
 .hd-setting ul li a{
 	color:#fff;
@@ -282,6 +335,12 @@ input#volume::-moz-range-thumb {
 }
 #hd-setting{
 	cursor:pointer;
+}
+#hd-setting:hover{
+	   -ms-transform: rotate(15deg); /* IE 9 */
+    -webkit-transform: rotate(15deg); /* Chrome, Safari, Opera */
+    -moz-transform:rotate(15deg);
+    transform: rotate(15deg);
 }
 #share-video{
 	cursor:pointer;
@@ -434,6 +493,18 @@ div.error-video{
 div.error-video small{
  	color:#fff;
 }
+.skip-ads{
+  	position: absolute;
+  	right: 0;
+  	bottom: 55px;
+  	background:rgba(27,27,27,0.6);
+	padding: 2px;
+	display: none;
+	text-align: center;
+	color:#fff;
+	cursor: pointer;
+	border: none;
+}
 .play-icon{
 	display: none;
 }
@@ -506,6 +577,9 @@ img#play{
 .vp-text{
 	text-align:center;
 	color:#fff;
+}
+.back-to-setting{
+	cursor: pointer;
 }
 div.annotation span{
 	border-radius:0px 0px 0px 5px;

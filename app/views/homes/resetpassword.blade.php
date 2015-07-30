@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-Reset password - TEFL-TV
+	Reset password } TEFL Tv
 @stop
 
 @section('content')

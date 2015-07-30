@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-{{$userChannel->channel_name}}'s Feedbacks
+    {{$userChannel->channel_name}} | TEFL Tv
 @stop
 
 @section('content')

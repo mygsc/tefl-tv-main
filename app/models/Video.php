@@ -255,9 +255,10 @@ class Video extends Eloquent{
 	}
 
 	public function relations($query = null,$id = null,$limit = null){
-
-		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish','videos.uploaded','videos.report_count',
-			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description',
+			'videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish',
+			'videos.uploaded','videos.report_count', 'videos.file_name','videos.user_id','users.channel_name',
+			'users.verified','users.status')
 		->whereRaw($query)
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
@@ -265,7 +266,7 @@ class Video extends Eloquent{
 		->where('videos.report_count', '<', 5)
 		->where('videos.id','!=',$id)
 		->where('users.status','=','1')
-		->join('users', 'user_id', '=', 'users.id');
+		->join('users', 'videos.user_id', '=', 'users.id');
 
 		if(!empty($limit)){
 			$returndata = $returndata->take($limit);
@@ -314,6 +315,40 @@ class Video extends Eloquent{
 
 		return $getVideos->take($limit)->get();
 	}
+
+	public function getVideoswithDispute($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
+		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
+			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
+		->where('videos.user_id', $auth)
+		->where('deleted_at', NULL);
+
+		if(!empty($uploaded)){
+			$getVideos = $getVideos->where('uploaded', $uploaded);
+		}
+		if(!empty($orderBy)) {
+			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
+		}
+
+		if(!empty($limit)) {
+			$getVideos = $getVideos->take($limit);
+		}
+
+		foreach($getVideos as $key => $getVideo){
+			if(Auth::check()){
+				$getVideos[$key]->ifReported = DB::table('reports')->where(array(
+					'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
+				))->first();
+			}
+			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
+				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
+			))->first();
+		}
+
+		return $getVideos->take($limit)->get();
+	}
+
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'videos.deleted_at', 'videos.created_at', 'videos.updated_at',
