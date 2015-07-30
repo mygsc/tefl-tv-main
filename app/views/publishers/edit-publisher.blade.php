@@ -1,6 +1,10 @@
 
 @extends('layouts.default')
 
+@section('title')
+    Edit Publisher | TEFLTV Publisher
+@stop
+
 @section('content')
 <br/>
 <div class="row">

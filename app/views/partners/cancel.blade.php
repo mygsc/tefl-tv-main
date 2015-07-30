@@ -1,5 +1,8 @@
-
 @extends('layouts.default')
+
+@section('title')
+    Cancel Partners | TEFLTV Partners
+@stop
 
 @section('content')
 <br/>

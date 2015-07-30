@@ -1,5 +1,9 @@
 @extends('layouts.partner')
 
+     @section('title')
+        Register Adsense | TEFLTV Partners
+     @stop
+
      @section('meta')
                
      @stop
