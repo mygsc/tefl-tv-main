@@ -336,10 +336,10 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         </p> 
                                         <p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                         <br />
-                                        <pre><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
+                                        <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                         <div class="seeVideoContent black">
                                             <br/>
-                                            <pre style="text-indent:none!important;">{{$videos->description}}</pre>
+                                            <pre style="text-indent:none!important;width:100%">{{$videos->description}}</pre>
                                             <br/><br/>
                                             <p><b>Tags:</b> {{$videos->tags}}<br/>
                                             <b>Categories:</b> {{$videos->category}}</p>
