@@ -1,7 +1,7 @@
 @extends('layouts.partner')
 
 @section('title')
-TEFLTV Publisher
+    TEFLTV Publisher | TEFL Tv
 @stop
 
 @section('content')
