@@ -1,5 +1,9 @@
 @extends('layouts.publisher')
 
+@section('title')
+  Register Adsense | TEFLTV Publisher
+@stop
+
 @section('meta')
 
 @stop

@@ -1,5 +1,8 @@
-
 @extends('layouts.default')
+
+@section('title')
+    Cancel Publisher | TEFLTV Publisher
+@stop
 
 @section('content')
 <br/>

@@ -1,5 +1,9 @@
 @extends('layouts.partner')
 
+    @section('title')
+        F.A.Q | TEFLTV Partners
+    @stop
+
     @section('meta')
             
     @stop

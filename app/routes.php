@@ -151,6 +151,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('earnings-settings', array('as' => 'users.earnings.settings', 'uses' => 'UserController@getEarningsSettings'));
 	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
 	Route::post('deactivate', array('as' => 'post.users.deactivate', 'uses' => 'UserController@postDeactivate'));
+	Route::post('editmonetize/{id}', array('as'=>'video.post.editmonetize', 'uses'=>'UserController@postEditMonetize'));
 });
 //*********End of Channels************//
 

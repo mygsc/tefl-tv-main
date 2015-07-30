@@ -1,7 +1,7 @@
 @extends('layouts.partner')
 
 @section('title')
-	TEFL TV partner's Support
+    Support | TEFLTV Partners
 @stop
 
 @section('content')
