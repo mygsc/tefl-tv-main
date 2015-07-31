@@ -6,6 +6,11 @@
 	{{HTML::style('css/vid.player.min.css')}}
 	{{HTML::script('js/subscribe.js')}}
 @stop
+
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
@@ -47,8 +52,8 @@
 				</nav>
 
 			  	<!-- Tab panes -->
-			    <div class="tab-content">
-				  	<div role="tabpanel" class="tab-pane active" id="home">
+			    <div class="">
+				  	<div id="home">
 						@include('elements/users/viewUser/homeSections/viewUser_homeSec_recentUpload')
 						@include('elements/users/viewUser/homeSections/viewUser_homeSec_videos')
 						@include('elements/users/viewUser/homeSections/viewUser_homeSec_playlists')

@@ -15,18 +15,13 @@
 					<div class="embed-responsive embed-responsive-16by9">
 						<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 							@if(file_exists(public_path('videos/'.$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-							<video poster="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-								<source src="/videos/{{$recentUpload->id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
+							<img src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" >
 							@else
 								<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}</a>
 							@endif
 						</a>
 							@endif			
 					</div>
-					@include('elements/videoPlayer')
 				</div>		
 			</div>
 			<br/><br/>				

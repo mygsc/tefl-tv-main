@@ -42,7 +42,7 @@
 			</div><!--/.row-->
 			<div class="Subscribers greyDark">
 				<div class="row">
-					<h4 class="inline orangeC">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
+					<h4 class="inline orangeC">{{$channel->subscribers_count}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
 					<br/>
 					@foreach($channel->subscribers as $subscriber)
 						{{HTML::image($subscriber->profile_picture, 'alt', array('class' => 'userRep'))}}

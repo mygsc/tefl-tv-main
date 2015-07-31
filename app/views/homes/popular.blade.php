@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    Popular Channels | TEFL Tv
+@stop
+
 @section('content')
 
 <div class="container">

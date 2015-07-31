@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}} - Subscriber | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container page">

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Category: {{$category}} - TEFL-tv
+	Category: {{$category}} | TEFL Tv
 @stop
 @section('content')
 <div class="container  ">

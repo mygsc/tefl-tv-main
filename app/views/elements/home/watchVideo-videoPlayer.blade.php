@@ -15,16 +15,18 @@
 					</video>
 					@endif
 				</div>
-				@include('ads/responsive')
+				@if($videos->monetize == 1)
+					@include('ads/responsive')
+				@endif
 				@include('elements/videoPlayer')
 				@if($countAnnotation > 0)
 					@for($i=0;$i < $countAnnotation;$i++)
 						@if(strlen($annotations[$i]->link)>0)
 							<div id='close-{{$i}}' class='annotation' style='{{$annotations[$i]->css}}'>
-									<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
-									<a href="{{$annotations[$i]->link}}" target='_blank'>{{$annotations[$i]->content}}</a>
-									{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
-									{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
+								<span id='annotation-close-{{$i}}' class='annotation-close glyphicon glyphicon-remove'></span>
+								<a href="{{$annotations[$i]->link}}" target='_blank'>{{$annotations[$i]->content}}</a>
+								{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
+								{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 							</div>
 						@else
 							@if($annotations[$i]->types == 'speech')

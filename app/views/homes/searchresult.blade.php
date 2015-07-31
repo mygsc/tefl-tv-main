@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	Search Result
+	Search Result | TEFL Tv
 @stop
 
 @section('content')

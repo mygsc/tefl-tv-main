@@ -255,9 +255,10 @@ class Video extends Eloquent{
 	}
 
 	public function relations($query = null,$id = null,$limit = null){
-
-		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish','videos.uploaded','videos.report_count',
-			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description',
+			'videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish',
+			'videos.uploaded','videos.report_count', 'videos.file_name','videos.user_id','users.channel_name',
+			'users.verified','users.status')
 		->whereRaw($query)
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
@@ -265,7 +266,7 @@ class Video extends Eloquent{
 		->where('videos.report_count', '<', 5)
 		->where('videos.id','!=',$id)
 		->where('users.status','=','1')
-		->join('users', 'user_id', '=', 'users.id');
+		->join('users', 'videos.user_id', '=', 'users.id');
 
 		if(!empty($limit)){
 			$returndata = $returndata->take($limit);

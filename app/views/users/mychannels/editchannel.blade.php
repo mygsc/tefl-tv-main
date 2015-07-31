@@ -1,5 +1,8 @@
 @extends('layouts.default')
 
+@section('title')
+    Edit Channels - {{Auth::User()->channel_name}} | TEFL Tv
+@stop
 
 @section('content')
 

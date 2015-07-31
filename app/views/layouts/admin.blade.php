@@ -19,11 +19,9 @@
 
 </head>
 <body>
-		@include('elements/admins/header-admin')
-		@include('elements/flash_message')
-		
-		@yield('content')
-
+	@include('elements/admins/header-admin')
+	@include('elements/flash_message')
+	@yield('content')
 </body>
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
