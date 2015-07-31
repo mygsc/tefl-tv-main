@@ -177,7 +177,9 @@ class UserController extends BaseController {
 		}else{
 			$attempt = User::getUserLogin($input['channel_name1'], $input['password']);
 			if($attempt){
-				$verified = Auth::User()->verified; $status = Auth::User()->status; $role = Auth::User()->role; //VARIABLES
+				$verified = Auth::User()->verified; 
+				$status = Auth::User()->status; 
+				$role = Auth::User()->role; //VARIABLES
 				if($role != '2' && $verified == '1' && $status != '2'){
 					return Redirect::intended('/')->withFlashGood('Welcome '.$input['channel_name1']);
 				}elseif($verified == '0'){
@@ -188,11 +190,11 @@ class UserController extends BaseController {
 					return Redirect::route('homes.signin')->with('flash_bad','Your account was banned! Please contact the TEFLTV Administrator');
 				}else{
 					Auth::logout();
-					return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
+					return Redirect::route('homes.signin')->withFlashBad('Wrong username or password!')->withInput();
 				}
 			}
 		}
-		return Redirect::route('homes.signin')->withFlashBad('Invalid Credentials!')->withInput();
+		return Redirect::route('homes.signin')->withFlashBad('Wrong username or password!')->withInput();
 	}
 
 	public function postResendUserVerify(){
@@ -222,7 +224,6 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
-		//return $datas;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 

@@ -45,6 +45,7 @@ class Publisher extends Eloquent implements UserInterface, RemindableInterface {
 		$publishers->user_id = Auth::user()->id;
 		$publishers->adsense_id = $adsense_id;
 		$publishers->ad_slot_id = $ad_slot_id;
+		$publishers->deleted_at = null;
 		$publishers->save();
 
 		$users = User::find(Auth::User()->id);
