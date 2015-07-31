@@ -61,8 +61,8 @@ class HomeController extends BaseController {
 
 	public function postReportSupport(){
 		$input = Input::all();
-		$validate = $validator = Validator::make($input,
-			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
+		$validate = $validator = Validator::make($input, 
+			array('name' => 'required', 'email'=>'required|email', 'message' => 'required')
 		);
 		if($validate->fails()) return Redirect::route('get.homes.supportreport')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 

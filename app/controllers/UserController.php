@@ -67,7 +67,7 @@ class UserController extends BaseController {
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
 		}
-		
+
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
@@ -76,7 +76,9 @@ class UserController extends BaseController {
 		$input = Input::all();
 		if(Input::has('cancel')) return Redirect::route('homes.signin');
 
-		$blackListChannels = array("tefl tv", "tefl_tv", 'tefltv', 'tefl-tv');
+		$blackListChannels = array("tefl tv", "tefl_tv", 'tefltv', 'tefl-tv', 'tefl@tv',
+			'tefleducators', 'tefleducator', 'tefl educator', 'tefl-educator', 'tefl@educator', 'tefl_educator',
+			, 'tefl educators', 'tefl-educators', 'tefl@educators', 'tefl_educators');
 		$compareChannelName = strtolower($input['channel_name']);
 
 		foreach ($blackListChannels as $blackListChannel) {
