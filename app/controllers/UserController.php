@@ -71,14 +71,13 @@ class UserController extends BaseController {
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
-
 	public function postSignUp() {
 		$input = Input::all();
 		if(Input::has('cancel')) return Redirect::route('homes.signin');
 
 		$blackListChannels = array("tefl tv", "tefl_tv", 'tefltv', 'tefl-tv', 'tefl@tv',
 			'tefleducators', 'tefleducator', 'tefl educator', 'tefl-educator', 'tefl@educator', 'tefl_educator',
-			, 'tefl educators', 'tefl-educators', 'tefl@educators', 'tefl_educators');
+			'tefl educators', 'tefl-educators', 'tefl@educators', 'tefl_educators');
 		$compareChannelName = strtolower($input['channel_name']);
 
 		foreach ($blackListChannels as $blackListChannel) {
