@@ -15,9 +15,15 @@ class HomeController extends BaseController {
 		$this->publisher_ = new Publisher;
 		$this->ReportSupport = $reportSupport;
 	}
+
+	public function getReportSupport() { return View::make('errors.fatal'); }
+	public function postPlaylist() { return View::make('homes.playlist'); }
+	public function getChannels() { return View::make('homes.channels'); }
+	public function partnership(){ return View::make('homes.partnership'); }
+	public function getChangeLogs() { return View::make('homes.changelogs'); }
+	public function getViewVideo(){ return View::make('videoplayer'); }
 	
 	public function getIndex() {
-		//return Auth::User();
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '12');
 		$populars = $this->Video->getFeaturedVideo('popular', '12');
 		$latests = $this->Video->getFeaturedVideo('latest', '12');
@@ -26,6 +32,7 @@ class HomeController extends BaseController {
 		$notifications = $this->Notification->getNotificationForSideBar();
 		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
+
 	public function getAboutUs() { 
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
@@ -40,14 +47,10 @@ class HomeController extends BaseController {
 			array('name' => $input['name'], 'email' => $input['email'], 'message' => $input{'message'}),
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
 		);
-
-		if($validate->fails()){
-			return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
-		}
+		if($validate->fails()) return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 
 		$data = array('email'=>$input['email'], 'name'=>$input['name'], 'message'=>$input['message']);
-		Mail::send('emails.welcome', $data, function($message)
-		{
+		Mail::send('emails.welcome', $data, function($message){
 			$message->to('support@tefltv.com')->subject('Support request from '. Input::get('email'));
 		});
 		Mail::send('emails.reports.thankyou_support', $data, function($message){
@@ -56,63 +59,45 @@ class HomeController extends BaseController {
 		return Redirect::route('homes.aboutus')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
 
-	public function getReportSupport() { return View::make('errors.fatal'); }
 	public function postReportSupport(){
 		$input = Input::all();
 		$validate = $validator = Validator::make($input,
 			array('name' => 'required', 'email' => 'required|email', 'message' => 'required')
 		);
+		if($validate->fails()) return Redirect::route('get.homes.supportreport')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 
-		// if($validate->fails()) return Response::json(array('status'=>'error','label' => 'The fill-up the form.'));
-		if($validate->fails()){
-			return Redirect::route('get.homes.supportreport')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
-		}
-
-		DB::table('report_supports')->insert(
-			array('name' => $input['name'],'email' => $input['email'],'message' => $input['message'])
-		);
+		DB::table('report_supports')->insert(array('name' => $input['name'],'email' => $input['email'],'message' => $input['message']));
 
 		$data = array('email'=>$input['email'], 'name'=>$input['name'], 'message'=>$input['message']);
 		Mail::send('emails.reports.thankyou_support', $data, function($message) use($input) {
 			$message->to($input['email'])->subject('TEFLtv Support Team');
 		});
-		// return Response::json(array('status'=>'success','label' => 'The fill-up the form.'));
 		return Redirect::route('homes.index')->withFlashGood('Your message was successfully sent. Thank you for using our services!');
 	}
 
 	public function getPrivacy() {
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-
 		return View::make('homes.privacy', compact('categories', 'notifications')); 
 	}
 
 	public function getTermsAndConditions() {
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-
 		return View::make('homes.termsandconditions', compact('categories','notifications'));
 	}
 
 	public function getAdvertisements() {
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-
 		return View::make('homes.advertisements', compact('categories','notifications'));
 	}
 	
 	public function getCopyright() { 
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-
 		return View::make('homes.copyright', compact('categories','notifications')); 
 	}
-
-	public function postPlaylist() { return View::make('homes.playlist'); }
-
-	public function getChannels() { return View::make('homes.channels'); }
-
-	public function partnership(){ return View::make('homes.partnership'); }
 
 	public function getPopular() {
 		$categories = $this->Video->getCategory();
@@ -122,6 +107,7 @@ class HomeController extends BaseController {
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
+
 		return View::make('homes.popular', compact('popularVideos','categories','notifications'));
 	}
 
@@ -143,7 +129,6 @@ class HomeController extends BaseController {
 		$playlists = $this->Playlist->getPlaylist(12,'playlists.created_at');
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$options = array('Likes'=>'Likes','View'=>'View', 'Recent'=>'Recent');
-
 		return View::make('homes.playlist', compact(array('options', 'playlists','categories', 'notifications')));
 	}
 
@@ -171,7 +156,6 @@ class HomeController extends BaseController {
 			->paginate(16);
 
 			foreach($videos as $key => $video){
-				//Thumbnails
 				$folderName = $video->user_id. '-'. $video->channel_name;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
@@ -239,7 +223,6 @@ class HomeController extends BaseController {
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
 					$randoms = $this->Video->randomRelation($randomCounter,$videos->id);
-					
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
@@ -303,17 +286,15 @@ class HomeController extends BaseController {
 				'videoId','like','totalLikesDislikes','watchLater','newRelation','countSubscribers','ownerVideos',
 				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe',
 				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url', 'adsense','role'
-				)
-			);
+			)
+		);
 	}
 
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
 
-		if(!isset(Auth::User()->id)){
-			if($randID->privacy == '0') return Redirect::route('homes.index');
-		}
+		if(!isset(Auth::User()->id)) if($randID->privacy == '0') return Redirect::route('homes.index');
 
 		$video = Video::where('file_name','=',$videoId)->first();
 		$owner = User::find($video->user_id);
@@ -332,8 +313,7 @@ class HomeController extends BaseController {
 			->where('user_id','=',Auth::User()->id)->first();
 			$dislike = UserDislike::where('video_id','=',$video->id)
 			->where('user_id','=',Auth::User()->id)->first();
-		}
-		else{
+		} else{
 			$like = null;
 			$favorites = null;
 			$watchLater = null;
@@ -349,7 +329,6 @@ class HomeController extends BaseController {
 	public function postSignIn() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_login_rules);
-
 		if($validate->fails()) {
 			return Redirect::route('homes.signin')->with('flash_bad',"Wrong Channel name or password")->withInput();
 		} else{
@@ -366,12 +345,9 @@ class HomeController extends BaseController {
 	public function postSignUp() {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_rules);
+		if($validate->passes()) return $this->User->signup();
 
-		if($validate->passes()){
-			return $this->User->signup();
-		}else{
-			return Redirect::route('homes.signin')->withErrors($validate)->withInput();
-		}
+		return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 	}
 
 	public function addComment(){
@@ -607,9 +583,7 @@ public function addReply(){
 		$videoId = Input::get('video_id');
 
 		if($statuss == 'liked'){
-			DB::table('comments_likesdislikes')->insert(
-				array('comment_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked')
-				);
+			DB::table('comments_likesdislikes')->insert(array('comment_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked'));
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'disliked'))->delete();
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'disliked'))->count();
@@ -622,7 +596,6 @@ public function addReply(){
 			}
 			/*Notification End*/
 			return Response::json(array('status' => 'success', 'likescount' => $likesCount, 'label' => 'unliked', 'dislikesCount' => $dislikesCount));
-
 		} elseif($statuss == 'unliked'){
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'liked'))->delete();
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $likeCommentId, 'status' => 'liked'))->count();
@@ -636,9 +609,7 @@ public function addReply(){
 		$videoId = Input::get('video_id');
 
 		if($statuss == 'disliked'){
-			DB::table('comments_likesdislikes')->insert(
-				array('comment_id' => $dislikeCommentId,'user_id' => $dislikeUserId,'status' => 'disliked')
-				);
+			DB::table('comments_likesdislikes')->insert(array('comment_id' => $dislikeCommentId,'user_id' => $dislikeUserId,'status' => 'disliked'));
 			$dislikesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();
 			$likesCount = DB::table('comments_likesdislikes')->where(array('comment_id' => $dislikeCommentId, 'status' => 'liked'))->count();
@@ -657,9 +628,7 @@ public function addReply(){
 		$videoId = Input::get('video_id');
 
 		if($statuss == 'liked'){
-			DB::table('comments_reply_likesdislikes')->insert(
-				array('comments_reply_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked')
-				);
+			DB::table('comments_reply_likesdislikes')->insert(array('comments_reply_id' => $likeCommentId,'user_id' => $likeUserId,'status' => 'liked'));
 			$likesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'status' => 'liked'))->count();
 			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $likeCommentId, 'user_id' => $likeUserId, 'status' => 'disliked'))->delete();
 			
@@ -688,11 +657,8 @@ public function addReply(){
 		$videoId = Input::get('video_id');
 
 		if($statuss == 'disliked'){
-			DB::table('comments_reply_likesdislikes')->insert(
-				array('comments_reply_id'=>$dislikeCommentId,'user_id'=>$dislikeUserId,'status'=>'disliked')
-				);
-			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();
-			
+			DB::table('comments_reply_likesdislikes')->insert(array('comments_reply_id'=>$dislikeCommentId,'user_id'=>$dislikeUserId,'status'=>'disliked'));
+			DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'user_id' => $dislikeUserId, 'status' => 'liked'))->delete();	
 			$dislikesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'status' => 'disliked'))->count();
 			$likesCount = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $dislikeCommentId, 'status' => 'liked'))->count();
 			return Response::json(array('status' => 'success', 'dislikescount' => $dislikesCount, 'label' => 'undisliked', 'likesCount' => $likesCount));
@@ -708,10 +674,8 @@ public function addReply(){
 		$videoId = Crypt::decrypt(Input::get('video_id'));
 		$userId = Crypt::decrypt(Input::get('user_id'));
 		$deleteComment = DB::table('comments')->where(array('id' => $commentId, 'user_id' => $userId, 'video_id' => $videoId))->delete();
-		
-		if($deleteComment){
-			return Response::json(array('status' => 'success'));
-		}
+		if($deleteComment) return Response::json(array('status' => 'success'));
+
 		return Response::json(array('status' => 'failed'));
 	}
 	public function deleteReply() {
@@ -720,9 +684,8 @@ public function addReply(){
 		$userId = Crypt::decrypt(Input::get('user_id'));
 		$inputs = $c_id ."-". $comment_Id ."-". $userId;
 		$deleteReply = DB::table('comments_reply')->where(array('id' => $c_id, 'comment_id' => $comment_Id, 'user_id' => $userId))->delete();
-		if($deleteReply){
-			return Response::json(array('status' => 'success', 'inputs' => $inputs));
-		}
+		if($deleteReply) return Response::json(array('status' => 'success', 'inputs' => $inputs));
+
 		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
 	}
 
@@ -732,9 +695,8 @@ public function addReply(){
 		$reasons = Input::get('reasons');
 		$comment = Input::get('comment');
 
-		if(empty($reply)){
-			return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
-		}
+		if(empty($reply)) return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
+
 		if(!empty($reply)){
 			$replies = new CommentReply;
 			$replies->comment_id = $comment_id;
@@ -743,10 +705,6 @@ public function addReply(){
 			$replies->save();
 			$userInfo = User::find($user_id);
 		}
-	}
-
-	public function getChangeLogs() {
-		return View::make('homes.changelogs');
 	}
 
 	public function getTimezone(){
@@ -758,8 +716,7 @@ public function addReply(){
 
 	public function testingpage(){
 		$data = array('message' => 'tesst');
-		Mail::send('emails.homes.forward', $data, function($message)
-		{
+		Mail::send('emails.homes.forward', $data, function($message){
 			$message->to('kevwiththec@yahoo.com')->cc('kevwiththec@yahoo.com');
 		});
 	}
@@ -772,12 +729,9 @@ public function addReply(){
 			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
 		}
 	}
-	public function getViewVideo(){
-		return View::make('videoplayer');
-	}
+	
 	public function getPublishVideo($id, $filename, $autoplay=0){
 		$get = Video::where('file_name','=',$filename);
-
 		if($get->count()){
 			$get = $get->first();
 			$vidOwner = User::find($get->user_id);

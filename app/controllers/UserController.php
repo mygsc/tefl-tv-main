@@ -44,11 +44,10 @@ class UserController extends BaseController {
 	public function viewSocial() { return View::make('testing');}
 	public function postDeleteUserFeedbackReply() { return Input::all(); }
 	public function postReportUserFeedbackReply() { return Input::all(); }
+	public function postSignupWithTeflTv(){ return Redirect::route('homes.signin', 'signup'); }
 	
 	public function getSignIn() {
-		if(Auth::check()) {
-			return Redirect::route('homes.index');
-		}
+		if(Auth::check()) return Redirect::route('homes.index');
 		return View::make('homes.signin');
 	}
 
@@ -60,19 +59,15 @@ class UserController extends BaseController {
 		return Redirect::route('homes.signin')->withFlashBad('Permission was denied');
 	}
 
-	public function postSignupWithTeflTv(){
-		return Redirect::route('homes.signin', 'signup');
-	}
-
 	public function postSignupWithSocialMedia(){
 		Session::reflash();
 		$input = Input::all();
 		$validate = Validator::make($input, User::$userRules);
-
 		if($validate->passes()){
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
 		}
+		
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
 	}
 
