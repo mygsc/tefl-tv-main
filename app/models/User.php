@@ -175,7 +175,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'organization',
 			'interests',
 			DB::raw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) AS views'),
-			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
+			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers_count'))
 		->take($limit)
 		->whereRaw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) > 0')
 		->where('status', 1)
@@ -191,7 +191,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 
 			$subscribe = new Subscribe();
-			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 5);
+			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 10);
 		}
 		return $userData;
 	}

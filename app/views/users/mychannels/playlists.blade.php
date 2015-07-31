@@ -148,11 +148,12 @@
 
 
 @section('script')
+{{HTML::script('js.user.playlist')}}
 {{HTML::script('js/video-player/jquery.form.min.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
-{{HTML::script('js/user/modalclearing.js')}}}
-@stop
+{{HTML::script('js/user/modalclearing.js')}}
+
 <script type="text/javascript">
 	$('.grid').click(function() {
 		$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');

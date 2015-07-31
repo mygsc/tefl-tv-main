@@ -15,7 +15,7 @@
 					<div class="embed-responsive embed-responsive-16by9">
 						<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 							@if(file_exists(public_path('videos/'.$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')) )
-							<img src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
+							<img src="/videos/{{$recentUpload->user_id.'-'.$recentUpload->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" >
 							@else
 								<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}</a>
 							@endif
