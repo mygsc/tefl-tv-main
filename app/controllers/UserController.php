@@ -241,6 +241,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id, 6);
 		$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id, 6);
+		//return $subscriptionProfile;
 		$usersVideos = $this->Video->getVideos($this->Auth->id, null, 1,8);
 		$usersPlaylists = Playlist::where('user_id', $this->Auth->id)->paginate(8);
 
@@ -785,6 +786,7 @@ class UserController extends BaseController {
 		$userSubscribe = User::where('channel_name', $channel_name)->first();
 		$usersImages = $this->User->getUsersImages($usersVideos->id, true);
 		$subscribers = $this->Subscribe->Subscribers($userChannel->id);
+		$subscriptions = $this->Subscribe->Subscriptions($userChannel->id, 6);
 		$recentUpload = $this->Video->getUserVideos($userChannel->id, 'videos.created_at',1,1)->first();
 		$usersPlaylists = Playlist::where('user_id', $userChannel->id)->paginate(6);
 		
