@@ -159,7 +159,7 @@
 @stop
 
 @section('script')
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/media.player.js')}}
 {{HTML::script('js/homes/convert_specialString.js')}}
