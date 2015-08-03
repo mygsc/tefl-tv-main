@@ -396,14 +396,14 @@ div.error-video{
  	left:0;
   	right: 0;
   	top: 0;
-  	/*bottom: 0;*/
+  	bottom: 0;
   	width: 35%;
   	height: 8%;
-  	/*background: rgba(27,27,27,0.6);*/
-  	background: rgba(0,0,0,0.6);
+  	background:transparent;
 	padding: 10px;
 	display: none;
 	text-align: center;
+	text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
 div.error-video small{
  	color:#fff;

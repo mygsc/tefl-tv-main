@@ -153,10 +153,18 @@ class HomeController extends BaseController {
 		}
 		return Redirect::route('homes.index');
 	}
+	private function duration($totalTime, $hrs = 0, $min = 0, $sec = 0){
+		$totalResult =  explode(':',$totalTime); $getQty =  count($totalResult);
+		if($getQty==3){ $hrs = $totalResult[0]*3600;$min = $totalResult[1]*60;$sec = $totalResult[2]*1;}
+		if($getQty==2){ $min = $totalResult[0]*60;$sec = $totalResult[1]*1;}
+		if($getQty==1){ $sec = $totalResult[0]*1;} 
+		return $duration =  $hrs + $min + $sec;
+	}
 
-	public function watchVideo($idtitle=null){
+	public function watchVideo($idtitle=null, $autoplay = 1){
 		$videos = Video::where('file_name','=',$idtitle)->first();
-		
+		$totalTime = $videos->total_time;
+		$duration = $this->duration($totalTime);
 		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
@@ -172,17 +180,18 @@ class HomeController extends BaseController {
 		$relations = $this->Video->relations($query,$videos->id);
 		$counter = count($relations);
 		$ownerVideos = Video::where('user_id',$videos->user_id)
-			->where('publish','1')->where('uploaded','1')->where('report_count','<','5')
+			->where('publish','1')
+			->where('uploaded','1')
+			->where('report_count','<','5')
 			->where('id','!=',$videos->id)->orderBy('id','desc')->take(3)->get();
 		$likeownerVideosCounter = 0;
 
 		foreach($ownerVideos as $ownerVideo){
 			$likeownerVideos[] = UserLike::where('video_id',$ownerVideo->id)->count();
 		}
-
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
-		} else{
+		}else{
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
@@ -190,7 +199,6 @@ class HomeController extends BaseController {
 					$merging = array_merge(json_decode($relations, true),json_decode($randoms, true));
 					$newRelation =array_unique($merging,SORT_REGULAR);
 				}		
-				$randomCounter--;
 			}
 		}
 
@@ -243,11 +251,12 @@ class HomeController extends BaseController {
 			if(!file_exists(public_path($img))){
 				$img = '/img/user/0.jpg';
 			}
-			$datas[$key]->image_src = $img;
-			$datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
+			// $datas[$key]->image_src = $img;
+			// $datas[$key]->subscribers = $this->Subscribe->getSubscribers($channel->channel_name, 10);
 
 		}
-		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike'));
+
+		return View::make('homes.watch-video',compact('videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 'videoId','like','likeCounter','watchLater','newRelation','countSubscribers','ownerVideos','likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe','dislikeCounter','dislike', 'autoplay', 'duration'));
 	}
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
@@ -642,20 +651,23 @@ class HomeController extends BaseController {
 	}
 
 	public function testingpage(){ 
-		// $path = '/usr/bin/ffmpeg';
-		// $source = '/home/grald/Desktop/explainer.wmv';
-		// $destination = '/home/grald/Desktop/explainer.mp4';
-		// $destination1 = '/home/grald/Desktop/explainer.webm';
-		// shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
-		// return 'done converting...';
+		$path = '/usr/bin/ffmpeg';
+		$source = '/home/grald/Desktop/TEFLTV_EXPLAINER.avi';
+		//$destination = '/home/grald/Desktop/explainer.mp4';
+		$destination1 = '/home/grald/Desktop/triphd.webm';
+		$destination2 = '/home/grald/Desktop/trip600x360.webm';
+		//shell_exec("$path  -i $source -s 1280x720 -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame $destination");
+		shell_exec("$path  -i $source -original 1 -metadata title='License to TEFL TV' -s 600x480 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination1");
+		//shell_exec("$path  -i $source -s 600x360 -bufsize 1835k -vcodec libvpx -acodec libvorbis -qp 0  -preset ultrafast $destination2");
+		return 'done converting...';
 	}
-	public function postincrementView($filename=null){
+	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){
 			$totalView = $increment->views;
 			$increment->views = $totalView + 1;
 			$increment->save();
-			return Response::json(['totalView'=>$totalView]);
+			return Response::json(['totalView' => $totalView, 'autoplay' => $autoplay]);
 		}
 	}
 }

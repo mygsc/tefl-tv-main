@@ -42,8 +42,7 @@
 	<div class="container page">
 		<br/>
 		<div class="row same-H White">
-			@include('elements/users/profileTop2')
-			
+			@include('elements/users/viewUser/viewUser_profileTop')
 			<div class="channel-content">
 
 				<div role="tabpanel">
@@ -52,9 +51,9 @@
 				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+				    	<li role="presentation">{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
 				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 				  		
 				  	</ul><!--tabNav-->
 				  	<nav class="navbar navbar-default visible-sm visible-xs">
