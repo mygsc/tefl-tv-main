@@ -2,7 +2,6 @@
 
 class HomeController extends BaseController {
 
-
 	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists) {
 		$this->User = $user;
 		$this->Video = $video;
@@ -63,9 +62,9 @@ class HomeController extends BaseController {
 		return View::make('homes.signin');
 	}
 
-	public function getWatchVideo() {
-		return View::make('homes.advertisements');
-	}
+	// public function getWatchVideo() {
+	// 	return View::make('homes.advertisements');
+	// }
 
 	public function getIndex() {
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
@@ -160,17 +159,23 @@ class HomeController extends BaseController {
 		if($getQty==1){ $sec = $totalResult[0]*1;} 
 		return $duration =  $hrs + $min + $sec;
 	}
-
-	public function watchVideo($idtitle=null, $autoplay = 1){
-		$videos = Video::where('file_name','=',$idtitle)->first();
+	private function getURL(){
+		$url = URL::full();
+		$domain = asset('/');
+		$filename = str_replace($domain.'watch?v=', '', $url);
+		return $filename;
+	}
+	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
+		$filename = $this->getURL();
+		$videos = Video::where('file_name', '=', $filename)->first();
+		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the link you are looking is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
-		if(!isset($videos)) return Redirect::route('homes.index')->with('flash_bad','Video not found.');
 		$id = $videos->id;
 		$videoId = $id;
 		$owner = User::find($videos->user_id);
 
-		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','The video is not published.');
+		if($videos->publish != '1' and Auth::User()->id != $videos->user_id)return Redirect::route('homes.index')->with('flash_bad','Sorry, the video is not published.');
 		if($owner->status != '1') return Redirect::route('homes.index')->with('flash_bad','The owner of this video is deactivated.');
 
 		$title = preg_replace('/[^A-Za-z0-9\-]/', ' ',$videos->title);

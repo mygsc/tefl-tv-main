@@ -237,7 +237,8 @@ class VideoController extends BaseController {
 	}
 
 	public function getViewVideoPlayer(){
-		$filename = str_replace('http://localhost:8000/watch?v=', '', $this->url);
+		$domain = asset('/');
+		$filename = str_replace($domain.'watch?v=', '', $this->url);
 		return $filename;
 		return View::make('videoplayer');
 	}
