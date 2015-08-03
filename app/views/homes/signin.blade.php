@@ -1,7 +1,7 @@
 @extends('layouts.signin')
 
 @section('title')
-    Login | TEFL Tv
+    Login/Signup | TEFL Tv
 @stop
 
 @section('header_script')
