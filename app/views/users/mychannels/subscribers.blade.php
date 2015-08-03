@@ -74,7 +74,8 @@
 																<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
 																@if(isset(Auth::User()->id))
 																	<?php
-																		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 'subscriber_id' => Auth::User()->id))->first();
+																		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 
+																			'subscriber_id' => Auth::User()->id))->first();
 																	?>
 																	@if(isset($profile->id))
 																		@if(Auth::User()->id != $profile->subscriber_id)
@@ -133,10 +134,10 @@
 														    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
 														    			@if(!$ifAlreadySubscribe)
 														    				{{Form::hidden('status','subscribeOn')}}
-																	    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs subs-btn-size pull-right', 'id'=>'subscribebutton'))}}
+																	    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right  subs-btn-size', 'id'=>'subscribebutton'))}}
 																	    @else
 																	    	{{Form::hidden('status','subscribeOff')}}
-																	    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-info btn-xs pull-right', 'id'=>'subscribebutton '))}}
+																	    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-info btn-xs pull-right', 'id'=>'subscribebutton'))}}
 																	    @endif
 																	{{Form::close()}}
 																@endif
@@ -165,15 +166,13 @@
 @stop
 
 @section('script')
+{{HTML::script('js/jquery.min.js')}}
+{{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/video-player/jquery.form.min.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{HTML::script('js/user/upload_image.js')}}
 {{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/user/modalclearing.js')}}
-{{HTML::script('js/jquery.min.js')}}
-{{HTML::script('js/subscribe.js')}}
-{{HTML::script('js/media.player.js')}}
-{{HTML::script('js/homes/convert_specialString.js')}}
 
 	<script type="text/javascript">
 		$('.grid').click(function() {
