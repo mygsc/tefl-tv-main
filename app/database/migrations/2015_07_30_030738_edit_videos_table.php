@@ -13,7 +13,7 @@ class EditVideosTable extends Migration {
 	public function up()
 	{
 		Schema::table('videos', function(Blueprint $table){
-			$table->enum('monetize', array('0', '1'))->comment('0 = inactive, 1 = active')->after('reported')->nullable()->default('0');
+			$table->enum('monetize', array('0', '1'))->comment('0 = inactive, 1 = active')->after('reported')->nullable()->default('1');
 		});
 	}
 
