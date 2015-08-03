@@ -74,6 +74,20 @@ class UserController extends BaseController {
 		if(Input::has('cancel')){
 			return Redirect::route('homes.signin');
 		}
+		// dd(Input::get('channel_name'));
+
+		$blackListChannels = array("tefl tv", "tefl_tv", 'tefltv');
+		$compareChannelName = strtolower($input['channel_name']);
+
+		// $pregrap = preg_grep('/^tefltv\s.*/', $blackListChannels);
+		// dd($pregrap);
+
+		// if (in_array($compareChannelName, $blackListChannels)) {
+		//     return Redirect::route('homes.signin', array('signup' => 'signup'))->withInput()
+		//     ->withFlashBad('This channel name is blacklisted. Please try different channel name.');
+		// }
+
+		// dd('a');
 
 		$validate = Validator::make($input, User::$userRules);
 		if($validate->passes()){
@@ -210,7 +224,6 @@ class UserController extends BaseController {
 	}
 	public function getTopChannels(){
 		$datas = $this->User->getTopChannels(10);
-		//return $datas;
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
 
