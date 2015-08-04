@@ -254,6 +254,8 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline"> No available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save poster</button><br>
+											
 											</div>
 										</div>
 										<div class="col-md-4">
@@ -344,7 +346,7 @@
 					    	<div role="tabpanel" class="tab-pane active" id="monetization-tab">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
-										<div class="well">
+										<div class="well mg-t-20">
 											{{Form::label('Monetize this video:')}}<br/>
 											<span class="v-category">
 												{{Form::checkbox('monetize', ($video->monetize ? 'Yes' : 'No'), $video->monetize,['id'=>'monetize'])}}
