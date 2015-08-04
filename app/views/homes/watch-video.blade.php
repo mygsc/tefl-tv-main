@@ -106,7 +106,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 <div class="col-md-12"><div>
                                     <br/>
                                         <div class="row">
-                                            <div class="col-md-9 col-sm-9 col-xs-8">
+                                            <div class="col-md-9 col-sm-9 ">
                                                 <p class="black wv-title">
                                                     {{$videos->title}}
                                                 </p>
