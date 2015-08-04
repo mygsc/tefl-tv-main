@@ -22,7 +22,7 @@
 					<!-- <button class="btn btn-primary btn-xs pull-right">Subscribe</button> -->
 					@if(isset(Auth::User()->id))
 					<?php
-						$ifAlreadySubscribe = Subscribe::where(array('subscriber_id' => $subscriber->user_id, 'user_id' => Auth::User()->id))->first();
+						$ifAlreadySubscribe = Subscribe::where('user_id', $subscriber->subscriber_id)->where('subscriber_id', Auth::User()->id)->first();
 						?>
 
 						@if(isset($subscriber->id))

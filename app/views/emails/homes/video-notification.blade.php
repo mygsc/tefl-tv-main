@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="">
 </head>
 <body>
-	<p>Hi ucfirst({{$user}}),</p>
+	<p>Hi {{ucfirst($user)}},</p>
 	<p>Your video ({{$title}}) is ready for viewing <a href='{{$link}}' target='_blank'>click here.</a></p>
 </body>
 </html>
