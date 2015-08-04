@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .ads-absolute-wrapper{
         position:absolute;
@@ -6,7 +5,7 @@
         height:60px;
         left: 0;
         right: 0;
-        display: none;
+        display: block;
         bottom:10px!important;
         /*bottom:0;*/
         margin:auto;

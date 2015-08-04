@@ -342,7 +342,8 @@ a {
 }
 .textbox-layout input[type="text"], 
 .textbox-layout input[type="password"], 
-.textbox-layout textarea {
+.textbox-layout textarea,
+.textbox-layout select {
     margin-bottom: 10px;
 }
 
@@ -360,7 +361,8 @@ a {
 
 input[type="text"], 
 input[type="password"], 
-textarea {
+textarea,
+select {
     vertical-align: middle;
     display: inline-block;
     width: 100%;
