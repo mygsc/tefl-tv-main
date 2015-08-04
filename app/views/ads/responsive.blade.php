@@ -6,7 +6,7 @@
         height:60px;
         left: 0;
         right: 0;
-        display: block;
+        display: none;
         bottom:10px!important;
         /*bottom:0;*/
         margin:auto;
