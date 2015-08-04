@@ -1,5 +1,8 @@
 // $(document).ready(function(){
+    var stopClickCommment = false;
 	$("#btncomment").click(function() {
+        if(stopClickCommment) return;
+        stopClickCommment = true;
 		var txtComment = $('#comment').val();
 		var txtVideoId = $('#commentVideo').val();
 		var txtUserId = $('#commentUser').val();
@@ -22,8 +25,8 @@
 		        		$('textarea#comment').val('');
 		        		$('#appendNewCommentHere').prepend(data['comment']);
 		        		$('#replysection').find(".panelReply").hide('slow');
-		        		// alert(data['status']);
 		        	}
+                    stopClickCommment = false;
 	           	}
 	    	});
 		}
@@ -44,7 +47,6 @@
         			$("#errorlabel").focus();
         		}
         		if(data['status'] == 'success'){
-        			alert(data['status']);
         			$('textarea.txtreply').val('');
         			$(this).prepend(data['reply']);
 	        	}
@@ -58,7 +60,10 @@
 		$("#replyLink").addClass("hidden");
 	});
 
-	$('#mainCommentBody').on("click", '.commentlikedup', function() {
+    var stopClickCommmentLike = false;
+	$('#mainCommentBody').on("click", '.commentlikedup', function getCommentLikedUp() {
+        if(stopClickCommmentLike) return;
+        stopClickCommmentLike = true;
 	    $.ajax({
 			type: 'POST',
 			url: '/addlikedcomment',
@@ -75,18 +80,22 @@
         			$(this).find('span#likescount').text(data['likescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
-        				$(this).find('span.fa-thumbs-up').addClass('blueC');
-                        $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC');
-                        $(this).parent().find('.commentdislikedup > span.dislikescount').val(data['dislikesCount']);
-        			} else if(data['label'] == 'liked'){
-        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+        				$(this).find('span.fa-thumbs-up').addClass('blueC active-ico');
+                        $(this).next('.commentdislikedup').find('span.fa-thumbs-down').removeClass('redC active-ico');
+                        $(this).parent().find('.commentdislikedup > span.dislikescount').text(data['dislikesCount']);
+                    } else if(data['label'] == 'liked'){
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC active-ico');
         			}
         			$(this).find('span.fa-thumbs-down').val(data['label']);
         		} 
+                stopClickCommmentLike = false;
             }
         });
 	});  
+    var stopClickCommentDislike = false;
 	$("#mainCommentBody").on("click", '.commentdislikedup', function () {
+        if(stopClickCommentDislike) return;
+        stopClickCommentDislike = true;
 		$.ajax({
 			type: 'POST',
 			url: '/adddislikedcomment',
@@ -103,18 +112,22 @@
         			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
-        				$(this).find('span.fa-thumbs-down').addClass('redC');
-                        $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC');
-                        $(this).parent().find('.commentdislikedup > span.likescount').val(data['likesCount']);
+        				$(this).find('span.fa-thumbs-down').addClass('redC active-ico');
+                        $(this).parents().find('.commentlikedup > span.fa-thumbs-up').removeClass('blueC active-ico');
+                        $(this).parent().find('.commentlikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
-        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        				$(this).find('span.fa-thumbs-down').removeClass('redC active-ico');
         			}
         		} 
+                stopClickCommentDislike = false;
             }
         });
 	});
-
+    
+    var stopClickReplyLiked = false;
 	$('#mainCommentBody').on("click", '.replylikedup', function() {
+        if(stopClickReplyLiked) return;
+        stopClickReplyLiked = true;
 	    $.ajax({
 			type: 'POST',
 			url: '/addlikedreply',
@@ -132,15 +145,22 @@
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'unliked'){
         				$(this).find('span.fa-thumbs-up').addClass('blueC');
-        			} else if(data['label'] == 'liked'){
-        				$(this).find('span.fa-thumbs-up').removeClass('blueC');
+                        $(this).parent().find('.replydislikedup > span.fa-thumbs-down').removeClass('redC active-ico');
+                        $(this).parent().find('.replydislikedup > span.dislikescount').text(data['dislikesCountReply']);
+                    } else if(data['label'] == 'liked'){
+        				$(this).find('span.fa-thumbs-up').removeClass('blueC active-ico');
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
         		} 
+                stopClickReplyLiked = false;
             }
         });
 	});
+
+    var stopClickReplyDisliked = false;
 	$("#mainCommentBody").on("click", '.replydislikedup', function () {
+        if(stopClickReplyDisliked) return;
+        stopClickReplyDisliked = true;
 		$.ajax({
 			type: 'POST',
 			url: '/adddislikedreply',
@@ -157,13 +177,50 @@
         			$(this).find('span#dislikescounts').text(data['dislikescount']);
         			$(this).find('input[name=status]').val(data['label']);
         			if(data['label'] == 'undisliked'){
-        				$(this).find('span.fa-thumbs-down').addClass('redC');
+        				$(this).find('span.fa-thumbs-down').addClass('redC active-ico');
+                        $(this).parent().find('.replylikedup > span.fa-thumbs-up').removeClass('blueC active-ico');
+                        $(this).parent().find('.replylikedup > span.likescount').text(data['likesCount']);
         			} else if(data['label'] == 'disliked'){
-        				$(this).find('span.fa-thumbs-down').removeClass('redC');
+        				$(this).find('span.fa-thumbs-down').removeClass('redC active-ico');
         			}
-        			// alert(data['likescount']);
         		} 
+                stopClickReplyDisliked = false;
             }
         });
 	});
+
+    $("#mainCommentBody").on("click", 'span.deleteComment', function () {
+        var comment_id = $(this).find('#comment_id').val();
+        var user_id = $(this).find('#user_id').val(); 
+        var video_id = $(this).find('#video_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/deletecomment',
+            cache: false,
+            context: this,
+            data: {comment_id: comment_id, user_id: user_id, video_id: video_id},
+            success: function(data){
+                if(data['status'] == 'success'){
+                    $(this).parents('.commentDeleteArea').fadeOut(500);
+                }
+            }
+        });
+    });
+    $("#mainCommentBody").on("click", 'button.deleteReply', function () {
+        var c_id = $(this).find('#c_id').val();
+        var comment_id = $(this).find('#comment_id').val();
+        var user_id = $(this).find('#user_id').val();
+        $.ajax({
+            type: 'POST',
+            url: '/deletereply',
+            cache: false,
+            context: this,
+            data: {c_id: c_id, comment_id: comment_id, user_id: user_id},
+            success: function(data){
+                if(data['status'] == 'success'){
+                    $(this).parents('.deleteReplyArea').fadeOut(500);
+                }
+            }
+        });
+    });
 // }); 

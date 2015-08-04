@@ -7,6 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	@yield('meta')
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+	<meta name="robots" content="NOODP">
+	<meta name="googlebot" content="NOODP">
 
 	<!-- CSS -->
 	{{ HTML::style('css/bootstrap.css') }}
@@ -16,14 +19,12 @@
 
 </head>
 <body>
-		@include('elements/admins/header-admin')
-		@include('elements/flash_message')
-		
-		@yield('content')
-
+	@include('elements/admins/header-admin')
+	@include('elements/flash_message')
+	@yield('content')
 </body>
 <!-- scripts -->
-{{HTML::script('js/jquery.js')}}
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/bootstrap.min.js')}}
 {{HTML::script('js/media.player.js')}}
 @yield('script')

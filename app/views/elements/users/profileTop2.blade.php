@@ -1,144 +1,105 @@
-		<div class="White Div-channel-border">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="div-coverDp">
-						<div class="uploaded_img pic-Dp">
-			 				@if(file_exists($picture))
-		         			{{HTML::image('img/user/'.$userChannel->id.'.jpg', 'alt', array('class' => 'pic-Dp'))}}
-				           	@else
-				          	  {{HTML::image('img/user/0.jpg', 'alt', array('class' => 'pic-Dp'))}}
-				            @endif
-					    </div>
-
-						@if(file_exists(public_path('img/user/cover_photo/' .$userChannel->id. '.jpg')))
-							{{HTML::image('img/user/cover_photo/' . $userChannel->id . '.jpg'.'?'.rand(10,100), 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-						@else
-							{{HTML::image('img/user/cover.jpg', 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-						@endif
-						<div class="div-coverP">
-							<div class="overlay-cover">
-								<span class="infoCounts">
-									<label>{{count($countSubscribers)}} Subscribers</label>
-									<label> Videos</label> &nbsp;
-									<label>{{$countAllViews}} Views</label>
-								</span>
-								<span class="pull-right" >
-									<span class="pull-right" >
-										@if(empty($usersWebsite))
-											No social sites connected..
-										@else
-											@if(empty($usersWebsite->facebook))
-											@else
-											<a href="https://www.facebook.com/{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
-											@endif
-
-											@if(empty($usersWebsite->twitter))
-											@else
-											<a href="{{$usersWebsite->twitter}}" target="_blank"><i class="socialMedia socialMedia-twitter"></i></a>
-											@endif
-
-											@if(empty($usersWebsite->google))
-											@else
-											<a href="{{$usersWebsite->google}}" target="_blank"><i class="socialMedia socialMedia-googlePlus"></i></a>
-											@endif
-
-											@if(empty($usersWebsite->others))
-											@else
-											<a href="http://{{$usersWebsite->others}}" target="_blank"><i class="socialMedia socialMedia-site"></i></a>
-											@endif
-										@endif
-										&nbsp;
-		 								@if($user_id)
-											{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
-								    			{{Form::hidden('user_id',$userChannel->id)}}
-								    			{{Form::hidden('subscriber_id', $user_id)}}
-								    			@if(!$ifAlreadySubscribe)
-								    				{{Form::hidden('status','subscribeOn')}}
-											    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
-											    @else
-											    	{{Form::hidden('status','subscribeOff')}}
-											    	{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
-											    @endif
-								    		{{Form::close()}}
-										@else
-											{{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary pull-right')); }}
-									    @endif
-									</span> 
-								</span>	
+<div class="White mg-b-20 same-H">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="div-coverDp">
+				<div class="uploaded_img pic-Dp">
+					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => 'pic-Dp'))}}
+				</div>
+				<div>
+					{{HTML::image($usersImages['cover_photo'], 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
+				</div>
+				<div class="div-coverP">
+					<div class="overlay-wrap">
+						<div class="container">
+							<div class="col-md-6 col-sm-6">
+								<div class="labelThis">
+									{{$userChannel->channel_name}}
+								</div>
 							</div>
-						</div>	
+							<div class="col-md-6 col-sm-6">
+								
+							</div>
+						</div>
+						<div class="overlay-cover container">
+							<div class="col-md-6">
+								<div class="text-left chaCounts">
+									<label>{{count($countSubscribers)}} Subscribers</label>
+									<label>{{$countVideos}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<span class="pull-right" >
+									@if(empty($usersWebsite))
+										No social media sites connected..
+									@else
+										@if(empty($usersWebsite->facebook))
+										@else
+										<a href="https://www.facebook.com/{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
+										@endif
+
+										@if(empty($usersWebsite->twitter))
+										@else
+											<a href="{{$usersWebsite->twitter}}" target="_blank"><i class="socialMedia socialMedia-twitter"></i></a>
+										@endif
+
+										@if(empty($usersWebsite->google))
+										@else
+											<a href="{{$usersWebsite->google}}" target="_blank"><i class="socialMedia socialMedia-googlePlus"></i></a>
+										@endif
+
+										@if(empty($usersWebsite->others))
+										@else
+											<a href="http://{{$usersWebsite->others}}" target="_blank"><i class="socialMedia socialMedia-site"></i></a>
+										@endif
+									@endif
+									&nbsp;
+	
+									@if(isset(Auth::User()->id))
+										<?php
+											$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => Auth::User()->id))->first();
+										?>
+										@if(Auth::User()->id != $userChannel->id)
+											{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
+											{{Form::hidden('user_id', $userChannel->id)}}
+											{{Form::hidden('subscriber_id', Auth::User()->id)}}
+											@if(!$ifAlreadySubscribe)
+												{{Form::hidden('status','subscribeOn')}}
+												{{Form::submit('Subscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+											@else
+												{{Form::hidden('status','subscribeOff')}}
+												{{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary pull-right', 'id'=>'subscribebutton'))}}
+											@endif
+											{{Form::close()}}
+										@endif
+									@endif
+								</span> 
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="user-info" >
-				<div class="labelThis">
-					{{$userChannel->channel_name}}
-				</div>
-				@if(empty($userChannel->interests))
-					<br/><br/>
-					<p class="text-justify notes center-block"></p>
-				@else
-					<p class="black center-block italic text-center fs-12">
-						<i class="fa fa-quote-left"></i>
-							{{ Str::limit($userChannel->interests, 200) }}
-						<i class="fa fa-quote-right"></i>
-					</p>
-				@endif
+				</div>	
 			</div>
 		</div>
+	</div>
+	<div class="user-info container">
+		<br/>
+		@if(empty($usersChannel->interests))
+			<p class="black italic text-center fs-12 mg-t-20">
+			</p>
+			<br/>
+		@else
+			<br/><br/>
+			<p class="black center-block italic text-center fs-12">
+				<i class="fa fa-quote-left"></i>
+				{{ Str::limit($usersChannel->interests,300) }}
+				<i class="fa fa-quote-right"></i>
+			</p>
+			<br/>
+		@endif
+	</div>
+</div>
 
-@section('some_script')
-	{{HTML::script('js/user/upload_image.js')}}
-	{{HTML::script('js/user/modalclearing.js')}}
-@stop
-
-@section('modal')
-		<div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Update Cover Photo</h4>
-		      </div>
-		      <div class="modal-body text-center">
-		      	<div style="margin-left:auto; margin-right:auto;" >
-		      		{{Form::open(array('route' => 'users.upload.cover.photo', 'files' => true))}}
-		      		<label class="fileContainer" style="margin-left:auto;">
-		      			<img src="/img/icons/upload.png"/>
-		      			{{Form::file('coverPhoto')}}
-		      		</label>
-		      	</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		           	{{Form::submit('Save',array('class' => 'btn btn-primary'))}}
-		        {{Form::close()}}
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-
-		<!-- Modal -->
-		<div class="modal fade" id="display_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog black">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        {{Form::open(array('route' => ['users.upload.image', $userChannel->id], 'files' => 'true'))}}
-		        {{ Form::file('image', array('id' => 'uploaded_img'))}}
-		      </div>
-		      <div class="modal-body">
-		            <div>
-		                {{HTML::image('img/user/' . $userChannel->id . '.jpg', 'Nothing to display.', array('id' => 'preview', 'class' => 'center-block'))}}
-		            </div>            
-		      </div>
-		      <div class="modal-footer">
-		        {{Form::submit("Save", array('class' => 'btn btn-info'))}}
-		        {{Form::close()}}
-		        <button type="button" class="btn btn-unSub" data-dismiss="modal">Cancel</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+@section('script')
+{{HTML::script('js/jquery.min.js')}}
+{{HTML::script('js/subscribe.js')}}
 @stop

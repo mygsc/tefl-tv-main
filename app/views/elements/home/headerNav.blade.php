@@ -24,13 +24,13 @@
                             
 
                             @if(Auth::check())
-
+                                <li><a href="{{route('users.channel')}}"><b> {{Auth::User()->channel_name}}</b></a></li>
                                 <!--@r3mmel-->
                                 <?php $watchVideoLink = stripos(Request::path(), 'watch'); ?>
                                 <?php $notifLink = stripos(Request::path(),'upload'); ?>
                                 <?php $viewUser = stripos(Request::path(),'channels/'); ?>
                                 @if(($watchVideoLink !== false) OR ($notifLink !== false) OR ($viewUser !== false))
-                                    <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
+                                    
                                     <li>
                                     <div class="btn-group hand" id="notification">
                                         <a class="dropdown-toggle nl" data-toggle="dropdown">

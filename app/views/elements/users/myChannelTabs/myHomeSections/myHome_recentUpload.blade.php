@@ -1,55 +1,47 @@
-
-<div class="row">
-	<div class="mg-20">
+<div class="White same-H mg-t-10">
+	<div class="row mg-20">
 		<br/>
 		@if(empty($recentUpload))
 		<div class="row">
 			<div class="text-center alert alert-info noA">
 				<h3>
-					{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.
+					{{ link_to_route('get.upload', 'Upload a Video', null) }} now to make your channel more appealing to subscribers.
 				</h3>
 			</div>
 		</div>
 		@else
 
 		<div class="col-md-6">
-
 			 <!-- <img src="/img/thumbnails/v1.jpg" class="img-responsive" width="100%"> -->
 			 <div id="vid-wrapper">
+
 				 <div id="vid-controls" class="p-relative">
-					 <div class="embed-responsive embed-responsive-16by9">
+					<div class="embed-responsive embed-responsive-16by9">
+					 	<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank">
 					 	@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name.'.jpg')))
-						 	<video id="media-video" poster="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.jpg'}}"  width="100%" >
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
+					 		<img src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '_600x338.jpg'}}"  width="100%" />
 					 	@else
 					 		{{HTML::image('img/thumbnails/video.png','alt' ,array('style' => 'width:100%;'))}}
-					 		<video id="media-video" poster="/img/thumbnails/video.png"  width="100%" >
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.mp4'}}" type="video/mp4" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.webm'}}" type="video/webm" />
-						 		<source src="/videos/{{Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$recentUpload->file_name.'/'.$recentUpload->file_name. '.ogg'}}" type="video/ogg" />
-							</video>
+					 		<img src="/img/thumbnails/video.png" width="100%">
 					 	@endif	
-						
-					</div>
-					@include('elements/videoPlayer')
-				</div>
-			</div>
+						</a>
 
+					</div>
+				</div>
+				
+			</div>
 		</div>
 		@endif
 		<div class="col-md-6">
 			@if(empty($recentUpload))
-				<p style="margin-left:30px;">No recent Activity</p>
+				<p style="margin-left:30px;display:none;">No recent Activity</p>
 			@else
-			<h3><b>Title: {{$recentUpload->title}}</b></h3>
+			<a href="{{route('homes.watch-video', array('v='.$recentUpload->file_name))}}" target="_blank"><h3><b>Title: {{$recentUpload->title}}</b></h3></a>
 			<p>Uploaded: {{date('M d Y',strtotime($recentUpload->created_at))}}</p>
 			<br/>
 			
 			<p class="text-justify">
-				Description: {{$recentUpload->description}}
+				Description: {{ Str::limit($recentUpload->description, 400) }}
 			</p>
 			<br/>
 			<span class=""><!--/counts and share link-->
@@ -72,4 +64,3 @@
 		</div><!--/.col-md-6-->
 	</div>
 </div>
-<br/>

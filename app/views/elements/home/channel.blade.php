@@ -1,17 +1,11 @@
 	<br/>
 	<div class="row ">
 	@foreach($datas as $channel)
-
 	<div class="col-md-12" >
 		<div class="grey mg-b-10">
 			<div class="row">
 				<div class="col-lg-2 col-md-3 col-xs-4">
-					@if(file_exists(public_path('img/user/') . $channel->id . '.jpg'))
-						{{HTML::image('img/user/'. $channel->id . '.jpg', 'alt', array('class' => 'user-Dp'))}}
-					@else
-						{{HTML::image('/img/user/0.jpg', 'alt', array('class' => 'user-Dp'))}}
-					@endif
-
+					{{HTML::image($channel['profile_picture'], 'alt', array('class' => 'user-Dp'))}}
 				</div>
 				<div class="col-lg-10 col-md-9 col-xs-8">
 					<div class="row">
@@ -48,14 +42,10 @@
 			</div><!--/.row-->
 			<div class="Subscribers greyDark">
 				<div class="row">
-					<h4 class="inline orangeC">{{count($channel->subscribers)}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
+					<h4 class="inline orangeC">{{$channel->subscribers_count}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
 					<br/>
 					@foreach($channel->subscribers as $subscriber)
-						@if(file_exists(public_path('img/user/'.$subscriber->subscriber_id.'.jpg')))
-						<img src="/img/user/{{$subscriber->subscriber_id}}.jpg" class="userRep">
-						@else
-						<img src="/img/user/0.jpg" class="userRep">
-						@endif
+						{{HTML::image($subscriber->profile_picture, 'alt', array('class' => 'userRep'))}}
 					@endforeach
 					
 				</div>

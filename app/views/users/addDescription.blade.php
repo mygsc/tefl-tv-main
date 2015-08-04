@@ -17,7 +17,7 @@
 			@endif--}}
 			@foreach($videos as $video)
 			<br><br>
-		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.addDescription',Crypt::encrypt($video->id))))}}
+		{{Form::model($video, array('method' => 'PATCH','files'=>'true', 'route' => array('post.add.description',Crypt::encrypt($video->id))))}}
 				<div class="well">
 					<div class="row">
 						<div class="col-md-6">
@@ -108,6 +108,10 @@
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Job AD',false,['id'=>'job-ad'])}}
 									<label for='job-ad'>Job AD</label>
+								</span>
+								<span class="span-tags">
+									{{Form::checkbox('cat[]','For Schools',false,['id'=>'for-schools'])}}
+									<label for='for-schools'>For Schools</label>
 								</span>
 								<span class="span-tags">
 									{{Form::checkbox('cat[]','Music',false,['id'=>'music'])}}

@@ -1,23 +1,21 @@
 <!--Subscriptions-->
-<div class="col-md-6 col-md-6 col-md-height greyDark">
-	<div class="row">
-		<div class="h-title grey orangeC">
-			<span><b>Subscriptions</b></span>&nbsp;|&nbsp; <small class="ch-link"><a href="#Subscriptions" class="text-center" aria-controls="Subscriptions" role="tab" data-toggle="tab">Show All</a></small>
+
+	<div class="row ">
+		<div class="top-div_t whiteC">
+			<h3 class="text-center">SUBSCRIPTIONS</h3>
 		</div>
-		<br/>
-		<div class="row">
+		<div class="Div-channelSubSection" id="subscriberWrapper" >
+			<br/><br/>
+			<div class="content-padding row">
 			@if(empty($subscriptions))
 				<p class="text-center fs-12">No subscription yet</p>
 			@else
 				@foreach($subscriptions as $subscription)
-					<div class="col-md-6">
-						<div class="row user-padding">
+					<div class="col-md-12" >
+						<div class="row user-padding subs-wrap">
 							<a href="{{route('view.users.channel', $subscription->channel_name)}}">
-								@if(file_exists(public_path('img/user/'.$subscription->user_id.'.jpg')))
-								{{HTML::image('img/user/'.$subscription->user_id.'.jpg', 'alt', array('class' => 'userRep2'))}}
-								@else
-								{{HTML::image('img/user/0.jpg', 'alt', array('class' => 'userRep2'))}}
-								@endif
+
+								{{HTML::image($subscription['profile_picture'], array('class' => 'userRep2'))}}
 								&nbsp;
 								<span><b>{{$subscription->channel_name}}</b></span>
 							</a>&nbsp;

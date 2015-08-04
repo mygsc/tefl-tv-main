@@ -28,7 +28,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('form#addReplyFeedback').on('submit', function(e){
+	$('#mainCommentBody').on('submit', 'form#addReplyFeedback', function(e){
 		e.preventDefault();
 		var url = $(this).prop('action');
 		$.ajax({
@@ -51,13 +51,16 @@ $(document).ready(function(){
     	});
     });
 
-    $("#replyLink").click(function() {
+	$('#mainCommentBody').on("click", '#replyLink', function() {
 		$("#txtreply").removeClass("hidden");
 		$("#replybutton").removeClass("hidden");
 		$("#replyLink").addClass("hidden");
 	});
 
-	$(".likedup").click(function() {
+	var stopClickFeedbackLike = false;
+	$('#mainCommentBody').on("click", '.likedup', function getCommentLikedUp() {
+        if(stopClickFeedbackLike) return;
+        stopClickFeedbackLike = true;
 		$.ajax({
 			type: 'POST',
 			url: '/channels/feedback-add-liked',
@@ -78,12 +81,16 @@ $(document).ready(function(){
         				$(this).find('span.fa-thumbs-up').removeClass('blueC');
         			}
         			$(this).find('span.fa-thumbs-up').val(data['label']);
-        			// alert(data['likescount']);
         		} 
+        		stopClickFeedbackLike = false;
             }
         });
 	});
-	$(".dislikedup").click(function() {
+
+	var stopClickFeedbackDislike = false;
+	$("#mainCommentBody").on("click", '.dislikedup', function () {
+        if(stopClickFeedbackDislike) return;
+        stopClickFeedbackDislike = true;
 		$.ajax({
 			type: 'POST',
 			url: '/channels/feedback-add-disliked',
@@ -105,18 +112,12 @@ $(document).ready(function(){
         			}
         			// alert(data['likescount']);
         		} 
+        		stopClickFeedbackDislike = false;
             }
         });
 	});
-	// $('.feedbacksarea').mouseover(function(e) {
-	// 	e.preventDefault();
-	// 	$('.nav_div').show();		
-	// });
-	// $('.feedbacksarea').mouseout(function() {
-	// 	$('.nav_div').hide();
-	// });
 
-	$('button.delete').click(function() {
+	$("#mainCommentBody").on("click", 'button.delete', function () {
 		var channel_id = $(this).find('#channel_id').val();
 		var user_id = $(this).find('#user_id').val(); 
 		var feedback_id = $(this).find('#feedback_id').val();
@@ -133,7 +134,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('button.deleteReply').click(function() {
+	$("#mainCommentBody").on("click", 'button.deleteReply', function () {
 		var user_id = $(this).find('#deleteReply_user_id').val(); 
 		var feedback_id = $(this).find('#deleteReply_feedback_id').val();
 		var deleteReplyId = this.id;
@@ -152,7 +153,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('button.spam').click(function() {
+	$("#mainCommentBody").on("click", 'button.spam', function () {
 		var channel_id = $(this).find('#channel_id').val();
 		var user_id = $(this).find('#user_id').val(); 
 		var feedback_id = $(this).find('#feedback_id').val();
@@ -170,7 +171,7 @@ $(document).ready(function(){
 			});
 	});
 
-	$('button.reportReply').click(function() {
+	$("#mainCommentBody").on("click", 'button.reportReply', function () {
 		var user_id = $(this).find('#report_user_id').val(); 
 		var feedback_id = $(this).find('#report_feedback_id').val();
 		var reportID = this.id;
@@ -185,5 +186,4 @@ $(document).ready(function(){
 				}
 			});
 	});
-
 }); 

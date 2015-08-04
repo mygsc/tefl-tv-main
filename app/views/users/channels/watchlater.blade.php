@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<div class="container page">
@@ -65,7 +69,7 @@
 									<span title="Remove from watch later?" class="btn-sq">
 											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
 											<span class="inline">
-												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id]))}}
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], ,'onsubmit'=> 'return confirm("Are you sure you want to delete this?")'))}}
 													{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 												{{Form::close()}}
 											</span>
@@ -105,7 +109,7 @@
 										<!-- </a> -->
 									</div>
 									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-									<i class="fa fa-eye"></i> {{$watchLater->views}} | <i class="fa fa-thumbs-up"></i> {{$watchLater->numberOfLikes}} | <i class="fa fa-calendar"></i> {{$watchLater->created_at}}<br/>
+										{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
 									<br/>
 								</div>
 							</div>

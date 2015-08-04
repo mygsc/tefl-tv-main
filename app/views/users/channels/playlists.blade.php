@@ -1,17 +1,21 @@
 @extends('layouts.default')
 
+@section('title')
+    {{$userChannel->channel_name}} | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
-	<div class="container page White same-H">
-		<br/>
-		<div class="row ">
-			@include('elements/users/profileTop2')
+	<br/>
+	<div class="container">
+		<div class="row">
 
+			@include('elements.users.profileTop2')
 			<div class=" channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
-							<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
+						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
 				    	<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
@@ -41,8 +45,7 @@
 					</nav>
 				</div>
 
-				<div class="">
-					<br/>
+				<div class="top-div_t col-md-12 mg-t-20 pad20t">
 					<div class="col-md-6 col-sm-6 mg-t-10">
 						{{Form::open(array('route' => ['channels.search.playlists', $userChannel->channel_name], 'method' => 'GET'))}}
 						<div class="input-group">
@@ -68,9 +71,9 @@
 							{{Form::close()}}
 						@endif
 					</div> -->
+				</div> 		
 
-
-
+				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
@@ -129,6 +132,7 @@
 				</div>
 			</div><!--!/.shadow div-channel-border-->
 		</div><!--/.row-->
+		<br/>
 	</div><!--/.container page-->
 </div>
 

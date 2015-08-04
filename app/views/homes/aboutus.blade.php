@@ -1,14 +1,24 @@
 @extends('layouts.default')
 
-@section('content')
-<div class='container'>
-	
+@section('title')
+    About Us | TEFL Tv
+@stop
 
-	<div class="col-md-9 White same-H">
-		<h1>About TEFL TV</h1>
-		<!--about us content-->
+@section('content')
+<div class="container h-minH ">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
+
+			<div class="mg-r-10 row">
+				@include('elements/home/categories')
+
+			</div>
+		</div>
+		<div class="col-md-9 White same-H  mg-t-10">
+		<!--<h1>About TEFL TV</h1>
+		<!--about us content
 		<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		<!--	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
@@ -36,9 +46,8 @@
 
 		<!--contact us section-->
 		<div class="col-md-12">
-			<hr/>
+
 			<h1>Contact Us <br/>
-				<small>We would like to hear from you, connect and communicate with us through the following information</small>
 			</h1>
 			<br/>
 			<div class="row">
@@ -79,21 +88,8 @@
 		<!--/contact us-->
 
 	</div><!--/.col-md-9-->
-	<div class="col-lg-3 col-md-4 hidden-xs hidden-sm">
-		<div class="same-H grey pad-s-10">
-			@include('elements/home/categories')
-			<div>
-				@include('elements/home/carouselAds')
-			</div>
-			<div class="mg-t-10">
-				@include('elements/home/adverstisementSmall')
-				
-			</div>
-		</div>
-	</div>
-
-
 </div><!--/.container page-->
+</div>
 
 @stop
 
