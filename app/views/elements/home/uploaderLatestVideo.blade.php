@@ -35,11 +35,8 @@
                     </div>
                 </a>
             </div>
-
        </div>
-
        @endforeach
-
        @endif
    </div>
    <br/>

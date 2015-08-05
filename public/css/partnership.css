@@ -2064,7 +2064,7 @@ only screen and (min--moz-device-pixel-ratio:0),
 only screen and (-o-device-pixel-ratio: 0)
 {
     .tagline{
-        top: 450px;
+        top: 370px;
         }
 }
 
@@ -2075,7 +2075,7 @@ only screen and (min-width: 768px) and (max-width: 1024px) and (min--moz-device-
 screen and (min-width: 768px) and (max-width: 1024px) and (-o-device-pixel-ratio: 1) {
 
     .tagline{
-        top: 240px;
+        top: 370px;
         }
 
 }
@@ -2087,9 +2087,10 @@ only screen and (min-width: 320px) and (max-width: 640px) and (min--moz-device-p
 only screen and (min-width: 320px) and (max-width: 640px) nd (-o-device-pixel-ratio: 2){
 
     .tagline{
-        top: 280px;
+        top: 370px;
         width: 100%!important;
         }
+
 
 }
 
@@ -3026,12 +3027,13 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 }
 
 .wv-title {
-    font-size: 1.2em!Important;
+    font-size: 1.2em!important;
+
     margin-top: 7px;
 }
 
 .wv-views {
-    font-size: 1.0em!Important;
+    font-size: 1.0em!important;
     margin-top: 7px;
 }
 
@@ -3063,7 +3065,7 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     height:auto;
     overflow: hidden;
     margin: 0 auto;
-    width:50%;
+    width:100%;
     left:0;
     right:0;
     background:rgba(255,255,255,0);
@@ -3127,6 +3129,11 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 .message-wrap{
     padding:60px 60px;
 }
+@media (max-width:767px) {
+    .message-wrap{
+    padding:20px 20px;
+}
+    }
 .message-text{
     margin-top:8%;
 }

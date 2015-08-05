@@ -31,16 +31,16 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="paper_2">
             <div class="row ">
-                <div class="row text-center div-Steps">
-                 <div class="col-sm-4 col-md-4">
+                <div class="text-center div-Steps">
+                 <div class="col-sm-4 col-md-4 col-sm-4 col-xs-4">
                     <img src="/img/icons/par-upload.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
                     <h2>Upload your own videos</h2>
                 </div>
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-4 col-md-4 col-sm-4 col-xs-4">
                     <img src="/img/icons/par-share.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
                     <h2>Embed videos in your website or share them on your social media accounts</h2>
                 </div>
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-4 col-md-4 col-sm-4 col-xs-4">
                     <img src="/img/icons/par-earn.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
                     <h2>Earn revenue on every ad impression</h2>
                 </div>
@@ -50,17 +50,17 @@
             <div class="text-center div-partners">
                 <div class="row">
                 <h1 class="orangeC">-Featured Partners-</h1>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <a href="http://www.auathailand.org" target="_blank">
                             <img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <a href="http://www.teflEducators.com" target="_blank" >
                             <img src="/img/logos/te.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="2s">
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <a href="http://www.britishteachers.org.uk" target="_blank">
                             <img src="/img/logos/bt.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="3s">
                         </a>
