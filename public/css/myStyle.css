@@ -15,7 +15,6 @@ body {
     overflow-x: hidden!important;
 }
 
-
 h1, 
 h2, 
 h3, 
@@ -343,7 +342,8 @@ a {
 }
 .textbox-layout input[type="text"], 
 .textbox-layout input[type="password"], 
-.textbox-layout textarea {
+.textbox-layout textarea,
+.textbox-layout select{
     margin-bottom: 10px;
 }
 
@@ -361,7 +361,8 @@ a {
 
 input[type="text"], 
 input[type="password"], 
-textarea {
+textarea,
+select{
     vertical-align: middle;
     display: inline-block;
     width: 100%;
@@ -695,6 +696,12 @@ img.logo-sm {
 .f_contact-wrap{
     background:#20263c;
     height:210px;
+
+}
+.f_contact-wrap-sm{
+    background:#20263c;
+    height:auto;
+    padding: 10px 10px 5px 10px;
 
 }
 /* Float */
@@ -1425,7 +1432,7 @@ img.userRep2 {
     float: left;
     border: #eee 2px solid;
     height: 55px;
-    width: 51px;
+    width: 55px;
     margin-bottom: 10px;
 }
 img.subs-img {
@@ -1960,7 +1967,7 @@ html * {
     color: #dfdfdf;
     background: rgba(255,  255,  255,  0.6);
     /* position: absolute; */
-    height: 62px;
+    height: 80px;
     margin-top: -15px;
     margin-bottom: 10px;
     z-index: 99998;
@@ -2327,6 +2334,7 @@ body {
     overflow-x: hidden!important;
     width: 100%;
 }
+
 
 }
 
