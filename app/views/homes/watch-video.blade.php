@@ -13,15 +13,17 @@
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
     <meta property="og:image" content="{{$image}}.jpg">
-    <meta property="og:image" content="{{$image}}_600x338.jpg"><meta property="og:description" content="{{$videos->description}}">
+    <meta property="og:image" content="{{$image}}_600x338.jpg">
+    <meta property="og:description" content="{{$videos->description}}">
     <meta property="og:type" content="video"> 
     
-    <!-- <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"> -->
-    <meta property="og:video:url" content="{{asset('/')}}embed/{{$videos->file_name}}">
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
+    <meta property="og:video" content="{{asset('/')}}js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
+    <meta property="og:video:type" content="application/x-shockwave-flash">
+    
+  <!--   <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
     <meta property="og:video" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4" />
-    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:type" content="video/mp4"> -->
     <meta property="og:video:width" content="600"> 
     <meta property="og:video:height" content="360"> 
     <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
@@ -48,10 +50,22 @@
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
 {{--HTML::script('js/video-player/fullscreen.min.js')--}}
+
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
-
+{{HTML::script('js/jquery.min.js')}}
+{{HTML::script('js/homes/linkify.js')}}
+{{HTML::script('js/homes/linkify-jquery.js')}}
 {{HTML::script('js/adsbygoogle.js')}}
+
+<script>
+    $(document).ready(function(){
+        $('#videoDescriptionLinkify').linkify({
+            target: "_blank"
+        })
+    }); 
+</script>
+
 <script>
 if(window.isAdsDisplayed === undefined ) {
     $('#vid-controls').remove();
@@ -87,6 +101,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 }(document, 'script', 'facebook-jssdk'));
 </script>
  <script src="https://apis.google.com/js/platform.js" async defer></script> 
+
 @stop
 @section('content')
 <div class="row">
@@ -118,11 +133,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 <p class="black wv-views" id="views-counter">{{$videos->views}} View</p>
                                             @endif
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                               
                                             {{Form::hidden('text1',Crypt::encrypt($id),array('id'=>'text1'))}}
                                             {{Form::hidden('video-token',Crypt::encrypt($id))}}
                                             {{Form::hidden('likes',$totalLikesDislikes['likes'])}}
@@ -171,10 +184,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                             @endif
                                                         </ul>
                                                         @endif   
-
-
                                                         <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
-                                                        
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -211,33 +221,29 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                            	{{Form::close()}}                                            
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
-                                                       <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
-                                                         <div class='pub-ads'>
+                                                        <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
+                                                        <div class='pub-ads'>
                                                             <h4>Your Ads Preview</h4>
                                                              <!-- <p>Click proceed to place your own ads to this video.</p> -->
-                                                                <hr>
-                                                                     @include('ads/adspreview')
-                                                                <hr>
-                                                                <div style="" id='embed-pub'>
-                                                                <p>Copy and paste this code to your website:</p>
-                                                                 <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
-                                                                </p>
-                                                                </div>
-                                                               <!-- <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
-                                                                <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
-                                                         </div>
-                                                         
+                                                            <hr>
+                                                                 @include('ads/adspreview')
+                                                            <hr>
+                                                            <div style="" id='embed-pub'>
+                                                            <p>Copy and paste this code to your website:</p>
+                                                             <p>   <input id='embed-pub' type='text' name='embed-pub' value="<iframe width='500' height='315' src='{{asset('/')}}publish-video/{{Crypt::encrypt(Auth::User()->id)}}/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
+                                                            </p>
+                                                            </div>
+                                                           <!-- <button id='embed-own-ads' type="button" class="btn btn-default">Embed with your ads</button>
+                                                            <!-- <button type="button" name='ads-proceed' class="btn btn-default">Proceed</button> -->
+                                                        </div>                             
                                                     @endif
                                                 @endif
                                                 
-                                               
-                                               <div style='margin-top:5px;display:none;' class="embed-frame">
+                                                <div style='margin-top:5px;display:none;' class="embed-frame">
                                                     <p>
                                                         <input  type="text" id='code-embed' class="form-control" value="<iframe width='500' height='315' src='{{asset('/')}}embed/{{$videos->file_name}}' frameborder='0' allowfullscreen></iframe>">
                                                     </p>
                                                 </div>
-                                                
-                                           
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                                                  <span class="">
@@ -254,7 +260,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                             <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
                                                         </span>
                                                         @endif
-
                                                     @else
                                                       <i class="fa fa-thumbs-up hand"></i>
                                                     @endif 
@@ -270,16 +275,14 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         <span id = "dislike-span">
                                                             <i class="fa fa-thumbs-down hand" id="dislike"></i>
                                                         </span>
-                                                        @endif
-                                                        
+                                                        @endif                                                        
                                                     @else
                                                       <i class="fa fa-thumbs-down hand"></i>
                                                     @endif 
                                                     &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
                                                 --}}
                                                 </span><!--/links-->
-                                            </div>
-                                            
+                                            </div>                                            
                                         </div>
                                         <div class=" " style="border-top:1px solid #f1f1f1;margin-top:10px;padding-top:10px;">
                                             <span> Share Video</span>
@@ -290,10 +293,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri=https://www.facebook.com"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                             <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                             <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-                                         
                                         </div>
-                                        </div>
-                                       
+                                    </div>
                                 </div><!--/.col-md-5-->
                             </div><!--/.row-->
                             <br/>
@@ -310,7 +311,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         </div>
                                     <div class="col-md-11 col-sm-10">
                                         <p class="black">
-
                                             <span>
                                                 <a href="/channels/{{$owner->channel_name}}">{{ucfirst($owner->channel_name)}}</a> <small>{{count($countSubscribers)}} Subscriber(s)</small>
                                                 @if(isset(Auth::User()->id))
@@ -327,7 +327,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                                 {{Form::hidden('status','subscribeOff')}}
                                                                 {{Form::submit('Unsubscribe', array('class'=> 'btn btn-primary btn-sm pull-right', 'id'=>'subscribebutton'))}}
                                                             @endif
-                                                    {{Form::close()}}
+                                                        {{Form::close()}}
                                                     @endif
                                                 @else
                                                     {{link_to_route('homes.signin', 'Subscribe', '', array('class'=>'btn btn-primary btn-sm pull-right')); }}
@@ -339,13 +339,11 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                         <div class="seeVideoContent black">
                                             <br/>
-                                            <pre style="text-indent:none!important;width:100%">{{$videos->description}}</pre>
+                                            <pre style="text-indent:none!important;width:100%" id="videoDescriptionLinkify">{{$videos->description}}</pre>
                                             <br/><br/>
                                             <p><b>Tags:</b> {{$videos->tags}}<br/>
                                             <b>Categories:</b> {{$videos->category}}</p>
-                                           
                                        </div>
-                                    
                                     </div><!--./col-md-11-->
                                    </div>
                                </div><!--/.well2-->
@@ -359,9 +357,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 
                 <!-- COMMENTS AREA -->
                 <div class="mg-t-10">
-                    
                     @include('elements/home/videoComments')
-        
                 </div>
                 <!-- COMMENTS AREA -->
 
@@ -395,37 +391,30 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 </div>
 
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
-                <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
+                    <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
-                            <li class="ui-tabs-nav-item showhim" id="">
-                                <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
-                                    
-                                    <div class="row p-relative">
-                                        <div class="show_wrapp">
-
-                                            <div class=" col-middle">
-                                                @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                                    <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
-                                                @else
-                                                    <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
-                                                @endif
-                                            
-                                                <div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
-                                                     
-                                                    <div class="showInfo-wrapp ">
-                                                        <div class="showInfo-div">
-
-                                                            <span class="info-title">{{ ($relation['title']) }}</span><br/>
-                                                            by: {{$relation['channel_name']}}<br/>
-                                                            {{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
-                                                    </div>
+                        <li class="ui-tabs-nav-item showhim" id="">
+                            <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">                                    <div class="row p-relative">
+                                    <div class="show_wrapp">
+                                        <div class=" col-middle">
+                                            @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                                <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
+                                            @else
+                                                <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
+                                            @endif
+                                        
+                                            <div class="show-info" style="width: 100%;height: 100%;background:rgba(31, 51, 89, 0.8);">
+                                                <div class="showInfo-wrapp ">
+                                                    <div class="showInfo-div">
+                                                        <span class="info-title">{{ ($relation['title']) }}</span><br/>
+                                                        by: {{$relation['channel_name']}}<br/>
+                                                        {{date('M d, Y',strtotime($relation['created_at']))}} | {{number_format($relation['views'])}} view/s
                                                     </div>
                                                 </div>
-                                            
                                             </div>
                                         </div>
-                                        <div class="row-same-height" title="">
-                                            
+                                    </div>
+                                    <div class="row-same-height" title="">
                                         <div class="col-md-5 col-xs-4 col-md-height col-middle">
                                             @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
                                                 <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
@@ -443,32 +432,27 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                             <!--<span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>-->
                                             <span>{{number_format($relation['views'])}} view/s</span>
                                         </div>
-                         </div>
-                                
-
+                                    </div>
                                 </div>
-                                </a>
-                               
-                            </li>
+                            </a>
+                        </li>
                     @endforeach
                 </ul><!--video list-->
                     
-                    <div class="mg-t-10 same-H">
-                      <div class="h-title">
+                <div class="mg-t-10 same-H">
+                    <div class="h-title">
                         <div class="row">
-                          Advertisements
-                      </div>
-                  </div>
-                        @include('elements/home/carouselAds')
+                            Advertisements
+                        </div>
                     </div>
-                    <div class="mg-t-10 mg-b-10 same-H">
-                        @include('elements/home/recommendedChannelList')
-                    </div>
+                    @include('elements/home/carouselAds')
                 </div>
-            </div><!--col-md-4-->
-
-        </div><!--/.featured-->
-
+                <div class="mg-t-10 mg-b-10 same-H">
+                    @include('elements/home/recommendedChannelList')
+                </div>
+            </div>
+        </div><!--col-md-4-->
+    </div><!--/.featured-->
     </div><!--/.row-->
 </div><!--/padding-->
 </div><!--/.row-->
@@ -483,5 +467,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>--}}
+
 @stop
 

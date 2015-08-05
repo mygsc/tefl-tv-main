@@ -40,22 +40,22 @@
 									<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 								</div>
 
-							<div class="video-info">
-								<div class="v-Info">
-									<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
-										<span class="visible-lg">{{ Str::limit($popularVideo['title'],50)}}</span>
-										<span class="visible-md">{{ Str::limit($popularVideo['title'],40)}}</span>
-										<span class="visible-xs visible-sm">{{ Str::limit($popularVideo['title'],30)}}</span>
-									</a>
-									
+								<div class="video-info">
+									<div class="v-Info">
+										<a href="{{route('homes.watch-video', array($popularVideo->file_name))}}">
+											<span class="visible-lg">{{ Str::limit($popularVideo['title'],50)}}</span>
+											<span class="visible-md">{{ Str::limit($popularVideo['title'],40)}}</span>
+											<span class="visible-xs visible-sm">{{ Str::limit($popularVideo['title'],30)}}</span>
+										</a>
+										
+									</div>
+									<div class="count">
+										by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
+										<br />
+										{{number_format($popularVideo->views)}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} |--> {{date('F d, Y',strtotime($popularVideo->created_at))}}
+										
+									</div>
 								</div>
-								<div class="count">
-									by: <a href="{{route('view.users.channel', array($popularVideo->channel_name))}}">{{$popularVideo->channel_name}}</a>
-									<br />
-									{{number_format($popularVideo->views)}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$popularVideo->likes}} |--> {{date('F d, Y',strtotime($popularVideo->created_at))}}
-									
-								</div>
-							</div>
 							</div>
 						</div>
 					</a>

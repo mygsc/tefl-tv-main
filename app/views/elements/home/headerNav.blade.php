@@ -69,14 +69,12 @@
     <div class="LightestBlue">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-           
             <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>
-            
+            </button>   
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -100,9 +98,6 @@
                 @if(Auth::check())
 
                     <li class="visible-xs"><h4>&nbsp;&nbsp;Account</h4></li>
-                
-                 
-                  
                     <li>{{link_to_route('users.channel', 'My Channel', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.notifications', 'Notifications', null, array('class' => ''))}}</li>
                     <li>{{link_to_route('users.signout', 'Sign-out', null, array('class' => ''))}}</li>
@@ -111,11 +106,13 @@
                 @endif
                 <li><hr/></li>
                 <li class="visible-xs"><h4>&nbsp;&nbsp;TEFL TV Links</h4></li>
-                <li class="visible-xs">{{ link_to_route('homes.aboutus', 'About Us', null) }}</li>
-                <li class="visible-xs">{{ link_to_route('homes.privacy', 'Privacy', null) }}</li> 
+                <!-- <li class="visible-xs">{{ link_to_route('homes.aboutus', 'About Us', null) }}</li>
                 <li class="visible-xs">{{ link_to_route('homes.copyright', 'Copyright', null) }}</li>
-                <li class="visible-xs">{{ link_to_route('homes.advertisements', 'Advertisement', null) }}</li>
+                <li class="visible-xs">{{ link_to_route('homes.advertisements', 'Advertisement', null) }}</li>-->
+                <li class="visible-xs">{{ link_to_route('homes.privacy', 'Privacy', null) }}</li> 
                 <li class="visible-xs">{{ link_to_route('homes.termsandconditions', 'Terms and Condition', null) }}</li>
+                <li>{{link_to_route('partners.index','Partners')}}</li>
+                <li>{{link_to_route('publishers.index','Publishers')}}</li>
                 
             </ul>
         </div>
