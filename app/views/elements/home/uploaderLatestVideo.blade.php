@@ -13,23 +13,6 @@
         @else
         @foreach($ownerVideos as $ownerVideo)
         <div class="col-md-4">
-<<<<<<< HEAD
-            <div class="vThumbnails">
-                <a href="/watch?v={{$ownerVideo->file_name}}" class="">
-                    @if(file_exists(public_path("/videos/".$ownerVideo->user_id."-".$owner->channel_name."/".$ownerVideo->file_name."/".$ownerVideo->file_name.".jpg")))
-                    <img src="/videos/{{$ownerVideo->user_id}}-{{$owner->channel_name}}/{{$ownerVideo->file_name}}/{{$ownerVideo->file_name}}.jpg" alt=""/>
-                    @else
-                    <img src="/img/thumbnails/video.png" alt="" />
-                    @endif
-                   <b>{{$ownerVideo->title}}</b>
-                    <small><p class="text-justify">{{ Str::limit($ownerVideo->description, 60) }}</p></small><br/>
-                    <div class="count">
-                       <i class="fa fa-eye"></i> {{$ownerVideo->views}}  | <i class="fa fa-thumbs-up"></i> {{$likeownerVideos[$likeownerVideosCounter++]}} | <i class="fa fa-calendar"></i> {{date('M d, Y',strtotime($ownerVideo->created_at))}}
-                   </div>
-
-               </a>
-           </div>
-=======
             <div class="p-relative">
                 <span class="v-time inline">{{$ownerVideo->total_time}}</span>
                 <a href="/watch?v={{$ownerVideo->file_name}}" class="">
@@ -52,12 +35,8 @@
                     </div>
                 </a>
             </div>
->>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
-
        </div>
-
        @endforeach
-
        @endif
    </div>
    <br/>
