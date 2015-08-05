@@ -45,10 +45,14 @@
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
+<<<<<<< HEAD
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+=======
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/jquery.sticky-kit.min.js')}}
 {{HTML::script('js/sticky.js')}}
 
+>>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/main.js')}}

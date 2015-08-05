@@ -1,8 +1,10 @@
 <?php
 
 class HomeController extends BaseController {
+
 	protected $publisher_;
 	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, ReportSupport $reportSupport) {
+
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -88,10 +90,39 @@ class HomeController extends BaseController {
 	}
 
 	public function getAdvertisements() {
-		$categories = $this->Video->getCategory();
-		$notifications = $this->Notification->getNotificationForSideBar();
-		return View::make('homes.advertisements', compact('categories','notifications'));
+		return View::make('homes.advertisements');
 	}
+
+	// public function getCopyright() {
+	// 	return View::make('homes.copyright');
+
+	// }
+
+	// public function postPlaylist() {
+	// 	return View::make('homes.playlist');
+	// }
+
+	// public function getChannels() {
+	// 	return View::make('homes.channels');
+	// }
+
+	public function getSignIn() {
+		return View::make('homes.signin');
+	}
+
+	// public function getWatchVideo() {
+	// 	return View::make('homes.advertisements');
+	// }
+
+	// public function getIndex() {
+	// 	$recommendeds = $this->Video->getFeaturedVideo('recommended', '9');
+	// 	$populars = $this->Video->getFeaturedVideo('popular', '9');
+	// 	$latests = $this->Video->getFeaturedVideo('latest', '9');
+	// 	$randoms = $this->Video->getFeaturedVideo('random', '9');
+	// 	$categories = $this->Video->getCategory();
+	// 	$notifications = $this->Notification->getNotificationForSideBar();
+	// 	return View::make('homes.advertisements', compact('categories','notifications'));
+	// }
 	
 	public function getCopyright() { 
 		$categories = $this->Video->getCategory();
@@ -715,10 +746,7 @@ public function addReply(){
 	}
 
 	public function testingpage(){
-		$data = array('message' => 'tesst');
-		Mail::send('emails.homes.forward', $data, function($message){
-			$message->to('kevwiththec@yahoo.com')->cc('kevwiththec@yahoo.com');
-		});
+		return View::make('testing');
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
@@ -742,5 +770,8 @@ public function addReply(){
 			return View::make('users.publishvideo', compact('id','get','vidOwner','adsense','autoplay','duration'));
 		}
 		return app::abort(404, 'Page not available.');
+	}
+	public function getFlashVideoPlayer(){
+		return View::make('tefltv_video_player.tefltv_video_player');
 	}
 }
