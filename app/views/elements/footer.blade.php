@@ -1,5 +1,5 @@
 
-<div class="same-H div_footer footer">
+<div class="same-H div_footer footer visible-lg visible-md hidden-sm hidden-xs">
     <div class="col-md-7 f_links_div">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -39,11 +39,6 @@
                  </div>
 
             </div>
-
-            <div class="visible-sm visible-xs hidden-lg hidden-md">
-                <p class="text-center" style="color:#fff!important;">Email us at <a class="whiteC"> support@tefltv.com </a></p>
-            </div>
-
                
         </div>
     </div>
@@ -101,6 +96,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="visible-sm visible-xs hidden-lg hidden-md f_contact-wrap-sm footer">
+    <p class="text-center" style="color:#fff!important;">Email us at <a class="whiteC"> support@tefltv.com </a></p>
 </div>
 <div class="same-H">
     <div class="col-md-12 f_version">

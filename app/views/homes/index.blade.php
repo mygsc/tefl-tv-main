@@ -114,20 +114,20 @@ if(window.isAdsDisplayed === undefined ) {
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container  hidden ">
 			<div class="row  White same-H mg-t-10">
-						<div class=" ">
-							<div class="col-md-6 col-md-offset-3">
-							<div class="antiablock hidden text-center">
-								<BR/>
-					
-								<img src="/img/adblock_player.png" width="100%">
-							</div>
+				<div class=" ">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="antiablock text-center">
+							<BR/>
+
+							<img src="/img/adblock_player.png" width="100%">
 						</div>
 					</div>
-					</div>
 				</div>
-			<br/>
+			</div>
+		</div>
+		<br/>
 				
 		<div class="row" data-sticky_parent="" style="position:relative;">
 			<div class="row-same-height">
