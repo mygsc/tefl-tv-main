@@ -1,7 +1,7 @@
 <div class="">
 	<div class="col-md-12">
 		<div class="row" id="vid-wrapper">
-	<div id="vid-controls">
+			<div id="vid-controls">
 				<div class="embed-responsive embed-responsive-16by9">
 					@if(file_exists(public_path('/videos/'.$videos->user_id.'-'.$owner->channel_name.'/'.$videos->file_name.'/'.$videos->file_name.'.jpg')))
 					<video preload="auto" id="media-video" width="100%" poster="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg" class="embed-responsive-item">
@@ -43,7 +43,10 @@
 								{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
 								{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 							</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> aff6bdf8cb946e8a75feb98aebb2257522cc9ea5
 							@endif
 						@endif
 
