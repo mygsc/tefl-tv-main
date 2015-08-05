@@ -83,6 +83,7 @@
                 <param name="bgcolor" value="#ffffff" />
                 <param name="allowScriptAccess" value="sameDomain" />
                 <param name="allowFullScreen" value="true" />
+               <!--  <param name="flashVars" value="config={'playlist':['http://sandbox.thewikies.com/vfe-generator/images/big-buck-bunny_poster.jpg',{'url':'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4','autoPlay':false}]}" /> -->
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />

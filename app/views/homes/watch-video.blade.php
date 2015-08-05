@@ -5,18 +5,6 @@
 @stop
 
 @section('meta')
-<<<<<<< HEAD
-    <!--<meta property="og:title" content="{{$videos->title}}">
-        <meta property="og:site_name" content="{{asset('/')}}">
-        <meta property="og:description" content="{{$videos->description}}">
-        <meta property="og:url" content="{{asset('/')}}watch!v={{$videos->file_name}}">
-        <meta property="og:image" content="//videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">-->
-        <meta property="og:type" content="video">
-        <meta property="og:video:url" content="/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4">
-        <meta property="og:video:width" content="640"> 
-        <meta property="og:video:height" content="360"> 
-        <meta property="og:video:tag" content="{{$videos->tags}}"> 
-=======
     <meta property="fb:app_id" content="1557901494477250">
     <meta property="og:site_name" content="TEFL-TV">
     <meta property="og:url" content="{{URL::full()}}">
@@ -47,7 +35,6 @@
     <meta property="article:author" content="{{$owner->channel_name}}">
     <meta property="article:publisher" content="{{$owner->channel_name}}"/> -->
 
->>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}
@@ -119,7 +106,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                 <div class="col-md-12"><div>
                                     <br/>
                                         <div class="row">
-                                            <div class="col-md-9 col-sm-9 col-xs-8">
+                                            <div class="col-md-9 col-sm-9 ">
                                                 <p class="black wv-title">
                                                     {{$videos->title}}
                                                 </p>
@@ -208,11 +195,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                     <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{asset('/')}}watch?v={{$videos->file_name}}&title={{$videos->title}}"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
                                                     <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
                                                     <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-<<<<<<< HEAD
-                                                </span><!--/.dropdown-menu pull-right White-->
-=======
                                                 </span><!--/.dropdown-menu pull-right White
->>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
                                             </span><!--/.dropdown share-->
                                             
                                             &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -414,24 +397,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                 <ul class="ui-tabs-nav same-H"> <!--video navigation or video list-->
                 <h4 align='center' id='next-video-autoplay'>Up next autoplay</h4>
                     @foreach($newRelation as $relation)
-<<<<<<< HEAD
-                            <li class="ui-tabs-nav-item" id="">
-                                <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-4">
-                                        @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                            <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
-                                        @else
-                                            <img src="/img/thumbnails/video.png" alt="" width="100%" />
-                                        @endif
-                                    </div>
-                                    <div class="col-md-6 col-sm-8 col-xs-4">
-                                        <div><span class="v-list text-justify">{{ Str::limit($relation['title'],50) }}</span></div>
-                                        <span>by: {{$relation['channel_name']}}</span><br/>
-                                        <span>{{date('M d, Y',strtotime($relation['created_at']))}}</span><br/>
-                                        <span>{{number_format($relation['views'])}} view/s</span>
-                                    </div>
-=======
                             <li class="ui-tabs-nav-item showhim" id="">
                                 <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">
                                     
@@ -481,7 +446,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                          </div>
                                 
 
->>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
                                 </div>
                                 </a>
                                
