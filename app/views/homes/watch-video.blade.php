@@ -57,6 +57,14 @@
 {{HTML::script('js/adsbygoogle.js')}}
 
 <script>
+    $(document).ready(function(){
+        $('#videoDescriptionLinkify').linkify({
+            target: "_blank"
+        })
+    }); 
+</script>
+
+<script>
 if(window.isAdsDisplayed === undefined ) {
     $('#vid-controls').remove();
     $('#ablockVideoPlayer').prepend('<img id="ablockplayer_img" src="/img/adblock_player.png" />');
@@ -457,14 +465,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>--}}
-
-<script>
-    $(document).ready(function(){
-        $('#videoDescriptionLinkify').linkify({
-            target: "_blank"
-        })
-    }); 
-</script>
 
 @stop
 
