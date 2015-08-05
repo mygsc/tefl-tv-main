@@ -52,9 +52,6 @@ class HomeController extends BaseController {
 		if($validate->fails()) return Redirect::route('homes.aboutus')->withFlashBad('Please check your inputs!')->withInput()->withErrors($validate);
 
 		$data = array('email'=>$input['email'], 'name'=>$input['name'], 'message'=>$input['message']);
-		// Mail::send('emails.welcome', $data, function($message){
-		// 	$message->to('support@tefltv.com')->subject('Support request from '. Input::get('email'));
-		// });
 		Mail::send('emails.reports.thankyou_support', $data, function($message){
 			$message->to('support@tefltv.com')->subject('TEFLtv Support Team');
 		});
