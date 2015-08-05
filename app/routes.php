@@ -13,6 +13,7 @@
 
 
 Route::group(array('prefix' => '/'), function() {
+	Route::get('flashvideo', array('as' => 'flash.video.player', 'uses' => 'HomeController@getFlashVideoPlayer'));
 	Route::get('/', array('as' => 'homes.index', 'uses' => 'HomeController@getIndex'));
 	Route::get('upload',array('before'=>'auth','as' => 'get.upload', 'uses'=>'VideoController@getUpload'));	//uploading
 	Route::post('upload',array('before'=>'auth','as' => 'post.upload', 'uses'=>'VideoController@postUpload'));

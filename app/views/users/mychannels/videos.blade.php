@@ -151,7 +151,11 @@
 												</tr>
 											</table>
 										</span>
+<<<<<<< HEAD
+								
+=======
 										
+>>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
 										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
 											<div class="thumbnail-2">
 												@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
@@ -174,6 +178,14 @@
 										</a>
 									</div>
 
+<<<<<<< HEAD
+								<div class="inlineInfo ">
+									
+									<div class="v-Info">
+										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">	
+											{{$usersVideo->title}}
+										</a>
+=======
 									<div class="inlineInfo ">
 										
 										<div class="v-Info">
@@ -192,6 +204,7 @@
 										<div class="count">
 											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
 										</div>
+>>>>>>> 9c749c8db8542b539719bc8c1e802d35d1af0f04
 									</div>
 									@if($usersVideo->ifReported)
 										<div>

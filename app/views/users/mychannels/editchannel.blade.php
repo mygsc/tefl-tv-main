@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="col-md-12 top-div_t mg-t-20">
-            <h3 class="whiteC text-center">-Interests-</h3>
+            <h3 class="whiteC text-center">-Contact Information-</h3>
         </div>
         <div class="col-md-12 White same-H">
             <div class="pad-10 textbox-layout">
@@ -75,19 +75,19 @@
                 {{Form::label('website', 'Website: ')}} 
                 {{Form::text('website', Auth::User()->website, array('placeholder' => 'Website'))}}
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div id="status" class="text-left connectTo c-fb">
                         <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
                     </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="text-left connectTo c-tr">
                         <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg"> Connect with Twitter</a>
                     </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="text-left connectTo c-gp">
                         <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                     </div>
@@ -99,23 +99,23 @@
                 <br/>
                 <div class="row">
                     @if(empty($userWebsite->facebook))
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div id="status" class="text-left connectTo c-fb">
                             <a href="social/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Connect with Facebook</a>
                         </div>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         {{Form::text('facebook', $userWebsite->facebook, array('placeholder' => 'Facebook Account', 'disabled'))}}
 
                     </div>
                     @else
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div id="status" class="text-left connectTo c-fb">
                             <a href="logout/facebook" class="whiteC"><img src="/img/icons/c-fb.jpg"> Sign-out with Facebook</a>
                         </div>
 
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         @if(Session::has('sessionFacebook'))
                         Signed in as <a href="https://www.facebook.com/{{$userWebsite->facebook}}" target="_blank">{{$sessionFacebook}}</a>
                         @endif
@@ -125,23 +125,23 @@
                 <br/>
                 <div class="row">
                     @if(empty($userWebsite->twitter))
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="text-left connectTo c-tr">
                             <a href="social/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Twitter Account</a>
                         </div>
 
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         {{Form::text('twitter', $userWebsite->twitter, array('placeholder' => 'Twitter Account', 'disabled'))}}
                     </div>
                     @else
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="text-left connectTo c-tr">
                             <a href="logout/twitter" class="whiteC"><img src="/img/icons/c-tr.jpg">Sign-out with Twitter</a>
                         </div>
 
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         @if(Session::has('sessionTwitter'))
                         Signed in as <a href="{{$userWebsite->twitter}}" target="_blank">{{$sessionTwitter}}</a>
                         @endif
@@ -152,23 +152,23 @@
                 <br/>
                 <div class="row">
                     @if(empty($userWebsite->google))
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                        <div class="text-left connectTo c-gp">
                         <a href="social/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Connect with Google</a>
                     </div>
 
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     {{Form::text('google', $userWebsite->google, array('placeholder' => 'Google Account', 'disabled'))}}
                 </div>
                 @else
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="text-left connectTo c-gp">
                         <a href="logout/google" class="whiteC"><img src="/img/icons/c-gp.jpg"> Sign-out with Google</a>
                     </div>
 
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     @if(Session::has('sessionGmail'))
                     Signed in as <a href="{{$userWebsite->google}}" target="_blank">{{$sessionGmail}}</a>
                     @endif
@@ -189,7 +189,7 @@
     </div>
 
     <div class="col-md-12 top-div_t mg-t-20">
-        <h3 class="whiteC text-center">-Contact Information-</h3>
+        <h3 class="whiteC text-center">-Address-</h3>
     </div>
     <div class="col-md-12 White same-H">
         <div class="pad-10 textbox-layout">
@@ -197,13 +197,13 @@
             {{Form::text('address', $userChannel->address, array('placeholder' => 'Address'))}}
             <br />
             {{Form::label('country', 'Country: ')}}
-            {{ Form::select('country', $countries) }}
+            {{ Form::select('country', $countries, array('class' => 'form-control'))}}
             <br/>
             {{Form::label('zip_code', 'Zip Code: ')}}
             {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
         </div>
     </div>
-
+    
     <div class="col-md-12 White same-H mg-t-20">
         <div class="pad-10 textbox-layout">
             <div class="text-center col-md-12">
