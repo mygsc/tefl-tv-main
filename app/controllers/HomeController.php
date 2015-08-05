@@ -715,10 +715,7 @@ public function addReply(){
 	}
 
 	public function testingpage(){
-		$data = array('message' => 'tesst');
-		Mail::send('emails.homes.forward', $data, function($message){
-			$message->to('kevwiththec@yahoo.com')->cc('kevwiththec@yahoo.com');
-		});
+		return View::make('testing');
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
