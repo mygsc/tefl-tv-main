@@ -343,11 +343,7 @@ a {
 .textbox-layout input[type="text"], 
 .textbox-layout input[type="password"], 
 .textbox-layout textarea,
-<<<<<<< HEAD
-.textbox-layout select {
-=======
 .textbox-layout select{
->>>>>>> development
     margin-bottom: 10px;
 }
 
@@ -366,11 +362,7 @@ a {
 input[type="text"], 
 input[type="password"], 
 textarea,
-<<<<<<< HEAD
-select {
-=======
 select{
->>>>>>> development
     vertical-align: middle;
     display: inline-block;
     width: 100%;
