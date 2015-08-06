@@ -45,7 +45,6 @@
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {{HTML::script('js/jquery.sticky-kit.min.js')}}
 {{HTML::script('js/sticky.js')}}
