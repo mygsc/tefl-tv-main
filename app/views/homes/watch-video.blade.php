@@ -12,11 +12,10 @@
     <?php
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
-    <meta property="og:image" content="{{$image}}.jpg">
-    <meta property="og:image" content="{{$image}}_600x338.jpg">
+    <meta property="og:image" content="{{asset('/')}}video/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.jpg">
+    <meta property="og:image" content="{{asset('/')}}video/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
     <meta property="og:description" content="{{$videos->description}}">
     <meta property="og:type" content="video"> 
-    
     <meta property="og:video" content="{{asset('/')}}js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
     <meta property="og:video:secure_url" content="https://www.tefltv.com/js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
     <meta property="og:video:type" content="application/x-shockwave-flash">
@@ -31,11 +30,6 @@
     <meta property="article:published_time" content="{{$videos->created_at}}" />
     <meta property="article:modified_time" content="{{$videos->updated_at}}" />
     <meta property="og:updated_time" content="{{$videos->created_at}}"/>
-    <!-- 
-    <meta property="og:video:tag" content="{{$videos->tags}}"> 
-    <meta name="keywords" content="{{$videos->tags}}">
-    <meta property="article:author" content="{{$owner->channel_name}}">
-    <meta property="article:publisher" content="{{$owner->channel_name}}"/> -->
 
 @stop
 @section('css')
@@ -178,9 +172,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                             @endforeach
 
                                                             @if(!empty($playlistNotChosens))
-                                                            @foreach($playlistNotChosens as $playlistNotChosen)
-                                                            <li id="playlist-value">{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
-                                                            @endforeach
+                                                                @foreach($playlistNotChosens as $playlistNotChosen)
+                                                                <li id="playlist-value">{{ Form::checkbox($playlistNotChosen->name,Crypt::encrypt($playlistNotChosen->id),null,array('id'=>'availablePlaylist'.$playlistCounter2++))}} &nbsp; {{$playlistNotChosen->name}}</li>
+                                                                @endforeach
                                                             @endif
                                                         </ul>
                                                         @endif   
@@ -469,4 +463,3 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 }(document, 'script', 'facebook-jssdk'));</script>--}}
 
 @stop
-
