@@ -342,8 +342,8 @@
 					    			</div>
 					    		</div><!--content-padding-->
 					    	</div><!--anotation-tab-->
-
-					    	<div role="tabpanel" class="tab-pane active" id="monetization-tab">
+					    	<div role="tabpanel" class="tab-pane" id="monetization-tab">
+					    		@if(Auth::User()->role == '3' or Auth::User()->role == '5')
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
 										<div class="well mg-t-20">
@@ -358,6 +358,7 @@
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
 					    		</div><!--content-padding-->
+					    		@endif
 					    	</div><!--monetization-tab-->
 					    </div><!--/tab-content-->
 					</div><!--col-md-12-->
