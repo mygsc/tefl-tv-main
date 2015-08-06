@@ -1,7 +1,7 @@
 <?php
 
 class AdminController extends BaseController {
-	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments, Country $countries, Report $reports) {
+	public function __construct(User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments, Country $countries, Report $reports, Dispute $disputes) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -11,10 +11,12 @@ class AdminController extends BaseController {
 		$this->Comment = $comments;
 		$this->Country = $countries;
 		$this->Report = $reports;
+		$this->Dispute = $disputes;
 	}
 
 	public function getCreateAdminLink(){ return View::make('admins.createadminlink'); }
 	public function getChangePassword(){ return View::make('admins.changepassword'); }
+	public function getResetPassword(){ return View::make('admins.resetpassword'); }
 
 	public function getIndex() {
 		if(isset(Auth::User()->role)){
@@ -42,10 +44,6 @@ class AdminController extends BaseController {
 		Auth::logout();
 		Session::flush();
 		return Redirect::route('admin.index');
-	}
-
-	public function getResetPassword(){
-		return View::make('admins.resetpassword');
 	}
 
 	public function postResetPassword(){
@@ -176,8 +174,14 @@ class AdminController extends BaseController {
 	}
 
 	public function getDisputes(){
-		$reports = $this->Report->getReports('active');
-		return View::make('admins.disputes', compact('reports'));
+		$disputes = $this->Dispute->getDisputes('active');
+		return View::make('admins.disputes', compact('disputes'));
+	}
+	public function getSortDisputes($sort = NULL){
+		if(!isset($sort)) $sort = 'all';
+		$disputes = $this->Dispute->getDisputes($sort);
+		if(!$disputes) return Redirect::route('admin.index')->withFlashBad('Invalid link. Please try again.');
+		return View::make('admins.disputes', compact('disputes'));
 	}
 	public function viewDisputes($id){
 		if(!isset($id)) return Redirect::route('admin.index')->withFlashBad('Invalid URL. please try again!');
