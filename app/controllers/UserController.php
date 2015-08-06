@@ -431,8 +431,8 @@ class UserController extends BaseController {
 			$videoCategory = $this->video_->categorySelected($category);
 			//}
 
-			//$thumbnail = '';
-			$thumbnail = $this->threeThumbnailPath($filename, $extension);
+			$thumbnail = '';
+			//$thumbnail = $this->threeThumbnailPath($filename, $extension);
 			$annotations = Annotation::where('vid_filename', $file_name)->get();
 			$countAnnotation = count($annotations);
 			
