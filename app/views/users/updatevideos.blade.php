@@ -350,7 +350,7 @@
 											{{Form::label('Monetize this video:')}}<br/>
 											<span class="v-category">
 												{{Form::checkbox('monetize', ($video->monetize ? 'Yes' : 'No'), $video->monetize,['id'=>'monetize'])}}
-												<label for='advice'>Monetize</label>
+												<label for='advice'>Monetize</label> <small>Don’t forget to sign up as tefltv partner!</small>
 											</span>
 										</div>	
 										<br/>
