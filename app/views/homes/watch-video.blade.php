@@ -37,6 +37,7 @@
 {{-- */$playlistCounter = 1;/* --}}
 {{-- */$playlistCounter2 = 1;/* --}}
 @section('some_script')
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
@@ -44,7 +45,6 @@
 
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
-{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/homes/linkify.js')}}
 {{HTML::script('js/homes/linkify-jquery.js')}}
 {{HTML::script('js/adsbygoogle.js')}}
