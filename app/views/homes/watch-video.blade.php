@@ -59,6 +59,8 @@
         })
     }); 
 </script>
+{{HTML::script('js/jwplayer/jwplayer.js')}}
+<script>jwplayer.key="c/DHClHu78RC4CxchFupQwt8/CyvNot0VjHn7A==";</script>
 
 <script>
 if(window.isAdsDisplayed === undefined ) {
