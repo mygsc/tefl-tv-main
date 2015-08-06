@@ -173,7 +173,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                         @endif   
 
 
-                                                        <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
+                                                        <button id="createPlaylist" class="btn-adplaylist">Create New Playlist</button>
                                                         
                                                     </li>
                                                 </span>
@@ -339,7 +339,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                         <div class="seeVideoContent black">
                                             <br/>
-                                            <pre style="text-indent:none!important;width:100%">{{$videos->description}}</pre>
+                                            <pre>{{$videos->description}}</pre>
                                             <br/><br/>
                                             <p><b>Tags:</b> {{$videos->tags}}<br/>
                                             <b>Categories:</b> {{$videos->category}}</p>

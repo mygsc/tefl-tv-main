@@ -82,7 +82,7 @@ if(window.isAdsDisplayed === undefined ) {
 									<div class="visible-lg visible-md hidden-sm hidden-xs d-table">
 										<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 										<!-- Left-Box -->
-										<div class="ads-relative-wrapper-box ads-box" target="_blank">
+										<div class="ads-relative-wrapper-box ads-box ads-box-md" target="_blank">
 											<ins class="adsbygoogle"
 											style="display:block"
 											data-ad-client="ca-pub-3138986188138771"
