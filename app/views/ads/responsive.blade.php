@@ -64,6 +64,3 @@
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
-
-
-
