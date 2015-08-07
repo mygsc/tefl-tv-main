@@ -223,6 +223,7 @@
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
 											</div>
 											<hr/>
+											<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
@@ -242,7 +243,6 @@
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
-										<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
 									@else
 										<div class="row text-center">
 											<div class="pad-10">
@@ -255,6 +255,8 @@
 												
 											
 											</div>
+											<hr/>
+											<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block'>
@@ -274,7 +276,7 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
-										<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
+
 										{{Form::close()}}
 									@endif
 									<br/>
