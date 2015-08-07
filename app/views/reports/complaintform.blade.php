@@ -74,11 +74,11 @@
 						<h4>Tell us about yourself</h4>
 						<div class="row">
 							<div class="col-md-12">
-								* Copyright Owner Name (TEFL username or full legal name):
+								* Copyright Owner Name (TEFL username or full legal name): 
 								The copyright owner name will be published on TEFL in place of disabled content. 
-								his will become part of the public record of your request, along with your description(s)
-								 of the work(s) allegedly infringed. All other information, including your full legal name and email address,
-								  are part of the full takedown notice, which may be provided to the uploader.
+								his will become part of the public record of your request, along with your description(s) 
+								of the work(s) allegedly infringed. All other information, including your full legal name 
+								and email address, are part of the full takedown notice, which may be provided to the uploader.
 								<br/><br/>
 								{{Form::text('owner_name', Auth::User()->channel_name, array('class'=> 'form-control', 'disabled'))}}
 								
