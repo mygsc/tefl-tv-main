@@ -13,7 +13,7 @@
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
-    <meta property="og:description" content="{{$videos->description}}">
+    <meta property="og:description" content={{htmlspecialchars($videos->description)}}>
     <meta property="og:type" content="video"> 
     <!-- <meta property="og:video" content="{{asset('/')}}js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
     <meta property="og:video:secure_url" content="https://www.tefltv.com/js/jwplayer/jwplayer.flash.swf?file={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true"> -->
@@ -22,7 +22,6 @@
     <meta property="og:video:type" content="application/x-shockwave-flash">
     <meta property="og:video:width" content="600"> 
     <meta property="og:video:height" content="360"> 
-    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
     <meta name="keywords" content="{{$videos->tags}}">     
    <!--  <meta property="article:published_time" content="{{$videos->created_at}}" />
     <meta property="article:modified_time" content="{{$videos->updated_at}}" />

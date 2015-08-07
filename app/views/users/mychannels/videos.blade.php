@@ -173,10 +173,7 @@
 											</div>
 										</a>
 									</div>
-<<<<<<< HEAD
 
-=======
->>>>>>> 2bb627a10f4416567c82f846a0b27e9beb25db64
 									<div class="inlineInfo ">
 										
 										<div class="v-Info">
