@@ -21,7 +21,7 @@
 				 <br/>
 				<table class="table-striped table">
 					<tr class="tbHead">
-						<th>ID</th>
+						<th>#</th>
 						<th>Case Number</th>
 						<th>Complainant's Channel</th>
 						<th>Uploader's Channel</th>

@@ -166,7 +166,11 @@ title {
   color: #787878;
   text-shadow: none;
 }
-
+@media all and (max-width: 599px) {
+ #cmn-video-demo3__content h2 {
+    font-size: 30px;
+  }
+}
 @media all and (min-width: 600px) {
   #cmn-video-demo3__container {
     height: 480px;

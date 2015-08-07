@@ -37,6 +37,7 @@
 {{-- */$playlistCounter = 1;/* --}}
 {{-- */$playlistCounter2 = 1;/* --}}
 @section('some_script')
+{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
@@ -44,7 +45,6 @@
 
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
-{{HTML::script('js/jquery.min.js')}}
 {{HTML::script('js/homes/linkify.js')}}
 {{HTML::script('js/homes/linkify-jquery.js')}}
 {{HTML::script('js/adsbygoogle.js')}}
@@ -178,7 +178,9 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                             @endif
                                                         </ul>
                                                         @endif   
-                                                        <button id="createPlaylist" class="btn btn-unsub">Create New Playlist</button>
+                                                        <button id="createPlaylist" class="btn-adplaylist">Create New Playlist</button>
+                                                        
+
                                                     </li>
                                                 </span>
                                             </span><!--/.dropdown add to-->
@@ -333,7 +335,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                         <div class="seeVideoContent black">
                                             <br/>
-                                            <pre style="text-indent:none!important;width:100%" id="videoDescriptionLinkify">{{$videos->description}}</pre>
+                                            <pre id="videoDescriptionLinkify">{{$videos->description}}</pre>
+
                                             <br/><br/>
                                             <p><b>Tags:</b> {{$videos->tags}}<br/>
                                             <b>Categories:</b> {{$videos->category}}</p>
@@ -463,4 +466,3 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 }(document, 'script', 'facebook-jssdk'));</script>--}}
 
 @stop
-
