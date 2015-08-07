@@ -67,6 +67,7 @@ if(window.isAdsDisplayed === undefined ) {
 </script>
 
 <script type="text/javascript">
+document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
             if($(".linkReadMore span").html() == 'READ MORE'){
