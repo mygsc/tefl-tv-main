@@ -373,7 +373,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = $this->Video->getVideoswithDispute($this->Auth->id, 'videos.created_at', 1);
+		$usersVideos = $this->Video->getVideoswithDispute(Auth::User()->id);
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
