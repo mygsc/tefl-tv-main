@@ -221,7 +221,7 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
-												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save poster</button><br>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save selected thumbnail</button><br>
 											</div>
 											<hr/>
 										</div>
@@ -252,7 +252,7 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline"> No available thumbnails</h3>
-												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save poster</button><br>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save selected thumbnail</button><br>
 											
 											</div>
 										</div>
