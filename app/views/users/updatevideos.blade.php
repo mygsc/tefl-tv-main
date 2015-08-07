@@ -87,9 +87,7 @@
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
 		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
-		                    @if(Auth::User()->role == '3' or Auth::User()->role == '5')
-		                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
-		                	@endif
+	                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
 		                </ul>
 
 		                <div class="tab-content row White same-H mg-t-20">
@@ -342,8 +340,7 @@
 					    			</div>
 					    		</div><!--content-padding-->
 					    	</div><!--anotation-tab-->
-
-					    	<div role="tabpanel" class="tab-pane active" id="monetization-tab">
+					    	<div role="tabpanel" class="tab-pane" id="monetization-tab">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
 										<div class="well mg-t-20">

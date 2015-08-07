@@ -43,6 +43,10 @@
 								{{Form::hidden('start-t-annotation'.$i,$annotations[$i]->start,['id'=>'start-t-annotation'.$i])}}
 								{{Form::hidden('end-t-annotation'.$i,$annotations[$i]->end,['id'=>'end-t-annotation'.$i])}}
 							</div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> aff6bdf8cb946e8a75feb98aebb2257522cc9ea5
 							@endif
 						@endif
 
