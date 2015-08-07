@@ -221,9 +221,9 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set selected cover</button><br>
 											</div>
 											<hr/>
-											<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
@@ -252,11 +252,9 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline"> No available thumbnails</h3>
-												
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set selected cover</button><br>
 											
 											</div>
-											<hr/>
-											<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Set Video Cover</button><br>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block'>
@@ -276,7 +274,6 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
-
 										{{Form::close()}}
 									@endif
 									<br/>
