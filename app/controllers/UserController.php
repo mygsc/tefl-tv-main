@@ -62,10 +62,29 @@ class UserController extends BaseController {
 	public function postSignupWithSocialMedia(){
 		Session::reflash();
 		$input = Input::all();
-		$validate = Validator::make($input, User::$userRules);
+
+		$blackListChannels = array("tefl tv", "tefl_tv", 'tefltv', 'tefl-tv', 'tefl@tv',
+			'tefleducators', 'tefleducator', 'tefl educator', 'tefl-educator', 'tefl@educator', 'tefl_educator',
+			'tefl educators', 'tefl-educators', 'tefl@educators', 'tefl_educators');
+		$compareChannelName = strtolower($input['channel_name']);
+
+		foreach ($blackListChannels as $blackListChannel) {
+			if (strpos($compareChannelName, $blackListChannel) !== false) {
+			    return Redirect::route('homes.signupwithsocialmedia', array('signup' => 'signup'))->withInput()
+			    ->withFlashBad('Channel name is already taken.');
+			}
+		}
+
+		$validate = Validator::make($input, User::$socialMediaRules);
 		if($validate->passes()){
 			$this->User->signup($input,Session::get('social_media'), Session::get('social_media_id'));
 			return Redirect::route('homes.signin')->withFlashGood('You may now sign in');
+
+			//--------------Email Done----------------------//
+			$input['token'] = $generateToken;
+			$this->User->signup($input); //save
+			$this->adminNotification(array('username'=>$input['channel_name'], 'email'=>Input::get('email'),'fname'=>$input['first_name'], 'lname'=>$input['last_name']));
+			return Redirect::route('homes.signin')->withFlashGoodWithoutHide("Successfully Registered!");
 		}
 
 		return Redirect::route('homes.signupwithsocialmedia')->withFlashBad('please check your inputs')->withInput()->withErrors($validate);
@@ -83,7 +102,7 @@ class UserController extends BaseController {
 		foreach ($blackListChannels as $blackListChannel) {
 			if (strpos($compareChannelName, $blackListChannel) !== false) {
 			    return Redirect::route('homes.signin', array('signup' => 'signup'))->withInput()
-			    ->withFlashBad('This channel name is blacklisted. Please try different channel name.');
+			    ->withFlashBad('Channel name is already taken.');
 			}
 		}
 		
@@ -100,7 +119,7 @@ class UserController extends BaseController {
 			$input['token'] = $generateToken;
 			$this->User->signup($input); //save
 			$this->adminNotification(array('username'=>$input['channel_name'], 'email'=>Input::get('email'),'fname'=>$input['first_name'], 'lname'=>$input['last_name']));
-			return Redirect::route('homes.signin')->withFlashGoodWithoutHide("Successfully Registered, Please check your email to activate your account and also please do check your spam folder!");
+			return Redirect::route('homes.signin')->withFlashGoodWithoutHide("Successfully Registered! We sent you an email to activate your account and don't forget to check your both your spam folder");
 		}
 		return Redirect::route('homes.signin', array('signup' => 'signup'))->withErrors($validate)->withInput();
 	}
@@ -354,7 +373,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$usersChannel = UserProfile::find(Auth::User()->id);
-		$usersVideos = $this->Video->getVideoswithDispute($this->Auth->id, 'videos.created_at', 1);
+		$usersVideos = $this->Video->getVideoswithDispute(Auth::User()->id);
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
@@ -431,8 +450,8 @@ class UserController extends BaseController {
 			$videoCategory = $this->video_->categorySelected($category);
 			//}
 
-			$thumbnail = '';
-			//$thumbnail = $this->threeThumbnailPath($filename, $extension);
+			//$thumbnail = '';
+			$thumbnail = $this->threeThumbnailPath($filename, $extension);
 			$annotations = Annotation::where('vid_filename', $file_name)->get();
 			$countAnnotation = count($annotations);
 			
