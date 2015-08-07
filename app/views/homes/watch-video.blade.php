@@ -56,9 +56,6 @@
         })
     }); 
 </script>
-
-<script src="http://tefltv.com/js/jwplayer/jwplayer.js"></script>
-<script>jwplayer.key="c/DHClHu78RC4CxchFupQwt8/CyvNot0VjHn7A==";</script>
 <script>
 if(window.isAdsDisplayed === undefined ) {
     $('#vid-controls').remove();

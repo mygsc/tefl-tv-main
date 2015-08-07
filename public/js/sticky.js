@@ -4,7 +4,7 @@
 
   $(function() {
     return $("[data-sticky_column]").stick_in_parent({
-      parent: "[data-sticky_parent]";
+      parent: "[data-sticky_parent]"
     });
   });
 
