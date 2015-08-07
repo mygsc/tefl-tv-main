@@ -72,6 +72,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'last_name' => 'required|regex:/(^[A-Za-z_ -]+$)+/',
 		'contact_number' => 'regex:/(^[+0-9]+$)+/');
 
+	public static $socialMediaRules = array(
+		'email' => 'required|email|unique:users,email',
+		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
+		'password' => 'required',
+		'confirm_password' =>'same:password|required');
+
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',
 		'newPassword' => 'required|min: 6',
@@ -286,7 +292,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$split_adsense_id = explode('-', $adsense_id);
 		if(count($split_adsense_id) == 2){
 			if($split_adsense_id[0] == 'pub' && strlen($split_adsense_id[1]) == 16){
-			return true;
+				return true;
 			}
 		}
 		return false;
