@@ -88,7 +88,7 @@
 									@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 									@endif
-								{{Form::label('Tags:')}} &nbsp;<span class="notes">( *Use comma(,) to separate each tags. e.g. Education,Blog )<br/></span>
+								{{Form::label('Tags:')}} &nbsp;<span class="notes">( Use a comma(,) to separate each tag. e.g. Education, Blog )<br/></span>
 								{{Form::text('tags',null,array('class'=>'form-control','required'=>true))}}
 									@if ($errors->has('tags'))
 											<small style="color:red">{{$errors->first('tags')}}</small>

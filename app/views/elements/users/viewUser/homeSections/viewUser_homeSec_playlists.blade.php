@@ -13,7 +13,7 @@
 			<p class="text-center fs-12">No Playlists yet</p>
 			@else
 			@foreach($usersPlaylists as $playlists)
-			<div class="col-md-3">
+			<div class="col-md-3 col-sm-6 col-xs-6">
 				<div class="p-relative">
 					<div class="playlist-info" >
 						<br/>

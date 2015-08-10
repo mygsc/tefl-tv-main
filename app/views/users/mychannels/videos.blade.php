@@ -90,36 +90,40 @@
 					</div>
 				</nav>
 				<div class="top-div col-md-12 mg-t-20" style="padding:20px 0;">
-					<div class="col-md-6 col-sm-6">
-						
-						{{Form::open(array('route' => 'search','method' => 'GET'))}}
-						<div class="input-group" style="margin-bottom:10px;">
-							{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn ">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
-							</span>
-							{{Form::close()}}
-						</div>
-					</div>
-					<div class="col-md-6 col-sm-6">
-							<!--<label>Sort by:</label>
-							<button id="sort" class="btn btn-default btn-sm">Likes</button>
-							<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
-							<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
-								<option value="" selected disabled>Sort By</option>
-								<option>Recent</option>
-								<option>Likes</option>
-								<option>Views</option>
-								<option>Unpublished</option>
-							</select>
-							&nbsp;&nbsp;
-
-
-							<div class="buttons pull-right inline">
-								<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-								<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-6">
+								
+								{{Form::open(array('route' => 'search','method' => 'GET'))}}
+								<div class="input-group" style="margin-bottom:10px;">
+									{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn ">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info')) }}
+									</span>
+									{{Form::close()}}
+								</div>
 							</div>
-							<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+							<div class="col-md-6 col-sm-6 hidden-xs">
+								<!--<label>Sort by:</label>
+								<button id="sort" class="btn btn-default btn-sm">Likes</button>
+								<button id="sort" class="btn btn-default btn-sm">Recent</button>-->
+								<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
+									<option value="" selected disabled>Sort By</option>
+									<option>Recent</option>
+									<option>Likes</option>
+									<option>Views</option>
+									<option>Unpublished</option>
+								</select>
+								&nbsp;&nbsp;
+	
+	
+								<div class="buttons pull-right inline">
+									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+									<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+								</div>
+								<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+							</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-md-12 White same-H mg-t--20 channel-content">
@@ -131,10 +135,10 @@
 								<h3 class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
 								@else
 								@foreach($usersVideos as $usersVideo)
-								<div id='list' class="col-md-3 col-sm-6 mg-b-10">
+								<div id='list' class="col-md-3 col-xs-6 col-sm-6 mg-b-10">
 									<div class="inlineVid">
 										<span class="btn-sq">
-											<table >
+											<table>
 												<tr>
 													<td>
 														<a href="edit/v={{$usersVideo->file_name}}" >
@@ -173,22 +177,23 @@
 										</a>
 									</div>
 									<div class="inlineInfo ">
-										
-										<div class="v-Info">
-											<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
-												<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
-												<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
-												<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
-											</a>
-										</div>
-										
-										
+											<div class="video-info-2">
+												<div class="v-Info">
+													<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
+														<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
+														<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
+														<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
+													</a>
+												</div>
+											
+									
 										<div class="text-justify desc hide">
 											<p>{{$usersVideo->description}}</p>
 											<br/>
 										</div>
 										<div class="count">
 											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
+										</div>
 										</div>
 									</div>
 									

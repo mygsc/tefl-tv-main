@@ -46,33 +46,35 @@
 				</div>
 
 				<div class="top-div_t col-md-12 mg-t-20 pad20t">
-					<div class="col-md-6 col-sm-6 mg-t-10">
-						{{Form::open(array('route' => ['channels.search.playlists', $userChannel->channel_name], 'method' => 'GET'))}}
-						<div class="input-group">
-							{{ Form::text('searchPlaylists', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-							</span>
-							{{Form::close()}}
-						</div>
-					</div>
-				
-
-					<!-- <div class="col-md-6 col-sm-6  mg-t-10">
-						@if(!empty(Auth::User()->id))
-							{{Form::open()}}
-							<div class="input-group" style="">
-								{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
-								{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
-								<span class="input-group-btn">
-									{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
-								</span>
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-12 mg-t-10">
+								{{Form::open(array('route' => ['channels.search.playlists', $userChannel->channel_name], 'method' => 'GET'))}}
+								<div class="input-group">
+									{{ Form::text('searchPlaylists', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+									{{Form::close()}}
+								</div>
 							</div>
-							{{Form::close()}}
-						@endif
-					</div> -->
-				</div> 		
-
+	
+							<!-- <div class="col-md-6 col-sm-6  mg-t-10">
+								@if(!empty(Auth::User()->id))
+									{{Form::open()}}
+									<div class="input-group" style="">
+										{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
+										{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
+										<span class="input-group-btn">
+											{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
+										</span>
+									</div>
+									{{Form::close()}}
+								@endif
+							</div> -->
+						</div> 		
+					</div>
+				</div>
 				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
@@ -81,7 +83,7 @@
 							<p class="text-center">No playlists yet</p>
 						@else
 							@foreach($playlists as $key=> $playlist)
-							<div id="playlists" class="col-xs-2 col-md-3">
+							<div id="playlists" class="col-xs-6 col-sm-6 col-md-3">
 								<a href="/channels/{{$userChannel->channel_name}}/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 								@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))

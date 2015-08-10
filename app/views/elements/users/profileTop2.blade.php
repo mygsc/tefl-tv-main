@@ -21,7 +21,7 @@
 							</div>
 						</div>
 						<div class="overlay-cover container">
-							<div class="col-md-6">
+							<div class="col-md-6 hidden-xs">
 								<div class="text-left chaCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{$countVideos}} Videos</label> &nbsp;

@@ -61,7 +61,7 @@
 							<p class="text-center">No watch later yet.</p>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
-						<div id='list' class="col-md-3">
+						<div id='list' class="col-md-3 col-sm-6 col-xs-6 ">
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{$userChannel->id}}"/>
@@ -103,14 +103,16 @@
 
 							<div class="inlineInfo ">
 								<div class="count">
-									<div class="v-Info">
-										<!-- <a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank"> -->
-										{{$watchLater->title}}
-										<!-- </a> -->
+									<div class="video-info-2">
+										<div class="v-Info">
+											<!-- <a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank"> -->
+											{{$watchLater->title}}
+											<!-- </a> -->
+										</div>
+										by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
+											{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
+										<br/>
 									</div>
-									by: <a href="{{route('view.users.channel', array($watchLater->channel_name))}}">{{$watchLater->channel_name}}</a><br/>
-										{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
-									<br/>
 								</div>
 							</div>
 						</div><!--/#list-->
