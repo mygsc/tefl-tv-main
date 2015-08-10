@@ -75,7 +75,6 @@
 									<li>{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
-									<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
 									<li>{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 								</ul>
@@ -85,36 +84,38 @@
 				</div>
 
 				<div class="top-div col-md-12 mg-t-20" style="padding:20px 0;">
-					<div class="col-md-6 col-sm-6">
-						{{Form::open(array('route' => ['channels.search', $userChannel->channel_name], 'method' => 'GET'))}}
-						<div class="input-group" style="margin-bottom:10px;">
-							{{ Form::text('searchTitle', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-							</span>
-							{{Form::close()}}
-						</div>
-					</div>
-					<div class="col-md-6 col-sm-6">
-						<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
-							<option value="" selected disabled>Sort By</option>
-							<option>Recent</option>
-							<option>Likes</option>
-							<option>Views</option>
-						</select>
-						&nbsp;&nbsp;
-					
-
-						<div class="buttons pull-right inline">
-							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
-						</div>
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-6">
+								{{Form::open(array('route' => ['channels.search', $userChannel->channel_name], 'method' => 'GET'))}}
+								<div class="input-group" style="margin-bottom:10px;">
+									{{ Form::text('searchTitle', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+									{{Form::close()}}
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 hidden-xs">
+								<select class="form-control" style="width:auto!important;" id="dropdown" onchange="dynamic_select(this.value)">
+									<option value="" selected disabled>Sort By</option>
+									<option>Recent</option>
+									<option>Likes</option>
+									<option>Views</option>
+								</select>
+								&nbsp;&nbsp;
+							
+		
+								<div class="buttons pull-right inline">
+									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+									<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+								</div>
+								<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+							</div>
 						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 					</div>
-						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 				</div>
-					
-				<br/><br/><hr class="" />
+			</div>
 				<div class="col-md-12 White same-H mg-t--20">
 					<br/>
 					<div id="videosContainer" class='container'>
@@ -123,7 +124,7 @@
 								<p class="text-center">No Videos yet.</p>
 							@else
 							@foreach($usersVideos as $usersVideo)
-								<div id='list' class="col-md-3 mg-b-10">
+								<div id='list' class="col-md-3 col-sm-6 col-xs-6 mg-b-10">
 									<div class="inlineVid">
 										<a href="{{route('homes.watch-video', array('v='.$usersVideo->file_name))}}" target="_blank">
 											<div class="thumbnail-2">

@@ -32,7 +32,7 @@
 					@foreach($popularVideos as $key => $popularVideo)
 					<!-- 12 column / 3 column = 4 -->
 					<a href="{{route('homes.watch-video', array('v=' .$popularVideo->file_name))}}">
-						<div class="col-md-3">
+						<div class="col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
 								<span class="v-time inline">{{$popularVideo->total_time}}</span>
 								<div class="thumbnail-2"> 

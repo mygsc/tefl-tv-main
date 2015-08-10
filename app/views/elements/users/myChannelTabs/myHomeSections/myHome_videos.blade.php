@@ -12,7 +12,7 @@
 				<p class="text-center">No Videos Uploaded yet..</p>
 			@else
 				@foreach($usersVideos as $usersVideo)
-					<div class="col-lg-3 col-md-3 col-sm-6">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 						<div class="thumbnail-2">
 							<a href="{{route('homes.watch-video', array('v='.$usersVideo->file_name))}}" target="_blank">
 								@if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )

@@ -11,7 +11,7 @@
 			<p class="text-center">No videos yet..</p>
 		@else
 			@foreach($findVideos as $key => $findVideo)
-				<div class="col-md-3 col-sm-6">
+				<div class="col-md-3 col-sm-6 col-xs-6">
 					<a href="{{route('homes.watch-video', array('v='. $findVideo->file_name))}}" target="_blank">	
 						<div id="findVid">
 							<div class="thumbnail-2"> 
