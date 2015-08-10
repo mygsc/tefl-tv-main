@@ -316,6 +316,27 @@ class Video extends Eloquent{
 		return $getVideos->take($limit)->get();
 	}
 
+	public function getVideo($filename){
+		$videos = Video::where('file_name', '=', $filename)->first();
+
+		$temp = '';
+		$split_tags = explode(',', $videos->tags);
+		$lastCount = count($split_tags) - 1;
+		$x = 0;
+		if(count($split_tags) != 1){
+			foreach ($split_tags as $split_tag) {
+				$split_tag = trim($split_tag);
+				if ($x != $lastCount) {
+			        $temp = $temp . ucfirst($split_tag) . ", ";
+			    }else{
+			    	$temp = $temp . ucfirst($split_tag);
+			    }
+			}
+			$videos->tags = $temp;
+		}
+		return $videos;
+	}
+
 	public function getVideoswithDispute($auth = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
