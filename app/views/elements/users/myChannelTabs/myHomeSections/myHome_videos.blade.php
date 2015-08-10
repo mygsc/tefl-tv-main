@@ -1,4 +1,5 @@
 <!--videos-->
+
 	<div class="whiteC text-center top-div_t mg-t-10">
 		<div class="row">
 			<h2>VIDEOS</h2>
@@ -23,15 +24,19 @@
 							</a>
 						</div>
 						<div class="inlineInfo ">	
-							<a href="{{route('homes.watch-video','v='.$usersVideo->file_name)}}" target="_blank">
-								<div class="v-Info">
-									<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
-									<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
-									<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
+								
+									<div class="video-info-2">
+										<a href="{{route('homes.watch-video','v='.$usersVideo->file_name)}}" target="_blank">
+										<div class="v-Info">
+											<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
+											<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
+											<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
+										</div>
+										</a>
+								
+								<div class="count">
+									</i> {{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('F d, Y',strtotime($usersVideo->created_at))}}
 								</div>
-							</a>
-							<div class="count">
-								</i> {{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('F d, Y',strtotime($usersVideo->created_at))}}
 							</div>
 						</div>
 						<br/>
