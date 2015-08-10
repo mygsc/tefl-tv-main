@@ -44,13 +44,13 @@
                             </div>
                             <div class="col-md-9">
                                <div class="row">
-                               <p>*Please take note that canceling your partner account will remove the following features from your account:</p>
+                               <p>Please take note that canceling your partner account will remove the following features:</p>
                                 <ul>
                                     <li>Integrating your own google ads into your video</li>
                                     <li>Ability to earn revenue</li>
                                     <li>Partner status on TEFLtv</li>
                                 </ul>
-                                <p>If you would like to proceed please fill the following fields to confirm your account ownership or <a href="{{route('homes.index')}}">click here</a> to return home.</p>
+                                <p>If you would like to proceed please fill the following fields to confirm account ownership or <a href="{{route('homes.index')}}">click here</a> to return home.</p>
                             </div>
                             <div class="row">
                                 {{Form::open(array('route' => 'post.cancel.partners'))}}

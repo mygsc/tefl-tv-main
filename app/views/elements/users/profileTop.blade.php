@@ -35,6 +35,12 @@
 
 				</div>
 				<div class="div-coverP">
+					<div class="account-btn-sm visible-xs">
+						<span class="pull-right">
+							<span class="btn-ico btn-default" style="padding:2px 5px!important;"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
+							<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
+						</span>
+					</div>
 					<div class="overlay-wrap">
 						<div class="container">
 							<div class="col-md-6 col-sm-6">
@@ -42,7 +48,7 @@
 									{{Auth::User()->channel_name}}
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-6">
+							<div class="col-md-6 col-sm-6 hidden-xs">
 								<span class="pull-right">
 									<span class="btn-ico btn-default" style="padding:2px 5px!important;"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
 									<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
@@ -50,7 +56,7 @@
 							</div>
 						</div>
 						<div class="overlay-cover container">
-							<div class="col-md-6">
+							<div class="col-md-6 hidden-xs">
 								<div class="text-left chaCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{$countVideos}} Videos</label> &nbsp;
