@@ -215,7 +215,7 @@ class HomeController extends BaseController {
 		$filename = $this->getURL();
 		// $videos = Video::where('file_name', '=', $filename)->first();
 		$videos = $this->Video->getVideo($filename);
-		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
+		if(!$videos) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
 		$id = $videos->id;
