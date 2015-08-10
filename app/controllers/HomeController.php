@@ -213,7 +213,8 @@ class HomeController extends BaseController {
 	}
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
-		$videos = Video::where('file_name', '=', $filename)->first();
+		// $videos = Video::where('file_name', '=', $filename)->first();
+		$videos = $this->Video->getVideo($filename);
 		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
@@ -261,16 +262,11 @@ class HomeController extends BaseController {
 			$playlists = $this->Playlist->playlistchoose($id);
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
-			$favorites = UserFavorite::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = UserWatchLater::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$like = UserLike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$dislike = UserDislike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-		}
-		else{
+			$favorites = UserFavorite::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = UserWatchLater::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$like = UserLike::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$dislike = UserDislike::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+		} else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
@@ -317,7 +313,6 @@ class HomeController extends BaseController {
 			)
 		);
 	}
-
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
@@ -412,17 +407,12 @@ class HomeController extends BaseController {
 				'comment_id' => $comments->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
 
 			$userInfo = User::find($user_id);
-
-			if(file_exists(public_path('img/user/'. $userInfo->id . '.jpg'))){
-				$temp = 'img/user/'.$userInfo->id . '.jpg';
-			} else{
-				$temp = 'img/user/0.jpg';
-			}
+			$profile_picture = $this->User->getUsersImages($userInfo->id);
 
 			$newComment =  
 			'<div class="commentsarea row commentDeleteArea">
 			<div class="commentProfilePic col-md-1">'. 
-				HTML::image($temp, "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
+				HTML::image($profile_picture['profile_picture'], "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
 			</div>
 			<div class="col-md-11">
 				<div class="row"><b>'.
@@ -505,18 +495,15 @@ public function addReply(){
 		$replies->save();
 		$userInfo = User::find($user_id);
 
-		if(file_exists(public_path('img/user/'. $user_id . '.jpg'))){
-			$temp = 'img/user/'. $user_id . '.jpg';
-		} else{
-			$temp = 'img/user/0.jpg';
-		}
+		$profile_picture = $this->User->getUsersImages($user_id);
+
 		$newReply = '';
 		$newReply2 = '';
 
 		$newReplyFirst = 
 		'<div class="deleteReplyArea">
 		<div class="commentProfilePic col-md-1">
-			<img src="'.$temp.'" class="img-responsive inline" height="48px" width="48px" alt="alt"></div>
+			<img src="'.$profile_picture['profile_picture'].'" class="img-responsive inline" height="48px" width="48px" alt="alt"></div>
 			<div class="col-md-11  text-left">
 				<div class="">' .
 					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
@@ -768,7 +755,13 @@ public function addReply(){
 		}
 		return app::abort(404, 'Page not available.');
 	}
-	public function getFlashVideoPlayer(){
-		return View::make('tefltv_video_player.tefltv_video_player');
+	public function getFlashVideoPlayer($filename=null){
+		$result = Video::where('file_name','=',$filename);
+		if($result->count()){
+			$result = $result->first();
+			$video = User::find($result->user_id);
+			return View::make('tefltv_fl_video_player.tefltv_video_player',compact('result','video'));
+		}
+		return app::abort(404, 'Page not available.');
 	}
 }

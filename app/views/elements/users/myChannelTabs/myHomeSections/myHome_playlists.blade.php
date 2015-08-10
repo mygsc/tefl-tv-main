@@ -14,7 +14,7 @@
 				<p class="text-center mg-t-20 mg-b-20 ">No Playlists yet</p>
 			@else
 				@foreach($usersPlaylists as $key=>$playlist)
-					<div class="col-lg-3 col-md-3 col-sm-2">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 						<div class="p-relative">
 							<div class="thumbnail-2"> 
 								@if(isset($thumbnail_playlists[$key][0]))	

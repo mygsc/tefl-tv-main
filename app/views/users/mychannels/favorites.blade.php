@@ -38,7 +38,6 @@
 							<li>{{link_to_route('users.channel', 'Home')}}</li>
 							<li>{{link_to_route('users.about', 'About')}}</li>
 							<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
-							<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
 							<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
 							<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
 							<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
@@ -49,22 +48,26 @@
 
 
 				<div class="top-div_t col-md-12 mg-t-20 pad20t">
-					<div class="col-md-6 col-sm-8 col-xs-8">
-						{{Form::open(array('route' => 'searchFavorites', 'method' => 'GET'))}}	
-						<div class="input-group">
-								{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-								<span class="input-group-btn">
-									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-								</span>
-							{{Form::close()}}
-						</div>
-					</div>
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-8 col-xs-8">
+								{{Form::open(array('route' => 'searchFavorites', 'method' => 'GET'))}}	
+								<div class="input-group">
+										{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+										<span class="input-group-btn">
+											{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+										</span>
+									{{Form::close()}}
+								</div>
+							</div>
+							
 					
-			
-					<div class="col-md-6 col-sm-4 col-xs-4 text-right">
-						<div class="buttons">
-							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-							<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+							<div class="col-md-6 col-sm-4 col-xs-4 text-right">
+								<div class="buttons">
+									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+									<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -76,7 +79,7 @@
 						@else
 						@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-						<div id="list" class="col-md-3 col-sm-6 mg-b-10">
+						<div id="list" class="col-md-3 col-sm-6 col-xs-6 mg-b-10">
 							
 							<div class="inlineVid ">
 								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn-ico btn-default')) }}</span>

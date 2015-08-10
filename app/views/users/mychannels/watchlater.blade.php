@@ -51,33 +51,35 @@
 
 
 				<div class="top-div_t col-md-12 mg-t-20 pad20t">
-					<div class="content-padding">
-						<div class="col-md-6 col-sm-8 col-xs-8">
-							{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}	
-							<div class="input-group">
-								{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-								<span class="input-group-btn">
-									{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-								</span>
-								{{Form::close()}}
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-8 ">
+								{{Form::open(array('route' => 'searchWatchLater', 'method' => 'GET'))}}	
+								<div class="input-group">
+									{{ Form::text('search', null, array('id' => 'category', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+									{{Form::close()}}
+								</div>
 							</div>
-						</div>
 
-						<!--<div class="col-md-5">
-					
-							<select class="form-control" style="width:auto!important;">
-								<option value="" selected disabled>Sort By</option>
-								<option>Likes</option>
-								<option>Recent</option>
-							</select>
-							&nbsp;&nbsp;
-							<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
-						</div>-->
-
-						<div class="col-md-6 col-sm-4 col-xs-4 text-right">
-							<div class="buttons pull-right">
-								<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
-								<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+							<!--<div class="col-md-5">
+						
+								<select class="form-control" style="width:auto!important;">
+									<option value="" selected disabled>Sort By</option>
+									<option>Likes</option>
+									<option>Recent</option>
+								</select>
+								&nbsp;&nbsp;
+								<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
+							</div>-->
+	
+							<div class="col-md-6 col-sm-4 hidden-xs text-right">
+								<div class="buttons pull-right">
+									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
+									<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -90,7 +92,7 @@
 						<h3 class="text-center">There's no video to watch later.</h3>
 						@else
 						@foreach($usersWatchLater as $key => $watchLater)
-						<div id='list' class="col-md-3">
+						<div id='list' class="col-md-3 col-sm-6 col-xs-6 ">
 							<div class="inlineVid ">
 								<div class="watch">
 									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
@@ -134,6 +136,7 @@
 											
 							</div>
 							<div class="inlineInfo ">
+								<div class="video-info-2">
 								<div class="v-Info">
 									<a href='{{route('homes.watch-video', array('v=' . $watchLater->file_name))}}' target="_blank">
 									<span class="visible-lg">{{ Str::limit($watchLater['title'],65)}}</span>
@@ -150,6 +153,7 @@
 									{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
 									<br/>
 								</div>
+							</div>
 							</div>
 						</div><!--/#list-->
 					@endforeach

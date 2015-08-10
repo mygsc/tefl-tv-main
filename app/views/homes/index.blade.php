@@ -161,7 +161,7 @@ if(window.isAdsDisplayed === undefined ) {
 						<br/>
 						<div class="row ">
 							@foreach($recommendeds as $recommended)
-							<div class="col-lg-3 col-md-3 col-sm-6">
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 								<div class="p-relative">
 									<a href='{{route('homes.watch-video', array('v='. $recommended->file_name))}}'>
 										<span class="v-time inline">{{$recommended->total_time}}</span> 	
@@ -200,7 +200,7 @@ if(window.isAdsDisplayed === undefined ) {
 					<br/>
 					<div class="row ">
 						@foreach($populars as $popular)
-						<div class="col-lg-3 col-md-3 col-sm-6">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
 								<span class="v-time inline">{{$popular->total_time}}</span>
 								<a href='{{route('homes.watch-video', array('v=' . $popular->file_name))}}' class="thumbnail-h">
@@ -238,7 +238,7 @@ if(window.isAdsDisplayed === undefined ) {
 					<br/>
 					<div class="row">
 						@foreach($latests as $latest)
-						<div class="col-lg-3 col-md-3 col-sm-6">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
 								<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}' class="thumbnail-h">
 									<span class="v-time inline">{{$latest->total_time}}</span>
@@ -276,7 +276,7 @@ if(window.isAdsDisplayed === undefined ) {
 					<br/>
 					<div class="row">
 						@foreach($randoms as $random)
-						<div class="col-lg-3 col-md-3 col-sm-6">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
 								<a href='{{route('homes.watch-video', array( 'v=' . $popular->file_name))}}' class="thumbnail-h">
 									<span class="v-time inline">{{$random->total_time}}</span>
