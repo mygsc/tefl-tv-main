@@ -89,7 +89,7 @@
                 <param name="allowScriptAccess" value="sameDomain" />
                 <param name="allowFullScreen" value="true" />
                 <input type='hidden' name='id' value='{{$result->user_id}}'/>
-                <input type='hidden' name='channel' value='{{$result->channel_name}}'/>
+                <input type='hidden' name='channel' value='{{$video->channel_name}}'/>
                  <input type='hidden' name='file' value='{{$result->file_name}}'/>
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
@@ -98,7 +98,7 @@
                     <param name="allowScriptAccess" value="sameDomain" />
                     <param name="allowFullScreen" value="true" />
                     <input type='hidden' name='id' value='{{$result->user_id}}'/>
-                     <input type='hidden' name='channel' value='{{$result->channel_name}}'/>
+                     <input type='hidden' name='channel' value='{{$video->channel_name}}'/>
                      <input type='hidden' name='file' value='{{$result->file_name}}'/>
                 <!--<![endif]-->
                 <!--[if gte IE 6]>-->
