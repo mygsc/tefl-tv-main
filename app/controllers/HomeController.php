@@ -763,7 +763,8 @@ public function addReply(){
 		$result = Video::where('file_name','=',$filename);
 		if($result->count()){
 			$result = $result->first();
-			return View::make('tefltv_fl_video_player.tefltv_video_player',compact('result'));
+			$video = User::find($result->user_id);
+			return View::make('tefltv_fl_video_player.tefltv_video_player',compact('result','video'));
 		}
 		return app::abort(404, 'Page not available.');
 	}
