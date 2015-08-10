@@ -22,7 +22,7 @@
     <meta property="og:video:type" content="application/x-shockwave-flash">
     <meta property="og:video:width" content="600"/> 
     <meta property="og:video:height" content="360"/> 
-    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
+    <meta name="description" content="{{htmlentities($videos->description)}} watch our tefl videos for the best esl community"/>
     <meta name="keywords" content="{{$videos->tags}}"/>     
 
 @stop
