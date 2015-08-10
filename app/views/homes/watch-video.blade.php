@@ -16,7 +16,7 @@
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 
     
-    <meta property='og:video' content='{{asset('/')}}tefltv_fl_flash_player/tefltv_flash_player.swf'/>
+    <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf'/>
     <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/>
     <meta property='og:video:secure_url' content='https://www.tefltv.com/sharing/{{$videos->file_name}}'/>
     <meta property="og:video:type" content="application/x-shockwave-flash">
