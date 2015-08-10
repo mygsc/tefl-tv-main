@@ -13,16 +13,16 @@
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
-    <meta property="og:description" content="{{$videos->description}}"/>
+    <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 
     
-    <meta property='og:video' content='{{asset('/')}}tefltv_fl_flash_player/tefltv_flash_player.swf'/>
-    <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/>
-    <meta property='og:video:secure_url' content='https://www.tefltv.com/sharing/{{$videos->file_name}}'/>
+    <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf'/>
+    <!-- <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/> -->
+    <meta property='og:video:secure_url' content='https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf}}'/>
     <meta property="og:video:type" content="application/x-shockwave-flash">
     <meta property="og:video:width" content="600"/> 
     <meta property="og:video:height" content="360"/> 
-    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
+    <meta name="description" content="{{htmlentities($videos->description)}} watch our tefl videos for the best esl community"/>
     <meta name="keywords" content="{{$videos->tags}}"/>     
 
 @stop
