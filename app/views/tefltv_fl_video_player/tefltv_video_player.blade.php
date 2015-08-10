@@ -43,9 +43,7 @@
             var swfVersionStr = "10.2.0";
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "/tefltv_fl_video_player/playerProductInstall.swf";
-            var flashvars = {
-			source : id + '-' + channel + '/' + file + '/' + file + '.mp4'
-			};
+            var flashvars = {};
             var params = {};
             params.quality = "high";
             params.bgcolor = "#ffffff";
@@ -88,12 +86,14 @@
                 <param name="bgcolor" value="#ffffff" />
                 <param name="allowScriptAccess" value="sameDomain" />
                 <param name="allowFullScreen" value="true" />
+                <param name="FlashVars" value="source={{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4">
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#ffffff" />
                     <param name="allowScriptAccess" value="sameDomain" />
                     <param name="allowFullScreen" value="true" />
+                    <param name="FlashVars" value="source={{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4">
                     
                 <!--<![endif]-->
                 <!--[if gte IE 6]>-->
