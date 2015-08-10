@@ -213,7 +213,8 @@ class HomeController extends BaseController {
 	}
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
-		$videos = Video::where('file_name', '=', $filename)->first();
+		// $videos = Video::where('file_name', '=', $filename)->first();
+		$videos = $this->Video->getVideo($filename);
 		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
@@ -261,16 +262,11 @@ class HomeController extends BaseController {
 			$playlists = $this->Playlist->playlistchoose($id);
 			$playlistNotChosens =  $this->Playlist->playlistnotchosen($id);
 
-			$favorites = UserFavorite::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$watchLater = UserWatchLater::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$like = UserLike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-			$dislike = UserDislike::where('video_id','=',$id)
-			->where('user_id','=',Auth::User()->id)->first();
-		}
-		else{
+			$favorites = UserFavorite::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$watchLater = UserWatchLater::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$like = UserLike::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+			$dislike = UserDislike::where('video_id','=',$id)->where('user_id','=',Auth::User()->id)->first();
+		} else{
 			$playlists = null;
 			$playlistNotChosens = null;
 			$favorites = null;
