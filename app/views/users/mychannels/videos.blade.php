@@ -135,10 +135,10 @@
 								<h3 class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
 								@else
 								@foreach($usersVideos as $usersVideo)
-								<div id='list' class="col-sm-6 col-xs-6 col-sm-6 mg-b-10">
+								<div id='list' class="col-md-3 col-xs-6 col-sm-6 mg-b-10">
 									<div class="inlineVid">
 										<span class="btn-sq">
-											<table >
+											<table>
 												<tr>
 													<td>
 														<a href="edit/v={{$usersVideo->file_name}}" >
