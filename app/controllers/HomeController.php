@@ -313,7 +313,6 @@ class HomeController extends BaseController {
 			)
 		);
 	}
-
 	public function getWatchPlaylist($videoId,$playlistId){
 		$randID = Playlist::where('randID',$playlistId)->first();
 		$playlistId = $randID->id;
@@ -756,7 +755,13 @@ public function addReply(){
 		}
 		return app::abort(404, 'Page not available.');
 	}
-	public function getFlashVideoPlayer(){
-		return View::make('tefltv_video_player.tefltv_video_player');
+	public function getFlashVideoPlayer($filename=null){
+		$result = Video::where('file_name','=',$filename);
+		if($result->count()){
+			$result = $result->first();
+			$video = User::find($result->user_id);
+			return View::make('tefltv_fl_video_player.tefltv_video_player',compact('result','video'));
+		}
+		return app::abort(404, 'Page not available.');
 	}
 }
