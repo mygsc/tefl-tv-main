@@ -316,37 +316,43 @@ class Video extends Eloquent{
 		return $getVideos->take($limit)->get();
 	}
 
-	public function getVideoswithDispute($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
+	public function getVideo($filename){
+		$videos = Video::where('file_name', '=', $filename)->first();
+
+		$temp = '';
+		$split_tags = explode(',', $videos->tags);
+		$lastCount = count($split_tags) - 1;
+		$x = 0;
+		if(count($split_tags) != 1){
+			foreach ($split_tags as $split_tag) {
+				$split_tag = trim($split_tag);
+				if ($x != $lastCount) {
+			        $temp = $temp . ucfirst($split_tag) . ", ";
+			    }else{
+			    	$temp = $temp . ucfirst($split_tag);
+			    }
+			}
+			$videos->tags = $temp;
+		}
+		return $videos;
+	}
+
+	public function getVideoswithDispute($auth = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
 			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
 			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
 		->where('videos.user_id', $auth)
-		->where('deleted_at', NULL);
-
-		if(!empty($uploaded)){
-			$getVideos = $getVideos->where('uploaded', $uploaded);
-		}
-		if(!empty($orderBy)) {
-			$getVideos = $getVideos->orderBy($orderBy, 'DESC');
-		}
-
-		if(!empty($limit)) {
-			$getVideos = $getVideos->take($limit);
-		}
+		->where('deleted_at', NULL)
+		->get();
 
 		foreach($getVideos as $key => $getVideo){
-			if(Auth::check()){
-				$getVideos[$key]->ifReported = DB::table('reports')->where(array(
-					'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
-				))->first();
-			}
 			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
 				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
 			))->first();
 		}
 
-		return $getVideos->take($limit)->get();
+		return $getVideos;
 	}
 
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {

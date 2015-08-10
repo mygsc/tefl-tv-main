@@ -1,4 +1,3 @@
-
 <style type="text/css">
     .ads-absolute-wrapper{
         position:absolute;
@@ -6,7 +5,7 @@
         height:60px;
         left: 0;
         right: 0;
-        display: none;
+        display: block;
         bottom:10px!important;
         /*bottom:0;*/
         margin:auto;
@@ -18,7 +17,7 @@
         overflow:hidden;
         position:relative;
         padding:0 10px;
-        max-width: 720px;
+        max-width: 550px;
         margin-right: auto;
         margin-left: auto;
     }
@@ -65,6 +64,3 @@
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
-
-
-

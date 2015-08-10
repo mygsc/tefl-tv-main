@@ -5,28 +5,25 @@
 @stop
 
 @section('meta')
-    <meta property="fb:app_id" content="1557901494477250">
-    <meta property="og:site_name" content="TEFL-TV">
-    <meta property="og:url" content="{{URL::full()}}">
-    <meta property="og:title" content="{{$videos->title}}">
+    <meta property="fb:app_id" content="1557901494477250"/>
+    <meta property="og:site_name" content="TEFL-TV"/>
+    <meta property="og:url" content="{{URL::full()}}"/>
+    <meta property="og:title" content="{{$videos->title}}"/>
     <?php
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
-    <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg">
-    <meta property="og:description" content="{{$videos->description}}">
-    <meta property="og:type" content="video"> 
-    <!-- <meta property="og:video" content="{{asset('/')}}js/jwplayer/jwplayer.flash.swf?config={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true">
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/js/jwplayer/jwplayer.flash.swf?file={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autostart=true"> -->
-    <meta property='og:video' content='https://indieflix.com/media/swf/player.swf?bufferlength=3&lightcolor=FFFFFF&autostart=true&file={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&provider=https&frontcolor=CCCCCC&image={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg&backcolor=333333'/>
-    <meta property='og:video:secure_url' content='https://indieflix.com/media/swf/player.swf?bufferlength=3&lightcolor=FFFFFF&autostart=true&file={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&provider=https&frontcolor=CCCCCC&image={{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg&backcolor=333333'/>
+    <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
+    <meta property="og:description" content="{{$videos->description}}"/>
+    <meta property="og:type" content="video"/> 
+    
+    <meta property='og:video' content='{{asset('/')}}tefltv_fl_flash_player/tefltv_flash_player.swf'/>
+    <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/>
+    <meta property='og:video:secure_url' content='https://www.tefltv.com/sharing/{{$videos->file_name}}'/>
     <meta property="og:video:type" content="application/x-shockwave-flash">
-    <meta property="og:video:width" content="600"> 
-    <meta property="og:video:height" content="360"> 
-    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community">
-    <meta name="keywords" content="{{$videos->tags}}">     
-   <!--  <meta property="article:published_time" content="{{$videos->created_at}}" />
-    <meta property="article:modified_time" content="{{$videos->updated_at}}" />
-    <meta property="og:updated_time" content="{{$videos->created_at}}"/> -->
+    <meta property="og:video:width" content="600"/> 
+    <meta property="og:video:height" content="360"/> 
+    <meta name="description" content="{{$videos->description}} watch our tefl videos for the best esl community"/>
+    <meta name="keywords" content="{{$videos->tags}}"/>     
 
 @stop
 @section('css')
@@ -56,9 +53,6 @@
         })
     }); 
 </script>
-
-<script src="http://tefltv.com/js/jwplayer/jwplayer.js"></script>
-<script>jwplayer.key="c/DHClHu78RC4CxchFupQwt8/CyvNot0VjHn7A==";</script>
 <script>
 if(window.isAdsDisplayed === undefined ) {
     $('#vid-controls').remove();

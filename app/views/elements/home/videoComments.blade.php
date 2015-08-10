@@ -12,7 +12,6 @@
 					<div class="text-right">
 						<button id='btncomment' class="btn btn-primary">Post</button>
 					</div>
-
 					{{Form::hidden('commentVideo', $videoId, array('id'=>'commentVideo'))}}
 					{{Form::hidden('commentUser', Auth::User()->id, array('id'=>'commentUser'))}}
 				@else

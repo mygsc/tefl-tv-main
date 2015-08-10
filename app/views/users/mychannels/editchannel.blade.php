@@ -197,13 +197,13 @@
             {{Form::text('address', $userChannel->address, array('placeholder' => 'Address'))}}
             <br />
             {{Form::label('country', 'Country: ')}}
-            {{ Form::select('country', $countries) }}
+            {{ Form::select('country', $countries, array('class' => 'form-control'))}}
             <br/>
             {{Form::label('zip_code', 'Zip Code: ')}}
             {{Form::text('zip_code', $userChannel->zip_code, array('placeholder' => 'Zip Code'))}}
         </div>
     </div>
-
+    
     <div class="col-md-12 White same-H mg-t-20">
         <div class="pad-10 textbox-layout">
             <div class="text-center col-md-12">
