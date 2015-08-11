@@ -51,7 +51,7 @@
 </div>
 
  
-<div class="row White" style="display:none" id='add-description'>
+<div class="row White h-minH mg-t-20 same-H" style="display:none" id='add-description'>
 	<div class="container page"> 
 		<div class="">
 
@@ -73,7 +73,7 @@
 								</div>
 							</div>
 							<div class="col-md-3 text-right">
-								<div class="row">
+								<div class="row upload-buttons">
 								{{Form::open(array('route' => 'post.add.description','class' => 'inline', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}

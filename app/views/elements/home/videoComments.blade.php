@@ -36,7 +36,7 @@
 							<tr>
 								<td class="col-top c-userBg" style="width:100px;">
 									<div class="commentProfilePic text-center">
-										{{HTML::image($getVideoComment->profile_picture, 'alt', array('class' => 'img-responsive inline center-block', 'class' => 'mg-t-20 userRep'))}}
+										{{HTML::image($getVideoComment->profile_picture, 'alt', array('class' => 'mg-t-20 userRep'))}}
 									</div>
 								</td>
 
