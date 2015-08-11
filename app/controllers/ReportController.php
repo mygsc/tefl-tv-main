@@ -181,6 +181,7 @@ class ReportController extends BaseController {
 		return Redirect::route('users.myvideos')->withFlashGood('Dispute was submitted');
 	}
 	public function getMyReports() { 
+		if(!Auth::check()) return Redirect::route('homes.post.signin')->withFlashBad('Please Sign-in to view your reports');
 		$reports = $this->Report->select(
 			'reports.id',
 			'case_number',

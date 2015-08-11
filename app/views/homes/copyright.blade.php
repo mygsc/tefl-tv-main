@@ -11,6 +11,7 @@
 			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top">
 				<div class="mg-r-10 row mg-t--10"  data-sticky_column="">
 					@include('elements/home/categories')
+
 					<div class="mg-t-10">
 						@include('elements/home/report')
 					</div>
@@ -28,6 +29,7 @@
 			<div class="col-md-9 White mg-t-10 same-H col-md-height col-top">
 				<br/>
 				<div class="content-padding">
+
 				<h1 class="text-center">COPYRIGHT POLICY TEFLTV.COM</h1>
 					<br/>
 						<p class="text-justify">
@@ -53,6 +55,7 @@
 				<br/>
 
 				<p class="text-justify">"Copyright work" means a work of any of those descriptions in which copyright subsists.</p>
+
 				<br/>
 				<p class="text-justify">
 					Only the following people have the right to send a letter claiming copyright infringement:
