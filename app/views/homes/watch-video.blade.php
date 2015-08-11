@@ -16,7 +16,7 @@
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 
     
-    <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf'/>
+    <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf?'/>
     <!-- <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/> -->
     <meta property='og:video:secure_url' content='https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf}}'/>
     <meta property="og:video:type" content="application/x-shockwave-flash">
@@ -208,7 +208,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 <span title="Report This Video">
                                                     <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
                                                 </span>
-                                           	{{Form::close()}}                                            
+                                            {{Form::close()}}                                            
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
                                                         <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>

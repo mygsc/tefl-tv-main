@@ -27,8 +27,8 @@
 				</div>
 			</div>
 			<div class="col-md-8 col-md-height same-H White col-top h-minH ">
-				<div id="floatboxanchor">
-					<h1 class="tblue mg-b-20 mg-t-20">Popular Videos</h1>
+				<div class="row">
+					<h1 class="tblue mg-b-20 mg-t-20 mg-l-20">Popular Videos</h1>
 					@foreach($popularVideos as $key => $popularVideo)
 					<!-- 12 column / 3 column = 4 -->
 					<a href="{{route('homes.watch-video', array('v=' .$popularVideo->file_name))}}">
@@ -67,3 +67,10 @@
 </div>
 
 @stop
+
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+@section('script')
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+@stop
+<!--cess-->

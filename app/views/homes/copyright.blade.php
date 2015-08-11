@@ -127,3 +127,10 @@
 	</div><!--/.container page-->
 </div>
 @stop
+
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+@section('script')
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+@stop
+<!--cess-->

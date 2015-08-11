@@ -27,8 +27,8 @@
 				</div>
 			</div>
 			<div class="col-md-8 col-md-height col-top same-H White h-minH mg-t-10">
-				<div id="floatboxanchor">
-					<h1 class="tblue mg-b-20 mg-t-20">Playlists</h1>
+				<div class="row">
+					<h1 class="tblue mg-b-20 mg-t-20 mg-l-20">Playlists</h1>
 						@foreach($playlists as $key=>$playlist)
 						<div class="col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
