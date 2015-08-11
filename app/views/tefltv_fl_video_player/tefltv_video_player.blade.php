@@ -37,14 +37,11 @@
         <script type="text/javascript" src="/tefltv_fl_video_player/swfobject.js"></script>
         <script type="text/javascript">
             // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
-            var id = 4;//document.querySelector('input[name=unique_id]').value;
-            var channel = 'Cess';//document.querySelector('input[name=channel]').value;
-            var file = 'ILtNEJMqoxR';//document.querySelector('input[name=file]').value;
             var swfVersionStr = "10.2.0";
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "/tefltv_fl_video_player/playerProductInstall.swf";
             var flashvars = {
-                source: "{{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4"
+                source: "tefltv.flv"
             };
             var params = {};
             params.quality = "high";
@@ -110,9 +107,6 @@
                 </object>
                 <!--<![endif]-->
             </object>
-        </noscript>   
-        <input type='hidden' name='unique_id' value='{{$result->user_id}}'/>
-        <input type='hidden' name='channel' value='{{$video->channel_name}}'/>
-        <input type='hidden' name='file' value='{{$result->file_name}}'/>  
+        </noscript>    
    </body>
 </html>
