@@ -117,15 +117,15 @@
 															<div class='tooltipDelete inline hand'>
 																<div class="wv-icon trashC">
 																	@if(isset(Auth::User()->id))
-																	@if(isset($getCommentReply->user_id))
-																	@if(Auth::User()->id == $getCommentReply->user_id)
-																	<span class="deleteReply fa fa-trash" title="Delete this reply">	
-																		{{Form::hidden('c_id', Crypt::encrypt($getCommentReply->commentreplyid), array('id' => 'c_id'))}}
-																		{{Form::hidden('comment_id', Crypt::encrypt($getCommentReply->comment_id), array('id' => 'comment_id'))}}
-																		{{Form::hidden('user_id', Crypt::encrypt($getCommentReply->user_id), array('id' => 'user_id'))}}
-																	</span>
-																	@endif
-																	@endif
+																		@if(isset($getCommentReply->user_id))
+																			@if(Auth::User()->id == $getCommentReply->user_id)
+																				<span class="deleteReply fa fa-trash" title="Delete this reply">	
+																					{{Form::hidden('c_id', Crypt::encrypt($getCommentReply->commentreplyid), array('id' => 'c_id'))}}
+																					{{Form::hidden('comment_id', Crypt::encrypt($getCommentReply->comment_id), array('id' => 'comment_id'))}}
+																					{{Form::hidden('user_id', Crypt::encrypt($getCommentReply->user_id), array('id' => 'user_id'))}}
+																				</span>
+																			@endif
+																		@endif
 																	@endif
 																</div>
 															</div>
