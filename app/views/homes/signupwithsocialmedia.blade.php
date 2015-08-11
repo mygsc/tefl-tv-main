@@ -3,6 +3,7 @@
 	Sign up with {{strtoupper(Session::get('social_media'))}}
 @stop
 @section('content')
+
 <style>
 	b{
 		font-size:12px;
@@ -22,6 +23,7 @@
     <div class="absolute-wrap">
 	    <div class="container" >
 			<div class="row" style="">
+
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="sign-log-wrapp2 box-shadow">
 						@if(Session::get('social_media') == 'facebook')
@@ -42,6 +44,7 @@
 							</div>
 
 							<div class="well2 text-center">
+
 								<p class="">This are the information that we gathered from your
 									<a href="http://plus.google.com/{{Session::get('social_media_id')}}">
 										{{strtoupper(Session::get('social_media'))}} account
@@ -56,11 +59,13 @@
 							</div>
 
 						</div>
+
 					</div>
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="signDivH textbox-layout2 same-H animated zoomIn sign-log-wrapp">
 						<h3 class="text-center orangeC">-To complete signup, please fill out the fields.-</h3>
 	
+
 						{{Form::open(array('route' => 'post.signupwithsocialmedia'))}}
 					
 						{{Form::hidden('first_name', Session::get('first_name'))}}

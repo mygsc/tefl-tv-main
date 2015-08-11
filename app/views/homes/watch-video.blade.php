@@ -14,18 +14,6 @@
     ?>
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
-    
-    
-   {{-- 
-    <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf'/>
-    <!-- <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/> -->
-    <meta property='og:video:secure_url' content='https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?'/>
-    <meta property="og:video:type" content="application/x-shockwave-flash">
-    <meta property="og:video:width" content="600"/> 
-    <meta property="og:video:height" content="360"/> 
-    <meta name="description" content="{{htmlentities($videos->description)}} watch our tefl videos for the best esl community"/>
-    <meta name="keywords" content="{{$videos->tags}}"/>  --}} 
-
     <meta property="og:type" content="video"/> 
     <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
     <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
@@ -36,7 +24,7 @@
     <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}">
     <meta property="og:video:type" content="application/x-shockwave-flash">
     <meta property="og:video:width" content="1280">
-    <meta property="og:video:height" content="720">  
+    <meta property="og:video:height" content="720">
 
 @stop
 @section('css')
@@ -221,7 +209,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                 <span title="Report This Video">
                                                     <button value="Report" type="submit" class="reportLink btn-clear"><i class='fa fa-flag'></i> Report</button>
                                                 </span>
-                                           	{{Form::close()}}                                            
+                                            {{Form::close()}}                                            
                                                 @if(Auth::check())
                                                     @if((Auth::User()->role == 4) || (Auth::User()->role == 5))
                                                         <a href="#" id='publish-video' class="black"><p class="inline">&nbsp;&nbsp;<i class="glyphicon glyphicon-share"></i>&nbsp;&nbsp;Publish Ads</p></a>
