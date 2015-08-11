@@ -129,7 +129,9 @@ class ReportController extends BaseController {
 			'authority_position',
 			'signature',
 			'reports.deleted_at',
-			'reports.updated_at')
+			'reports.updated_at',
+			'reports.created_at'
+			)
 		->where('reports.video_id', $video_id)
 		->get();
 
@@ -177,5 +179,44 @@ class ReportController extends BaseController {
 			'zip_postal'=>$zip_postal, 'signature'=> $signature
 		));
 		return Redirect::route('users.myvideos')->withFlashGood('Dispute was submitted');
+	}
+	public function getMyReports() { 
+		$reports = $this->Report->select(
+			'reports.id',
+			'case_number',
+			'complainant_id',
+			'user_id',
+			DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
+			DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
+			DB::raw('(SELECT vid.title from videos vid where vid.id = reports.video_id) as video_title'),
+			DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = reports.video_id) as video_url'),
+			'issue',
+			'copyrighted_description',
+			'copyrighted_additional_info',
+			'legal_name',
+			'authority_position',
+			'signature',
+			'reports.deleted_at',
+			'reports.created_at',
+			'reports.updated_at')
+		->where('reports.complainant_id', Auth::User()->id)
+		->get();
+
+		// if(count($reports) == 0) return Redirect::route('users.myvideos')->withFlashBad('Invalid video url. Please try again.');
+		
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+		$allcountries = $this->Country->getAllCountries();
+		return View::make('reports.myreports', compact('categories','notifications', 'allcountries', 'reports'));
+	}
+	public function deleteReport() {
+		$reportid = Crypt::decrypt(Input::get('reportid'));
+		$userId = Crypt::decrypt(Input::get('userid'));
+		$deleteComment = DB::table('reports')->where(array('id' => $reportid, 'complainant_id' => $userId))->delete();
+		if($deleteComment) {
+			return Redirect::route('get.myreports')->withFlashGood('Successfully deleted the report.');
+		}else{
+			return Redirect::route('get.myreports')->withFlashbad("Error. Please try again.");
+		}
 	}
 }

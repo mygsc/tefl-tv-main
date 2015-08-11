@@ -11,22 +11,9 @@
 			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top">
 				<div class="mg-r-10 row mg-t--10"  data-sticky_column="">
 					@include('elements/home/categories')
-
-					<div class="panel panel-info same-H ">
-						<div class="panel-heading" role="tab" id="headingTwo">
-							<p class="panel-title whiteC">
-								<a href="">
-									<i class="fa fa-user"></i> Reports
-								</a>
-							</p>
-						</div>
-						<div id="myChannel" >
-							<div class="panel-body">
-								<li role="presentation">{{link_to_route('users.channel', 'Claim Reports')}}</li>
-							</div>
-						</div>
+					<div class="mg-t-10">
+						@include('elements/home/report')
 					</div>
-
 					<div>
 						@include('elements/home/adverstisement_half_large_recatangle')
 					</div>
