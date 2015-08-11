@@ -55,12 +55,13 @@ Route::group(array('prefix' => '/'), function() {
 	Route::post('addreport', array('as' => 'post.addreport', 'uses' => 'HomeController@addReport'));
 	Route::any('complaint_form', array('as' => 'get.complaint_form', 'uses' => 'ReportController@getComplaintForm'));
 	Route::post('addcomplaint', array('as' => 'post.addreport', 'uses' => 'ReportController@addComplaint'));
-	// Route::any('filedispute', array('as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
 	Route::get('filedispute/{id?}', array('before'=>'auth', 'as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
 	Route::get('listofreports/{id?}', array('before'=>'auth', 'as' => 'get.listofreports', 'uses' => 'ReportController@getListOfReportsPerVideos'));
 	Route::post('adddispute', array('as' => 'post.adddispute', 'uses' => 'ReportController@addDispute'));
 	Route::post('supportreport', array('as' => 'post.homes.supportreport', 'uses' => 'HomeController@postReportSupport'));
 	Route::get('supportreport', array('as' => 'get.homes.supportreport', 'uses' => 'HomeController@getReportSupport'));
+	Route::get('myreports', array('as' => 'get.myreports', 'uses' => 'ReportController@getMyReports'));
+	Route::post('deletereport', array('as' => 'post.deletereport', 'uses' => 'ReportController@deleteReport'));
 	//r3mmel
 
 	Route::post('forgotpassword', array('as' => 'post.forgotpassword', 'uses' => 'UserController@postForgotPassword'));

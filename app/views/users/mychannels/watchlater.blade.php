@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	{{Auth::User()->channel_name}}'s Watch Later | TEFL Tv
+{{Auth::User()->channel_name}}'s Watch Later | TEFL Tv
 @stop
 
 @section('content')
@@ -74,7 +74,7 @@
 								&nbsp;&nbsp;
 								<button class="btn btn-unsub">Manage Your Watch Later Videos</button>
 							</div>-->
-	
+							
 							<div class="col-md-6 col-sm-4 hidden-xs text-right">
 								<div class="buttons pull-right">
 									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -85,110 +85,112 @@
 					</div>
 				</div>
 				<div class="col-md-12 White same-H channel-content">
-					<div id="videosContainer" class='container'>
-						<br/>
-						@if($usersWatchLater->isEmpty())
-						<br/>
-						<h3 class="text-center">There's no video to watch later.</h3>
-						@else
-						@foreach($usersWatchLater as $key => $watchLater)
-						<div id='list' class="col-md-3 col-sm-6 col-xs-6 ">
-							<div class="inlineVid ">
-								<div class="watch">
-									<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
-									@if($watchLater->status==1)
-									<span title="Remove from watch later?" class="btn-sq inline">
-										<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
-										<span class="inline">
-											{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline' ,'onsubmit'=> 'return confirm("Are you sure you want to delete this?")'))}}
+					<div class="row">
+						<div class="content-padding">
+							<br/>
+							@if($usersWatchLater->isEmpty())
+							<br/>
+							<h3 class="text-center">There's no video to watch later.</h3>
+							@else
+							@foreach($usersWatchLater as $key => $watchLater)
+							<div id='list' class="col-md-3 col-sm-6 col-xs-6 ">
+								<div class="inlineVid ">
+									<div class="watch">
+										<input type="hidden" id="user_id" value="{{Auth::User()->id}}"/>
+										@if($watchLater->status==1)
+										<span title="Remove from watch later?" class="btn-sq inline">
+											<p class="inline" style="font-family:Teko;color:#393939!Important;font-size:1.6em;">WATCHED</p> &nbsp; | &nbsp;
+											<span class="inline">
+												{{Form::open(array('route' => ['post.delete.watch-later', $watchLater->id], 'class' => 'inline' ,'onsubmit'=> 'return confirm("Are you sure you want to delete this?")'))}}
+												{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
+												{{Form::close()}}
+											</span>
+
+										</span>
+										@else
+										<span title="Remove from watch later?" class="btn-sq inline">		
+											{{Form::open()}}
 											{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
 											{{Form::close()}}
 										</span>
-
-									</span>
-									@else
-									<span title="Remove from watch later?" class="btn-sq inline">		
-										{{Form::open()}}
-										{{Form::button('<i class="fa fa-trash"></i>', array('type' => 'submit','id' => 'favoriteVideo','class'=> 'btn-ico btn-default'))}}
-										{{Form::close()}}
-									</span>
-									@endif
-									<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
-									<div class="thumbnail-2">
-										<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
-											@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
-											
+										@endif
+										<input type="hidden" class="status" id="video_id" value="{{$watchLater->video_id}}"/>
+										<div class="thumbnail-2">
+											<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
+												@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
+												
 												<img src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
-													
+												
 												<!--<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
 														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
 														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.webm'}}" type="video/webm" />
 														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.ogg'}}" type="video/ogg" />
-												</video>-->
-												@else
-												<img src="/img/thumbnails/video-sm.jpg" width="100%"/>
-															
-											@endif
-											<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
-										</a>
-									</div>
-								</div>
+														</video>-->
+														@else
+														<img src="/img/thumbnails/video-sm.jpg" width="100%"/>
+														
+														@endif
+														<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+													</a>
+												</div>
+											</div>
 											
-							</div>
-							<div class="inlineInfo ">
-								<div class="video-info-2">
-								<div class="v-Info">
-									<a href='{{route('homes.watch-video', array('v=' . $watchLater->file_name))}}' target="_blank">
-									<span class="visible-lg">{{ Str::limit($watchLater['title'],65)}}</span>
-									<span class="visible-md">{{ Str::limit($watchLater['title'],45)}}</span>
-									<span class="visible-xs visible-sm">{{ Str::limit($watchLater['title'],30)}}</span>
-									</a>
-								</div>
-								<div class="text-justify desc hide">
-											<p>{{$watchLater->description}}</p>
-											<br/>
 										</div>
-										<div class="count">
-									by: <a href="{{route('view.users.channel', array($watchLater->uploaders_channel_name))}}">{{$watchLater->uploaders_channel_name}}</a><br/>
-									{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
-									<br/>
+										<div class="inlineInfo ">
+											<div class="video-info-2">
+												<div class="v-Info">
+													<a href='{{route('homes.watch-video', array('v=' . $watchLater->file_name))}}' target="_blank">
+														<span class="visible-lg">{{ Str::limit($watchLater['title'],65)}}</span>
+														<span class="visible-md">{{ Str::limit($watchLater['title'],45)}}</span>
+														<span class="visible-xs visible-sm">{{ Str::limit($watchLater['title'],30)}}</span>
+													</a>
+												</div>
+												<div class="text-justify desc hide">
+													<p>{{$watchLater->description}}</p>
+													<br/>
+												</div>
+												<div class="count">
+													by: <a href="{{route('view.users.channel', array($watchLater->uploaders_channel_name))}}">{{$watchLater->uploaders_channel_name}}</a><br/>
+													{{$watchLater->views}} Views | {{$watchLater->numberOfLikes}} Likes | {{$watchLater->created_at}}<br/>
+													<br/>
+												</div>
+											</div>
+										</div>
+									</div><!--/#list-->
+									@endforeach
+									@endif	
 								</div>
-							</div>
-							</div>
-						</div><!--/#list-->
-					@endforeach
-				@endif
-								</div><!--videoContainer-->
-							</div>
+							</div><!--videoContainer-->
 						</div>
-					</div><!--!/.shadow div-channel-border-->
-				</div><!--/.row-->
-				<br/>
-			</div><!--/.container page-->
-		</div>
-		@stop
+					</div>
+				</div><!--!/.shadow div-channel-border-->
+			</div><!--/.row-->
+			<br/>
+		</div><!--/.container page-->
+	</div>
+	@stop
 
-		@section('script')
-		{{HTML::script('js/video-player/jquery.form.min.js')}}
-		{{HTML::script('js/video-player/media.player.min.js')}}
-		{{HTML::script('js/user/upload_image.js')}}
-		{{HTML::script('js/user/upload_cover_photo.js')}}
-		{{HTML::script('js/user/modalclearing.js')}}
-		{{HTML::script('js/subscribe.js')}}
-		{{HTML::script('js/media.player.js')}}
-		{{HTML::script('js/homes/watch.js')}}
-		{{HTML::script('js/overlaytext.js')}}
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+	@section('script')
+	{{HTML::script('js/video-player/jquery.form.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/user/upload_image.js')}}
+	{{HTML::script('js/user/upload_cover_photo.js')}}
+	{{HTML::script('js/user/modalclearing.js')}}
+	{{HTML::script('js/subscribe.js')}}
+	{{HTML::script('js/media.player.js')}}
+	{{HTML::script('js/homes/watch.js')}}
+	{{HTML::script('js/overlaytext.js')}}
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
-		<script type="text/javascript">
-			$('.grid').click(function() {
-				$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
-			});
-			$('.list').click(function() {
-				$('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
-			});
-			$(document).ready( function( $ ) {
-				$('#form-add-setting').on('submit', function() {
+	<script type="text/javascript">
+		$('.grid').click(function() {
+			$('#videosContainer #list').removeClass('col-md-12').addClass('col-md-3');
+		});
+		$('.list').click(function() {
+			$('#videosContainer #list').removeClass('col-md-3').addClass('col-md-12');
+		});
+		$(document).ready( function( $ ) {
+			$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
 		        //.....
@@ -209,7 +211,7 @@
 		        //prevent the form from actually submitting in browser
 		        return false;
 		    } );
-			} );
-		</script>
-		@stop
+		} );
+	</script>
+	@stop
 

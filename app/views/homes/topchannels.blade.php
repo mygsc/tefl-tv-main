@@ -36,4 +36,9 @@
 
 @section('script')
 {{HTML::script('js/subscribe.js')}}
+
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+<!--cess-->
 @stop

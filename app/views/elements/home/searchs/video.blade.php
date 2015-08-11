@@ -2,7 +2,7 @@
 <br /><br />
 @foreach($searchResults as $result)
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-4 col-sm-4 col-xs-4">
 		<a href="{{route('homes.watch-video', array('v='.$result->file_name))}}">
 		<div class="thumbnail-2">
 		<img src="{{$result->thumbnail}}"  class="hvr-grow-rotate" width="100%" >
@@ -10,11 +10,11 @@
 		</div>
 		</a>
 	</div>
-	<div class="col-md-8 pad-r-40">
+	<div class="col-md-8 col-sm-8 col-xs-8 pad-r-40">
 		<a href="{{route('homes.watch-video', array('v='.$result->file_name))}}">{{$result->title}}</a><br />
 		By: <a href="/channels/{{$result->channel_name}}">{{$result->channel_name}}</a><br />
 		
-		<p class="text-justify">{{str_limit($result->description, $limit = 100, $end = '...')}}</p>
+		<p class="text-justify hidden-xs">{{str_limit($result->description, $limit = 100, $end = '...')}}</p>
 		{{$result->views}} Views | {{$result->likes}} Likes | {{date('F d, Y',strtotime($result->created_at))}}
 		<br/>
 		<small><b>Tags:</b></small>

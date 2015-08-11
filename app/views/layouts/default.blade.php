@@ -27,18 +27,21 @@
 </head>
 
 <body>
-	
-	<div id="fb-root"></div>
-	<div class="same-H">
-	@include('elements/header')
-	@include('elements/home/headerNav')
-	</div>
-	<div class="container">
-		@include('elements.flash_message')
-		@yield('content')
-	</div>
-	<div class="footer-s">
-	@include('elements/footer')
+
+
+	<div class="body-wrapp">
+		<div id="fb-root"></div>
+		<div class="same-H">
+		@include('elements/header')
+		@include('elements/home/headerNav')
+		</div>
+		<div class="container">
+			@include('elements.flash_message')
+			@yield('content')
+		</div>
+		<div class="footer-s">
+		@include('elements/footer')
+		</div>
 	</div>
 
 </body>
@@ -46,8 +49,6 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{{HTML::script('js/jquery.sticky-kit.min.js')}}
-{{HTML::script('js/sticky.js')}}
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/main.js')}}

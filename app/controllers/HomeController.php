@@ -215,7 +215,7 @@ class HomeController extends BaseController {
 		$filename = $this->getURL();
 		// $videos = Video::where('file_name', '=', $filename)->first();
 		$videos = $this->Video->getVideo($filename);
-		if(!isset($videos)) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
+		if(!$videos) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
 		$id = $videos->id;
@@ -411,62 +411,68 @@ class HomeController extends BaseController {
 
 			$newComment =  
 			'<div class="commentsarea row commentDeleteArea">
-			<div class="commentProfilePic col-md-1">'. 
-				HTML::image($profile_picture['profile_picture'], "alt", array("class" => "img-responsive", "height" => "48px", 'width' => '48px')).'
-			</div>
-			<div class="col-md-11">
-				<div class="row"><b>'.
-					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'</b>
-					| &nbsp;<small> just now. </small> 
-					<br/>
-					<p class="text-justify">'. $comments->comment . '</p>
+				<table class="mg-l-10" width="95%">
+					<tr>
+						<td class="col-top c-userBg" style="width:100px;">
+							<div class="commentProfilePic text-center">'. 
+								HTML::image($profile_picture['profile_picture'], "alt", array("class" => "mg-t-20 userRep")).'
+							</div>
+						</td>
+						<td>
+							<div class="pad-v-10 mg-l-10"><b>'.
+								link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) .'</b>
+								| &nbsp;<small> just now. </small> 
+								<br/>
+								<p class="text-justify">'. $comments->comment . '</p>
 
-					<div class="tooltipDelete inline hand">
-						<div class="wv-icon trashC">
-							<span class="deleteComment fa fa-trash" title="Delete this comment">'.	
-								Form::hidden("comment_id", Crypt::encrypt($comments->id), array('id' => 'comment_id')) .
-								Form::hidden("video_id", Crypt::encrypt($video_id), array('id' => 'video_id')) .
-								Form::hidden("user_id", Crypt::encrypt(Auth::User()->id), array('id' => 'user_id')) . '
-							</span>
-						</div>
-					</div>
+								<div class="tooltipDelete inline hand">
+									<div class="wv-icon trashC">
+										<span class="deleteComment fa fa-trash" title="Delete this comment">'.	
+											Form::hidden("comment_id", Crypt::encrypt($comments->id), array('id' => 'comment_id')) .
+											Form::hidden("video_id", Crypt::encrypt($video_id), array('id' => 'video_id')) .
+											Form::hidden("user_id", Crypt::encrypt(Auth::User()->id), array('id' => 'user_id')) . '
+										</span>
+									</div>
+								</div>
 
-					<div class="fa commentlikedup thumbUpC">
-						<span class="likescount" id="likescount">'.$likesCount.'</span>
-						<span class="fa-thumbs-up hand"></span>
-						<input type="hidden" value="liked" name="status">
-						<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
-						<input type="hidden" value="'.Auth::User()->id.'" name="likeUserId">
-						<input type="hidden" value="'.$video_id.'" name="video_id">
-					</div>
+								<div class="fa commentlikedup thumbUpC">
+									<span class="likescount" id="likescount">'.$likesCount.'</span>
+									<span class="fa-thumbs-up hand"></span>
+									<input type="hidden" value="liked" name="status">
+									<input type="hidden" value="'.$comments->id.'" name="likeCommentId">
+									<input type="hidden" value="'.Auth::User()->id.'" name="likeUserId">
+									<input type="hidden" value="'.$video_id.'" name="video_id">
+								</div>
 
-					&nbsp;
-					<div class="fa commentdislikedup thumbDownC">
-						<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span>
-						<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
-						<input type="hidden" value="'.Auth::User()->id.'" name="dislikeUserId">
-						<input type="hidden" value="'.$video_id.'" name="video_id">
-						<input type="hidden" value="disliked" name="status">
-						<span class="fa-thumbs-down hand"></span>
-						&nbsp;
-					</div>&nbsp;
-					&nbsp;
-					<span class="repLink hand wv-counts replyC"><i class="fa fa-reply"></i> 0 Replies</span>
+								&nbsp;
+								<div class="fa commentdislikedup thumbDownC">
+									<span class="dislikescount" id="dislikescounts">'.$dislikeCount.'</span>
+									<input type="hidden" value="'.$comments->id.'" name="dislikeCommentId">
+									<input type="hidden" value="'.Auth::User()->id.'" name="dislikeUserId">
+									<input type="hidden" value="'.$video_id.'" name="video_id">
+									<input type="hidden" value="disliked" name="status">
+									<span class="fa-thumbs-down hand"></span>
+									&nbsp;
+								</div>&nbsp;
+								&nbsp;
+								<span class="repLink hand wv-counts replyC"><i class="fa fa-reply"></i> 0 Replies</span>
 
-					<div id="replysection" class="panelReply" style="display: none;">'.
-						Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
-						<input type="hidden" name="comment_id" value="'.$comments->id.'">
-						<input type="hidden" name="user_id" value="'.Auth::User()->id.'">
-						<input type="hidden" name="video_id" value="'.$video_id.'">
-						<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
-						<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
-						<span class="replyError inputError"></span>
-					</form>
-				</div>
+								<div id="replysection" class="panelReply" style="display: none;">'.
+									Form::open(array("route"=>"post.addreply", "id" =>"video-addReply", "class" => "inline")).'
+									<input type="hidden" name="comment_id" value="'.$comments->id.'">
+									<input type="hidden" name="user_id" value="'.Auth::User()->id.'">
+									<input type="hidden" name="video_id" value="'.$video_id.'">
+									<textarea name="txtreply" id="txtreply" class="form-control txtreply"></textarea>
+									<input class="btn btn-primary pull-right" id="replybutton" type="submit" value="Reply">
+									<span class="replyError inputError"></span>
+									</form>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
-	</div>
-	<hr/>
 	';
 	return Response::json(array(
 		'status' => 'success',
@@ -502,79 +508,76 @@ public function addReply(){
 
 		$newReplyFirst = 
 		'<div class="deleteReplyArea">
-		<div class="commentProfilePic col-md-1">
-			<img src="'.$profile_picture['profile_picture'].'" class="img-responsive inline" height="48px" width="48px" alt="alt"></div>
-			<div class="col-md-11  text-left">
-				<div class="">' .
-					link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
-					'<small>just now.</small><br/>
-					<p style="text-align:justify;">' . $replies->reply . '<br/>' . '</p></hr>
-				</div>
-				<div class="tooltipDelete inline hand">
-					<div class="wv-icon trashC">
-						<span class="deleteReply fa fa-trash" title="Delete this reply">'.	
-							Form::hidden("c_id", Crypt::encrypt($replies->id), array('id' => 'c_id')).
-							Form::hidden("comment_id", Crypt::encrypt($replies->comment_id), array('id' => 'comment_id')).
-							Form::hidden("user_id", Crypt::encrypt($replies->user_id), array('id' => 'user_id')).'
-						</span>
+		<table width="100%" class="mg-t-10">
+			<tr>
+				<td style="width:100px;" class="col-top text-center">
+					<div class="commentProfilePic">
+						<img src="'.$profile_picture['profile_picture'].'" class="userRep" alt="alt"></div>
 					</div>
-				</div>
-				';
-				$likesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'liked'))->count();
-				$dislikeCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'disliked'))->count();
-				$ifAlreadyLiked = DB::table('comments_reply_likesdislikes')->where(array(
-					'comments_reply_id' => $replies->id, 
-					'user_id' => $user_id,
-					'status' => 'liked'
-					))->first();
-				$ifAlreadyDisliked = DB::table('comments_reply_likesdislikes')->where(array(
-					'comments_reply_id' => $replies->id, 
-					'user_id' => $user_id,
-					'status' => 'disliked'
-					))->first();
+				</td>
+				<td>
+					<div class="">' .
+						link_to_route("view.users.channel", $userInfo->channel_name, $parameters = array($userInfo->channel_name), $attributes = array("id" => "channel_name")) . '&nbsp|&nbsp;' .
+						'<small>just now.</small><br/>
+						<p class="text-justify">' . $replies->reply . '<br/>' . '</p>
+					</div>
+					<div class="tooltipDelete inline hand">
+						<div class="wv-icon trashC">
+							<span class="deleteReply fa fa-trash" title="Delete this reply">'.	
+								Form::hidden("c_id", Crypt::encrypt($replies->id), array('id' => 'c_id')).
+								Form::hidden("comment_id", Crypt::encrypt($replies->comment_id), array('id' => 'comment_id')).
+								Form::hidden("user_id", Crypt::encrypt($replies->user_id), array('id' => 'user_id')).'
+							</span>
+						</div>
+					</div>
+					';
+					$likesCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'liked'))->count();
+					$dislikeCountReply = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'status' => 'disliked'))->count();
+					$ifAlreadyLiked = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'user_id' => $user_id,'status' => 'liked'))->first();
+					$ifAlreadyDisliked = DB::table('comments_reply_likesdislikes')->where(array('comments_reply_id' => $replies->id, 'user_id' => $user_id,'status' => 'disliked'))->first();
 
-				$newReply2 = $newReply2 . '
-				<div class="fa replylikedup thumbUpC">';
-					if(!$ifAlreadyLiked){
+					$newReply2 = $newReply2 . '
+					<div class="fa replylikedup thumbUpC">';
+						if(!$ifAlreadyLiked){
+							$newReply2 = $newReply2 .'
+							<span class="fa-thumbs-up hand"></span>
+							<input type="hidden" value="liked" name="status">';
+						}else{
+							$newReply2 = $newReply2 .'
+							<span class="fa-thumbs-up blueC hand"></span>
+							<input type="hidden" value="unliked" name="status">';
+						}
 						$newReply2 = $newReply2 .'
-						<span class="fa-thumbs-up hand"></span>
-						<input type="hidden" value="liked" name="status">';
-					}else{
-						$newReply2 = $newReply2 .'
-						<span class="fa-thumbs-up blueC hand"></span>
-						<input type="hidden" value="unliked" name="status">';
-					}
-					$newReply2 = $newReply2 .'
-					<input type="hidden" value="'.$replies->id.'" name="likeCommentId">
-					<input type="hidden" value="'.$user_id.'" name="likeUserId">
-					<input type="hidden" value="'.$video_id.'" name="video_id">
-					<span class="likescount" id="likescount">'.$likesCountReply.'</span>
-				</div>
-				&nbsp;
-				<div class="fa replydislikedup  inline thumbDownC">
-					<span class="dislikescount" id="dislikescounts">'.$dislikeCountReply.'</span>
-					<input type="hidden" value="'.$replies->id.'" name="dislikeCommentId">
-					<input type="hidden" value="'.$user_id.'" name="dislikeUserId">
-					<input type="hidden" value="'.$video_id.'" name="video_id">';
-					if(!$ifAlreadyDisliked){
-						$newReply2 = $newReply2 .'
-						<input type="hidden" value="disliked" name="status">
-						<span class="fa-thumbs-down hand"></span>';
-					}else{
-						$newReply2 = $newReply2 .'
-						<input type="hidden" value="undisliked" name="status">
-						<span class="fa-thumbs-down redC hand"></span>';
-					}
-					$newReply2 = $newReply2 .'
+						<input type="hidden" value="'.$replies->id.'" name="likeCommentId">
+						<input type="hidden" value="'.$user_id.'" name="likeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">
+						<span class="likescount" id="likescount">'.$likesCountReply.'</span>
+					</div>
 					&nbsp;
-				</div>
-				&nbsp;';
+					<div class="fa replydislikedup  inline thumbDownC">
+						<span class="dislikescount" id="dislikescounts">'.$dislikeCountReply.'</span>
+						<input type="hidden" value="'.$replies->id.'" name="dislikeCommentId">
+						<input type="hidden" value="'.$user_id.'" name="dislikeUserId">
+						<input type="hidden" value="'.$video_id.'" name="video_id">';
+						if(!$ifAlreadyDisliked){
+							$newReply2 = $newReply2 .'
+							<input type="hidden" value="disliked" name="status">
+							<span class="fa-thumbs-down hand"></span>';
+						}else{
+							$newReply2 = $newReply2 .'
+							<input type="hidden" value="undisliked" name="status">
+							<span class="fa-thumbs-down redC hand"></span>';
+						}
+						$newReply2 = $newReply2 .'
+						&nbsp;
+					</div>
+					&nbsp;';
 				$getCommentReplies = DB::table('comments_reply')
 				->join('users', 'users.id', '=', 'comments_reply.user_id')
 				->where('comment_id', $comment_id)->count(); 
 
 				$newReply2 = $newReply2 .'
-			</div> </div>';
+			</div><hr/></div></td></tr></table>';
 			$newReply = $newReplyFirst . "" . $newReply2;
 
 			/*Notification Start*/

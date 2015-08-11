@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$userChannel->channel_name}} | TEFL Tv
+{{$userChannel->channel_name}} | TEFL Tv
 @stop
 
 @section('content')
@@ -16,11 +16,11 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
+						<li role="presentation" class="active">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
 					</ul><!--tabNav-->
 					<nav class="navbar navbar-default visible-sm visible-xs">
 						<div class="container-fluid">
@@ -58,7 +58,7 @@
 									{{Form::close()}}
 								</div>
 							</div>
-	
+							
 							<!-- <div class="col-md-6 col-sm-6  mg-t-10">
 								@if(!empty(Auth::User()->id))
 									{{Form::open()}}
@@ -76,59 +76,61 @@
 					</div>
 				</div>
 				<div class="col-md-12 White same-H channel-content">
-					<div id="videosContainer" class='container'>
-						<br/><br/><br/>
-						<div class="row">
-						@if($playlists->isEmpty())
-							<p class="text-center">No playlists yet</p>
-						@else
-							@foreach($playlists as $key=> $playlist)
-							<div id="playlists" class="col-xs-6 col-sm-6 col-md-3">
-								<a href="/channels/{{$userChannel->channel_name}}/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
-								@if(isset($thumbnail_playlists[$key][0]))
-									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
-									<div class="" style="position:relative;">
-									<div class="playlist-info" >
-										{{count($thumbnail_playlists[$key])}}
-										<br/>
-										Video(s)
-										<br/>
-										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-									</div>
-									<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
-									</div>
-									@else
-									<div class="" style="position:relative;">
-									<div class="playlist-info" >
-										{{count($thumbnail_playlists[$key])}}
-										<br/>
-										Video(s)
-										<br/>
-										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-									</div>
-										{{HTML::image('img/thumbnails/video-sm.jpg')}}
-									</div>
-									@endif
+					<div class="row">
+						<div id="videosContainer" class='content-padding'>
+							<br/><br/><br/>
+							<div class="row">
+								@if($playlists->isEmpty())
+								<p class="text-center">No playlists yet</p>
 								@else
-								<div class="" style="position:relative;">
-								<div class="playlist-info" >
-										0
+								@foreach($playlists as $key=> $playlist)
+								<div id="playlists" class="col-xs-6 col-sm-6 col-md-3">
+									<a href="/channels/{{$userChannel->channel_name}}/videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
+										@if(isset($thumbnail_playlists[$key][0]))
+										@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
+										<div class="" style="position:relative;">
+											<div class="playlist-info" >
+												{{count($thumbnail_playlists[$key])}}
+												<br/>
+												Video(s)
+												<br/>
+												<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+											</div>
+											<img src="/videos/{{$thumbnail_playlists[$key][0]->user_id}}-{{$thumbnail_playlists[$key][0]->channel_name}}/{{$thumbnail_playlists[$key][0]->file_name}}/{{$thumbnail_playlists[$key][0]->file_name}}.jpg">
+										</div>
+										@else
+										<div class="" style="position:relative;">
+											<div class="playlist-info" >
+												{{count($thumbnail_playlists[$key])}}
+												<br/>
+												Video(s)
+												<br/>
+												<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+											</div>
+											{{HTML::image('img/thumbnails/video-sm.jpg')}}
+										</div>
+										@endif
+										@else
+										<div class="" style="position:relative;">
+											<div class="playlist-info" >
+												0
+												<br/>
+												Video(s)
+												<br/>
+												<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
+											</div>
+											<img src="/img/thumbnails/video.png">
+										</div>
+										@endif
 										<br/>
-										Video(s)
-										<br/>
-										<span class="glyphicon glyphicon-list" style="font-size:24px;"></span>
-									</div>
-									<img src="/img/thumbnails/video.png">
-								</div>
-								@endif
-									<br/>
 
-								</a>
-								{{$playlist->name}}
-								<br/>
+									</a>
+									{{$playlist->name}}
+									<br/>
+								</div>
+								@endforeach
+								@endif
 							</div>
-							@endforeach
-						@endif
 						</div>
 					</div><!--videoContainer-->
 				</div>

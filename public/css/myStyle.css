@@ -15,6 +15,10 @@ body {
     overflow-x: hidden!important;
     color: #505050!important
 }
+.body-wrapp{
+    width: 100%;
+    overflow-x:hidden;
+}
 
 h1, 
 h2, 
@@ -841,7 +845,7 @@ img.user {
 .sideLinksDiv li a img {
     height: 70px;
     width: 70px;
-    border: 1px solid #333;
+    /* border: 2px solid #4B5B7C; */
     float: left;
     margin-top: 5px;
 }
@@ -901,11 +905,6 @@ img.user {
 }
 .inlineInfo {
     min-height:61px;
-}
-.content-padding {
-    padding: 0 30px 0 30px!important;
-    height: auto;
-    min-height: 100%;
 }
 
 .user-padding {
@@ -1182,6 +1181,7 @@ center;     margin: 0 auto; }
     padding: 6px 8px!important;
     margin-top: 17px;
 }
+
 .input-search{
      margin-top: -3px;
 
@@ -1363,6 +1363,10 @@ center;     margin: 0 auto; }
     box-shadow: none;
     border: none;
 }
+.comment-wrap{
+    display: block;
+    padding:0px 10px 5px 10px;
+}
 
 .commentBox {
     padding: 5px 5px;
@@ -1428,8 +1432,10 @@ img.editDp:hover {
 
 img.userRep {
     border: #eee 2px solid;
+    background-color: #949393;
     height: 55px;
-    width: 51px;
+    width: 55px;
+    /* border-radius: 50px; */
 }
 
 img.userRep2 {
@@ -1446,7 +1452,15 @@ img.subs-img {
     width: 61px;
     margin-bottom: 10px;
 }
-
+.img-user-comment{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    border: 1px solid #cecece;
+}
 .subs-wrap{
     border-bottom: 1px solid #cecece;
     margin-bottom: 10px;
@@ -2331,97 +2345,172 @@ a.thumbnail-h:hover {
     .thumbnail {
     width: 100%!important;
     height: auto!important;
-}
-.v-Info{
-  width: 100%;
-}
+    }
+    .v-Info{
+      width: 100%;
+        }
 
-.thumbnail-2 {
-    width: 100%;
-    height: auto;
-}
+    .thumbnail-2 {
+        width: 100%;
+        height: auto;
+        }
 
-.user-Dp {
-    margin: 10px;
-    width: 100px!important;
-    height: 100px!important;
-    border: 1px solid #ededed;
-}
+    .user-Dp {
+        margin: 10px;
+        width: 80px;
+        height: 80px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
 
-.well {
-    padding: 0!important;
-}
+    }
 
-body {
-    overflow-x: hidden!important;
-    width: 100%;
-}
+    .user-Dp img{
+        width: 80px;
+        height: 80px;
+    }
 
+    .well {
+        padding: 0!important;
+    }
 
+    body {
+        overflow-x: hidden!important;
+        width: 100%;
+    }
+    .content-padding {
+        padding: 0 5px 0 5px!important;
+        height: auto;
+        min-height: 100%;
+    }
+    .div-coverDp {
+        height: 230px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+    
+    .upload-buttons{
+        text-align: center;
+    }
 }
 
 /*================================================SM===================================*/
 
-@media (max-width:992px) {
-
-.thumbnail {
-    width: 345px;
-    height: 194px;
+@media (min-width:768px) and (max-width:991px) {
+     .upload-buttons{
+        text-align: center;
     }
 
-.user-Dp {
-    margin: 10px;
-    width: 150px;
-    height: 150px;
-    border: 1px solid #ededed;
-}
+    .thumbnail {
+        width: 345px;
+        height: 194px;
+        }
 
-.ch {
-    height: 340px;
-}
+    .user-Dp {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
+
+    }
+    .div-coverDp {
+        height: 250px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+    .user-Dp img{
+        width: 120px;
+        height: 120px;
+    }
+
+    .ch {
+        height: 340px;
+    }
+
+    .content-padding {
+        padding: 0 20px 0 20px!important;
+        height: auto;
+        min-height: 100%;
+    }
+
 
 }
 
 /*========================================MD=========================================*/
 
-@media (min-width:993px) {
+@media (min-width:992px) and (max-width:1199px) {
 
-
-.thumbnail {
-    width: 198px;
-    height: 111px;
+    .content-padding {
+        padding: 0 10px 0 10px!important;
+        height: auto;
+        min-height: 100%;
     }
 
-.user-Dp {
-    margin: 10px;
+    .thumbnail {
+        width: 198px;
+        height: 111px;
+    }
+
+    .user-Dp {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
+        position: relative;
+
+    }
+    .user-Dp img{
     width: 120px;
     height: 120px;
-    border: 1px solid #ededed;
-
 }
 
-.ch {
-    height: 380px;
-}
-.cat-h{
-    max-height:293px;
-    overflow:auto;
-}
-.lg-md-margin-l{
- padding-left:20px!important;
-}
-.lg-md-margin-r{
- padding-right:20px!important;
-}
-.annotation-wrap{
-    border-right: 1px solid #cecece;
-    min-height:200px;
-}
+    .ch {
+        height: 380px;
+    }
+
+    .cat-h{
+        max-height:293px;
+        overflow:auto;
+    }
+
+    .lg-md-margin-l{
+     padding-left:20px!important;
+    }
+
+    .lg-md-margin-r{
+     padding-right:20px!important;
+    }
+
+    .annotation-wrap{
+        border-right: 1px solid #cecece;
+        min-height:200px;
+    }
+
+    .div-coverDp {
+    height: 270px;
+    overflow: hidden;
+    background-color: #C5CAE8;
+    }
 }
 
 /*=================LG==================*/
 
-@media (min-width:1200) {
+@media (min-width:1200px) {
+    .content-padding {
+    padding: 0 30px 0 30px!important;
+    height: auto;
+    min-height: 100%;
+    }
+     .div-coverDp {
+    height: 300px;
+    overflow: hidden;
+    background-color: #C5CAE8;
+    }
+
 .cat-h{
     max-height:300px;
     overflow:auto;
@@ -2439,13 +2528,20 @@ body {
 }
 
 .user-Dp {
-    margin: 10;
-    width: 150;
-    height: 150;
-    border: 1px solid #ededed;
+    margin: 10px;
+    width: 120px;
+    height: 120px;
+    border: 1px solid #FFFFFF;
+    background-color: #949393;
+    overflow: hidden;
 
 }
+.user-Dp img{
+    width: 120px;
+    height: 120px;
+}
 
+}
 .ch {
     height: 340px;
 }
@@ -2601,11 +2697,7 @@ body {
     height: 100%;
 }
 
-.div-coverDp {
-    height: 300px;
-    overflow: hidden;
-    background-color: #C5CAE8;
-}
+
 
 .sub-div-coverDp {
     height: 165px;
@@ -2691,7 +2783,11 @@ body {
     min-height: 60px!Important;
     margin-bottom: 10px;
 }
-
+.commentsarea {
+    margin-top: 2px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #cecece;
+}
 td.w-20per {
     width: 20%!important;
 }

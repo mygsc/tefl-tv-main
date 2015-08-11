@@ -30,7 +30,7 @@
                         </div>
                         <!--<small><p class="text-justify">{{ Str::limit($ownerVideo->description, 60) }}</p></small><br/>-->
                         <div class="count">
-                            <i class="fa fa-eye"></i> {{$ownerVideo->views}}  | <i class="fa fa-thumbs-up"></i> {{$likeownerVideos[$likeownerVideosCounter++]}} | <i class="fa fa-calendar"></i> {{date('M d, Y',strtotime($ownerVideo->created_at))}}
+                            {{$ownerVideo->views}} Views  | {{$likeownerVideos[$likeownerVideosCounter++]}}  Likes | {{date('M d, Y',strtotime($ownerVideo->created_at))}}
                         </div>
                     </div>
                 </a>
