@@ -16,14 +16,27 @@
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 
     
+   {{-- 
     <meta property='og:video' content='{{asset('/')}}tefltv_fl_video_player/tefltv_video_player.swf'/>
     <!-- <meta property='og:video:url' content='{{asset('/')}}sharing/{{$videos->file_name}}'/> -->
-    <meta property='og:video:secure_url' content='https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf}}'/>
+    <meta property='og:video:secure_url' content='https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?'/>
     <meta property="og:video:type" content="application/x-shockwave-flash">
     <meta property="og:video:width" content="600"/> 
     <meta property="og:video:height" content="360"/> 
     <meta name="description" content="{{htmlentities($videos->description)}} watch our tefl videos for the best esl community"/>
-    <meta name="keywords" content="{{$videos->tags}}"/>     
+    <meta name="keywords" content="{{$videos->tags}}"/>  --}} 
+
+    <meta property="og:type" content="video">
+    <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
+    <meta property="og:video:type" content="text/html">
+    <meta property="og:video:width" content="1280">
+    <meta property="og:video:height" content="720">
+    <meta property="og:video:url" content="http://www.tefltv.com/sharing/{{$videos->file_name}}">
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}">
+    <meta property="og:video:type" content="application/x-shockwave-flash">
+    <meta property="og:video:width" content="1280">
+    <meta property="og:video:height" content="720">  
 
 @stop
 @section('css')
