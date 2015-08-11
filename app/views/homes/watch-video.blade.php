@@ -15,16 +15,16 @@
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 
-    <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}">
-    <meta property="og:video:type" content="text/html">
-    <meta property="og:video:width" content="1280">
-    <meta property="og:video:height" content="720">
-    <meta property="og:video:url" content="http://www.tefltv.com/sharing/{{$videos->file_name}}">
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}">
-    <meta property="og:video:type" content="application/x-shockwave-flash">
-    <meta property="og:video:width" content="1280">
-    <meta property="og:video:height" content="720">
+    <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
+    <meta property="og:video:type" content="text/html"/>
+    <meta property="og:video:width" content="1280"/>
+    <meta property="og:video:height" content="720"/>
+    <meta property="og:video:url" content="http://www.tefltv.com/sharing/{{$videos->file_name}}"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/>
+    <meta property="og:video:type" content="application/x-shockwave-flash"/>
+    <meta property="og:video:width" content="1280"/>
+    <meta property="og:video:height" content="720"/>
 
 @stop
 @section('css')
@@ -296,7 +296,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row">
                                                 <div class="" style="padding-left:10px;">
-                                                    <img src="{{$profile_picture['profile_picture']}}" class="user">
+                                                    <img src="{{$profile_picture['profile_picture']}}" class="userRep">
                                                 </div>
                                             </div>
                                         </div>
