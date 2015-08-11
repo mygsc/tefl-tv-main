@@ -15,6 +15,10 @@ body {
     overflow-x: hidden!important;
     color: #505050!important
 }
+.body-wrapp{
+    width: 100%;
+    overflow-x:hidden;
+}
 
 h1, 
 h2, 
@@ -1177,6 +1181,7 @@ center;     margin: 0 auto; }
     padding: 6px 8px!important;
     margin-top: 17px;
 }
+
 .input-search{
      margin-top: -3px;
 
@@ -2341,88 +2346,94 @@ a.thumbnail-h:hover {
     width: 100%!important;
     height: auto!important;
     }
-.v-Info{
-  width: 100%;
+    .v-Info{
+      width: 100%;
+        }
+
+    .thumbnail-2 {
+        width: 100%;
+        height: auto;
+        }
+
+    .user-Dp {
+        margin: 10px;
+        width: 80px;
+        height: 80px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
+
     }
 
-.thumbnail-2 {
-    width: 100%;
-    height: auto;
+    .user-Dp img{
+        width: 80px;
+        height: 80px;
     }
 
-.user-Dp {
-    margin: 10px;
-    width: 80px;
-    height: 80px;
-    border: 1px solid #FFFFFF;
-    background-color: #949393;
-    overflow: hidden;
+    .well {
+        padding: 0!important;
+    }
 
-}
-
-.user-Dp img{
-    width: 80px;
-    height: 80px;
-}
-
-.well {
-    padding: 0!important;
-}
-
-body {
-    overflow-x: hidden!important;
-    width: 100%;
-}
-.content-padding {
-    padding: 0 5px 0 5px!important;
-    height: auto;
-    min-height: 100%;
-}
-.div-coverDp {
-    height: 230px;
-    overflow: hidden;
-    background-color: #C5CAE8;
-}
-
+    body {
+        overflow-x: hidden!important;
+        width: 100%;
+    }
+    .content-padding {
+        padding: 0 5px 0 5px!important;
+        height: auto;
+        min-height: 100%;
+    }
+    .div-coverDp {
+        height: 230px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+    
+    .upload-buttons{
+        text-align: center;
+    }
 }
 
 /*================================================SM===================================*/
 
 @media (min-width:768px) and (max-width:991px) {
-
-.thumbnail {
-    width: 345px;
-    height: 194px;
+     .upload-buttons{
+        text-align: center;
     }
 
-.user-Dp {
-    margin: 10px;
-    width: 120px;
-    height: 120px;
-    border: 1px solid #FFFFFF;
-    background-color: #949393;
-    overflow: hidden;
+    .thumbnail {
+        width: 345px;
+        height: 194px;
+        }
 
-}
-.div-coverDp {
-    height: 250px;
-    overflow: hidden;
-    background-color: #C5CAE8;
-}
-.user-Dp img{
-    width: 120px;
-    height: 120px;
-}
+    .user-Dp {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
 
-.ch {
-    height: 340px;
-}
+    }
+    .div-coverDp {
+        height: 250px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+    .user-Dp img{
+        width: 120px;
+        height: 120px;
+    }
 
-.content-padding {
-    padding: 0 20px 0 20px!important;
-    height: auto;
-    min-height: 100%;
-}
+    .ch {
+        height: 340px;
+    }
+
+    .content-padding {
+        padding: 0 20px 0 20px!important;
+        height: auto;
+        min-height: 100%;
+    }
 
 
 }

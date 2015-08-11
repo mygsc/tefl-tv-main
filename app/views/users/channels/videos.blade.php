@@ -1,22 +1,22 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$userChannel->channel_name}} | TEFL Tv
+{{$userChannel->channel_name}} | TEFL Tv
 @stop
 
 @section('some_script')
-	{{HTML::script('js/subscribe.js')}}
-	{{HTML::script('js/media.player.js')}}
-	{{HTML::script('js/sort.js')}}
+{{HTML::script('js/subscribe.js')}}
+{{HTML::script('js/media.player.js')}}
+{{HTML::script('js/sort.js')}}
 
-	<script type="text/javascript">
-		$(document).ready( function( $ ) {
-			var success = $('#uploaded').val();
-			if(success == 1){
-				$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
-					$('#success').fadeOut(20000);
-			}
-			$('#form-add-setting').on('submit', function() {
+<script type="text/javascript">
+	$(document).ready( function( $ ) {
+		var success = $('#uploaded').val();
+		if(success == 1){
+			$('<div id="success" style="width:400px;height:40px;display:block;background:#087bd3;color:#fff">New video has been uploaded successfully.</div>').appendTo('body');
+			$('#success').fadeOut(20000);
+		}
+		$('#form-add-setting').on('submit', function() {
 		        //.....
 		        //show some spinner etc to indicate operation in progress
 		        //.....
@@ -29,7 +29,7 @@
 		        	function( data ) {
 		                //do something with data/response returned by server
 		            },'json'
-		        );
+		            );
 		        //.....
 		        //do anything else you might want to do
 		        //.....
@@ -37,8 +37,8 @@
 		        //prevent the form from actually submitting in browser
 		        return false;
 		    } );
-		} );
-	</script>
+	} );
+</script>
 @stop
 
 @section('content')
@@ -50,17 +50,17 @@
 			<div class="channel-content">
 
 				<div role="tabpanel">
-				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-				    	<li role="presentation" class="active">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
-				  		
-				  	</ul><!--tabNav-->
-				  	<nav class="navbar navbar-default visible-sm visible-xs">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
+						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+						<li role="presentation" class="active">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+
+					</ul><!--tabNav-->
+					<nav class="navbar navbar-default visible-sm visible-xs">
 						<div class="container-fluid">
 							<div class="navbar-header">
 								
@@ -104,35 +104,36 @@
 									<option>Views</option>
 								</select>
 								&nbsp;&nbsp;
-							
-		
+
+
 								<div class="buttons pull-right inline">
 									<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
 									<button id="videoButton" class="list btn btn-default btn-sm" title="List"><i class="fa fa-th-list"></i></button>
 								</div>
 								<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
 							</div>
-						<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+							<input type="hidden" id="uploaded" value="{{Session::pull('success')}}"/>
+						</div>
 					</div>
 				</div>
-			</div>
 				<div class="col-md-12 White same-H mg-t--20">
-					<br/>
-					<div id="videosContainer" class='container'>
-						<div class="col-md-12" style="margin-left:-10px;">
-							@if($usersVideos->isEmpty())
+					<div class="row">
+						<br/>
+						<div id="videosContainer" class='content-padding'>
+							<div class="col-md-12" style="margin-left:-10px;">
+								@if($usersVideos->isEmpty())
 								<p class="text-center">No Videos yet.</p>
-							@else
-							@foreach($usersVideos as $usersVideo)
+								@else
+								@foreach($usersVideos as $usersVideo)
 								<div id='list' class="col-md-3 col-sm-6 col-xs-6 mg-b-10">
 									<div class="inlineVid">
 										<a href="{{route('homes.watch-video', array('v='.$usersVideo->file_name))}}" target="_blank">
 											<div class="thumbnail-2">
 												@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name.'.jpg')) )
 												<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$usersVideo->file_name.'/'.$usersVideo->file_name. '.jpg' . '?' . rand(0,99)}}" width="100%" class="hvr-grow-rotate">
-									
+
 												@else
-													{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
+												{{HTML::image('img/thumbnails/video-sm.jpg','alt', array('class' => 'hvr-grow-rotate', 'width' => '100%'))}}
 												@endif
 												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>						
 											</div>
@@ -160,12 +161,12 @@
 										</div>
 									</div>
 								</div>
-							@endforeach	
+								@endforeach	
+							</div>
+							@endif
 						</div>
-						@endif
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<br/>

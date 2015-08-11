@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$userChannel->channel_name}} | TEFL Tv
+{{$userChannel->channel_name}} | TEFL Tv
 @stop
 
 @section('content')
@@ -10,20 +10,20 @@
 		<br/>
 		<div class="row">
 			@include('elements/users/profileTop2')
-		
+			
 			<div class="Div-channel-border channel-content">
 				<div role="tabpanel">
-				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs" role="tablist">
-				    	<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-				    	<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
-				    	<!-- <li role="presentation" class="active">{{link_to_route('view.users.favorites2', 'Favorites', $userChannel->channel_name)}}</li> -->
-				    	<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
-				  		<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
-				  		<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
-				  	</ul><!--tabNav-->
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation">{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.videos2', 'Videos', $userChannel->channel_name)}}</li>
+						<!-- <li role="presentation" class="active">{{link_to_route('view.users.favorites2', 'Favorites', $userChannel->channel_name)}}</li> -->
+						<!-- <li role="presentation">{{link_to_route('view.users.watchLater2', 'Watch Later', $userChannel->channel_name)}}</li> -->
+						<li role="presentation">{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
+						<li role="presentation">{{link_to_route('view.users.subscribers2', 'Subscribers/Subscriptions', $userChannel->channel_name)}}</li>
+					</ul><!--tabNav-->
 				</div>
 
 				<div class="">
@@ -48,7 +48,7 @@
 						&nbsp;&nbsp;
 						<button class="btn btn-unsub">Manage Your Favorites</button>-->
 					</div>
-			
+					
 					<div class="col-md-12 text-right">
 						<div class="buttons">
 							<button id="videoButton" class="grid btn btn-default btn-sm" title="Grid"><i class="fa fa-th"></i></button>
@@ -57,45 +57,46 @@
 					</div>
 
 					<br/><br/><hr class="" />
-
-					<div id="videosContainer" class='container'>
-						<br/>
-						@if(empty($findUsersVideos))
+					<div class="row">
+						<div id="videosContainer" class='content-padding'>
+							<br/>
+							@if(empty($findUsersVideos))
 							No Favorites yet.
-						@else
-						@foreach($findUsersVideos as $showFavoriteVideo)
+							@else
+							@foreach($findUsersVideos as $showFavoriteVideo)
 							{{Form::open(array('route' => ['users.post.favorites', $showFavoriteVideo->id]))}}
-						<div id="list" class="col-md-3 col-sm-6 col-xs-6">
-							
-							<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
-							<div class="inlineVid ">
-								<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-								@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
-									<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
-									@else
+							<div id="list" class="col-md-3 col-sm-6 col-xs-6">
+								
+								<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn btn-default')) }}</span>
+								<div class="inlineVid ">
+									<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
+										@if(file_exists(public_path('/videos/'.$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
+										<img src="/videos/{{$userChannel->id.'-'.$userChannel->channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%">
+										@else
 										{{HTML::image('img/thumbnails/video-sm.jpg')}}
-									@endif
-								</a>
-							</div>
+										@endif
+									</a>
+								</div>
 
-							<div class="inlineInfo ">
-								<div class="v-Info">
-									{{$showFavoriteVideo->title}}
-								</div>
-								<div class="text-justify desc hide">
-									<p>{{$showFavoriteVideo->description}}</p>
-									<br/>
-								</div>
-								<div class="count">
-									by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
+								<div class="inlineInfo ">
+									<div class="v-Info">
+										{{$showFavoriteVideo->title}}
+									</div>
+									<div class="text-justify desc hide">
+										<p>{{$showFavoriteVideo->description}}</p>
+										<br/>
+									</div>
+									<div class="count">
+										by: <a href="{{route('view.users.channel', array($showFavoriteVideo->channel_name))}}">{{$showFavoriteVideo->channel_name}}</a><br/>
 										{{$showFavoriteVideo->views}} Views | {{$showFavoriteVideo->numberOfLikes}} Likes | {{date("M d Y", strtotime($showFavoriteVideo->created_at))}}<br/>
 										{{Form::close()}}
-									<br/>
+										<br/>
+									</div>
 								</div>
 							</div>
+							@endforeach
+							@endif
 						</div>
-						@endforeach
-						@endif
 					</div><!--videoContainer-->
 				</div>
 			</div><!--!/.shadow div-channel-border-->

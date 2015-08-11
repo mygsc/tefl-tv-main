@@ -27,18 +27,21 @@
 </head>
 
 <body>
-	
-	<div id="fb-root"></div>
-	<div class="same-H">
-	@include('elements/header')
-	@include('elements/home/headerNav')
-	</div>
-	<div class="container">
-		@include('elements.flash_message')
-		@yield('content')
-	</div>
-	<div class="footer-s">
-	@include('elements/footer')
+
+
+	<div class="body-wrapp">
+		<div id="fb-root"></div>
+		<div class="same-H">
+		@include('elements/header')
+		@include('elements/home/headerNav')
+		</div>
+		<div class="container">
+			@include('elements.flash_message')
+			@yield('content')
+		</div>
+		<div class="footer-s">
+		@include('elements/footer')
+		</div>
 	</div>
 
 </body>

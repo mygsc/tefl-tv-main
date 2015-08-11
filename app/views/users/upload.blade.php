@@ -54,7 +54,6 @@
 <div class="row White h-minH mg-t-20 same-H" style="display:none" id='add-description'>
 	<div class="container page"> 
 		<div class="">
-
 			<div class="row">
 				<div class="col-md-12 content-padding">
 					<div class="mg-t-20 content-padding">
@@ -106,7 +105,7 @@
 										</div>
 										
 									</div>
-									<div class="col-sm-12" >
+									<div class="">
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
 												<div id="img-thumb-1" style='position:relative;display:inline-block'>
