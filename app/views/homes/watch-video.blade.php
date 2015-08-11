@@ -296,7 +296,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                         <div class="col-md-1 col-sm-2">
                                             <div class="row">
                                                 <div class="" style="padding-left:10px;">
-                                                    <img src="{{$profile_picture['profile_picture']}}" class="user">
+                                                    <img src="{{$profile_picture['profile_picture']}}" class="userRep">
                                                 </div>
                                             </div>
                                         </div>

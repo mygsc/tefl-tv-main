@@ -128,8 +128,8 @@
 					</div>
 					<div class="col-md-12 White same-H mg-t--20 channel-content">
 						<br/>
-						<div id="videosContainer" class='container'>
-							<div class="col-md-12 ">
+						<div id="videosContainer" class='row'>
+							<div class="content-padding">
 								@if($usersVideos->isEmpty())
 								<br/>
 								<h3 class="text-center">{{ link_to_route('get.upload', 'Upload Video', null) }} now to make your channel more appealing to subscribers.</h3>
