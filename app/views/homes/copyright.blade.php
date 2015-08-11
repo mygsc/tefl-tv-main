@@ -30,7 +30,7 @@
 				<br/>
 				<div class="content-padding">
 
-				<h1 class="text-center">COPYRIGHT POLICY TEFLTV.COM</h1>
+				<h1 class="">COPYRIGHT POLICY TEFLTV.COM</h1>
 					<br/>
 						<p class="text-justify">
 							
