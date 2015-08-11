@@ -61,7 +61,7 @@ if(window.isAdsDisplayed === undefined ) {
 					<div class="row">
 						<div class="row-same-height">
 							<div class="col-md-7 col-md-height col-middle" style="">
-								<div class="mg-l-10  mg-b-10">
+								<div class="mg-b-10">
 									<div class="vid-wrapperb p-relative">
 										<div id="vid-controls">
 											<div class="embed-responsive embed-responsive-16by9 n-mg-b">
@@ -189,7 +189,7 @@ if(window.isAdsDisplayed === undefined ) {
 							@endforeach
 					</div><!--/.col-md-12-->
 				</div><!--/.row for recommended videos-->
-
+				<br/>
 
 				<div class="top-div col-md-12 mg-t-20">
 					<div class=" row">
@@ -320,5 +320,10 @@ if(window.isAdsDisplayed === undefined ) {
 		}
 </script>
 
-
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+@section('script')
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+@stop
+<!--cess-->
 

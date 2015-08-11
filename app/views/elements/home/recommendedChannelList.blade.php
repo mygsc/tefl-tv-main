@@ -9,7 +9,7 @@
             @foreach($datas as $channel)
             <li> 
                 <a href="channels/{{$channel->channel_name}}">
-                    {{HTML::image($channel['profile_picture'], 'alt', array('class' => 'user mg-l-10'))}}
+                    {{HTML::image($channel['profile_picture'], 'alt', array('class' => 'userRep mg-l-10'))}}
                     <br>
                     <span>{{$channel->channel_name}}<br>
                         <small>{{$channel->subscribers_count}} Subscriber(s)</small>

@@ -21,7 +21,7 @@
 </div>
 <div class="paper_wrap" data-sticky_parent="" style="position: relative;">
     <div class="col-md-10 col-md-offset-1">
-        <div class="col-md-8">
+        <div class="col-md-8 ">
             <div class="paper">
                 <div class="content-padding">
                     <div class="icons_style pull-right">
@@ -68,7 +68,7 @@
     		</div>
     	</div>
         <div class="col-md-4">
-                @include('elements/publishers/video')
+            @include('elements/publishers/video')
             <br/>
             @include('elements/publishers/support')
         </div>
