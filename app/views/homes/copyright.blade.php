@@ -29,32 +29,15 @@
 			<div class="col-md-9 White mg-t-10 same-H col-md-height col-top">
 				<br/>
 				<div class="content-padding">
-				<h1>COPYRIGHT</h1>
+				<h1>COPYRIGHT POLICY TEFLTV.COM</h1>
 					<br/>
-						<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<p class="text-justify">Tefltv.com has adopted a general policy regarding copyright in accordance with the Copyright Ordinance 2007 completed and amended. Tefltv.com removes material that is the subject of a compliant Copyright takedown notice. Cap. 528 Section 107 of the Copyright Ordinance provides the rules for reporting copyright infringement and for filing notification.</p>
 						<br/>
-						<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				
-					
-				
-				<br/>
-
-				<h2>What is copyright?</h2>
-				<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.</p>
-				<br/>
+						<p class="text-justify">Copyright is a property right which subsists in accordance with this Part in the following descriptions of work:</p>				
+				&nbsp;<b>(a)</b> original literary, dramatic, musical or artistic works;<br />
+				<b>(b)</b> sound recordings, films, broadcasts or cable programs; and<br />
+				<b>(c)</b> the typographical arrangement of published editions.<br />
+				<br />
 				<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
