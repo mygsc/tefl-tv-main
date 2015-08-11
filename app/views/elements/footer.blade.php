@@ -21,7 +21,7 @@
                             <ul class="list-n">
                                 <li><h3 class="whiteC ">Legal Terms</h3></li>
                                 <li>{{ link_to_route('homes.privacy', 'Privacy', null, array('class' => '')) }}</li>
-                                <!--<li>{{ link_to_route('homes.copyright', 'Copyright', null, array('class' => '')) }}</li>-->
+                                <li>{{ link_to_route('homes.copyright', 'Copyright', null, array('class' => '')) }}</li>
                                 <li>{{ link_to_route('homes.termsandconditions', 'Terms and Conditions', null, array('class' => '')) }}</li>
                             </ul>
                         </span>
