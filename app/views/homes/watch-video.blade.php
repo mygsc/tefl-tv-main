@@ -12,13 +12,6 @@
     <?php
         $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
     ?>
-    <meta property="fb:app_id" content="1557901494477250"/>
-    <meta property="og:site_name" content="TEFL-TV"/>
-    <meta property="og:url" content="{{URL::full()}}"/>
-    <meta property="og:title" content="{{$videos->title}}"/>
-    <?php
-        $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
-    ?>
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="video"/> 

@@ -44,7 +44,7 @@
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "/tefltv_fl_video_player/playerProductInstall.swf";
             var flashvars = {
-                source: "{{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4"
+                source: "tefltv.flv"
             };
             var params = {};
             params.quality = "high";
