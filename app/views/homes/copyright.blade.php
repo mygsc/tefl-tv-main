@@ -11,6 +11,7 @@
 			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top">
 				<div class="mg-r-10 row mg-t--10"  data-sticky_column="">
 					@include('elements/home/categories')
+
 					<div class="mg-t-10">
 						@include('elements/home/report')
 					</div>
