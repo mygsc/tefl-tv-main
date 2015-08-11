@@ -8,7 +8,7 @@
 	<div class="container ">
 		<div class="row mg-t-10">
 			<div class="row-same-height">
-				<div class="col-md-3 col-md-height">
+				<div class="col-md-3 col-md-height hidden-sm hidden-xs">
 					<div class="mg-r-10 row mg-t--10">
 						@include('elements/home/categories')
 						<div id="ad_sidebar">
@@ -47,3 +47,10 @@
 		</div>
 	</div>
 @stop
+
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+@section('script')
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+@stop
+<!--cess-->
