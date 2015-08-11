@@ -9,6 +9,7 @@
 	<div id="myChannel" >
 		<div class="panel-body">
 			<li role="presentation">{{link_to_route('get.myreports', 'My Reports')}}</li>
+			<li role="presentation">{{link_to_route('get.complaint_form', 'Complaint Form')}}</li>
 		</div>
 	</div>
 </div>
