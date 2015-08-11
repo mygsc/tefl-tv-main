@@ -318,21 +318,40 @@ class Video extends Eloquent{
 
 	public function getVideo($filename){
 		$videos = Video::where('file_name', '=', $filename)->first();
-
-		$temp = '';
+		if(!isset($videos)) return false;
+		$temp1 = '';
+		// dd($videos);
 		$split_tags = explode(',', $videos->tags);
-		$lastCount = count($split_tags) - 1;
+		$lastCount1 = count($split_tags) - 1;
 		$x = 0;
 		if(count($split_tags) != 1){
 			foreach ($split_tags as $split_tag) {
 				$split_tag = trim($split_tag);
-				if ($x != $lastCount) {
-			        $temp = $temp . ucfirst($split_tag) . ", ";
+				if ($x != $lastCount1) {
+			        $temp1 = $temp1 . ucfirst($split_tag) . ", ";
 			    }else{
-			    	$temp = $temp . ucfirst($split_tag);
+			    	$temp1 = $temp1 . ucfirst($split_tag);
 			    }
+			    $x++;
 			}
-			$videos->tags = $temp;
+			$videos->tags = $temp1;
+		}
+
+		$temp2 = '';
+		$split_categories = explode(',', $videos->category);
+		$lastCount2 = count($split_tags) - 1;
+		$y = 0;
+		if(count($split_categories) != 1){
+			foreach ($split_categories as $split_category) {
+				$split_category = trim($split_category);
+				if ($y != $lastCount2) {
+			        $temp2 = $temp2 . ucfirst($split_category) . ", ";
+			    }else{
+			    	$temp2 = $temp2 . ucfirst($split_category);
+			    }
+			    $y++;
+			}
+			$videos->category = $temp2;
 		}
 		return $videos;
 	}
