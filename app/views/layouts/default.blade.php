@@ -1,5 +1,4 @@
 <!doctype html>
-<html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
 <head>
 	<meta charset="utf-8">
@@ -23,6 +22,8 @@
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
+	{{ HTML::style('css/m-nav/component.css') }}
+	
 	@yield('css')
 </head>
 
@@ -32,10 +33,11 @@
 	<div class="body-wrapp">
 		<div id="fb-root"></div>
 		<div class="same-H">
-		@include('elements/header')
-		@include('elements/home/headerNav')
+			@include('elements/header')
+			@include('elements/home/headerNav')
+			@include('elements/mobileNav')
 		</div>
-		<div class="container">
+		<div class="container sm-container">
 			@include('elements.flash_message')
 			@yield('content')
 		</div>
@@ -53,6 +55,10 @@
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/scroll-onpage.js')}}
+
+{{HTML::script('js/m-nav/classie.js')}}
+{{HTML::script('js/m-nav/modernizr.custom.js')}}
+
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -76,6 +82,21 @@
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
+</script>
+
+<script>
+	$(document).ready(function(){
+		$(".search-btn").click(function(){
+			$(".search-show").show().addClass('animated slideInLeft');
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$(".close-search").click(function(){
+			$(".search-show").hide('slow');
+		});
+	});
 </script>
 
 <script>

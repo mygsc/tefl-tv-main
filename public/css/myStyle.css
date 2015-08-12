@@ -274,7 +274,9 @@ p.description_content {
 .hide {
     display: none;
 }
-
+.show_{
+    display: block;
+}
 .tbClear {
     border: none!important;
 }
@@ -524,11 +526,7 @@ span .ad {
     margin-top: 0;
 }
 
-img.logo-sm {
-    width: 50px!important;
-    height: auto;
-    margin-top: -15px;
-}
+
 .brandName{
     margin-left: 70px;
     color: white;
@@ -1976,7 +1974,7 @@ html * {
     position: absolute;
     height: 100%;
     /*padding: 40px 10px;*/
-    z-index: 99998;
+    z-index: 77777;
     font-size: 1.2em;
     width: 40%;
 }
@@ -2342,6 +2340,9 @@ a.thumbnail-h:hover {
 /*=======================================XS========================================*/
 
 @media (max-width:767px) {
+    .sm-container{
+        margin-top: 100px;
+    }
     .thumbnail {
     width: 100%!important;
     height: auto!important;
@@ -2397,6 +2398,9 @@ a.thumbnail-h:hover {
 /*================================================SM===================================*/
 
 @media (min-width:768px) and (max-width:991px) {
+    .sm-container{
+        margin-top: 100px;
+    }
      .upload-buttons{
         text-align: center;
     }
