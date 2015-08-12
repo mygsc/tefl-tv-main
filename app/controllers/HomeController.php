@@ -733,7 +733,7 @@ public function addReply(){
 	}
 
 	public function testingpage(){
-		return View::make('testing');
+		return View::make('errors.maintenance');
 	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
