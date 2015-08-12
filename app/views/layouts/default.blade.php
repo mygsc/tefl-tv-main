@@ -1,5 +1,4 @@
 <!doctype html>
-<html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
 <head>
 	<meta charset="utf-8">
