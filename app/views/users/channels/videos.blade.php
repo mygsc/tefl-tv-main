@@ -74,7 +74,7 @@
 								<ul class="nav navbar-nav">
 									<li>{{link_to_route('view.users.channel', 'Home', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('view.users.about2', 'About', $userChannel->channel_name)}}</li>
-									<li>{{link_to_route('view.users.playlists2', 'My Playlists', $userChannel->channel_name)}}</li>
+									<li>{{link_to_route('view.users.playlists2', 'Playlists', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('view.users.feedbacks2', 'Feedbacks', $userChannel->channel_name)}}</li>
 									<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 								</ul>

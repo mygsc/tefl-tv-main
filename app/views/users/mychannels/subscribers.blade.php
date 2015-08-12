@@ -25,27 +25,7 @@
 						<li role="presentation" class="active">{{link_to_route('users.subscribers', 'Subscribers/Subscriptionss')}}</li>
 					</ul><!--tabNav-->
 				</div>
-				<nav class="navbar navbar-default visible-sm visible-xs">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-								<h4 class="inline mg-t-20">Subscribers/Subscriptions</h4>	
-								<span class="fa fa-bars"></span>
-							</button>
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								<li>{{link_to_route('users.channel', 'Home')}}</li>
-								<li>{{link_to_route('users.about', 'About')}}</li>
-								<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
-								<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-								<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-								<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
-								<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
+
 				<div class="col-md-12 mg-t-20">
 					<div class="row">
 						<div class="row-same-height">
