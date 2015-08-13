@@ -80,13 +80,13 @@
         
         <noscript>
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%" id="tefltv_video_player">
-                <param name="movie" value="tefltv_video_player.swf" />
+                <param name="movie" value="/tefltv_fl_video_player/tefltv_video_player.swf" />
                 <param name="quality" value="high" />
                 <param name="bgcolor" value="#ffffff" />
                 <param name="allowScriptAccess" value="always" />
                 <param name="allowFullScreen" value="true" />
                 <!--[if !IE]>-->
-                <object type="application/x-shockwave-flash" data="tefltv_video_player.swf" width="100%" height="100%">
+                <object type="application/x-shockwave-flash" data="/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#ffffff" />
                     <param name="allowScriptAccess" value="always" />
