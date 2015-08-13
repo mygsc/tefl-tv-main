@@ -314,5 +314,13 @@ class VideoController extends BaseController {
 		return Input::all();
 	}
 	
+
+	public function getWatchVideoRemoved(){
+		return View::make('homes.watch-video-removed');
+	}
+
+	public function getWatchVideoCopyrighted(){
+		return View::make('homes.watch-video-copyrighted');
+	}
 }
 

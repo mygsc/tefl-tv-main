@@ -12,3 +12,4 @@
 */
 Artisan::add(new convertvideo);
 Artisan::add(new Sample);
+Artisan::add(new incrementViews);
