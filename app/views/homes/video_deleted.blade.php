@@ -27,18 +27,18 @@
     <div class="">
         <div class="row mg-t-10">
             <div id="featured" > 
-                <div class="col-md-8">
+                <br/><br/><br/><br/><br/><br/>
+                <div class="col-md-10 col-md-offset-1">
                     <div class="">
-                        <div id="" class="ui-tabs-panel White pad-s-20 same-H" style="">
+                        <img src="/img/errorBg.png" width="100%" class="same-H">
+                        <div id="" class=" rem-div pad-s-20" style="">
                             <!--video paler-->
                             <br/>
                             <div id='ablockVideoPlayer'>
-                                <h2><b>This video has been removed by the user.</b></h2>
+                                <h1 class="text-center whiteC">Sorry but this video has been removed by the uploader.</h1>
                                 <hr/>
-                                Sorry about that.
-                                <br/>
                                 <center>
-                                    <img id="ablockplayer_img" src="/img/nav-effect-b.png" />
+                                   
                                 </center>
                             </div>
                             <br/>
