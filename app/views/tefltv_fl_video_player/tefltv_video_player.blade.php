@@ -46,7 +46,7 @@
             var params = {};
             params.quality = "high";
             params.bgcolor = "#ffffff";
-            params.allowscriptaccess = "sameDomain";
+            params.allowscriptaccess = "always";
             params.allowfullscreen = "true";
             var attributes = {};
             attributes.id = "tefltv_video_player";
@@ -83,13 +83,13 @@
                 <param name="movie" value="/tefltv_fl_video_player/tefltv_video_player.swf" />
                 <param name="quality" value="high" />
                 <param name="bgcolor" value="#ffffff" />
-                <param name="allowScriptAccess" value="sameDomain" />
+                <param name="allowScriptAccess" value="always" />
                 <param name="allowFullScreen" value="true" />
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#ffffff" />
-                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="allowScriptAccess" value="always" />
                     <param name="allowFullScreen" value="true" />
                     <param name="FlashVars" value="source={{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4">
                     

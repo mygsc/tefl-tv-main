@@ -1,6 +1,7 @@
 <?php
 
 class Report extends Eloquent {
+	use SoftDeletingTrait;
 	protected $table = 'reports';
 	protected $guarded = array();
 
@@ -84,7 +85,29 @@ class Report extends Eloquent {
 			->where('reports.id', $reportid)
 			->first();
 		}
+		return false;
+	}
+	public function checkVideoReports($filename){
+		$video = Video::where('file_name', $filename)->first();
+		if($video->reported == '1') return 'reported';
 
+		$report = Report::where('video_id', $video->id)->first();
+		if(empty($report)) return false;
+
+		$dispute = Dispute::where('report_id', $report->id)->first();
+
+		if(empty($dispute)){
+			$now = date('Y-m-d H:i:s');
+			$disputeDate_plus30Days = date('Y-m-d H:i:s', strtotime($report->created_at . '+30 days'));
+			if($disputeDate_plus30Days > $now){
+				Video::where('id', $video->id)->update(array('reported' => '1'));
+			}
+		}
+		return false;
+	}
+	public function checkVideoIfDeleted($video_id){
+		$video = Video::where('id',$video_id)->withTrashed()->first();
+		if(!isset($video)) return true;
 		return false;
 	}
 }

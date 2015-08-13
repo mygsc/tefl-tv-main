@@ -1,6 +1,7 @@
 <?php
 
 class Dispute extends Eloquent {
+	use SoftDeletingTrait;
 	protected $table = 'disputes';
 	protected $guarded = array();
 
