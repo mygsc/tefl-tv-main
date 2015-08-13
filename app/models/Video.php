@@ -109,7 +109,7 @@ class Video extends Eloquent{
 			->where('uploaded', '1')
 			->where('publish', '1')
 			->where('uploaded','1')
-			->where('users.status', '!=', '0')
+			->where('users.status', 1)
 			->join('users', 'user_id', '=', 'users.id')
 			->take($limit)
 			->orderBy(DB::raw($orderBy), $sort)

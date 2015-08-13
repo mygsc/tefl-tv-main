@@ -53,5 +53,6 @@
 			</span><!--/counts and share link-->
 			@endif
 		</div><!--/.col-md-6-->
+		<br/>
 	</div>
 </div>

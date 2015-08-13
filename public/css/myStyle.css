@@ -1032,6 +1032,9 @@ center;     margin: 0 auto; }
 .grey2{
     background: #d6d8d9;
 }
+.rem-div{
+    background: #4165AA;
+}
 .blueBg{
      background: #4D6080!important;
 }
@@ -1899,16 +1902,6 @@ html * {
     font-size: 1.4em;
 }
 
-.labelThis {
-    padding: 0 5px 0 10px;
-    /* margin-left: -13px; */
-    font-size: 2.4em;
-    font-family: Teko;
-    text-align: left;
-    color: #313653;
-    display: inline-block;
-    margin-left: 125px;background:rgba(255,255,255,0.7); border-radius:0 50px 0 0;min-width:200px;
-}
 .chaName {
     padding: 0 5px 0 10px;
     font-size: 2.0em;
@@ -2356,12 +2349,7 @@ a.thumbnail-h:hover {
         height: auto;
         min-height: 100%;
     }
-    .div-coverDp {
-        height: 230px;
-        overflow: hidden;
-        background-color: #C5CAE8;
-    }
-    
+
     .upload-buttons{
         text-align: center;
     }
@@ -2394,9 +2382,20 @@ a.thumbnail-h:hover {
         margin: auto;
     }
     .div-coverDp {
-    height: 140px;
-    overflow: hidden;
-    background-color: #C5CAE8;
+        height: 120px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+
+    .labelThis {
+        padding: 0 5px 0 85px;
+        font-size: 1.8em;
+        font-family: Teko;
+        text-align: left;
+        color: #313653;
+        display:block;
+        background:rgba(255,255,255,0.7); 
+        width: 100%;
     }
 
 }
@@ -2472,7 +2471,19 @@ a.thumbnail-h:hover {
         height: 120px;
         margin: auto;
     }
-
+    .labelThis {
+    padding: 0 5px 0 10px;
+    /* margin-left: -13px; */
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 125px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    width: 100%;
+    }
 
 }
 
@@ -2544,6 +2555,7 @@ a.thumbnail-h:hover {
     left: 0;
     right: 0;
     }
+
     .pic-Dp {
     margin: 7px;
     width: 150px;
@@ -2561,6 +2573,19 @@ a.thumbnail-h:hover {
         width: 150px;
         height: 150px;
         margin: auto;
+    }
+    .labelThis {
+    padding: 0 5px 0 10px;
+    /* margin-left: -13px; */
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 155px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    min-width:200px;
     }
 }
 
@@ -2636,9 +2661,22 @@ a.thumbnail-h:hover {
         height: 150px;
         margin: auto;
     }
-
+    .labelThis {
+    padding: 0 5px 0 10px;
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 155px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    min-width:200px;
+    }
 
 }
+/*end of lg*/
+
     .ch {
         height: 340px;
     }
