@@ -3,7 +3,7 @@
 class HomeController extends BaseController {
 
 	protected $publisher_;
-	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, ReportSupport $reportSupport) {
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, Report $reports, ReportSupport $reportSupport) {
 
 		$this->User = $user;
 		$this->Video = $video;
@@ -16,6 +16,7 @@ class HomeController extends BaseController {
 		$this->VideoLikesDislike = $videoLikesDislike;
 		$this->publisher_ = new Publisher;
 		$this->ReportSupport = $reportSupport;
+		$this->Report = $reports;
 	}
 
 	public function getReportSupport() { return View::make('errors.fatal'); }
@@ -213,9 +214,16 @@ class HomeController extends BaseController {
 	}
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
-		// $videos = Video::where('file_name', '=', $filename)->first();
 		$videos = $this->Video->getVideo($filename);
-		if(!$videos) return Redirect::route('homes.index')->withFlashBad('Sorry, the video is not found.');
+		if($videos){
+			$reportStatus = $this->Report->checkVideoReports($filename);
+			$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
+			if($reportStatus == 'reported') return View::make('homes.video_reported');
+			if($ifDeleted) return View::make('homes.video_deleted');
+			//This video is no longer available because the YouTube account associated with this video has been terminated.
+		}	
+		if(!$videos) return View::make('homes.video_unavailable');
+
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
 		$id = $videos->id;
@@ -472,17 +480,17 @@ class HomeController extends BaseController {
 					</tr>
 				</table>
 			</div>
-		</div>
-	';
-	return Response::json(array(
-		'status' => 'success',
-		'comment' => $comment,
-		'video_id' => $video_id,
-		'user_id' => $user_id,
-		'comment' => $newComment
-		));
-}
-}
+			</div>
+			';
+			return Response::json(array(
+				'status' => 'success',
+				'comment' => $comment,
+				'video_id' => $video_id,
+				'user_id' => $user_id,
+				'comment' => $newComment
+			));
+		}
+	}
 
 public function addReply(){
 	$reply = trim(Input::get('txtreply'));
