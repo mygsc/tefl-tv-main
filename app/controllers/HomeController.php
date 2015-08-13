@@ -215,6 +215,8 @@ class HomeController extends BaseController {
 	public function getWatchVideo($idtitle = NULL, $autoplay = 1){
 		$filename = $this->getURL();
 		$videos = $this->Video->getVideo($filename);
+		$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
+		if($ifDeleted == true) return View::make('homes.video_deleted');
 		if($videos){
 			$reportStatus = $this->Report->checkVideoReports($filename);
 			$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
