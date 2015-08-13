@@ -32,8 +32,9 @@
 		<div class="same-H">
 			@include('elements/header')
 			@include('elements/home/headerNav')
-			@include('elements/mobileNav')
+			
 		</div>
+		@include('elements/mobileNav')
 		<div class="container sm-container">
 			@include('elements.flash_message')
 			@yield('content')

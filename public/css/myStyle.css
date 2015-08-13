@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -274,7 +275,7 @@ p.description_content {
 .hide {
     display: none;
 }
-.show_{
+.show{
     display: block;
 }
 .tbClear {
@@ -437,19 +438,7 @@ span .ad {
 .v-latestUp {
     height: 300px!important;
 }
-.flash{
-    z-index: 9999999999;
-    margin-left: auto!important;
-    margin-right: auto!important;
-    width: 60%;
-    margin-top: 30px;
-    height: 100px;
-    left: 0;
-    right: 0;
 
-
-
-}
 .good{
    border-top:1px solid #376d2e;
    border-left:1px solid #376d2e;
@@ -539,8 +528,8 @@ span .ad {
 
 .dp-btn {
     position: absolute;
-    right: 0;
-    top: 0;
+    left: 0;
+    bottom: 0;
     z-index: 99999;
 }
 .btn-clear{
@@ -2046,24 +2035,7 @@ div .video-info:hover{
     border-top: 1px solid #fff;
 }
 
-.pic-Dp {
-    margin: 7px;
-    width: 150px;
-    height: 150px;
-    background: #ededed;
-    position: absolute;
-    left: 0;
-    /* padding: 2px 2px 5px 2px; */
-    overflow: hidden;
-    bottom: 0;
-    z-index: 7777;
-}
 
-.pic-Dp img {
-    width: 150px;
-    height: 150px;
-    margin: auto;
-}
 
 .change-Dp {
     width: 246px;
@@ -2393,6 +2365,40 @@ a.thumbnail-h:hover {
     .upload-buttons{
         text-align: center;
     }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 98%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+    .pic-Dp {
+    margin: 7px;
+    width: 70px;
+    height: 70px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 70px;
+        height: 70px;
+        margin: auto;
+    }
+    .div-coverDp {
+    height: 140px;
+    overflow: hidden;
+    background-color: #C5CAE8;
+    }
+
 }
 
 /*================================================SM===================================*/
@@ -2438,6 +2444,34 @@ a.thumbnail-h:hover {
         height: auto;
         min-height: 100%;
     }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 80%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+    .pic-Dp {
+    margin: 7px;
+    width: 120px;
+    height: 120px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 120px;
+        height: 120px;
+        margin: auto;
+    }
 
 
 }
@@ -2470,7 +2504,7 @@ a.thumbnail-h:hover {
     .user-Dp img{
     width: 120px;
     height: 120px;
-}
+    }
 
     .ch {
         height: 380px;
@@ -2499,6 +2533,35 @@ a.thumbnail-h:hover {
     overflow: hidden;
     background-color: #C5CAE8;
     }
+
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 60%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+    .pic-Dp {
+    margin: 7px;
+    width: 150px;
+    height: 150px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
 }
 
 /*=================LG==================*/
@@ -2515,46 +2578,76 @@ a.thumbnail-h:hover {
     background-color: #C5CAE8;
     }
 
-.cat-h{
-    max-height:300px;
-    overflow:auto;
-}
-.thumbnail {
-    width: 266px;
+    .cat-h{
+        max-height:300px;
+        overflow:auto;
+    }
+    .thumbnail {
+        width: 266px;
+        height: 150px;
+    }
+
+    .lg-md-margin-l{
+     padding-left:20px!important;
+    }
+    .lg-md-margin-r{
+     padding-right:20px!important;
+    }
+
+    .user-Dp {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
+
+    }
+    .user-Dp img{
+        width: 120px;
+        height: 120px;
+    }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 60%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+
+    .pic-Dp {
+    margin: 7px;
+    width: 150px;
     height: 150px;
-}
-
-.lg-md-margin-l{
- padding-left:20px!important;
-}
-.lg-md-margin-r{
- padding-right:20px!important;
-}
-
-.user-Dp {
-    margin: 10px;
-    width: 120px;
-    height: 120px;
-    border: 1px solid #FFFFFF;
-    background-color: #949393;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
     overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+
 
 }
-.user-Dp img{
-    width: 120px;
-    height: 120px;
-}
+    .ch {
+        height: 340px;
+    }
 
-}
-.ch {
-    height: 340px;
-}
+    .annotation-wrap{
+        border-right: 1px solid #cecece;
+        min-height:200px;
 
-.annotation-wrap{
-    border-right: 1px solid #cecece;
-    min-height:200px;
-}
-}
+    }
 .caption {
     position: absolute;
     display: none;
@@ -3735,7 +3828,7 @@ body {
 }
 
 .btn-default{
-    background: #FFFFFF!important;
+    background: rgba(255, 255, 255, 0.56);
     border: 1px solid #dedede;
 }
  .btn-xs{
