@@ -21,7 +21,7 @@
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/> 
     <meta property="og:video" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?flashvars={source:'tefltv.flv'}"/>
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?flashvars={source:'tefltv.flv'}"/>
     <meta property="og:video:type" content="application/x-shockwave-flash"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/> 
@@ -451,13 +451,13 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 </div>
 
-{{--<div id="fb-root"></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>--}}
+}(document, 'script', 'facebook-jssdk'));</script>
 
 @stop
