@@ -15,16 +15,16 @@
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="movie"/> 
-   <!--  <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
+    <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:type" content="text/html"/>
-    <meta property="og:video:width" content="1280"/>
-    <meta property="og:video:height" content="720"/> -->
-    <meta property="og:video:url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf"/>
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/>
+    <meta property="og:video:width" content="640"/>
+    <meta property="og:video:height" content="360"/> 
+    <meta property="og:video" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?flashvars={source:'tefltv.flv'}"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?flashvars={source:'tefltv.flv'}"/>
     <meta property="og:video:type" content="application/x-shockwave-flash"/>
-    <meta property="og:video:width" content="1280"/>
-    <meta property="og:video:height" content="720"/>
+    <meta property="og:video:width" content="640"/>
+    <meta property="og:video:height" content="360"/> 
 
 @stop
 @section('css')
@@ -451,13 +451,13 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 
 </div>
 
-{{--<div id="fb-root"></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1557901494477250";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>--}}
+}(document, 'script', 'facebook-jssdk'));</script>
 
 @stop

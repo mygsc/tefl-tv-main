@@ -52,7 +52,6 @@ return array(
 			'prefix'   => '',
 		),
 		
-
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',

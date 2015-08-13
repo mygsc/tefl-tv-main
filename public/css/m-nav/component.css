@@ -1,7 +1,8 @@
+
 /* General styles for all menus */
 .m-head{
-	z-index: 9888888888;
-	position: fixed;
+	z-index: 91474836;
+
 }
 
 .cbp-spmenu h3,
@@ -140,6 +141,7 @@ img.logo-sm {
 	height: 30px!important;
 	display:block;
 	font-size: 1.1em;
+	padding: 5px;
 }
 
 .cbp-spmenu a {
@@ -276,4 +278,5 @@ img.logo-sm {
 	-moz-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
+
 

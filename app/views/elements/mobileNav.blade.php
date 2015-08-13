@@ -1,4 +1,4 @@
-<div class="visible-sm visible-xs m-head">
+<div class="visible-sm visible-xs m-head" style="overflow-x: hidden!important;">
 	<div class="fixed-header">
 		<div class="brandingHeader">
 			<div class="container">
@@ -27,15 +27,22 @@
 	                <div class="categoryNav">
 	                	<div class="row">
 	                		<button class="search-btn "><i class="fa fa-search" ></i> Search</button>
-	                		<ul class="ctgryNav pull-right mg-r-50" style="position:fixed;right:5px;">
+	                		
 	                			@if(Auth::check())
-	                			<li>
-	                				<b> {{Auth::User()->channel_name}}</b>
-	                				<a href="{{route('users.notifications')}}"><span class="badge btn-danger" id="notification-counter"></span></a>
-	                			</li>
+	                			<ul class="ctgryNav pull-right" style="position:fixed;right:40px;">
+		                			<li>
+		                				<b> {{Auth::User()->channel_name}}</b>
+		                				<a href="{{route('users.notifications')}}"><span class="badge btn-danger" id="notification-counter"></span></a>
+		                			</li>
+	                			</ul>
 
 	                			@else
-	                			<li>{{ link_to_route('homes.signin', 'Sign-in / Sign-up', null, array('class' => '')) }}</li>
+	                			<ul class="ctgryNav pull-right" style="position:fixed;right:20px;">
+		                			<li>
+		                				<span >{{ link_to_route('homes.signin', 'Sign-in / Sign-up', null, array('class' => '')) }}
+		                				</span>
+		                			</li>
+		                		</ul>
 
 	                			@endif
 	                		</ul>
@@ -116,6 +123,5 @@
 
 	        	}
 	        </script>
-
 
 
