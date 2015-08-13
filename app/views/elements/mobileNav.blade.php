@@ -13,7 +13,7 @@
 		</div>
 		<div class="search-show animated">
 			{{Form::open(array('route' => 'homes.searchresult','method' => 'GET','class' => 'inline'))}}
-			{{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'm-search','height' => '25px')) }}>
+			{{ Form::text('search', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'm-search','height' => '25px')) }}
 			{{Form::close()}}
 			<i class="fa fa-search pull-left search-ico"></i>
 			<button class="close-search pull-right "><i class="fa fa-close "></i></button>
