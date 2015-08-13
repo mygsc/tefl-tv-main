@@ -1,4 +1,8 @@
 /* General styles for all menus */
+.m-head{
+	z-index: 91474836;
+}
+
 .cbp-spmenu h3,
 .cbp-spmenu-2 h3{
 	color: #4B5B7C;	
@@ -17,14 +21,15 @@
 	z-index: 6666;
 	border-bottom: 2px solid rgba(97, 162, 228, 1);
 	width: 100%;
+	content: "";
 }
 .search-btn{
 	border: 0;
 	outline: 0;
 	background: transparent;
 	margin-left: 20px;
-	
 }
+
 .search-ico{
 	margin-left: 10px;
 	margin-top: 9px;
@@ -51,8 +56,10 @@
 	padding: 0 10px;
 	margin-left:90px;
 	position: absolute;
+	content: "";
 	top: 0;
-}
+	z-index: 9999999;
+}	
 .btn-nav-2{
 	border: 0;
 	outline: 0;
@@ -64,6 +71,7 @@
 	top: 0;
 	width: auto;
 	font-size: 1.00em;
+	content: "";
 }
 button.disabled {
 	background: transparent;
@@ -126,13 +134,12 @@ img.logo-sm {
 }
 
 .cbp-spmenu-2 span{
-	color: #3b5a9b;
-	padding: 5px 0 0 5px;
-	margin: 0;
-	font-weight: 300;
-	background: #9AB5E4;
-	height: 30px;
+	color: #3b5a9b!important;
+	background: #9AB5E4!important;
+	height: 30px!important;
 	display:block;
+	font-size: 1.1em;
+	padding: 5px;
 }
 
 .cbp-spmenu a {
@@ -270,42 +277,3 @@ img.logo-sm {
 	transition: all 0.3s ease;
 }
 
-/* Example media queries */
-
-@media screen and (max-width: 55.1875em){
-
-	.cbp-spmenu-horizontal {
-		font-size: 75%;
-		height: 110px;
-	}
-
-	.cbp-spmenu-top {
-		top: -110px;
-	}
-
-	.cbp-spmenu-bottom {
-		bottom: -110px;
-	}
-
-}
-
-@media screen and (max-height: 26.375em){
-
-	.cbp-spmenu-vertical {
-		font-size: 90%;
-		width: 190px;
-	}
-
-	.cbp-spmenu-left,
-	.cbp-spmenu-push-toleft {
-		left: -190px;
-	}
-
-	.cbp-spmenu-right {
-		right: -190px;
-	}
-
-	.cbp-spmenu-push-toright {
-		left: 190px;
-	}
-}

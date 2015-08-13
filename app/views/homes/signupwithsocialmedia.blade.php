@@ -10,7 +10,7 @@
 	}
 </style>
 <div class="row" >
-    <div id="cmn-video-demo3__container" style="z-index:-1;">
+    <div id="cmn-video-demo3__container" class="hidden-xs" style="z-index:-1;">
         <video id="cmn-video-demo3__video" autoplay muted="muted" loop="true">
             <source src="/videos/tefltv.mp4" type="video/mp4">
             <source src="/videos/tefltv.webm" type="video/webm">

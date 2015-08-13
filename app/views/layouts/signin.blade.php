@@ -24,7 +24,7 @@
 	@yield('css')
 </head>
 
-<body>
+<body style="background:#798CB4;">
 	
 	<div id="fb-root"></div>
 	<div class="same-H">
