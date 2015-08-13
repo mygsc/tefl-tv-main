@@ -1,8 +1,17 @@
-/* General styles for all menus */
+
 .m-head{
 	z-index: 91474836;
-}
 
+}
+.u-m-nav{
+	list-style: none;
+	margin-left: -40px;
+	margin-top: -10px;
+	/* display: inline-block; */
+}
+.u-m-nav li{
+	display: inline-block;
+}
 .cbp-spmenu h3,
 .cbp-spmenu-2 h3{
 	color: #4B5B7C;	
@@ -15,7 +24,7 @@
 	top:60px;
 	left: 0;
 	position: absolute;
-	background: #C7D4EC;
+	background: #DCDCDC;
 	height: 30px!important;
 	overflow: hidden;
 	z-index: 6666;
@@ -115,7 +124,7 @@ img.logo-sm {
 	position: fixed;
 }
 .cbp-spmenu-2 {
-	background: #94ACD5;
+	background: #718DBD;
 	position: fixed;
 	-webkit-box-shadow: -1px 4px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: -1px 4px 5px 0px rgba(0,0,0,0.75);
@@ -276,4 +285,5 @@ img.logo-sm {
 	-moz-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
+
 

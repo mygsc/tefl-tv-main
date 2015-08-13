@@ -30,8 +30,8 @@
         
         <!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
         <!-- BEGIN Browser History required section -->
-        <link rel="stylesheet" type="text/css" href="history/history.css" />
-        <script type="text/javascript" src="history/history.js"></script>
+        <link rel="stylesheet" type="text/css" href="/tefltv_fl_video_player/history/history.css" />
+        <script type="text/javascript" src="/tefltv_fl_video_player/history/history.js"></script>
         <!-- END Browser History required section -->  
             
         <script type="text/javascript" src="/tefltv_fl_video_player/swfobject.js"></script>
@@ -80,19 +80,17 @@
         
         <noscript>
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%" id="tefltv_video_player">
-                <param name="movie" value="/tefltv_fl_video_player/tefltv_video_player.swf" />
+                <param name="movie" value="tefltv_video_player.swf" />
                 <param name="quality" value="high" />
                 <param name="bgcolor" value="#ffffff" />
                 <param name="allowScriptAccess" value="always" />
                 <param name="allowFullScreen" value="true" />
                 <!--[if !IE]>-->
-                <object type="application/x-shockwave-flash" data="/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
+                <object type="application/x-shockwave-flash" data="tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />
                     <param name="bgcolor" value="#ffffff" />
                     <param name="allowScriptAccess" value="always" />
                     <param name="allowFullScreen" value="true" />
-                    <param name="FlashVars" value="source={{$result->user_id}}-{{$video->channel_name}}/{{$result->file_name}}/{{$result->file_name}}.mp4">
-                    
                 <!--<![endif]-->
                 <!--[if gte IE 6]>-->
                     <p> 
