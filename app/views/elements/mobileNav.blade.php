@@ -1,8 +1,7 @@
-
-<div class="visible-sm visible-xs">
+<div class="visible-sm visible-xs m-head">
 	<div class="fixed-header">
 		<div class="brandingHeader">
-			<div class="container visible-sm visible-xs">
+			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<a href="/"><img src="/img/logo-sm.png" class="text-left logo-sm" title="redirect to homepage"></a>
@@ -31,8 +30,8 @@
 	                		<ul class="ctgryNav pull-right mg-r-50" style="position:fixed;right:5px;">
 	                			@if(Auth::check())
 	                			<li>
-		                			<b> {{Auth::User()->channel_name}}</b>
-		                			<a href="{{route('users.notifications')}}"><span class="badge btn-danger" id="notification-counter"></span></a>
+	                				<b> {{Auth::User()->channel_name}}</b>
+	                				<a href="{{route('users.notifications')}}"><span class="badge btn-danger" id="notification-counter"></span></a>
 	                			</li>
 
 	                			@else
@@ -65,12 +64,11 @@
 	            	{{link_to_route('publishers.index','Publishers')}}
 	            </nav>
 	            @if(Auth::check())
-	            <nav class="cbp-spmenu-2 cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+	            <nav class="cbp-spmenu cbp-spmenu-2 cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 	            	<span class="">
 	            		<button id="showRight" class="btn-nav-2"><i class="fa fa-bars"></i> 
 	            		</button>
 	            		<b class="chName"> 
-
 	            			{{Auth::User()->channel_name}} <a href="{{route('users.notifications')}}"><span class="badge btn-danger" id="notification-counter"></span></a>
 
 	            		</b>
