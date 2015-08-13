@@ -33,7 +33,7 @@
                             <!--video paler-->
                             <br/>
                             <div id='ablockVideoPlayer'>
-                                <h2><b>This video has been removed because its content violated YouTube's Terms of Service.</b></h2>
+                                <h2><b>This video has been removed because its content violated TEFL TV's Terms of Service.</b></h2>
                                 <hr/>
                                 Sorry about that.
                                 <br/>
