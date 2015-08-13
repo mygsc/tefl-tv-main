@@ -107,7 +107,7 @@ class Report extends Eloquent {
 	}
 	public function checkVideoIfDeleted($filename){
 		$video = Video::where('file_name',$filename)->withTrashed()->first();
-		if($video) return true;
+		if(empty($video)) return true;
 		return false;
 	}
 }
