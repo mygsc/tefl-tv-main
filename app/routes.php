@@ -40,6 +40,8 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('verify/{token?}', array('as' => 'homes.get.verify', 'uses' => 'UserController@getVerify'));
 	Route::post('resendverification', array('as' => 'post.resenduserverify', 'uses' => 'UserController@postResendUserVerify'));
 	Route::any('watch', array('as' => 'homes.watch-video', 'uses' => 'HomeController@getWatchVideo'));
+	Route::get('watch/removed', array('as' => 'homes.watch-video-removed', 'uses' => 'VideoController@getWatchVideoRemoved'));
+	Route::get('watch/copyrighted', array('as' => 'homes.watch-video-copyrighted', 'uses' => 'VideoController@getWatchVideoCopyrighted'));
 	Route::post('counter/{id}', array('as' => 'homes.count', 'uses' => 'VideoController@counter'));
 	Route::post('addcomment', array('as' => 'post.addcomment', 'uses' => 'HomeController@addComment'));
 	Route::post('addreply', array('as' => 'post.addreply', 'uses' => 'HomeController@addReply'));
