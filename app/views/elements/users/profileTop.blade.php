@@ -1,25 +1,3 @@
-<!--<div class="container" style="margin-bottom:200px;">
-	<div class="row">
-		<div class="row-same-height">
-		<div class="col-md-3 col-md-height White same-H" >
-			<div class="row" style="border:1px solid purple;" >
-					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => 'center-block', 'style' => 'margin:0 auto;border-radius:85px 85px;width:150px;height:150px;'))}}
-
-					<button data-target="#change_profile_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
-
-				</div>
-		</div>
-
-		<div class="col-md-9 col-md-height">
-			<div class="" style="border:1px solid violet;" >
-				{{HTML::image($usersImages['cover_photo'], 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-			</div>
-		</div>
-	</div>
-	</div>
-	
-</div>-->
-
 <div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
@@ -35,27 +13,28 @@
 
 				</div>
 				<div class="div-coverP">
-					<div class="account-btn-sm visible-xs">
+					<div class="account-btn-sm visible-xs visible-sm">
 						<span class="pull-right">
-							<span class="btn-ico btn-default" style="padding:2px 5px!important;"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
 							<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
 						</span>
 					</div>
 					<div class="overlay-wrap">
-						<div class="container">
-							<div class="col-md-6 col-sm-6">
+						<div class="row">
+							<div class="col-md-6">
 								<div class="labelThis">
 									{{Auth::User()->channel_name}}
 								</div>
 							</div>
-							<div class="col-md-6 col-sm-6 hidden-xs">
+							<div class="col-md-6 col-sm-6 hidden-xs hidden-sm">
+								<a href="{{ route('users.edit.channel')}}">
 								<span class="pull-right">
-									<span class="btn-ico btn-default" style="padding:2px 5px!important;"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
+									<span class="btn btn-info" style="padding:2px 5px!important;"><b><i class="fa fa-cog"></i> Account Settings</b></span>
 									<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
 								</span>
+								</a>
 							</div>
 						</div>
-						<div class="overlay-cover container">
+						<div class="overlay-cover container visible-lg visible-md">
 							<div class="col-md-6 hidden-xs">
 								<div class="text-left chaCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
@@ -101,7 +80,6 @@
 		</div>
 	</div>
 	<div class="user-info container">
-		<br/>
 		@if(empty($usersChannel->interests))
 		
 		<p class="black italic text-center fs-12 mg-t-20">
@@ -109,19 +87,17 @@
 			To promote your channel to subscribers, add your interests or description of your channel. <span class="" style="padding:2px 5px!important;"><small>{{link_to_route('users.edit.channel', 'Edit')}}<i class="fa fa-pencil"></i></small></span>
 			<i class="fa fa-quote-right"></i>
 		</p>
-		<br/>
 		@else
-		<br/><br/>
 		<p class="black center-block italic text-center fs-12">
 			<i class="fa fa-quote-left"></i>
 			{{ Str::limit($usersChannel->interests,300) }}
 			<i class="fa fa-quote-right"></i>
 		</p>
-		<br/>
 		@endif
 
 	</div>
 </div>
+
 
 @section('modal')
 <div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

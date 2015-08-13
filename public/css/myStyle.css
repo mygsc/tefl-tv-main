@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Teko';
     src: url('/fonts/Teko-Regular.ttf');
@@ -274,7 +275,9 @@ p.description_content {
 .hide {
     display: none;
 }
-
+.show{
+    display: block;
+}
 .tbClear {
     border: none!important;
 }
@@ -435,19 +438,7 @@ span .ad {
 .v-latestUp {
     height: 300px!important;
 }
-.flash{
-    z-index: 9999999999;
-    margin-left: auto!important;
-    margin-right: auto!important;
-    width: 60%;
-    margin-top: 30px;
-    height: 100px;
-    left: 0;
-    right: 0;
 
-
-
-}
 .good{
    border-top:1px solid #376d2e;
    border-left:1px solid #376d2e;
@@ -524,11 +515,7 @@ span .ad {
     margin-top: 0;
 }
 
-img.logo-sm {
-    width: 50px!important;
-    height: auto;
-    margin-top: -15px;
-}
+
 .brandName{
     margin-left: 70px;
     color: white;
@@ -541,8 +528,8 @@ img.logo-sm {
 
 .dp-btn {
     position: absolute;
-    right: 0;
-    top: 0;
+    left: 0;
+    bottom: 0;
     z-index: 99999;
 }
 .btn-clear{
@@ -1912,16 +1899,6 @@ html * {
     font-size: 1.4em;
 }
 
-.labelThis {
-    padding: 0 5px 0 10px;
-    /* margin-left: -13px; */
-    font-size: 2.4em;
-    font-family: Teko;
-    text-align: left;
-    color: #313653;
-    display: inline-block;
-    margin-left: 125px;background:rgba(255,255,255,0.7); border-radius:0 50px 0 0;min-width:200px;
-}
 .chaName {
     padding: 0 5px 0 10px;
     font-size: 2.0em;
@@ -1976,7 +1953,7 @@ html * {
     position: absolute;
     height: 100%;
     /*padding: 40px 10px;*/
-    z-index: 99998;
+    z-index: 77777;
     font-size: 1.2em;
     width: 40%;
 }
@@ -2048,24 +2025,7 @@ div .video-info:hover{
     border-top: 1px solid #fff;
 }
 
-.pic-Dp {
-    margin: 7px;
-    width: 150px;
-    height: 150px;
-    background: #ededed;
-    position: absolute;
-    left: 0;
-    /* padding: 2px 2px 5px 2px; */
-    overflow: hidden;
-    bottom: 0;
-    z-index: 7777;
-}
 
-.pic-Dp img {
-    width: 150px;
-    height: 150px;
-    margin: auto;
-}
 
 .change-Dp {
     width: 246px;
@@ -2342,6 +2302,9 @@ a.thumbnail-h:hover {
 /*=======================================XS========================================*/
 
 @media (max-width:767px) {
+    .sm-container{
+        margin-top: 100px;
+    }
     .thumbnail {
     width: 100%!important;
     height: auto!important;
@@ -2383,20 +2346,63 @@ a.thumbnail-h:hover {
         height: auto;
         min-height: 100%;
     }
-    .div-coverDp {
-        height: 230px;
-        overflow: hidden;
-        background-color: #C5CAE8;
-    }
-    
+
     .upload-buttons{
         text-align: center;
     }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 98%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+    .pic-Dp {
+    margin: 7px;
+    width: 70px;
+    height: 70px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 70px;
+        height: 70px;
+        margin: auto;
+    }
+    .div-coverDp {
+        height: 120px;
+        overflow: hidden;
+        background-color: #C5CAE8;
+    }
+
+    .labelThis {
+        padding: 0 5px 0 85px;
+        font-size: 1.8em;
+        font-family: Teko;
+        text-align: left;
+        color: #313653;
+        display:block;
+        background:rgba(255,255,255,0.7); 
+        width: 100%;
+    }
+
 }
 
 /*================================================SM===================================*/
 
 @media (min-width:768px) and (max-width:991px) {
+    .sm-container{
+        margin-top: 100px;
+    }
      .upload-buttons{
         text-align: center;
     }
@@ -2434,7 +2440,47 @@ a.thumbnail-h:hover {
         height: auto;
         min-height: 100%;
     }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 80%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+    .pic-Dp {
+    margin: 7px;
+    width: 120px;
+    height: 120px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
 
+    .pic-Dp img {
+        width: 120px;
+        height: 120px;
+        margin: auto;
+    }
+    .labelThis {
+    padding: 0 5px 0 10px;
+    /* margin-left: -13px; */
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 125px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    width: 100%;
+    }
 
 }
 
@@ -2466,7 +2512,7 @@ a.thumbnail-h:hover {
     .user-Dp img{
     width: 120px;
     height: 120px;
-}
+    }
 
     .ch {
         height: 380px;
@@ -2495,6 +2541,49 @@ a.thumbnail-h:hover {
     overflow: hidden;
     background-color: #C5CAE8;
     }
+
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 60%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+
+    .pic-Dp {
+    margin: 7px;
+    width: 150px;
+    height: 150px;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
+    overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+    .labelThis {
+    padding: 0 5px 0 10px;
+    /* margin-left: -13px; */
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 155px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    min-width:200px;
+    }
 }
 
 /*=================LG==================*/
@@ -2511,46 +2600,89 @@ a.thumbnail-h:hover {
     background-color: #C5CAE8;
     }
 
-.cat-h{
-    max-height:300px;
-    overflow:auto;
-}
-.thumbnail {
-    width: 266px;
+    .cat-h{
+        max-height:300px;
+        overflow:auto;
+    }
+    .thumbnail {
+        width: 266px;
+        height: 150px;
+    }
+
+    .lg-md-margin-l{
+     padding-left:20px!important;
+    }
+    .lg-md-margin-r{
+     padding-right:20px!important;
+    }
+
+    .user-Dp {
+        margin: 10px;
+        width: 120px;
+        height: 120px;
+        border: 1px solid #FFFFFF;
+        background-color: #949393;
+        overflow: hidden;
+
+    }
+    .user-Dp img{
+        width: 120px;
+        height: 120px;
+    }
+    .flash{
+    z-index: 9999999999;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    width: 60%;
+    margin-top: 30px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    }
+
+    .pic-Dp {
+    margin: 7px;
+    width: 150px;
     height: 150px;
-}
-
-.lg-md-margin-l{
- padding-left:20px!important;
-}
-.lg-md-margin-r{
- padding-right:20px!important;
-}
-
-.user-Dp {
-    margin: 10px;
-    width: 120px;
-    height: 120px;
-    border: 1px solid #FFFFFF;
-    background-color: #949393;
+    background: #ededed;
+    position: absolute;
+    left: 0;
+    /* padding: 2px 2px 5px 2px; */
     overflow: hidden;
+    bottom: 0;
+    z-index: 7777;
+    }
+
+    .pic-Dp img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+    .labelThis {
+    padding: 0 5px 0 10px;
+    font-size: 2.4em;
+    font-family: Teko;
+    text-align: left;
+    color: #313653;
+    display: inline-block;
+    margin-left: 155px;
+    background:rgba(255,255,255,0.7); 
+    border-radius:0 50px 0 0;
+    min-width:200px;
+    }
 
 }
-.user-Dp img{
-    width: 120px;
-    height: 120px;
-}
+/*end of lg*/
 
-}
-.ch {
-    height: 340px;
-}
+    .ch {
+        height: 340px;
+    }
 
-.annotation-wrap{
-    border-right: 1px solid #cecece;
-    min-height:200px;
-}
-}
+    .annotation-wrap{
+        border-right: 1px solid #cecece;
+        min-height:200px;
+
+    }
 .caption {
     position: absolute;
     display: none;
@@ -3731,7 +3863,7 @@ body {
 }
 
 .btn-default{
-    background: #FFFFFF!important;
+    background: rgba(255, 255, 255, 0.56);
     border: 1px solid #dedede;
 }
  .btn-xs{

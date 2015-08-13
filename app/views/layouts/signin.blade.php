@@ -20,23 +20,22 @@
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
+	{{ HTML::style('css/m-nav/component.css') }}
 	@yield('css')
 </head>
 
-<body>
+<body style="background:#798CB4;">
 	
 	<div id="fb-root"></div>
 	<div class="same-H">
 	@include('elements/header')
 	@include('elements/home/headerNav')
+	@include('elements/mobileNav')
 	</div>
 
 		@include('elements.flash_message')
 		@yield('content')
 
-	<div class="footer-s mg-t--30">
-	@include('elements/footer')
-	</div>
 
 </body>
 
@@ -56,7 +55,8 @@
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
 <!--list and gri display for my channel-->
-
+{{HTML::script('js/m-nav/classie.js')}}
+{{HTML::script('js/m-nav/modernizr.custom.js')}}
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
@@ -88,6 +88,20 @@ myVideo.play();
 </script>
 
 
+<script>
+	$(document).ready(function(){
+		$(".search-btn").click(function(){
+			$(".search-show").show().addClass('animated slideInLeft');
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$(".close-search").click(function(){
+			$(".search-show").hide('slow');
+		});
+	});
+</script>
 
 @yield('script') 
 @yield('some_script') <!--DONT REMOVE THIS YIELD BY: GRALD-->
