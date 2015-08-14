@@ -216,13 +216,15 @@ class HomeController extends BaseController {
 		$filename = $this->getURL();
 		$videos = $this->Video->getVideo($filename);
 		$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
-		if($ifDeleted) return View::make('homes.video_deleted');
+		if($ifDeleted == true) return View::make('homes.video_deleted');
 		if($videos){
 			$reportStatus = $this->Report->checkVideoReports($filename);
+			$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
 			if($reportStatus == 'reported') return View::make('homes.video_reported');
+			if($ifDeleted == true) return View::make('homes.video_deleted');
 			//This video is no longer available because the YouTube account associated with this video has been terminated.
 		}	
-		if(!$videos) return View::make('homes.video_unavailable');
+		if(empty($videos)) return View::make('homes.video_unavailable');
 
 		$totalTime = $videos->total_time;
 		$duration = $this->duration($totalTime);
