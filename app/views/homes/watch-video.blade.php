@@ -40,8 +40,6 @@
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/homes/watch.js')}}
 {{HTML::script('js/video-player/media.player.min.js')}}
-{{--HTML::script('js/video-player/fullscreen.min.js')--}}
-
 {{HTML::script('js/homes/comment.js')}}
 {{HTML::script('js/report.js')}}
 {{HTML::script('js/homes/linkify.js')}}
