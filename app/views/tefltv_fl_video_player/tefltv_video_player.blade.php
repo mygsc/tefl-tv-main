@@ -85,6 +85,7 @@
                 <param name="bgcolor" value="#ffffff" />
                 <param name="allowScriptAccess" value="always" />
                 <param name="allowFullScreen" value="true" />
+                <embed src="https://www.tefltv.com/sharing/{{$videos->file_name}}" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="460" height="337"></embed>
                 <!--[if !IE]>-->
                 <object type="application/x-shockwave-flash" data="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf" width="100%" height="100%">
                     <param name="quality" value="high" />
