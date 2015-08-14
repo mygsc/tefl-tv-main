@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-    <meta property="fb:app_id" content="162090703968212"/>{{--1557901494477250--}}
+    <meta property="fb:app_id" content="1557901494477250"/>
     <meta property="og:site_name" content="TEFL-TV"/>
     <meta property="og:url" content="{{URL::full()}}"/>
     <meta property="og:title" content="{{$videos->title}}"/>
@@ -14,6 +14,7 @@
     ?>
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
+    <link rel="alternate" href="https://tefltv.com/tefltv_fl_video_player/embed.xml?url={{URL::full()}}" type="text/xml+oembed" title="grald">
     <meta property="og:type" content="movie"/> 
     <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
@@ -26,7 +27,7 @@
     <meta property="og:video:type" content="application/x-shockwave-flash"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/> 
-
+    
 @stop
 @section('css')
     {{HTML::style('css/vid.player.min.css')}}

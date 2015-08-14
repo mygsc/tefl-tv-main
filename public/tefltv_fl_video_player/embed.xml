@@ -1,0 +1,22 @@
+<oembed>
+<type>video</type>
+<version>1.0</version>
+<provider_name>TEFL-TV</provider_name>
+<provider_url>https://tefltv.com/</provider_url>
+<title>test</title>
+<author_name>Erick Castaneda</author_name>
+<author_url>gerald</author_url>
+<is_plus>0</is_plus>
+<html>
+<iframe src="https://tefltv.com/embed/JLzmHTw1gc6" width="1280" height="720" frameborder="0" title="Teaching english in Vietnam" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</html>
+<width>1280</width>
+<height>720</height>
+<duration>314</duration>
+<description>Song title: Grald</description>
+<thumbnail_url>https://tefltv.com/videos/12-TEFLeducators/JLzmHTw1gc6/JLzmHTw1gc6_600x338.jpg</thumbnail_url>
+<thumbnail_width>1280</thumbnail_width>
+<thumbnail_height>720</thumbnail_height>
+<video_id>135366283</video_id>
+<uri>/videos/135366283</uri>
+</oembed>
