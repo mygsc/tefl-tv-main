@@ -122,7 +122,7 @@ class VideoController extends BaseController {
 		if($validator->passes()){
 
 			if(Input::hasFile('poster')){
-				$this->video_->resizeImage(Input::file('poster'), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+				$this->video_->resizeImage(Input::file('poster'), 1200, 630, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage(Input::file('poster'), 240, 141, $destinationPath.$fileName.'.jpg');
 			}else{
 				$selectedThumb =  Input::get('thumbnail');
@@ -130,8 +130,8 @@ class VideoController extends BaseController {
 					$getDomain = asset('/');
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
 					$removeSpace = str_replace('%20',' ', $thumbnail);
-					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
-					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
+					$this->video_->resizeImage(public_path($removeSpace), 1200, 630, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');
 				}		
 			}
 			
