@@ -222,11 +222,9 @@ class HomeController extends BaseController {
 			$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
 			if($reportStatus == 'reported') return View::make('homes.video_reported');
 			if($ifDeleted == true) return View::make('homes.video_deleted');
-<<<<<<< HEAD
-			//This video is no longer available bsiecause the YouTube account associated with this video has been terminated.
-=======
+
 			//This video is no longer available because the YouTube account associated with this video has been terminated.
->>>>>>> 4a75f3824dee4638b7f7674d850e31617859ed5a
+
 		}	
 		if(empty($videos)) return View::make('homes.video_unavailable');
 
