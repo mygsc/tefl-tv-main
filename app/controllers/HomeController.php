@@ -224,7 +224,6 @@ class HomeController extends BaseController {
 			if($ifDeleted == true) return View::make('homes.video_deleted');
 
 			//This video is no longer available because the YouTube account associated with this video has been terminated.
-
 		}	
 		if(empty($videos)) return View::make('homes.video_unavailable');
 
