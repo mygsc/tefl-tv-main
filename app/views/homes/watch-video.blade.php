@@ -15,7 +15,7 @@
     <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <!-- <link rel="alternate" href="https://tefltv.com/tefltv_fl_video_player/embed.xml?url={{URL::full()}}" type="text/xml+oembed" title="grald"> -->
-    <meta property="og:type" content="movie"/> 
+    <meta property="og:type" content="video"/> 
     <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:type" content="text/html"/>
