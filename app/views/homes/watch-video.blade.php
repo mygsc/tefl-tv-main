@@ -6,7 +6,7 @@
 
 @section('meta')
     <meta property="fb:app_id" content="1557901494477250"/>
-    <meta property="og:site_name" content="TEFL-TV"/>
+    <meta property="og:site_name" content="TEFL TV"/>
     <meta property="og:url" content="{{URL::full()}}"/>
     <meta property="og:title" content="{{$videos->title}}"/>
     <?php
@@ -16,15 +16,15 @@
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <!-- <link rel="alternate" href="https://tefltv.com/tefltv_fl_video_player/embed.xml?url={{URL::full()}}" type="text/xml+oembed" title="grald"> -->
     <meta property="og:type" content="movie"/> 
-    <meta property="og:video:url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
+    <meta property="og:video:url" content="http://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:secure_url" content="https://www.tefltv.com/embed/{{$videos->file_name}}"/>
     <meta property="og:video:type" content="text/html"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/>
-    <meta property="og:video" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/>
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/>
-   <!--  <meta property="og:video:url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf"/>
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf"/> -->
+    <!-- <meta property="og:video:url" content="http://www.tefltv.com/sharing/{{$videos->file_name}}"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/sharing/{{$videos->file_name}}"/> -->
+    <meta property="og:video:url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/video/tefltv.flv"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/video/tefltv.flv"/>
     <meta property="og:video:type" content="application/x-shockwave-flash"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/> 
