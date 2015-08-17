@@ -15,7 +15,7 @@
 					</video>
 					@endif
 				</div>
-				@if($videos->monetize == 1)
+				@if($videos->monetize == 1 and $disableAds == true)
 					@include('ads/responsive')
 				@endif
 				@include('elements/videoPlayer')

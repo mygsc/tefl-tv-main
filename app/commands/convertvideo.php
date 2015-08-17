@@ -110,11 +110,11 @@ class convertvideo extends Command {
 		$normalwebm = "$destination".DS."$filename".".webm";
 		$lowwebm = "$destination".DS."$filename"."_low.webm";
 		$path = new Video;
-		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libmp3lame '$hdmp4'");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV' -bufsize 1835k -b:v 1000k -vcodec libx264 -acodec libfdk_aac '$hdmp4'");//libmp3lame
 		print("\r \r \n MP4 HD version of video is done converting...\r\n\n");
-		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libmp3lame '$normalmp4'");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 640x360 -metadata title='TEFL TV' -bufsize 1835k -b:v 500k -vcodec libx264 -acodec libfdk_aac '$normalmp4'");
 		print("\r \r \n MP4 Normal version of video is done converting...\r\n\n");
-		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libmp3lame '$lowmp4'");
+		shell_exec("$path->ffmpegPath  -i '$source' -s 320x240 -metadata title='TEFL TV' -bufsize 1835k -b:v 200k -vcodec libx264 -acodec libfdk_aac '$lowmp4'");
 		print("\r \r \n MP4 Low version of video is done converting...\r\n\n");
 		shell_exec("$path->ffmpegPath  -i '$source' -s 1280x720 -metadata title='TEFL TV' -bufsize 1835k -b:v 1000k -vcodec libvpx -acodec libvorbis '$hdwebm'");
 		print("\r \r \n WEMB HD version of video is done converting...\r\n\n");

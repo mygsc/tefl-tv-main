@@ -90,7 +90,6 @@ class Report extends Eloquent {
 	public function checkVideoReports($filename){
 		$video = Video::where('file_name', $filename)->first();
 		if($video->reported == '1') return 'reported';
-
 		$report = Report::where('video_id', $video->id)->first();
 		if(empty($report)) return false;
 
@@ -102,6 +101,14 @@ class Report extends Eloquent {
 			if($disputeDate_plus30Days > $now){
 				Video::where('id', $video->id)->update(array('reported' => '1'));
 			}
+		}
+		if(!empty($report) and !empty($dispute)){
+			$now = date('Y-m-d H:i:s');
+			$plus90daysDispute = date('Y-m-d H:i:s', strtotime($dispute->created_at . '+90 days'));
+			if($plus90daysDispute > $now){
+				Video::find($video->id)->update(array('reported' => '1'));
+			}
+			return 'disableAds';
 		}
 		return false;
 	}
