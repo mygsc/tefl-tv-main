@@ -103,6 +103,9 @@ class Report extends Eloquent {
 				Video::where('id', $video->id)->update(array('reported' => '1'));
 			}
 		}
+		if(!empty($report) and !empty($dispute)){
+			return 'disableAds';
+		}
 		return false;
 	}
 	public function checkVideoIfDeleted($filename){

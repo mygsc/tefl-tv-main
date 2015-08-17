@@ -320,7 +320,6 @@ class Video extends Eloquent{
 		$videos = Video::where('file_name', '=', $filename)->first();
 		if(!isset($videos)) return false;
 		$temp1 = '';
-		// dd($videos);
 		$split_tags = explode(',', $videos->tags);
 		$lastCount1 = count($split_tags) - 1;
 		$x = 0;

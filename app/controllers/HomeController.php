@@ -217,11 +217,13 @@ class HomeController extends BaseController {
 		$videos = $this->Video->getVideo($filename);
 		$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
 		if($ifDeleted == true) return View::make('homes.video_deleted');
+		$disableAds = false;
 		if($videos){
 			$reportStatus = $this->Report->checkVideoReports($filename);
 			$ifDeleted = $this->Report->checkVideoIfDeleted($filename);
 			if($reportStatus == 'reported') return View::make('homes.video_reported');
 			if($ifDeleted == true) return View::make('homes.video_deleted');
+			if($reportStatus == 'disableAds') $disableAds = true;
 
 			//This video is no longer available because the YouTube account associated with this video has been terminated.
 		}	
@@ -317,10 +319,11 @@ class HomeController extends BaseController {
 		$annotations = Annotation::where('vid_filename', $filename)->get();
 		$countAnnotation = count($annotations);
 		return View::make('homes.watch-video',
-			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 'getVideoComments', 
-				'videoId','like','totalLikesDislikes','watchLater','newRelation','countSubscribers','ownerVideos',
-				'likeownerVideos','likeownerVideosCounter','datas', 'ifAlreadySubscribe',
-				'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts','annotations','countAnnotation', 'report_url', 'adsense','role'
+			compact('profile_picture','videos','owner','id','playlists','playlistNotChosens','favorites', 
+				'getVideoComments', 'videoId','like','totalLikesDislikes','watchLater','newRelation',
+				'countSubscribers','ownerVideos', 'likeownerVideos','likeownerVideosCounter','datas', 
+				'ifAlreadySubscribe', 'dislike', 'autoplay', 'duration', 'getVideoCommentsCounts',
+				'annotations','countAnnotation', 'report_url', 'adsense','role', 'disableAds'
 			)
 		);
 	}
