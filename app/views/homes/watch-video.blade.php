@@ -356,7 +356,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="show_wrapp">
                                         <div class=" col-middle">
                                             @if(file_exists(public_path("/videos/".$relation['uid']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                                <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
+                                                <div class="showme" style="background:url(/videos/{{$relation['uid']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
                                             @else
                                                 <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
                                             @endif
