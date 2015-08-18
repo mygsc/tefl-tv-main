@@ -71,7 +71,7 @@ class convertvideo extends Command {
 	public function convertVideo($videos = null){
 		if(!empty($videos)){
 			$filename = $videos->file_name;
-			$folderName = "$videos->user_id"."-"."$videos->channel_name";
+			$folderName = "$videos->user_id";//"-"."$videos->channel_name
 			$destination = public_path("videos".DS."$folderName".DS."$filename");
 			$source = "$destination".DS."original.".$videos->extension;
 			// $this->convertVideoToHigh($source, $destination, $filename);

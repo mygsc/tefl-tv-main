@@ -65,7 +65,7 @@
 									<span class="btn-sq" title="Remove from favorites?">{{ Form::button('<i class="fa fa-trash" title="Remove"></i>', array('type' => 'submit','id' => 'favoriteVideo','name' => 'Remove from favorites' ,'class'=> 'btn-ico btn-default')) }}</span>
 									<div class="thumbnail-2">
 										<a href="{{route('homes.watch-video', $showFavoriteVideo->file_name)}}" target="_blank">
-											@if(file_exists(public_path('/videos/'.$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
+											@if(file_exists(public_path('/videos/'.$showFavoriteVideo->uploader.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name.'.jpg')) )
 											<img src="/videos/{{$showFavoriteVideo->uploader.'-'.$showFavoriteVideo->uploaders_channel_name.'/'.$showFavoriteVideo->file_name.'/'.$showFavoriteVideo->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 											@else
 											{{HTML::image('img/thumbnails/video.png', 'alt', array('class' => 'hvr-grow-rotate ', 'style' => 'width:100%') )}}
