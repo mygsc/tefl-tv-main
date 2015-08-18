@@ -48,15 +48,15 @@
 								<div id="vid-controls">
 									<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
 										<div id='preview-annotation'></div> 
-										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
-												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+										@if(file_exists(public_path('/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
 										@else
 											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
 										@endif
 									</div><!--embed-responsive-->
@@ -227,19 +227,19 @@
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
 												<label class='caption-t-1'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-2' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
 												<label class='caption-t-2'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-3' style='position:relative;display:block;' class="thumbnail-2">
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
+													<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
