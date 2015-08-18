@@ -201,7 +201,7 @@ class Video extends Eloquent{
 	public function addThumbnail($data = null){
 		foreach($data as $key => $video){
 			//Thumbnails
-			$folderName = $video->user_id. '-'. $video->channel_name;
+			$folderName = $video->user_id;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$data[$key]->thumbnail = '/img/thumbnails/video.png';
@@ -217,7 +217,7 @@ class Video extends Eloquent{
 			$getTags = explode(',',$video->tags);
 			$videoData[$key]->tags = $getTags;;
 
-			$folderName = $video->user_id. '-'. $video->channel_name;
+			$folderName = $video->user_id;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$videoData[$key]->thumbnail = '/img/thumbnails/video.png';
