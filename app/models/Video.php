@@ -313,7 +313,7 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
 
 	public function getVideo($filename){
@@ -393,7 +393,7 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
 
 	public function getSearchVideos($auth = null, $search = null){
