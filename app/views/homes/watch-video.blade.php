@@ -375,7 +375,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     <div class="row-same-height" title="">
                                         <div class="col-md-5 col-xs-4 col-md-height col-middle">
                                             @if(file_exists(public_path("/videos/".$relation['uid'].$relation['file_name']."/".$relation['file_name'].".jpg")))
-                                                <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
+                                                <img src="/videos/{{$relation['uid']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
                                             @else
                                                 <img src="/img/thumbnails/video.png" alt="" width="100%" />
                                             @endif
