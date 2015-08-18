@@ -96,7 +96,7 @@
 											<a href="{{route('homes.watch-video', array($watchLater->file_name))}}" target="_blank">
 												@if(file_exists(public_path('/videos/'.$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name.'.jpg')) )
 												
-												<img src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
+												<img src="/videos/{{$watchLater->uploader.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" class="hvr-grow-rotate">
 												
 												<!--<video poster="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.jpg'}}" width="100%" />
 														<source src="/videos/{{$watchLater->uploader.'-'.$watchLater->uploaders_channel_name.'/'.$watchLater->file_name.'/'.$watchLater->file_name. '.mp4'}}" type="video/mp4" />
