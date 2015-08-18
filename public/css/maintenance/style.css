@@ -5,18 +5,28 @@
 }
 @import url(http://fonts.googleapis.com/css?family=Teko);
 
+@font-face {
+    font-family: 'Teko';
+    src: url('/fonts/Teko-Regular.ttf');
+}
+
 body {
   margin: 0;
-  background: #282828;
+  background: #252c44!important;
   color: #eee;
   font-family: 'Teko', sans-serif;
   font-size: 14px;
   overflow: hidden;
 }
-
+.same-H {
+   -webkit-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+    box-shadow: 1px 1px 3px 0 rgba(50,  50,  50,  0.50);
+}
 h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
   font-weight: 200;
+  font-family: 'Teko'!important;
 }
 
 h2 {
