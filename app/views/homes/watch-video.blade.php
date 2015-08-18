@@ -10,9 +10,9 @@
     <meta property="og:url" content="{{URL::full()}}"/>
     <meta property="og:title" content="{{$videos->title}}"/>
     <?php
-        $image = rawurlencode(asset('/')."videos/".$videos->user_id."-".$owner->channel_name."/".$videos->file_name."/".$videos->file_name);
+        $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_name."/".$videos->file_name);
     ?>
-    <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
+    <meta property="og:image" content="{{asset('/')}}videos/{{$videos->user_id}}/{{$videos->file_name}}/{{$videos->file_name}}_600x338.jpg"/>
     <meta property="og:description" content="{{htmlentities($videos->description)}}"/>
     <meta property="og:type" content="movie"/> 
     <meta property="og:video:url" content="http://www.tefltv.com/embed/{{$videos->file_name}}"/>
@@ -20,8 +20,8 @@
     <meta property="og:video:type" content="text/html"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/>
-    <meta property="og:video:url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autoplay=true"/>
-    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/videos/{{$videos->user_id}}-{{$owner->channel_name}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autoplay=true"/>
+    <meta property="og:video:url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/videos/{{$videos->user_id}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autoplay=true"/>
+    <meta property="og:video:secure_url" content="https://www.tefltv.com/tefltv_fl_video_player/tefltv_video_player.swf?source=https://www.tefltv.com/videos/{{$videos->user_id}}/{{$videos->file_name}}/{{$videos->file_name}}.mp4&autoplay=true"/>
     <meta property="og:video:type" content="application/x-shockwave-flash"/>
     <meta property="og:video:width" content="640"/>
     <meta property="og:video:height" content="360"/> 
@@ -238,38 +238,6 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                                  <span class="">
                                                     <span class='label label-primary hand' title='Like' id='video-like'><i  class="fa fa-thumbs-up hand"></i> <span id='total-like'>&nbsp;{{$totalLikesDislikes['likes']}}</span></span>
                                                     <span class='label label-danger hand' title='Dislike' id='video-dislike'><i class="fa fa-thumbs-down hand"></i> <span id='total-dislike'>&nbsp;{{$totalLikesDislikes['dislikes']}}</span></span>
-                                                   
-                                                    {{--@if(isset(Auth::User()->id))
-                                                        @if(!empty($like))
-                                                        <span id = "like-span">
-                                                            <i id="remove-like"><img src="/img/icons/like_active.png" style="cursor:pointer"></i>
-                                                        </span>
-                                                        @else
-                                                        <span id = "like-span">
-                                                            <i class="fa fa-thumbs-up hand" title="like this" id="like"></i>
-                                                        </span>
-                                                        @endif
-                                                    @else
-                                                      <i class="fa fa-thumbs-up hand"></i>
-                                                    @endif 
-                                                    &nbsp;
-                                                    <span id="like-counter"><p class="inline">{{$likeCounter}}</p></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                    @if(isset(Auth::User()->id))
-                                                        @if(!empty($dislike))
-                                                        <span id = "dislike-span">
-                                                            <i id="remove-dislike"><img src="/img/icons/unlike_active.png" style="cursor:pointer"></i>
-                                                        </span>
-                                                        @else
-                                                        <span id = "dislike-span">
-                                                            <i class="fa fa-thumbs-down hand" id="dislike"></i>
-                                                        </span>
-                                                        @endif                                                        
-                                                    @else
-                                                      <i class="fa fa-thumbs-down hand"></i>
-                                                    @endif 
-                                                    &nbsp;<span id="dislike-counter"><p class="inline">{{$dislikeCounter}}</p></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                            
-                                                --}}
                                                 </span><!--/links-->
                                             </div>                                            
                                         </div>
@@ -387,7 +355,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                             <a href="/watch?v={{$relation['file_name']}}" id="videourl{{$videourl++}}">                                    <div class="row p-relative">
                                     <div class="show_wrapp">
                                         <div class=" col-middle">
-                                            @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                            @if(file_exists(public_path("/videos/".$relation['uid']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
                                                 <div class="showme" style="background:url(/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg);background-size:100% auto;height:100%!important;" >     
                                             @else
                                                 <div class="showme" style="background:url(/img/thumbnails/video.png);background-size:100% auto;">
@@ -406,7 +374,7 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
                                     </div>
                                     <div class="row-same-height" title="">
                                         <div class="col-md-5 col-xs-4 col-md-height col-middle">
-                                            @if(file_exists(public_path("/videos/".$relation['uid']."-".$relation['channel_name']."/".$relation['file_name']."/".$relation['file_name'].".jpg")))
+                                            @if(file_exists(public_path("/videos/".$relation['uid'].$relation['file_name']."/".$relation['file_name'].".jpg")))
                                                 <img src="/videos/{{$relation['uid']}}-{{$relation['channel_name']}}/{{$relation['file_name']}}/{{$relation['file_name']}}.jpg" alt="" width="100%" />
                                             @else
                                                 <img src="/img/thumbnails/video.png" alt="" width="100%" />
