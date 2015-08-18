@@ -370,7 +370,7 @@ class Video extends Eloquent{
 			))->first();
 		}
 
-		return $getVideos;
+		return $this->addThumbnail($getVideos);
 	}
 
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
