@@ -17,7 +17,7 @@
                 <span class="v-time inline">{{$ownerVideo->total_time}}</span>
                 <a href="/watch?v={{$ownerVideo->file_name}}" class="">
                     <div class="thumbnail-2">
-                        @if(file_exists(public_path("/videos/".$ownerVideo->user_id."-".$owner->channel_name."/".$ownerVideo->file_name."/".$ownerVideo->file_name.".jpg")))
+                        @if(file_exists(public_path("/videos/".$ownerVideo->user_id."/".$ownerVideo->file_name."/".$ownerVideo->file_name.".jpg")))
                             <img class="hvr-grow-rotate" src="/videos/{{$ownerVideo->user_id}}-{{$owner->channel_name}}/{{$ownerVideo->file_name}}/{{$ownerVideo->file_name}}.jpg" alt="" width="100%" />
                             @else
                             <img class="hvr-grow-rotate" src="/img/thumbnails/video.png" alt=""  width="100%"/>
