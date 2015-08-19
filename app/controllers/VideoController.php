@@ -57,12 +57,10 @@ class VideoController extends BaseController {
 					'thumb1' => $thumbnail.'_thumb1.png',//Session::get('thumbnail_1'),
 					'thumb2' => $thumbnail.'_thumb2.png',//Session::get('thumbnail_2'),
 					'thumb3' => $thumbnail.'_thumb3.png',//Session::get('thumbnail_3'),
-					]);
+				]);
 			}
 		}
-		return Redirect::route('get.upload')
-		->withInput()
-		->withErrors($validator)
+		return Redirect::route('get.upload')->withInput()->withErrors($validator)
 		->withFlashBad('Oops please check your video details.');
 	}
 	private function duration($path){
@@ -115,15 +113,14 @@ class VideoController extends BaseController {
 			[
 			'title'=> 'required',
 			'tags' => 'required'
-			]);//Video::$addDescription
+		]);//Video::$addDescription
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		if($validator->passes()){
-
 			if(Input::hasFile('poster')){
 				$this->video_->resizeImage(Input::file('poster'), 1200, 630, $destinationPath.$fileName.'_600x338.jpg');
 				$this->video_->resizeImage(Input::file('poster'), 240, 141, $destinationPath.$fileName.'.jpg');
-			}else{
+			} else{
 				$selectedThumb =  Input::get('thumbnail');
 				if(strlen($selectedThumb) > 1){  
 					$getDomain = asset('/');
@@ -149,17 +146,12 @@ class VideoController extends BaseController {
 				$video->tags =  $implodeTag;
 				$video->publish = Input::get('publish');
 				$video->save();
-				// for($n=1;$n<=3;$n++){
-				// 	File::delete($destinationPath.$fileName.'_thumb'.$n.'.png');
-				// }
 				return Redirect::route('users.myvideos','upload=success&token='.$fileName)->withFlashGoodWithoutHide('Your video has been saved. We will notify you by email when your video is ready.');
 			}
 			return Redirect::route('get.upload');					
 		}
 		
-		return Redirect::route('get.addDescription',$fileName)
-		->withInput()
-		->withErrors($validator)
+		return Redirect::route('get.addDescription',$fileName)->withInput()->withErrors($validator)
 		->with('message', 'There were validation errors.');
 	}
 
@@ -172,10 +164,8 @@ class VideoController extends BaseController {
 
 	public function postRandom(){
 		$input = Input::all();
-
 		return Redirect::route('homes.random', $input['option'])->withInput();
 	}
-
 
 	public function postSearchVideos(){
 		$input = Input::all();
@@ -189,7 +179,6 @@ class VideoController extends BaseController {
 		$notifications = $this->Notification->getNotificationForSideBar();
 		$categories = $this->Video->getCategory();
 
-		//return (microtime(true) - LARAVEL_START);
 		return View::make('homes.searchresult', compact(array('type','searchResults', 'search', 'categories','notifications')));
 	}
 
@@ -230,7 +219,7 @@ class VideoController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 	  	$usersVideos =$this->Video->getSearchVideos($this->Auth->id, $search);
-	  return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
+	  	return View::make('users.mychannels.videos', compact('searchVids','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture'));
 	 }
 	public function getSearchWatchLater() {
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('search'));
@@ -256,10 +245,6 @@ class VideoController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . Auth::User()->id . '.jpg';
 
-		// if(empty($findUsersVideos)) {
-		// 	return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'))->withFlashWarning('No videos found!');
-		// }
-
 		return View::make('users.mychannels.favorites', compact('countSubscribers','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture'));
 	}
 
@@ -268,23 +253,19 @@ class VideoController extends BaseController {
 		$user_id = 0;
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchTitle'));
 		$usersVideos =$this->Video->getSearchVideos($search);
-
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-
 		return View::make('users.channels.videos', compact('userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite'));
 	}
 
 	public function getSearchChannelPlaylists($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
-
 		$search = preg_replace('/[^A-Za-z0-9\-]/', ' ',Input::get('searchPlaylists'));
-
 		$playlists = $this->Playlist->searchPlaylists($userChannel->id, $search);
 
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
@@ -294,18 +275,12 @@ class VideoController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$picture = public_path('img/user/') . $userChannel->id . '.jpg';
 
-
-		// $playlists = Playlist::where('user_id', $userChannel->id)->where('deleted_at','=',NULL)->get();
-		// return $playlists;
 		if(!empty($playlists)){
 			foreach($playlists as $playlist){
 				$thumbnail_playlists[] = $this->Playlist->playlistControl(null,$playlist->id,null,null);
 			}
 		}
-
-		// return $playlists;
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-
 		return View::make('users.channels.playlists', compact('userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
 	}
 
@@ -313,7 +288,6 @@ class VideoController extends BaseController {
 		return Input::all();
 	}
 	
-
 	public function getWatchVideoRemoved(){
 		return View::make('homes.watch-video-removed');
 	}
