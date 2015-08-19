@@ -1038,19 +1038,22 @@ function removeThumbnailCaption(selector){
 function getId(id){
 	return document.getElementById(id);
 }
-$('textarea#description').keyup(function(e){
-	var getLength = document.getElementById('description').value.length;
-	checkLimit(getLength);
-});
-$('textarea#description').mousemove(function(e){
-	var getLength = document.getElementById('description').value.length;
-	checkLimit(getLength);
-});
+// $('textarea#description').keyup(function(e){
+// 	var getLength = document.getElementById('description').value.length;
+// 	checkLimit(getLength);
+// });
+// $('textarea#description').mousemove(function(e){
+// 	var getLength = document.getElementById('description').value.length;
+// 	checkLimit(getLength);
+// });
 function checkLimit(limit){
 	$('#char-limit').html(limit);
 	if(limit<=min){$('#char-limit').html(limit).css({'color':'#ff0000'});$('#max-limit').html('/5000');}
-	if(limit>=min && limit < max){$('#char-limit').html(limit).css({'color':'#0b58dd'});document.getElementById("submit-save-changes").disabled = false;$('#max-limit').html('/5000');}
-	else{document.getElementById("submit-save-changes").disabled = true;}
+	if(limit>=min && limit < max){$('#char-limit').html(limit).css({'color':'#0b58dd'});
+	//document.getElementById("submit-save-changes").disabled = false;
+	$('#max-limit').html('/5000');}
+	else{
+		//document.getElementById("submit-save-changes").disabled = true;}
 	if(limit>=max){
 		var charLen = document.getElementById('description').value.length;
 		$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
