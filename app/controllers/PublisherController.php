@@ -63,8 +63,6 @@ class PublisherController extends Controller {
 			});
 			return Redirect::route('publishers.success');
 		}
-		
-
 	}
 	public function getSuccess(){
 		Session::forget('partnership_token');
@@ -78,8 +76,7 @@ class PublisherController extends Controller {
 
 	public function postVerification(){
 		$input = Input::all();
-		if (Hash::check($input['password'],$this->Auth->password))
-		{
+		if (Hash::check($input['password'],$this->Auth->password)){
 			$partnershipToken = $this->Auth->channel . rand(0,50);
 			$partnershipToken = Crypt::encrypt($partnershipToken);
 			Session::put('partnership_token', $partnershipToken);
@@ -92,10 +89,8 @@ class PublisherController extends Controller {
 		if(Auth::User()->role == '4' || Auth::User()->role == '5'){
 			$credentials = Publisher::where('user_id', $this->Auth->id)->first();
 			return View::make('publishers.edit-publisher', compact('credentials'));
-			
 		}
 		return Redirect::route('homes')->withFlashWarning('page not found');
-
 	}
 
 	public function postEditPublisher(){
@@ -107,7 +102,6 @@ class PublisherController extends Controller {
 		if($validate_adsense_id === false){
 			return Redirect::route('edit.publishers')->withFlashBad('Invalid Adsense Publisher ID. Please check your inputs')->withInput();
 		}
-
 		if($validator->fails()){
 			return Redirect::route('edit.publishers')->withFlashBad('Please check your inputs')->withInput()->withErrors($validator);
 		}
@@ -120,7 +114,6 @@ class PublisherController extends Controller {
 
 			return Redirect::route('edit.publishers')->withFlashGood('Your TEFLtv Publisher account was updated');
 		}
-
 		return Redirect::route('edit.publishers')->withFlashBad('Your password was incorrect!');
 	}
 
@@ -151,5 +144,4 @@ class PublisherController extends Controller {
 		}
 		return Redirect::route('cancel.publishers')->withFlashBad('Password didn\'t mactch please try again')->withErrors($validator);
 	}
-
 }
