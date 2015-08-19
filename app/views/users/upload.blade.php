@@ -200,6 +200,10 @@
 												<label for='for-teachers'>For Teachers</label>
 											</span>
 											<span class="v-category">
+												{{Form::checkbox('cat[]','For Schools',false,['id'=>'for-teachers'])}}
+												<label for='for-teachers'>For Schools</label>
+											</span>
+											<span class="v-category">
 												{{Form::checkbox('cat[]','Interviews',false,['id'=>'interviews'])}}
 												<label for='interviews'>Interviews</label>
 											</span>
