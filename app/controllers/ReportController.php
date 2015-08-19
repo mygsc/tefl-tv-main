@@ -168,8 +168,6 @@ class ReportController extends BaseController {
 
 		$uploader_info = User::find($user_id);
 		$report = Report::find($report_id)->first();
-		// $reported_video = Video::where('file_name',$copyrighted_video_url)->first();
-		// $uploader_info = User::find($reported_video->user_id);
 
 		Dispute::create(array('report_id'=> $report_id, 'user_id'=>$uploader_info->id, 'country_id'=> $country_id,
 			'dispute_description' => $dispute_description,'dispute_additional_info' => $dispute_additional_info,

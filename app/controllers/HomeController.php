@@ -1,10 +1,8 @@
 <?php
 
 class HomeController extends BaseController {
-
 	protected $publisher_;
 	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, Report $reports, ReportSupport $reportSupport) {
-
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -25,6 +23,7 @@ class HomeController extends BaseController {
 	public function partnership(){ return View::make('homes.partnership'); }
 	public function getChangeLogs() { return View::make('homes.changelogs'); }
 	public function getViewVideo(){ return View::make('videoplayer'); }
+	public function testingpage(){ return View::make('errors.maintenance'); }
 	
 	public function getIndex() {
 		$recommendeds = $this->Video->getFeaturedVideo('recommended', '12');
@@ -136,7 +135,6 @@ class HomeController extends BaseController {
 		if($popularVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
-
 		return View::make('homes.popular', compact('popularVideos','categories','notifications'));
 	}
 
@@ -148,7 +146,6 @@ class HomeController extends BaseController {
 		if($latestVideos === false){
 			app::abort(404, 'Unauthorized Action'); 
 		}
-
 		return View::make('homes.latest', compact('latestVideos','categories', 'notifications'));
 	}
 
@@ -224,7 +221,6 @@ class HomeController extends BaseController {
 			if($reportStatus == 'reported') return View::make('homes.video_reported');
 			if($ifDeleted == true) return View::make('homes.video_deleted');
 			if($reportStatus == 'disableAds') $disableAds = true;
-
 			//This video is no longer available because the YouTube account associated with this video has been terminated.
 		}	
 		if(empty($videos)) return View::make('homes.video_unavailable');
@@ -260,7 +256,7 @@ class HomeController extends BaseController {
 		}
 		if($counter >= 15){
 			$newRelation = $this->Video->relations($query,$videos->id,'15');
-		}else{
+		} else{
 			$randomCounter = 14;
 			for($i = 0;$i <= $randomCounter; $i++){
 				if($counter == $i){
@@ -302,7 +298,6 @@ class HomeController extends BaseController {
 		//////////////////////r3mmel////////////////////////////
 
 		$datas = $this->User->getTopChannels(4);
-  		//Insert additional data to $datas
 		foreach($datas as $key => $channel){
 			$img = 'img/user/'. $channel->id. '/profile_picture.jpg';
 			if(Auth::check()){
@@ -356,7 +351,6 @@ class HomeController extends BaseController {
 			$watchLater = null;
 			$dislike = null;
 		}
-		
 		$countSubscribers = $this->Subscribe->getSubscribers($owner->channel_name);
 		$likeCounter = UserLike::where('video_id','=',$video->id)->count();
 		$dislikeCounter = UserDislike::where('video_id','=',$video->id)->count();
@@ -383,7 +377,6 @@ class HomeController extends BaseController {
 		$input = Input::all();
 		$validate = Validator::make($input, User::$user_rules);
 		if($validate->passes()) return $this->User->signup();
-
 		return Redirect::route('homes.signin')->withErrors($validate)->withInput();
 	}
 
@@ -706,8 +699,8 @@ public function addReply(){
 		$videoId = Crypt::decrypt(Input::get('video_id'));
 		$userId = Crypt::decrypt(Input::get('user_id'));
 		$deleteComment = DB::table('comments')->where(array('id' => $commentId, 'user_id' => $userId, 'video_id' => $videoId))->delete();
+		
 		if($deleteComment) return Response::json(array('status' => 'success'));
-
 		return Response::json(array('status' => 'failed'));
 	}
 	public function deleteReply() {
@@ -716,8 +709,8 @@ public function addReply(){
 		$userId = Crypt::decrypt(Input::get('user_id'));
 		$inputs = $c_id ."-". $comment_Id ."-". $userId;
 		$deleteReply = DB::table('comments_reply')->where(array('id' => $c_id, 'comment_id' => $comment_Id, 'user_id' => $userId))->delete();
+		
 		if($deleteReply) return Response::json(array('status' => 'success', 'inputs' => $inputs));
-
 		return Response::json(array('status' => 'failedd', 'inputs' => $inputs));
 	}
 
@@ -726,7 +719,6 @@ public function addReply(){
 		$user_id = Crypt::decrypt(Input::get('user_id'));
 		$reasons = Input::get('reasons');
 		$comment = Input::get('comment');
-
 		if(empty($reply)) return Response::json(array('status'=>'error','label' => 'The reply field is required.'));
 
 		if(!empty($reply)){
@@ -746,9 +738,6 @@ public function addReply(){
 		return $time;
 	}
 
-	public function testingpage(){
-		return View::make('errors.maintenance');
-	}
 	public function postincrementView($filename=null, $autoplay=1){
 		$increment = Video::where('file_name', $filename)->first();
 		if($increment->count()){
