@@ -7,7 +7,6 @@ class PartnerController extends Controller {
 		$this->Partner = $partners;
 	}
 	
-	
 	public function getIndex(){
 		return View::make('partners.index');
 	}
@@ -62,13 +61,10 @@ class PartnerController extends Controller {
 			});
 			return Redirect::route('partners.success');
 		}
-		
-
 	}
 
 	public function getSuccess(){
 		Session::forget('partnership_token');
-		//return Session::all();
 		return View::make('partners.success');
 	}
 
@@ -79,8 +75,7 @@ class PartnerController extends Controller {
 
 	public function postVerification(){
 		$input = Input::all();
-		if (Hash::check($input['password'],$this->Auth->password))
-		{
+		if (Hash::check($input['password'],$this->Auth->password)){
 			$partnershipToken = $this->Auth->channel . rand(0,50);
 			$partnershipToken = Crypt::encrypt($partnershipToken);
 			Session::put('partnership_token', $partnershipToken);
@@ -94,9 +89,7 @@ class PartnerController extends Controller {
 			$credentials = Partner::where('user_id', $this->Auth->id)->first();
 			return View::make('partners.edit-partners', compact('credentials'));
 		}
-
 		return Redirect::route('homes')->withFlashWarning('page not found');
-		
 	}
 
 	public function postEditPartner(){
@@ -118,10 +111,8 @@ class PartnerController extends Controller {
 			$users->adsense_id = $input['adsense_id'];
 			$users->ad_slot_id = $input['ad_slot_id'];
 			$users->save();
-
 			return Redirect::route('edit.partners')->withFlashGood('Your TEFLtv Partner account was updated');
 		}
-
 		return Redirect::route('edit.partners')->withFlashBad('Your password was incorrect!');
 	}
 
@@ -129,9 +120,7 @@ class PartnerController extends Controller {
 		if(Auth::User()->role == '3' || Auth::User()->role == '5'){
 			return View::make('partners.cancel');
 		}
-
 		return Redirect::route('homes')->withFlashWarning('page not found');
-
 	}
 
 	public function postCancelPartner(){
@@ -165,5 +154,4 @@ class PartnerController extends Controller {
 		});
 		return Response::json(array('msg'=>'success'));
 	}
-
 }

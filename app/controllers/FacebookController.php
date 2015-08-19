@@ -60,15 +60,14 @@ class FacebookController extends Controller {
 			if(Session::get('facebook-action') == 'signup'){
 				$socialMedia = 'facebook';
 				return Redirect::route('homes.signupwithsocialmedia')->with(
-					array('social_media' => $socialMedia,
-						'first_name' => $user->getFirstName(),
-						'last_name' => $user->getLastName(),
-						'email' => $user->getEmail(),
-						'social_media_id' => $user->getId()
-						)
-					);
+				array('social_media' => $socialMedia,
+					'first_name' => $user->getFirstName(),
+					'last_name' => $user->getLastName(),
+					'email' => $user->getEmail(),
+					'social_media_id' => $user->getId()
+					)
+				);
 			}
-
 		}
 		return Redirect::route('homes.signin')->withFlashBad('Facebook authorization was denied');
 	}
