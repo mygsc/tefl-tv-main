@@ -415,7 +415,7 @@ class UserController extends BaseController {
 		return $duration =  $hrs.':' . $min.':' . $sec;
 	}
 	private function threeThumbnailPath($filename, $extension){
-		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
+		$thumb = public_path('videos'.DS.Auth::User()->id.DS.$filename.DS.$filename);
 		$thumbnail= $thumb.'_thumb1.png';
 		if(!file_exists($thumbnail)){
 			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
@@ -466,7 +466,7 @@ class UserController extends BaseController {
 	public function postEditVideo($id, $selectedCategory=null){
 		$poster = Input::file('poster');
 		$fileName = Input::get('filename');
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$userFolderName = $this->Auth->id;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make(['title'=>Input::get('title'),'description'=> Input::get('description'),],
 			['title'=>'required','description'=>'required',]);

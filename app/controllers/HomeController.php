@@ -185,7 +185,7 @@ class HomeController extends BaseController {
 			->paginate(16);
 
 			foreach($videos as $key => $video){
-				$folderName = $video->user_id. '-'. $video->channel_name;
+				$folderName = $video->user_id;
 				$fileName = $video->file_name;
 				$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 				$videos[$key]->thumbnail = 'img/thumbnails/video-sm.jpg';
