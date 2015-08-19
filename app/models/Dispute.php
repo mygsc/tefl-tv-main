@@ -71,7 +71,7 @@ class Dispute extends Eloquent {
 			'dispute_additional_info' => $input['dispute_additional_info'],
 			'support_link'=> $input['support_link'], 'legal_name'=> $input['legal_name'],
 			'authority_position'=> $input['authority_position'], 'contact_number'=> $input['contact_number'],
-			'fax'=> Input::get('fax'), 'streetaddress'=> $input['streetaddress'],
+			'fax'=> $input['fax'], 'streetaddress'=> $input['streetaddress'],
 			'city'=> $input['city'], 'state_province'=> $input['state_province'],
 			'zip_postal'=> $input['zip_postal'], 'signature'=> $input['signature']
 		));

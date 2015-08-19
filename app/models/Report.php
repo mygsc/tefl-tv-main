@@ -6,19 +6,13 @@ class Report extends Eloquent {
 	protected $guarded = array();
 
 	public static $complaintRules = array(
-		'copyrighted_video_url' => 'required',
-		'copyrighted_description' => 'required',
-		'legal_name' => 'required',
-		'authority_position' =>'required',
-		'contact_number' => 'required',
-		'signature' => 'required'
+		'copyrighted_video_url' => 'required','copyrighted_description' => 'required',
+		'legal_name' => 'required','authority_position' =>'required',
+		'contact_number' => 'required','signature' => 'required'
 	);
 	public static $disputeRules = array(
-		'dispute_description' => 'required',
-		'legal_name' => 'required',
-		'authority_position' =>'required',
-		'contact_number' => 'required',
-		'signature' => 'required'
+		'dispute_description' => 'required','legal_name' => 'required', 'authority_position' =>'required',
+		'contact_number' => 'required', 'signature' => 'required'
 	);
 
 	public function createReport($input, $case_number, $complainant_id, $user_id, $video_id){
