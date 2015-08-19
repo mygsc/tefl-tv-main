@@ -1,10 +1,10 @@
 var annotation = document.getElementById('annotation'), CSSstyle = '',checkbox, count=0, annot = 'annotation', hrs=0, min=0,sec=0, filename = document.getElementById('filename').value,types,content,start,end,link,
 hms = document.getElementById('hms').value, min=50, max=5000, limitChar = document.getElementById('description').value.length, videoPlayer = document.getElementById('media-video');
 $('#char-limit').html(limitChar);
-document.getElementById("submit-save-changes").disabled = true;
-if(limitChar>=50){
-	document.getElementById("submit-save-changes").disabled = false;
-}
+//document.getElementById("submit-save-changes").disabled = true;
+// if(limitChar>=50){
+// 	document.getElementById("submit-save-changes").disabled = false;
+// }
 $(document).ready(function() {
 
 	$('#form-add-setting').on('submit', function() {
