@@ -112,7 +112,6 @@ class VideoController extends BaseController {
 			],
 			[
 			'title'=> 'required',
-			'description'=> 'required',
 			'tags' => 'required'
 		]);//Video::$addDescription
 		$userFolderName = $this->Auth->id;
