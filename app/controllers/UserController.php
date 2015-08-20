@@ -399,11 +399,11 @@ class UserController extends BaseController {
 		return $duration =  $hrs.':' . $min.':' . $sec;
 	}
 	private function threeThumbnailPath($filename, $extension){
-		$thumb = public_path('videos'.DS.Auth::User()->id.'-'.Auth::User()->channel_name.DS.$filename.DS.$filename);
+		$thumb = public_path('videos'.DS.Auth::User()->id.DS.$filename.DS.$filename);
 		$thumbnail= $thumb.'_thumb1.png';
 		if(!file_exists($thumbnail)){
-			$videoFile = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name.DS.$filename.DS.'original.'.$extension);
-			$destinationPath = public_path('videos'.DS.$this->Auth->id.'-'.$this->Auth->channel_name);
+			$videoFile = public_path('videos'.DS.$this->Auth->id.DS.$filename.DS.'original.'.$extension);
+			$destinationPath = public_path('videos'.DS.$this->Auth->id);
 			$this->video_->captureImage($videoFile,$destinationPath,$filename);
 		}
 		return $thumbnail;
@@ -447,7 +447,7 @@ class UserController extends BaseController {
 	public function postEditVideo($id, $selectedCategory=null){
 		$poster = Input::file('poster');
 		$fileName = Input::get('filename');
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$userFolderName = $this->Auth->id;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		$validator = Validator::make(['title'=>Input::get('title'),'description'=> Input::get('description'),],
 			['title'=>'required','description'=>'required',]);
@@ -1388,8 +1388,8 @@ class UserController extends BaseController {
 			}
 			$var = '';
 			foreach ($results as $result){
-				if(file_exists(public_path('/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-					$thumbnail ='<img src=/videos/'.Auth::User()->id.'-'.Auth::User()->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+				if(file_exists(public_path('/videos/'.Auth::User()->id.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+					$thumbnail ='<img src=/videos/'.Auth::User()->id.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
 				} else{
 					$thumbnail = HTML::image('img/thumbnails/video.png');
 				}
@@ -1443,8 +1443,8 @@ class UserController extends BaseController {
 
 		$var = '';
 		foreach ($results as $result){
-			if(file_exists(public_path('/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
-				$thumbnail ='<img src=/videos/'.$result->user_id.'-'.$result->channel_name.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
+			if(file_exists(public_path('/videos/'.$result->user_id.'/'.$result->file_name.'/'.$result->file_name.'.jpg'))){
+				$thumbnail ='<img src=/videos/'.$result->user_id.'/'.$result->file_name.'/'.$result->file_name.'.jpg width=100%/>';
 			}else{
 				$thumbnail = HTML::image('img/thumbnails/video.png');
 			}
