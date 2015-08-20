@@ -60,7 +60,6 @@ if(window.isAdsDisplayed === undefined ) {
 </script>
 
 <script type="text/javascript">
-document.getElementById('advertisement').style.display = 'none';
     $(document).ready(function(){
         $(".linkReadMore").click(function(){
             if($(".linkReadMore span").html() == 'READ MORE'){
@@ -88,7 +87,8 @@ window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.
 }(document, 'script', 'facebook-jssdk'));
 </script>
  <script src="https://apis.google.com/js/platform.js" async defer></script> 
-
+<script type="text/javascript">
+document.getElementById('advertisement').style.display = 'none';</script>
 @stop
 @section('content')
 <div class="row">
