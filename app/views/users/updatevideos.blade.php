@@ -119,8 +119,8 @@
 											</span>
 											@endif
 											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-											<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
-											<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
+											<!-- <small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/> -->
+											<!-- <small>Note: Minimum characters should be atleast 50 and max 5000.</small> -->
 								
 										</div>
 										<div class="well">

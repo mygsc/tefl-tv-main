@@ -107,12 +107,12 @@ class VideoController extends BaseController {
 		$fileName = $videos->file_name;
 		$validator = Validator::make([
 			'title'=>Input::get('title'),
-			'description' => Input::get('description'),
+			//'description' => Input::get('description'),
 			'tags' => Input::get('tags')
 			],
 			[
 			'title'=> 'required',
-			'description'=> 'required',
+			//'description'=> 'required',
 			'tags' => 'required'
 		]);//Video::$addDescription
 		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;

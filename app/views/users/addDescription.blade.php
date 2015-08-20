@@ -27,8 +27,6 @@
 									<video preload="auto" width="400" id="media-video" poster="">
 									    <source id='mp4' src="/videos/{{Auth::User()->id.'/'.$video->file_name.'/'.$video->file_name}}.mp4" type="video/mp4">
 										<source id='webm' src="/videos/{{Auth::User()->id.'/'.$video->file_name.'/'.$video->file_name}}.webm" type="video/webm">
-										
-										
 									</video>
 									
 								</div>
@@ -163,7 +161,7 @@
 							<br>
 								
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
-								{{Form::submit('Save',array('class'=>'btn btn-primary'))}} {{--,'onclick'=>'return checkThumbnail();'--}}
+								{{Form::submit('Save',array('class'=>'btn btn-primary'))}} 
 								
 							</div>	
 						</div>
