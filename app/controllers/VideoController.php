@@ -24,7 +24,7 @@ class VideoController extends BaseController {
 	public function postUpload($filenameLenght = 11){
 		$fileName = $this->video_->randomChar();
 		$input = Input::all();
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$userFolderName = $this->Auth->id;
 		$validator = Validator::make($input,Video::$video_rules); 
 		$checkFilenameExist = Video::where('file_name', '=', $fileName); 
 		if($checkFilenameExist->count()){$fileName = $this->video_->randomChar(12);}
@@ -71,7 +71,7 @@ class VideoController extends BaseController {
 	public function getCancelUploadVideo(){
 		$fileName = Session::get('fileName');
 		if(empty($fileName)){return Redirect::route('get.upload')->withFlashBad('Video uploading has been cancelled.');}
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$userFolderName = $this->Auth->id;
 		$destinationPath = public_path('videos'.DS. $userFolderName.DS);
 		if(file_exists($destinationPath.$fileName)){
 			$this->deleteDirectory($destinationPath.$fileName);
@@ -115,7 +115,7 @@ class VideoController extends BaseController {
 			//'description'=> 'required',
 			'tags' => 'required'
 		]);//Video::$addDescription
-		$userFolderName = $this->Auth->id .'-'.$this->Auth->channel_name;
+		$userFolderName = $this->Auth->id;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
@@ -191,7 +191,7 @@ class VideoController extends BaseController {
 	}
 
 	public function fileExist($path, $filename, $ext = null, $user_id = null, $channel_name = null, $callback_message = null){
-		$userFolderName = $user_id. '-'. $channel_name;
+		$userFolderName = $user_id;
 		$file = $filename .'.'. $ext;
 		$path = 'public' .DS. $path .DS. $userFolderName .DS. $filename. $file;
 		if(file_exists($path)){

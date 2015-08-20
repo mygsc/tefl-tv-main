@@ -26,12 +26,15 @@
 								</div>
 							</div>
 							<div class="col-md-6 col-sm-6 hidden-xs hidden-sm">
-								<a href="{{ route('users.edit.channel')}}">
+								
 								<span class="pull-right">
+									<a href="{{ route('users.edit.channel')}}">
 									<span class="btn btn-info" style="padding:2px 5px!important;"><b><i class="fa fa-cog"></i> Account Settings</b></span>
+									</a>
 									<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
+					
 								</span>
-								</a>
+								
 							</div>
 						</div>
 						<div class="overlay-cover container visible-lg visible-md">
