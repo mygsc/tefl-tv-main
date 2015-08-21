@@ -156,12 +156,13 @@
 										</div>
 										<div class="textbox-layout">
 											<br/>
-											{{Form::label('Description:')}} <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
+											{{Form::label('Description:')}} 
+											<!-- <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small> -->
 											@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
 
-											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description', 'maxlength'=>5000))}}
+											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description'))}}
 
 
 											<br/>

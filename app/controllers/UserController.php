@@ -449,8 +449,13 @@ class UserController extends BaseController {
 		$fileName = Input::get('filename');
 		$userFolderName = $this->Auth->id;
 		$destinationPath =  public_path('videos'.DS. $userFolderName.DS.$fileName.DS);
-		$validator = Validator::make(['title'=>Input::get('title'),'description'=> Input::get('description'),],
-			['title'=>'required','description'=>'required',]);
+		$validator = Validator::make([
+			'title'=>Input::get('title'),
+			//'description'=> Input::get('description'),
+			],
+			['title'=>'required',
+			//'description'=>'required',
+			]);
 		if($validator->passes()){
 			if(Input::hasFile('poster')){
 				if(!file_exists($destinationPath)){

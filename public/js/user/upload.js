@@ -118,10 +118,10 @@ function validate(){
         errors('Oops title field is required.');
         return false;
     }
-    else if(desc==""){
-        errors('Oops description field is required.');
-         return false;
-    }
+    // else if(desc==""){
+    //     errors('Oops description field is required.');
+    //      return false;
+    // }
     else if(tag==""){ 
         errors('Oops tag field is required.');
          return false;
