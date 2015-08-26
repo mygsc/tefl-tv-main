@@ -14,10 +14,10 @@
 @stop
 @section('content')
 
-<div class="row White h-minH">
+<div class="row White h-minH mg-t-20 same-H">
 	<div class="container page" id="select-upload">
 		<div class="col-md-8 col-md-offset-2"> 
-			<div class="well text-center" style="margin-top:50px">
+			<div class="text-center" style="margin-top:50px">
 				<div class="row">
 					<h1>Upload Video</h1>
 					<p>Video allowed types: mp4, webm, ogg, wmv, avi, flv and mov.</p>
@@ -50,17 +50,16 @@
 	</div>
 </div>
 
-
-<div class="row" style="display:none" id='add-description'>
-	<div class="container page White same-H"> 
+ 
+<div class="row White h-minH mg-t-20 same-H" style="display:none" id='add-description'>
+	<div class="container page"> 
 		<div class="">
-
 			<div class="row">
 				<div class="col-md-12 content-padding">
 					<div class="mg-t-20 content-padding">
 						<div class="row">
 							<h3 id="up-msg" class="text-center"></h3>
-							<div class="col-md-10">
+							<div class="col-md-9">
 								<div class="row">
 
 								<div id="wrapper">
@@ -70,12 +69,11 @@
 									</div>
 								</div>
 								<p id="msg-status"></p>
-
 								</div>
 							</div>
-							<div class="col-md-2 text-right">
-								<div class="row">
-								{{Form::open(array('route' => 'post.add.description', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
+							<div class="col-md-3 text-right">
+								<div class="row upload-buttons">
+								{{Form::open(array('route' => 'post.add.description','class' => 'inline', 'files'=>true, 'id'=>'post-save', 'onsubmit'=>'return validate()'))}}
 								{{Form::submit('Save',array('class'=>'btn btn-primary','id'=>'save'))}}
 								{{Form::button('Cancel',array('class'=>'btn btn-danger' , 'id'=>'upload-cancel'))}}
 								</div>
@@ -107,7 +105,7 @@
 										</div>
 										
 									</div>
-									<div class="col-sm-12" >
+									<div class="">
 										<h4 style="text-align:center;padding-top:5px;">Thumbnails will show after the video is finished uploading.</h4>
 										<center>
 												<div id="img-thumb-1" style='position:relative;display:inline-block'>
@@ -127,7 +125,7 @@
 												<small class="mg-t-10">or browse your own thumbnail:</small><br><br/>
 												<img id="thumbnail" class="upPoster" src="/img/thumbnails/video.png">
 												<br>
-												<div class="file-upload2 btn btn-primary">
+												<div class="file-upload2 btn btn-primary ripple-slow" data-color="rgba(255,255,255,0.3)">
 													<span>Browse thumbnail</span>
 													{{Form::file('poster', array('id'=>'poster','accept'=>"image/*"))}} 
 												</div>
@@ -138,9 +136,9 @@
 
 								<div class="col-md-7 col-md-height grey col-top ">
 									<div class="col-md-12">
-										<h3>Add Information to your video</h3>
-
 										<div class="row">
+											<h3>Add Information to your video</h3>
+											<hr/>
 
 											<div class="col-md-8" >
 												{{Form::label('Title:')}}
@@ -158,12 +156,13 @@
 										</div>
 										<div class="textbox-layout">
 											<br/>
-											{{Form::label('Description:')}} <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small>
+											{{Form::label('Description:')}} 
+											<!-- <small id='char-limit'>0</small><small id='max-limit'>/5000</small>  &nbsp;<small class="notes">*Minimum characters should be atleast 50 and max 5000.</small> -->
 											@if ($errors->has('description'))
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
 
-											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description', 'maxlength'=>5000))}}
+											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description'))}}
 
 
 											<br/>

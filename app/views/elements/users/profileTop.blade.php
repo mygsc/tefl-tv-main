@@ -1,11 +1,11 @@
-<div class="White">
+<div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="div-coverDp">
-				<div class="uploaded_img pic-Dp">
-					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => 'pic-Dp'))}}
+			<div class="div-coverDp ">
+				<div class="uploaded_img pic-Dp same-H">
+					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => ''))}}
 
-					<button data-target="#change_profile_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-pencil"></i></button>
+					<button data-target="#change_profile_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-camera"></i></button>
 
 				</div>
 				<div>
@@ -13,80 +13,94 @@
 
 				</div>
 				<div class="div-coverP">
-
-					<button data-target="#changeCoverPhoto" data-toggle="modal" class="pull-right btn-ico btn-default" title="Change cover photo"><i class="fa fa-pencil"></i></button>
-
-					<div class="overlay-cover">
-
-						<span class="infoCounts">
-							<label>{{count($countSubscribers)}} Subscribers</label>
-							<label>{{$countVideos}} Videos</label> &nbsp;
-							<label>{{$countAllViews}} Views</label>
+					<div class="account-btn-sm visible-xs visible-sm">
+						<span class="pull-right">
+							<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
 						</span>
-
-
-						<span class="pull-right" >
-							<span class="pull-right" >
-								@if(empty($usersWebsite))
-								No social media sites connected..
-								@else
-								@if(empty($usersWebsite->facebook))
-								@else
-								<a href="https://www.facebook.com/{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
-								@endif
-
-								@if(empty($usersWebsite->twitter))
-								@else
-								<a href="{{$usersWebsite->twitter}}" target="_blank"><i class="socialMedia socialMedia-twitter"></i></a>
-								@endif
-
-								@if(empty($usersWebsite->google))
-								@else
-								<a href="{{$usersWebsite->google}}" target="_blank"><i class="socialMedia socialMedia-googlePlus"></i></a>
-								@endif
-
-								@if(empty($usersWebsite->others))
-								@else
-								<a href="http://{{$usersWebsite->others}}" target="_blank"><i class="socialMedia socialMedia-site"></i></a>
-								@endif
-								@endif
-							</span> 
-						</span>	
 					</div>
+					<div class="overlay-wrap">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="labelThis">
+									{{Auth::User()->channel_name}}
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6 hidden-xs hidden-sm">
+								
+								<span class="pull-right">
+									<a href="{{ route('users.edit.channel')}}">
+									<span class="btn btn-info" style="padding:2px 5px!important;"><b><i class="fa fa-cog"></i> Account Settings</b></span>
+									</a>
+									<button data-target="#changeCoverPhoto" data-toggle="modal" class="btn-ico btn-default" title="Change cover photo"><i class="fa fa-camera"></i></button>
+					
+								</span>
+								
+							</div>
+						</div>
+						<div class="overlay-cover container visible-lg visible-md">
+							<div class="col-md-6 hidden-xs">
+								<div class="text-left chaCounts">
+									<label>{{count($countSubscribers)}} Subscribers</label>
+									<label>{{$countVideos}} Videos</label> &nbsp;
+									<label>{{$countAllViews}} Views</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<span class="pull-right" >
+									
+									@if(empty($usersWebsite))
+									<p><small>Add your website or social media links.</small></p>
+									@else
+									@if(empty($usersWebsite->facebook))
+									@else
+									<a href="https://www.facebook.com/{{$usersWebsite->facebook}}" target="_blank"><i class="socialMedia socialMedia-facebook"></i></a>
+									@endif
+
+									@if(empty($usersWebsite->twitter))
+									@else
+									<a href="{{$usersWebsite->twitter}}" target="_blank"><i class="socialMedia socialMedia-twitter"></i></a>
+									@endif
+
+									@if(empty($usersWebsite->google))
+									@else
+									<a href="{{$usersWebsite->google}}" target="_blank"><i class="socialMedia socialMedia-googlePlus"></i></a>
+									@endif
+
+									@if(empty($usersWebsite->others))
+									@else
+									<a href="http://{{$usersWebsite->others}}" target="_blank"><i class="socialMedia socialMedia-site"></i></a>
+									@endif
+									@endif
+								</span> 
+							</div>
+						</div>
+					</div>
+				
+
+					
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="user-info" >
-		<div class="labelThis">
-			{{Auth::User()->channel_name}}
-		</div>
+	<div class="user-info container">
 		@if(empty($usersChannel->interests))
-		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
-		<br/><br/>
-		<p class="text-justify notes center-block"></p>
+		
+		<p class="black italic text-center fs-12 mg-t-20">
+			<i class="fa fa-quote-left"></i>
+			To promote your channel to subscribers, add your interests or description of your channel. <span class="" style="padding:2px 5px!important;"><small>{{link_to_route('users.edit.channel', 'Edit')}}<i class="fa fa-pencil"></i></small></span>
+			<i class="fa fa-quote-right"></i>
+		</p>
 		@else
-		<span class="pull-right"><b><i class="fa fa-cogs"></i>&nbsp;{{link_to_route('users.edit.channel', 'Account Settings')}}</b></span>
-		<br/><br/>
 		<p class="black center-block italic text-center fs-12">
 			<i class="fa fa-quote-left"></i>
 			{{ Str::limit($usersChannel->interests,300) }}
 			<i class="fa fa-quote-right"></i>
 		</p>
-		<br/>
 		@endif
 
 	</div>
 </div>
 
-
-
-@section('script')
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/modalclearing.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
-{{HTML::script('js/video-player/jquery.form.min.js')}}
-@stop
 
 @section('modal')
 <div class="modal fade overlay" id="changeCoverPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

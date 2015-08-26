@@ -1,10 +1,10 @@
 
-document.getElementById("save").disabled = true;
+//document.getElementById("save").disabled = true;
 var firstThumbnail = document.getElementById('thumb-1-img');
 var secondThumbnail = document.getElementById('thumb-2-img');
 var thirdThumbnail = document.getElementById('thumb-3-img');
 var internet=true, counter=0, min=50, max=5000, limitChar = document.getElementById('description').value.length, done=false, uploading=false;
-$('#char-limit').html(limitChar+'/5000');
+//$('#char-limit').html(limitChar+'/5000');
 $(document).ready(function(){
     window.onbeforeunload = confirmExit;
     $('#loader').fadeIn(500);
@@ -81,14 +81,14 @@ $(document).ready(function(){
 
 });//end of function
 
-$('textarea#description').keyup(function(e){
-    var getLength = document.getElementById('description').value.length;
-   checkLimit(getLength);
-});
-$('textarea#description').mousemove(function(e){
-    var getLength = document.getElementById('description').value.length;
-   checkLimit(getLength);
-});
+// $('textarea#description').keyup(function(e){
+//     var getLength = document.getElementById('description').value.length;
+//    checkLimit(getLength);
+// });
+// $('textarea#description').mousemove(function(e){
+//     var getLength = document.getElementById('description').value.length;
+//    checkLimit(getLength);
+// });
 // function checkLimit(limit){
 //    $('#char-limit').html(limit+'/5000');
 //    if(limit>=max){$('#char-limit').html(limit+'/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");}
@@ -118,10 +118,10 @@ function validate(){
         errors('Oops title field is required.');
         return false;
     }
-    else if(desc==""){
-        errors('Oops description field is required.');
-         return false;
-    }
+    // else if(desc==""){
+    //     errors('Oops description field is required.');
+    //      return false;
+    // }
     else if(tag==""){ 
         errors('Oops tag field is required.');
          return false;

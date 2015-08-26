@@ -1,52 +1,33 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}} - Feedbacks | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
 
-			<div class="White channel-content">
+			<div class="">
 				<div role="tabpanel">
-				  <!-- Nav tabs -->
-				 	<ul class="nav nav-tabs visible-lg visible-md" role="tablist">
-				    	<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
-				    	<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
-				    	<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-				    	<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-				  		<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
-				  		<li role="presentation" class="active">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-				  		<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-				  	</ul><!--tabNav-->
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
+						<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
+						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
+						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
+						<li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
+						<li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
+						<li role="presentation" class="active">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
+						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
+					</ul><!--tabNav-->
 				</div>
-				<nav class="navbar navbar-default visible-sm visible-xs">
-					<div class="container-fluid">
-						<div class="navbar-header">
-
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-								<h4 class="inline mg-t-20">Feedbacks</h4>	
-								<span class="fa fa-bars"></span>
-							</button>
-
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								<li>{{link_to_route('users.channel', 'Home')}}</li>
-								<li>{{link_to_route('users.about', 'About Me')}}</li>
-								<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
-								<li>{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-								<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-								<li>{{link_to_route('users.playlists', 'My Playlists')}}</li>
-								<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-
-				<div class="feedbackSection content-padding">
-					<br/><br/>
+				<div class="feedbackSection content-padding mg-t-20  channel-content White same-H">
+					<br/>
 					@if($userFeedbacks->isEmpty())
+					<br/>
 					<h3 class="text-center">No feedback yet..</h3>
 					@endif
 
@@ -56,7 +37,7 @@
 							@foreach($userFeedbacks as $userFeedback)
 							@if($userFeedback->spam < 5)
 							<div class="feedbacks_section row" id="feedback{{$userFeedback->id}}">
-				
+
 								<div class="feedbackProfilePic col-md-1">
 									{{HTML::image($userFeedback->profile_picture, 'alt', array('class' => 'userRep'))}}
 								</div>
@@ -189,9 +170,14 @@
 @stop
 
 
-@section('some_script')
+@section('script')
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
 {{HTML::script('js/subscribe.js')}}
 {{HTML::script('js/user/channel_comments.js')}}
 {{HTML::script('js/mention.js')}}
 {{HTML::script('js/showHideToggle.js')}}
 {{HTML::script('js/user/reply.js')}}
+@stop

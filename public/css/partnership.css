@@ -1,69 +1,3 @@
-@font-face {
-    font-family: 'Teko';
-    src: url('/fonts/Teko-Regular.ttf');
-}
-
-@media (min-width:1400px) {
-    .container {
-    width: 1370px;
-}
-}
-body {
-    width: 100%;
-    height: 100%;
-    background-color: #F1F1F1;
-    overflow-x: hidden!important;
-}
-
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6 {
-    font-family: Teko;
-}
-
-h1 {
-    font-family: Teko;
-    font-style: normal;
-    font-variant: normal;
-}
-
-h3 {
-    font-family: Teko;
-    font-style: normal;
-    font-variant: normal;
-}
-
-p {
-    font-family: Arial,  Helvetica,  sans-serif;
-    font-style: normal;
-    font-variant: normal;
-    line-height: 20px;
-}
-
-blockquote {
-    font-family: Arial,  Helvetica,  sans-serif;
-    font-size: 21px;
-    font-style: normal;
-    font-variant: normal;
-    line-height: 30px;
-}
-
-pre {
-    font-family: Arial,  Helvetica,  sans-serif;
-    font-size: 13px;
-    font-style: normal;
-    font-variant: normal;
-    line-height: 18.5714282989502px;
-}
-
-title {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
 .linkReadMore {
     cursor: pointer;
     font-size:0.8em!important;
@@ -95,6 +29,36 @@ title {
     color: #fff;
     padding: 5px 5px;
     width: 198px;
+}
+.paper_wrap_h{
+    margin-top:-80px;margin-bottom:20px;z-index:222!important;
+}
+.paper_wrap{
+    margin-top:-250px;margin-bottom:20px;
+}
+.paper{
+    min-height: 700px;
+    background: #fff;
+    width: 100%;
+      -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  height: auto!important;
+  margin-bottom: 30px;
+  padding: 40px 40px 40px 40px;
+
+}
+.paper_2{
+    min-height: 700px;
+    background: #fff;
+    width: 100%;
+      -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  height: auto!important;
+  margin-bottom: 30px;
+
+
 }
 
 div.wrapper {
@@ -2100,7 +2064,7 @@ only screen and (min--moz-device-pixel-ratio:0),
 only screen and (-o-device-pixel-ratio: 0)
 {
     .tagline{
-        top: 350px;
+        top: 370px;
         }
 }
 
@@ -2111,7 +2075,7 @@ only screen and (min-width: 768px) and (max-width: 1024px) and (min--moz-device-
 screen and (min-width: 768px) and (max-width: 1024px) and (-o-device-pixel-ratio: 1) {
 
     .tagline{
-        top: 240px;
+        top: 370px;
         }
 
 }
@@ -2123,9 +2087,10 @@ only screen and (min-width: 320px) and (max-width: 640px) and (min--moz-device-p
 only screen and (min-width: 320px) and (max-width: 640px) nd (-o-device-pixel-ratio: 2){
 
     .tagline{
-        top: 280px;
+        top: 370px;
         width: 100%!important;
         }
+
 
 }
 
@@ -2492,6 +2457,15 @@ td.w-75per {
     margin-bottom: 0;
     min-height: 570px;
     padding:10px 15px;
+}
+
+.side_top{
+    z-index: 555555555555555555!important;
+}
+
+.side-bottom{
+    z-index: 222;
+    position: static!important;
 }
 /*==============VIDEO UPLOAD==============*/
 canvas.thumb-1,  canvas.thumb-2,  canvas.thumb-3 {
@@ -3053,12 +3027,13 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
 }
 
 .wv-title {
-    font-size: 1.2em!Important;
+    font-size: 1.2em!important;
+
     margin-top: 7px;
 }
 
 .wv-views {
-    font-size: 1.0em!Important;
+    font-size: 1.0em!important;
     margin-top: 7px;
 }
 
@@ -3090,18 +3065,21 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     height:auto;
     overflow: hidden;
     margin: 0 auto;
-    width:50%;
+    width:100%;
     left:0;
     right:0;
     background:rgba(255,255,255,0);
-    padding:20px 20px;
+    padding:0 20px;
 }
 
 .div-Steps{
-    padding: 20px 0;
+    padding: 40px 0;
+
 }
 .div-partners{
-    padding: 20px 0;
+    padding: 40px 0;
+    background: #fff;
+
 }
 
 .pub-steps{
@@ -3142,7 +3120,38 @@ canvas.thumb-1:hover,  canvas.thumb-2:hover,  canvas.thumb-3:hover {
     margin-bottom: 30px;
 }
 
+.icons_style img{
+  max-width: 32px;
+  max-height: 32px;
+  margin-top: 10px;
+}
 
+.message-wrap{
+    padding:60px 60px;
+}
+@media (max-width:767px) {
+    .message-wrap{
+    padding:20px 20px;
+}
+    }
+.message-text{
+    margin-top:8%;
+}
+.message-link{
+    position:relative;margin-top:12%;
+}
+.paper_2{
+    min-height: 500px;
+    background: #E6E6E6;
+    width: 100%;
+    height: 100%;
+    position: relative;
+      -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+
+
+}
 /*-------------------------------===========================-------------------------------*/
 /*=================================-----------------------=================================*/
 /*================================ GRAPHICS STUDIO CENTRAL ================================*/

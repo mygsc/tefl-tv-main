@@ -1,28 +1,33 @@
 @extends('layouts.default')
 
+@section('title')
+    Top Channels | TEFL Tv
+@stop
+
 @section('content')
-<div class="container h-minH ">
-	<div class="row">
-		<div class="col-lg-3 col-md-3 hidden-xs hidden-sm">
-
-			<div class="mg-r-10 row">
-				@include('elements/home/categories')
-				<div>
-					@include('elements/home/adverstisement_half_large_recatangle')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/carouselAds')
-				</div>
-				<div class="mg-t-10">
-					@include('elements/home/adverstisementSmall')
-
+<div class="container">
+	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
+		<div class="row-same-height">
+			<div class="col-md-3 col-md-height hidden-xs hidden-sm col-top">
+				<div class="mg-r-10 row mg-t--10" data-sticky_column="">
+					@include('elements/home/categories')
+					<div>
+						@include('elements/home/adverstisement_half_large_recatangle')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/carouselAds')
+					</div>
+					<div class="mg-t-10">
+						@include('elements/home/adverstisementSmall')
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-9 col-md-8 White same-H mg-t-10 ">
-			@include('elements.home.channel')
-			<div class="text-center row mg-b-10" style="">
-				<a href="{{route('homes.more-top-channels')}}"><b>Click here to view top 50 channels</b></a>
+			<div class="col-md-8 White same-H col-md-height col-top">
+				@include('elements.home.channel')
+				<div class="text-center row mg-b-10" style="">
+					<a href="{{route('homes.more-top-channels')}}"><b>Click here to view top 50 channels</b></a>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -31,4 +36,9 @@
 
 @section('script')
 {{HTML::script('js/subscribe.js')}}
+
+<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+	{{HTML::script('js/jquery.sticky-kit.min.js')}}
+	{{HTML::script('js/sticky.js')}}
+<!--cess-->
 @stop

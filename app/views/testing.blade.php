@@ -1,14 +1,10 @@
+<?php $mystring = "<a href='https://google.com'>click's me</a>"; ?>
+
 <html>
-<head></head>
+<head>
+	<meta property="og:description" content='{{ preg_replace("/&#?[a-z0-9]{2,8};/i","",$mystring); }}'>
+</head>
 <body align="center">
-	
-	<div align="center">
-	<h1>Login with Facebook,Twitter & Google</h1>
-	
-	<a href="social/facebook">Login with Facebook</a> <br><br>
-	<a href="social/twitter">Login with Twitter</a> <br><br>
-	<a href="social/google">Login with Google</a><br><br>
-	</div>
 
 </body>
 </html>

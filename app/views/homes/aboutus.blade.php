@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('title')
+    About Us | TEFL Tv
+@stop
+
 @section('content')
 <div class="container h-minH ">
 	<div class="row">
@@ -44,7 +48,6 @@
 		<div class="col-md-12">
 
 			<h1>Contact Us <br/>
-				
 			</h1>
 			<br/>
 			<div class="row">

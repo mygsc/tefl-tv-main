@@ -1,6 +1,7 @@
+
 <div class="panel-group ctgryDiv mg-t-10" id="accordion" role="tablist" aria-multiselectable="true">
  @if(Auth::check())
- <div class="panel panel-info same-H ">
+<div class="panel panel-info same-H ">
   <div class="panel-heading" role="tab" id="headingTwo">
     <p class="panel-title whiteC">
       <a href="">
@@ -8,17 +9,19 @@
       </a>
     </p>
   </div>
+  
   <div id="myChannel" >
     <div class="panel-body">
       <li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
       <li role="presentation">{{link_to_route('users.about', 'About')}}</li>
       <li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
       <li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
-      <li role="presentation">{{link_to_route('users.watchlater', 'Watch Later')}}</li>
       <li role="presentation">{{link_to_route('users.playlists', 'My Playlists')}}</li>
       <li role="presentation">{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
       <li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-
+      @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
+      <li role="presentation">{{link_to_route('users.earnings.settings', 'Earnings Settings')}}</li>
+      @endif
     </div>
   </div>
 </div>
@@ -33,11 +36,11 @@
   <div id="notifications">
     <div class="panel-body" style="font-size:12px;">
       @if(!$notifications->isEmpty())
-        @foreach($notifications as $notification)
-          <li>{{$notification->notification}}</li>
-        @endforeach
+      @foreach($notifications as $notification)
+      <li>{{$notification->notification}}</li>
+      @endforeach
       @else
-        No notification
+      No notification
       @endif
       
       <div class="text-center mg-t-10">
@@ -60,9 +63,9 @@
     <div class="panel-body cat-h">
       <span class="">
         @if(!empty($categories))
-          @foreach($categories as $category)
-          <span class="capitalize"> {{$category}}</span>
-          @endforeach
+        @foreach($categories as $category)
+        <span class="capitalize"> {{$category}}</span>
+        @endforeach
         @endif
       </span>
     </div>

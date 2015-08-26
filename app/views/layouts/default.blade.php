@@ -1,52 +1,61 @@
 <!doctype html>
-<html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+<head  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# video: http://ogp.me/ns/video#">
 	<meta charset="utf-8">
+
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
-	<title>@yield('title', 'TEFL-TV')</title>
+	<title>@yield('title')</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	@yield('meta')
+	@yield('header_script')
 	
 
 	<!-- CSS -->
+
 	{{ HTML::style('css/bootstrap.css') }}
 	{{ HTML::style('css/myStyle.css') }}
 	{{ HTML::style('css/animate.css') }}
 	{{ HTML::style('css/dropdown.enhancement.min.css') }}
 	{{ HTML::style('font-awesome/css/font-awesome.min.css') }}
+	{{ HTML::style('css/m-nav/component.css') }}
+	
 	@yield('css')
 </head>
 
 <body>
-	
-	<div id="fb-root"></div>
-	<div class="same-H">
-	@include('elements/header')
-	@include('elements/home/headerNav')
+
+	<div class="body-wrapp">
+		<div id="fb-root"></div>
+		<div class="same-H">
+			@include('elements/header')
+			@include('elements/home/headerNav')
+			
+		</div>
+		@include('elements/mobileNav')
+		<div class="container sm-container">
+			@include('elements.flash_message')
+			@yield('content')
+		</div>
+		<div class="footer-s">
+		@include('elements/footer')
+		</div>
 	</div>
-	<div class="container">
-		@include('elements.flash_message')
-		@yield('content')
-	</div>
-	@include('elements/footer')
 
 </body>
 
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
-{{HTML::script('js/user/upload_image.js')}}
-{{HTML::script('js/user/upload_cover_photo.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/scroll-onpage.js')}}
+{{HTML::script('js/m-nav/classie.js')}}
+{{HTML::script('js/m-nav/modernizr.custom.js')}}
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -70,6 +79,21 @@
 <!--flash message fade-->
 <script type="text/javascript">
     $('.fadeThis').delay(3000).fadeOut('slow');
+</script>
+
+<script>
+	$(document).ready(function(){
+		$(".search-btn").click(function(){
+			$(".search-show").show().addClass('animated slideInLeft');
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$(".close-search").click(function(){
+			$(".search-show").hide('slow');
+		});
+	});
 </script>
 
 <script>

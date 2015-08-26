@@ -1,66 +1,79 @@
-@extends('layouts.partnership')
+@extends('layouts.publisher')
 
-@section('title')
-	TEFLTV Publisher
+    @section('title')
+        Learn More | TEFLTV Publisher
+    @stop
+
+	@section('meta')
+			
+	@stop
+	@section('css')
+		{{HTML::style('css/vid.player.min.css')}}
+	@stop
+	@section('some_script')
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/video-player/fullscreen.min.js')}}
 @stop
 
 @section('content')
-	<div class="row">
-		<img src="/img/v-bg.png" class="center-block visible-lg visible-md visible-sm" width="100%">
-		<img src="/img/v-bg_sm.png" class="center-block visible-xs" width="100%">
-	</div>
-	<div class="">
-		<div class="container">
-			<div class="text-center tagline">
-				<a href="{{route('publishers.adsense')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
-				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
-			</div>
-		</div>
-		<br/>
-		<div class="visible-xs">
-			<br/><br/>
-		</div>
-		<div class="container">
-			<div class="row text-center div-Steps">
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/select-ico.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
-					<h2>Select from different categories of videos</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/share-ico.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
-					<h2>Embed video to your website or share to your social media accounts.</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/earn-ico.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-					<h2>Earn Revenue from every advertisement.</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row White">
-			<div class="container text-center div-partners">
-				<h1 class="orangeC">-Featured Partners-</h1>
-				<a href="{{route('partners.learnmore')}}" ><h3 class="mg-t--20">How to be a partner?</h3></a>
+<div  class="top-bg">
 
+</div>
+<div class="paper_wrap" data-sticky_parent="" style="position: relative;">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-8 ">
+            <div class="paper">
+                <div class="content-padding">
+                    <div class="icons_style pull-right">
+                        <img src="/img/icons/select-ico.png"><img src="/img/icons/share-ico.png"><img src="/img/icons/earn-ico.png">
+                    </div>
+                    <div class="row text-justify">
 
-				<div class="col-md-4">
-					<a href="http://www.auathailand.org" target="_blank">
-						<img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.teflEducators.com" target="_blank" >
-						<img src="/img/logos/te.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="2s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.britishteachers.org.uk" target="_blank">
-						<img src="/img/logos/bt.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="3s">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <h2 class="orangeC">Introduction:</h2>
 
+                        <p>
+                        If you don’t own the copyright rights but still like to monetize video, you can become a tefltv publisher. For more information about copyright, please follow this <a href="{{route('homes.copyright')}}"> link.</a> 
+                        </p>
+                        <p>
+                        If you own copyrights of videos and want the possibility to monetize them, please follow this link to our <a href="{{route('partners.index')}}"> partner page</a>.
+                        </p>
+                        <br/>
+                        <h2 class="orangeC">How can I become a publisher?</h2>
+                        <p>
+                        To become a TEFLtv publisher, you need to sign up as a “Publisher”. You can <a href="{{route('publishers.verification')}}">signup here</a>.
+                        </p>
+                        <p>
+                        You will also need an AdSense account.
+                        </p>
+                        <br/>
+
+                        <h2 class="orangeC">Why do I need an AdSense account?</h2>
+                        <p>
+                        There are a few reasons why you need an AdSense account before you can become a Publisher. The tools that come with AdSense are important to keep track of your revenue, and of course Google AdSense has a proven track record of being a reliable partner.  You will have the tools that give you reports you can trust. This way, there is never any confusion about your earnings from advertisements on our website.  
+                        </p>
+                        <br/>
+
+                        <h2 class="orangeC">More information about our program.</h2>
+                        <p>
+                        We like our publishers to inform themselves about the many facets of our program. Therefore, we encourage current and prospective publishers to read our <a href="{{route('publishers.termsandconditions')}}">Terms and conditions</a> and <a href="{{route('homes.privacy')}}">Privacy</a> statements-. This way, you know what we expect from you and what you can expect from us.
+                        </p>
+
+                        <br/>
+                        <hr/>
+                        <h3>Start earning money. <a href="{{route('publishers.verification')}}">Become a Publisher Now!</a></h3>
+
+                        <br/><br/>
+                 </div>
+    			</div>
+    		</div>
+    	</div>
+        <div class="col-md-4">
+            @include('elements/publishers/video')
+            <br/>
+            @include('elements/publishers/support')
+        </div>
+    </div>
+</div>
 @stop
 
 

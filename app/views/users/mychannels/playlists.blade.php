@@ -1,16 +1,20 @@
 @extends('layouts.default')
 
+@section('title')
+	{{Auth::User()->channel_name}}'s Playlist | TEFL Tv
+@stop
+
 @section('content')
 <div class="row">
 	<br/>
 	<div class="container">
-		<div class="row same-H White">
+		<div class="row">
 
 			@include('elements/users/profileTop')
-			<div class=" White channel-content">
+			<div class=" channel-content">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs visible-md visible-lg" role="tablist">
+					<ul class="nav nav-tabs visible-lg visible-md White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home', null)}}</li>
 						<li role="presentation">{{link_to_route('users.about', 'About Me')}}</li>
 						<li role="presentation">{{link_to_route('users.myvideos', 'My Videos')}}</li>
@@ -21,51 +25,34 @@
 						<li role="presentation">{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
 					</ul><!--tabNav-->
 				</div>
-				
-				<nav class="navbar navbar-default visible-sm visible-xs">
-					  <div class="container-fluid">
-					    <div class="navbar-header">
-					      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					      <h4 class="inline mg-t-20">Favorites</h4>	
-					        <span class="fa fa-bars"></span>
-					      </button>
-					    </div>
-					    <div class="collapse navbar-collapse" id="myNavbar">
-					      <ul class="nav navbar-nav">
-					        <li>{{link_to_route('users.channel', 'Home')}}</li>
-					    	<li>{{link_to_route('users.about', 'About')}}</li>
-					    	<li>{{link_to_route('users.myvideos', 'My Videos')}}</li>
-					    	<li>{{link_to_route('users.watchlater', 'Watch Later')}}</li>
-					  		<li>{{link_to_route('users.feedbacks', 'Feedbacks')}}</li>
-					  		<li>{{link_to_route('users.subscribers', 'Subscribers/Subscriptions')}}</li>
-					      </ul>
-					    </div>
-					  </div>
-					</nav>
-
-				<div class="">
-					<br/>
-					<div class="col-md-6 col-sm-6 mg-t-10">
-						<div class="input-group">
-							{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
-							<span class="input-group-btn">
-								{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
-							</span>
+			
+				<div class="top-div_t col-md-12 mg-t-20 pad20t">
+					<div class="row">
+						<div class="content-padding">
+							<div class="col-md-6 col-sm-6 mg-t-10">
+							{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
+								<div class="input-group">
+									{{ Form::text('add', null, array('id' => 'category','required', 'placeholder' => 'Search Video', 'class' => 'form-control c-input ')) }}
+									<span class="input-group-btn">
+										{{ Form::submit('Search', array('id' => 'button', 'class' => 'btn btn-info ')) }}
+									</span>
+								</div>
+								{{Form::close()}}
+							</div>
+							<div class="col-md-6 col-sm-6  mg-t-10">
+								
+								<div class="input-group" style="">
+									{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
+									{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
+									<span class="input-group-btn">
+										{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
+									</span>
+								</div>
+								
+							</div>
 						</div>
 					</div>
-				
-
-					<div class="col-md-6 col-sm-6  mg-t-10">
-						{{Form::open(['route' => 'users.search.playlists', 'method' => 'GET'])}}
-						<div class="input-group" style="">
-							{{Form::hidden('text1',Crypt::encrypt(Auth::User()->id),array('id'=>'text1'))}}
-							{{Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Create New Playlist','id'=>'create-playlist-text')) }}
-							<span class="input-group-btn">
-								{{Form::button('Save',array('class' => 'btn btn-primary	','id'=>'create-playlist-button'))}}
-							</span>
-						</div>
-						{{Form::close()}}
-					</div>
+				</div>
 
 					<!--<div class="col-md-1 text-right">
 						<div class="buttons">
@@ -75,15 +62,16 @@
 					</div>-->
 
 
-
+				<div class="col-md-12 White same-H channel-content">
 					<div id="videosContainer" class='container'>
 						<br/><br/><br/>
 						<div class="row">
 							@if($playlists->isEmpty())
-							<p class="text-center">You don't have playlist yet.</p>
+					
+							<h3 class="text-center">You don't have playlist yet.</h3>
 							@else
 							@foreach($playlists as $key=>$playlist)
-							<div id="playlists" class="col-md-3 col-sm-6">
+							<div id="playlists" class="col-md-3 col-sm-6 col-xs-6">
 								<a href="videoplaylist={{$playlist->randID}}"  class="thumbnail-2">
 									@if(isset($thumbnail_playlists[$key][0]))
 									@if(file_exists(public_path('/videos/'.$thumbnail_playlists[$key][0]->user_id.'-'.$thumbnail_playlists[$key][0]->channel_name.'/'.$thumbnail_playlists[$key][0]->file_name.'/'.$thumbnail_playlists[$key][0]->file_name.'.jpg')))
@@ -143,11 +131,11 @@
 
 
 @section('script')
-{{HTML::script('js/user/playlist.js')}}
-{{HTML::script('js/subscribe.js')}}
-{{HTML::script('js/media.player.js')}}
-
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+{{HTML::script('js.user.playlist')}}
+{{HTML::script('js/video-player/jquery.form.min.js')}}
+{{HTML::script('js/user/upload_image.js')}}
+{{HTML::script('js/user/upload_cover_photo.js')}}
+{{HTML::script('js/user/modalclearing.js')}}
 
 <script type="text/javascript">
 	$('.grid').click(function() {

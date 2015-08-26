@@ -1,3 +1,5 @@
+
+
 @extends('layouts.default')
 @section('css')
 {{HTML::style('css/vid.player.min.css')}}
@@ -20,12 +22,12 @@
 <div class="row">
 	<div class="container page">
 		<br/>
-		<div class="row same-H White">
+		<div class="row">
 			@include('elements/users/profileTop')
-			<div class="Div-channel-border">
+			<div class="">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs hidden-sm hidden-xs White same-H" role="tablist">
 						<li role="presentation">{{link_to_route('users.channel', 'Home')}}</li>
 						<li role="presentation" class="active">{{link_to_route('users.myvideos', 'My Videos')}}</li>
 						<li role="presentation">{{link_to_route('users.myfavorites', 'My Favorites')}}</li>
@@ -36,55 +38,62 @@
 
 					</ul>
 				</div><!--tabpanel-->
-				<br/>
-
-				<div id="videosContainer" class='container'>
-
-					<div class="col-md-8">
-						<div id="vid-controls" class="p-relative">
-							<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
-								<div id='preview-annotation'></div> 
-								@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-									<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
-										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-										<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									</video>
-								@else
-									<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-										<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-										<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
-									</video>
-								@endif
-							</div><!--embed-responsive-->
-							@include('elements/videoPlayer')
+	
+				<div id="videosContainer" class=''>
+					<div class="same-H White mg-t-20 container ">
+						<div class="row">
+					<br/>
+						<div class="col-md-8">
+							<div class="p-relative">
+								<div id="vid-controls">
+									<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
+										<div id='preview-annotation'></div> 
+										@if(file_exists(public_path('/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											</video>
+										@else
+											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+											</video>
+										@endif
+									</div><!--embed-responsive-->
+									@include('elements/videoPlayer')
+								</div>
+							</div>
+							<br/><br/>
+						</div>
+						<div class="col-md-4">
+							<h4>Video Information</h4>
+							<p><b>Title    :</b> {{str_limit($video->title,20)}}</p>
+							<p><b>Date and Time Uploaded:</b> {{ date("F d, Y H:i a",strtotime($video->created_at)) }}</p>
+							<p><b>Video URL:</b> {{asset('/')}}watch?v={{$video->file_name}}</p>
+							<p><b>Duration :</b> <span class="label label-primary">{{$video->total_time}}</span></p>
+							<p><b>Raw File :</b> <span class="label label-primary">{{$video->extension}}</span></p>
+							<p><b>Likes    :</b> <span class="label label-primary">{{$totalLikesDislikes['likes']}} </span></p>
+							<p><b>Dislikes :</b> <span class="label label-primary">{{$totalLikesDislikes['dislikes']}} </span></p>
+							<p><b>Comments :</b> <span class="label label-primary">{{$totalComment['comment']}} </span></p>
+							<p><b>Views    :</b> <span class="label label-primary">{{$video->views}}</p>
+	
+						</div>
+						<br/>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<h4>Video Information</h4>
-						<p><b>Title :</b> </p>
-						<p><b>Date and Time Uploaded:</b> </p>
-						<p><b>Video URL</b></p>
-						<p><b>Duration :</b> </p>
-						<p><b>Raw File :</b> </p>
-						<p><b>Likes :</b> </p>
-						<p><b>Comments :</b></p>
-
-					</div>
-					
 					<div class="col-md-12 mg-t-20">
 						<!-- Nav tabs -->
-		                <ul class="nav nav-tabs" role="tablist">
+		                <ul class="nav nav-tabs grey2 same-H row" role="tablist">
 		                    <li role="presentation" class="active"><a href="#update_info" aria-controls="update_info" role="tab" data-toggle="tab">Update Information</a></li>
 		                    <li role="presentation"><a href="#update_cover" aria-controls="update_cover" role="tab" data-toggle="tab">Update Video Cover</a></li>
-		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Update Video Cover</a></li>
+		                    <li role="presentation"><a href="#anotation-tab" aria-controls="anotation-tab" role="tab" data-toggle="tab">Annotation</a></li>
+	                    	<li role="presentation"><a href="#monetization-tab" aria-controls="monetization-tab" role="tab" data-toggle="tab">Monetization</a></li>
 		                </ul>
 
-		                <div class="tab-content">
-
+		                <div class="tab-content row White same-H mg-t-20">
 					    	<div role="tabpanel" class="tab-pane active" id="update_info">
 					    		<div class="col-md-12 content-padding">
 					    			{{Form::model($video, array('route' => array('video.post.edit',$video->file_name), 'files'=>true))}}
-
 										@if($errors->has('publish'))
 											<span class="inputError">
 												{{$errors->first('publish')}}
@@ -98,7 +107,6 @@
 											@if($errors->has('title'))
 											<span class="inputError">
 												{{$errors->first('title')}}
-
 											</span>
 											@endif
 											{{ Form::text('title', null, array('class'=>'form-control','required'=>true)) }}
@@ -109,11 +117,10 @@
 											<span class="inputError">
 												{{$errors->first('description')}}
 											</span>
-
 											@endif
-											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-											<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
-											<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
+											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;")) }}
+											<!-- <small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/> -->
+											<!-- <small>Note: Minimum characters should be atleast 50 and max 5000.</small> -->
 								
 										</div>
 										<div class="well">
@@ -122,6 +129,9 @@
 											{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 											{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
 											{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
+
+											{{ Form::hidden('token-id',$video->file_name)}}
+
 											<p class="notes">*Double click the existing tag to edit.</p>
 											<div id="wrapper">
 												@if($tags == null)
@@ -138,7 +148,6 @@
 										<div class="well">
 											{{Form::label('Category:')}}<br/>
 											<span class="v-category">
-
 												{{Form::checkbox('cat[]','Advice',$videoCategory[0],['id'=>'advice'])}}
 												<label for='advice'>Advice</label>
 											</span>
@@ -199,15 +208,14 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
-										{{Form::close()}}
+
 					    		</div><!--content-padding-->
 					    	</div><!--col-md-12-->
 
 					    	<div role="tabpanel" class="tab-pane" id="update_cover">
 					    		<div class="col-md-12 content-padding">
-								
 									@if(file_exists($thumbnail))
-										<div class="row text-center">
+										<div class="row ">
 											<div class="pad-10">
 												<span class="file-upload mg-l--2">
 													<h3 class="inline blueC"><i class="fa fa-arrow-up"></i>Upload Video Cover</h3>
@@ -215,23 +223,26 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline">or &nbsp; Choose from available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save selected thumbnail</button><br>
 											</div>
+											<hr/>
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
 												<label class='caption-t-1'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-2' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
+
 												<label class='caption-t-2'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-3' style='position:relative;display:block;' class="thumbnail-2">
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
+													<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
@@ -244,6 +255,8 @@
 													<input type="hidden" value="{{$video->file_name}}" name="filename" id="filename"/>
 												</span> 
 												<h3 class="inline"> No available thumbnails</h3>
+												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save selected thumbnail</button><br>
+										
 											</div>
 										</div>
 										<div class="col-md-4">
@@ -264,54 +277,89 @@
 												<label class='caption-t-3'></label>
 											</div>
 										</div>
+										{{Form::close()}}
 									@endif
 									<br/>
 					    		</div><!--content-padding-->
 					    	</div><!--update-cover-->
 					    	
 					    	<div role="tabpanel" class="tab-pane" id="anotation-tab">
-					    		<div class="col-md-12 content-padding">
-									<div class="pad-10">
-										<span class="dropdown">
-											<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
-													<span class="caret"></span></button>
-													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-														<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
-														<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
-														<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
-														<li role="presentation"><a id='annotation-speech' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Speech</a></li>
-													</ul>
-											</span>
-											<span class="dropdown">
-												<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
-													<span class="caret"></span></button>
+					    		<br/>
+					    		<div class="row-same-height">
+					    			<div class="col-md-6 col-md-height col-top">
+					    				<div class="annotation-wrap row ">
+					    					<div class="content-padding">
+							    				<div class="text-center">
+								    				<span class="dropdown">
+														<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-comment'></span> Add Annotation
+															<span class="caret"></span>
+														</button>
+														<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+															<li role="presentation"> <a id='annotation-note' role="menuitem" tabindex="-1" href="#"> <span class='glyphicon glyphicon-file'></span> Note</a></li>
+															<li role="presentation"><a id='annotation-title' role="menuitem" tabindex="-2" href="#"><span class='glyphicon glyphicon-font'></span> Title</a></li>
+															<li role="presentation"><a id='annotation-spotlight' role="menuitem" tabindex="-3" href="#"><span class='glyphicon glyphicon-link'></span> Spotlight</a></li>
+															<li role="presentation"><a id='annotation-speech' role="menuitem" tabindex="-4" href="#"><span class='glyphicon glyphicon-comment'></span> Speech</a></li>
+														</ul>
+													</span>
+												</div>
+												<div class="mg-t-20">
+													<div class="" id="annotation">
+														<!--ANNOTATION AREA-->
+													</div>
+												</div>
+											</div>
+										</div>
+					    			</div>
+					    			<div class="col-md-6 col-md-height col-top">
+					    				<div class="content-padding row">
+						    				<div class="text-center">
+							    				<span class="dropdown">
+													<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
+														<span class="caret"></span>
+													</button>
+
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id='annotation-lists'>
 														@if($countAnnotation > 0)
 															@foreach($annotations as $annotation)
 																<li id='forever-remove-annot-{{$annotation->id}}' role="presentation"><a id='{{$annotation->id}}'role="menuitem" class='option-annot' tabindex="-1" href="#">{{$annotation->types}}-{{str_limit($annotation->content,15)}}</a></li>
 															@endforeach
 														@else
-																<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Empty</a></li>
 														@endif             
 													</ul>
-											</span>
-											<br>
-											<ul id='editor-annotation'>
-												<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
-												<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
-												<li>Start:{{Form::text('start',null)}}</li>
-												<li>End:{{Form::text('end',null)}}</li>
-												<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
-												<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
-											</ul>
-											<br/>
-											<div class="" id="annotation">
-												<!--ANNOTATION AREA-->
+												</span>
 											</div>
-										</div><!---->
+											<div class="mg-t-20">
+												
+												<ul id='editor-annotation'>
+													<li><span id='edit-types'> </span> <div><span id='sv-annot' class="sv-annot glyphicon glyphicon-floppy-saved" title='Save changes'></span> <span id='rm-annot' title='Remove' class="rm-annot glyphicon glyphicon-trash"></span></div></li>
+													<li>Content:{{Form::text('content',null,['id'=>'edit-content'])}}</li>
+													<li>Start:{{Form::text('start',null,['maxlength'=>8,'id'=>'edit-start-time'])}}<button id='edit-start-inc'>+</button><button id='edit-start-dec'>-</button></li>
+													<li>End:{{Form::text('end',null,['maxlength'=>8,'id'=>'edit-end-time'])}}<button id='edit-end-inc'>+</button><button id='edit-end-dec'>-</button></li>
+													<li>Link: {{Form::checkbox('chk-link','grald',false,['id'=>'chk-link'])}}</li>
+													<li>{{Form::text('link',null,['Placeholder'=>'Enter url e.g: http://www.tefltv.com', 'style'=>'display:none;','id'=>'annot-link'])}}</li>
+												</ul>
+											</div>
+										</div>
+					    			</div>
 					    		</div><!--content-padding-->
 					    	</div><!--anotation-tab-->
-
+					    	<div role="tabpanel" class="tab-pane" id="monetization-tab">
+					    		<div class="col-md-12 content-padding">
+					    			{{Form::model($video, array('route' => array('video.post.editmonetize',$video->file_name), 'files'=>true))}}
+										<div class="well mg-t-20">
+											{{Form::label('Monetize this video:')}}<br/>
+											<span class="v-category">
+												{{Form::checkbox('monetize', ($video->monetize ? 'Yes' : 'No'), $video->monetize,['id'=>'monetize'])}}
+												<label for='advice'>Monetize</label> <a target="_blank" href="{{route('partners.index')}}"><small>Don’t forget to sign up as tefltv partner!</small></a>
+											</span>
+										</div>	
+										<br/>
+										<div class="text-right mg-b-10"> 
+											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
+										</div>
+					    		</div><!--content-padding-->
+					    	</div><!--monetization-tab-->
 					    </div><!--/tab-content-->
 					</div><!--col-md-12-->
 				</div><!--#videoContainer-->
@@ -319,11 +367,6 @@
 		</div><!--row same-H white-->
 	</div><!--container-page-->
 </div><!--/row 1st-->
-
-
-
-
-
 @stop
 
 

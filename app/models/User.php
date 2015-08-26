@@ -72,6 +72,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'last_name' => 'required|regex:/(^[A-Za-z_ -]+$)+/',
 		'contact_number' => 'regex:/(^[+0-9]+$)+/');
 
+	public static $socialMediaRules = array(
+		'email' => 'required|email|unique:users,email',
+		'channel_name' => 'required|unique:users,channel_name|regex:/(^[A-Za-z0-9 ]+$)+/',
+		'password' => 'required',
+		'confirm_password' =>'same:password|required');
+
 	public static $userPasswordRules = array(
 		'currentPassword' => 'required',
 		'newPassword' => 'required|min: 6',
@@ -175,9 +181,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'organization',
 			'interests',
 			DB::raw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) AS views'),
-			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers'))
+			DB::raw('(Select count(subscribes.user_id) from subscribes where subscribes.user_id = users.id) as subscribers_count'))
 		->take($limit)
 		->whereRaw('(SELECT SUM(videos.views) AS views FROM videos WHERE videos.user_id = users.id) > 0')
+		->where('status', 1)
 		->join('users_profile', 'users_profile.user_id', '=', 'users.id')
 		->orderBy('views', 'DESC')->get();
 
@@ -190,7 +197,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 
 			$subscribe = new Subscribe();
-			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 5);
+			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 10);
 		}
 		return $userData;
 	}
@@ -273,5 +280,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->save();
 
 		return true;
+	}
+
+	/**
+	*@param $adsense_id    	adsense id of the user
+	*@return boolean true
+	*@throws boolean false
+	*/
+	public function validateAdsensePublisherID($adsense_id = null){
+
+		$split_adsense_id = explode('-', $adsense_id);
+		if(count($split_adsense_id) == 2){
+			if($split_adsense_id[0] == 'pub' && strlen($split_adsense_id[1]) == 16){
+				return true;
+			}
+		}
+		return false;
 	}
 }

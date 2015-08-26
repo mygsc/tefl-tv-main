@@ -70,6 +70,9 @@ class Video extends Eloquent{
 	public function notifications(){
 		return $this->hasMany('notifications');
 	}
+	public function videoLikesDislikes(){
+		return $this->hasOne('VideoLikesDislike');
+	}
 	
 	public function getFeaturedVideo($type = null, $limit = null){
 		if(!empty($type)){
@@ -106,7 +109,7 @@ class Video extends Eloquent{
 			->where('uploaded', '1')
 			->where('publish', '1')
 			->where('uploaded','1')
-			->where('users.status', '!=', '0')
+			->where('users.status', 1)
 			->join('users', 'user_id', '=', 'users.id')
 			->take($limit)
 			->orderBy(DB::raw($orderBy), $sort)
@@ -190,8 +193,7 @@ class Video extends Eloquent{
 				->paginate(5);
 			}
 
-			$videoData = $this->addThumbnail($videoData);
-			return $this->addVideoTags($videoData);
+			return $this->addVideoTagsandThumbnails($videoData);
 		}
 		return false;
 	}
@@ -199,7 +201,7 @@ class Video extends Eloquent{
 	public function addThumbnail($data = null){
 		foreach($data as $key => $video){
 			//Thumbnails
-			$folderName = $video->user_id. '-'. $video->channel_name;
+			$folderName = $video->user_id;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$data[$key]->thumbnail = '/img/thumbnails/video.png';
@@ -210,10 +212,19 @@ class Video extends Eloquent{
 		return $data;
 	}
 
-	public function addVideoTags($videoData){
+	public function addVideoTagsandThumbnails($videoData){
 		foreach($videoData as $key => $video){
 			$getTags = explode(',',$video->tags);
 			$videoData[$key]->tags = $getTags;;
+
+			$folderName = $video->user_id;
+			$fileName = $video->file_name;
+			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$videoData[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnailPath))){
+				$videoData[$key]->thumbnail = $thumbnailPath;
+			}
+			
 		}
 		return $videoData;
 	}
@@ -232,7 +243,10 @@ class Video extends Eloquent{
 		$categoryList = array('For Teachers','For Students','For Schools','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		$categories = array();
 		foreach ($categoryList as $key => $category) {
-			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')
+			->where('uploaded', 1)
+			->where('publish', 1)
+			->first();
 			if(isset($findCategory)){
 				array_push($categories,'<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>');
 			}
@@ -244,9 +258,10 @@ class Video extends Eloquent{
 	}
 
 	public function relations($query = null,$id = null,$limit = null){
-
-		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description','videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish','videos.uploaded','videos.report_count',
-			'videos.file_name','videos.user_id','users.channel_name','users.verified','users.status')
+		$returndata =	Video::select('videos.id','videos.user_id as uid','videos.title','videos.description',
+			'videos.tags','videos.views', 'videos.created_at','videos.deleted_at','videos.publish',
+			'videos.uploaded','videos.report_count', 'videos.file_name','videos.user_id','users.channel_name',
+			'users.verified','users.status')
 		->whereRaw($query)
 		->where('videos.deleted_at', NULL)
 		->where('videos.publish', '1')
@@ -254,7 +269,7 @@ class Video extends Eloquent{
 		->where('videos.report_count', '<', 5)
 		->where('videos.id','!=',$id)
 		->where('users.status','=','1')
-		->join('users', 'user_id', '=', 'users.id');
+		->join('users', 'videos.user_id', '=', 'users.id');
 
 		if(!empty($limit)){
 			$returndata = $returndata->take($limit);
@@ -301,8 +316,66 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
+
+	public function getVideo($filename){
+		$videos = Video::where('file_name', '=', $filename)->first();
+		if(!isset($videos)) return false;
+		$temp1 = '';
+		$split_tags = explode(',', $videos->tags);
+		$lastCount1 = count($split_tags) - 1;
+		$x = 0;
+		if(count($split_tags) != 1){
+			foreach ($split_tags as $split_tag) {
+				$split_tag = trim($split_tag);
+				if ($x != $lastCount1) {
+			        $temp1 = $temp1 . ucfirst($split_tag) . ", ";
+			    }else{
+			    	$temp1 = $temp1 . ucfirst($split_tag);
+			    }
+			    $x++;
+			}
+			$videos->tags = $temp1;
+		}
+
+		$temp2 = '';
+		$split_categories = explode(',', $videos->category);
+		$lastCount2 = count($split_tags) - 1;
+		$y = 0;
+		if(count($split_categories) != 1){
+			foreach ($split_categories as $split_category) {
+				$split_category = trim($split_category);
+				if ($y != $lastCount2) {
+			        $temp2 = $temp2 . ucfirst($split_category) . ", ";
+			    }else{
+			    	$temp2 = $temp2 . ucfirst($split_category);
+			    }
+			    $y++;
+			}
+			$videos->category = $temp2;
+		}
+		return $videos;
+	}
+
+	public function getVideoswithDispute($auth = null) {
+		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
+			'category', 'tags', 'report_count', 'recommended', 'deleted_at', 'videos.created_at', 'videos.updated_at',
+			DB::raw('(SELECT COUNT(ul.video_id) FROM user_likes ul WHERE ul.video_id = videos.id) AS likes'),
+			DB::raw('(SELECT users.channel_name FROM users WHERE users.id = videos.user_id) AS channel_name'))
+		->where('videos.user_id', $auth)
+		->where('deleted_at', NULL)
+		->get();
+
+		foreach($getVideos as $key => $getVideo){
+			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
+				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
+			))->first();
+		}
+
+		return $this->addThumbnail($getVideos);
+	}
+
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
 		$getVideos = Video::select('videos.id', 'videos.user_id', 'title', 'description', 'publish', 'file_name', 'uploaded', 'total_time', 'views', 
 			'category', 'tags', 'report_count', 'recommended', 'videos.deleted_at', 'videos.created_at', 'videos.updated_at',
@@ -323,7 +396,7 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
 
 	public function getSearchVideos($auth = null, $search = null){
@@ -432,7 +505,7 @@ class Video extends Eloquent{
 		return array($advice, $animatedMusicVideo, $animatedVideo, $documentaries, $forStudents, $forTeachers, $interviews, $jobAd, $miscellaneous, $music, $podcast, $qa, $videoBlog, $videoCV);
 	}
 	public function randomChar($length = 11, $result = '') {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+_|$';
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
 		$charactersLength = strlen($characters);
 		for ($i = 0; $i < $length; $i++) {
 			$result .= $characters[rand(0, $charactersLength - 1)];

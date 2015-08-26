@@ -1,65 +1,79 @@
-@extends('layouts.partnership')
+@extends('layouts.partner')
 
-@section('title')
-	TEFLTV Publisher
+    @section('title')
+        Learn More | TEFLTV Partners
+    @stop
+
+	@section('meta')
+			
+	@stop
+	@section('css')
+		{{HTML::style('css/vid.player.min.css')}}
+	@stop
+	@section('some_script')
+    {{HTML::script('js/jquery.min.js')}}
+	{{HTML::script('js/video-player/media.player.min.js')}}
+	{{HTML::script('js/partner/learnmore.js')}}
 @stop
 
 @section('content')
-	<div class="row">
-		<img src="/img/partner-banner.png" class="center-block visible-lg visible-md visible-sm" width="100%">
-		<img src="/img/v-bg_sm.png" class="center-block visible-xs" width="100%">
+
+<div class="top-bg"></div>
+
+<div class="paper_wrap" data-sticky_parent="" style="position: relative;">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-8">
+            <div class="paper">
+                <div class="content-padding">
+                    <div class="icons_style pull-right">
+                        <img src="/img/icons/par-upload.png"><img src="/img/icons/par-earn.png"><img src="/img/icons/par-share.png">
+                    </div>
+    				<div class="row text-justify">
+                        <h2 class="blueC">Introduction:</h2>
+                        <p>
+                        If you are a copyright holder of videos and host these on TEFLtv, then you are eligible to become a TEFLtv partner and monetize your videos. In other words; make money from the ads shown before, during or at the end of your videos. For more information about copyright, please follow this <a href="{{route('homes.copyright')}}">link. </a> 
+                        </p>
+                        <p>
+                        If you don’t own copyrights of videos but still want the possibility to monetize them, please follow this link to our <a href="{{route('publishers.index')}}">publishers’ page.</a>
+                        </p>
+                        <br/>
+                        <h2 class="blueC">How can I become a partner? </h2>
+                        <p>
+                        To become a TEFLtv partner, you need to sign up as a “partner”. You can signup here.
+                        </p>
+                        <p>
+                        You will also need an AdSense account.
+                        </p>
+                        <br/>
+                        <h2 class="blueC">Why do I need an AdSense account? </h2>
+                        <p>
+                        There are a few reasons why you need an AdSense account before you can become a Partner. The tools that come with AdSense are important to keep track of your revenue, and of course Google AdSense has a proven track record of being a reliable partner.  You will have the tools that give you reports you can trust. This way, there is never any confusion about your earnings from advertisements on our website.  
+                        </p>
+                        <br/>
+                        <h2 class="blueC">More information about our program. </h2>
+                        <p>
+                        We like our partners to inform themselves about the many facets of our program. Therefore, we encourage current and prospective partners to read our <a href="{{route('partners.termsandconditions')}}">Terms and conditions</a> and <a href="{{route('homes.privacy')}}">Privacy </a> statements. This way, you know what we expect from you and what you can expect from us.
+                        </p>
+
+
+    					<br/>
+    					<hr/>
+    					<h3>Start earning money. <a href="{{route('partners.verification')}}">Become a Partner Now!</a></h3>
+
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+		<div class="col-md-4">
+            
+				@include('elements/partners/video')
+				<br/>
+            
+				@include('elements/partners/support')
+          
+		</div>
 	</div>
-	<div class="">
-		<div class="container">
-			<div class="text-center tagline">
-				<a href="{{route('partners/partners_program')}}"><button class="btn btn-primary">Get Started <i class="fa fa-chevron-right"></i></button></a>
-				<button class="btn btn-info">Watch Video <i class="fa fa-play"></i></button>
-			</div>
-		</div>
-		<br/>
-		<div class="visible-xs">
-			<br/><br/>
-		</div>
-		<div class="container">
-			<div class="row text-center div-Steps">
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-upload.png" class="wow rollIn"  data-wow-duration="1s" data-wow-delay="1s">
-					<h2>Upload your own videos.</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-share.png" class="wow rotateIn"  data-wow-duration="1s" data-wow-delay="2s">
-					<h2>Embed video to your website or share to your social media accounts.</h2>
-				</div>
-				<div class="col-sm-4 col-md-4">
-					<img src="/img/icons/par-earn.png" class="wow rotateInUpRight"  data-wow-duration="1s" data-wow-delay="3s">
-					<h2>Earn Revenue from every advertisement.</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row White">
-			<div class="container text-center div-partners">
-				<h1 class="orangeC">-Featured Partners-</h1>
-
-
-				<div class="col-md-4">
-					<a href="http://www.auathailand.org" target="_blank">
-						<img src="/img/logos/aua.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="1s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.teflEducators.com" target="_blank" >
-						<img src="/img/logos/te.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="2s">
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="http://www.britishteachers.org.uk" target="_blank">
-						<img src="/img/logos/bt.jpg" class="wow zoomIn"  data-wow-duration="1s" data-wow-delay="3s">
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+</div>
 @stop
 
 

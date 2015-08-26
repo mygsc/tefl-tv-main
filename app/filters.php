@@ -12,9 +12,9 @@
 */
 
 App::before(function($request){
-    if( ! Request::secure()){
-        return Redirect::secure(Request::path());
-    }
+    // if( ! Request::secure()){
+    //     return Redirect::secure(Request::path());
+    // }
     /* kahit ano siguro dito
 	if(!Request::secure() && array_get($_SERVER, 'SERVER_PORT') != 443){
         return Redirect::secure(Request::path());
@@ -112,18 +112,10 @@ Route::filter('csrf', function()
 |
 */
 
-Route::filter('partners', function()
-{
-	if(!Auth::check()){
-		return Redirect::route('homes.signin')->withFlashWarning('Please sign in to proceed');
-	}
-	
-});
-
-Route::filter('partnerships.verification', function()
+Route::filter('users.verification', function()
 	{
 	if(!Session::has('partnership_token')){
-		return Redirect::route('partnerships.verification');
+		return Redirect::route('homes.signin');
 	}
 	
 });
