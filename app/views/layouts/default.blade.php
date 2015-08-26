@@ -26,7 +26,6 @@
 
 <body>
 
-
 	<div class="body-wrapp">
 		<div id="fb-root"></div>
 		<div class="same-H">
@@ -49,14 +48,14 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/scroll-onpage.js')}}
-
 {{HTML::script('js/m-nav/classie.js')}}
 {{HTML::script('js/m-nav/modernizr.custom.js')}}
-
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -107,6 +106,7 @@
   ga('send', 'pageview');
 
 </script>
+
 
 
 

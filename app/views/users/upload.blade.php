@@ -162,7 +162,7 @@
 											<small style="color:red">{{$errors->first('description')}}</small><br>
 											@endif
 
-											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description', 'maxlength'=>5000))}}
+											{{Form::textarea('description',null,array('class'=>'form-control', 'style' => 'height:150px!important;', 'id'=>'description'))}}
 
 
 											<br/>

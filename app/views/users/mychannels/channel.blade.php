@@ -3,7 +3,6 @@
 @section('title')
     {{Auth::User()->channel_name}} | TEFL Tv
 @stop
-
 @section('script')
 {{--HTML::style('css/vid.player.min.css')--}}
 {{HTML::script('js/video-player/jquery.form.min.js')}}
