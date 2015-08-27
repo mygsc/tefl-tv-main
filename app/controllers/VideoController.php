@@ -54,9 +54,9 @@ class VideoController extends BaseController {
 				return Response::json([
 					'vidid' => Crypt::encrypt($latest_id),
 					'file' => $fileName, 
-					'thumb1' => $thumbnail.'_thumb1.png',//Session::get('thumbnail_1'),
-					'thumb2' => $thumbnail.'_thumb2.png',//Session::get('thumbnail_2'),
-					'thumb3' => $thumbnail.'_thumb3.png',//Session::get('thumbnail_3'),
+					'thumb1' => $thumbnail.'_thumb1.png',
+					'thumb2' => $thumbnail.'_thumb2.png',
+					'thumb3' => $thumbnail.'_thumb3.png',
 				]);
 			}
 		}

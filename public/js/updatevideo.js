@@ -1053,7 +1053,8 @@ function checkLimit(limit){
 	//document.getElementById("submit-save-changes").disabled = false;
 	$('#max-limit').html('/5000');}
 	else{
-		//document.getElementById("submit-save-changes").disabled = true;}
+		//document.getElementById("submit-save-changes").disabled = true;
+	}
 	if(limit>=max){
 		var charLen = document.getElementById('description').value.length;
 		$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
@@ -1092,16 +1093,15 @@ $('#upload-cancel').on('click',function(){
 $('#save-cover-photo').on('click',function(id){
 	var id = document.querySelector('input[name=token-id]').value;
 	$.ajax({
-		type  : 'POST',
-		url   : '/mychannels/edit/'+id,
-		cache : false,
-		data  : $('form').serialize(),
+		type: 'POST',
+		url: '/mychannels/edit/'+id,
+		cache: false,
+		data: $('form').serialize(),
 		success: function(){
 			annotations.response('Changes of poster has been saved.', 'glyphicon glyphicon-saved');
 		},
 		error: function(){
 			annotations.response('Error while saving poster.', 'glyphicon glyphicon-saved');
 		}
-
 	});
 });
