@@ -1,5 +1,8 @@
 @extends('layouts.default')
-
+<style type="text/css">
+	#sidebar.fixed>div{position:fixed;top:0}
+	#sidebar{float:left;width:100px;}
+</style>
 @section('title')
     Advertisements | TEFL Tv
 @stop
@@ -10,8 +13,6 @@
 @section('some_script')
   
   {{--HTML::script('js/video-player/media.player.min.js')--}}
-
-@stop
 
 @section('content')
 @stop
