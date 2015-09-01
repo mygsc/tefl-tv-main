@@ -23,27 +23,53 @@
 	});
 	$(document).ready( function( $ ) {
 		$('#form-add-setting').on('submit', function() {
-		        //.....
-		        //show some spinner etc to indicate operation in progress
-		        //.....
-		        $.post(
-		        	$(this).prop( 'action' ),{
-		        		"_token": $( this ).find( 'input[name=_token]' ).val(),
-		        		"setting_name": $( '#setting_name' ).val(),
-		        		"setting_value": $( '#setting_value' ).val()
-		        	},
-		        	function( data ) {
-		                //do something with data/response returned by server
-		            },'json'
-		            );
-		        //.....
-		        //do anything else you might want to do
-		        //.....
+	        //.....
+	        //show some spinner etc to indicate operation in progress
+	        //.....
+	        $.post(
+	        	$(this).prop( 'action' ),{
+	        		"_token": $( this ).find( 'input[name=_token]' ).val(),
+	        		"setting_name": $( '#setting_name' ).val(),
+	        		"setting_value": $( '#setting_value' ).val()
+	        	},
+	        	function( data ) {
+	                //do something with data/response returned by server
+	            },'json'
+	        );
+	        //.....
+	        //do anything else you might want to do
+	        //.....
 
-		        //prevent the form from actually submitting in browser
-		        return false;
-		    } );
+	        //prevent the form from actually submitting in browser
+	        return false;
+	    } );
 	} );
+</script>
+<!-- <script src="http://deepliquid.com/projects/Jcrop/js/jquery.min.js"></script> -->
+<!-- {{HTML::script('js/jquery.min.js')}}
+{{HTML::script('js/jCrop/jquery.Jcrop.js')}} -->
+<!-- <script src="http://deepliquid.com/projects/Jcrop/js/jquery.Jcrop.js"></script> -->
+<!-- <link rel="stylesheet" href="/css/jCrop/jquery.Jcrop.css" type="text/css" /> -->
+<script type="text/javascript">
+	// $(function(){
+	// 	$('#preview').Jcrop({
+	// 		aspectRatio: 1,
+	// 		onSelect: updateCoords
+	// 	});
+	// });
+
+	// function updateCoords(c){
+	// 	$('#x').val(c.x);
+	// 	$('#y').val(c.y);
+	// 	$('#w').val(c.w);
+	// 	$('#h').val(c.h);
+	// };
+
+	// function checkCoords(){
+	// 	if (parseInt($('#w').val())) return true;
+	// 	alert('Please select a crop region then press submit.');
+	// 	return false;
+	// };
 </script>
 @stop
 
@@ -97,6 +123,4 @@
 	</div><!--/.container page-->
 	<br/>
 </div>
-
-
 @stop

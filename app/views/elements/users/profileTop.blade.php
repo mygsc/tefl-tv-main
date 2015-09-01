@@ -1,16 +1,39 @@
+<!-- <script src="http://deepliquid.com/projects/Jcrop/js/jquery.min.js"></script>
+<script src="http://deepliquid.com/projects/Jcrop/js/jquery.Jcrop.js"></script>
+<link rel="stylesheet" href="/css/jCrop/jquery.Jcrop.css" type="text/css" /> -->
+<script type="text/javascript">
+	// $(document).ready(function() {
+	// 	$('#preview_cover_photo').Jcrop({
+	// 		aspectRatio: 1,
+	// 		onSelect: updateCoords
+	// 	});
+
+	// });
+
+	// function updateCoords(c){
+	// 	$('#x').val(c.x);
+	// 	$('#y').val(c.y);
+	// 	$('#w').val(c.w);
+	// 	$('#h').val(c.h);
+	// };
+
+	// function checkCoords(){
+	// 	if (parseInt($('#w').val())) return true;
+	// 	alert('Please select a crop region then press submit.');
+	// 	return false;
+	// };
+</script>
 <div class="White mg-b-20 same-H">
 	<div class="col-md-12">
 		<div class="row">
 			<div class="div-coverDp ">
 				<div class="uploaded_img pic-Dp same-H">
-					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'class' => ''))}}
+					{{HTML::image($usersImages['profile_picture'], 'alt', array('data-toggle' => 'modal', 'data-target' => '#change_profile_picture', 'id' => 'DPic', 'class' => ''))}}
 
 					<button data-target="#change_profile_picture" data-toggle="modal" class="pull-right btn-ico btn-default dp-btn" title="Change Avatar"><i class="fa fa-camera"></i></button>
-
 				</div>
 				<div>
 					{{HTML::image($usersImages['cover_photo'], 'alt', array('style' => 'z-index:70;', 'width' => '100%'))}}
-
 				</div>
 				<div class="div-coverP">
 					<div class="account-btn-sm visible-xs visible-sm">
@@ -75,9 +98,6 @@
 							</div>
 						</div>
 					</div>
-				
-
-					
 				</div>
 			</div>
 		</div>
@@ -116,6 +136,12 @@
 			</div>
 			<div class="modal-body text-center">
 				{{HTML::image($usersImages['cover_photo'], 'alt', array('id' => 'preview_cover_photo', 'style' => 'z-index:70;', 'width' => '100%'))}}
+				
+				<input type="hidden" id="x" name="x" />
+				<input type="hidden" id="y" name="y" />
+				<input type="hidden" id="w" name="w" />
+				<input type="hidden" id="h" name="h" />
+
 				<b><span id="upload-message-cover"></span></b>
 					<div id="wrapper-cover">
 						<div id="progressbar-loaded-cover" class="text-center">
@@ -159,6 +185,10 @@
 					</div>
 				</div>            
 			</div>
+			<input type="hidden" id="x" name="x" />
+	        <input type="hidden" id="y" name="y" />
+	        <input type="hidden" id="w" name="w" />
+	        <input type="hidden" id="h" name="h" />
 			<div class="modal-footer">
 				{{Form::submit("Update", array('class' => 'btn btn-info'))}}
 				{{Form::close()}}
