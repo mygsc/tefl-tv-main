@@ -171,13 +171,6 @@
 										</div>
 										</div>
 									</div>
-									@if($usersVideo->ifReported)
-										<div>
-											<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" style="color:red">
-												*Please settle legal issue. Click here.
-											</a>
-										</div>
-									@endif
 								</div>
 								@endforeach	
 							@endif
