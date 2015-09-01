@@ -28,7 +28,7 @@
 					</ul>
 					@endif
 					{{Form::open(array('route' => 'post.upload','files' => true,'id'=>'vidSubmit'))}}
-					<div style="margin-lewft:auto; margin-right:auto;" >
+					<div style="margin-left:auto; margin-right:auto;" >
 						<label class="fileContainer" style="margin-left:auto;">
 							<img src="/img/icons/upload.png">
 							{{Form::file('video', array('id'=>'vids-upload','accept'=>"video/*"))}}      

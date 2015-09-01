@@ -30,7 +30,7 @@
 <body>
 
 
-	<div class="body-wrapp">
+	<div class="container-fluid">
 		<div id="fb-root"></div>
 		<div class="same-H">
 			@include('elements/header')

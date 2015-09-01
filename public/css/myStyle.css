@@ -72,6 +72,11 @@ title {
     font-size: 1.2em;
     font-weight: bold;
 }
+.container-fluid{
+    padding: 0!important;
+    margin: 0!important;
+    overflow:hidden!important;
+}
 .capitalize {
     text-transform: capitalize;
 }
@@ -172,7 +177,7 @@ title {
     z-index:100;
     background:rgba(0,0,0,0.7);
     padding: 10px 10px 10px 10px;
-    border-radius: 5px;
+    border-radius: 5px;f
     text-align: center;
 }
 .play-hover > img{
@@ -2831,9 +2836,6 @@ a.thumbnail-h:hover {
     width: 100%;
     height: 100%;
 }
-
-
-
 .sub-div-coverDp {
     height: 165px;
     overflow: hidden;
