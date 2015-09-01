@@ -440,7 +440,7 @@ class UserController extends BaseController {
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 			'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
 			'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
-			'totalComment','totalLikesDislikes'));
+			'totalComment','totalLikesDislikes','usersWebsite'));
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
