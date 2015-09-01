@@ -135,7 +135,7 @@
 
 										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
 											<div class="thumbnail-2">
-												<img src="{{$usersVideo->thumbnail}}" width="100%" class="hvr-grow-rotate">
+												<img src="{{$usersVideo->thumbnail.'?'.rand(0,100)}}" width="100%" class="hvr-grow-rotate">
 												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 												
 												@if($usersVideo->ifReported)
