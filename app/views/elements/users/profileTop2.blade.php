@@ -10,7 +10,13 @@
 				</div>
 
 				<div class="div-coverP">
-					<span class="mg-r-20 mg-t-20 visible-xs visible-sm">
+					
+					<div class="overlay-wrap">
+					
+						<div class="labelThis visible-xs visible-sm">
+							
+							{{$userChannel->channel_name}}
+							<span class="inline">
 						@if(isset(Auth::User()->id))
 							<?php
 							$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => Auth::User()->id))->first();
@@ -21,20 +27,19 @@
 							{{Form::hidden('subscriber_id', Auth::User()->id)}}
 							@if(!$ifAlreadySubscribe)
 							{{Form::hidden('status','subscribeOn')}}
-							{{Form::submit('Subscribe', array('class'=> 'btn  btn-sm btn-primary pull-right', 'id'=>'subscribebutton'))}}
+							{{Form::submit('Subscribe', array('class'=> 'btn  btn-sm btn-primary pull-right sm-subs', 'id'=>'subscribebutton'))}}
 							@else
 							{{Form::hidden('status','subscribeOff')}}
-							{{Form::submit('Unsubscribe', array('class'=> 'btn btn-sm btn-primary pull-right', 'id'=>'subscribebutton'))}}
+							{{Form::submit('Unsubscribe', array('class'=> 'btn btn-sm btn-primary pull-right sm-subs', 'id'=>'subscribebutton'))}}
 							@endif
 							{{Form::close()}}
 							@endif
 						@endif
 					</span>
-					<div class="overlay-wrap">
-					
-						
+				
+						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-6  hidden-sm hidden-xs">
 								<div class="labelThis">
 									{{$userChannel->channel_name}}
 								</div>
@@ -44,15 +49,15 @@
 							</div>
 						</div>
 						<div class="overlay-cover container hidden-xs">
-							<div class="col-md-6 ">
+							<div class="col-md-8 ">
 								<div class="text-left chaCounts">
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<span class="pull-right" >
+							<div class="col-md-4">
+								<span class="pull-right hidden-sm hidden-xs" >
 									@if(empty($usersWebsite))
 										No social media sites connected..
 									@else
