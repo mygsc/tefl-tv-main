@@ -48,15 +48,15 @@
 								<div id="vid-controls">
 									<div class="embed-responsive embed-responsive-16by9" id='custom-annotation'>
 										<div id='preview-annotation'></div> 
-										@if(file_exists(public_path('/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
-											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
-												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+										@if(file_exists(public_path('/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'.jpg')))
+											<video id="media-video" preload="auto" width="100%" poster="/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}_600x338.jpg" class="embed-responsive-item">
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
 										@else
 											<video id="media-video" preload="auto" width="100%" poster="/img/thumbnails/video.png" class="embed-responsive-item">
-												<source id='mp4' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
-												<source id='webm' src='/videos/{{$video->user_id}}-{{$owner->channel_name}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
+												<source id='mp4' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.mp4' type='video/mp4'>
+												<source id='webm' src='/videos/{{$video->user_id}}/{{$video->file_name}}/{{$video->file_name}}.webm' type='video/webm'>
 											</video>
 										@endif
 									</div><!--embed-responsive-->
@@ -118,9 +118,9 @@
 												{{$errors->first('description')}}
 											</span>
 											@endif
-											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;",'required'=>true, 'maxlength'=>5000)) }}
-											<small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/>
-											<small>Note: Minimum characters should be atleast 50 and max 5000.</small>
+											{{ Form::textarea('description', null, array('class'=>'form-control','id'=>'description', 'style'=>"height:150px!important;")) }}
+											<!-- <small id='char-limit'>0</small><small id='max-limit'>/5000</small><br/> -->
+											<!-- <small>Note: Minimum characters should be atleast 50 and max 5000.</small> -->
 								
 										</div>
 										<div class="well">
@@ -129,7 +129,9 @@
 											{{ Form::hidden('text1',Crypt::encrypt($video->id), array('class'=>'form-control','id'=>'text1')) }}
 											{{ Form::hidden('selected-thumbnail',0,['id'=>'selected-thumbnail'])}}
 											{{ Form::hidden('hms',$hms,['id'=>'hms'])}}
+
 											{{ Form::hidden('token-id',$video->file_name)}}
+
 											<p class="notes">*Double click the existing tag to edit.</p>
 											<div id="wrapper">
 												@if($tags == null)
@@ -206,7 +208,7 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
-										
+
 					    		</div><!--content-padding-->
 					    	</div><!--col-md-12-->
 
@@ -227,19 +229,20 @@
 										</div>
 										<div class="col-md-4">
 											<div id='t-1' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb1.png'}}" id='thumb-1' class='img-thumbnail' width="100%" height="100%" >
 												<label class='caption-t-1'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-2' style='position:relative;display:block;' class="thumbnail-2">
-												<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
+												<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb2.png'}}" id='thumb-2' class='img-thumbnail' width="100%" height="100%" >
+
 												<label class='caption-t-2'></label>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div id='t-3' style='position:relative;display:block;' class="thumbnail-2">
-													<img src="{{'/videos/'.$video->user_id.'-'.$owner->channel_name.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
+													<img src="{{'/videos/'.$video->user_id.'/'.$video->file_name.'/'.$video->file_name.'_thumb3.png'}}" id='thumb-3' class='img-thumbnail' width="100%" height="100%" >
 													<label class='caption-t-3'></label>
 											</div>
 										</div>
@@ -253,7 +256,7 @@
 												</span> 
 												<h3 class="inline"> No available thumbnails</h3>
 												<button type="button" class='btn btn-primary pull-right mg-r-10' id='save-cover-photo' >Save selected thumbnail</button><br>
-											
+										
 											</div>
 										</div>
 										<div class="col-md-4">
@@ -314,6 +317,7 @@
 													<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> <span class='glyphicon glyphicon-pencil'></span> Edit Existing Annotation
 														<span class="caret"></span>
 													</button>
+
 													<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id='annotation-lists'>
 														@if($countAnnotation > 0)
 															@foreach($annotations as $annotation)

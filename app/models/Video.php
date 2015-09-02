@@ -201,7 +201,7 @@ class Video extends Eloquent{
 	public function addThumbnail($data = null){
 		foreach($data as $key => $video){
 			//Thumbnails
-			$folderName = $video->user_id. '-'. $video->channel_name;
+			$folderName = $video->user_id;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$data[$key]->thumbnail = '/img/thumbnails/video.png';
@@ -217,7 +217,7 @@ class Video extends Eloquent{
 			$getTags = explode(',',$video->tags);
 			$videoData[$key]->tags = $getTags;;
 
-			$folderName = $video->user_id. '-'. $video->channel_name;
+			$folderName = $video->user_id;
 			$fileName = $video->file_name;
 			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
 			$videoData[$key]->thumbnail = '/img/thumbnails/video.png';
@@ -243,7 +243,10 @@ class Video extends Eloquent{
 		$categoryList = array('For Teachers','For Students','For Schools','Video Blog', 'Music', 'Animated Video', 'Animated Music Video', 'Questions & Answers', 'Advice', 'Podcast', 'Interviews', 'Documentaries', 'Video CV', 'Job AD', 'miscellaneous');
 		$categories = array();
 		foreach ($categoryList as $key => $category) {
-			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')->first();
+			$findCategory = Video::where('category', 'LIKE', '%'.$category.'%')
+			->where('uploaded', 1)
+			->where('publish', 1)
+			->first();
 			if(isset($findCategory)){
 				array_push($categories,'<li><a href='.route('homes.category',array($category)).'>'.$category.'</a></li>');
 			}
@@ -313,14 +316,13 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
 
 	public function getVideo($filename){
 		$videos = Video::where('file_name', '=', $filename)->first();
 		if(!isset($videos)) return false;
 		$temp1 = '';
-		// dd($videos);
 		$split_tags = explode(',', $videos->tags);
 		$lastCount1 = count($split_tags) - 1;
 		$x = 0;
@@ -371,7 +373,7 @@ class Video extends Eloquent{
 			))->first();
 		}
 
-		return $getVideos;
+		return $this->addThumbnail($getVideos);
 	}
 
 	public function getUserVideos($auth = null, $orderBy = null, $uploaded = null, $limit = null) {
@@ -394,7 +396,7 @@ class Video extends Eloquent{
 			$getVideos = $getVideos->take($limit);
 		}
 
-		return $getVideos->take($limit)->get();
+		return $this->addThumbnail($getVideos->take($limit)->get());
 	}
 
 	public function getSearchVideos($auth = null, $search = null){

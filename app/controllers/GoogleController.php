@@ -8,10 +8,7 @@ class GoogleController extends Controller {
 	}
 
 	public function getGoogleConnect(){
-		//Session::flush();
-		//return Redirect::route('homes.signin');
 		$state = md5(rand());
-
 		$client = new Google_Client();
 		$client->setClientId(Config::get('google.client_id'));
 		$client->setClientSecret(Config::get('google.client_secret'));
@@ -27,13 +24,13 @@ class GoogleController extends Controller {
 
 			if(Session::get('action') == 'signin'){
 				$user = $this->signin($user_information);
-			}elseif(Session::get('action') == 'signup'){
+			} elseif(Session::get('action') == 'signup'){
 				$user = $this->signup($user_information);
 				$finduser = User::where('email', $user->email)->get();
 				if(!$finduser->isEmpty()){
 					return Redirect::route('homes.signin')->withFlashBad('Your google email was already used to register');
 				}
-			}else{
+			} else{
 				$user = false;
 			}
 			if($user === false){
@@ -46,16 +43,13 @@ class GoogleController extends Controller {
 				return Redirect::route('homes.index')->withFlashGood('Welcome '. $user->channel_name);
 			}
 			return Redirect::route('homes.signupwithsocialmedia')->with(
-				array('social_media' => $user->social_media,
-					'first_name' => $user->given_name,
-					'last_name' => $user->family_name,
-					'email' => $user->email,
-					'social_media_id' => $user->id
-					)
-				);
-
-			
-			
+			array('social_media' => $user->social_media,
+				'first_name' => $user->given_name,
+				'last_name' => $user->family_name,
+				'email' => $user->email,
+				'social_media_id' => $user->id
+				)
+			);
 		}
 
 		if(Input::has('code')){

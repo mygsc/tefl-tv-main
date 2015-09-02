@@ -1,13 +1,10 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
-<head>
+<head  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# video: http://ogp.me/ns/video#">
 	<meta charset="utf-8">
 
 	<link rel="shortcut icon" type="image/icon" href="/img/favIconTv.ico">
 	<title>@yield('title')</title>
-	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-	<meta name="robots" content="NOODP">
-	<meta name="googlebot" content="NOODP">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
@@ -28,7 +25,6 @@
 </head>
 
 <body>
-
 
 	<div class="container-fluid">
 		<div id="fb-root"></div>
@@ -52,14 +48,14 @@
 <!-- scripts -->
 {{HTML::script('js/jquery.min.js')}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {{HTML::script('js/dropdown.enhancement.js')}}
 {{HTML::script('js/overlaytext.js')}}
 {{HTML::script('js/main.js')}}
 {{HTML::script('js/scroll-onpage.js')}}
-
 {{HTML::script('js/m-nav/classie.js')}}
 {{HTML::script('js/m-nav/modernizr.custom.js')}}
-
 @if(Auth::check())
 {{HTML::script('js/user/realtime-notification.js')}}
 @endif
@@ -110,6 +106,7 @@
   ga('send', 'pageview');
 
 </script>
+
 
 
 

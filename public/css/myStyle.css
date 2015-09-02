@@ -18,9 +18,10 @@ body {
 }
 .body-wrapp{
     width: 100%;
-    overflow-x:hidden;
 }
-
+.container-fluid{
+    padding: 0!important;
+}
 h1, 
 h2, 
 h3, 
@@ -492,7 +493,9 @@ span .ad {
     font-size: 13px;
     font-weight: normal!important;
 
-
+}
+.sm-subs{
+    margin-top: 5px!important;
 }
 .SubscribeDiv {
     max-height: 250px;
@@ -2484,9 +2487,8 @@ a.thumbnail-h:hover {
     text-align: left;
     color: #313653;
     display: inline-block;
-    margin-left: 125px;
+    padding-left: 135px;
     background:rgba(255,255,255,0.7); 
-    border-radius:0 50px 0 0;
     width: 100%;
     }
 

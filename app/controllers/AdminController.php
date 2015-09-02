@@ -48,9 +48,7 @@ class AdminController extends BaseController {
 
 	public function postResetPassword(){
 		$validate = Validator::make(Input::all(), array('email' => 'required|email'));
-		if($validate->fails()) {
-		 	return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
-		}
+		if($validate->fails()) return Redirect::route('get.admin.resetpassword')->withErrors($validate)->withInput();
 		$adminInfo = User::where('email', Input::get('email'))->first();
 		if(!isset($adminInfo)) return Redirect::route('get.admin.resetpassword')->withInput()->withFlashBad('Invalid email address. Please try again!');
 		if(Admin::sendResetPasswordMail($adminInfo)) return Redirect::route('admin.index')->withFlashGood('Done! Please check your email.');
@@ -88,9 +86,8 @@ class AdminController extends BaseController {
 	public function postRecommendedVideos(){
 		$input = Input::all();
 		$recommendedCounts = count($input['recommended']);
-		if($recommendedCounts > 6){
-			return View::make('admins.recommendedvideos')->withFlashBad('Up to 6 videos only. Please try again.');
-		}
+		if($recommendedCounts > 6) return View::make('admins.recommendedvideos')->withFlashBad('Up to 6 videos only. Please try again.');
+
 		DB::table('videos')->update(array('recommended' => 0));
 		foreach($input['recommended'] as $recommendedVideos){
 			DB::table('videos')->where('id', $recommendedVideos)->update(array('recommended' => 1));
@@ -100,9 +97,7 @@ class AdminController extends BaseController {
 
 	public function postCreateAdminLink(){
 		$validate = Validator::make(Input::all(), array('email' => 'required|email|unique:users,email'));
-		if($validate->fails()) {
-		 	return Redirect::route('get.admin.createadminlink')->withErrors($validate)->withInput();
-		}
+		if($validate->fails()) return Redirect::route('get.admin.createadminlink')->withErrors($validate)->withInput();
 		$encrypt = Crypt::encrypt(Input::get('email') . rand(1,9999));
 		$data = array('code' => $encrypt, 'email' => Input::get('email'));
 		$id = DB::table('users_code')->insert(array('code' => $data['code'], 'email' => $data['email'], 'used' => 0));

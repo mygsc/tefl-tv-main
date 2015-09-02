@@ -80,16 +80,25 @@
 					</ul>						
 				</div><!--/.hd-setting-->
 				<div class="share-video">
+					
+					@if(preg_match('/watch/',URL::full()))
 					<small class="vp-text">Share to:</small>
-					<ul>
-						<a target="_blank" href="http://www.facebook.com/share.php?u={{URL::asset('/')}}watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+						<ul>
+							<a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1557901494477250&href={{asset('/')}}watch?v={{$videos->file_name}}&display=popup&redirect_uri=https://www.facebook.com"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
+	                        <a target="_blank" href="http://twitter.com/home?status= {{$videos->title}}+{{asset('/')}}watch?v={{$videos->file_name}}"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
+	                        <a target="_blank" href="https://plus.google.com/share?url={{asset('/')}}watch?v={{$videos->file_name}}"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
+	                     </ul>
+	                     @else
+	                     	<small class="vp-text">Share not available</small>	
+                     @endif
+						{{--<a target="_blank" href="http://www.facebook.com/share.php?u={{URL::asset('/')}}watch!v=7gfUxVixcrz&title=static"><i class="socialMedia socialMedia-facebook" title="Share on Facebook"></i></a>
 						<a target="_blank" href="http://twitter.com/home?status=static+www.test.tefltv.com/watch!v=7gfUxVixcrz"> <i class="socialMedia socialMedia-twitter" title="Share on Twitter"></i></a>
 						<a target="_blank" href="https://plus.google.com/share?url=www.test.tefltv.com/watch!v=7gfUxVixcrz"><i class="socialMedia socialMedia-googlePlus" title="Share on Google+"></i></a>
-						<a target="_blank" href="http://www.tumblr.com/share?v=3&u=www.test.tefltv.com/watch!v=7gfUxVixcrz&t=static"><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>
+						<a target="_blank" href="http://www.tumblr.com/share?v=3&u=www.test.tefltv.com/watch!v=7gfUxVixcrz&t=static"><i class="socialMedia socialMedia-tumblr" title="Share on Tumblr"></i></a>--}}
 						<!--<a href=""><i class="socialMedia socialMedia-flickr" title="Share on Flickr"></i></a>
 						<a href=""><i class="socialMedia socialMedia-pinterest" title="Share on Pinterest"></i></a>
 						<a href=""><i class="socialMedia socialMedia-blogger" title="Share on Blogger"></i></a>-->
-					</ul>							
+										
 				</div><!--/.share-video-->
 				<i id='hd-setting' title='Setting' class='player setting'></i>
 				<i id='share-video' title='Share video' class='player share'></i>

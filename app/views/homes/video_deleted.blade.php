@@ -27,6 +27,7 @@
     <div class="">
         <div class="row mg-t-10">
             <div id="featured" > 
+
                 <br/><br/><br/><br/><br/><br/>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="">
@@ -39,6 +40,7 @@
                                 <hr/>
                                 <center>
                                    
+
                                 </center>
                             </div>
                             <br/>
