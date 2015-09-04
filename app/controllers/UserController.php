@@ -419,6 +419,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
+		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
@@ -439,7 +440,7 @@ class UserController extends BaseController {
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 			'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
 			'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
-			'totalComment','totalLikesDislikes'));
+			'totalComment','totalLikesDislikes','usersWebsite'));
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}

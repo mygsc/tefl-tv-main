@@ -94,7 +94,7 @@ img.logo-sm {
 
 .fixed-header{
 	position: fixed;
-	z-index: 88888;
+	z-index: 999999999999;
 	width: 100%;
 	margin-bottom: 100px;
 }

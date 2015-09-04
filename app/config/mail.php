@@ -58,7 +58,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'no-reply@tefltv.com', 'name' => 'TEFL TV'),
+	'from' => array('address' => 'no-reply@tefltv.com', 'name' => 'www.tefltv.com'),
 
 	/*
 	|--------------------------------------------------------------------------

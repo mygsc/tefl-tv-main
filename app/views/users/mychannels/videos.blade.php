@@ -135,7 +135,7 @@
 
 										<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
 											<div class="thumbnail-2">
-												<img src="{{$usersVideo->thumbnail}}" width="100%" class="hvr-grow-rotate">
+												<img src="{{$usersVideo->thumbnail.'?'.rand(0,100)}}" width="100%" class="hvr-grow-rotate">
 												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 												
 												@if($usersVideo->ifReported)
@@ -171,13 +171,6 @@
 										</div>
 										</div>
 									</div>
-									@if($usersVideo->ifReported)
-										<div>
-											<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" style="color:red">
-												*Please settle legal issue. Click here.
-											</a>
-										</div>
-									@endif
 								</div>
 								@endforeach	
 							@endif
