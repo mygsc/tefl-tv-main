@@ -41,7 +41,7 @@
 							</div>
 							<div class="video-info">
 								<div class="v-Info">
-									<a href="{{route('homes.watch-video', array($latestVideo->file_name))}}">
+									<a href="{{route('homes.watch-video', array('v=' .$latestVideo->file_name))}}">
 										<span class="visible-lg">{{ Str::limit($latestVideo['title'],50)}}</span>
 										<span class="visible-md">{{ Str::limit($latestVideo['title'],40)}}</span>
 										<span class="visible-xs visible-sm">{{ Str::limit($latestVideo['title'],30)}}</span>
