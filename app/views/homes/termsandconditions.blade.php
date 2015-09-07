@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Terms and Conditions | TEFL Tv
+Terms and Conditions | TEFL Tv
 @stop
 
 @section('content')
@@ -9,17 +9,21 @@
 	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<!-- tabs left -->
 		<div class="row-same-height">
-			<div class="col-lg-3 col-md-3 hidden-xs hidden-sm col-md-height col-top">
-				<div class="mg-r-10 row" data-sticky_column="">
-					@include('elements/home/categories')
-					<div>
-						@include('elements/home/adverstisement_half_large_recatangle')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
+			<div class="col-md-3 col-md-height col-top hidden-xs hidden-sm ">
+				<div class="mg-r-10 row mg-t--10">
+					<div data-sticky_column="">
+						@include('elements/home/categories')
+						<div>
+							@include('elements/home/adverstisement_half_large_recatangle')
+						</div>
+
+						
+						<div class="mg-t-10">
+							@include('elements/home/carouselAds')
+						</div>
+						<div class="mg-t-10">
+							@include('elements/home/adverstisementSmall')
+						</div>
 					</div>
 				</div>
 			</div>
@@ -32,10 +36,10 @@
 								<div id="users-H"></div>
 								<h1 class="">Users Terms and Conditions</h1>
 								<h2>Acceptance of Terms</h2>
-								<p class="justify">
+								<p class="text-justify">
 									The web pages available at www.tefltv.com and all linked pages (“Site”), are owned and operated by Graphic Studio Central Ltd and are accessed by you, and can only be accessed by you, the user, through your prior agreement to the Terms of Use described below (the “Terms”).
 								</p>
-								<p class="justify">
+								<p class="text-justify">
 									Please read these terms carefully before using www.tefltv.com and any of its features. By accessing the Site, viewing any content on the Site or using any services available on the Site you explicitly agree to be bound by all these Terms, which together with the www.tefltv.com policy, control our relationship with you when you use the www.tefltv.com site. If you disagree with any of the terms, you may not access the site.  Your use of the site constitutes your consent to all of the Terms.
 								</p>
 
@@ -951,9 +955,9 @@
 	</div>
 	@stop
 
-<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
-@section('script')
+	<!--do not remove, it makes the left side nav sticks on it's position when page scrolls-->
+	@section('script')
 	{{HTML::script('js/jquery.sticky-kit.min.js')}}
 	{{HTML::script('js/sticky.js')}}
-@stop
+	@stop
 <!--cess-->

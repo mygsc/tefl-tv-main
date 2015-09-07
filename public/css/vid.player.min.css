@@ -181,7 +181,7 @@ div#controls{
   right: 0;
   width: 100%;
   /*z-index: 2147483647;*/
-  z-index: 21474836;
+  z-index: 21474;
   background: rgba(42,42,42,0.7);
 }
 #controls-fullscreen{
