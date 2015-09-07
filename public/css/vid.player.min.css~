@@ -636,6 +636,7 @@ div.speech span{
 div.annotation:hover{
 outline:1px solid #fff;
 cursor: default;
+<<<<<<< HEAD
 }
 
 div.speech
@@ -673,7 +674,8 @@ div.speech:after
 	top: 62px;
 	border: 10px solid;
 	border-color: rgba(42,42,42,0.6) transparent transparent rgba(42,42,42,0.6);
-
+=======
+>>>>>>> development
 }
 
 div.speech
