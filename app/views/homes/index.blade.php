@@ -42,7 +42,6 @@
 @stop
 @section('some_script')
 {{HTML::script('js/video-player/media.player.min.js')}}
-
 {{HTML::script('js/video-player/fullscreen.min.js')}}
 {{HTML::script('js/adsbygoogle.js')}}
 <script>
@@ -50,7 +49,6 @@ if(window.isAdsDisplayed === undefined ) {
 	$('.antiablock').removeClass('hidden');
 }
 </script>
-
 @stop
 @section('content')
 <div class="container">
@@ -311,8 +309,6 @@ if(window.isAdsDisplayed === undefined ) {
 			</div><!--/.container page-->
 		</div>
 	</div>
-
-	
 	@stop
 <script>
 	function addClassByClick(button){

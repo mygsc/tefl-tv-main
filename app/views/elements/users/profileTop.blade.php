@@ -143,11 +143,11 @@
 				<input type="hidden" id="h" name="h" />
 
 				<b><span id="upload-message-cover"></span></b>
-					<div id="wrapper-cover">
-						<div id="progressbar-loaded-cover" class="text-center">
-							<b><span id="percentage-cover"></span></b>
-						</div>
+				<div id="wrapper-cover">
+					<div id="progressbar-loaded-cover" class="text-center">
+						<b><span id="percentage-cover"></span></b>
 					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 
@@ -163,10 +163,11 @@
 
 <!-- Modal -->
 <div class="modal fade overlay" id="change_profile_picture" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog black ">
+	<div class="modal-dialog black">
 		<div class="modal-content mod-change-dp text-center center-block">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{--Form::open(array('route' => ['users.crop.profpic', Auth::User()->id], 'files' => 'true', 'class'=> 'inline', 'id' => 'upload_profile_picture', 'onsubmit' => 'return checkCoords();'))--}}
 				{{Form::open(array('route' => ['users.upload.image', Auth::User()->id], 'files' => 'true', 'class'=> 'inline', 'id' => 'upload_profile_picture') )}}
 				<label class="fileContainer">
 					<h3 class="inline "><u>Upload new photo </u></h3>
@@ -180,7 +181,6 @@
 					<div id="wrapper">
 						<div id="progressbar-loaded" class="text-center">
 							<b><span id="percentage"></span></b>
-
 						</div>
 					</div>
 				</div>            

@@ -41,7 +41,8 @@
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "https://www.tefltv.com/tefltv_fl_video_player/playerProductInstall.swf";
             var flashvars = {
-                source: "tefltv.flv"
+                source: "tefltv.flv",
+                autoplay: true
             };
             var params = {};
             params.quality = "high";

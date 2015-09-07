@@ -156,6 +156,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
 	Route::post('deactivate', array('as' => 'post.users.deactivate', 'uses' => 'UserController@postDeactivate'));
 	Route::post('editmonetize/{id}', array('as'=>'video.post.editmonetize', 'uses'=>'UserController@postEditMonetize'));
+	Route::post('crop-profile-picture', array('as' => 'users.crop.profpic', 'uses' => 'UserController@postCropImageProfilePicture'));
 });
 //*********End of Channels************//
 

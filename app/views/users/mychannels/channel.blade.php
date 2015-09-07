@@ -3,7 +3,6 @@
 @section('title')
     {{Auth::User()->channel_name}} | TEFL Tv
 @stop
-
 @section('script')
 {{--HTML::style('css/vid.player.min.css')--}}
 {{HTML::script('js/video-player/jquery.form.min.js')}}
@@ -46,10 +45,10 @@
 	} );
 </script>
 <!-- <script src="http://deepliquid.com/projects/Jcrop/js/jquery.min.js"></script> -->
-<!-- {{HTML::script('js/jquery.min.js')}}
-{{HTML::script('js/jCrop/jquery.Jcrop.js')}} -->
+{{--HTML::script('js/jquery.min.js')--}}
+{{--HTML::script('js/jCrop/jquery.Jcrop.js')--}}
+{{--HTML::style('css/jCrop/jquery.Jcrop.css')--}}
 <!-- <script src="http://deepliquid.com/projects/Jcrop/js/jquery.Jcrop.js"></script> -->
-<!-- <link rel="stylesheet" href="/css/jCrop/jquery.Jcrop.css" type="text/css" /> -->
 <script type="text/javascript">
 	// $(function(){
 	// 	$('#preview').Jcrop({
@@ -111,9 +110,7 @@
 											@include('elements/users/myChannelTabs/myHomeSections/myHome_subscriptions')
 										</div>
 									</div>
-									
 								</div>
-								
 							</div>
 						</div>				    
 					</div><!--/.tab-content-->

@@ -273,6 +273,23 @@ class UserController extends BaseController {
 		return Response::json(false);
 	}
 
+	public function postCropImageProfilePicture() {
+		$targ_w = $targ_h = 150;
+		$jpeg_quality = 90;
+
+		$src = 'demo_files/pool.jpg';
+		$img_r = imagecreatefromjpeg($src);
+		$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+
+		imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
+		$targ_w,$targ_h,$_POST['w'],$_POST['h']);
+
+		header('Content-type: image/jpeg');
+		imagejpeg($dst_r,null,$jpeg_quality);
+
+		exit;
+	}
+
 	public function postUsersUploadCoverPhoto() {
 		if(!Auth::check()){
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
@@ -419,6 +436,7 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$findUsersVideos = UserFavorite::where('user_id', Auth::User()->id)->get();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
+		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 
 		if(!$video->isEmpty() || Auth::User()->id != $video->first()->user_id){
 			$video = $video->first();
@@ -439,7 +457,7 @@ class UserController extends BaseController {
 			return View::make('users.updatevideos', compact('usersImages','countSubscribers',
 			'usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos',
 			'video','tags','owner','picture','hms', 'thumbnail','videoCategory','annotations','countAnnotation',
-			'totalComment','totalLikesDislikes'));
+			'totalComment','totalLikesDislikes','usersWebsite'));
 		}
 		return Redirect::route('homes.signin')->with('flash_good','Please log in.');
 	}
@@ -465,7 +483,7 @@ class UserController extends BaseController {
 					File::delete($destinationPath.$fileName.'.jpg');
 					File::delete($destinationPath.$fileName.'_600x338.jpg');
 				}
-				Image::make($poster->getRealPath())->fit(600,338)->save($destinationPath.$fileName.'_600x338.jpg');
+				Image::make($poster->getRealPath())->fit(1200,630)->save($destinationPath.$fileName.'_600x338.jpg');
 				Image::make($poster->getRealPath())->fit(240,141)->save($destinationPath.$fileName.'.jpg');
 
 			}
@@ -475,7 +493,7 @@ class UserController extends BaseController {
 					$getDomain = asset('/');
 					$thumbnail = str_replace($getDomain, '', $selectedThumb);
 					$removeSpace = str_replace('%20',' ', $thumbnail);
-					$this->video_->resizeImage(public_path($removeSpace), 600, 338, $destinationPath.$fileName.'_600x338.jpg');
+					$this->video_->resizeImage(public_path($removeSpace), 1200, 630, $destinationPath.$fileName.'_600x338.jpg');
 					$this->video_->resizeImage(public_path($removeSpace), 240, 141, $destinationPath.$fileName.'.jpg');	
 				}	
 			}

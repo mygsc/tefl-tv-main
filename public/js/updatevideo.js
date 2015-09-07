@@ -46,6 +46,7 @@ $(document).ready(function() {
 		              }
 		          }
 		      });
+
 	$('#annotation-note').on('click',function(e){
 		e.preventDefault();
 		createAnnotation('Note:','note');    
@@ -212,13 +213,13 @@ $(document).ready(function() {
 			label.appendChild(labelText);
 			liLink.appendChild(url);
 
-
 			/*
 			* Create div of Annotation at video 
 			*/
 			var annotWrapper = document.createElement('div');
 			var annotDiv = document.createElement('div');
 			var annotClose = document.createElement('div');
+
 			annotClose.className = 'speech';
 			if(id=="note")annotDiv.setAttribute('style','resize:both;overflow:hidden;padding:3px;color:#fff;width:200px;height:25px;position:absolute;top:10px;left:10px;background:rgba(42,42,42,0.6);');
 			else if(id=="title")annotDiv.setAttribute('style','resize:both;overflow:hidden;border:1px solid #000;font-style:normal;font-size:30px;padding:3px;color:#fff;width:200px;height:50px;position:absolute;top:20px;left:20px;background:transparent;text-shadow: 0 0 2px #000;');
@@ -882,6 +883,7 @@ $('.rm-annot').bind('click', function(e){
 	var yes = confirm("Are you sure you want to delete this annotation?");
 	if(yes){
 		annotations.loader();
+
 		setTimeout(function(){
 			annotations.remove(id);
 			$('#editor-annotation').fadeOut();
@@ -1053,7 +1055,8 @@ function checkLimit(limit){
 	//document.getElementById("submit-save-changes").disabled = false;
 	$('#max-limit').html('/5000');}
 	else{
-		//document.getElementById("submit-save-changes").disabled = true;}
+		//document.getElementById("submit-save-changes").disabled = true;
+	}
 	if(limit>=max){
 		var charLen = document.getElementById('description').value.length;
 		$('#char-limit').html(limit);$('#max-limit').html('/5000 &nbsp;' + "<small style='font-style:italic;color:red'>Oops you reach the limit.</small>");
@@ -1092,16 +1095,15 @@ $('#upload-cancel').on('click',function(){
 $('#save-cover-photo').on('click',function(id){
 	var id = document.querySelector('input[name=token-id]').value;
 	$.ajax({
-		type  : 'POST',
-		url   : '/mychannels/edit/'+id,
-		cache : false,
-		data  : $('form').serialize(),
+		type: 'POST',
+		url: '/mychannels/edit/'+id,
+		cache: false,
+		data: $('form').serialize(),
 		success: function(){
 			annotations.response('Changes of poster has been saved.', 'glyphicon glyphicon-saved');
 		},
 		error: function(){
 			annotations.response('Error while saving poster.', 'glyphicon glyphicon-saved');
 		}
-
 	});
 });
