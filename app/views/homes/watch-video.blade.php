@@ -101,8 +101,6 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
                                 <div id="" class="ui-tabs-panel White pad-s-20 same-H" style="">
                                     <!--video paler-->
                                     <br/>
-                         
-
                                     @include('elements/home/watchVideo-videoPlayer')
                                     <div id='ablockVideoPlayer'>
                                     </div>
@@ -150,16 +148,16 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
                                                     </p> 
                                                     
                                                   </div>
-                                                  <div class="row">
-                                                  <div class="col-md-12 col-xs-12">
-                                                  	
+                                                  
+                                                  <div class="col-md-12">
+                                                  	<div class="row">
                                                   	<br/>
                                                   	<p>&nbsp;&nbsp;Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
                                                    
                                                     <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
                                                     <div class="seeVideoContent black">
                                                         <br/>
-                                                        <pre id="videoDescriptionLinkify" style="width:100%">{{$videos->description}}</pre>
+                                                        <pre id="videoDescriptionLinkify">{{$videos->description}}</pre>
 
                                                         <br/><br/>
                                                         <p><b>Tags:</b> {{$videos->tags}}<br/>
@@ -176,7 +174,6 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
                                         </div><!--/.info-->
                                     </div><!--well-->
                                 </div> <!--/.ui-tabs-panel-->
-                            
 
                                 <!-- COMMENTS AREA -->
                                 <div class="mg-t-10">
@@ -191,7 +188,7 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
                             </div><!--column 8-->
 
 
-                            <div class="col-md-4 visible-md visible-lg ">
+                            <div class="col-md-4  ">
                                 <div class="row">
                                     <!--advertisement-->
                                     <!-- advertisment small -->
@@ -314,5 +311,3 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
 
 
 @stop
-
-
