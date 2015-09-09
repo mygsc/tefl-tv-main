@@ -4,7 +4,7 @@ class UserController extends BaseController {
 	protected $video_;
 	protected $comment_;
 	protected $publisher_;
-	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, UserWatchLater $watchLater, UserFavorite $favorite, Feedback $feedback, Playlist $playlist, ReportedFeedback $reportedFeedback,UserFavorite $userFavorite,VideoLikesDislike $videoLikesDislike,Hybrid_Auth $hybridauth){
+	public function __construct(User $user, Subscribe $subscribes, Notification $notification, Video $video, UserWatchLater $watchLater, UserFavorite $favorite, Feedback $feedback, Playlist $playlist, ReportedFeedback $reportedFeedback,UserFavorite $userFavorite,VideoLikesDislike $videoLikesDislike,Hybrid_Auth $hybridauth, UserPrivacySetting $userPrivacySettings) {
 		$this->Notification = $notification;
 		$this->Video = $video;
 		$this->Subscribe = $subscribes;
@@ -22,6 +22,7 @@ class UserController extends BaseController {
 		$this->comment_ = new Comment;
 		$this->publisher_ = new Publisher;
 		define('DS', DIRECTORY_SEPARATOR);
+		$this->UserPrivacySetting = $userPrivacySettings;
 	}
 
 	public function getUsersIndex() { return View::make('users.index'); }
@@ -238,6 +239,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
@@ -255,7 +257,7 @@ class UserController extends BaseController {
 
 		$increment = 0;
 		$recentUpload = $this->Video->getVideos($this->Auth->id,'videos.created_at', 1,1)->first();
-		return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists', 'usersImages'));
+		return View::make('users.mychannels.channel', compact('usersChannel', 'usersVideos','recentUpload', 'countSubscribers', 'increment', 'countVideos', 'countAllViews','usersPlaylists', 'subscriberProfile','subscriptionProfile','subscriberCount','usersWebsite','subscriptionCount','thumbnail_playlists', 'usersImages', 'ifShowSubscriberCount'));
 	}
 
 	public function postUploadUsersProfilePicture() {
@@ -373,13 +375,14 @@ class UserController extends BaseController {
 		if(!Auth::check()) return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = $this->Video->getVideoswithDispute(Auth::User()->id);
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-		return View::make('users.mychannels.videos', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite'));
+		return View::make('users.mychannels.videos', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function getMyFavorites() {
@@ -387,6 +390,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -396,7 +400,7 @@ class UserController extends BaseController {
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 
-		return View::make('users.mychannels.favorites', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture','usersWebsite'));
+		return View::make('users.mychannels.favorites', compact('countSubscribers','usersImages','usersChannel','usersVideos', 'findUsersVideos','countAllViews', 'countVideos','picture','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function postRemoveFavorites($id) {
@@ -571,6 +575,7 @@ class UserController extends BaseController {
 
 	public function getWatchLater() {
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -579,7 +584,7 @@ class UserController extends BaseController {
 		$usersWatchLater = $this->WatchLater->getWatchLater($this->Auth->id);
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-		return View::make('users.mychannels.watchlater', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture','usersWebsite'));
+		return View::make('users.mychannels.watchlater', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'videosWatchLater', 'watch','countAllViews', 'countVideos','findUsersWatchLaters', 'usersWatchLater','picture','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function postDeleteWatchLater($id) {
@@ -603,6 +608,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		} 
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::where('user_id',Auth::User()->id)->first();
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', Auth::User()->id)->sum('views');
@@ -615,7 +621,7 @@ class UserController extends BaseController {
 		foreach($playlists as $playlist){
 			$thumbnail_playlists[] = $this->Playlist->playlistControl(NULL,$playlist->id,NULL,NULL);
 		}
-		return View::make('users.mychannels.playlists', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','usersWebsite'));
+		return View::make('users.mychannels.playlists', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','usersWebsite', 'ifShowSubscriberCount'));
 	}
 	public function getViewPlaylistVideo($id){
 		$randID = Playlist::where('randID',$id)->first();
@@ -697,6 +703,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -705,7 +712,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$userFeedbacks = $this->Feedback->getFeedbacks($this->Auth->id);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-		return View::make('users.mychannels.feedbacks', compact('usersImages','countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks','usersWebsite'));
+		return View::make('users.mychannels.feedbacks', compact('usersImages','countSubscribers','usersChannel','usersVideos','countAllViews', 'countVideos','userComments','picture','userFeedbacks','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function editplaylistTitle($id){
@@ -728,6 +735,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video;
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->count();
@@ -737,7 +745,7 @@ class UserController extends BaseController {
 		$subscriberProfile = $this->Subscribe->Subscribers($this->Auth->id);
 		$subscriptionProfile = $this->Subscribe->Subscriptions($this->Auth->id);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-		return View::make('users.mychannels.subscribers', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','usersWebsite'));
+		return View::make('users.mychannels.subscribers', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function postUsersChangePassword() {
@@ -817,10 +825,11 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 		$ifAlreadySubscribe =  DB::table('subscribes')->where(array('user_id' => $userChannel->id, 'subscriber_id' => $user_id))->first();
 		///////////////////////////r3mmel/////////////////////////////////////////
-		return View::make('users.channels.viewusers', compact('usersImages','userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture', 'countVideos', 'countSubscribers', 'countAllViews','usersWebsite'));
+		return View::make('users.channels.viewusers', compact('usersImages','userChannel', 'findVideos', 'subscribers', 'subscriptions', 'user_id', 'ifAlreadySubscribe','recentUpload', 'usersPlaylists', 'usersVideos','picture', 'countVideos', 'countSubscribers', 'countAllViews','usersWebsite','ifShowSubscriberCount'));
 	}
 
 	public function getViewUsersFeedbacks($channel_name) {
@@ -837,9 +846,10 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersImages = $this->User->getUsersImages($userChannel->id, true);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-		return View::make('users.channels.feedbacks', compact('usersImages','picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','usersWebsite', 'user_id'));
+		return View::make('users.channels.feedbacks', compact('usersImages','picture','userChannel','userFeedbacks','countAllViews','countVideos','countSubscribers','usersWebsite', 'user_id', 'ifShowSubscriberCount'));
 	}
 
 	public function postViewUsersFeedbacks() {
@@ -1037,16 +1047,18 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersImages = $this->User->getUsersImages($userChannel->id, true);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.videos', compact('usersImages','userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite'));
+		return View::make('users.channels.videos', compact('usersImages','userChannel', 'countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','picture','user_id','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function getViewUsersFavorites($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
@@ -1056,13 +1068,14 @@ class UserController extends BaseController {
 		$findUsersVideos = $this->UserFavorite->getUserFavoriteVideos($userChannel->id);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.favorites', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id','usersWebsite'));
+		return View::make('users.channels.favorites', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos','countVideos','allViews','countAllViews','picture','findUsersVideos','user_id','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function getViewUsersWatchLater($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersChannel = UserProfile::where('user_id',$userChannel->id)->get();
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
@@ -1072,13 +1085,16 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($userChannel->id, true);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.watchlater', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id','usersWebsite'));
+		return View::make('users.channels.watchlater', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos','countVideos','countAllViews','usersWatchLater','picture','user_id','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function getViewUsersAbout($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
+		$ifShowInformation = $this->UserPrivacySetting->ifShowInformation($userChannel->id);
+		// dd($ifShowInformation);
 		$usersProfile = UserProfile::where('user_id',$userChannel->id)->first();
 		$usersVideos = User::find($userChannel->id)->video()->where('uploaded',1)->get();
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
@@ -1087,13 +1103,14 @@ class UserController extends BaseController {
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.about', compact('usersImages','userChannel','countSubscribers','usersProfile','usersVideos', 'countVideos', 'countAllViews','picture','user_id','usersWebsite'));
+		return View::make('users.channels.about', compact('usersImages','userChannel','countSubscribers','usersProfile','usersVideos', 'countVideos', 'countAllViews','picture','user_id','usersWebsite', 'ifShowSubscriberCount', 'ifShowInformation'));
 	}
 
 	public function getViewUsersPlaylists($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersChannel = UserProfile::find($userChannel->id);
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
 		$allViews = DB::table('videos')->where('user_id', $userChannel->id)->sum('views');
@@ -1107,13 +1124,14 @@ class UserController extends BaseController {
 		}
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
 
-		return View::make('users.channels.playlists', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite'));
+		return View::make('users.channels.playlists', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos', 'playlists','countAllViews', 'countVideos','thumbnail_playlists','picture','user_id','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function getViewUsersSubscribers($channel_name) {
 		$user_id = 0;
 		$userChannel = User::where('channel_name', $channel_name)->first();
 		$countSubscribers = $this->Subscribe->getSubscribers($userChannel->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount($userChannel->id);
 		$usersChannel = UserProfile::where('user_id',$userChannel->id)->first();
 		$usersVideos = User::find($userChannel->id)->video;
 		$countVideos = Video::where('user_id', $userChannel->id)->where('uploaded', 1)->where('publish', 1)->count();
@@ -1123,7 +1141,7 @@ class UserController extends BaseController {
 		$subscriberProfile = $this->Subscribe->Subscribers($userChannel->id);
 		$subscriptionProfile = $this->Subscribe->Subscriptions($userChannel->id);
 		$usersWebsite = Website::where('user_id', $userChannel->id)->first();
-		return View::make('users.channels.subscribers', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id','usersWebsite'));
+		return View::make('users.channels.subscribers', compact('usersImages','userChannel','countSubscribers','usersChannel','usersVideos', 'subscriberProfile', 'subscriptionProfile','countAllViews', 'countVideos', 'subscriberCount','picture','user_id','usersWebsite', 'ifShowSubscriberCount'));
 	}
 
 	public function addSubscriber() {
@@ -1513,6 +1531,7 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$countSubscribers = $this->Subscribe->getSubscribers(Auth::User()->channel_name);
+		$ifShowSubscriberCount = $this->UserPrivacySetting->ifShowSubscriberCount(Auth::User()->id);
 		$usersChannel = UserProfile::find(Auth::User()->id);
 		$usersVideos = User::find(Auth::User()->id)->video()->where('uploaded',1)->get();
 		$countVideos = Video::where('user_id', $this->Auth->id)->where('uploaded', 1)->where('publish', 1)->count();
@@ -1520,7 +1539,7 @@ class UserController extends BaseController {
 		$usersImages = $this->User->getUsersImages($this->Auth->id, true);
 		$countAllViews = $this->Video->convertToShortNumbers($allViews);
 		$usersWebsite = Website::where('user_id', $this->Auth->id)->first();
-		return View::make('users.mychannels.about', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite'));
+		return View::make('users.mychannels.about', compact('usersImages','countSubscribers','usersChannel','usersVideos', 'countVideos', 'countAllViews','picture','usersWebsite','ifShowSubscriberCount'));
 	}
 
 	public function social($action) {

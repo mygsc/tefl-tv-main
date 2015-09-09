@@ -62,7 +62,7 @@
 						</div>
 						<div class="overlay-cover container visible-lg visible-md">
 							<div class="col-md-8 hidden-xs">
-								<div class="text-left chaCounts">
+								<div class="text-left chaCounts">		
 									<label>{{count($countSubscribers)}} Subscribers</label>
 									<label>{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>

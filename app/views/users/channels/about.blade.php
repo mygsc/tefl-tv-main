@@ -69,15 +69,19 @@
 						<div class="pad-10">
 							<table class="tableLayout">
 								<tr class="">
-									<td width="20%"><small><label>Name</label></small> </td>
-									<td width="5%"><b>:</b></td>
-									<td width="75%">{{$usersProfile->first_name}} {{$usersProfile->last_name}}</td>
+									@if($ifShowInformation->name == 'show')
+										<td width="20%"><small><label>Name</label></small> </td>
+										<td width="5%"><b>:</b></td>
+										<td width="75%">{{$usersProfile->first_name}} {{$usersProfile->last_name}}</td>
+									@endif
 								</tr>
 								<tr>
-									@if(!empty($usersProfile->birthdate))
-									<td><small><label>Birthdate</label></small></td>
-									<td><b>:</b></td>
-									<td>{{$usersProfile->birthdate}}</td>
+									@if($ifShowInformation->birthdate == 'show')
+										@if(!empty($usersProfile->birthdate))
+										<td><small><label>Birthdate</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersProfile->birthdate}}</td>
+										@endif
 									@endif
 								</tr>
 								<tr>
@@ -104,10 +108,12 @@
 						<div class="pad-10">
 							<table class="tableLayout">
 								<tr>
-									@if(!empty($userChannel->email))
-									<td width="20%"><small><label>Email</label></small> </td>
-									<td width="5%"><b>:</b></td>
-									<td width="75%">{{$userChannel->email}}</td>
+									@if($ifShowInformation->email == 'show')
+										@if(!empty($userChannel->email))
+										<td width="20%"><small><label>Email</label></small> </td>
+										<td width="5%"><b>:</b></td>
+										<td width="75%">{{$userChannel->email}}</td>
+										@endif
 									@endif
 								</tr>
 								<tr>
@@ -165,11 +171,13 @@
 								</tr>
 
 								<tr>
-									@if(!empty($usersProfile->country_id))
-									<td><small><label>Country</label></small></td>
-									<td><b>:</b></td>
-									<td>{{$usersProfile->country_id}}</td>
-									@endif
+									@if($ifShowInformation->country == 'show')
+										@if(!empty($usersProfile->country_id))
+										<td><small><label>Country</label></small></td>
+										<td><b>:</b></td>
+										<td>{{$usersProfile->country_id}}</td>
+										@endif
+									@endif	
 								</tr>
 							</table>
 						</div>
