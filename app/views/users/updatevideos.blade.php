@@ -358,6 +358,7 @@
 										<div class="text-right mg-b-10"> 
 											{{Form::submit('Save Changes', array('id'=>'submit-save-changes', 'class' => 'btn btn-info'))}}
 										</div>
+									{{ Form::close()}}
 					    		</div><!--content-padding-->
 					    	</div><!--monetization-tab-->
 					    </div><!--/tab-content-->

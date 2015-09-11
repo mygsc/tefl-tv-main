@@ -796,6 +796,55 @@ class UserController extends BaseController {
 		return Redirect::route('users.channel')->withFlashGood('Successful, Please open your email');
 		
 	}
+	public function privacySettings() {
+		if(!Auth::check()){
+			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
+		}
+		$privacySettings = UserPrivacySetting::where('user_id', Auth::User()->id)->first();
+		
+		return View::make('users.mychannels.accountsettings.privacysettings', compact('privacySettings'));
+	}
+	public function postPrivacySettings() {
+		if(!Auth::check()){
+			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
+		}
+		$input = Input::all();
+		$user = UserPrivacySetting::where('user_id', Auth::User()->id)->first();
+		if($user->count() == 0){
+			UserPrivacySetting::create(array(
+				'user_id' => Auth::User()->id,
+				'email' => $input['email'],
+				'name' => $input['name'],
+				'address' => $input['address'],
+				'subscriber_count' => $input['subscriber_count'],
+				'birthday' => $input['birthday'],
+				'country' => $input['country'],
+			));
+			return Redirect::route('users.privacy.settings')->withFlashGood('Changes has been successfully saved.');
+		}
+		$email = '0';
+		$name = '0';
+		$address = '0';
+		$subscriber_count = '0';
+		$birthday = '0';
+		$country = '0';
+		if (!empty(Input::get('email'))) $email = '1';
+		if (!empty(Input::get('name'))) $name = '1';
+		if (!empty(Input::get('address'))) $address = '1';
+		if (!empty(Input::get('subscriber_count'))) $subscriber_count = '1';
+		if (!empty(Input::get('birthday'))) $birthday = '1';
+		if (!empty(Input::get('country'))) $country = '1';
+
+		$user->email = $email;
+		$user->name = $name;
+		$user->address = $address;
+		$user->subscriber_count = $subscriber_count;
+		$user->birthday = $birthday;
+		$user->country = $country;
+		$user->save();
+
+		return Redirect::route('users.privacy.settings')->withFlashGood('Changes has been successfully saved.');
+	}
 
 	public function getViewUsersChannel($channel_name) {
 		$user_id = 0;
