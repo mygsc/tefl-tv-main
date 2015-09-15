@@ -24,7 +24,7 @@ $(document).ready(function(){
                 $('#progress').fadeOut('fast');
                 return $('#upload-error').html('Error: No selected file.').css({'color':'#cc3510'}); 
             }
-            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov") {
+            if(ext == "mp4" || ext == "webm" || ext == "ogg" || ext == "wmv" || ext == "avi" || ext == "flv" || ext == "mov" || ext == "mkv") {
                 $('#title').val(file);
                 $(this).closest("#vidSubmit").submit();
                 $('.file-upload').fadeOut();$('#progress').fadeIn(500);//$('#wrapper').fadeIn(500); 

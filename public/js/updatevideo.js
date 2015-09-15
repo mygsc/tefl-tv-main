@@ -730,7 +730,7 @@ var drag = function(){
 		}
 	}
 }();
-var css = function(){
+var myCSS = function(){
 	return{
 		note: function(id){
 			var elem = document.getElementById(id),
@@ -905,10 +905,10 @@ $('.sv-annot').bind('click', function(e){
 	if(getTime[0]=='error'){ $('#loader-wrapper').fadeOut();$('#loader-wrapper').remove(); return alert('Please check your start and end time.');}
 	if(document.getElementById('chk-link').checked == true) var link = document.querySelector('input[name="link"]').value;
 	else var link = '';
-	if(annotTypes=='Title'){var style = css.Title('preview-annotation');}
-	else if(annotTypes=='Note'){var style = css.note('preview-annotation');}
-	else if(annotTypes=='Spotlight'){var style = css.spotlight('preview-annotation');}
-	else if(annotTypes=='Speech'){var style = css.speech('preview-annotation');}
+	if(annotTypes=='Title'){var style = myCSS.Title('preview-annotation');}
+	else if(annotTypes=='Note'){var style = myCSS.note('preview-annotation');}
+	else if(annotTypes=='Spotlight'){var style = myCSS.spotlight('preview-annotation');}
+	else if(annotTypes=='Speech'){var style = myCSS.speech('preview-annotation');}
 	setTimeout(function(){
 		annotations.update(id,content,getTime[0],getTime[1],link,style);
 		if(content.length >= 15) {content = content.substring(0,15); content = content +'...'; }
@@ -1068,14 +1068,14 @@ function  singleAnnotation(types,style,content){
 	style = style.replace('display:none;','display:block;');
 	annotationEditor.setAttribute('id','preview-annotation');
 	if(types=='note'){
-		annotationEditor.setAttribute('style',style);
+		annotationEditor.setAttribute('style',style+'resize: both;overflow: auto;');
 	}else if(types=='title'){
-		annotationEditor.setAttribute('style',style+'border:1px solid #f18200;');
+		annotationEditor.setAttribute('style',style+'border:1px solid #f18200;resize: both;overflow: auto;');
 	}else if(types=='spotlight'){
-		annotationEditor.setAttribute('style',style);
+		annotationEditor.setAttribute('style',style+'resize: both;overflow: auto;');
 	}else if(types=='speech'){
 		annotationEditor.className = 'speech';
-		annotationEditor.setAttribute('style',style);
+		annotationEditor.setAttribute('style',style+'resize: both;overflow: auto;');
 	}
 	document.getElementById('custom-annotation').appendChild(annotationEditor);
 	annotationEditor.innerHTML = content;
