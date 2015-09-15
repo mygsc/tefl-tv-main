@@ -12,8 +12,9 @@
                     {{HTML::image($channel['profile_picture'], 'alt', array('class' => 'userRep mg-l-10'))}}
                     <br>
                     <span>{{$channel->channel_name}}<br>
-                        <small>{{$channel->subscribers_count}} Subscriber(s)</small>
-                        <!-- <button class="btn btn-primary btn-xs pull-right mg-r-10">Subscribe</button> -->
+                        @if($channel->ifShowSubscriberCount == 'show')
+                            <small>{{$channel->subscribers_count}} Subscriber(s)</small>
+                        @endif
                         @if(isset(Auth::User()->id))
                         @if(isset($channel->id))
                         @if((Auth::User()->id) AND (Auth::User()->id != $channel->id))

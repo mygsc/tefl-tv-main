@@ -51,18 +51,16 @@
 
 																<span><b><a href="{{route('view.users.channel', $profile->channel_name)}}">{{$profile->channel_name}}</a></b></span>&nbsp;
 																<br/>&nbsp;
-																<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																@if($profile->ifShowSubscriberCount == 'show')
+																	<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																@endif
 																@if(isset(Auth::User()->id))
-																	<?php
-																		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 
-																			'subscriber_id' => Auth::User()->id))->first();
-																	?>
 																	@if(isset($profile->id))
 																		@if(Auth::User()->id != $profile->subscriber_id)
 																			{{Form::open(array('route'=>'post.addsubscriber', 'id' =>'subscribe-userChannel', 'class' => 'inline'))}}
 																    			{{Form::hidden('user_id', $profile->subscriber_id)}}
 																    			{{Form::hidden('subscriber_id', Auth::User()->id)}}
-																    			@if(!$ifAlreadySubscribe)
+																    			@if(!$profile->ifAlreadySubscribe)
 																    				{{Form::hidden('status','subscribeOn')}}
 																			    	{{Form::submit('Subscribe', array('class'=> 'btn btn-primary btn-xs pull-right  subs-btn-size', 'id'=>'subscribebutton'))}}
 																			    @else
@@ -102,7 +100,9 @@
 															&nbsp;
 															<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 															<br/>&nbsp;
-															<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+															@if($profile1->ifShowSubscriberCount == 'show')
+																<span>w/ <b>{{$profile1->numberOfSubscribers}}</b> Subscribers</span>&nbsp;
+															@endif
 															@if(isset($profile1->id))
 																@if(isset(Auth::User()->id))
 																	<?php

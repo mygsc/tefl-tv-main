@@ -51,7 +51,9 @@
 						<div class="overlay-cover container hidden-xs">
 							<div class="col-md-8 ">
 								<div class="text-left chaCounts">
-									<label>{{count($countSubscribers)}} Subscribers</label>
+									@if($ifShowSubscriberCount == 'show')
+										<label>{{count($countSubscribers)}} Subscribers</label>
+									@endif
 									<label>{{$countVideos}} Videos</label> &nbsp;
 									<label>{{$countAllViews}} Views</label>
 								</div>

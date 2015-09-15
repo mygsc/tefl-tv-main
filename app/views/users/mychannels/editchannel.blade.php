@@ -18,6 +18,7 @@
             @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
             <li role="presentation">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
             @endif
+            <li role="presentation">{{ link_to_route('users.privacy.settings', 'Privacy Settings', null) }}</li>
             <li role="presentation">{{ link_to_route('users.deactivate', 'Deactivate TEFL TV account', null) }}</li>
         </ul><!--tabNav-->
         {{Form::open(array('route' => ['users.post.edit.channel', Auth::User()->channel_name]))}}

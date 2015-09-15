@@ -65,7 +65,9 @@
 																&nbsp;
 																<a href="{{route('view.users.channel', $profile->channel_name)}}"><span><b>{{$profile->channel_name}}</b></span></a>&nbsp;
 																<br/>&nbsp;
-																<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																@if($profile->ifShowSubscriberCount == 'show')
+																	<span>w/ <b>{{$profile->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																@endif
 																@if(isset(Auth::User()->id))
 																	<?php
 																		$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile->subscriber_id, 'subscriber_id' => Auth::User()->id))->first();
@@ -113,12 +115,12 @@
 															<div class="col-md-12 col-sm-12 col-xs-12">
 																<div class="row user-padding subs-wrap">
 																	{{HTML::image($profile1['profile_picture'], 'alt', array('class' => 'userRep2'))}}
-													
 																	&nbsp;
-
 																	<a href="{{route('view.users.channel', $profile1->channel_name)}}"><span><b>{{$profile1->channel_name}}</b></span></a>&nbsp;
 																	<br/>&nbsp;
-																	<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																	@if($profile1->ifShowSubscriberCount == 'show')
+																		<span>w/ <b>{{$profile1->numberOfSubscribers}}</b>&nbsp;Subscribers</span>&nbsp;
+																	@endif
 																	@if(isset(Auth::User()->id))
 																		<?php
 																			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $profile1->user_id, 'subscriber_id' => Auth::User()->id))->first();
