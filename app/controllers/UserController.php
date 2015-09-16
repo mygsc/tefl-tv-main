@@ -801,6 +801,15 @@ class UserController extends BaseController {
 			return Redirect::route('homes.post.signin')->with('flash_warning','Please Sign-in to view your channel');
 		}
 		$privacySettings = UserPrivacySetting::where('user_id', Auth::User()->id)->first();
+		if($privacySettings == NULL){
+			$privacySettings = New UserPrivacySetting;
+			$privacySettings->email = '1';
+			$privacySettings->name = '1';
+			$privacySettings->address = '1';
+			$privacySettings->subscriber_count = '1';
+			$privacySettings->birthday = '1';
+			$privacySettings->country = '1';
+		}
 		
 		return View::make('users.mychannels.accountsettings.privacysettings', compact('privacySettings'));
 	}
@@ -810,18 +819,7 @@ class UserController extends BaseController {
 		}
 		$input = Input::all();
 		$user = UserPrivacySetting::where('user_id', Auth::User()->id)->first();
-		if($user->count() == 0){
-			UserPrivacySetting::create(array(
-				'user_id' => Auth::User()->id,
-				'email' => $input['email'],
-				'name' => $input['name'],
-				'address' => $input['address'],
-				'subscriber_count' => $input['subscriber_count'],
-				'birthday' => $input['birthday'],
-				'country' => $input['country'],
-			));
-			return Redirect::route('users.privacy.settings')->withFlashGood('Changes has been successfully saved.');
-		}
+
 		$email = '0';
 		$name = '0';
 		$address = '0';
@@ -835,6 +833,19 @@ class UserController extends BaseController {
 		if (!empty(Input::get('birthday'))) $birthday = '1';
 		if (!empty(Input::get('country'))) $country = '1';
 
+		if(count($user) == 0){
+			UserPrivacySetting::create(array(
+				'user_id' => Auth::User()->id,
+				'email' => $email,
+				'name' => $name,
+				'address' => $address,
+				'subscriber_count' => $subscriber_count,
+				'birthday' => $birthday,
+				'country' => $country,
+			));
+			return Redirect::route('users.privacy.settings')->withFlashGood('Changes has been successfully saved.');
+		}
+		
 		$user->email = $email;
 		$user->name = $name;
 		$user->address = $address;

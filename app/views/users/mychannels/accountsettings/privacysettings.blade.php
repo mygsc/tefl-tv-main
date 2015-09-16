@@ -51,7 +51,7 @@
 
                     {{Form::label('Subscriber count: ')}}
                     <span class="v-category">
-                        {{Form::checkbox('name', ($privacySettings->subscriber_count ? 'Yes' : 'No'), $privacySettings->subscriber_count,['id'=>'subscriber_count'])}}
+                        {{Form::checkbox('subscriber_count', ($privacySettings->subscriber_count ? 'Yes' : 'No'), $privacySettings->subscriber_count,['id'=>'subscriber_count'])}}
                     </span>
                     <br />
 

@@ -3,6 +3,7 @@
 
 class UserPrivacySetting extends Eloquent {
 	protected $table = 'user_privacy_settings';
+	protected $fillable = ['user_id','email','name', 'address', 'subscriber_count', 'birthday', 'country'];
 
 	public static function ifShowSubscriberCount($user_id){
 
