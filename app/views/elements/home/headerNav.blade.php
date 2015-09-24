@@ -7,9 +7,9 @@
                         <li>
                             {{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
                         </li>
-                        <li>
-                            {{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
-                        </li>
+                        <!--<li>
+                            {--{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}--}
+                        </li>-->
                         <li>
                             {{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
                         </li>

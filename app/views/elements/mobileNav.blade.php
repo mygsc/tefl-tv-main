@@ -53,7 +53,6 @@
 			<button id="showLeft" class="btn-nav"><i class="fa fa-bars" id="nav-hide"></i></button>
 		</span> 
 		{{ link_to_route('homes.popular', 'Popular', null, array('class' => '')) }}
-		{{ link_to_route('homes.latest', 'Latest', null, array('class' => '')) }}
 		{{ link_to_route('homes.playlist', 'Playlists', null, array('class' => '')) }}
 		{{ link_to_route('homes.top-channels', 'Channels', null, array('class' => '')) }}
 		<h3>Legal Terms</h3>

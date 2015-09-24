@@ -229,7 +229,7 @@ if(window.isAdsDisplayed === undefined ) {
 				<br/>
 				<div class="top-div col-md-12 mg-t-20">
 					<div class=" row">
-						<h2 class="inline mg-l-20">Latest Videos</h2>
+						<h2 class="inline mg-l-20">Videos For Students</h2>
 					</div>
 				</div>
 				<div class="col-md-12 White same-H">
