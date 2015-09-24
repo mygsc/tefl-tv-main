@@ -142,7 +142,7 @@
 													<div class="legal-issue">
 														<div class="legal-issue-link">
 															<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" class="legal-link redC">
-																<i class="fa fa-close redC"></i> Please settle legal issue. Click here.
+																<i class="fa fa-exclamation-triangle redC"></i> Please settle legal issue. Click here.
 															</a>
 														</div>
 													</div>

@@ -42,16 +42,17 @@
 						
 				</div>	
 			</div><!--/.row-->
-			<div class="Subscribers greyDark">
-				<div class="row">
-					<h4 class="inline orangeC">{{$channel->subscribers_count}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
-					<br/>
-					@foreach($channel->subscribers as $subscriber)
-						{{HTML::image($subscriber->profile_picture, 'alt', array('class' => 'userRep'))}}
-					@endforeach
-					
-				</div>
-			</div><!--/.subscribers-->
+			@if($channel->ifShowSubscriberCount == 'show')
+				<div class="Subscribers greyDark">
+					<div class="row">
+						<h4 class="inline orangeC">{{$channel->subscribers_count}} Subscribers &nbsp;|&nbsp; {{number_format($channel->views)}} Views</h4>
+						<br/>
+						@foreach($channel->subscribers as $subscriber)
+							{{HTML::image($subscriber->profile_picture, 'alt', array('class' => 'userRep'))}}
+						@endforeach
+					</div>
+				</div><!--/.subscribers-->
+			@endif
 		</div><!--/.well-->
 	</div><!--/.col-md-6-->
 	@endforeach

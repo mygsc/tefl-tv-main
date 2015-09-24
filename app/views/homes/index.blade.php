@@ -229,33 +229,33 @@ if(window.isAdsDisplayed === undefined ) {
 				<br/>
 				<div class="top-div col-md-12 mg-t-20">
 					<div class=" row">
-						<h2 class="inline mg-l-20">Latest Videos</h2>
+						<h2 class="inline mg-l-20">Videos For Students</h2>
 					</div>
 				</div>
 				<div class="col-md-12 White same-H">
 					<br/>
 					<div class="row">
-						@foreach($latests as $latest)
+						@foreach($forschools as $forschool)
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
 							<div class="p-relative">
-								<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}' class="thumbnail-h">
-									<span class="v-time inline">{{$latest->total_time}}</span>
+								<a href='{{route('homes.watch-video', array('v=' . $forschool->file_name))}}' class="thumbnail-h">
+									<span class="v-time inline">{{$forschool->total_time}}</span>
 									<div class="thumbnail-2">
-										<img class="hvr-grow-rotate"  src="{{$latest->thumbnail. '?' . rand(0,99)}}" width="100%">
+										<img class="hvr-grow-rotate"  src="{{$forschool->thumbnail. '?' . rand(0,99)}}" width="100%">
 										<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 									</div>
 									<div class="video-info">
 										<div class="v-Info">
-											<a href='{{route('homes.watch-video', array('v=' . $latest->file_name))}}'>
-												<span class="visible-lg">{{ Str::limit($latest['title'],50)}}</span>
-												<span class="visible-md">{{ Str::limit($latest['title'],40)}}</span>
-												<span class="visible-xs visible-sm">{{ Str::limit($latest['title'],30)}}</span>
+											<a href='{{route('homes.watch-video', array('v=' . $forschool->file_name))}}'>
+												<span class="visible-lg">{{ Str::limit($forschool['title'],50)}}</span>
+												<span class="visible-md">{{ Str::limit($forschool['title'],40)}}</span>
+												<span class="visible-xs visible-sm">{{ Str::limit($forschool['title'],30)}}</span>
 											</a>
 										</div>
 										<div class="count">
-											by: <a href="{{route('view.users.channel', array($latest->channel_name))}}">{{$latest->channel_name}}</a>
+											by: <a href="{{route('view.users.channel', array($forschool->channel_name))}}">{{$forschool->channel_name}}</a>
 											<br />
-											{{number_format($latest->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$latest->likes}} |--> {{date('F d, Y',strtotime($latest->created_at))}}
+											{{number_format($forschool->views,0,null,',')}} Views | <!--<i class="fa fa-thumbs-up"></i> {{$forschool->likes}} |--> {{date('F d, Y',strtotime($forschool->created_at))}}
 										</div>
 									</div>
 								</a>

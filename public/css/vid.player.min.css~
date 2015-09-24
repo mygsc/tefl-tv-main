@@ -630,9 +630,13 @@ div.speech span{
 	border-bottom:1px solid #fff;
 	color:#B8CAEF;
 }
+
+
+
 div.annotation:hover{
 outline:1px solid #fff;
 cursor: default;
+<<<<<<< HEAD
 }
 
 div.speech
@@ -670,7 +674,8 @@ div.speech:after
 	top: 62px;
 	border: 10px solid;
 	border-color: rgba(42,42,42,0.6) transparent transparent rgba(42,42,42,0.6);
-
+=======
+>>>>>>> development
 }
 
 div.speech
@@ -709,10 +714,6 @@ div.speech:after
 	border: 10px solid;
 	border-color: rgba(42,42,42,0.6) transparent transparent rgba(42,42,42,0.6);
 }
-/*.annotation-close{
-	margin-top: -10px; 
-}*/
-
 .video-replay{
 	color:#fff;
 	cursor: pointer;

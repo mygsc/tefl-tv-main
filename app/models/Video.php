@@ -330,11 +330,11 @@ class Video extends Eloquent{
 			foreach ($split_tags as $split_tag) {
 				$split_tag = trim($split_tag);
 				if ($x != $lastCount1) {
-			        $temp1 = $temp1 . ucfirst($split_tag) . ", ";
-			    }else{
-			    	$temp1 = $temp1 . ucfirst($split_tag);
-			    }
-			    $x++;
+					$temp1 = $temp1 . ucfirst($split_tag) . ", ";
+				}else{
+					$temp1 = $temp1 . ucfirst($split_tag);
+				}
+				$x++;
 			}
 			$videos->tags = $temp1;
 		}
@@ -347,11 +347,11 @@ class Video extends Eloquent{
 			foreach ($split_categories as $split_category) {
 				$split_category = trim($split_category);
 				if ($y != $lastCount2) {
-			        $temp2 = $temp2 . ucfirst($split_category) . ", ";
-			    }else{
-			    	$temp2 = $temp2 . ucfirst($split_category);
-			    }
-			    $y++;
+					$temp2 = $temp2 . ucfirst($split_category) . ", ";
+				}else{
+					$temp2 = $temp2 . ucfirst($split_category);
+				}
+				$y++;
 			}
 			$videos->category = $temp2;
 		}
@@ -370,7 +370,7 @@ class Video extends Eloquent{
 		foreach($getVideos as $key => $getVideo){
 			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
 				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
-			))->first();
+				))->first();
 		}
 
 		return $this->addThumbnail($getVideos);
@@ -511,5 +511,38 @@ class Video extends Eloquent{
 			$result .= $characters[rand(0, $charactersLength - 1)];
 		}
 		return $result;
+	}
+
+	public function getForStudents(){
+		$videos = Video::select('videos.id',
+			'videos.user_id',
+			'videos.title',
+			'videos.description',
+			'users.channel_name',
+			'videos.tags',
+			'videos.file_name',
+			'videos.views',
+			'videos.created_at',
+			DB::raw('(SELECT count(ul.video_id) from user_likes ul where ul.video_id = videos.id) as likes'))
+		->where('category', 'LIKE', '%for students%')
+		->where('deleted_at', NULL)
+		->where('publish', 1)
+		->where('report_count', '<', 5)
+		->orderBy(DB::raw('(views + likes)'))
+		->join('users', 'user_id', '=', 'users.id')
+		->limit(12)
+		->get();
+
+		foreach($videos as $key => $video){
+			$folderName = $video->user_id;
+			$fileName = $video->file_name;
+			$thumbnail = 'videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$videos[$key]->thumbnail = 'img/thumbnails/video-sm.jpg';
+			if(file_exists(public_path($thumbnail))){
+				$videos[$key]->thumbnail = $thumbnail;
+			}
+		} 
+
+		return $videos;
 	}
 }

@@ -150,15 +150,14 @@ $image = rawurlencode(asset('/')."videos/".$videos->user_id."/".$videos->file_na
                                                   </div>
                                                   
                                                   <div class="col-md-12">
-                                                  	<div class="row">
+                                                  	<div class="row content-padding">
                                                   	<br/>
-                                                  	<p>&nbsp;&nbsp;Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
-                                                   
+                                                  	<p>Posted on <b>{{date('M d, Y',strtotime($videos->created_at))}}</b> &nbsp; </p>
+                                                   	<br/>
                                                     <pre style="width:100%"><p id="desc-preview">{{str_limit($videos->description, $limit = 100, $end = '...')}}</p></pre>
+                                                  	
                                                     <div class="seeVideoContent black">
-                                                        <br/>
-                                                        <pre id="videoDescriptionLinkify">{{$videos->description}}</pre>
-
+                                                        <pre id="videoDescriptionLinkify" style="width:100%">{{$videos->description}}</pre>>>>>>>> 2ab78776c1d1c0255b4493de2d8424ab34e0f114
                                                         <br/><br/>
                                                         <p><b>Tags:</b> {{$videos->tags}}<br/>
                                                             <b>Categories:</b> {{$videos->category}}</p>

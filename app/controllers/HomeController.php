@@ -2,7 +2,7 @@
 
 class HomeController extends BaseController {
 	protected $publisher_;
-	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, Report $reports, ReportSupport $reportSupport) {
+	public function __construct(Partner $partners,User $user, Video $video,Notification $notification, Subscribe $subscribes,Playlist $playlists, Comment $comments,VideoLikesDislike $videoLikesDislike, Report $reports, ReportSupport $reportSupport, UserPrivacySetting $userPrivacySettings) {
 		$this->User = $user;
 		$this->Video = $video;
 		$this->Notification = $notification;
@@ -15,6 +15,7 @@ class HomeController extends BaseController {
 		$this->publisher_ = new Publisher;
 		$this->ReportSupport = $reportSupport;
 		$this->Report = $reports;
+		$this->UserPrivacySetting = $userPrivacySettings;
 	}
 
 	public function getReportSupport() { return View::make('errors.fatal'); }
@@ -30,9 +31,10 @@ class HomeController extends BaseController {
 		$populars = $this->Video->getFeaturedVideo('popular', '12');
 		$latests = $this->Video->getFeaturedVideo('latest', '12');
 		$randoms = $this->Video->getFeaturedVideo('random', '12');
+		$forschools = $this->Video->getForStudents();
 		$categories = $this->Video->getCategory();
 		$notifications = $this->Notification->getNotificationForSideBar();
-		return View::make('homes.index', compact(array('recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
+		return View::make('homes.index', compact(array('forschools','recommendeds', 'populars', 'latests', 'randoms', 'categories', 'notifications')));
 	}
 
 	public function getAboutUs() { 
@@ -302,6 +304,11 @@ class HomeController extends BaseController {
 			$img = 'img/user/'. $channel->id. '/profile_picture.jpg';
 			if(Auth::check()){
 				$ifsubscribe = Subscribe::where('user_id', $channel->id)->where('subscriber_id', Auth::user()->id)->get();
+				//***Show/Hide Subscriber count
+				$ifShowSubsCount = $this->UserPrivacySetting->ifShowSubscriberCount($channel->id);
+				$datas[$key]->ifShowSubscriberCount = $ifShowSubsCount;
+				//***Show/Hide Subscriber count
+				
 				$datas[$key]->ifsubscribe = 'No';
 				if(!$ifsubscribe->isEmpty()){
 					$datas[$key]->ifsubscribe = 'Yes';

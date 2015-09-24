@@ -63,6 +63,9 @@ class Subscribe extends Eloquent {
 		foreach($subscribers as $key => $subscriber){
 			$profile_picture = User::getUsersImages($subscriber->subscriber_id);
 			$subscribers[$key]['profile_picture'] = $profile_picture['profile_picture'];
+			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscriber->subscriber_id, 'subscriber_id' => $auth))->first();
+			$subscribers[$key]['ifAlreadySubscribe'] = $ifAlreadySubscribe;
+			$subscribers[$key]['ifShowSubscriberCount'] = UserPrivacySetting::ifShowSubscriberCount($subscriber->subscriber_id);
 		}
 		return $subscribers;
 	}
@@ -83,6 +86,9 @@ class Subscribe extends Eloquent {
 		foreach($subscriptions as $key => $subscription){
 			$profile_picture = User::getUsersImages($subscription->user_id);
 			$subscriptions[$key]['profile_picture'] = $profile_picture['profile_picture'];
+			$ifAlreadySubscribe = DB::table('subscribes')->where(array('user_id' => $subscription->user_id, 'subscriber_id' => $auth))->first();
+			$subscriptions[$key]['ifAlreadySubscribe'] = $ifAlreadySubscribe;
+			$subscriptions[$key]['ifShowSubscriberCount'] = UserPrivacySetting::ifShowSubscriberCount($subscription->user_id);
 		}
 		return $subscriptions;
 	}

@@ -198,6 +198,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 			$subscribe = new Subscribe();
 			$userData[$key]->subscribers = $subscribe->getSubscribers($user->channel_name, 10);
+			$userData[$key]['ifShowSubscriberCount'] = UserPrivacySetting::ifShowSubscriberCount($user->id);
 		}
 		return $userData;
 	}

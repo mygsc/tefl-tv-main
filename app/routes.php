@@ -110,6 +110,8 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('change-password', array('as' => 'users.change-password', 'uses' => 'UserController@getUsersChangePassword'));
 	Route::post('post-change-password', array('as' => 'users.post.change-password', 'uses' => 'UserController@postUsersChangePassword'));
 	Route::get('change-email', array('as' => 'users.change-email', 'uses' => 'UserController@getChangeEmail'));
+	Route::get('privacy-settings', array('as' => 'users.privacy.settings', 'uses' => 'UserController@privacySettings'));
+	Route::post('post-privacy-settings', array('as' => 'post.users.privacy.settings', 'uses' => 'UserController@postPrivacySettings'));
 	Route::post('post-change-email', array('as' => 'users.post.change-email', 'uses' => 'UserController@postChangeEmail'));
 	Route::get('subscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::post('addPlaylist/{id}', array('as'=>'add.playlist','uses'=>'UserController@addPlaylist'));
@@ -126,6 +128,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::post('removeDislikeVideo/{id}', array('as'=>'removeDislikeVideo.video','uses'=>'UserController@removeDislikeVideo'));
 	Route::post('total-liked-disliked/{id}', array('as'=>'video.total.like','uses'=>'UserController@postTotalLikedDisliked'));
 
+	
 	Route::post('addsubscriber/', array('as' => 'post.addsubscriber', 'uses'=>'UserController@addSubscriber'));
 	Route::get('notifications', array('as' => 'users.notifications', 'uses' => 'UserController@getNotification'));
 	Route::post('loadnotifications', array('as' => 'user.loadnotifications', 'uses' => 'UserController@postLoadNotification'));
@@ -156,6 +159,7 @@ Route::group(array('prefix' => 'mychannels'), function() {
 	Route::get('deactivate', array('as' => 'users.deactivate', 'uses' => 'UserController@getDeactivate'));
 	Route::post('deactivate', array('as' => 'post.users.deactivate', 'uses' => 'UserController@postDeactivate'));
 	Route::post('editmonetize/{id}', array('as'=>'video.post.editmonetize', 'uses'=>'UserController@postEditMonetize'));
+	Route::post('crop-profile-picture', array('as' => 'users.crop.profpic', 'uses' => 'UserController@postCropImageProfilePicture'));
 });
 //*********End of Channels************//
 

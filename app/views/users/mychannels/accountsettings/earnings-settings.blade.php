@@ -14,6 +14,7 @@
                 @if(Auth::User()->role == '3' || Auth::User()->role == '4' || Auth::User()->role == '5')
                 <li role="presentation" class="active">{{ link_to_route('users.earnings.settings', 'Earnings Settings', null) }}</li>
                 @endif
+                <li role="presentation">{{ link_to_route('users.privacy.settings', 'Privacy Settings', null) }}</li>
                 <li role="presentation">{{ link_to_route('users.deactivate', 'Activate/Deactivate account', null) }}</li>
             </ul><!--tabNav-->
         </div>
