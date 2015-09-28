@@ -98,6 +98,8 @@ class ReportController extends BaseController {
 
 		$reports = $this->Report->getReportPerVideo($video_id);
 
+		// dd($report);
+
 		if(count($reports) == 0) return Redirect::route('users.myvideos')->withFlashBad('Invalid video url. Please try again.');
 		
 		$categories = $this->Video->getCategory();

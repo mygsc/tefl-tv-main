@@ -366,13 +366,13 @@ class Video extends Eloquent{
 		->where('videos.user_id', $auth)
 		->where('deleted_at', NULL)
 		->get();
-
 		foreach($getVideos as $key => $getVideo){
-			$getVideos[$key]->ifReported = DB::table('reports')->where(array(
-				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id
-				))->first();
+			$getVideos[$key]->ifReported = 
+			Report::where(array(
+				'video_id' => $getVideo->id, 'user_id' => Auth::User()->id))
+			->where('reports.deleted_at','=','') //not deleted
+			->first();
 		}
-
 		return $this->addThumbnail($getVideos);
 	}
 

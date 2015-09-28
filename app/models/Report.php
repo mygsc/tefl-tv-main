@@ -3,7 +3,6 @@
 class Report extends Eloquent {
 	use SoftDeletingTrait;
 	protected $table = 'reports';
-	protected $guarded = array();
 
 	public static $complaintRules = array(
 		'copyrighted_video_url' => 'required','copyrighted_description' => 'required',
@@ -96,12 +95,13 @@ class Report extends Eloquent {
 		}
 		return false;
 	}
-	public function getReportPerVideo($video_id){
-		$reports = $this->Report->select(
+	public function getReportPerVideo($videoid){
+		$reports = Report::select(
 			'reports.id',
 			'case_number',
 			'complainant_id',
 			'user_id',
+			'reports.video_id',
 			DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
 			DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
 			DB::raw('(SELECT vid.title from videos vid where vid.id = reports.video_id) as video_title'),
@@ -116,7 +116,9 @@ class Report extends Eloquent {
 			'reports.updated_at',
 			'reports.created_at'
 			)
-		->where('reports.video_id', $video_id)
+		->where('reports.video_id', $videoid)
+		->where('reports.deleted_at','=','')
+		->where('user_id', Auth::User()->id)
 		->get();
 
 		return $reports;
