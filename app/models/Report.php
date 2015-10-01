@@ -100,7 +100,7 @@ class Report extends Eloquent {
 			'reports.id',
 			'case_number',
 			'complainant_id',
-			'user_id',
+			'reports.user_id',
 			'reports.video_id',
 			DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
 			DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
@@ -117,8 +117,8 @@ class Report extends Eloquent {
 			'reports.created_at'
 			)
 		->where('reports.video_id', $videoid)
-		->where('reports.deleted_at','=','')
-		->where('user_id', Auth::User()->id)
+		// ->where('reports.deleted_at','=','')
+		->where('reports.user_id', Auth::User()->id)
 		->get();
 
 		return $reports;
