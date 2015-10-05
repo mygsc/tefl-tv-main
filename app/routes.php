@@ -60,6 +60,7 @@ Route::group(array('prefix' => '/'), function() {
 	Route::get('filedispute/{id?}', array('before'=>'auth', 'as' => 'get.filedispute', 'uses' => 'ReportController@getFileDispute'));
 	Route::get('listofreports/{id?}', array('before'=>'auth', 'as' => 'get.listofreports', 'uses' => 'ReportController@getListOfReportsPerVideos'));
 	Route::post('adddispute', array('as' => 'post.adddispute', 'uses' => 'ReportController@addDispute'));
+	Route::get('addDisputeSuccessful/{id?}', array('before'=>'auth', 'as' => 'get.addDisputeSuccessful', 'uses' => 'ReportController@addDisputeSuccessful'));
 	Route::post('supportreport', array('as' => 'post.homes.supportreport', 'uses' => 'HomeController@postReportSupport'));
 	Route::get('supportreport', array('as' => 'get.homes.supportreport', 'uses' => 'HomeController@getReportSupport'));
 	Route::get('myreports', array('as' => 'get.myreports', 'uses' => 'ReportController@getMyReports'));

@@ -98,8 +98,6 @@ class ReportController extends BaseController {
 
 		$reports = $this->Report->getReportPerVideo($video_id);
 
-		// dd($report);
-
 		if(count($reports) == 0) return Redirect::route('users.myvideos')->withFlashBad('Invalid video url. Please try again.');
 		
 		$categories = $this->Video->getCategory();
@@ -120,10 +118,30 @@ class ReportController extends BaseController {
 
 		$uploader_info = User::find($user_id);
 		$report = Report::find($report_id)->first();
-
 		$newReport = $this->Dispute->createDispute($input, $report_id, $uploader_info->id);
+		return Redirect::route('get.addDisputeSuccessful', Crypt::encrypt($newReport->id))
+			->withFlashGood('Your claim dispute has been submitted.');
+	}
+	public function addDisputeSuccessful($dispute_id) {
+		if(empty($dispute_id)) {
+			return Redirect::route('users.myvideos')->withFlashBad('Invalid Link. Please try again.'); 
+		}
+		$dispute_id = Crypt::decrypt($dispute_id);
+		$dispute = $this->Dispute->getDisputes($sort = null, $dispute_id);
+		//thumbnail
+		$folderName = $dispute->user_id;
+		$fileName = $dispute->file_name;
+		$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+		$dispute->thumbnail = '/img/thumbnails/video.png';
+		if(file_exists(public_path($thumbnailPath))){
+			$dispute->thumbnail = $thumbnailPath;
+		}
+		//thumbnail
 
-		return Redirect::route('users.myvideos')->withFlashGood('Dispute was submitted');
+		$categories = $this->Video->getCategory();
+		$notifications = $this->Notification->getNotificationForSideBar();
+		$allcountries = $this->Country->getAllCountries();
+		return View::make('reports.addDispute_successful', compact('dispute', 'categories','notifications', 'allcountries'));
 	}
 	public function getMyReports() { 
 		if(!Auth::check()) return Redirect::route('homes.post.signin')->withFlashBad('Please Sign-in to view your reports');
