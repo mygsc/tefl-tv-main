@@ -8,37 +8,31 @@
 <div class='container'>
 	<div class="row mg-t-10" data-sticky_parent="" style="position: relative;">
 		<div class="row-same-height">
-			<div class="col-md-3 hidden-xs hidden-sm col-md-height col-top ">
-				<div class="mg-r-10 row mg-t--10" data-sticky_column="">
-					@include('elements/home/categories')
-					<div>
-						@include('elements/home/adverstisement_half_large_recatangle')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/carouselAds')
-					</div>
-					<div class="mg-t-10">
-						@include('elements/home/adverstisementSmall')
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8 White sameH-h mg-t-10 same-H col-md-height col-top ">
+			<div class="col-md-12 White sameH-h mg-t-10 same-H col-md-height col-top ">
 				<div class="content-padding textbox-layout">
 					<h2>File Dispute Form</h2>
 					<hr/>
-					<b>Videos to be removed:</b> <a href="{{route('homes.watch-video', array('v='.$report->video_url))}}">{{$report->video_title}}</a>
-					<br/>
-					<b>Case Number:</b> {{$report->case_number}}
-					<br/>
-					<b>Complainants Channel:</b> <a href="{{route('view.users.channel', $report->complainants_channel)}}" target="_blank">{{$report->complainants_channel}} </a>
-					<br/>
-					<b>Issue:</b> {{$report->issue}}
-					<br/>
-					<b>Report's description:</b> {{$report->copyrighted_description}}
-					<br/>
-					<b>Additional Information:</b> {{$report->copyrighted_additional_info}}
-					<br/>
-					<b>Date:</b> {{date("M d, Y", strtotime($report->created_at))}}
+					<div class="row">
+						<div class="col-md-4">
+							<img src="/img/thumbnails/v1-h.png" />
+						</div>
+						<div class="col-md-8">
+							<b>Videos to be removed:</b> <a href="{{route('homes.watch-video', array('v='.$report->video_url))}}">{{$report->video_title}}</a>
+							<br/>
+							<b>Case Number:</b> {{$report->case_number}}
+							<br/>
+							<b>Complainants Channel:</b> <a href="{{route('view.users.channel', $report->complainants_channel)}}" target="_blank">{{$report->complainants_channel}} </a>
+							<br/>
+							<b>Issue:</b> {{$report->issue}}
+							<br/>
+							<b>Report's description:</b> {{$report->copyrighted_description}}
+							<br/>
+							<b>Additional Information:</b> {{$report->copyrighted_additional_info}}
+							<br/>
+							<b>Date:</b> {{date("M d, Y", strtotime($report->created_at))}}
+						</div>
+					</div>
+					
 					<br/>
 					
 					<hr/>
@@ -143,6 +137,7 @@
 						<div class="text-right">
 						<br/><br/>
 						{{Form::submit('Submit Dispute', array('class'=> 'btn btn-primary mg-t-10', 'id'=>'complaintbutton'))}}
+						<br/><br/>
 						</div>
 					{{Form::close()}}
 				</div>
