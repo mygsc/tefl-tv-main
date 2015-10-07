@@ -75,7 +75,7 @@ class Report extends Eloquent {
 			->get();
 		}
 		if($sort == NULL and isset($reportid)){
-			return Report::select(
+			$report = Report::select(
 				'reports.id',
 				'case_number',
 				'complainant_id',
@@ -95,6 +95,17 @@ class Report extends Eloquent {
 				'reports.updated_at')
 			->where('reports.id', $reportid)
 			->first();
+
+			//thumbnail
+			$folderName = $report->user_id;
+			$fileName = $report->file_name;
+			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$report->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnailPath))){
+				$report->thumbnail = $thumbnailPath;
+			}
+
+			return $report;
 		}
 		return false;
 	}
@@ -120,11 +131,24 @@ class Report extends Eloquent {
 			'reports.created_at'
 			)
 		->where('reports.video_id', $videoid)
-		// ->where('reports.deleted_at','=','')
 		->where('reports.user_id', Auth::User()->id)
 		->get();
 
-		return $reports;
+		return $this->addThumbnail($reports);
+	}
+
+	public function addThumbnail($data = null){
+		foreach($data as $key => $video){
+			//Thumbnails
+			$folderName = $video->user_id;
+			$fileName = $video->file_name;
+			$thumbnailPath = '/videos/'.$folderName. DIRECTORY_SEPARATOR .$fileName. DIRECTORY_SEPARATOR .$fileName.'.jpg';
+			$data[$key]->thumbnail = '/img/thumbnails/video.png';
+			if(file_exists(public_path($thumbnailPath))){
+				$data[$key]->thumbnail = $thumbnailPath;
+			}
+		}
+		return $data;
 	}
 
 

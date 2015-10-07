@@ -16,7 +16,12 @@
 						<br/>
 						<div class="row">
 							<div class="col-md-4">
-								<img src="/img/thumbnails/v1-h.png" />
+								<a href="{{route('homes.watch-video', array('v=' .$report->video_url))}}" class="thumbnail-h">
+									<div class="thumbnail-2">	
+										<img class="hvr-grow-rotate" src="{{$report->thumbnail . '?' . rand(0,99)}}" width="100%">
+										<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
+									</div>
+								</a>
 							</div>
 							<div class="col-md-8">
 								Case Number: {{$report->case_number}}<br/>
