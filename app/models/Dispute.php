@@ -11,9 +11,10 @@ class Dispute extends Eloquent {
 		if($sort == 'deleted'){
 			return Dispute::select(
 				'disputes.id', 'report_id', 'user_id',
-				DB::raw('(SELECT users.channel_name from users where users.id = user_id) as user_channel'),
-				DB::raw('(SELECT reports.complainant_id from reports where reports.id = report_id) as reporter_id'),
-				DB::raw('(SELECT users.channel_name from users where users.id = reporter_id) as reporter_channel'),
+				DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
+				DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
+				DB::raw('(SELECT vid.title from videos vid where vid.id = disputes.video_id) as video_title'),
+				DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = disputes.video_id) as video_url'),
 				'dispute_description',
 				'dispute_description',
 				'dispute_additional_info',
@@ -29,9 +30,10 @@ class Dispute extends Eloquent {
 		if($sort == 'active'){
 			return Dispute::select(
 				'disputes.id', 'report_id', 'user_id',
-				DB::raw('(SELECT users.channel_name from users where users.id = user_id) as user_channel'),
-				DB::raw('(SELECT reports.complainant_id from reports where reports.id = report_id) as reporter_id'),
-				DB::raw('(SELECT users.channel_name from users where users.id = reporter_id) as reporter_channel'),
+				DB::raw('(SELECT complainant.channel_name from users complainant where complainant.id = complainant_id) as complainants_channel'),
+				DB::raw('(SELECT uploaders.channel_name from users uploaders where uploaders.id = user_id) as uploaders_channel'),
+				DB::raw('(SELECT vid.title from videos vid where vid.id = disputes.video_id) as video_title'),
+				DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = disputes.video_id) as video_url'),
 				'dispute_description',
 				'dispute_additional_info',
 				'support_link',
@@ -48,9 +50,10 @@ class Dispute extends Eloquent {
 				'disputes.id',
 				'report_id',
 				'user_id',
-				DB::raw('(SELECT users.channel_name from users where users.id = user_id) as user_channel'),
-				DB::raw('(SELECT reports.complainant_id from reports where reports.id = report_id) as reporter_id'),
-				DB::raw('(SELECT users.channel_name from users where users.id = reporter_id) as reporter_channel'),
+				DB::raw('(SELECT reports.video_id from reports where reports.id = report_id) as report_video_id'),
+				DB::raw('(SELECT vid.title from videos vid where vid.id = report_video_id) as video_title'),
+				DB::raw('(SELECT vid2.file_name from videos vid2 where vid2.id = report_video_id) as video_url'),
+				DB::raw('(SELECT reports.copyrighted_description from reports where reports.id = report_id) as report_reason'),
 				'dispute_description',
 				'dispute_description',
 				'dispute_additional_info',
@@ -66,7 +69,7 @@ class Dispute extends Eloquent {
 	}
 
 	public function createDispute($input, $report_id, $user_id){
-		Dispute::create(array('report_id'=> $report_id, 'user_id'=>$user_id, 
+		$dispute = Dispute::create(array('report_id'=> $report_id, 'user_id'=>$user_id, 
 			'country_id'=> $input['country_id'], 'dispute_description' => $input['dispute_description'],
 			'dispute_additional_info' => $input['dispute_additional_info'],
 			'support_link'=> $input['support_link'], 'legal_name'=> $input['legal_name'],
@@ -75,5 +78,6 @@ class Dispute extends Eloquent {
 			'city'=> $input['city'], 'state_province'=> $input['state_province'],
 			'zip_postal'=> $input['zip_postal'], 'signature'=> $input['signature']
 		));
+		return $dispute;
 	}
 }

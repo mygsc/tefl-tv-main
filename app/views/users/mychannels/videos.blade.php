@@ -138,7 +138,7 @@
 												<img src="{{$usersVideo->thumbnail.'?'.rand(0,100)}}" width="100%" class="hvr-grow-rotate">
 												<div class="play-hover"><img src="/img/icons/play-btn.png" /> </div>
 												
-												@if($usersVideo->ifReported)
+												@if(count($usersVideo->ifReported) > 0)
 													<div class="legal-issue">
 														<div class="legal-issue-link">
 															<a href="{{route('get.listofreports', Crypt::encrypt($usersVideo->id))}}" target="_blank" class="legal-link redC">
@@ -152,23 +152,21 @@
 									</div>
 
 									<div class="inlineInfo ">
-											<div class="video-info-2">
-												<div class="v-Info">
-													<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
-														<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
-														<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
-														<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
-													</a>
-												</div>
-											
-									
-										<div class="text-justify desc hide">
-											<p>{{$usersVideo->description}}</p>
-											<br/>
-										</div>
-										<div class="count">
-											{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
-										</div>
+										<div class="video-info-2">
+											<div class="v-Info">
+												<a href='{{route('homes.watch-video', array('v=' . $usersVideo->file_name))}}' target="_blank">
+													<span class="visible-lg">{{ Str::limit($usersVideo['title'],65)}}</span>
+													<span class="visible-md">{{ Str::limit($usersVideo['title'],45)}}</span>
+													<span class="visible-xs visible-sm">{{ Str::limit($usersVideo['title'],30)}}</span>
+												</a>
+											</div>
+											<div class="text-justify desc hide">
+												<p>{{$usersVideo->description}}</p>
+												<br/>
+											</div>
+											<div class="count">
+												{{$usersVideo->views}} Views | {{$usersVideo->likes}} Likes | {{date('M d Y',strtotime($usersVideo->created_at))}}
+											</div>
 										</div>
 									</div>
 								</div>
