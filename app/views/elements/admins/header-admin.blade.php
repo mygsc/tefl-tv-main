@@ -46,7 +46,7 @@
 
                         <li>{{ link_to_route('get.admin.reports', 'Reports', null, array('class' => '')) }}</li>
                         <li>{{ link_to_route('get.admin.disputes', 'Disputes', null, array('class' => '')) }}</li>
-                        
+                        <li>{{ link_to_route('admin.latestvideo', 'Latest Videos', null, array('class' => '')) }}</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-expanded="false">
                                 Admin Setting  <span class="caret"></span>

@@ -188,6 +188,7 @@ Route::get('channels/{channel_name}/searchPlaylistsName', array('as' => 'channel
 Route::group(array('prefix' => 'gsc-admin'), function() {
 	Route::get('/', array('as' => 'admin.index', 'uses' => 'AdminController@getIndex'));
 	Route::post('/', array('as' => 'post.admin.index', 'uses' => 'AdminController@postIndex'));
+	Route::get('/latest-video', array('as' => 'admin.latestvideo', 'uses' => 'AdminController@getLatestVideo'));
 	Route::get('logout', array('as' => 'admin.logout', 'uses' => 'AdminController@logout'));
 	Route::get('resetpassword', array('before' => 'auth.admin', 'as' => 'get.admin.resetpassword', 'uses' => 'AdminController@getResetPassword'));
 	Route::post('resetpassword', array('before' => 'auth.admin', 'as' => 'post.admin.resetpassword', 'uses' => 'AdminController@postResetPassword'));

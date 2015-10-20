@@ -19,6 +19,7 @@ class AdminController extends BaseController {
 	public function getResetPassword(){ return View::make('admins.resetpassword'); }
 
 	public function getIndex() {
+		//return Hash::make('123123');
 		if(isset(Auth::User()->role)){
 			if(Auth::User()->role == 2) return View::make('admins.index');
 		}
@@ -39,6 +40,11 @@ class AdminController extends BaseController {
 		}
 		return Redirect::route('admin.index')->withInput()->withFlashBad('Invalid Credentials!');
 	}	
+
+	public function getLatestVideo(){
+		$latest_videos = $this->Video->getLatestVideoForAdmin();
+		return View::make('admins.latest-videos', compact('latest_videos'));
+	}
 
 	public function logout(){
 		Auth::logout();
