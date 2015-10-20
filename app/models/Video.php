@@ -548,6 +548,8 @@ class Video extends Eloquent{
 
 	public function getLatestVideoForAdmin(){
 		$videos = Video::orderBy('created_at', 'desc')->get();
+		$videos = $this->addThumbnail($videos);
+
 		return $videos;
 	}
 }

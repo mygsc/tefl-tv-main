@@ -8,6 +8,7 @@ Latest Videos
 <div class="container">
 @foreach($latest_videos as $video)
 <div class="row">
+<img src="{{$video->thumbnail}}">
 title: <a href="{{route('homes.watch-video', 'v='.$video->file_name)}}">{{$video->title}}</a> <br/>
 description: ..... <br/>
 views: {{$video->views	}} <br/>
